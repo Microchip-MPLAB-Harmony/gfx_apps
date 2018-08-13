@@ -977,6 +977,7 @@ static void ScreenCreate_ThirdScreen(laScreen* screen)
     KeyPadWidget1 = laKeyPadWidget_New(4, 10);
     laWidget_SetPosition((laWidget*)KeyPadWidget1, 15, 81);
     laWidget_SetSize((laWidget*)KeyPadWidget1, 450, 130);
+    laWidget_SetVisible((laWidget*)KeyPadWidget1, LA_FALSE);
     laWidget_SetOptimizationFlags((laWidget*)KeyPadWidget1, LA_WIDGET_OPT_LOCAL_REDRAW);
     laWidget_SetBackgroundType((laWidget*)KeyPadWidget1, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)KeyPadWidget1, LA_WIDGET_BORDER_BEVEL);
@@ -1149,6 +1150,7 @@ static void ScreenCreate_ThirdScreen(laScreen* screen)
     laWidget_SetBorderType((laWidget*)TextFieldWidget1, LA_WIDGET_BORDER_BEVEL);
     laTextFieldWidget_SetText(TextFieldWidget1, laString_CreateFromID(string_textField_Instruction));
     laTextFieldWidget_SetCursorEnabled(TextFieldWidget1, LA_TRUE);
+    laTextFieldWidget_SetFocusChangedEventCallback(TextFieldWidget1, &TextFieldWidget1_FocusChangedEvent);
     laWidget_AddChild((laWidget*)layer0, (laWidget*)TextFieldWidget1);
 
     ButtonWidget5 = laButtonWidget_New();

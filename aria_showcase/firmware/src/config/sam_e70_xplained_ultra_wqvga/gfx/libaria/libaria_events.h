@@ -102,6 +102,9 @@ void ButtonWidget31_ReleasedEvent(laButtonWidget* btn);
 // Generated Event Handler - Origin: KeyPadWidget1, Event: KeyClickEvent
 void KeyPadWidget1_KeyClickEvent(laKeyPadWidget* pad, laButtonWidget* btn, uint32_t row, uint32_t col);
 
+// Generated Event Handler - Origin: TextFieldWidget1, Event: FocusChangedEvent
+void TextFieldWidget1_FocusChangedEvent(laTextFieldWidget* txt, laBool focus);
+
 // Generated Event Handler - Origin: ButtonWidget5, Event: ReleasedEvent
 void ButtonWidget5_ReleasedEvent(laButtonWidget* btn);
 

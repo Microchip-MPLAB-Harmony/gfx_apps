@@ -9916,6 +9916,7 @@
               <Value dnOrder="6" id="core" priority="1" value="true"/>
               <Value dnOrder="7" id="core" priority="1" value="true"/>
               <Value dnOrder="8" id="core" priority="1" value="true"/>
+              <Value dnOrder="9" id="core" priority="1" value="true"/>
             </Dynamic>
           </Values>
         </Boolean>
@@ -10172,6 +10173,11 @@
             <User dnOrder="0" value="true"/>
           </Values>
         </Boolean>
+        <Boolean dnOrder="9" id="useGlobalPalette">
+          <Values dnOrder="0">
+            <User dnOrder="0" value="false"/>
+          </Values>
+        </Boolean>
       </Symbols>
     </UniqueComponent>
     <UniqueComponent dnOrder="4" id="cmsis"/>
@@ -10190,6 +10196,7 @@
               <Value dnOrder="6" id="drv_i2c_0" priority="1" value="1"/>
               <Value dnOrder="7" id="drv_i2c_0" priority="1" value="1"/>
               <Value dnOrder="8" id="drv_i2c_0" priority="1" value="1"/>
+              <Value dnOrder="9" id="drv_i2c_0" priority="1" value="1"/>
             </Dynamic>
           </Values>
         </Integer>
@@ -10499,7 +10506,12 @@
           </Values>
         </Integer>
         <Integer dnOrder="1" id="I2CIndex">
-          <Values dnOrder="0">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="readOnly">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+          <Values dnOrder="1">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="gfx_maxtouch_controller" priority="1" value="0"/>
             </Dynamic>

@@ -168,6 +168,13 @@ void KeyPadWidget1_KeyClickEvent(laKeyPadWidget* pad, laButtonWidget* btn, uint3
 {
 }
 
+// TextFieldWidget1 - FocusChangedEvent
+void TextFieldWidget1_FocusChangedEvent(laTextFieldWidget* txt, laBool focus)
+{
+    // Set Visible (KeyPadWidget1) - Set Visible - KeyPadWidget1
+    laWidget_SetVisible((laWidget*)KeyPadWidget1, LA_TRUE);
+}
+
 // ButtonWidget5 - ReleasedEvent
 void ButtonWidget5_ReleasedEvent(laButtonWidget* btn)
 {
