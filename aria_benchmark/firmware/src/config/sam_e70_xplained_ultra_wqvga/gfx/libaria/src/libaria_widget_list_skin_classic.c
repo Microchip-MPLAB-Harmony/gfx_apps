@@ -373,7 +373,7 @@ static void drawBackground(laListWidget* lst)
             
             if(GFX_RectIntersects(&rowRect, &layer->clippedDrawingRect) == GFX_TRUE)
             {        
-                if(i == lst->itemDown)
+                if(i == lst->itemDown && item->enabled == LA_TRUE)
                 {
                     GFX_Set(GFXF_DRAW_COLOR, lst->widget.scheme->backgroundInactive);
                 }
@@ -440,11 +440,20 @@ static void drawString(laListWidget* lst)
             
         GFX_Set(GFXF_DRAW_MASK_ENABLE, GFX_FALSE);
         
-        if(lst->paintState.nextItem == lst->itemDown ||
-           lst->paintState.item->selected == LA_FALSE)
+        if((lst->paintState.nextItem == lst->itemDown ||
+           lst->paintState.item->selected == LA_FALSE) && lst->paintState.item->enabled == LA_TRUE)
+	{
             GFX_Set(GFXF_DRAW_COLOR, lst->widget.scheme->text);
-        else
+	}
+	else if((lst->paintState.nextItem == lst->itemDown ||
+           lst->paintState.item->selected == LA_FALSE) && lst->paintState.item->enabled == LA_FALSE)
+	{
+	    GFX_Set(GFXF_DRAW_COLOR, lst->widget.scheme->textDisabled);
+	}    
+    else
+	{
             GFX_Set(GFXF_DRAW_COLOR, lst->widget.scheme->textHighlightText);
+	}
         
         // row may be out of widget bounds
         if(GFX_RectIntersects(&clipRect, &widgetRect) == GFX_TRUE)

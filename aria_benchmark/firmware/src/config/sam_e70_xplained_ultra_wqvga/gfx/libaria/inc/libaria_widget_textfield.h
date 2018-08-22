@@ -52,6 +52,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 typedef struct laTextFieldWidget_t laTextFieldWidget;
 
 typedef void (*laTextFieldWidget_TextChangedCallback)(laTextFieldWidget*);
+typedef void (*laTextFieldWidget_FocusChangedCallback)(laTextFieldWidget*, laBool);
 
 // *****************************************************************************
 // *****************************************************************************
@@ -90,6 +91,7 @@ typedef struct laTextFieldWidget_t
     laBool clearOnFirstEdit; // needs clear on first edit
     
     laTextFieldWidget_TextChangedCallback textChangedEvent; // text changed event
+    laTextFieldWidget_FocusChangedCallback focusChangedEvent; // focus changed event
     
     GFXU_ExternalAssetReader* reader; // asset reader
 } laTextFieldWidget;
@@ -421,6 +423,51 @@ LIB_EXPORT laResult laTextFieldWidget_SetTextChangedEventCallback(laTextFieldWid
 
 */
 LIB_EXPORT laResult laTextFieldWidget_SetClearOnFirstEdit(laTextFieldWidget* txt, laBool clear);
+
+// *****************************************************************************
+/* Function:
+    laTextFieldWidget_FocusChangedCallback laTextFieldWidget_GetFocusChangedEventCallback(laTextFieldWidget* txt)
+
+  Summary:
+    Gets the current focus changed event callback pointer
+
+  Description:
+    
+
+  Parameters:
+    laTextFieldWidget* txt - the widget
+        
+  Returns:
+    laTextFieldWidget_FocusChangedCallback - a valid pointer or NULL
+    
+  Remarks:
+    
+*/    
+LIB_EXPORT laTextFieldWidget_FocusChangedCallback laTextFieldWidget_GetFocusChangedEventCallback(laTextFieldWidget* txt);
+
+// *****************************************************************************
+/* Function:
+    laResult laTextFieldWidget_SetFocusChangedEventCallback(laTextFieldWidget* txt,
+                                                           laTextFieldWidget_FocusChangedCallback cb)
+
+  Summary:
+    Sets the focus changed event callback pointer
+
+  Description:
+    
+
+  Parameters:
+    laTextFieldWidget* txt - the widget
+    laTextFieldWidget_FocusChangedCallback - a valid pointer or NULL
+    
+  Returns:
+    laResult - the operation result
+    
+  Remarks:
+    
+*/
+LIB_EXPORT laResult laTextFieldWidget_SetFocusChangedEventCallback(laTextFieldWidget* txt,
+                                                       laTextFieldWidget_FocusChangedCallback cb);
 
 // internal use only            
 void _laTextFieldWidget_TouchDownEvent(laTextFieldWidget* txt, laInput_TouchDownEvent* evt);

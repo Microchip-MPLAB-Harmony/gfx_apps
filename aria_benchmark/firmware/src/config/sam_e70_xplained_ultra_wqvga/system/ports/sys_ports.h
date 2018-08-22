@@ -622,7 +622,7 @@ typedef enum
     This function writes/drives the "value" on the selected I/O line/pin.
 
   Precondition:
-    None.
+    Port Initialization must have been done using appropriate Initialize API call.
 
   Parameters:
     pin       - One of the IO pins from the enum SYS_PORT_PIN
@@ -675,13 +675,13 @@ static inline void SYS_PORT_PinWrite(SYS_PORT_PIN pin, bool value);
     </code>
 
   Remarks:
-       To read the latched value on this pin, SYS_PORT_PinReadLatch API should be used.
+       To read the latched value on this pin, SYS_PORT_PinLatchRead API should be used.
 */
 static inline bool SYS_PORT_PinRead(SYS_PORT_PIN pin);
 
 // *****************************************************************************
 /* Function:
-    bool SYS_PORT_PinReadLatch ( SYS_PORT_PIN pin )
+    bool SYS_PORT_PinLatchRead ( SYS_PORT_PIN pin )
 
   Summary:
     Read the value driven on the selected pin.
@@ -704,14 +704,14 @@ static inline bool SYS_PORT_PinRead(SYS_PORT_PIN pin);
     <code>
 
     bool value;
-    value = SYS_PORT_PinReadLatch(SYS_PORT_PIN_PB3);
+    value = SYS_PORT_PinLatchRead(SYS_PORT_PIN_PB3);
 
     </code>
 
   Remarks:
     To read actual pin value, SYS_PORT_PinRead API should be used.
 */
-static inline bool SYS_PORT_PinReadLatch(SYS_PORT_PIN pin);
+static inline bool SYS_PORT_PinLatchRead(SYS_PORT_PIN pin);
 
 // *****************************************************************************
 /* Function:
@@ -724,7 +724,7 @@ static inline bool SYS_PORT_PinReadLatch(SYS_PORT_PIN pin);
     This function toggles/inverts the value on the selected I/O line/pin.
 
   Precondition:
-    None.
+    Port Initialization must have been done using appropriate Initialize API call.
 
   Parameters:
     pin - One of the IO pins from the enum SYS_PORT_PIN
@@ -868,67 +868,6 @@ static inline void SYS_PORT_PinInputEnable(SYS_PORT_PIN pin);
 */
 static inline void SYS_PORT_PinOutputEnable(SYS_PORT_PIN pin);
 
-// *****************************************************************************
-/* Function:
-    void SYS_PORT_PinInterruptEnable(SYS_PORT_PIN pin)
-
-  Summary:
-    Enables IO interrupt on selected IO pin.
-
-  Description:
-    This function enables interrupt on selected IO pin.
-
-  Precondition:
-    None.
-
-  Parameters:
-    pin - One of the IO pins from the enum SYS_PORT_PIN
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-
-    SYS_PORT_PinInterruptEnable(SYS_PORT_PIN_PB3);
-
-    </code>
-
-  Remarks:
-    None.
-*/
-static inline void SYS_PORT_PinInterruptEnable(SYS_PORT_PIN pin);
-
-// *****************************************************************************
-/* Function:
-    void SYS_PORT_PinInterruptDisable(SYS_PORT_PIN pin)
-
-  Summary:
-    Disables IO interrupt on selected IO pin.
-
-  Description:
-    This function disables IO interrupt on selected IO pin.
-
-  Precondition:
-    None.
-
-  Parameters:
-    pin       - One of the IO pins from the enum SYS_PORT_PIN
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-
-    SYS_PORT_PinInterruptDisable(SYS_PORT_PIN_PB3);
-
-    </code>
-
-  Remarks:
-    None.
-*/
-static inline void SYS_PORT_PinInterruptDisable(SYS_PORT_PIN pin);
 
 #include "sys_ports_mapping.h"
 
