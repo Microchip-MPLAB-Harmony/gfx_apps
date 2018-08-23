@@ -469,6 +469,8 @@ uint32_t laListWidget_AppendItem(laListWidget* lst)
     if(item == NULL)
         return -1;
         
+    item->enabled = true;
+        
     laString_Initialize(&item->string);
     
     laArray_PushBack(&lst->items, item);
@@ -494,6 +496,8 @@ uint32_t laListWidget_InsertItem(laListWidget* lst, uint32_t idx)
     
     if(item == NULL)
         return -1;
+        
+    item->enabled = LA_TRUE;
         
     laString_Initialize(&item->string);
     
@@ -596,6 +600,12 @@ laResult laListWidget_SetItemSelected(laListWidget* lst,
     if(item == NULL)
         return LA_FAILURE;
         
+    //Prevent a disabled item from being selected
+    if (item->enabled == LA_FALSE)
+    {
+        selected = LA_FALSE;
+    }
+        
     // nothing to do
     if(item->selected == selected)
         return LA_SUCCESS;
@@ -678,14 +688,17 @@ laResult laListWidget_SetItemSelected(laListWidget* lst,
                 // outside of range, deselect all and select target
                 else
                 {
-                    laListWidget_DeselectAll(lst);
-                    
-                    item->selected = selected;
-            
-                    if(lst->cb != NULL)
-                        lst->cb(lst, idx, selected);
-                        
-                    invalidateListArea(lst);
+                    if (item->enabled == LA_TRUE)
+                    {
+                        laListWidget_DeselectAll(lst);
+
+                        item->selected = selected;
+
+                        if(lst->cb != NULL)
+                            lst->cb(lst, idx, selected);
+
+                        invalidateListArea(lst);
+                    }
                 }
             }
             else
@@ -703,16 +716,19 @@ laResult laListWidget_SetItemSelected(laListWidget* lst,
                 // outside of range, deselect all and select target
                 else
                 {
-                    laListWidget_DeselectAll(lst);
-                    
-                    if(lst->allowEmpty == LA_FALSE)
+                    if (item->enabled == LA_TRUE)
                     {
-                        item->selected = LA_TRUE;
-                
-                        if(lst->cb != NULL)
-                            lst->cb(lst, idx, LA_TRUE);
-                            
-                        invalidateListArea(lst);
+                        laListWidget_DeselectAll(lst);
+
+                        if(lst->allowEmpty == LA_FALSE)
+                        {
+                            item->selected = LA_TRUE;
+
+                            if(lst->cb != NULL)
+                                lst->cb(lst, idx, LA_TRUE);
+
+                            invalidateListArea(lst);
+                        }
                     }
                 }
             }
@@ -758,14 +774,17 @@ laResult laListWidget_SelectAll(laListWidget* lst)
     {
         item = lst->items.values[i];
         
-        if(item->selected == LA_FALSE)
+        if (item->enabled == LA_TRUE)
         {
-            item->selected = LA_TRUE;
-            
-            if(lst->cb != NULL)
-                lst->cb(lst, i, LA_TRUE);
-                
-            count++;
+            if(item->selected == LA_FALSE)
+            {
+                item->selected = LA_TRUE;
+
+                if(lst->cb != NULL)
+                    lst->cb(lst, i, LA_TRUE);
+
+                count++;
+            }
         }
     }
     
@@ -919,7 +938,44 @@ laResult laListWidget_SetItemIcon(laListWidget* lst,
     _laListWidget_recalculateRowRect(lst, idx);
 
     recalculateScrollBarValues(lst);
+    
+    return LA_SUCCESS;
+}
 
+laBool laListWidget_GetItemEnable(laListWidget* lst,
+                                    uint32_t idx)
+{
+    laListItem* item;
+    
+    if(lst == NULL || idx >= lst->items.size)
+        return LA_FAILURE;
+        
+    item = lst->items.values[idx];
+    
+    return item->enabled;
+}
+
+laResult laListWidget_SetItemEnable(laListWidget* lst,
+                                    uint32_t idx,
+                                    laBool enable)
+{
+    laListItem* item;
+    
+    if(lst == NULL || idx >= lst->items.size)
+        return LA_FAILURE;
+        
+    item = lst->items.values[idx];
+    
+    if (item->enabled == enable)
+        return LA_SUCCESS;
+        
+    item->enabled = enable;
+    
+    if (enable == LA_FALSE)
+    {
+        item->selected = LA_FALSE;
+    }
+    
     invalidateListArea(lst);
     
     return LA_SUCCESS;

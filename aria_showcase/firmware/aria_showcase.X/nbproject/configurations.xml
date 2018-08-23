@@ -190,9 +190,9 @@
             <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/system/system_common.h</itemPath>
             <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/system/system_module.h</itemPath>
           </logicalFolder>
+          <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/definitions.h</itemPath>
           <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/user.h</itemPath>
           <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/configuration.h</itemPath>
-          <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/definitions.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f2" displayName="osal" projectFiles="true">
@@ -281,10 +281,10 @@
         <logicalFolder name="f1"
                        displayName="sam_e70_xplained_ultra_wqvga"
                        projectFiles="true">
-          <logicalFolder name="f2" displayName="bsp" projectFiles="true">
+          <logicalFolder name="f3" displayName="bsp" projectFiles="true">
             <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/bsp/bsp.c</itemPath>
           </logicalFolder>
-          <logicalFolder name="f5" displayName="driver" projectFiles="true">
+          <logicalFolder name="f6" displayName="driver" projectFiles="true">
             <logicalFolder name="f1" displayName="i2c" projectFiles="true">
               <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/driver/i2c/src/drv_i2c.c</itemPath>
               <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/driver/i2c/src/drv_i2c_local.h</itemPath>
@@ -293,7 +293,7 @@
               <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/driver/input/drv_maxtouch.c</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f4" displayName="gfx" projectFiles="true">
+          <logicalFolder name="f5" displayName="gfx" projectFiles="true">
             <logicalFolder name="f4" displayName="driver" projectFiles="true">
               <logicalFolder name="f1" displayName="lcc" projectFiles="true">
                 <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/gfx/driver/controller/lcc/drv_gfx_lcc.c</itemPath>
@@ -445,7 +445,7 @@
             </logicalFolder>
             <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/gfx/gfx_assets.c</itemPath>
           </logicalFolder>
-          <logicalFolder name="f1" displayName="peripheral" projectFiles="true">
+          <logicalFolder name="f2" displayName="peripheral" projectFiles="true">
             <logicalFolder name="f1" displayName="clk" projectFiles="true">
               <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/peripheral/clk/plib_clk.c</itemPath>
             </logicalFolder>
@@ -468,7 +468,10 @@
               <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/peripheral/xdmac/plib_xdmac.c</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f3" displayName="system" projectFiles="true">
+          <logicalFolder name="f1" displayName="stdio" projectFiles="true">
+            <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/stdio/xc32_monitor.c</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f4" displayName="system" projectFiles="true">
             <logicalFolder name="f2" displayName="input" projectFiles="true">
               <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/system/input/sys_input.c</itemPath>
               <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/system/input/sys_input_listener.c</itemPath>
@@ -482,11 +485,11 @@
             </logicalFolder>
           </logicalFolder>
           <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/initialization.c</itemPath>
-          <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/tasks.c</itemPath>
           <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/interrupts.c</itemPath>
           <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/exceptions.c</itemPath>
           <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/startup.c</itemPath>
           <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/libc_syscalls.c</itemPath>
+          <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/tasks.c</itemPath>
         </logicalFolder>
       </logicalFolder>
       <itemPath>../src/app_single_layer.c</itemPath>
@@ -581,7 +584,7 @@
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
         <property key="make-warnings-into-errors" value="true"/>
-        <property key="optimization-level" value="-O1"/>
+        <property key="optimization-level" value="-O3"/>
         <property key="place-data-into-section" value="true"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
