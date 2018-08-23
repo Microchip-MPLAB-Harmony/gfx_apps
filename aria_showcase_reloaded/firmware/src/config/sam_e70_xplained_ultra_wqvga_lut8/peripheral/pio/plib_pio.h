@@ -62,7 +62,6 @@ SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
 // *****************************************************************************
 
 
-
 /*** Macros for BSP_LCD_HSYNC pin ***/
 #define BSP_LCD_HSYNC_Set()               (PIOC_REGS->PIO_SODR = (1<<30))
 #define BSP_LCD_HSYNC_Clear()             (PIOC_REGS->PIO_CODR = (1<<30))
@@ -70,8 +69,6 @@ SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
 #define BSP_LCD_HSYNC_Get()               ((PIOC_REGS->PIO_PDSR >> 30) & 0x1)
 #define BSP_LCD_HSYNC_OutputEnable()      (PIOC_REGS->PIO_OER = (1<<30))
 #define BSP_LCD_HSYNC_InputEnable()       (PIOC_REGS->PIO_ODR = (1<<30))
-#define BSP_LCD_HSYNC_InterruptEnable()   (PIOC_REGS->PIO_IER = (1<<30))
-#define BSP_LCD_HSYNC_InterruptDisable()  (PIOC_REGS->PIO_IDR = (1<<30))
 #define BSP_LCD_HSYNC_PIN                  PIO_PIN_PC30
 
 /*** Macros for BSP_LCD_RESET pin ***/
@@ -81,8 +78,6 @@ SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
 #define BSP_LCD_RESET_Get()               ((PIOC_REGS->PIO_PDSR >> 13) & 0x1)
 #define BSP_LCD_RESET_OutputEnable()      (PIOC_REGS->PIO_OER = (1<<13))
 #define BSP_LCD_RESET_InputEnable()       (PIOC_REGS->PIO_ODR = (1<<13))
-#define BSP_LCD_RESET_InterruptEnable()   (PIOC_REGS->PIO_IER = (1<<13))
-#define BSP_LCD_RESET_InterruptDisable()  (PIOC_REGS->PIO_IDR = (1<<13))
 #define BSP_LCD_RESET_PIN                  PIO_PIN_PC13
 
 /*** Macros for BSP_LCD_VSYNC pin ***/
@@ -92,8 +87,6 @@ SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
 #define BSP_LCD_VSYNC_Get()               ((PIOD_REGS->PIO_PDSR >> 19) & 0x1)
 #define BSP_LCD_VSYNC_OutputEnable()      (PIOD_REGS->PIO_OER = (1<<19))
 #define BSP_LCD_VSYNC_InputEnable()       (PIOD_REGS->PIO_ODR = (1<<19))
-#define BSP_LCD_VSYNC_InterruptEnable()   (PIOD_REGS->PIO_IER = (1<<19))
-#define BSP_LCD_VSYNC_InterruptDisable()  (PIOD_REGS->PIO_IDR = (1<<19))
 #define BSP_LCD_VSYNC_PIN                  PIO_PIN_PD19
 
 /*** Macros for BSP_MAXTOUCH_CHG pin ***/
@@ -103,8 +96,6 @@ SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
 #define BSP_MAXTOUCH_CHG_Get()               ((PIOD_REGS->PIO_PDSR >> 28) & 0x1)
 #define BSP_MAXTOUCH_CHG_OutputEnable()      (PIOD_REGS->PIO_OER = (1<<28))
 #define BSP_MAXTOUCH_CHG_InputEnable()       (PIOD_REGS->PIO_ODR = (1<<28))
-#define BSP_MAXTOUCH_CHG_InterruptEnable()   (PIOD_REGS->PIO_IER = (1<<28))
-#define BSP_MAXTOUCH_CHG_InterruptDisable()  (PIOD_REGS->PIO_IDR = (1<<28))
 #define BSP_MAXTOUCH_CHG_PIN                  PIO_PIN_PD28
 
 /*** Macros for BSP_LCD_BACKLIGHT pin ***/
@@ -114,8 +105,6 @@ SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
 #define BSP_LCD_BACKLIGHT_Get()               ((PIOC_REGS->PIO_PDSR >> 9) & 0x1)
 #define BSP_LCD_BACKLIGHT_OutputEnable()      (PIOC_REGS->PIO_OER = (1<<9))
 #define BSP_LCD_BACKLIGHT_InputEnable()       (PIOC_REGS->PIO_ODR = (1<<9))
-#define BSP_LCD_BACKLIGHT_InterruptEnable()   (PIOC_REGS->PIO_IER = (1<<9))
-#define BSP_LCD_BACKLIGHT_InterruptDisable()  (PIOC_REGS->PIO_IDR = (1<<9))
 #define BSP_LCD_BACKLIGHT_PIN                  PIO_PIN_PC9
 
 /*** Macros for BSP_LCD_DE pin ***/
@@ -125,8 +114,6 @@ SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
 #define BSP_LCD_DE_Get()               ((PIOC_REGS->PIO_PDSR >> 11) & 0x1)
 #define BSP_LCD_DE_OutputEnable()      (PIOC_REGS->PIO_OER = (1<<11))
 #define BSP_LCD_DE_InputEnable()       (PIOC_REGS->PIO_ODR = (1<<11))
-#define BSP_LCD_DE_InterruptEnable()   (PIOC_REGS->PIO_IER = (1<<11))
-#define BSP_LCD_DE_InterruptDisable()  (PIOC_REGS->PIO_IDR = (1<<11))
 #define BSP_LCD_DE_PIN                  PIO_PIN_PC11
 
 
@@ -361,7 +348,8 @@ void PIO_Initialize(void);
     This function writes/drives the "value" on the selected I/O line/pin.
 
   Precondition:
-    None.
+    The desired pin must be configured as an output pin.
+    PIO_Initialize() must have been called.
 
   Parameters:
     pin       - One of the IO pins from the enum PIO_PIN
@@ -414,13 +402,13 @@ static inline void PIO_PinWrite(PIO_PIN pin, bool value);
     </code>
 
   Remarks:
-       To read the latched value on this pin, PIO_PinReadLatch API should be used.
+       To read the latched value on this pin, PIO_PinLatchRead API should be used.
 */
 static inline bool  PIO_PinRead(PIO_PIN pin);
 
 // *****************************************************************************
 /* Function:
-    bool PIO_PinReadLatch ( PIO_PIN pin )
+    bool PIO_PinLatchRead ( PIO_PIN pin )
 
   Summary:
     Read the value driven on the selected pin.
@@ -443,14 +431,14 @@ static inline bool  PIO_PinRead(PIO_PIN pin);
     <code>
 
     bool value;
-    value = PIO_PinReadLatch(PIO_PIN_PB3);
+    value = PIO_PinLatchRead(PIO_PIN_PB3);
 
     </code>
 
   Remarks:
     To read actual pin value, PIO_PinRead API should be used.
 */
-static inline bool PIO_PinReadLatch( PIO_PIN pin);
+static inline bool PIO_PinLatchRead( PIO_PIN pin);
 
 // *****************************************************************************
 /* Function:
@@ -463,7 +451,7 @@ static inline bool PIO_PinReadLatch( PIO_PIN pin);
     This function toggles/inverts the value on the selected I/O line/pin.
 
   Precondition:
-    None.
+    PIO_Initialize() must have been called.
 
   Parameters:
     pin       - One of the IO pins from the enum PIO_PIN
@@ -608,68 +596,6 @@ static inline void PIO_PinInputEnable(PIO_PIN pin);
 static inline void PIO_PinOutputEnable(PIO_PIN pin);
 
 // *****************************************************************************
-/* Function:
-    void PIO_PinInterruptEnable(PIO_PIN pin)
-
-  Summary:
-    Enables IO interrupt on selected IO pin.
-
-  Description:
-    This function enables interrupt on selected IO pin.
-
-  Precondition:
-    None.
-
-  Parameters:
-    pin           - One of the IO pins from the enum PIO_PIN
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-
-    PIO_PinInterruptEnable(PIO_PIN_PB3);
-
-    </code>
-
-  Remarks:
-    None.
-*/
-static inline void PIO_PinInterruptEnable(PIO_PIN pin);
-
-// *****************************************************************************
-/* Function:
-    void PIO_PinInterruptDisable(PIO_PIN pin)
-
-  Summary:
-    Disables IO interrupt on selected IO pin.
-
-  Description:
-    This function disables IO interrupt on selected IO pin.
-
-  Precondition:
-    None.
-
-  Parameters:
-    pin       - One of the IO pins from the enum PIO_PIN
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-
-    PIO_PinInterruptDisable(PIO_PIN_PB3);
-
-    </code>
-
-  Remarks:
-    None.
-*/
-static inline void PIO_PinInterruptDisable(PIO_PIN pin);
-
-// *****************************************************************************
 // *****************************************************************************
 // Section: PIO Functions which operates on multiple pins of a port
 // *****************************************************************************
@@ -733,6 +659,7 @@ uint32_t PIO_PortRead(PIO_PORT port);
 
   Precondition:
     The desired pins lines of the selected port must be setup as output(s).
+    PIO_Initialize() must have been called.
 
   Parameters:
     port       - One of the IO ports from the enum PIO_PORT
@@ -762,7 +689,7 @@ void PIO_PortWrite(PIO_PORT port, uint32_t mask, uint32_t value);
 
 // *****************************************************************************
 /* Function:
-    uint32_t PIO_PortReadLatch ( PIO_PORT port )
+    uint32_t PIO_PortLatchRead ( PIO_PORT port )
 
   Summary:
     Read the latched value on all the I/O lines of the selected port.
@@ -787,7 +714,7 @@ void PIO_PortWrite(PIO_PORT port, uint32_t mask, uint32_t value);
     <code>
 
     uint32_t value;
-    value = PIO_PortReadLatch(PIO_PORT_C);
+    value = PIO_PortLatchRead(PIO_PORT_C);
 
     </code>
 
@@ -796,7 +723,7 @@ void PIO_PortWrite(PIO_PORT port, uint32_t mask, uint32_t value);
     low (0).
     Implemented pins are Right aligned in the 32-bit return value.
 */
-uint32_t PIO_PortReadLatch ( PIO_PORT port );
+uint32_t PIO_PortLatchRead ( PIO_PORT port );
 
 // *****************************************************************************
 /* Function:
@@ -883,7 +810,7 @@ void PIO_PortClear(PIO_PORT port, uint32_t mask);
     This function toggles (or invert) the selected IO pins of a port.
 
   Precondition:
-    None.
+    PIO_Initialize() must have been called.
 
   Parameters:
     port       - One of the IO ports from the enum PIO_PORT
@@ -980,89 +907,6 @@ void PIO_PortInputEnable(PIO_PORT port, uint32_t mask);
     None.
 */
 void PIO_PortOutputEnable(PIO_PORT port, uint32_t mask);
-
-// *****************************************************************************
-/* Function:
-    void PIO_PortInterruptEnable(PIO_PORT port, uint32_t mask)
-
-  Summary:
-    Enables IO interrupt on selected IO pins of a port.
-
-  Description:
-    This function enables interrupt on selected IO pins of selected port.
-
-  Precondition:
-    None.
-
-  Parameters:
-    port       - One of the IO ports from the enum PIO_PORT
-
-    mask       - Is a 32 bit value in which positions of 0s and 1s decide
-                 which IO pins of the selected port will have interrupt
-                 enabled.  The bit positions of mask value which are set as 1,
-                 IO interrupt of corresponding IO pin of the selected port
-                 will be enabled.  The bit positions of mask value which are
-                 cleared to 0, IO interrupt of corresponding IO pin of the
-                 selected port will remain unchanged.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-
-    // Enable IO interrupt for PC5 and PC7 pins
-    PIO_PortInterruptEnable(PIO_PORT_C, 0x00A0);
-
-    </code>
-
-  Remarks:
-    None.
-*/
-void PIO_PortInterruptEnable(PIO_PORT port, uint32_t mask);
-
-// *****************************************************************************
-/* Function:
-    void PIO_PortInterruptDisable(PIO_PORT port, uint32_t mask)
-
-  Summary:
-    Disables IO interrupt on selected IO pins of a port.
-
-  Description:
-    This function disables IO interrupt on selected IO pins of selected port.
-
-  Precondition:
-    None.
-
-  Parameters:
-    port       - One of the IO ports from the enum PIO_PORT
-    mask       - Is a 32 bit value in which positions of 0s and 1s decide
-                 which IO pins of the selected port will have interrupt
-                 disabled.  The bit positions of mask value which are set as 1,
-                 IO interrupt of corresponding IO pin of the selected port
-                 will be disabled.  The bit positions of mask value which are
-                 cleared to 0, IO interrupt of corresponding IO pin of the
-                 selected port will remain unchanged.
-  Returns:
-    None.
-
-  Example:
-    <code>
-
-    // Disable IO interrupt for PB9 and PB1 pins
-    PIO_PortInterruptDisable(PIO_PORT_C, 0x0202);
-
-    </code>
-
-  Remarks:
-    None.
-*/
-void PIO_PortInterruptDisable(PIO_PORT port, uint32_t mask);
-
-
-
-
-
 
 
 

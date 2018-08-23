@@ -285,12 +285,20 @@ laResult laTextFieldWidget_SetClearOnFirstEdit(laTextFieldWidget* txt, laBool cl
 
 void _laTextFieldWidget_FocusGained(laWidget* widget)
 {
+    laTextFieldWidget* txt = (laTextFieldWidget*) widget;
+            
     laContext_SetEditWidget(widget);
+    
+    if (txt->focusChangedEvent != NULL)
+        txt->focusChangedEvent(txt, LA_TRUE);
 }
 
 void _laTextFieldWidget_FocusLost(laWidget* widget)
 {
-    //printf("focus lost\n");
+    laTextFieldWidget* txt = (laTextFieldWidget*) widget;
+            
+    if (txt->focusChangedEvent != NULL)
+        txt->focusChangedEvent(txt, LA_FALSE);
 }
 
 laTextFieldWidget_TextChangedCallback laTextFieldWidget_GetTextChangedEventCallback(laTextFieldWidget* txt)
@@ -308,6 +316,25 @@ laResult laTextFieldWidget_SetTextChangedEventCallback(laTextFieldWidget* txt,
         return LA_FAILURE;
 
     txt->textChangedEvent = cb;
+
+    return LA_SUCCESS;
+}
+
+laTextFieldWidget_FocusChangedCallback laTextFieldWidget_GetFocusChangedEventCallback(laTextFieldWidget* txt)
+{
+    if(txt == NULL)
+        return NULL;
+
+    return txt->focusChangedEvent;
+}
+
+laResult laTextFieldWidget_SetFocusChangedEventCallback(laTextFieldWidget* txt,
+                                                       laTextFieldWidget_FocusChangedCallback cb)
+{
+    if(txt == NULL || txt->focusChangedEvent == cb)
+        return LA_FAILURE;
+
+    txt->focusChangedEvent = cb;
 
     return LA_SUCCESS;
 }

@@ -61,9 +61,9 @@ static inline bool SYS_PORT_PinRead(SYS_PORT_PIN pin)
     return(PIO_PinRead((PIO_PIN)pin));
 }
 
-static inline bool SYS_PORT_PinReadLatch(SYS_PORT_PIN pin)
+static inline bool SYS_PORT_PinLatchRead(SYS_PORT_PIN pin)
 {
-    return(PIO_PinReadLatch((PIO_PIN)pin));
+    return(PIO_PinLatchRead((PIO_PIN)pin));
 }
 
 static inline void SYS_PORT_PinToggle(SYS_PORT_PIN pin)
@@ -89,16 +89,6 @@ static inline void SYS_PORT_PinInputEnable(SYS_PORT_PIN pin)
 static inline void SYS_PORT_PinOutputEnable(SYS_PORT_PIN pin)
 {
     PIO_PinOutputEnable((PIO_PIN)pin);
-}
-
-static inline void SYS_PORT_PinInterruptEnable(SYS_PORT_PIN pin)
-{
-    PIO_PinInterruptEnable((PIO_PIN)pin);
-}
-
-static inline void SYS_PORT_PinInterruptDisable(SYS_PORT_PIN pin)
-{
-    PIO_PinInterruptDisable((PIO_PIN)pin);
 }
 
 #endif // SYS_PORTS_MAPPING_H
