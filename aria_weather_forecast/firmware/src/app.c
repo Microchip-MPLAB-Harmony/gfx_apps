@@ -58,6 +58,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "gfx/hal/gfx.h"
 #include "gfx/gfx_assets.h"
 #include "gfx/libaria/libaria_init.h"
+#include "gfx/libaria/inc/libaria_utils.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -82,14 +83,59 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 APP_DATA appData;
 
+int hourlyActualTemp[3][7] = {
+    {30, 36, 43, 45, 46, 46, 44},
+    {26, 28, 29, 30, 31, 32, 30},
+    {22, 23, 25, 25, 25, 24, 22},
+};
+
+int hourlyRealTemp[3][7] = {
+    {22, 34, 42, 43, 43, 44, 41},
+    {36, 38, 39, 40, 41, 42, 40},
+    {12, 13, 15, 15, 15, 14, 12},
+};
+
+int hourlyPrepcipitation[3][7] = {
+    {25, 25, 33, 50, 50, 50, 80},
+    {75, 75, 80, 85, 90, 90, 90},
+    {75, 80, 75, 65, 55, 50, 25},
+};
+
+int hourlyHumidity[3][7] = {
+    {80, 80, 75, 75, 75, 70, 75},
+    {90, 90, 90, 85, 85, 90, 90},
+    {75, 75, 65, 65, 65, 65, 60},
+};
+
+int dailyActualTemp[3][7] = {
+    {38, 39, 40, 39, 38, 37, 36},
+    {25, 24, 23, 20, 19, 28, 27},
+    {22, 33, 30, 22, 21, 29, 28},
+};
+
+int dailyRealTemp[3][7] = {
+    {28, 29, 30, 29, 28, 27, 26},
+    {30, 29, 22, 19, 18, 32, 31},
+    {12, 36, 33, 22, 21, 32, 30},
+};
+
+int dailyPrepcipitation[3][7] = {
+    {80, 25, 0, 0, 25, 25, 50},
+    {25, 25, 90, 90, 85, 35, 25},
+    {75, 10, 5, 65, 65, 0, 0},
+};
+
+int dailyHumidity[3][7] = {
+    {80, 60, 50, 50, 65, 70, 75},
+    {80, 80, 90, 85, 85, 80, 80},
+    {65, 50, 45, 55, 55, 45, 50},
+};
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Callback Functions
 // *****************************************************************************
 // *****************************************************************************
-
-/* TODO:  Add any necessary callback functions.
-*/
 
 // *****************************************************************************
 // *****************************************************************************
@@ -97,9 +143,6 @@ APP_DATA appData;
 // *****************************************************************************
 // *****************************************************************************
 
-
-/* TODO:  Add any necessary local functions.
-*/
 
 
 // *****************************************************************************
@@ -122,10 +165,6 @@ void APP_Initialize ( void )
     appData.state = APP_STATE_INIT;
 
 
-
-    /* TODO: Initialize your application's state machine and other
-     * parameters.
-     */
 }
 
 
@@ -143,29 +182,67 @@ uint32_t frame = 0;
 uint32_t currentLanguage = 0;
 uint32_t currentWeather = 0;
 
-void app_weatherButtonClicked()
+void _app_UpdateData( void )
 {
-    if(currentWeather == 0)
+    uint32_t language = laContext_GetStringLanguage();
+
+    for (int i = 0; i < 7; ++i)
     {
-        currentWeather = 1;
-        
-        laImageWidget_SetImage(CloudIcon, &rain_icon_sm);
-        laLabelWidget_SetText(LabelWidget3, laString_CreateFromID(string_Rain));
+        if (appData.displayState == APP_DISPLAY_HOURLY)
+        {
+            laLineGraphWidget_SetDataInSeries(TempLineGraph, 0, i, hourlyActualTemp[language][i]);        
+            laLineGraphWidget_SetDataInSeries(TempLineGraph, 1, i, hourlyRealTemp[language][i]);        
+            
+            laBarGraphWidget_SetDataInSeries(TempPrecipitaionGraph, 0, i, hourlyPrepcipitation[language][i]);
+            laBarGraphWidget_SetDataInSeries(TempPrecipitaionGraph, 1, i, hourlyHumidity[language][i]);
+            
+            laWidget_SetVisible(PanelWidget_Hourly, LA_TRUE);
+            laWidget_SetVisible(PanelWidget_Daily, LA_FALSE);
+        }
+        else
+        {
+            laLineGraphWidget_SetDataInSeries(TempLineGraph, 0, i, dailyActualTemp[language][i]);        
+            laLineGraphWidget_SetDataInSeries(TempLineGraph, 1, i, dailyRealTemp[language][i]);        
+            
+            laBarGraphWidget_SetDataInSeries(TempPrecipitaionGraph, 0, i, dailyPrepcipitation[language][i]);
+            laBarGraphWidget_SetDataInSeries(TempPrecipitaionGraph, 1, i, dailyHumidity[language][i]);
+
+            laWidget_SetVisible(PanelWidget_Hourly, LA_FALSE);
+            laWidget_SetVisible(PanelWidget_Daily, LA_TRUE);
+        }
     }
-    else if(currentWeather == 1)
+}
+
+void app_toggleDisplay( void )
+{
+    if (appData.displayState == APP_DISPLAY_DAILY)
     {
-        currentWeather = 2;
-        
-        laImageWidget_SetImage(CloudIcon, &sun_icon_sm);
-        laLabelWidget_SetText(LabelWidget3, laString_CreateFromID(string_Sunny));
-    }    
-    else if(currentWeather == 2)
-    {
-        currentWeather = 0;
-        
-        laImageWidget_SetImage(CloudIcon, &cloud_icon);
-        laLabelWidget_SetText(LabelWidget3, laString_CreateFromID(string_Cloudy));
+        app_displayHourly();
     }
+    else
+    {
+        app_displayDaily();
+    }
+}
+
+void app_displayHourly( void )
+{
+    if (appData.displayState == APP_DISPLAY_HOURLY)
+        return;
+    
+    appData.displayState = APP_DISPLAY_HOURLY;
+
+    _app_UpdateData();
+}
+
+void app_displayDaily( void )
+{
+    if (appData.displayState == APP_DISPLAY_DAILY)
+        return;
+    
+    appData.displayState = APP_DISPLAY_DAILY;        
+
+    _app_UpdateData();
 }
 
 void app_cycleLanguage()
@@ -173,11 +250,22 @@ void app_cycleLanguage()
     uint32_t language = laContext_GetStringLanguage();
     
     if(language == language_English)
+    {
         laContext_SetStringLanguage(language_Chinese);
+        laImageWidget_SetImage(WeatherImage,&lightning);
+    }
     else if(language == language_Chinese)
+    {
         laContext_SetStringLanguage(language_Spanish);
+        laImageWidget_SetImage(WeatherImage,&cloudy);
+    }
     else if(language == language_Spanish)
+    {
         laContext_SetStringLanguage(language_English);
+        laImageWidget_SetImage(WeatherImage,&windy);
+    }
+    
+    _app_UpdateData();
 }
 
 void APP_Tasks ( void )
@@ -213,10 +301,6 @@ void APP_Tasks ( void )
             if (laContext_GetActiveScreen() && 
                 laContext_GetActiveScreen()->id != MainScreen_ID)
                  break;
-            
-            currentWeather = 0;        
-            laImageWidget_SetImage(CloudIcon, &cloud_icon);
-            laLabelWidget_SetText(LabelWidget3, laString_CreateFromID(string_Cloudy));            
             
             appData.state = APP_STATE_DONE;
             break;

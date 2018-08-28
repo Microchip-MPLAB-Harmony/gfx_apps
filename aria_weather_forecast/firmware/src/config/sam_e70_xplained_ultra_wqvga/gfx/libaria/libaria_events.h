@@ -54,11 +54,23 @@ extern "C" {
 #endif
 // DOM-IGNORE-END 
 
-// Generated Event Handler - Origin: ButtonWidget2, Event: ReleasedEvent
-void ButtonWidget2_ReleasedEvent(laButtonWidget* btn);
+// Generated Event Handler - Origin: ButtonWidget_SwitchCity, Event: ReleasedEvent
+void ButtonWidget_SwitchCity_ReleasedEvent(laButtonWidget* btn);
 
-// Generated Event Handler - Origin: ButtonWidget1, Event: ReleasedEvent
-void ButtonWidget1_ReleasedEvent(laButtonWidget* btn);
+// Generated Event Handler - Origin: ButtonWidget_SwitchTemp, Event: ReleasedEvent
+void ButtonWidget_SwitchTemp_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonWidget_SwitchHumidity, Event: ReleasedEvent
+void ButtonWidget_SwitchHumidity_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonWidget_Hourly, Event: ReleasedEvent
+void ButtonWidget_Hourly_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonWidget_Daily, Event: ReleasedEvent
+void ButtonWidget_Daily_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonWidget_City, Event: ReleasedEvent
+void ButtonWidget_City_ReleasedEvent(laButtonWidget* btn);
 
 
 

@@ -45,18 +45,46 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include "gfx/libaria/libaria_events.h"
 
-// ButtonWidget2 - ReleasedEvent
-void ButtonWidget2_ReleasedEvent(laButtonWidget* btn)
+// ButtonWidget_SwitchCity - ReleasedEvent
+void ButtonWidget_SwitchCity_ReleasedEvent(laButtonWidget* btn)
 {
-    // CycleLanguageButton
+    // Custom Action
     app_cycleLanguage();
 }
 
-// ButtonWidget1 - ReleasedEvent
-void ButtonWidget1_ReleasedEvent(laButtonWidget* btn)
+// ButtonWidget_SwitchTemp - ReleasedEvent
+void ButtonWidget_SwitchTemp_ReleasedEvent(laButtonWidget* btn)
 {
-    // WeatherButtonClicked
-    app_weatherButtonClicked();
+    // Custom Action
+    app_toggleDisplay();
+}
+
+// ButtonWidget_SwitchHumidity - ReleasedEvent
+void ButtonWidget_SwitchHumidity_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    app_toggleDisplay();
+}
+
+// ButtonWidget_Hourly - ReleasedEvent
+void ButtonWidget_Hourly_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    app_displayHourly();
+}
+
+// ButtonWidget_Daily - ReleasedEvent
+void ButtonWidget_Daily_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    app_displayDaily();
+}
+
+// ButtonWidget_City - ReleasedEvent
+void ButtonWidget_City_ReleasedEvent(laButtonWidget* btn)
+{
+    // SwitchLanguage
+    app_cycleLanguage();
 }
 
 

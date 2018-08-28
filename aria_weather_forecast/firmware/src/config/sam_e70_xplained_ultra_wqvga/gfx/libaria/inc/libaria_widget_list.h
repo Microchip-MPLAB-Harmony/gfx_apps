@@ -105,6 +105,7 @@ typedef struct laListItem_t
     GFXU_ImageAsset* icon; // list item icon
     laBool selected; // list item selected flag
     GFX_Rect rowRect; // list item row rectangle
+    laBool enabled; //enable or disable the item
 } laListItem;
 
 typedef void (*laListWidget_ItemSelectedChangedEvent)(laListWidget*,
@@ -838,6 +839,58 @@ LIB_EXPORT laResult laListWidget_SetItemIcon(laListWidget* lst,
 */
 LIB_EXPORT laResult laListWidget_SetItemVisible(laListWidget* lst,
                                                 uint32_t idx);
+
+// *****************************************************************************
+/* Function:
+    laBool laListWidget_GetItemEnable(laListWidget* lst,
+                                  uint32_t idx)
+
+  Summary:
+    Returns the enable state of the item in the list widget
+
+  Description:
+    
+
+  Parameters:
+    laListWidget* lst - the widget
+    uint32_t index - the index of the item in the list
+    
+  Returns:
+    laBool - the enable state of the item
+    
+  Remarks:
+    
+*/
+LIB_EXPORT laBool laListWidget_GetItemEnable(laListWidget* lst,
+                                               uint32_t idx);
+
+// *****************************************************************************
+/* Function:
+    laResult laListWidget_SetItemEnable(laListWidget* lst,
+                                  uint32_t idx,
+                                  laBool newEnableState)
+
+  Summary:
+    Enables or disables an item in the list. A disable item becomes 
+    un-selectable.
+
+  Description:
+    
+
+  Parameters:
+    laListWidget* lst - the widget
+    uint32_t index - the index of the item in the list
+    laBool enable - enable/disable the item
+    
+  Returns:
+    laResult - the result of the operation
+    
+  Remarks:
+    
+*/
+LIB_EXPORT laResult laListWidget_SetItemEnable(laListWidget* lst,
+                                               uint32_t idx,
+                                               laBool enable);
 
 // *****************************************************************************
 /* Function:

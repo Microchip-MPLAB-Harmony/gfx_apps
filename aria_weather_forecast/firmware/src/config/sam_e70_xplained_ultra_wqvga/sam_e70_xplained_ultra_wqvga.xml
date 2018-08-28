@@ -9871,6 +9871,7 @@
               <Value dnOrder="1" id="core" priority="1" value="true"/>
               <Value dnOrder="2" id="core" priority="1" value="true"/>
               <Value dnOrder="3" id="core" priority="1" value="true"/>
+              <Value dnOrder="4" id="core" priority="1" value="true"/>
             </Dynamic>
           </Values>
         </Boolean>
@@ -10070,6 +10071,11 @@
             <User dnOrder="0" value="true"/>
           </Values>
         </Boolean>
+        <Boolean dnOrder="1" id="useGlobalPalette">
+          <Values dnOrder="0">
+            <User dnOrder="0" value="false"/>
+          </Values>
+        </Boolean>
       </Symbols>
     </UniqueComponent>
     <UniqueComponent dnOrder="4" id="cmsis"/>
@@ -10083,6 +10089,7 @@
               <Value dnOrder="1" id="drv_i2c_0" priority="1" value="1"/>
               <Value dnOrder="2" id="drv_i2c_0" priority="1" value="1"/>
               <Value dnOrder="3" id="drv_i2c_0" priority="1" value="1"/>
+              <Value dnOrder="4" id="drv_i2c_0" priority="1" value="1"/>
             </Dynamic>
           </Values>
         </Integer>
@@ -10392,7 +10399,12 @@
           </Values>
         </Integer>
         <Integer dnOrder="1" id="I2CIndex">
-          <Values dnOrder="0">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="readOnly">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+          <Values dnOrder="1">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="gfx_maxtouch_controller" priority="1" value="0"/>
             </Dynamic>
@@ -10603,14 +10615,7 @@
         <Capability dnOrder="0" id="TC_0" targetAttachmentID="sys_time_TC_dependency" targetComponentID="sys_time"/>
       </Capabilities>
       <Symbols dnOrder="1">
-        <Comment dnOrder="0" id="TC0_CLK_ENABLE_COMMENT">
-          <Attributes dnOrder="0">
-            <Boolean dnOrder="0" id="visible">
-              <Value dnOrder="0">false</Value>
-            </Boolean>
-          </Attributes>
-        </Comment>
-        <Boolean dnOrder="1" id="TC0_ENABLE">
+        <Boolean dnOrder="0" id="TC0_ENABLE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="sys_time" priority="2" value="true"/>
@@ -10652,22 +10657,22 @@
     <GraphSettings canvasHeight="400" canvasWidth="400" dnOrder="0" minimap="false"/>
     <ComponentGraph dnOrder="1">
       <ElementPositions dnOrder="0">
-        <ElementPosition dnOrder="0" id="BSP_SAM_E70_Xplained_Ultra_LCC_WQVGA" x="30" y="340"/>
+        <ElementPosition dnOrder="0" id="BSP_SAM_E70_Xplained_Ultra_LCC_WQVGA" x="664" y="20"/>
         <ElementPosition dnOrder="1" id="Harmony" x="120" y="20"/>
-        <ElementPosition dnOrder="2" id="aria_gfx_library" x="878" y="398"/>
+        <ElementPosition dnOrder="2" id="aria_gfx_library" x="803" y="242"/>
         <ElementPosition dnOrder="3" id="cmsis" x="300" y="20"/>
         <ElementPosition dnOrder="4" id="core" x="20" y="20"/>
         <ElementPosition dnOrder="5" id="dfp" x="440" y="20"/>
-        <ElementPosition dnOrder="6" id="drv_i2c" x="190" y="200"/>
-        <ElementPosition dnOrder="7" id="gfx_disp_pdatm4301b_480x272" x="255" y="474"/>
-        <ElementPosition dnOrder="8" id="gfx_driver_lcc" x="30" y="100"/>
-        <ElementPosition dnOrder="9" id="gfx_hal" x="310" y="60"/>
-        <ElementPosition dnOrder="10" id="gfx_maxtouch_controller" x="690" y="240"/>
-        <ElementPosition dnOrder="11" id="smc0" x="660" y="20"/>
-        <ElementPosition dnOrder="12" id="sys_input" x="350" y="260"/>
+        <ElementPosition dnOrder="6" id="drv_i2c" x="232" y="82"/>
+        <ElementPosition dnOrder="7" id="gfx_disp_pdatm4301b_480x272" x="36" y="225"/>
+        <ElementPosition dnOrder="8" id="gfx_driver_lcc" x="300" y="311"/>
+        <ElementPosition dnOrder="9" id="gfx_hal" x="519" y="248"/>
+        <ElementPosition dnOrder="10" id="gfx_maxtouch_controller" x="430" y="119"/>
+        <ElementPosition dnOrder="11" id="smc0" x="85" y="340"/>
+        <ElementPosition dnOrder="12" id="sys_input" x="710" y="123"/>
         <ElementPosition dnOrder="13" id="sys_time" x="362" y="583"/>
         <ElementPosition dnOrder="14" id="tc0" x="127" y="579"/>
-        <ElementPosition dnOrder="15" id="twihs0" x="690" y="160"/>
+        <ElementPosition dnOrder="15" id="twihs0" x="12" y="111"/>
       </ElementPositions>
     </ComponentGraph>
   </UserData>

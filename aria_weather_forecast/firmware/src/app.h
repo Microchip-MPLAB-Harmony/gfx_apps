@@ -72,6 +72,12 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
+typedef enum
+{
+	APP_DISPLAY_HOURLY,
+    APP_DISPLAY_DAILY
+} APP_DISPLAY_STATES;
+
 // *****************************************************************************
 /* Application states
 
@@ -82,7 +88,7 @@ extern "C" {
     This enumeration defines the valid application states.  These states
     determine the behavior of the application at various times.
 */
-
+   
 typedef enum
 {
 	/* Application's state machine's initial state. */
@@ -114,7 +120,7 @@ typedef struct
     /* The application's current state */
     APP_STATES state;
 
-    /* TODO: Define any additional data used by the application. */
+    APP_DISPLAY_STATES displayState;
 
 } APP_DATA;
 
@@ -127,10 +133,14 @@ typedef struct
 /* These routines are called by drivers when certain events occur.
 */
 
-void app_weatherButtonClicked( void );
-
 void app_cycleLanguage( void );
-	
+
+void app_toggleDisplay( void );
+
+void app_displayHourly( void );
+
+void app_displayDaily( void );
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Initialization and State Machine Functions
