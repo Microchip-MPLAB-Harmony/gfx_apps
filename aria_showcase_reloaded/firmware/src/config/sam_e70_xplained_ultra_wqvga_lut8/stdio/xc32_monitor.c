@@ -41,7 +41,7 @@ SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
 
 int _mon_getc(int canblock)
 {
-	return 0;
+   return 0;
 }
 
 void _mon_putc(char c)

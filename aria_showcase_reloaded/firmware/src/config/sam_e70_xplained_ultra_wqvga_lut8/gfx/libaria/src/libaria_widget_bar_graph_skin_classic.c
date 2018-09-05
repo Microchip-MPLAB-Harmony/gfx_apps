@@ -2,6 +2,8 @@
 
 #if LA_BAR_GRAPH_WIDGET_ENABLED
 
+#include <stdio.h>
+
 #include "gfx/libaria/inc/libaria_context.h"
 #include "gfx/libaria/inc/libaria_draw.h"
 #include "gfx/libaria/inc/libaria_layer.h"
@@ -10,12 +12,6 @@
 #include "gfx/libaria/inc/libaria_widget.h"
 
 #include "gfx/libaria/inc/libaria_widget_skin_classic_common.h"
-
-#include <stdio.h>
-
-#define MAX_TICK_LABEL_DIGITS 10
-#define MAX_TICK_LABEL_VALUE 999999999
-#define LABEL_OFFSET_MIN_PIX 5
 
 enum
 {
@@ -87,88 +83,6 @@ static void drawBackground(laBarGraphWidget* graph)
     nextState(graph);
 }
 
-//Gets the superset (largest) draw rectangle for the labels. 
-static void getValueLabelMaxDrawRect(laBarGraphWidget* graph, GFX_Rect * rect)
-{
-    //Calculate the offset for the value labels
-    if (graph->valueAxisLabelsVisible)
-    {
-        GFX_Rect minLabelRect = {0}, maxLabelRect = {0};
-        char strbuff[MAX_TICK_LABEL_DIGITS];
-        laString str;
-
-        if (graph->minValue < 0)
-        {
-            //Protect from overflow
-            if (graph->minValue > -MAX_TICK_LABEL_VALUE)
-            {
-                sprintf(strbuff, "%ld", graph->minValue);
-            }
-            else
-            {
-                sprintf(strbuff, "---");
-            }
-
-            str = laString_CreateFromCharBuffer(strbuff, 
-                    GFXU_StringFontIndexLookup(graph->stringTable, graph->ticksLabelsStringID, 0));
-            laString_GetRect(&str, &minLabelRect);
-
-            laString_Destroy(&str);
-        }
-
-        //Protect from overflow
-        if (graph->maxValue < MAX_TICK_LABEL_VALUE) 
-        {
-            sprintf(strbuff, "%ld", graph->maxValue);
-        } else 
-        {
-            sprintf(strbuff, "---");
-        }
-
-        str = laString_CreateFromCharBuffer(strbuff,
-                GFXU_StringFontIndexLookup(graph->stringTable, graph->ticksLabelsStringID, 0));
-        laString_GetRect(&str, &maxLabelRect);
-
-        laString_Destroy(&str);
-
-        rect->width = (maxLabelRect.width > minLabelRect.width) ? 
-                    (maxLabelRect.width) : 
-                    (minLabelRect.width);
-
-        rect->height = (maxLabelRect.height > minLabelRect.height) ? 
-                    (maxLabelRect.height) : 
-                    (minLabelRect.height);
-    }
-}
-
-//Gets the maximum draw rectangle for the category labels
-static void getCategoryLabelMaxDrawRect(laBarGraphWidget* graph, GFX_Rect * rect)
-{
-    uint32_t categoryIndex;
-    laBarGraphCategory * category;
-    GFX_Rect textRect;
-    
-    *rect = GFX_Rect_Zero;
-    
-    for (categoryIndex = 0; 
-         (categoryIndex < graph->categories.size); 
-         categoryIndex++)
-    {
-        category = laArray_Get(&graph->categories, categoryIndex);
-        if (category == NULL)
-            return;
-        
-        laString_GetRect(&category->text, &textRect);
-        
-        if (textRect.height > rect->height)
-            rect->height = textRect.height;
-                    
-        if (textRect.width > rect->width)
-            rect->width = textRect.width;
-    }
-
-}
-
 static void drawTickLabelWithValue(laBarGraphWidget* graph, GFX_Point tickPoint, laRelativePosition position, int32_t value)
 {
     #define TICK_LABEL_MARGIN 3
@@ -231,101 +145,6 @@ static void drawTickLabelWithValue(laBarGraphWidget* graph, GFX_Point tickPoint,
     laString_Destroy(&str);    
 }
 
-//Gets the rectangle of the graph area (without labels or ticks)
-static void _laBarGraphWidget_GetGraphRect(laBarGraphWidget* graph,
-                                           GFX_Rect * graphRect)
-{
-    GFX_Point p;
-    laMargin margin;
-    GFX_Rect widgetRect, valueLabelMaxRect, categoryLabelMaxRect;
-    laLayer* layer = laUtils_GetLayer((laWidget*)graph);
-    
-    widgetRect = laUtils_WidgetLocalRect((laWidget*)graph);
-    laUtils_RectToLayerSpace((laWidget*)graph, &widgetRect);
-
-    p.x = widgetRect.x;
-    p.y = widgetRect.y;
-    
-    valueLabelMaxRect = GFX_Rect_Zero;
-    *graphRect = GFX_Rect_Zero;
-    categoryLabelMaxRect = GFX_Rect_Zero;
-    
-    if (GFX_RectIntersects(&layer->clippedDrawingRect, &widgetRect) == GFX_TRUE)
-    {
-        margin = graph->widget.margin;
-        graphRect->x = p.x + margin.left;
-        graphRect->width = widgetRect.width - margin.left - margin.right;
-        
-        if (graph->valueAxisTicksVisible)
-        {
-            switch (graph->valueAxisTicksPosition)
-            {
-                case BAR_GRAPH_TICK_OUT:
-                {
-                    graphRect->x += graph->tickLength;
-                    graphRect->width -= graph->tickLength;
-                    break;
-                }
-                case BAR_GRAPH_TICK_CENTER:
-                {
-                    graphRect->x += graph->tickLength/2;
-                    graphRect->width -= graph->tickLength/2;
-                    break;
-                }
-                default:
-                    break;
-            }
-        }
-
-        graphRect->y = p.y + margin.top;
-        graphRect->height = widgetRect.height - margin.top - margin.bottom;
-
-        if (graph->valueAxisLabelsVisible)
-        {
-            getValueLabelMaxDrawRect(graph, &valueLabelMaxRect);
-
-            graphRect->x += (valueLabelMaxRect.width + LABEL_OFFSET_MIN_PIX * 2);
-            graphRect->width -= (valueLabelMaxRect.width + LABEL_OFFSET_MIN_PIX * 2);
-
-            graphRect->y += valueLabelMaxRect.height / 2 + LABEL_OFFSET_MIN_PIX;
-            graphRect->height -= valueLabelMaxRect.height / 2  + LABEL_OFFSET_MIN_PIX;
-        }
-        
-        if (graph->categAxisTicksVisible)
-        {
-            switch (graph->categAxisTicksPosition)
-            {
-                case BAR_GRAPH_TICK_OUT:
-                {
-                    graphRect->height -= graph->tickLength;
-                    break;
-                }
-                case BAR_GRAPH_TICK_CENTER:
-                {
-                    graphRect->height -= graph->tickLength/2;
-                    break;
-                }
-                default:
-                    break;
-            }
-        }
-        
-        if (graph->categAxisLabelsVisible)
-        {
-            getCategoryLabelMaxDrawRect(graph, &categoryLabelMaxRect);
-        }
-
-        if (categoryLabelMaxRect.height > (valueLabelMaxRect.height / 2))
-        {
-            graphRect->height -= (categoryLabelMaxRect.height +  LABEL_OFFSET_MIN_PIX);
-        }
-        else if (valueLabelMaxRect.height != 0)
-        {
-            graphRect->height -= (valueLabelMaxRect.height / 2 +  LABEL_OFFSET_MIN_PIX);
-        }
-    }
-}
-
 static void drawBarGraph(laBarGraphWidget* graph)
 {
     GFX_Rect widgetRect, clipRect, graphRect;
@@ -343,7 +162,7 @@ static void drawBarGraph(laBarGraphWidget* graph)
         GFX_RectClip(&widgetRect, &layer->clippedDrawingRect, &clipRect);
         
         GFX_Set(GFXF_DRAW_CLIP_RECT, &clipRect);
-        GFX_Set(GFXF_DRAW_CLIP_ENABLE, &clipRect);
+        GFX_Set(GFXF_DRAW_CLIP_ENABLE, GFX_TRUE);
         
         _laBarGraphWidget_GetGraphRect(graph, &graphRect);
         

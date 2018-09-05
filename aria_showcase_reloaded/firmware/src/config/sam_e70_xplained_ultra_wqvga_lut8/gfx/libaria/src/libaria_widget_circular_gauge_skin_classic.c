@@ -304,7 +304,7 @@ static void drawCircularGauge(laCircularGaugeWidget* gauge)
         GFX_RectClip(&arcRect, &layer->clippedDrawingRect, &clipRect);
         
         GFX_Set(GFXF_DRAW_CLIP_RECT, &clipRect);
-        GFX_Set(GFXF_DRAW_CLIP_ENABLE, &clipRect);
+        GFX_Set(GFXF_DRAW_CLIP_ENABLE, GFX_TRUE);
         GFX_Set(GFXF_DRAW_MODE, GFX_DRAW_LINE);
         GFX_Set(GFXF_DRAW_COLOR, gauge->widget.scheme->foreground);
 

@@ -2040,7 +2040,6 @@ static void ScreenCreate_BarGraphDemo(laScreen* screen)
     laWidget_SetScheme((laWidget*)BarGraphWidget8, &BarGraphWidgetScheme);
     laWidget_SetBackgroundType((laWidget*)BarGraphWidget8, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)BarGraphWidget8, LA_WIDGET_BORDER_NONE);
-    laBarGraphWidget_SetStacked(BarGraphWidget8, LA_FALSE);
     laBarGraphWidget_SetMaxValue(BarGraphWidget8, 0, 500);
     laBarGraphWidget_SetValueAxisTickInterval(BarGraphWidget8, 0, 100);
     laBarGraphWidget_SetValueAxisSubtickInterval(BarGraphWidget8, 0, 25);
