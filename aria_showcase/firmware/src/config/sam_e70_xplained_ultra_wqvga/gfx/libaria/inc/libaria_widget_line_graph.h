@@ -140,16 +140,16 @@ typedef struct laLineGraphWidget_t
     GFXU_ExternalAssetReader* reader; // asset reader
 } laLineGraphWidget;
 
-void _laLineGraphWidget_Constructor(laLineGraphWidget* graph);
-void _laLineGraphWidget_Destructor(laLineGraphWidget* graph);
-
-void _laLineGraphWidget_Paint(laLineGraphWidget* graph);
-
 // *****************************************************************************
 // *****************************************************************************
 // Section: Routines
 // *****************************************************************************
 // *****************************************************************************
+void _laLineGraphWidget_Constructor(laLineGraphWidget* graph);
+void _laLineGraphWidget_Destructor(laLineGraphWidget* graph);
+
+void _laLineGraphWidget_Paint(laLineGraphWidget* graph);
+
 
 // *****************************************************************************
 /* Function:
@@ -1303,6 +1303,17 @@ LIB_EXPORT laLineGraphTickPosition laLineGraphWidget_GetCategoryAxisTicksPositio
 
 */
 LIB_EXPORT laResult laLineGraphWidget_SetCategoryAxisTicksPosition(laLineGraphWidget* graph, laLineGraphTickPosition position);
+
+// internal use only
+void _laLineGraphWidget_GetGraphRect(laLineGraphWidget* graph,
+                                           GFX_Rect * graphRect);
+
+GFX_Point _laLineGraphWidget_GetValuePoint(laLineGraphWidget* graph,
+                                     uint32_t seriesID,
+                                     uint32_t categoryIndex,
+                                     GFX_Point originPoint);
+
+GFX_Point _laLineGraphWidget_GetOriginPoint(laLineGraphWidget* graph);
 
 #endif // LA_LINE_GRAPH_WIDGET_ENABLED
 #endif /* LIBARIA_WIDGET_LINE_GRAPH_H */

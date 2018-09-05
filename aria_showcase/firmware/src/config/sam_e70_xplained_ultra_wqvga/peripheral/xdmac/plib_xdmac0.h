@@ -64,8 +64,6 @@ SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
 /* XDMAC Channels */
 typedef enum {
     XDMAC_CHANNEL_0,
-    XDMAC_CHANNELS_NUMBER
-
 } XDMAC_CHANNEL;
 
 
@@ -89,29 +87,21 @@ typedef void (*XDMAC_CHANNEL_CALLBACK)( XDMAC_TRANSFER_EVENT event, uintptr_t co
 
 /****************************** XDMAC API *********************************/
 
-void XDMAC_Initialize( void );
+void XDMAC0_Initialize( void );
 
-void XDMAC_ChannelCallbackRegister( XDMAC_CHANNEL channel, const XDMAC_CHANNEL_CALLBACK eventHandler, const uintptr_t contextHandle );
+void XDMAC0_ChannelCallbackRegister( XDMAC_CHANNEL channel, const XDMAC_CHANNEL_CALLBACK eventHandler, const uintptr_t contextHandle );
 
-void XDMAC_ChannelTransfer( XDMAC_CHANNEL channel, const void *srcAddr, const void *destAddr, size_t blockSize );
+void XDMAC0_ChannelTransfer( XDMAC_CHANNEL channel, const void *srcAddr, const void *destAddr, size_t blockSize );
 
-bool XDMAC_ChannelIsBusy (XDMAC_CHANNEL channel);
+bool XDMAC0_ChannelIsBusy (XDMAC_CHANNEL channel);
 
-void XDMAC_ChannelDisable (XDMAC_CHANNEL channel);
+void XDMAC0_ChannelDisable (XDMAC_CHANNEL channel);
 
-XDMAC_CHANNEL_CONFIG XDMAC_ChannelSettingsGet (XDMAC_CHANNEL channel);
+XDMAC_CHANNEL_CONFIG XDMAC0_ChannelSettingsGet (XDMAC_CHANNEL channel);
 
-bool XDMAC_ChannelSettingsSet (XDMAC_CHANNEL channel, XDMAC_CHANNEL_CONFIG setting);
+bool XDMAC0_ChannelSettingsSet (XDMAC_CHANNEL channel, XDMAC_CHANNEL_CONFIG setting);
 
-void XDMAC_ChannelBlockLengthSet (XDMAC_CHANNEL channel, uint16_t length);
-// *****************************************************************************
-// *****************************************************************************
-// Section: Local: **** Do Not Use ****
-// *****************************************************************************
-// *****************************************************************************
-
-void XDMAC_InterruptHandler(void);
-
+void XDMAC0_ChannelBlockLengthSet (XDMAC_CHANNEL channel, uint16_t length);
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

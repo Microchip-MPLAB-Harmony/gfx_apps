@@ -98,7 +98,7 @@ static void drawCircle(laCircleWidget* cir)
         GFX_Set(GFXF_DRAW_THICKNESS, cir->thickness);
         GFX_DrawArc(p.x, p.y, cir->radius, 0, 360);
         
-        if (cir->filled == true && 
+        if (cir->filled == LA_TRUE && 
             cir->thickness < cir->radius)
         {
             GFX_Set(GFXF_DRAW_COLOR, cir->widget.scheme->background);

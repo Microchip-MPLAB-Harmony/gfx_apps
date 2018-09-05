@@ -4,9 +4,11 @@
 
 #include "gfx/libaria/inc/libaria_context.h"
 #include "gfx/hal/inc/gfx_math.h"
+#include "gfx/hal/inc/gfx_draw_arc.h"
 #include "gfx/libaria/inc/libaria_string.h"
 #include "gfx/libaria/inc/libaria_utils.h"
 #include "gfx/libaria/inc/libaria_widget.h"
+#include "gfx/libaria/inc/libaria_layer.h"
 
 #define DEFAULT_WIDTH           101
 #define DEFAULT_HEIGHT          101
@@ -297,8 +299,137 @@ uint32_t laCircularSliderWidget_GetValue(laCircularSliderWidget* slider)
     return slider->value;
 }
 
+GFX_Rect _laCircularSliderWidget_GetDamagedRect(laCircularSliderWidget* slider, uint32_t newValue)
+{
+    GFX_Point centerPtOld, centerPtNew;
+    GFX_Rect rect, damagedRect = GFX_Rect_Zero, widgetRect;
+    int32_t valueCenterAngleOld, valueCenterAngleNew, valueEndAngleOld, valueEndAngleNew;
+    uint32_t offset = 0;
+    uint32_t sliderThickness;
+    ARC_DIR dir = CCW;
+    
+    valueCenterAngleOld = (int32_t) ((slider->value - slider->startValue)* slider->degPerUnit);
+    valueCenterAngleNew = (int32_t) ((newValue - slider->startValue)* slider->degPerUnit);
+    
+    if (slider->direction == CIRCULAR_SLIDER_DIR_COUNTER_CLOCKWISE)
+    {
+        valueEndAngleOld = slider->startAngle + valueCenterAngleOld;
+        valueEndAngleNew = slider->startAngle + valueCenterAngleNew;
+    }
+    else
+    {
+        valueEndAngleOld = 360 + slider->startAngle - valueCenterAngleOld;
+        valueEndAngleNew = 360 + slider->startAngle - valueCenterAngleNew;
+    }
+
+    if (valueEndAngleOld < 0)
+        valueEndAngleOld = -valueEndAngleOld;
+
+    if (valueEndAngleOld > 360)
+        valueEndAngleOld %= 360;
+    
+    if (valueEndAngleNew < 0)
+        valueEndAngleNew = -valueEndAngleNew;
+
+    if (valueEndAngleNew > 360)
+        valueEndAngleNew %= 360;    
+    
+    centerPtOld = _laCircularSliderWidget_GetCircleCenterPointAtValue(slider, slider->value);
+    centerPtNew = _laCircularSliderWidget_GetCircleCenterPointAtValue(slider, newValue);
+    
+    sliderThickness = slider->outsideBorderArc.thickness +
+        slider->activeArc.thickness + slider->insideBorderArc.thickness;
+            
+    if (slider->circleButtonArc.visible == LA_TRUE)
+        offset = slider->circleButtonArc.radius;
+    
+    if (offset < sliderThickness/2)
+        offset = sliderThickness/2;
+    
+    //Combine the rects for old and new value
+    rect.x = centerPtOld.x - offset;
+    rect.y = centerPtOld.y - offset;
+    rect.width = rect.height = offset * 2;
+    
+    damagedRect = rect;
+        
+    rect.x = centerPtNew.x - offset;
+    rect.y = centerPtNew.y - offset;
+    rect.width = rect.height = offset * 2;
+    
+    damagedRect = GFX_RectCombine(&damagedRect, &rect);
+    
+    //Combine the rects for traversed quadrants
+    widgetRect = laUtils_WidgetLocalRect((laWidget*)slider);
+    laUtils_RectToLayerSpace((laWidget*)slider, &widgetRect);
+    
+    rect.width = slider->radius;
+    rect.height = slider->radius;
+    
+    if (slider->direction == CIRCULAR_SLIDER_DIR_COUNTER_CLOCKWISE)
+        if (newValue < slider->value)
+            dir = CW;
+        else
+            dir = CCW;
+    else
+        if (newValue < slider->value)
+            dir = CCW;
+        else
+            dir = CW;
+        
+    if (arcsOverlapQuadrant(valueEndAngleOld, 
+                            valueEndAngleNew, 
+                            dir,
+                            Q1) == GFX_TRUE)
+    {
+        rect.x = widgetRect.x + widgetRect.width / 2;
+        rect.y = widgetRect.y + widgetRect.height / 2 - slider->radius;
+        
+        damagedRect = GFX_RectCombine(&damagedRect, &rect);
+    }
+        
+    if (arcsOverlapQuadrant(valueEndAngleOld, 
+                            valueEndAngleNew, 
+                            dir,
+                            Q2) == GFX_TRUE)
+    {
+        rect.x = widgetRect.x + widgetRect.width / 2 - slider->radius;
+        rect.y = widgetRect.y + widgetRect.height / 2 - slider->radius;
+        
+        damagedRect = GFX_RectCombine(&damagedRect, &rect);
+    }
+        
+    if (arcsOverlapQuadrant(valueEndAngleOld, 
+                            valueEndAngleNew, 
+                            dir,
+                            Q3) == GFX_TRUE)
+    {
+        rect.x = widgetRect.x + widgetRect.width / 2 - slider->radius;
+        rect.y = widgetRect.y + widgetRect.height / 2;
+        
+        damagedRect = GFX_RectCombine(&damagedRect, &rect);
+    }
+        
+    if (arcsOverlapQuadrant(valueEndAngleOld, 
+                            valueEndAngleNew, 
+                            dir,
+                            Q4) == GFX_TRUE)
+
+    {
+        rect.x = widgetRect.x + widgetRect.width / 2;
+        rect.y = widgetRect.y + widgetRect.height / 2;
+        
+        damagedRect = GFX_RectCombine(&damagedRect, &rect);
+    }
+            
+    return damagedRect;
+}
+
 laResult laCircularSliderWidget_SetValue(laCircularSliderWidget* slider, uint32_t value)
 {
+    GFX_Rect damagedRect;
+    GFX_PipelineMode pipelineMode;
+    
     if(slider == NULL)
         return LA_FAILURE;
         
@@ -307,10 +438,22 @@ laResult laCircularSliderWidget_SetValue(laCircularSliderWidget* slider, uint32_
 
     if (value < slider->startValue || value > slider->endValue)
         return LA_FAILURE;
-        
-    slider->value = value;
     
-    laWidget_Invalidate((laWidget*)slider);
+    GFX_Get(GFXF_DRAW_PIPELINE_MODE, &pipelineMode);
+    if (pipelineMode == GFX_PIPELINE_GPU)
+    {
+        laWidget_Invalidate((laWidget*)slider);
+    }
+    else
+    {
+        damagedRect = _laCircularSliderWidget_GetDamagedRect(slider, value);
+
+        laLayer_AddDamageRect(laUtils_GetLayer((laWidget*)slider),
+                                  &damagedRect,
+                                  LA_FALSE);
+    }
+
+    slider->value = value;
     
     if (slider->valueChangedCallback != NULL)
     {

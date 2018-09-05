@@ -15,20 +15,6 @@
 
 typedef enum 
 {
-    Q1,
-    Q2,
-    Q3,
-    Q4
-} QUADRANT;
-
-typedef enum 
-{
-    CCW,
-    CW,
-} ARC_DIR;
-
-typedef enum 
-{
     ON_LINE,
     LEFT_OF_LINE,
     RIGHT_OF_LINE,
@@ -48,10 +34,9 @@ static GFX_Result rejectArc(int32_t x,
        return GFX_FAILURE;
 #endif
     
-    rect.x = x;
-    rect.width = radius + radius;
-    rect.y = y;
-    rect.height = rect.width;    
+    rect.x = x - radius;
+    rect.y = y - radius;
+    rect.height = rect.width = 2 * radius;    
 
 #if GFX_LAYER_CLIPPING_ENABLED
     // clip rect against layer rect
