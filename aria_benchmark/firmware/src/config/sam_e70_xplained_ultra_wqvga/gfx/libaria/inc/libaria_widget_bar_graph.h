@@ -54,6 +54,10 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // Section: Data Types and Constants
 // *****************************************************************************
 // *****************************************************************************
+#define MAX_TICK_LABEL_DIGITS 10
+#define MAX_TICK_LABEL_VALUE 999999999
+#define LABEL_OFFSET_MIN_PIX 5
+
 typedef enum laBarGraphValueAxis_t
 {
     BAR_GRAPH_AXIS_0 = 0,
@@ -1075,6 +1079,10 @@ LIB_EXPORT laBarGraphTickPosition laBarGraphWidget_GetCategoryAxisTicksPosition(
 
 */
 LIB_EXPORT laResult laBarGraphWidget_SetCategoryAxisTicksPosition(laBarGraphWidget* graph, laBarGraphTickPosition position);
+
+//Internal use only
+void _laBarGraphWidget_GetGraphRect(laBarGraphWidget* graph,
+                                           GFX_Rect * graphRect);
 
 #endif // LA_BAR_GRAPH_WIDGET_ENABLED
 #endif /* LIBARIA_WIDGET_BAR_GRAPH_H */

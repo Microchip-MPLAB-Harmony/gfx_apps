@@ -46,6 +46,20 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #if GFX_DRAW_PIPELINE_ENABLED
 
+typedef enum 
+{
+    Q1,
+    Q2,
+    Q3,
+    Q4
+} QUADRANT;
+
+typedef enum 
+{
+    CCW,
+    CW,
+} ARC_DIR;
+
 typedef struct GFX_DrawState_t GFX_DrawState;
 
 // internal use only
@@ -54,6 +68,11 @@ GFX_Result cpuDrawArc_Fill(const GFX_Point* pt,
                            int32_t startAngle,
                            int32_t endAngle,
                            const GFX_DrawState* state);
+
+GFX_Bool arcsOverlapQuadrant(int32_t startAngleArc0, 
+                             int32_t endAngleArc0, 
+                             ARC_DIR dir, 
+                             uint32_t quadrant);
 
 #endif // GFX_DRAW_PIPELINE_ENABLED
 #endif /* GFX_DRAW_ARC_H */

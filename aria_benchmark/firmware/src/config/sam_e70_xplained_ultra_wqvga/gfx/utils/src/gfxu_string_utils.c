@@ -215,11 +215,15 @@ GFXU_FontAsset* GFXU_StringFontIndexLookup(GFXU_StringTableAsset* table,
                                            uint32_t stringID,
                                            uint32_t languageID)
 {
-    uint8_t* indexTable = table->fontIndexTable;
+    uint8_t* indexTable;
     uint32_t i;
     
-    if(stringID >= table->stringCount || languageID >= table->languageCount)
+    if(table == NULL || 
+       stringID >= table->stringCount || 
+       languageID >= table->languageCount)
         return GFX_NULL;
+    
+    indexTable = table->fontIndexTable;
     
     // skip header
     indexTable += 3;

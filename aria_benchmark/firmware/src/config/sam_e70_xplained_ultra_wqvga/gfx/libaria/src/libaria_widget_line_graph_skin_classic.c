@@ -273,15 +273,13 @@ static void drawSeriesPoint(laLineGraphDataSeries * series, GFX_Point point)
     }    
 }
 
-
 //Gets the rectangle of the graph area (without labels or ticks)
-static void _laLineGraphWidget_GetGraphRect(laLineGraphWidget* graph,
+void _laLineGraphWidget_GetGraphRect(laLineGraphWidget* graph,
                                            GFX_Rect * graphRect)
 {
     GFX_Point p;
     laMargin margin;
     GFX_Rect widgetRect, valueLabelMaxRect, categoryLabelMaxRect;
-    laLayer* layer = laUtils_GetLayer((laWidget*)graph);
     
     widgetRect = laUtils_WidgetLocalRect((laWidget*)graph);
     laUtils_RectToLayerSpace((laWidget*)graph, &widgetRect);
@@ -293,97 +291,94 @@ static void _laLineGraphWidget_GetGraphRect(laLineGraphWidget* graph,
     *graphRect = GFX_Rect_Zero;
     categoryLabelMaxRect = GFX_Rect_Zero;
     
-    if (GFX_RectIntersects(&layer->clippedDrawingRect, &widgetRect) == LA_TRUE)
+    margin = graph->widget.margin;
+    graphRect->x = p.x + margin.left;
+    graphRect->width = widgetRect.width - margin.left - margin.right;
+
+    if (graph->valueAxisTicksVisible)
     {
-        margin = graph->widget.margin;
-        graphRect->x = p.x + margin.left;
-        graphRect->width = widgetRect.width - margin.left - margin.right;
-        
-        if (graph->valueAxisTicksVisible)
+        switch (graph->valueAxisTicksPosition)
         {
-            switch (graph->valueAxisTicksPosition)
+            case LINE_GRAPH_TICK_OUT:
             {
-                case LINE_GRAPH_TICK_OUT:
-                {
-                    graphRect->x += graph->tickLength;
-                    graphRect->width -= graph->tickLength;
-                    break;
-                }
-                case LINE_GRAPH_TICK_CENTER:
-                {
-                    graphRect->x += graph->tickLength/2;
-                    graphRect->width -= graph->tickLength/2;
-                    break;
-                }
-                default:
-                    break;
+                graphRect->x += graph->tickLength;
+                graphRect->width -= graph->tickLength;
+                break;
             }
+            case LINE_GRAPH_TICK_CENTER:
+            {
+                graphRect->x += graph->tickLength/2;
+                graphRect->width -= graph->tickLength/2;
+                break;
+            }
+            default:
+                break;
         }
+    }
 
-        graphRect->y = p.y + margin.top;
-        graphRect->height = widgetRect.height - margin.top - margin.bottom;
+    graphRect->y = p.y + margin.top;
+    graphRect->height = widgetRect.height - margin.top - margin.bottom;
 
-        if (graph->valueAxisLabelsVisible)
-        {
-            getValueLabelMaxDrawRect(graph, &valueLabelMaxRect);
-            
-            graphRect->y += valueLabelMaxRect.height / 2 + LABEL_OFFSET_MIN_PIX;
-            graphRect->height -= valueLabelMaxRect.height / 2  + LABEL_OFFSET_MIN_PIX;
-        }
-        
-        if (graph->categAxisTicksVisible)
-        {
-            switch (graph->categAxisTicksPosition)
-            {
-                case LINE_GRAPH_TICK_OUT:
-                {
-                    graphRect->height -= graph->tickLength;
-                    break;
-                }
-                case LINE_GRAPH_TICK_CENTER:
-                {
-                    graphRect->height -= graph->tickLength/2;
-                    break;
-                }
-                default:
-                    break;
-            }
-        }
-        
-        if (graph->categAxisLabelsVisible)
-        {
-            getCategoryLabelMaxDrawRect(graph, &categoryLabelMaxRect);
-        }
+    if (graph->valueAxisLabelsVisible)
+    {
+        getValueLabelMaxDrawRect(graph, &valueLabelMaxRect);
 
-        if (categoryLabelMaxRect.height > (valueLabelMaxRect.height / 2))
+        graphRect->y += valueLabelMaxRect.height / 2 + LABEL_OFFSET_MIN_PIX;
+        graphRect->height -= valueLabelMaxRect.height / 2  + LABEL_OFFSET_MIN_PIX;
+    }
+
+    if (graph->categAxisTicksVisible)
+    {
+        switch (graph->categAxisTicksPosition)
         {
-            graphRect->height -= (categoryLabelMaxRect.height +  LABEL_OFFSET_MIN_PIX);
-        }
-        else if (valueLabelMaxRect.height != 0)
-        {
-            graphRect->height -= (valueLabelMaxRect.height / 2 +  LABEL_OFFSET_MIN_PIX);
-        }
-        
-        if (graph->fillValueArea == LA_TRUE)
-        {
-            if ((categoryLabelMaxRect.width / 2) > valueLabelMaxRect.width)
+            case LINE_GRAPH_TICK_OUT:
             {
-                graphRect->x += (categoryLabelMaxRect.width/2 + LABEL_OFFSET_MIN_PIX * 2);
-                graphRect->width -= (categoryLabelMaxRect.width/2 + LABEL_OFFSET_MIN_PIX * 2);
+                graphRect->height -= graph->tickLength;
+                break;
             }
-            else
+            case LINE_GRAPH_TICK_CENTER:
             {
-                graphRect->x += (valueLabelMaxRect.width + LABEL_OFFSET_MIN_PIX * 2);
-                graphRect->width -= (valueLabelMaxRect.width + LABEL_OFFSET_MIN_PIX * 2);
+                graphRect->height -= graph->tickLength/2;
+                break;
             }
-            
-            graphRect->width -= (categoryLabelMaxRect.width/2 + LABEL_OFFSET_MIN_PIX);
+            default:
+                break;
         }
-        else if (valueLabelMaxRect.width != 0)
+    }
+
+    if (graph->categAxisLabelsVisible)
+    {
+        getCategoryLabelMaxDrawRect(graph, &categoryLabelMaxRect);
+    }
+
+    if (categoryLabelMaxRect.height > (valueLabelMaxRect.height / 2))
+    {
+        graphRect->height -= (categoryLabelMaxRect.height +  LABEL_OFFSET_MIN_PIX);
+    }
+    else if (valueLabelMaxRect.height != 0)
+    {
+        graphRect->height -= (valueLabelMaxRect.height / 2 +  LABEL_OFFSET_MIN_PIX);
+    }
+
+    if (graph->fillValueArea == LA_TRUE)
+    {
+        if ((categoryLabelMaxRect.width / 2) > valueLabelMaxRect.width)
+        {
+            graphRect->x += (categoryLabelMaxRect.width/2 + LABEL_OFFSET_MIN_PIX * 2);
+            graphRect->width -= (categoryLabelMaxRect.width/2 + LABEL_OFFSET_MIN_PIX * 2);
+        }
+        else
         {
             graphRect->x += (valueLabelMaxRect.width + LABEL_OFFSET_MIN_PIX * 2);
             graphRect->width -= (valueLabelMaxRect.width + LABEL_OFFSET_MIN_PIX * 2);
         }
+
+        graphRect->width -= (categoryLabelMaxRect.width/2 + LABEL_OFFSET_MIN_PIX);
+    }
+    else if (valueLabelMaxRect.width != 0)
+    {
+        graphRect->x += (valueLabelMaxRect.width + LABEL_OFFSET_MIN_PIX * 2);
+        graphRect->width -= (valueLabelMaxRect.width + LABEL_OFFSET_MIN_PIX * 2);
     }
 }
 
@@ -404,7 +399,7 @@ static void drawLineGraph(laLineGraphWidget* graph)
         GFX_RectClip(&widgetRect, &layer->clippedDrawingRect, &clipRect);
         
         GFX_Set(GFXF_DRAW_CLIP_RECT, &clipRect);
-        GFX_Set(GFXF_DRAW_CLIP_ENABLE, &clipRect);
+        GFX_Set(GFXF_DRAW_CLIP_ENABLE, LA_TRUE);
         
         _laLineGraphWidget_GetGraphRect(graph, &graphRect);
         
@@ -490,23 +485,20 @@ static void drawLineGraph(laLineGraphWidget* graph)
         }
         
         //Determine the origin point
-        originPoint.x = graphRect.x;
+        originPoint = _laLineGraphWidget_GetOriginPoint(graph);
         if (graph->minValue < 0 && graph->maxValue > 0)
         {
-            originPoint.y = graphRect.y + (int32_t) ((float) graph->maxValue * pixelsPerUnit);
             originValue = 0;
         }
         else if (graph->minValue >= 0)
         {
-            originPoint.y = graphRect.y + graphRect.height;
             originValue = graph->minValue;
         }
         else if (graph->maxValue <= 0)
         {
-            originPoint.y = graphRect.y;
             originValue = graph->maxValue;
         }
-
+        
         //Draw the ticks
         if (graph->valueAxisTicksVisible || graph->valueGridlinesVisible)
         {

@@ -51,8 +51,8 @@ GFX_Result GFXU_DrawImageJpgInternal(GFXU_ImageAsset* img,
     // and draw the entire image
     if(src_x != 0 ||
        src_y != 0 ||
-       src_width != img->width ||
-       src_height != img->height)
+       src_width <= img->width ||
+       src_height <= img->height)
     {
         rect.x = dest_x;
         rect.y = dest_y;

@@ -44,6 +44,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #ifndef SYS_PORTS_MAPPING_H
 #define SYS_PORTS_MAPPING_H
 
+
+
 #include "peripheral/pio/plib_pio.h"
 
 // *****************************************************************************
@@ -51,6 +53,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // Section: PORTS System Service Mapping
 // *****************************************************************************
 // *****************************************************************************
+
+
 static inline void SYS_PORT_PinWrite(SYS_PORT_PIN pin, bool value)
 {
     PIO_PinWrite((PIO_PIN)pin, value);
