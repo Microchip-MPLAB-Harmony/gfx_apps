@@ -40371,14 +40371,14 @@ GFXU_FontGlyphIndexTable ArialUnicodeMS_Tiny_index_table =
 	21, // range count
     {
 	    /* 0x20 */
-    {
+        {
 		    1, // glyph count
 		    0x20, // starting glyph id
 		    0x20, // ending glyph id
 		    ArialUnicodeMS_Tiny_lookup_20 // glyph lookup table
         },
 	    /* 0x25 */
-    {
+        {
 		    1, // glyph count
 		    0x25, // starting glyph id
 		    0x25, // ending glyph id

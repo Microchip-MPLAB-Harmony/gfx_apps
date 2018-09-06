@@ -102,7 +102,7 @@ static void drawCircularSlider(laCircularSliderWidget* slider)
         GFX_RectClip(&sliderRect, &layer->clippedDrawingRect, &clipRect);
         
         GFX_Set(GFXF_DRAW_CLIP_RECT, &clipRect);
-        GFX_Set(GFXF_DRAW_CLIP_ENABLE, &clipRect);
+        GFX_Set(GFXF_DRAW_CLIP_ENABLE, GFX_TRUE);
         GFX_Set(GFXF_DRAW_MODE, GFX_DRAW_LINE);
         GFX_Set(GFXF_DRAW_COLOR, slider->widget.scheme->foreground);
 

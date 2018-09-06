@@ -469,7 +469,7 @@ uint32_t laListWidget_AppendItem(laListWidget* lst)
     if(item == NULL)
         return -1;
         
-    item->enabled = true;
+    item->enabled = LA_TRUE;
         
     laString_Initialize(&item->string);
     

@@ -43,7 +43,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
-
 #include "configuration.h"
 #include "definitions.h"
 
@@ -138,7 +137,6 @@ const DRV_MAXTOUCH_INIT drvMAXTOUCHInitData =
 // *****************************************************************************
 /* Structure to hold the object handles for the modules in the system. */
 SYSTEM_OBJECTS sysObj;
-
 // *****************************************************************************
 // *****************************************************************************
 // Section: Library/Stack Initialization Data
@@ -187,9 +185,9 @@ void SYS_Initialize ( void* data )
 	PIO_Initialize();
 
     NVIC_Initialize();
-    XDMAC_Initialize();
-	RSWDT_REGS->RSWDT_MR|= RSWDT_MR_WDDIS_Msk;	// Disable RSWDT 
-	WDT_REGS->WDT_MR|= WDT_MR_WDDIS_Msk; 		// Disable WDT 
+    XDMAC0_Initialize();
+	RSWDT_REGS->RSWDT_MR = RSWDT_MR_WDDIS_Msk;	// Disable RSWDT 
+	WDT_REGS->WDT_MR = WDT_MR_WDDIS_Msk; 		// Disable WDT 
 	BSP_Initialize();
     SMC0_Initialize();
  
@@ -207,7 +205,6 @@ void SYS_Initialize ( void* data )
 
     LibAria_Initialize(); // initialize UI library
 SYS_INP_Init();
-
 
     APP_Initialize();
 

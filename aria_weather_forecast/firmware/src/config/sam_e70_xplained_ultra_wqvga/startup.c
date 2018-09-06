@@ -162,6 +162,7 @@ __STATIC_INLINE void __attribute__((optimize("-O1"))) TCM_Disable(void)
 
 
 
+
 /* Optional application-provided functions */
 extern void __attribute__((weak,long_call)) _on_reset(void);
 extern void __attribute__((weak,long_call)) _on_bootstrap(void);
@@ -194,14 +195,13 @@ void __attribute__((optimize("-O1"), section(".text.Reset_Handler"), long_call))
     FPU_Enable();
 #endif
 
-    TCM_Configure(0);
-
     /* Disable TCM  */
     TCM_Disable();
 
     /* Initialize data after TCM is enabled.
      * Data initialization from the XC32 .dinit template */
     __pic32c_data_initialization();
+	
 
 #  ifdef SCB_VTOR_TBLOFF_Msk
     /*  Set the vector-table base address in FLASH */
@@ -233,7 +233,6 @@ void __attribute__((optimize("-O1"), section(".text.Reset_Handler"), long_call))
 
     /* Branch to application's main function */
     main();
-
 #if (defined(__DEBUG) || defined(__DEBUG_D)) && defined(__XC32)
     __builtin_software_breakpoint();
 #endif

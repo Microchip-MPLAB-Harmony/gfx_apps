@@ -196,7 +196,7 @@ void PIO_PortWrite(PIO_PORT port, uint32_t mask, uint32_t value)
 
 // *****************************************************************************
 /* Function:
-    uint32_t PIO_PortReadLatch ( PIO_PORT port )
+    uint32_t PIO_PortLatchRead ( PIO_PORT port )
 
   Summary:
     Read the latched value on all the I/O lines of the selected port.
@@ -204,7 +204,7 @@ void PIO_PortWrite(PIO_PORT port, uint32_t mask, uint32_t value)
   Remarks:
     See plib_pio.h for more details.
 */
-uint32_t PIO_PortReadLatch(PIO_PORT port)
+uint32_t PIO_PortLatchRead(PIO_PORT port)
 {
     return ((pio_registers_t*)port)->PIO_ODSR;
 }
@@ -283,36 +283,6 @@ void PIO_PortInputEnable(PIO_PORT port, uint32_t mask)
 void PIO_PortOutputEnable(PIO_PORT port, uint32_t mask)
 {
     ((pio_registers_t*)port)->PIO_OER = mask;
-}
-
-// *****************************************************************************
-/* Function:
-    void PIO_PortInterruptEnable(PIO_PORT port, uint32_t mask)
-
-  Summary:
-    Enables IO interrupt on selected IO pins of a port.
-
-  Remarks:
-    See plib_pio.h for more details.
-*/
-void PIO_PortInterruptEnable(PIO_PORT port, uint32_t mask)
-{
-    ((pio_registers_t*)port)->PIO_IER = mask;
-}
-
-// *****************************************************************************
-/* Function:
-    void PIO_PortInterruptDisable(PIO_PORT port, uint32_t mask)
-
-  Summary:
-    Disables IO interrupt on selected IO pins of a port.
-
-  Remarks:
-    See plib_pio.h for more details.
-*/
-void PIO_PortInterruptDisable(PIO_PORT port, uint32_t mask)
-{
-    ((pio_registers_t*)port)->PIO_IDR = mask;
 }
 
 

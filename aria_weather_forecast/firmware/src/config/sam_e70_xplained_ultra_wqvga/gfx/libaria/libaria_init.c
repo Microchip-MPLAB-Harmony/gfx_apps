@@ -683,7 +683,6 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetBackgroundType((laWidget*)TempPrecipitaionGraph, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)TempPrecipitaionGraph, LA_WIDGET_BORDER_NONE);
     laBarGraphWidget_SetFillGraphArea(TempPrecipitaionGraph, false);
-    laBarGraphWidget_SetStacked(TempPrecipitaionGraph, LA_FALSE);
     laBarGraphWidget_SetValueAxisTickInterval(TempPrecipitaionGraph, 0, 25);
     laBarGraphWidget_SetValueAxisLabelsVisible(TempPrecipitaionGraph, 0, LA_FALSE);
     laBarGraphWidget_SetValueAxisTicksVisible(TempPrecipitaionGraph, 0, LA_FALSE);

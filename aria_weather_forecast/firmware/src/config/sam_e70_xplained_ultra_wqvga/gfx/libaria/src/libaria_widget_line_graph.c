@@ -6,6 +6,7 @@
 #include "gfx/libaria/inc/libaria_string.h"
 #include "gfx/libaria/inc/libaria_utils.h"
 #include "gfx/libaria/inc/libaria_widget.h"
+#include "gfx/libaria/inc/libaria_layer.h"
 
 #define DEFAULT_WIDTH           101
 #define DEFAULT_HEIGHT          101
@@ -82,6 +83,87 @@ laLineGraphWidget* laLineGraphWidget_New()
     _laLineGraphWidget_Constructor(graph);
 
     return graph;
+}
+
+GFX_Rect _laLineGraphWidget_GetValueDamagedRect(laLineGraphWidget* graph,
+                                      uint32_t seriesID,
+                                      uint32_t categoryID)
+{
+    
+    GFX_Rect damagedRect;
+    GFX_Rect graphRect;
+    
+    _laLineGraphWidget_GetGraphRect(graph, &graphRect);
+    
+    if (graph->stacked == LA_TRUE)
+    {
+        GFX_Rect widgetRect;
+    
+        widgetRect = laUtils_WidgetLayerRect((laWidget *) graph);
+        
+        damagedRect.height = widgetRect.height;
+        damagedRect.y = widgetRect.y;
+    
+        if (graph->fillValueArea == LA_TRUE &&
+            graph->categories.size > 1)
+        {
+            damagedRect.x = graphRect.x + categoryID * graphRect.width / (graph->categories.size - 1);
+            damagedRect.x -= graphRect.width / (graph->categories.size - 1);
+            damagedRect.width = 2 * graphRect.width / (graph->categories.size - 1);
+        }
+        else
+        {
+            damagedRect.x = graphRect.x + (categoryID + 1) * graphRect.width / (graph->categories.size + 1);
+            damagedRect.x -= graphRect.width / (graph->categories.size + 1);
+            damagedRect.width = 2 * graphRect.width / (graph->categories.size + 1);
+        }
+    }
+    else
+    {
+        //Get the rectangle for the point and adjacent point/s and combine them
+        GFX_Point valuePoint;
+        GFX_Point originPoint;
+        GFX_Rect valueRect;
+        laLineGraphDataSeries * series;
+        
+        originPoint = _laLineGraphWidget_GetOriginPoint(graph);
+        
+        valuePoint = _laLineGraphWidget_GetValuePoint(graph, seriesID, categoryID, originPoint);
+        series = laArray_Get(&graph->dataSeries, seriesID);
+        
+        valueRect.x = valuePoint.x - (series->pointSize/2 + 2);
+        valueRect.y = valuePoint.y - (series->pointSize/2 + 2);
+        valueRect.height = valueRect.width = series->pointSize + 4;
+        
+        damagedRect = valueRect;
+        
+        if (series->drawLines == LA_TRUE || graph->fillValueArea == LA_TRUE)
+        {
+            //Get point from previous category
+            if (categoryID > 0)
+            {
+                valuePoint = _laLineGraphWidget_GetValuePoint(graph, seriesID, categoryID - 1, originPoint);
+                valueRect.x = valuePoint.x - (series->pointSize/2 + 2);
+                valueRect.y = valuePoint.y - (series->pointSize/2 + 2);
+                valueRect.height = valueRect.width = series->pointSize + 4;
+                    
+                damagedRect = GFX_RectCombine(&damagedRect, &valueRect);
+            }
+            
+            //Get point from next category
+            if (categoryID + 1 < graph->categories.size)
+            {
+                valuePoint = _laLineGraphWidget_GetValuePoint(graph, seriesID, categoryID + 1, originPoint);
+                valueRect.x = valuePoint.x - series->pointSize/2 + 2;
+                valueRect.y = valuePoint.y - series->pointSize/2 + 2;
+                valueRect.height = valueRect.width = series->pointSize + 4;
+
+                damagedRect = GFX_RectCombine(&damagedRect, &valueRect);
+            }
+        }
+    }
+
+    return damagedRect;
 }
 
 uint32_t laLineGraphWidget_GetTickLength(laLineGraphWidget* graph)
@@ -517,11 +599,14 @@ laResult laLineGraphWidget_AddDataToSeries(laLineGraphWidget* graph, uint32_t se
     return LA_SUCCESS;
 }
 
+GFX_Rect prevDamagedRect, damagedRect;
+
 laResult laLineGraphWidget_SetDataInSeries(laLineGraphWidget* graph, 
                                           uint32_t seriesID,
                                           uint32_t index,
                                           int32_t value)
 {
+
     laLineGraphDataSeries * series;
     int32_t * data;
     
@@ -538,9 +623,23 @@ laResult laLineGraphWidget_SetDataInSeries(laLineGraphWidget* graph,
     
     data = laArray_Get(&series->data, index);
     
+    prevDamagedRect = _laLineGraphWidget_GetValueDamagedRect(graph,
+                                     seriesID,
+                                     index);
+    
     *data = value;
     
-    laWidget_Invalidate((laWidget*)graph);
+    damagedRect = _laLineGraphWidget_GetValueDamagedRect(graph,
+                                     seriesID,
+                                     index);
+    
+    damagedRect = GFX_RectCombine(&prevDamagedRect, &damagedRect);
+
+    laLayer_AddDamageRect(laUtils_GetLayer((laWidget*)graph),
+                          &damagedRect,
+                          LA_FALSE);
+    
+//    laWidget_Invalidate((laWidget*)graph);
     
     return LA_SUCCESS;
 }
@@ -911,6 +1010,129 @@ laResult laLineGraphWidget_SetCategoryAxisTicksPosition(laLineGraphWidget* graph
     laWidget_Invalidate((laWidget*)graph);
         
     return LA_SUCCESS;      
+}
+
+GFX_Point _laLineGraphWidget_GetOriginPoint(laLineGraphWidget* graph)
+{
+    GFX_Point originPoint = {0};
+    GFX_Rect graphRect = {0};
+    float pixelsPerUnit;
+    
+    _laLineGraphWidget_GetGraphRect(graph, &graphRect);
+    
+    pixelsPerUnit = (float) graphRect.height / ((float) graph->maxValue - (float) graph->minValue);
+    
+    originPoint.x = graphRect.x;
+    if (graph->minValue < 0 && graph->maxValue > 0)
+    {
+        originPoint.y = graphRect.y + (int32_t) ((float) graph->maxValue * pixelsPerUnit);
+    }
+    else if (graph->minValue >= 0)
+    {
+        originPoint.y = graphRect.y + graphRect.height;
+    }
+    else if (graph->maxValue <= 0)
+    {
+        originPoint.y = graphRect.y;
+    }
+    
+    return originPoint;
+}
+
+GFX_Point _laLineGraphWidget_GetValuePoint(laLineGraphWidget* graph,
+                                     uint32_t seriesID,
+                                     uint32_t categoryIndex,
+                                     GFX_Point originPoint)
+{
+    GFX_Point valuePoint = {0};
+    GFX_Rect graphRect = {0};
+    int32_t value;
+    int32_t * valuePtr = NULL;
+    laLineGraphDataSeries * series;
+    int32_t originValue = 0;
+    float pixelsPerUnit;
+    
+    _laLineGraphWidget_GetGraphRect(graph, &graphRect);
+    
+    pixelsPerUnit = (float) graphRect.height / ((float) graph->maxValue - (float) graph->minValue);    
+    
+    if (graph->minValue < 0 && graph->maxValue > 0)
+    {
+        originValue = 0;
+    }
+    else if (graph->minValue >= 0)
+    {
+        originValue = graph->minValue;
+    }
+    else if (graph->maxValue <= 0)
+    {
+        originValue = graph->maxValue;
+    }
+    
+    value = originValue;
+    
+    if (graph->stacked == LA_TRUE)
+    {
+        unsigned int i = 0;
+        int32_t stackedPosValue = 0, stackedNegValue = 0;
+        for (i = 0; i < seriesID; i++)
+        {
+            series = laArray_Get(&graph->dataSeries, seriesID);
+            if (series == NULL)
+                break;
+            
+            valuePtr = laArray_Get(&series->data, categoryIndex);
+            if (valuePtr != NULL)
+            {
+                if (*valuePtr > 0)
+                {
+                    stackedPosValue += *valuePtr;
+                    value = stackedPosValue;
+                }
+                else
+                {
+                    stackedNegValue += *valuePtr;
+                    value = stackedNegValue;
+                }
+            }
+        }
+    }
+    else
+    {
+        series = laArray_Get(&graph->dataSeries, seriesID);
+        if (series == NULL)
+            return originPoint;
+            
+        valuePtr = laArray_Get(&series->data, categoryIndex);
+        if (valuePtr != NULL)
+            value = *valuePtr;
+    }
+    
+    if (graph->fillValueArea == LA_TRUE &&
+        graph->categories.size > 1)
+    {
+
+        valuePoint.x = originPoint.x + 
+                      ((categoryIndex * graphRect.width) / (graph->categories.size - 1));
+
+    }
+    else
+    {
+        valuePoint.x = originPoint.x + 
+                      (((categoryIndex + 1) * graphRect.width) / (graph->categories.size + 1));
+    }
+    
+    if (value >= originValue)
+    {
+        valuePoint.y = originPoint.y - (int32_t) ((float)(value - originValue) * pixelsPerUnit);
+    }
+    //draw the points below the origin value
+    else if (value < originValue)
+    {
+        valuePoint.y = originPoint.y + (int32_t) ((float)(originValue - value) * pixelsPerUnit);
+    }
+    
+    return valuePoint;
 }
 
 

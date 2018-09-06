@@ -8,6 +8,9 @@
 #include "gfx/libaria/inc/libaria_string.h"
 #include "gfx/libaria/inc/libaria_utils.h"
 #include "gfx/libaria/inc/libaria_widget.h"
+#include "gfx/libaria/inc/libaria_layer.h"
+
+#include "gfx/hal/inc/gfx_math.h"
 
 #define DEFAULT_WIDTH           101
 #define DEFAULT_HEIGHT          101
@@ -27,6 +30,177 @@
 
 #define DEFAULT_CENTER_CIRCLE_RADIUS 5
 #define DEFAULT_CENTER_CIRCLE_THICKNESS 2
+
+//Invalidates the quadrant where needle is located
+void invalidateHandQuadrant(laCircularGaugeWidget* gauge)
+{
+    GFX_Rect damagedRect;
+    
+    int32_t handAngleOffset = 0, handAbsAngle;
+    int32_t unitOffset = 0;
+    float degPerUnit;
+    GFX_Point p = {0};
+    
+    laUtils_PointToLayerSpace((laWidget*)gauge, &p);
+
+    unitOffset = gauge->value - gauge->startValue;
+    degPerUnit = (float) gauge->centerAngle / (float) (abs(gauge->endValue - gauge->startValue));
+    handAngleOffset = (int32_t) ((float) unitOffset * degPerUnit);
+
+    handAbsAngle = gauge->startAngle + handAngleOffset;
+    while(handAbsAngle < 0)
+    {
+        handAbsAngle += 360;
+    }
+
+    if (handAbsAngle >= 360)
+    {
+        handAbsAngle %= 360;
+    }
+    
+    if (handAbsAngle > 270)
+    {
+        //Invalidate Q4
+        damagedRect.width = laWidget_GetWidth((laWidget*) gauge)/2;
+        damagedRect.height = laWidget_GetHeight((laWidget*) gauge)/2;
+        
+        damagedRect.x = p.x + damagedRect.width;
+        damagedRect.y = p.y + damagedRect.height;
+    }
+    else if (handAbsAngle == 270)
+    {
+        //Invalidate Q3 & Q4
+        damagedRect.width = laWidget_GetWidth((laWidget*) gauge);
+        damagedRect.height = laWidget_GetHeight((laWidget*) gauge)/2;
+        
+        damagedRect.x = p.x;
+        damagedRect.y = p.y + damagedRect.height;
+    }
+    else if (handAbsAngle > 180)
+    {
+        //Invalidate Q3
+        damagedRect.width = laWidget_GetWidth((laWidget*) gauge)/2;
+        damagedRect.height = laWidget_GetHeight((laWidget*) gauge)/2;
+        
+        damagedRect.x = p.x;
+        damagedRect.y = p.y + damagedRect.height;
+    }
+    else if (handAbsAngle == 180)
+    {
+        //Invalidate Q2 & Q3
+        damagedRect.width = laWidget_GetWidth((laWidget*) gauge)/2;
+        damagedRect.height = laWidget_GetHeight((laWidget*) gauge);
+        
+        damagedRect.x = p.x;
+        damagedRect.y = p.y;
+    }
+    else if (handAbsAngle > 90)
+    {
+        //Invalidate Q2
+        damagedRect.width = laWidget_GetWidth((laWidget*) gauge)/2;
+        damagedRect.height = laWidget_GetHeight((laWidget*) gauge)/2;
+        
+        damagedRect.x = p.x;
+        damagedRect.y = p.y;
+    }
+    else if (handAbsAngle == 90)
+    {
+        //Invalidate Q1 & Q2
+        damagedRect.width = laWidget_GetWidth((laWidget*) gauge);
+        damagedRect.height = laWidget_GetHeight((laWidget*) gauge)/2;
+        
+        damagedRect.x = p.x;
+        damagedRect.y = p.y;        
+    }
+    else if (handAbsAngle > 0)
+    {
+        //Invalidate Q1
+        damagedRect.width = laWidget_GetWidth((laWidget*) gauge)/2;
+        damagedRect.height = laWidget_GetHeight((laWidget*) gauge)/2;
+        
+        damagedRect.x = p.x + damagedRect.width;
+        damagedRect.y = p.y;           
+    }
+    else if (handAbsAngle == 0)
+    {
+        //Invalidate Q4 & Q1
+        damagedRect.width = laWidget_GetWidth((laWidget*) gauge)/2;
+        damagedRect.height = laWidget_GetHeight((laWidget*) gauge);
+        
+        damagedRect.x = p.x + damagedRect.width;
+        damagedRect.y = p.y;  
+    }
+        
+    laLayer_AddDamageRect(laUtils_GetLayer((laWidget*)gauge),
+		                  &damagedRect,
+					      LA_FALSE);
+}
+
+//Invalidates the needle rectangle
+static void invalidateHandRect(laCircularGaugeWidget* gauge)
+{
+    GFX_Rect drawRect;
+    
+    GFX_Point outerPoint;
+    int32_t handAngleOffset = 0, handAbsAngle;
+    int32_t unitOffset = 0;
+    float degPerUnit;
+    GFX_Point p;
+    
+    p.x = laWidget_GetWidth((laWidget*) gauge)/2;
+    p.y = laWidget_GetHeight((laWidget*) gauge)/2;
+    
+    laUtils_PointToLayerSpace((laWidget*)gauge, &p);
+
+    unitOffset = gauge->value - gauge->startValue;
+    degPerUnit = (float) gauge->centerAngle / (float) (abs(gauge->endValue - gauge->startValue));
+    handAngleOffset = (int32_t) ((float) unitOffset * degPerUnit);
+
+    handAbsAngle = gauge->startAngle + handAngleOffset;
+    while(handAbsAngle < 0)
+    {
+        handAbsAngle += 360;
+    }
+
+    if (handAbsAngle >= 360)
+    {
+        handAbsAngle %= 360;
+    }
+    
+    GFX_PolarToXY(gauge->handRadius, handAbsAngle, &outerPoint);
+
+  
+    if (p.x > (outerPoint.x + p.x))
+    {
+        drawRect.x = (outerPoint.x + p.x);
+        drawRect.width = -outerPoint.x;
+    }
+    else 
+    {
+        drawRect.x = p.x;
+        drawRect.width = outerPoint.x;
+    }
+    
+    if (p.y > p.y - outerPoint.y)
+    {
+        drawRect.y = p.y - outerPoint.y;
+        drawRect.height = outerPoint.y;
+    }
+    else 
+    {
+        drawRect.y = p.y;
+        drawRect.height = -outerPoint.y;
+    }
+    
+    drawRect.x -= 2;
+    drawRect.y -= 2;
+    drawRect.width += 4;
+    drawRect.height += 4;
+    
+    laLayer_AddDamageRect(laUtils_GetLayer((laWidget*)gauge),
+		                  &drawRect,
+					      LA_FALSE);
+}
 
 void _laCircularGaugeWidget_Constructor(laCircularGaugeWidget* gauge)
 {
@@ -415,6 +589,8 @@ int32_t laCircularGaugeWidget_GetValue(laCircularGaugeWidget* gauge)
 laResult laCircularGaugeWidget_SetValue(laCircularGaugeWidget* gauge, 
                                                    int32_t value)
 {
+    uint32_t bufferCount;
+    
     if (gauge == NULL)
         return LA_FAILURE;
 
@@ -423,11 +599,24 @@ laResult laCircularGaugeWidget_SetValue(laCircularGaugeWidget* gauge,
     
     if (value < gauge->startValue || value > gauge->endValue)
         return LA_FAILURE;
-
-    gauge->value = value;
-
-    laWidget_Invalidate((laWidget*)gauge);
-
+    
+    bufferCount = laLayer_GetBufferCount(laUtils_GetLayer((laWidget*)gauge));
+    
+    //Optimized draw works better w/ single-buffered layers
+    if (bufferCount == 1)
+    {
+        invalidateHandRect(gauge);
+        gauge->value = value;
+        invalidateHandRect(gauge);
+    }
+    else
+    {
+//        invalidateHandQuadrant(gauge);
+        gauge->value = value;
+//        invalidateHandQuadrant(gauge);
+        laWidget_Invalidate((laWidget*)gauge);
+    }
+    
     return LA_SUCCESS;
 }
 
