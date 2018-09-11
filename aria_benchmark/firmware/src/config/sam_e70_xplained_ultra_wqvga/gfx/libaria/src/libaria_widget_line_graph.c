@@ -997,7 +997,7 @@ laLineGraphTickPosition laLineGraphWidget_GetCategoryAxisTicksPosition(laLineGra
     return graph->categAxisTicksPosition;
 }
 
-laResult _laLineGraphWidget_SetCategoryAxisTicksPosition(laLineGraphWidget* graph, laLineGraphTickPosition position)
+laResult laLineGraphWidget_SetCategoryAxisTicksPosition(laLineGraphWidget* graph, laLineGraphTickPosition position)
 {
     if(graph == NULL)
         return LA_FAILURE;
