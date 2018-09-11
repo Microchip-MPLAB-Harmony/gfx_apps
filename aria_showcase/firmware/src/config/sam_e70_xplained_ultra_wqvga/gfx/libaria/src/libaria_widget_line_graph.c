@@ -997,7 +997,7 @@ laLineGraphTickPosition laLineGraphWidget_GetCategoryAxisTicksPosition(laLineGra
     return graph->categAxisTicksPosition;
 }
 
-laResult _laLineGraphWidget_SetCategoryAxisTicksPosition(laLineGraphWidget* graph, laLineGraphTickPosition position)
+laResult laLineGraphWidget_SetCategoryAxisTicksPosition(laLineGraphWidget* graph, laLineGraphTickPosition position)
 {
     if(graph == NULL)
         return LA_FAILURE;
@@ -1049,7 +1049,7 @@ GFX_Point _laLineGraphWidget_GetValuePoint(laLineGraphWidget* graph,
     int32_t value;
     int32_t * valuePtr = NULL;
     laLineGraphDataSeries * series;
-    int32_t originValue;
+    int32_t originValue = 0;
     float pixelsPerUnit;
     
     _laLineGraphWidget_GetGraphRect(graph, &graphRect);
