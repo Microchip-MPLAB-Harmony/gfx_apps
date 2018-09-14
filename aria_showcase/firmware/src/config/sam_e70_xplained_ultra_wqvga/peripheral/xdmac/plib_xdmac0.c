@@ -5,7 +5,7 @@
     Microchip Technology Inc.
 
   File Name:
-    plib_xdmac.c
+    plib_xdmac0.c
 
   Summary:
     XDMAC PLIB Implementation File
@@ -78,21 +78,23 @@ void XDMAC_InterruptHandler( void )
 
             if (chanIntStatus & ( XDMAC_CIS_RBEIS_Msk | XDMAC_CIS_WBEIS_Msk | XDMAC_CIS_ROIS_Msk))
             {
+                xdmacChObj->busyStatus = false;
+
                 /* It's an error interrupt */
                 if (NULL != xdmacChObj->callback)
                 {
                     xdmacChObj->callback(XDMAC_TRANSFER_ERROR, xdmacChObj->context);
                 }
-                xdmacChObj->busyStatus = false;
             }
             else if (chanIntStatus & XDMAC_CIS_BIS_Msk)
             {
+                xdmacChObj->busyStatus = false;
+
                 /* It's a block transfer complete interrupt */
                 if (NULL != xdmacChObj->callback)
                 {
                     xdmacChObj->callback(XDMAC_TRANSFER_COMPLETE, xdmacChObj->context);
                 }
-                xdmacChObj->busyStatus = false;
             }
         }
 
@@ -135,29 +137,35 @@ void XDMAC0_ChannelCallbackRegister( XDMAC_CHANNEL channel, const XDMAC_CHANNEL_
     return;
 }
 
-void XDMAC0_ChannelTransfer( XDMAC_CHANNEL channel, const void *srcAddr, const void *destAddr, size_t blockSize )
+bool XDMAC0_ChannelTransfer( XDMAC_CHANNEL channel, const void *srcAddr, const void *destAddr, size_t blockSize )
 {
     volatile uint32_t status = 0;
+    bool returnStatus = false;
 
-    /* Clear channel level status before adding transfer parameters */
-    status = XDMAC_REGS->XDMAC_CHID[channel].XDMAC_CIS;
-    (void)status;
+    if (xdmacChannelObj[channel].busyStatus == false)
+    {
+        /* Clear channel level status before adding transfer parameters */
+        status = XDMAC_REGS->XDMAC_CHID[channel].XDMAC_CIS;
+        (void)status;
 
-    xdmacChannelObj[channel].busyStatus = true;
+        xdmacChannelObj[channel].busyStatus = true;
 
-    /*Set source address */
-    XDMAC_REGS->XDMAC_CHID[channel].XDMAC_CSA= (uint32_t)srcAddr;
+        /*Set source address */
+        XDMAC_REGS->XDMAC_CHID[channel].XDMAC_CSA= (uint32_t)srcAddr;
 
-    /* Set destination address */
-    XDMAC_REGS->XDMAC_CHID[channel].XDMAC_CDA= (uint32_t)destAddr;
+        /* Set destination address */
+        XDMAC_REGS->XDMAC_CHID[channel].XDMAC_CDA= (uint32_t)destAddr;
 
-    /* Set block size */
-    XDMAC_REGS->XDMAC_CHID[channel].XDMAC_CUBC= XDMAC_CUBC_UBLEN(blockSize);
+        /* Set block size */
+        XDMAC_REGS->XDMAC_CHID[channel].XDMAC_CUBC= XDMAC_CUBC_UBLEN(blockSize);
 
-    /* Enable the channel */
-    XDMAC_REGS->XDMAC_GE= (XDMAC_GE_EN0_Msk << channel);
+        /* Enable the channel */
+        XDMAC_REGS->XDMAC_GE= (XDMAC_GE_EN0_Msk << channel);
 
-    return;
+        returnStatus = true;
+    }
+
+    return returnStatus;
 }
 
 bool XDMAC0_ChannelIsBusy (XDMAC_CHANNEL channel)
@@ -193,6 +201,6 @@ void XDMAC0_ChannelBlockLengthSet (XDMAC_CHANNEL channel, uint16_t length)
 {
     /* Disable the channel */
     XDMAC_REGS->XDMAC_GD= (XDMAC_GD_DI0_Msk << channel);
-    
+
     XDMAC_REGS->XDMAC_CHID[channel].XDMAC_CBC = length;
 }

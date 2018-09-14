@@ -5,7 +5,7 @@
     Microchip Technology Inc.
 
   File Name:
-    plib_xdmac.h
+    plib_xdmac0.h
 
   Summary:
     XDMAC PLIB Header File
@@ -91,7 +91,7 @@ void XDMAC0_Initialize( void );
 
 void XDMAC0_ChannelCallbackRegister( XDMAC_CHANNEL channel, const XDMAC_CHANNEL_CALLBACK eventHandler, const uintptr_t contextHandle );
 
-void XDMAC0_ChannelTransfer( XDMAC_CHANNEL channel, const void *srcAddr, const void *destAddr, size_t blockSize );
+bool XDMAC0_ChannelTransfer( XDMAC_CHANNEL channel, const void *srcAddr, const void *destAddr, size_t blockSize );
 
 bool XDMAC0_ChannelIsBusy (XDMAC_CHANNEL channel);
 
