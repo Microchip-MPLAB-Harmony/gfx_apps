@@ -286,7 +286,8 @@ uint32_t messageDataSize = MESSAGE_DATA_SIZE; // Prevent assert at line 739 from
                                               // firing at startup.
 MAXTOUCH_Object* objectTable;
 
-uint8_t* infoBlockData;
+void* idBlock;
+void* infoBlockData;
 uint32_t infoBlockSize;
 MAXTOUCH_InfoBlock infoBlock;
 
@@ -321,18 +322,18 @@ typedef enum
     /* Driver Initialize state */
     DEVICE_STATE_OPEN = 0,
             
-    DEVICE_STATE_INIT,
+    DEVICE_STATE_REQUEST_ID_BLOCK,
             
     /* reset the address */
-    DEVICE_STATE_INIT_RESET,        
+    DEVICE_STATE_READ_ID_BLOCK,        
             
-    /* Read information block */
-    DEVICE_STATE_READ_IB,
-       
-    /* Create object table */
+    /* Request object block */
+    DEVICE_STATE_REQUEST_OBJECT_TABLE,
+            
+    /* Read object block */
     DEVICE_STATE_READ_OBJECT_TABLE,
             
-    /* Read info block crc */
+    /* Hanld addresses and checksum */
     DEVICE_STATE_READ_CRC_VALUE,
             
     /* Write Resolution configs*/        
@@ -418,9 +419,9 @@ struct DEVICE_OBJECT
     uint32_t readRequest;
     
     /* I2C Buffer handle */
-    DRV_I2C_TRANSFER_HANDLE hInformationBlockWrite;
+    DRV_I2C_TRANSFER_HANDLE hInformationBlockRequest;
     DRV_I2C_TRANSFER_HANDLE hInformationBlockRead;
-    DRV_I2C_TRANSFER_HANDLE hObjectBlockWrite;
+    DRV_I2C_TRANSFER_HANDLE hObjectBlockRequest;
     DRV_I2C_TRANSFER_HANDLE hObjectBlockRead;
     DRV_I2C_TRANSFER_HANDLE hXRangeWrite;
     DRV_I2C_TRANSFER_HANDLE hYRangeWrite;
@@ -474,12 +475,13 @@ static TASK_QUEUE sMAXTOUCHQueue[DRV_MAXTOUCH_NUM_QUEUE];
 static void calculateLargestObjectSize(struct DEVICE_OBJECT *pDrvObject);
 
 
-struct DEVICE_OBJECT* _pDrvObject;
 static SYS_TIME_HANDLE resetTimer;
 
 static void resetTimer_Callback ( uintptr_t context )
 {
-    _pDrvObject->deviceState = DEVICE_STATE_INIT;
+    struct DEVICE_OBJECT* obj = (struct DEVICE_OBJECT*) context;
+
+    obj->deviceState = DEVICE_STATE_REQUEST_ID_BLOCK;
     SYS_TIME_TimerDestroy(resetTimer);
 }
 
@@ -487,46 +489,54 @@ void DRV_MAXTOUCH_I2CEventHandler ( DRV_I2C_TRANSFER_EVENT  event,
                            DRV_I2C_TRANSFER_HANDLE transferHandle, 
                            uintptr_t               context )
 {    
+    struct DEVICE_OBJECT* obj = (struct DEVICE_OBJECT*) context;
+    
     /* Checks for valid buffer handle */
     if( transferHandle == DRV_I2C_TRANSFER_HANDLE_INVALID )
     {
         return;
     }
     
-    if( transferHandle == _pDrvObject->hInformationBlockWrite &&
+    if( transferHandle == obj->hInformationBlockRequest &&
         event == DRV_I2C_TRANSFER_EVENT_COMPLETE )
     {
-        _pDrvObject->deviceState = DEVICE_STATE_INIT_RESET;
+        obj->deviceState = DEVICE_STATE_READ_ID_BLOCK;
     }
     
-    if( transferHandle == _pDrvObject->hInformationBlockRead &&
+    if( transferHandle == obj->hInformationBlockRead &&
         event == DRV_I2C_TRANSFER_EVENT_COMPLETE )
     {
-        _pDrvObject->deviceState = DEVICE_STATE_READ_IB;
+        obj->deviceState = DEVICE_STATE_REQUEST_OBJECT_TABLE;
     }
         
-    if( transferHandle == _pDrvObject->hObjectBlockRead &&
+    if( transferHandle == obj->hObjectBlockRequest &&
         event == DRV_I2C_TRANSFER_EVENT_COMPLETE )
     {
-        _pDrvObject->deviceState = DEVICE_STATE_READ_OBJECT_TABLE;
+        obj->deviceState = DEVICE_STATE_READ_OBJECT_TABLE;
+    }
+        
+    if( transferHandle == obj->hObjectBlockRead &&
+        event == DRV_I2C_TRANSFER_EVENT_COMPLETE )
+    {
+        obj->deviceState = DEVICE_STATE_READ_CRC_VALUE;
     }
     
-    if( transferHandle == _pDrvObject->hXRangeWrite &&
+    if( transferHandle == obj->hXRangeWrite &&
         event == DRV_I2C_TRANSFER_EVENT_COMPLETE )
     {
-        _pDrvObject->deviceState = DEVICE_STATE_WRITE_T100_XRANGE;
+        obj->deviceState = DEVICE_STATE_WRITE_T100_XRANGE;
     }
   
-    if( transferHandle == _pDrvObject->hYRangeWrite &&
+    if( transferHandle == obj->hYRangeWrite &&
         event == DRV_I2C_TRANSFER_EVENT_COMPLETE )
     {
-        _pDrvObject->deviceState = DEVICE_STATE_WRITE_T100_YRANGE;
+        obj->deviceState = DEVICE_STATE_WRITE_T100_YRANGE;
     }
     
-    if( transferHandle == _pDrvObject->hMessageObjRead &&
+    if( transferHandle == obj->hMessageObjRead &&
         event == DRV_I2C_TRANSFER_EVENT_COMPLETE  )
     {
-        _pDrvObject->deviceState = DEVICE_STATE_HANDLE_MESSAGE_OBJECT;
+        obj->deviceState = DEVICE_STATE_HANDLE_MESSAGE_OBJECT;
     }
     
 }
@@ -577,9 +587,7 @@ SYS_MODULE_OBJ DRV_MAXTOUCH_Initialize(const SYS_MODULE_INDEX index,
     
     pDrvInstance->status = SYS_STATUS_READY;
     pDrvInstance->deviceState = DEVICE_STATE_OPEN;
-    
-    _pDrvObject = pDrvInstance;
-    
+        
     return (SYS_MODULE_OBJ)pDrvInstance;
 }
 
@@ -656,10 +664,10 @@ DRV_HANDLE DRV_MAXTOUCH_Open(const SYS_MODULE_INDEX index,
         return DRV_HANDLE_INVALID;
     }
     
-                /* Register the I2C Driver event Handler */
-            DRV_I2C_TransferEventHandlerSet( pDrvInstance->drvI2CHandle, 
-                                             DRV_MAXTOUCH_I2CEventHandler, 
-                                             (uintptr_t)NULL );
+    /* Register the I2C Driver event Handler */
+    DRV_I2C_TransferEventHandlerSet( pDrvInstance->drvI2CHandle, 
+                                     DRV_MAXTOUCH_I2CEventHandler, 
+                                     (uintptr_t)pDrvInstance );
 
     if ((intent & DRV_IO_INTENT_EXCLUSIVE) == DRV_IO_INTENT_EXCLUSIVE)
     {
@@ -683,7 +691,7 @@ void DRV_MAXTOUCH_Close (DRV_HANDLE handle)
     }
     
     /* move driver to the idle state to stop any processes */
-    pDrvObject->deviceState = DEVICE_STATE_INIT;    
+    pDrvObject->deviceState = DEVICE_STATE_REQUEST_ID_BLOCK;    
     
     /* free up the memory used */
     OSAL_Free(infoBlockData);
@@ -715,7 +723,7 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
             SYS_TIME_TimerDestroy(resetTimer);
 
             resetTimer = SYS_TIME_CallbackRegisterMS(resetTimer_Callback, 
-                                1,
+                                (uintptr_t)pDrvObject,
                                 DRV_MAXTOUCH_RESET_TIMER_PERIOD_MS,
                                 SYS_TIME_SINGLE);
             
@@ -723,7 +731,7 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
 
             break;
         }
-        case DEVICE_STATE_INIT:
+        case DEVICE_STATE_REQUEST_ID_BLOCK: /* Request information block */
         {
 #ifdef DEBUG_ENABLE           
             SYS_DEBUG_Print("MXT State Init\n");
@@ -736,52 +744,68 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
                                        I2C_MASTER_WRITE_ID, 
                                        &pDrvObject->taskQueue[0].drvI2CFrameData[0],
                                        2,
-                                       &pDrvObject->hInformationBlockWrite);
+                                       &pDrvObject->hInformationBlockRequest);
 
             pDrvObject->deviceState = DEVICE_STATE_WAIT;
             
             break;
         }
-        case DEVICE_STATE_INIT_RESET: /* Device reset address */
+        case DEVICE_STATE_READ_ID_BLOCK: /* Read information block */
         {
 
 #ifdef DEBUG_ENABLE            
             SYS_DEBUG_Print("MXT Reset\n");
 #endif
             
-            /* read the information block */            
+            /* Read 7-byte ID information block starting at address 0 */
+	        idBlock = OSAL_Malloc(sizeof(MAXTOUCH_ID_Info));
+
             DRV_I2C_ReadTransferAdd(pDrvObject->drvI2CHandle,
                                       I2C_MASTER_READ_ID,
-                                      &pDrvObject->taskQueue[0].drvI2CFrameData[0],
+                                      idBlock,
                                       sizeof(MAXTOUCH_ID_Info),
                                       &pDrvObject->hInformationBlockRead);            
             
-            pDrvObject->deviceState = DEVICE_STATE_READ_IB;
             pDrvObject->deviceState = DEVICE_STATE_WAIT;
-
-            
-            
+                        
             break;          
         }
-        case DEVICE_STATE_READ_IB: /* Read information block */
+        
+        case DEVICE_STATE_REQUEST_OBJECT_TABLE: /* Request object table */
+        {
+            pDrvObject->taskQueue[0].drvI2CFrameData[0] = sizeof(MAXTOUCH_ID_Info);
+            pDrvObject->taskQueue[0].drvI2CFrameData[1] = 0;
+            
+            DRV_I2C_WriteTransferAdd(pDrvObject->drvI2CHandle,
+                                       I2C_MASTER_WRITE_ID, 
+                                       &pDrvObject->taskQueue[0].drvI2CFrameData[0],
+                                       2,
+                                       &pDrvObject->hObjectBlockRequest);
+
+            pDrvObject->deviceState = DEVICE_STATE_WAIT;
+            break;
+        }
+        
+        case DEVICE_STATE_READ_OBJECT_TABLE: /* Read object table */
         {
 #ifdef DEBUG_ENABLE            
             SYS_DEBUG_Print("MXT Read Info Block\n");
 #endif
             
             /* copy the information block */
-            objectCount = pDrvObject->taskQueue[0].drvI2CFrameData[6];
-                        
+            objectCount = ((MAXTOUCH_ID_Info *)idBlock)->num_declared_objects;
+            
             /* read the object table */
             infoBlockSize = sizeof(MAXTOUCH_ID_Info) +
                             (objectCount * sizeof(MAXTOUCH_Object)) +
                             sizeof(MAXTOUCH_CRC);
             
             infoBlockData = OSAL_Malloc(infoBlockSize);
+            memcpy(infoBlockData, idBlock, infoBlockSize);
             
             infoBlock.id = (MAXTOUCH_ID_Info*)infoBlockData;
             infoBlock.objectTable = (MAXTOUCH_Object*)((uint8_t*)infoBlockData + sizeof(MAXTOUCH_ID_Info));
-            infoBlock.crc = (MAXTOUCH_CRC*)((uint8_t*)infoBlockData + sizeof(MAXTOUCH_ID_Info) + (objectCount * sizeof(MAXTOUCH_Object)));
+            infoBlock.crc = (MAXTOUCH_CRC*)((uint8_t*)infoBlockData + sizeof(MAXTOUCH_ID_Info)  + (objectCount * sizeof(MAXTOUCH_Object)));
                        
             SYS_ASSERT(messageDataSize == MESSAGE_DATA_SIZE,
                        "MAXTOUCH Driver: Predefined max message data size does not match calculated value.");
@@ -792,17 +816,16 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
             
             DRV_I2C_ReadTransferAdd(pDrvObject->drvI2CHandle,
                                     I2C_MASTER_READ_ID,
-                                    infoBlockData,
-                                    infoBlockSize,
+                                    infoBlock.objectTable,
+                                    infoBlockSize-7,
                                     &pDrvObject->hObjectBlockRead);
             
-            pDrvObject->deviceState = DEVICE_STATE_READ_OBJECT_TABLE;
             pDrvObject->deviceState = DEVICE_STATE_WAIT;
 
             break;            
         }
         
-        case DEVICE_STATE_READ_OBJECT_TABLE: /* Wait for object table to be read */
+        case DEVICE_STATE_READ_CRC_VALUE: /* Wait for object table to be read */
         {
 
 #ifdef DEBUG_ENABLE            
