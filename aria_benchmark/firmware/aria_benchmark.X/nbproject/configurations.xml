@@ -156,7 +156,7 @@
               <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/peripheral/twihs/plib_twihs0.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f4" displayName="xdmac" projectFiles="true">
-              <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/peripheral/xdmac/plib_xdmac0.h</itemPath>
+              <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/peripheral/xdmac/plib_xdmac.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f4" displayName="system" projectFiles="true">
@@ -459,7 +459,7 @@
               <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/peripheral/twihs/plib_twihs0.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f4" displayName="xdmac" projectFiles="true">
-              <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/peripheral/xdmac/plib_xdmac0.c</itemPath>
+              <itemPath>../src/config/sam_e70_xplained_ultra_wqvga/peripheral/xdmac/plib_xdmac.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f1" displayName="stdio" projectFiles="true">
@@ -514,7 +514,7 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAME70_DFP" vendor="Atmel" version="2.3.115"/>
+        <pack name="SAME70_DFP" vendor="Atmel" version="2.3.117"/>
         <pack name="CMSIS" vendor="ARM" version="5.0.1"/>
       </packs>
       <compileType>
@@ -725,7 +725,7 @@
         <property key="programoptions.pgcresistor.value" value="4.7"/>
         <property key="programoptions.pgdconfig" value="pull down"/>
         <property key="programoptions.pgdresistor.value" value="4.7"/>
-        <property key="programoptions.pgmentry.voltage" value="low"/>
+        <property key="programoptions.pgmentry.voltage" value="high"/>
         <property key="programoptions.pgmspeed" value="Med"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preserveeeprom" value="false"/>

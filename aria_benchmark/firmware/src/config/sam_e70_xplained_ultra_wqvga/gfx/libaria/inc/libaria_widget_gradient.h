@@ -8,7 +8,7 @@
     libaria_widget_gradient.h
 
   Summary:
-    
+
 
   Description:
     This module implements gradient drawing widget functions.
@@ -71,7 +71,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
   Remarks:
     None.
-*/        
+*/
 typedef enum laGradientWidgetDirection_t
 {
     LA_GRADIENT_DIRECTION_RIGHT,
@@ -88,11 +88,11 @@ typedef enum laGradientWidgetDirection_t
     Gradient widget struct definition.
 
   Description:
-    
+
 
   Remarks:
     None.
-*/    
+*/
 typedef struct laGradientWidget_t
 {
     laWidget widget; // widget base class
@@ -100,11 +100,13 @@ typedef struct laGradientWidget_t
     laGradientWidgetDirection dir; // gradient direction
 } laGradientWidget;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laGradientWidget_Constructor(laGradientWidget* grad);
 void _laGradientWidget_Destructor(laGradientWidget* grad);
 
 void _laGradientWidget_Paint(laGradientWidget* grad);
-
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -122,16 +124,16 @@ void _laGradientWidget_Paint(laGradientWidget* grad);
     widget is added to a widget tree.
 
   Description:
-    
+
 
   Parameters:
     void
-    
+
   Returns:
     laGradientWidget*
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laGradientWidget* laGradientWidget_New();
 
@@ -143,16 +145,16 @@ LIB_EXPORT laGradientWidget* laGradientWidget_New();
     Gets the gradient direction value for this widget.
 
   Description:
-    
+
 
   Parameters:
     laGradientWidget* grad - the widget
-    
+
   Returns:
     laGradientWidgetDirection - the current gradient direction
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laGradientWidgetDirection laGradientWidget_GetDirection(laGradientWidget* grad);
 
@@ -164,17 +166,17 @@ LIB_EXPORT laGradientWidgetDirection laGradientWidget_GetDirection(laGradientWid
     Sets the gradient direction value for this widget.
 
   Description:
-    
+
 
   Parameters:
     laGradientWidget* grad - the widget
-    laGradientWidgetDirection dir - the desired gradient direction 
-    
+    laGradientWidgetDirection dir - the desired gradient direction
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laGradientWidget_SetDirection(laGradientWidget* grad, laGradientWidgetDirection dir);
 

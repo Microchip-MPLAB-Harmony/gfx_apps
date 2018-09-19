@@ -8,7 +8,7 @@
     libaria_widget_arc.h
 
   Summary:
-    
+
 
   Description:
     This module implements arc drawing widget functions.
@@ -76,19 +76,22 @@ typedef struct laArcWidget_t
     laWidget widget; // base widget header
 
     uint32_t radius; // the radius of the arc
-    
+
     uint32_t startAngle; //the start angle of the arc
     int32_t centerAngle; //the center angle of the arc
     uint32_t endAngle; //the end angle of the arc
     uint32_t thickness; //the thickness of the arc
-    
+
     laBool roundEdge; //draws round edge if true.
 } laArcWidget;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laArcWidget_Constructor(laArcWidget* arc);
 void _laArcWidget_Destructor(laArcWidget* arc);
 
 void _laArcWidget_Paint(laArcWidget* arc);
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -106,16 +109,16 @@ void _laArcWidget_Paint(laArcWidget* arc);
     widget is added to a widget tree.
 
   Description:
-    
+
 
   Parameters:
     void
-    
+
   Returns:
     laArcWidget*
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laArcWidget* laArcWidget_New();
 
@@ -127,16 +130,16 @@ LIB_EXPORT laArcWidget* laArcWidget_New();
     Gets the radius of a arc widget
 
   Description:
-    
+
 
   Parameters:
     laArcWidget* arc - the widget
-        
+
   Returns:
     uint32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laArcWidget_GetRadius(laArcWidget* arc);
 
@@ -148,17 +151,17 @@ LIB_EXPORT uint32_t laArcWidget_GetRadius(laArcWidget* arc);
     Sets the radius of a arc widget
 
   Description:
-    
+
 
   Parameters:
     laArcWidget* arc - the widget
     uint32_t red - the desired radius value
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laArcWidget_SetRadius(laArcWidget* arc, uint32_t rad);
 
@@ -170,16 +173,16 @@ LIB_EXPORT laResult laArcWidget_SetRadius(laArcWidget* arc, uint32_t rad);
     Returns the start angle of a arc widget
 
   Description:
-    
+
 
   Parameters:
     laArcWidget* arc - the widget
-        
+
   Returns:
     uint32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT int32_t laArcWidget_GetStartAngle(laArcWidget* arc);
 
@@ -191,17 +194,17 @@ LIB_EXPORT int32_t laArcWidget_GetStartAngle(laArcWidget* arc);
     Sets the start angle of a arc widget
 
   Description:
-    
+
 
   Parameters:
     laArcWidget* arc - the widget
     int32_t angle - the desired start angle value
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laArcWidget_SetStartAngle(laArcWidget* arc, int32_t angle);
 
@@ -213,16 +216,16 @@ LIB_EXPORT laResult laArcWidget_SetStartAngle(laArcWidget* arc, int32_t angle);
     Gets the thickness of the arc
 
   Description:
-    
+
 
   Parameters:
     laArcWidget* arc - the widget
-        
+
   Returns:
     uint32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laArcWidget_GetThickness(laArcWidget* arc);
 
@@ -234,17 +237,17 @@ LIB_EXPORT uint32_t laArcWidget_GetThickness(laArcWidget* arc);
     Sets the thickness of the arc widget
 
   Description:
-    
+
 
   Parameters:
     laArcWidget* arc - the widget
     uint32_t thickness - the desired thickness value
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laArcWidget_SetThickness(laArcWidget* arc, uint32_t thickness);
 
@@ -256,16 +259,16 @@ LIB_EXPORT laResult laArcWidget_SetThickness(laArcWidget* arc, uint32_t thicknes
     Gets the center angle of the arc widget
 
   Description:
-    
+
 
   Parameters:
     laArcWidget* arc - the widget
-        
+
   Returns:
     int32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT int32_t laArcWidget_GetCenterAngle(laArcWidget* arc);
 
@@ -277,17 +280,17 @@ LIB_EXPORT int32_t laArcWidget_GetCenterAngle(laArcWidget* arc);
     Sets the center angle of the arc widget
 
   Description:
-    
+
 
   Parameters:
     laArcWidget* arc - the widget
     int32_t angle - the desired center angle value
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laArcWidget_SetCenterAngle(laArcWidget* arc, int32_t angle);
 
@@ -299,16 +302,16 @@ LIB_EXPORT laResult laArcWidget_SetCenterAngle(laArcWidget* arc, int32_t angle);
     Returns true if the arc has round edges
 
   Description:
-    
+
 
   Parameters:
     laArcWidget* arc - the widget
-        
+
   Returns:
     laBool
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laArcWidget_GetRoundEdge(laArcWidget* arc);
 
@@ -320,17 +323,17 @@ LIB_EXPORT laBool laArcWidget_GetRoundEdge(laArcWidget* arc);
     Sets the arc edge to round
 
   Description:
-    
+
 
   Parameters:
     laArcWidget* arc - the widget
     laBool round - sets the arc edge round if LA_TRUE
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laArcWidget_SetRoundEdge(laArcWidget* arc, laBool round);
 

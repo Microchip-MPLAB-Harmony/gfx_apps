@@ -8,7 +8,7 @@
     libaria_widget_image.h
 
   Summary:
-    
+
 
   Description:
     This module implements image widget functions.
@@ -68,7 +68,7 @@ typedef void (*laImageWidget_DrawEventCallback)(laImageWidget* );
 
   Remarks:
     None.
-*/    
+*/
 typedef struct laImageWidget_t
 {
     laWidget widget; // widget base class
@@ -77,18 +77,21 @@ typedef struct laImageWidget_t
     laVAlignment valign; // image vertical alignment
 
     GFXU_ImageAsset* image; // pointer to image asset
-    
+
     GFXU_ExternalAssetReader* reader; // asset reader
-    
+
     laImageWidget_DrawEventCallback ImageDrawStart;
     laImageWidget_DrawEventCallback ImageDrawEnd;
-    
+
 } laImageWidget;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laImageWidget_Constructor(laImageWidget* img);
 void _laImageWidget_Destructor(laImageWidget* img);
 
 void _laImageWidget_Paint(laImageWidget* img);
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -106,16 +109,16 @@ void _laImageWidget_Paint(laImageWidget* img);
     widget is added to a widget tree.
 
   Description:
-    
+
 
   Parameters:
     void
-    
+
   Returns:
     laImageWidget* - the widget
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laImageWidget* laImageWidget_New();
 
@@ -127,16 +130,16 @@ LIB_EXPORT laImageWidget* laImageWidget_New();
     Gets the image horizontal alignment value.
 
   Description:
-    
+
 
   Parameters:
     laImageWidget* img - the widget
-    
+
   Returns:
     laHAlignment - the horizontal alignment value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laHAlignment laImageWidget_GetHAlignment(laImageWidget* img);
 
@@ -149,17 +152,17 @@ LIB_EXPORT laHAlignment laImageWidget_GetHAlignment(laImageWidget* img);
     Sets the image horizontal alignment value.
 
   Description:
-    
+
 
   Parameters:
     laImageWidget* img - the widget
     laHAlignment align - the horizontal alignment value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laImageWidget_SetHAlignment(laImageWidget* img,
                                                 laHAlignment align);
@@ -172,16 +175,16 @@ LIB_EXPORT laResult laImageWidget_SetHAlignment(laImageWidget* img,
     Gets the image vertical alignment value.
 
   Description:
-    
+
 
   Parameters:
     laImageWidget* img - the widget
-    
+
   Returns:
     laVAlignment - the vertical alignment setting
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laVAlignment laImageWidget_GetVAlignment(laImageWidget* img);
 
@@ -194,20 +197,20 @@ LIB_EXPORT laVAlignment laImageWidget_GetVAlignment(laImageWidget* img);
     Sets the image vertical alignment value.
 
   Description:
-    
+
 
   Parameters:
     laImageWidget* img - the widget
     laVAlignment - the vertical alignment setting
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laImageWidget_SetVAlignment(laImageWidget* img,
-                                                laVAlignment align);                                                    
+                                                laVAlignment align);
 
 // *****************************************************************************
 /* Function:
@@ -217,16 +220,16 @@ LIB_EXPORT laResult laImageWidget_SetVAlignment(laImageWidget* img,
     Gets the image asset pointer for the widget.
 
   Description:
-    
+
 
   Parameters:
     laImageWidget* img - the widget
-    
+
   Returns:
     GFXU_ImageAsset* - the image asset pointer
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT GFXU_ImageAsset* laImageWidget_GetImage(laImageWidget* img);
 // *****************************************************************************
@@ -238,26 +241,27 @@ LIB_EXPORT GFXU_ImageAsset* laImageWidget_GetImage(laImageWidget* img);
     Sets the image asset pointer for the widget.
 
   Description:
-    
+
 
   Parameters:
     llaImageWidget* img - the widget
     GFXU_ImageAsset* imgAst - the image asset pointer
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laImageWidget_SetImage(laImageWidget* img,
                                            GFXU_ImageAsset* imgAst);
 
+// DOM-IGNORE-BEGIN
 // internal use only
 void _laImageWidget_GetImageRect(laImageWidget* img,
                                  GFX_Rect* imgRect,
                                  GFX_Rect* imgSrcRect);
-                                  
+// DOM-IGNORE-END
 
 
 void laImageWidget_SetCallBackStart(laImageWidget* image, laImageWidget_DrawEventCallback cb);

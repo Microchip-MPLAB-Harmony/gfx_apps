@@ -834,7 +834,7 @@ LIB_EXPORT laBool laContext_IsDrawing();
 */
 LIB_EXPORT laBool laContext_IsLayerDrawing(uint32_t idx);
 
-
+// DOM-IGNORE-BEGIN
 // internal use only
 uint32_t _laContext_Update(uint32_t dt);
 
@@ -844,6 +844,7 @@ void _laContext_Paint();
 // internal use only
 laEventResult _laContext_HandleScreenChangeEvent(laEvent* evt);
 void _laContext_ShowScreen(uint32_t idx);
+// DOM-IGNORE-END
 
 #ifdef __cplusplus
     }

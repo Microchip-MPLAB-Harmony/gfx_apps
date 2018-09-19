@@ -8,7 +8,7 @@
     libaria_widget_groupbox.h
 
   Summary:
-    
+
 
   Description:
     This module implements group box widget functions.
@@ -69,7 +69,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
   Remarks:
     None.
-*/        
+*/
 typedef struct laGroupBoxWidget_t
 {
     laWidget widget; // widget base class
@@ -81,10 +81,13 @@ typedef struct laGroupBoxWidget_t
     GFXU_ExternalAssetReader* reader; // asset reader
 } laGroupBoxWidget;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laGroupBoxWidget_Constructor(laGroupBoxWidget* box);
 void _laGroupBoxWidget_Destructor(laGroupBoxWidget* box);
 
 void _laGroupBoxWidget_Paint(laGroupBoxWidget* box);
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -108,12 +111,12 @@ void _laGroupBoxWidget_Paint(laGroupBoxWidget* box);
 
   Parameters:
     void
-    
+
   Returns:
     laGroupBoxWidget*
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laGroupBoxWidget* laGroupBoxWidget_New();
 
@@ -131,12 +134,12 @@ LIB_EXPORT laGroupBoxWidget* laGroupBoxWidget_New();
   Parameters:
     laGroupBoxWidget* box - the widget
     laString* str - a pointer to an laString object
-    
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laGroupBoxWidget_GetText(laGroupBoxWidget* box, laString* str);
 
@@ -149,18 +152,18 @@ LIB_EXPORT laResult laGroupBoxWidget_GetText(laGroupBoxWidget* box, laString* st
 
   Description:
     This function copies the contents of the input string into its internal
-    string buffer.  The input string can then be freed or altered without 
+    string buffer.  The input string can then be freed or altered without
     affecting the label's internal string value.
 
   Parameters:
     laGroupBoxWidget* box - the widget
     laString str - an laString object
-    
+
   Returns:
     void
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laGroupBoxWidget_SetText(laGroupBoxWidget* box, laString str);
 
@@ -172,16 +175,16 @@ LIB_EXPORT laResult laGroupBoxWidget_SetText(laGroupBoxWidget* box, laString str
     Gets the horizontal alignmnet for the group box title text
 
   Description:
-    
+
 
   Parameters:
     laGroupBoxWidget* box - the widget
-        
+
   Returns:
     laHAlignment - the current halign value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laHAlignment laGroupBoxWidget_GetAlignment(laGroupBoxWidget* box);
 
@@ -194,25 +197,27 @@ LIB_EXPORT laHAlignment laGroupBoxWidget_GetAlignment(laGroupBoxWidget* box);
     Sets the alignment for the group box title text
 
   Description:
-    
+
 
   Parameters:
     laGroupBoxWidget* box - the widget
     laHAlignment - the desired halign value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laGroupBoxWidget_SetAlignment(laGroupBoxWidget* box,
                                                   laHAlignment align);
 
+// DOM-IGNORE-BEGIN
 // internal use only
 void _laGroupBoxWidget_GetTextRect(laGroupBoxWidget* box,
-								   GFX_Rect* textRect,
-								   GFX_Rect* drawRect);
+                                   GFX_Rect* textRect,
+                                   GFX_Rect* drawRect);
+// DOM-IGNORE-END
 
 #endif // LA_GROUPBOX_WIDGET_ENABLED
 #endif /* LIBARIA_GROUPBOX_H */

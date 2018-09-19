@@ -8,7 +8,7 @@
     libaria_widget_slider.h
 
   Summary:
-    
+
 
   Description:
     This module implements slider control widget functions.
@@ -62,7 +62,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
     Describes various slider states
 
   Description:
-    
+
 
   Remarks:
     None.
@@ -82,7 +82,7 @@ typedef enum laSliderState_t
     Slider orientations
 
   Description:
-    
+
 
   Remarks:
     None.
@@ -118,22 +118,25 @@ typedef struct laSliderWidget_t
 
     laSliderState state; // slider state
     laSliderOrientation alignment; // slider alignment
-    
+
     int32_t min; // slider min value
     int32_t max; // slider max value
     int32_t value; // slider current value
     uint32_t grip; // slider grip size
-    
+
     laSliderWidget_ValueChangedEvent valueChangedEvent; // value changed event
-    
+
     GFX_Point handleDownOffset;
 } laSliderWidget;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laSliderWidget_Constructor(laSliderWidget* sld);
 void _laSliderWidget_Destructor(laSliderWidget* sld);
 
 laWidgetUpdateState _laSliderWidget_Update(laSliderWidget* sld);
 void _laSliderWidget_Paint(laSliderWidget* sld);
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -151,15 +154,15 @@ void _laSliderWidget_Paint(laSliderWidget* sld);
     a widget tree.
 
   Description:
-    
+
 
   Parameters:
-    
+
   Returns:
     laSliderWidget*
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laSliderWidget* laSliderWidget_New();
 
@@ -171,16 +174,16 @@ LIB_EXPORT laSliderWidget* laSliderWidget_New();
     Gets the orientation value for the slider
 
   Description:
-    
+
 
   Parameters:
     laSliderWidget* sld - the widget
-    
+
   Returns:
     laSliderOrientation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laSliderOrientation laSliderWidget_GetOrientation(laSliderWidget* sld);
 
@@ -191,21 +194,21 @@ LIB_EXPORT laSliderOrientation laSliderWidget_GetOrientation(laSliderWidget* sld
                                            laBool swapDimensions)
 
   Summary:
-    
+
 
   Description:
-    
+
 
   Parameters:
     laSliderWidget* sld - the widget
     laSliderOrientation - the desired slider orientation
     laBool - indicates if the width and height of the slider should be swapped
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laSliderWidget_SetOrientation(laSliderWidget* sld,
                                                   laSliderOrientation align,
@@ -219,17 +222,17 @@ LIB_EXPORT laResult laSliderWidget_SetOrientation(laSliderWidget* sld,
     Gets the current grip size of the slider
 
   Description:
-    
+
 
   Parameters:
     laSliderWidget* sld - the widget
-    
+
   Returns:
     uint32_t - the current grip size
-    
+
   Remarks:
-    
-*/                                                  
+
+*/
 LIB_EXPORT uint32_t laSliderWidget_GetGripSize(laSliderWidget* sld);
 
 // *****************************************************************************
@@ -241,17 +244,17 @@ LIB_EXPORT uint32_t laSliderWidget_GetGripSize(laSliderWidget* sld);
     Sets the grip size of the slider
 
   Description:
-    
+
 
   Parameters:
     laSliderWidget* sld - the widget
     uint32_t size - the desired grip size
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laSliderWidget_SetGripSize(laSliderWidget* sld,
                                                uint32_t size);
@@ -264,17 +267,17 @@ LIB_EXPORT laResult laSliderWidget_SetGripSize(laSliderWidget* sld,
     Gets the minimum value for the slider
 
   Description:
-    
+
 
   Parameters:
     laSliderWidget* sld - the widget
-        
+
   Returns:
     uint32_t - the minimum slider value
-    
+
   Remarks:
-    
-*/                                               
+
+*/
 LIB_EXPORT uint32_t laSliderWidget_GetMininumValue(laSliderWidget* sld);
 
 // *****************************************************************************
@@ -286,17 +289,17 @@ LIB_EXPORT uint32_t laSliderWidget_GetMininumValue(laSliderWidget* sld);
     Sets the minimum value for the slider
 
   Description:
-    
+
 
   Parameters:
     laSliderWidget* sld - the widget
     uint32_t val - the desired minimum value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laSliderWidget_SetMinimumValue(laSliderWidget* sld,
                                                       uint32_t val);
@@ -309,17 +312,17 @@ LIB_EXPORT laResult laSliderWidget_SetMinimumValue(laSliderWidget* sld,
     Gets the maximum value for the slider
 
   Description:
-    
+
 
   Parameters:
     laSliderWidget* sld - the widget
-        
+
   Returns:
     uint32_t - the maximum value for the slider
-    
+
   Remarks:
-    
-*/                                                      
+
+*/
 LIB_EXPORT uint32_t laSliderWidget_GetMaxinumValue(laSliderWidget* sld);
 
 // *****************************************************************************
@@ -331,20 +334,20 @@ LIB_EXPORT uint32_t laSliderWidget_GetMaxinumValue(laSliderWidget* sld);
     Sets the maximum value for the slider
 
   Description:
-    
+
 
   Parameters:
     laSliderWidget* sld - the widget
     uint32_t val - the desired maximum value for the slider
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laSliderWidget_SetMaximumValue(laSliderWidget* sld,
-                                                      uint32_t val);                                                     
+                                                      uint32_t val);
 
 // *****************************************************************************
 /* Function:
@@ -354,17 +357,17 @@ LIB_EXPORT laResult laSliderWidget_SetMaximumValue(laSliderWidget* sld,
     Gets the current slider value
 
   Description:
-    
+
 
   Parameters:
     laSliderWidget* sld - the widget
-        
+
   Returns:
     uint32_t - the current slider value
-    
+
   Remarks:
-    
-*/                                                      
+
+*/
 LIB_EXPORT int32_t laSliderWidget_GetSliderValue(laSliderWidget* sld);
 
 // *****************************************************************************
@@ -381,15 +384,15 @@ LIB_EXPORT int32_t laSliderWidget_GetSliderValue(laSliderWidget* sld);
   Parameters:
     laSliderWidget* sld - the widget
     uint32_t val - the desired slider value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laSliderWidget_SetSliderValue(laSliderWidget* sld,
-                                                  int32_t val);         
+                                                  int32_t val);
 
 // *****************************************************************************
 /* Function:
@@ -399,17 +402,17 @@ LIB_EXPORT laResult laSliderWidget_SetSliderValue(laSliderWidget* sld,
     Gets the slider value as a percentage
 
   Description:
-    
+
 
   Parameters:
     laSliderWidget* sld - the widget
-        
+
   Returns:
     uint32_t - the slider value as a percentage
-    
+
   Remarks:
-    
-*/                                                  
+
+*/
 LIB_EXPORT uint32_t laSliderWidget_GetSliderPercentage(laSliderWidget* sld);
 
 // *****************************************************************************
@@ -421,20 +424,20 @@ LIB_EXPORT uint32_t laSliderWidget_GetSliderPercentage(laSliderWidget* sld);
     Sets the slider value using a percentage.  Value must be from 0 - 100.
 
   Description:
-    
+
 
   Parameters:
     laSliderWidget* sld - the widget
     uint32_t val - a percentage value from 0 - 100
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laSliderWidget_SetSliderPercentage(laSliderWidget* sld,
-                                                       uint32_t val);                                                                                                 
+                                                       uint32_t val);
 
 // *****************************************************************************
 /* Function:
@@ -444,18 +447,18 @@ LIB_EXPORT laResult laSliderWidget_SetSliderPercentage(laSliderWidget* sld,
     Moves the slider by a given amount
 
   Description:
-    
+
 
   Parameters:
     laSliderWidget* sld - the widget
     int32_t amount - the amount by which to adjust the current slider value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
-*/                                                       
+
+*/
 LIB_EXPORT laResult laSliderWidget_Step(laSliderWidget* sld, int32_t amount);
 
 // *****************************************************************************
@@ -466,17 +469,17 @@ LIB_EXPORT laResult laSliderWidget_Step(laSliderWidget* sld, int32_t amount);
     Gets the current value changed event callback pointer
 
   Description:
-    
+
 
   Parameters:
     laSliderWidget* sld - the widget
-        
+
   Returns:
     laSliderWidget_ValueChangedEvent - a valid callback or NULL
-    
+
   Remarks:
-    
-*/                                              
+
+*/
 LIB_EXPORT laSliderWidget_ValueChangedEvent laSliderWidget_GetValueChangedEventCallback(laSliderWidget* sld);
 
 // *****************************************************************************
@@ -488,21 +491,21 @@ LIB_EXPORT laSliderWidget_ValueChangedEvent laSliderWidget_GetValueChangedEventC
     Sets the value changed event callback pointer
 
   Description:
-    
+
 
   Parameters:
     laSliderWidget* sld - the widget
     laSliderWidget_ValueChangedEvent - a valid pointer or NULL
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laSliderWidget_SetValueChangedEventCallback(laSliderWidget* sld,
                                                                 laSliderWidget_ValueChangedEvent cb);
-
+// DOM-IGNORE-BEGIN
 // internal use only
 void _laSliderWidget_TouchDownEvent(laSliderWidget* sld, laInput_TouchDownEvent* evt);
 void _laSliderWidget_TouchUpEvent(laSliderWidget* sld, laInput_TouchUpEvent* evt);
@@ -515,6 +518,7 @@ uint32_t _laSliderWidget_GetPercentFromPoint(laSliderWidget* sld, GFX_Point* pnt
 uint32_t _laSliderWidget_GetValueFromPercent(laSliderWidget* sld, uint32_t per);
 
 void _laSliderWidget_InvalidateBorderAreas(laSliderWidget* sld);
+// DOM-IGNORE-END
 
 #endif // LA_SLIDER_WIDGET_ENABLED
 #endif /* LIBARIA_SLIDER_H */

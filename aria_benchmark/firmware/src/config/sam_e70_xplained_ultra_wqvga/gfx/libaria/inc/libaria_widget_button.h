@@ -80,7 +80,7 @@ typedef void (*laButtonWidget_ReleasedEvent)(laButtonWidget*);
     that simulates a typical button with a pressed an released state.
 
   Description:
-    
+
 
   Remarks:
     None.
@@ -100,7 +100,7 @@ typedef struct laButtonWidget_t
 
     GFXU_ImageAsset* pressedImage; // button pressed icon image
     GFXU_ImageAsset* releasedImage; // button released icon image
-    
+
     laRelativePosition imagePosition; // icon position in relation to text
     uint32_t imageMargin; // distance between text and icon
     int32_t pressedOffset; // pressed text offset distance
@@ -117,11 +117,13 @@ typedef struct laButtonWidget_t
 // *****************************************************************************
 // *****************************************************************************
 
-
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laButtonWidget_Constructor(laButtonWidget* btn);
 void _laButtonWidget_Destructor(laButtonWidget* btn);
 
 void _laButtonWidget_Paint(laButtonWidget* btn);
+// DOM-IGNORE-END
 
 // *****************************************************************************
 /* Function:
@@ -137,7 +139,7 @@ void _laButtonWidget_Paint(laButtonWidget* btn);
 
   Returns:
     laButtonWidget* - pointer to a new button widget instance
-    
+
   Remarks:
     Caller is responsible for managing the memory allocated by this function
     until the widget is added to a valid widget tree.
@@ -149,16 +151,16 @@ LIB_EXPORT laButtonWidget* laButtonWidget_New();
     laBool laButtonWidget_GetToggleable(laButtonWidget* btn)
 
   Summary:
-    Gets the value of this button's toggle flag 
+    Gets the value of this button's toggle flag
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the button to reference
-    
+
   Returns:
     laBool - the value of the toggle flag
-    
+
 */
 LIB_EXPORT laBool laButtonWidget_GetToggleable(laButtonWidget* btn);
 
@@ -172,20 +174,20 @@ LIB_EXPORT laBool laButtonWidget_GetToggleable(laButtonWidget* btn);
     stay down until pressed again.
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the button to modify
     laBool toggleable - the desired togglestate
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laButtonWidget_SetToggleable(laButtonWidget* btn,
                                                  laBool toggleable);
-                                             
+
 // *****************************************************************************
 /* Function:
     laBool laButtonWidget_GetPressed(laButtonWidget* btn)
@@ -194,16 +196,16 @@ LIB_EXPORT laResult laButtonWidget_SetToggleable(laButtonWidget* btn,
     Gets the pressed state of a button
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the button to reference
-        
+
   Returns:
     laBool - the button pressed state
-    
+
   Remarks:
-    
-*/                                          
+
+*/
 LIB_EXPORT laBool laButtonWidget_GetPressed(laButtonWidget* btn);
 
 // *****************************************************************************
@@ -214,19 +216,19 @@ LIB_EXPORT laBool laButtonWidget_GetPressed(laButtonWidget* btn);
     Sets the pressed state for a button.
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the button to modify
     laBool pressed - the pressed state
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
-*/    
-LIB_EXPORT laResult laButtonWidget_SetPressed(laButtonWidget* btn, 
-                                              laBool pressed);                                    
+
+*/
+LIB_EXPORT laResult laButtonWidget_SetPressed(laButtonWidget* btn,
+                                              laBool pressed);
 
 // *****************************************************************************
 /* Function:
@@ -239,17 +241,17 @@ LIB_EXPORT laResult laButtonWidget_SetPressed(laButtonWidget* btn,
     is a string table reference then only the reference ID is copied.
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the button to reference
     laString* str - pointer to a string to copy the button string into
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laResult laButtonWidget_GetText(laButtonWidget* btn, laString* str);
 
 // *****************************************************************************
@@ -261,20 +263,20 @@ LIB_EXPORT laResult laButtonWidget_GetText(laButtonWidget* btn, laString* str);
     the data will be copied into the button's local string, causing a memory
     allocation.  If the input string is a string table reference then only the
     reference will be copied.  The input string can be safely modified and
-    the button string will not be affected.  
-    
+    the button string will not be affected.
+
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the button to modify
     laString str - the string to set to the button
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laResult laButtonWidget_SetText(laButtonWidget* btn, laString str);
 
 // *****************************************************************************
@@ -282,19 +284,19 @@ LIB_EXPORT laResult laButtonWidget_SetText(laButtonWidget* btn, laString str);
     int32_t laButtonWidget_GetTextLineSpace(laButtonWidget* btn)
 
   Summary:
-    Returns the line spacing in pixels for the button text. If < 0, the 
+    Returns the line spacing in pixels for the button text. If < 0, the
     ascent value of the string's font is used.
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the button to reference
-    
+
   Returns:
     int32_t - the line spacing in pixels
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT int32_t laButtonWidget_GetTextLineSpace(laButtonWidget* btn);
 
@@ -305,19 +307,19 @@ LIB_EXPORT int32_t laButtonWidget_GetTextLineSpace(laButtonWidget* btn);
   Summary:
     Sets the line space in pixels of the text in the button widget. A value < 0
     sets the spacing to the ascent value of the string's font.
-    
+
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the button to modify
     int32_t pixels - the line space, in pixels
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
-*/  
+
+*/
 LIB_EXPORT laResult laButtonWidget_SetTextLineSpace(laButtonWidget* btn, int32_t pixels);
 
 // *****************************************************************************
@@ -328,16 +330,16 @@ LIB_EXPORT laResult laButtonWidget_SetTextLineSpace(laButtonWidget* btn, int32_t
     Gets the horizontal alignment setting for a button
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the button to reference
-        
+
   Returns:
     laHAlignment - the horizontal alignment value
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laHAlignment laButtonWidget_GetHAlignment(laButtonWidget* btn);
 
 // *****************************************************************************
@@ -349,20 +351,20 @@ LIB_EXPORT laHAlignment laButtonWidget_GetHAlignment(laButtonWidget* btn);
     Sets the horizontal alignment value for a button
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the button to modify
     laHAlignment align - the desired alignment value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laResult laButtonWidget_SetHAlignment(laButtonWidget* btn,
                                                  laHAlignment align);
-                                             
+
 // *****************************************************************************
 /* Function:
     laVAlignment laButtonWidget_GetVAlignment(laButtonWidget* btn)
@@ -371,16 +373,16 @@ LIB_EXPORT laResult laButtonWidget_SetHAlignment(laButtonWidget* btn,
     Gets the vertical alignment setting for a button
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the button to reference
-        
+
   Returns:
     laVAlignment - the vertical alignment setting for the button
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laVAlignment laButtonWidget_GetVAlignment(laButtonWidget* btn);
 
 // *****************************************************************************
@@ -392,19 +394,19 @@ LIB_EXPORT laVAlignment laButtonWidget_GetVAlignment(laButtonWidget* btn);
     Sets the vertical alignment for a button
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the btn to modify
     laVAlignment align - the desired vertical alignment setting
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laResult laButtonWidget_SetVAlignment(laButtonWidget* btn,
-                                                 laVAlignment align);                                                    
+                                                 laVAlignment align);
 
 // *****************************************************************************
 /* Function:
@@ -414,16 +416,16 @@ LIB_EXPORT laResult laButtonWidget_SetVAlignment(laButtonWidget* btn,
     Gets the pressed image asset pointer for a button
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the button to reference
-        
+
   Returns:
     GFXU_ImageAsset* - the pressed asset pointer
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT GFXU_ImageAsset* laButtonWidget_GetPressedImage(laButtonWidget* btn);
 
 // *****************************************************************************
@@ -435,17 +437,17 @@ LIB_EXPORT GFXU_ImageAsset* laButtonWidget_GetPressedImage(laButtonWidget* btn);
     Sets the image to be used as a pressed icon
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the widget
     GFXU_ImageAsset* img - pointer to an image asset
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laResult laButtonWidget_SetPressedImage(laButtonWidget* btn,
                                                    GFXU_ImageAsset* img);
 
@@ -457,16 +459,16 @@ LIB_EXPORT laResult laButtonWidget_SetPressedImage(laButtonWidget* btn,
     Gets the currently used released icon
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the button to reference
-        
+
   Returns:
     GFXU_ImageAsset* - the released asset pointer
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT GFXU_ImageAsset* laButtonWidget_GetReleasedImage(laButtonWidget* btn);
 
 // *****************************************************************************
@@ -478,20 +480,20 @@ LIB_EXPORT GFXU_ImageAsset* laButtonWidget_GetReleasedImage(laButtonWidget* btn)
     Sets the image to be used as the released icon
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the widget
     GFXU_ImageAsset* img - the image asset to be used
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laResult laButtonWidget_SetReleasedImage(laButtonWidget* btn,
                                                     GFXU_ImageAsset* img);
-                                                
+
 // *****************************************************************************
 /* Function:
     laRelativePosition laButtonWidget_GetImagePosition(laButtonWidget* btn)
@@ -500,16 +502,16 @@ LIB_EXPORT laResult laButtonWidget_SetReleasedImage(laButtonWidget* btn,
     Gets the position of the button icon
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the button to reference
-        
+
   Returns:
     laRelativePosition
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laRelativePosition laButtonWidget_GetImagePosition(laButtonWidget* btn);
 
 // *****************************************************************************
@@ -521,17 +523,17 @@ LIB_EXPORT laRelativePosition laButtonWidget_GetImagePosition(laButtonWidget* bt
     Sets the position of the button icon
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the widget
     laRelativePosition pos - the desired image position
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laResult laButtonWidget_SetImagePosition(laButtonWidget* btn,
                                                     laRelativePosition pos);
 
@@ -543,38 +545,38 @@ LIB_EXPORT laResult laButtonWidget_SetImagePosition(laButtonWidget* btn,
     Gets the distance between the icon and the text
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the widget
-        
+
   Returns:
     uint32_t - the distance value
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT uint32_t laButtonWidget_GetImageMargin(laButtonWidget* btn);
 
 // *****************************************************************************
 /* Function:
-    laResult laButtonWidget_SetImageMargin(laButtonWidget* btn, 
+    laResult laButtonWidget_SetImageMargin(laButtonWidget* btn,
                                            uint32_t mg)
 
   Summary:
     Sets the distance between the icon and text
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the widget
     uint32_t - the distance value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laResult laButtonWidget_SetImageMargin(laButtonWidget* btn,
                                                   uint32_t mg);
 
@@ -586,17 +588,17 @@ LIB_EXPORT laResult laButtonWidget_SetImageMargin(laButtonWidget* btn,
     Gets the offset of the button internals when pressed
 
   Description:
-    
-    
+
+
   Parameters:
     laButtonWidget* btn - the widget
-        
+
   Returns:
     int32_t - the distance value
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT int32_t laButtonWidget_GetPressedOffset(laButtonWidget* btn);
 
 // *****************************************************************************
@@ -607,20 +609,20 @@ LIB_EXPORT int32_t laButtonWidget_GetPressedOffset(laButtonWidget* btn);
     Sets the offset of the button internals when pressed
 
   Description:
-    This value will be applied to all of the contents of the button 
+    This value will be applied to all of the contents of the button
     when it is pressed.  This helps to visualize the button being
     pressed.
-    
+
   Parameters:
     laButtonWidget* btn - the widget
     int32_t - the distance value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laResult laButtonWidget_SetPressedOffset(laButtonWidget* btn,
                                                     int32_t offs);
 
@@ -632,16 +634,16 @@ LIB_EXPORT laResult laButtonWidget_SetPressedOffset(laButtonWidget* btn,
     Gets the callback associated with the button pressed event
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the widget
-        
+
   Returns:
     laButtonWidget_PressedEvent
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laButtonWidget_PressedEvent laButtonWidget_GetPressedEventCallback(laButtonWidget* btn);
 
 // *****************************************************************************
@@ -653,37 +655,37 @@ LIB_EXPORT laButtonWidget_PressedEvent laButtonWidget_GetPressedEventCallback(la
     Sets the pressed event callback for the button
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the widget
     laButtonWidget_PressedEvent cb - a valid callback pointer or NULL
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laResult laButtonWidget_SetPressedEventCallback(laButtonWidget* btn,
                                                            laButtonWidget_PressedEvent cb);
 // *****************************************************************************
 /* Function:
     laButtonWidget_ReleasedEvent laButtonWidget_GetReleasedEventCallback(laButtonWidget* btn)
-    
+
   Summary:
     Gets the callback for the button released event
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the widget
-        
+
   Returns:
     laButtonWidget_ReleasedEvent
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laButtonWidget_ReleasedEvent laButtonWidget_GetReleasedEventCallback(laButtonWidget* btn);
 
 // *****************************************************************************
@@ -695,30 +697,32 @@ LIB_EXPORT laButtonWidget_ReleasedEvent laButtonWidget_GetReleasedEventCallback(
     Sets the callback for the button released event
 
   Description:
-    
+
   Parameters:
     laButtonWidget* btn - the widget
     laButtonWidget_ReleasedEvent cb - a valid callback pointer or NULL
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laResult laButtonWidget_SetReleasedEventCallback(laButtonWidget* btn,
                                                             laButtonWidget_ReleasedEvent cb);
 
+// DOM-IGNORE-BEGIN
 // internal use only
 void _laButtonWidget_GetImageRect(laButtonWidget* btn,
                                   GFX_Rect* imgRect,
                                   GFX_Rect* imgSrcRect);
-                                  
+
 void _laButtonWidget_GetTextRect(laButtonWidget* btn,
                                  GFX_Rect* textRect,
                                  GFX_Rect* drawRect);
-                                 
+
 void _laButtonWidget_InvalidateBorderAreas(laButtonWidget* btn);
+// DOM-IGNORE-END
 
 #endif /* LA_BUTTON_WIDGET_ENABLED */
 #endif /* LIBARIA_BUTTON_H */

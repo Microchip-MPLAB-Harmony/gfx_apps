@@ -72,13 +72,13 @@ SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
 #define BSP_LCD_HSYNC_PIN                  PIO_PIN_PC30
 
 /*** Macros for BSP_LCD_RESET pin ***/
-#define BSP_LCD_RESET_Set()               (PIOC_REGS->PIO_SODR = (1<<13))
-#define BSP_LCD_RESET_Clear()             (PIOC_REGS->PIO_CODR = (1<<13))
-#define BSP_LCD_RESET_Toggle()            (PIOC_REGS->PIO_ODSR ^= (1<<13))
-#define BSP_LCD_RESET_Get()               ((PIOC_REGS->PIO_PDSR >> 13) & 0x1)
-#define BSP_LCD_RESET_OutputEnable()      (PIOC_REGS->PIO_OER = (1<<13))
-#define BSP_LCD_RESET_InputEnable()       (PIOC_REGS->PIO_ODR = (1<<13))
-#define BSP_LCD_RESET_PIN                  PIO_PIN_PC13
+#define BSP_LCD_RESET_Set()               (PIOC_REGS->PIO_SODR = (1<<29))
+#define BSP_LCD_RESET_Clear()             (PIOC_REGS->PIO_CODR = (1<<29))
+#define BSP_LCD_RESET_Toggle()            (PIOC_REGS->PIO_ODSR ^= (1<<29))
+#define BSP_LCD_RESET_Get()               ((PIOC_REGS->PIO_PDSR >> 29) & 0x1)
+#define BSP_LCD_RESET_OutputEnable()      (PIOC_REGS->PIO_OER = (1<<29))
+#define BSP_LCD_RESET_InputEnable()       (PIOC_REGS->PIO_ODR = (1<<29))
+#define BSP_LCD_RESET_PIN                  PIO_PIN_PC29
 
 /*** Macros for BSP_LCD_VSYNC pin ***/
 #define BSP_LCD_VSYNC_Set()               (PIOD_REGS->PIO_SODR = (1<<19))
@@ -136,21 +136,11 @@ SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
 
 typedef enum
 {
-    /* Port A Pins */
     PIO_PORT_A = PIOA_BASE_ADDRESS,
-
-    /* Port B Pins */
     PIO_PORT_B = PIOB_BASE_ADDRESS,
-
-    /* Port C Pins */
     PIO_PORT_C = PIOC_BASE_ADDRESS,
-
-    /* Port D Pins */
     PIO_PORT_D = PIOD_BASE_ADDRESS,
-
-    /* Port E Pins */
     PIO_PORT_E = PIOE_BASE_ADDRESS
-
 } PIO_PORT;
 
 // *****************************************************************************
