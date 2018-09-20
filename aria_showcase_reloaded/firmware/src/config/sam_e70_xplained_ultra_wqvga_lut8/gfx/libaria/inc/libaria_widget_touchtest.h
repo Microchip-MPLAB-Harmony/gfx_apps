@@ -8,7 +8,7 @@
     libaria_widget_touchtest.h
 
   Summary:
-    
+
 
   Description:
     This module implements graphical touch test (box) widget functions.
@@ -63,7 +63,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
     Touch test states
 
   Description:
-    
+
 
   Remarks:
     None.
@@ -96,22 +96,25 @@ typedef void (*laTouchTestWidget_PointAddedEventCallback)(laTouchTestWidget*, GF
 typedef struct laTouchTestWidget_t
 {
     laWidget widget; // widget base class
-    
+
     laTouchTestState state; // touch test state
-    
+
     GFX_Point pnts[LA_TOUCHTEST_MEMORY_SIZE]; // touch point array
     uint32_t size; // current number of valid touch points
-    
+
     uint32_t start; // first valid touch point
     uint32_t next; // next available touch point entry
-    
+
     laTouchTestWidget_PointAddedEventCallback cb; // point added callback
 } laTouchTestWidget;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laTouchTestWidget_Constructor(laTouchTestWidget* tch);
 void _laTouchTestWidget_Destructor(laTouchTestWidget* tch);
 
 void _laTouchTestWidget_Paint(laTouchTestWidget* tch);
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -129,15 +132,15 @@ void _laTouchTestWidget_Paint(laTouchTestWidget* tch);
     a widget tree.
 
   Description:
-    
+
 
   Parameters:
-    
+
   Returns:
     laTouchTestWidget*
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laTouchTestWidget* laTouchTestWidget_New();
 
@@ -149,17 +152,17 @@ LIB_EXPORT laTouchTestWidget* laTouchTestWidget_New();
     Adds a point to the touch test widget.  The point will then be displayed.
 
   Description:
-    
+
 
   Parameters:
     laTouchTestWidget* tch - the widget
     GFX_Point* pnt - a pointer to the point to add
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laTouchTest_AddPoint(laTouchTestWidget* tch, GFX_Point* pnt);
 
@@ -171,16 +174,16 @@ LIB_EXPORT laResult laTouchTest_AddPoint(laTouchTestWidget* tch, GFX_Point* pnt)
     Clears all of the existing touch points
 
   Description:
-    
+
 
   Parameters:
     laTouchTestWidget* tch - the widget
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laTouchTest_ClearPoints(laTouchTestWidget* tch);
 
@@ -192,16 +195,16 @@ LIB_EXPORT laResult laTouchTest_ClearPoints(laTouchTestWidget* tch);
     Gets the current point added event callback
 
   Description:
-    
+
 
   Parameters:
     laTouchTestWidget* tch - the widget
-        
+
   Returns:
     laTouchTestWidget_PointAddedEventCallback - a valid pointer or NULL
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laTouchTestWidget_PointAddedEventCallback laTouchTestWidget_GetPointAddedEventCallback(laTouchTestWidget* txt);
 
@@ -214,26 +217,27 @@ LIB_EXPORT laTouchTestWidget_PointAddedEventCallback laTouchTestWidget_GetPointA
     Sets the point added event callback
 
   Description:
-    
+
 
   Parameters:
     laTouchTestWidget* tch - the widget
     laTouchTestWidget_PointAddedEventCallback cb - a valid pointer or NULL
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laTouchTestWidget_SetPointAddedEventCallback(laTouchTestWidget* txt,
                                                                  laTouchTestWidget_PointAddedEventCallback cb);
+// DOM-IGNORE-BEGIN
 // internal use only
 void _laTouchTestWidget_GetLineRects(laTouchTestWidget* tch,
                                      uint32_t idx,
                                      GFX_Rect* horzRect,
                                      GFX_Rect* vertRect);
-
+// DOM-IGNORE-END
 
 #endif // LA_TOUCHTEST_WIDGET_ENABLED
 #endif /* LIBARIA_TOUCHTEST_H */

@@ -8,7 +8,7 @@
     libaria_widget_scrollbar.h
 
   Summary:
-    
+
 
   Description:
     This module implements scroll bar widget functions.
@@ -62,7 +62,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
     Defines the various scroll bar state values
 
   Description:
-    
+
 
   Remarks:
     None.
@@ -85,7 +85,7 @@ typedef enum laScrollBarState_t
     Defines the scroll bar direction values
 
   Description:
-    
+
 
   Remarks:
     None.
@@ -122,22 +122,25 @@ typedef struct laScrollBarWidget_t
 
     laScrollBarState state; // scrollbar input state
     laScrollBarOrientation alignment; // scroll bar direction
-    
+
     uint32_t max; // maximum scroll value
     uint32_t extent; // visible space/handle size
     uint32_t value; // current scroll value
     uint32_t step; // discreet scroll stepping value
-    
+
     laScrollBarWidget_ValueChangedEvent valueChangedEvent; // value changed callback
-    
+
     GFX_Point handleDownOffset;
 } laScrollBarWidget;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laScrollBarWidget_Constructor(laScrollBarWidget* bar);
 void _laScrollBarWidget_Destructor(laScrollBarWidget* bar);
 
 void _laScrollBarWidget_Update(laScrollBarWidget* bar);
 void _laScrollBarWidget_Paint(laScrollBarWidget* bar);
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -155,15 +158,15 @@ void _laScrollBarWidget_Paint(laScrollBarWidget* bar);
     a widget tree.
 
   Description:
-    
+
 
   Parameters:
-    
+
   Returns:
     laScrollBarWidget*
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laScrollBarWidget* laScrollBarWidget_New();
 
@@ -175,16 +178,16 @@ LIB_EXPORT laScrollBarWidget* laScrollBarWidget_New();
     Gets the orientation value for the scroll bar
 
   Description:
-    
+
 
   Parameters:
     laScrollBarWidget* bar - the widget
-    
+
   Returns:
     laScrollBarOrientation - the orientation value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laScrollBarOrientation laScrollBarWidget_GetOrientation(laScrollBarWidget* bar);
 
@@ -197,17 +200,17 @@ LIB_EXPORT laScrollBarOrientation laScrollBarWidget_GetOrientation(laScrollBarWi
     Sets the orientation value of the scroll bar
 
   Description:
-    
+
 
   Parameters:
     laScrollBarWidget* bar - the widget
     laScrollBarOrientation - the desired orientation value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laScrollBarWidget_SetOrientation(laScrollBarWidget* bar,
                                                      laScrollBarOrientation align,
@@ -221,17 +224,17 @@ LIB_EXPORT laResult laScrollBarWidget_SetOrientation(laScrollBarWidget* bar,
     Gets the maximum scroll value
 
   Description:
-    
+
 
   Parameters:
     laScrollBarWidget* bar - the widget
-        
+
   Returns:
     uint32_t - the maximum scroll value
-    
+
   Remarks:
-    
-*/                                                 
+
+*/
 LIB_EXPORT uint32_t laScrollBarWidget_GetMaxinumValue(laScrollBarWidget* bar);
 
 // *****************************************************************************
@@ -242,39 +245,39 @@ LIB_EXPORT uint32_t laScrollBarWidget_GetMaxinumValue(laScrollBarWidget* bar);
     Sets the maximum scroll value
 
   Description:
-    
+
 
   Parameters:
     laScrollBarWidget* bar - the widget
     uint32_t val - the desired maximum scroll value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laScrollBarWidget_SetMaximumValue(laScrollBarWidget* bar,
-                                                      uint32_t val);                                                     
+                                                      uint32_t val);
 
 // *****************************************************************************
 /* Function:
     uint32_t laScrollBarWidget_GetExtentValue(laScrollBarWidget* bar)
-    
+
   Summary:
     Gets the current scroll bar extent value
 
   Description:
-    
+
 
   Parameters:
     laScrollBarWidget* bar - the widget
-    
+
   Returns:
     uint32_t - the extent value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laScrollBarWidget_GetExtentValue(laScrollBarWidget* bar);
 
@@ -286,40 +289,40 @@ LIB_EXPORT uint32_t laScrollBarWidget_GetExtentValue(laScrollBarWidget* bar);
     Sets the scroll bar extent value
 
   Description:
-    
+
 
   Parameters:
     laScrollBarWidget* bar - the widget
     uint32_t val - the extent value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laScrollBarWidget_SetExtentValue(laScrollBarWidget* bar,
-                                                     uint32_t val); 
+                                                     uint32_t val);
 
 // *****************************************************************************
 /* Function:
     uint32_t laScrollBarWidget_GetScrollValue(laScrollBarWidget* bar)
-    
+
   Summary:
     Gets the current scroll value
 
   Description:
-    
+
 
   Parameters:
     laScrollBarWidget* bar - the widget
-        
+
   Returns:
     uint32_t - the scroll value
-    
+
   Remarks:
-    
-*/                                                     
+
+*/
 LIB_EXPORT uint32_t laScrollBarWidget_GetScrollValue(laScrollBarWidget* bar);
 
 // *****************************************************************************
@@ -330,40 +333,40 @@ LIB_EXPORT uint32_t laScrollBarWidget_GetScrollValue(laScrollBarWidget* bar);
     Sets the current scroll value
 
   Description:
-    
+
 
   Parameters:
     laScrollBarWidget* bar - the widget
     uint32_t - the desired scroll value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laScrollBarWidget_SetScrollValue(laScrollBarWidget* bar,
-                                                     uint32_t val);         
+                                                     uint32_t val);
 
 // *****************************************************************************
 /* Function:
     uint32_t laScrollBarWidget_GetScrollPercentage(laScrollBarWidget* bar)
-    
+
   Summary:
     Gets the current scroll value as a percentage
 
   Description:
-    
+
 
   Parameters:
     laScrollBarWidget* bar - the widget
-        
+
   Returns:
     uint32_t - the scroll percentage
-    
+
   Remarks:
-    
-*/                                                     
+
+*/
 LIB_EXPORT uint32_t laScrollBarWidget_GetScrollPercentage(laScrollBarWidget* bar);
 
 // *****************************************************************************
@@ -375,62 +378,62 @@ LIB_EXPORT uint32_t laScrollBarWidget_GetScrollPercentage(laScrollBarWidget* bar
     value from 0 - 100
 
   Description:
-    
+
 
   Parameters:
     laScrollBarWidget* bar - the widget
     uint32_t val - a value from 0 - 100
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laScrollBarWidget_SetScrollPercentage(laScrollBarWidget* bar,
-                                                          uint32_t val);                                                                                                 
+                                                          uint32_t val);
 
 // *****************************************************************************
 /* Function:
     uint32_t laScrollBarWidget_GetStepSize(laScrollBarWidget* bar)
-    
+
   Summary:
     Gets the current discreet step size
 
   Description:
-    
+
 
   Parameters:
     laScrollBarWidget* bar - the widget
-        
+
   Returns:
     uint32_t - the current step size
-    
+
   Remarks:
-    
-*/                                                          
+
+*/
 LIB_EXPORT uint32_t laScrollBarWidget_GetStepSize(laScrollBarWidget* bar);
 
 // *****************************************************************************
 /* Function:
     laResult laScrollBarWidget_SetStepSize(laScrollBarWidget* bar,
                                            uint32_t val)
-                                                  
+
   Summary:
     Sets the current step size
 
   Description:
-    
+
 
   Parameters:
     laScrollBarWidget* bar - the widget
     uint32_t val - the desired step size
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laScrollBarWidget_SetStepSize(laScrollBarWidget* bar,
                                                   uint32_t val);
@@ -438,64 +441,64 @@ LIB_EXPORT laResult laScrollBarWidget_SetStepSize(laScrollBarWidget* bar,
 // *****************************************************************************
 /* Function:
     laResult laScrollBarWidget_StepBackward(laScrollBarWidget* bar)
-    
+
   Summary:
     Moves the scroll value back by the current step size
 
   Description:
-    
+
 
   Parameters:
     laScrollBarWidget* bar - the widget
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
-*/                                                  
+
+*/
 LIB_EXPORT laResult laScrollBarWidget_StepBackward(laScrollBarWidget* bar);
 
 // *****************************************************************************
 /* Function:
     laResult laScrollBarWidget_StepForward(laScrollBarWidget* bar)
-    
+
   Summary:
     Moves the scroll value forward by the current step size
 
   Description:
-    
+
 
   Parameters:
     laScrollBarWidget* bar - the widget
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laScrollBarWidget_StepForward(laScrollBarWidget* bar);
 
 // *****************************************************************************
 /* Function:
     laScrollBarWidget_ValueChangedEvent laScrollBarWidget_GetValueChangedEventCallback(laScrollBarWidget* bar)
-  
+
   Summary:
-    Gets the current value changed callback function pointer  
+    Gets the current value changed callback function pointer
 
   Description:
-    
+
 
   Parameters:
     laScrollBarWidget* bar - the widget
-        
+
   Returns:
     laScrollBarWidget_ValueChangedEvent - a valid pointer or NULL
-    
+
   Remarks:
-    
-*/                                              
+
+*/
 LIB_EXPORT laScrollBarWidget_ValueChangedEvent laScrollBarWidget_GetValueChangedEventCallback(laScrollBarWidget* bar);
 
 // *****************************************************************************
@@ -506,21 +509,22 @@ LIB_EXPORT laScrollBarWidget_ValueChangedEvent laScrollBarWidget_GetValueChanged
     Sets the value changed event callback pointer
 
   Description:
-    
+
 
   Parameters:
     laScrollBarWidget* bar - the widget
     laScrollBarWidget_ValueChangedEvent - a valid pointer or NULL
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laScrollBarWidget_SetValueChangedEventCallback(laScrollBarWidget* bar,
                                                                    laScrollBarWidget_ValueChangedEvent cb);
 
+// DOM-IGNORE-BEGIN
 // internal use only
 void _laScrollBarWidget_TouchDownEvent(laScrollBarWidget* bar, laInput_TouchDownEvent* evt);
 void _laScrollBarWidget_TouchUpEvent(laScrollBarWidget* bar, laInput_TouchUpEvent* evt);
@@ -536,6 +540,7 @@ uint32_t _laScrollBar_GetPercentFromPoint(laScrollBarWidget* bar, GFX_Point* pnt
 uint32_t _laScrollBar_GetValueFromPercent(laScrollBarWidget* bar, uint32_t per);
 
 void _laScrollBarWidget_InvalidateBorderAreas(laScrollBarWidget* bar);
+// DOM-IGNORE-END
 
 #endif // LA_SCROLLBAR_WIDGET_ENABLED
 #endif /* LIBARIA_SCROLLBAR_H */

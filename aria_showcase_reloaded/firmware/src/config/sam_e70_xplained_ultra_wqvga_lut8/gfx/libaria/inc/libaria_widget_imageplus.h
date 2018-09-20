@@ -8,7 +8,7 @@
     libaria_widget_image.h
 
   Summary:
-    
+
 
   Description:
     This module implements image widget functions.
@@ -74,39 +74,42 @@ typedef enum laImagePlusWidget_ResizeFilter_t
 
   Remarks:
     None.
-*/    
+*/
 typedef struct laImagePlusWidget_t
 {
     laWidget widget; // widget base class
 
     GFXU_ImageAsset* image; // pointer to image asset
-    
+
     int32_t transformX;
     int32_t transformY;
     int32_t transformWidth;
     int32_t transformHeight;
-    
+
     laBool resizeToFit;
     laBool preserveAspect;
-    
+
     laImagePlusWidget_ResizeFilter resizeFilter;
-    
+
     laBool inputEnabled;
-    
+
     GFX_Point touch0;
     laBool touch0_down;
-    
+
     GFX_Point touch1;
     laBool touch1_down;
-    
+
     GFX_PixelBuffer buffer;
-    
+
 } laImagePlusWidget;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laImagePlusWidget_Constructor(laImagePlusWidget* img);
 void _laImagePlusWidget_Destructor(laImagePlusWidget* img);
 
 void _laImagePlusWidget_Paint(laImagePlusWidget* img);
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -124,16 +127,16 @@ void _laImagePlusWidget_Paint(laImagePlusWidget* img);
     widget is added to a widget tree.
 
   Description:
-    
+
 
   Parameters:
     void
-    
+
   Returns:
     laImagePlusWidget* - the widget
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laImagePlusWidget* laImagePlusWidget_New();
 
@@ -145,16 +148,16 @@ LIB_EXPORT laImagePlusWidget* laImagePlusWidget_New();
     Gets the image asset pointer for the widget.
 
   Description:
-    
+
 
   Parameters:
     laImagePlusWidget* img - the widget
-    
+
   Returns:
     GFXU_ImageAsset* - the image asset pointer
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT GFXU_ImageAsset* laImagePlusWidget_GetImage(laImagePlusWidget* img);
 
@@ -167,17 +170,17 @@ LIB_EXPORT GFXU_ImageAsset* laImagePlusWidget_GetImage(laImagePlusWidget* img);
     Sets the image asset pointer for the widget.
 
   Description:
-    
+
 
   Parameters:
     laImagePlusWidget* img - the widget
     GFXU_ImageAsset* imgAst - the image asset pointer
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laImagePlusWidget_SetImage(laImagePlusWidget* img,
                                                GFXU_ImageAsset* imgAst);
@@ -185,16 +188,16 @@ LIB_EXPORT laResult laImagePlusWidget_SetImage(laImagePlusWidget* img,
 
 /*    Function:
         int32_t laImagePlusWidget_GetTransformX(laImagePlusWidget* img)
- 
+
     Summary:
-        Returns the image transform x coefficient        
+        Returns the image transform x coefficient
 
     Description:
-        Returns the image transform x coefficient    
-        
+        Returns the image transform x coefficient
+
     Parameters:
         laImagePlusWidget* img - the widget
-        
+
     Returns:
         int32_t - the x translation coefficient
 
@@ -203,17 +206,17 @@ LIB_EXPORT int32_t laImagePlusWidget_GetTransformX(laImagePlusWidget* img);
 
 /*    Function:
         laResult laImagePlusWidget_SetTransformX(laImagePlusWidget* img, int32_t x)
- 
+
     Summary:
         Sets the image transform x coefficient
 
     Description:
         Sets the image transform x coefficient
-        
+
     Parameters:
         laImagePlusWidget* img - the widget
         int32_t x - the desired x value
-        
+
     Returns:
         laResult - result of the operation
 
@@ -222,16 +225,16 @@ LIB_EXPORT laResult laImagePlusWidget_SetTransformX(laImagePlusWidget* img, int3
 
 /*    Function:
         int32_t laImagePlusWidget_GetTransformY(laImagePlusWidget* img)
- 
+
     Summary:
-        Returns the image transform y coefficient           
+        Returns the image transform y coefficient
 
     Description:
-        Returns the image transform y coefficient    
-        
+        Returns the image transform y coefficient
+
     Parameters:
         laImagePlusWidget* img - the widget
-        
+
     Returns:
         int32_t - the y translation coefficient
 
@@ -240,17 +243,17 @@ LIB_EXPORT int32_t laImagePlusWidget_GetTransformY(laImagePlusWidget* img);
 
 /*    Function:
         laResult laImagePlusWidget_SetTransformY(laImagePlusWidget* img, int32_t y)
- 
+
     Summary:
-        Sets the image transform y coefficient       
+        Sets the image transform y coefficient
 
     Description:
         Sets the image transform y coefficient
-        
+
     Parameters:
         laImagePlusWidget* img - the widget
         int32_t y - the desired y value
-        
+
     Returns:
         laResult - result of the operation
 
@@ -259,16 +262,16 @@ LIB_EXPORT laResult laImagePlusWidget_SetTransformY(laImagePlusWidget* img, int3
 
 /*    Function:
         int32_t laImagePlusWidget_GetTransformWidth(laImagePlusWidget* img)
- 
+
     Summary:
-        Returns the image scale width coefficient     
+        Returns the image scale width coefficient
 
     Description:
         Returns the image scale width coefficient
-        
+
     Parameters:
         laImagePlusWidget* img - the widget
-        
+
     Returns:
         int32_t - the scale width coordinate value in pixels
 
@@ -278,7 +281,7 @@ LIB_EXPORT int32_t laImagePlusWidget_GetTransformWidth(laImagePlusWidget* img);
 /*    Function:
         laResult laImagePlusWidget_SetTransformWidth(laImagePlusWidget* img,
                                                      int32_t width)
- 
+
     Summary:
         Sets the image scale width coefficient.  This value is in pixels not
         percentage
@@ -286,11 +289,11 @@ LIB_EXPORT int32_t laImagePlusWidget_GetTransformWidth(laImagePlusWidget* img);
     Description:
         Sets the image scale width coefficient.  This value is in pixels not
         percentage
-        
+
     Parameters:
         laImagePlusWidget* img - the widget
         int32_t width - the desired width value, must be > 0
-        
+
     Returns:
         laResult - result of the operation
 
@@ -299,16 +302,16 @@ LIB_EXPORT laResult laImagePlusWidget_SetTransformWidth(laImagePlusWidget* img, 
 
 /*    Function:
         int32_t laImagePlusWidget_GetTransformHeight(laImagePlusWidget* img)
- 
+
     Summary:
-        Returns the image scale height coefficient    
+        Returns the image scale height coefficient
 
     Description:
         Returns the image scale height coefficient
-        
+
     Parameters:
         laImagePlusWidget* img - the widget
-        
+
     Returns:
         int32_t - the scale width coordinate value in pixels
 
@@ -318,19 +321,19 @@ LIB_EXPORT int32_t laImagePlusWidget_GetTransformHeight(laImagePlusWidget* img);
 /*    Function:
         laResult laImagePlusWidget_SetTransformHeight(laImagePlusWidget* img,
                                                       int32_t height)
- 
+
     Summary:
         Sets the image scale height coefficient.  This value is in pixels not
-        percentage 
+        percentage
 
     Description:
         Sets the image scale height coefficient.  This value is in pixels not
         percentage
-        
+
     Parameters:
         laImagePlusWidget* img - the widget
         int32_t height - the desired height value, must be > 0
-        
+
     Returns:
         laResult - result of the operation
 
@@ -341,16 +344,16 @@ LIB_EXPORT laResult laImagePlusWidget_SetTransformHeight(laImagePlusWidget* img,
 
 /*    Function:
         laResult laImagePlusWidget_ResetTransform(laImagePlusWidget* img)
- 
+
     Summary:
         Resets the image transform values to zero
 
     Description:
         Resets the image transform values to zero
-        
+
     Parameters:
         laImagePlusWidget* img - the widget
-        
+
     Returns:
         laResult - result of the operation
 
@@ -360,7 +363,7 @@ LIB_EXPORT laResult laImagePlusWidget_ResetTransform(laImagePlusWidget* img);
 // *****************************************************************************
 /* Function:
     laBool laImagePlusWidget_GetStretchEnabled(laImagePlusWidget* img)
-    
+
   Summary:
     Returns the boolean value of the 'stretch to fit' property
 
@@ -371,19 +374,19 @@ LIB_EXPORT laResult laImagePlusWidget_ResetTransform(laImagePlusWidget* img);
 
   Parameters:
     laWidget* wgt - the widget
-    
+
   Returns:
     laBool - the value of the resize flag
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laImagePlusWidget_GetStretchEnabled(laImagePlusWidget* img);
 
 // *****************************************************************************
 /* Function:
     laResult laImagePlusWidget_SetStretchEnabled(laImagePlusWidget* img, laBool enable)
-    
+
   Summary:
     Sets the boolean value of the stretch property
 
@@ -393,21 +396,21 @@ LIB_EXPORT laBool laImagePlusWidget_GetStretchEnabled(laImagePlusWidget* img);
   Parameters:
     laImagePlusWidget* img - the widget
     laBool - the desired flag value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laImagePlusWidget_SetStretchEnabled(laImagePlusWidget* img,
                                                         laBool enable);
-                                                     
-                                                     
+
+
 // *****************************************************************************
 /* Function:
     laBool laImagePlusWidget_GetPreserveAspectEnabled(laImagePlusWidget* img)
-    
+
   Summary:
     Returns the boolean value of the 'preserve aspect' property
 
@@ -419,19 +422,19 @@ LIB_EXPORT laResult laImagePlusWidget_SetStretchEnabled(laImagePlusWidget* img,
 
   Parameters:
     laImagePlusWidget* img - the widget
-    
+
   Returns:
     laBool - the value of the aspect flag
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laImagePlusWidget_GetPreserveAspectEnabled(laImagePlusWidget* img);
 
 // *****************************************************************************
 /* Function:
     laResult laImagePlusWidget_SetStretchEnabled(laImagePlusWidget* img, laBool enable)
-    
+
   Summary:
     Sets the boolean value of the 'preserve aspect' property
 
@@ -441,21 +444,21 @@ LIB_EXPORT laBool laImagePlusWidget_GetPreserveAspectEnabled(laImagePlusWidget* 
   Parameters:
     laImagePlusWidget* img - the widget
     laBool - the desired flag value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laImagePlusWidget_SetPreserveAspectEnabled(laImagePlusWidget* img,
-                                                               laBool enable);                                                    
+                                                               laBool enable);
 
 
 // *****************************************************************************
 /* Function:
     laImagePlusWidget_ResizeFilter laImagePlusWidget_GetResizeFilter(laImagePlusWidget* img)
-    
+
   Summary:
     Returns the resize filter setting for this image widget
 
@@ -465,12 +468,12 @@ LIB_EXPORT laResult laImagePlusWidget_SetPreserveAspectEnabled(laImagePlusWidget
 
   Parameters:
     laImagePlusWidget* img - the widget
-    
+
   Returns:
     laImagePlusWidget_ResizeFilter - the filter setting
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laImagePlusWidget_ResizeFilter laImagePlusWidget_GetResizeFilter(laImagePlusWidget* img);
 
@@ -478,7 +481,7 @@ LIB_EXPORT laImagePlusWidget_ResizeFilter laImagePlusWidget_GetResizeFilter(laIm
 /* Function:
     laResult laImagePlusWidget_SetResizeFilter(laImagePlusWidget* img,
                                                laImagePlusWidget_ResizeFilter filter)
-    
+
   Summary:
     Sets the resize filter value of the widget
 
@@ -488,21 +491,21 @@ LIB_EXPORT laImagePlusWidget_ResizeFilter laImagePlusWidget_GetResizeFilter(laIm
   Parameters:
     laImagePlusWidget* img - the widget
     laImagePlusWidget_ResizeFilter filter - the desired filter
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laImagePlusWidget_SetResizeFilter(laImagePlusWidget* img,
-                                                      laImagePlusWidget_ResizeFilter filter); 
+                                                      laImagePlusWidget_ResizeFilter filter);
 
 
 // *****************************************************************************
 /* Function:
     laBool laImagePlusWidget_GetInteractive(laImagePlusWidget* img)
-    
+
   Summary:
     Returns true if the widget is configured to respond to input events
 
@@ -513,19 +516,19 @@ LIB_EXPORT laResult laImagePlusWidget_SetResizeFilter(laImagePlusWidget* img,
 
   Parameters:
     laImagePlusWidget* img - the widget
-    
+
   Returns:
     laBool - the value of the interactive flag
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laImagePlusWidget_GetInteractive(laImagePlusWidget* img);
 
 // *****************************************************************************
 /* Function:
     laResult laImagePlusWidget_SetInteractive(laImagePlusWidget* img, laBool interactive)
-    
+
   Summary:
     Sets the widget interactive flag
 
@@ -535,20 +538,22 @@ LIB_EXPORT laBool laImagePlusWidget_GetInteractive(laImagePlusWidget* img);
   Parameters:
     laImagePlusWidget* img - the widget
     laBool - the desired flag value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laImagePlusWidget_SetInteractive(laImagePlusWidget* img,
                                                      laBool interactive);
 
+// DOM-IGNORE-BEGIN
 // internal use only
 void _laImagePlusWidget_GetImageRect(laImagePlusWidget* img,
                                      GFX_Rect* imgRect,
                                      GFX_Rect* imgSrcRect);
-                                  
+// DOM-IGNORE-END
+
 #endif // LA_IMAGE_WIDGET_ENABLED
 #endif /* LIBARIA_IMAGE_H */

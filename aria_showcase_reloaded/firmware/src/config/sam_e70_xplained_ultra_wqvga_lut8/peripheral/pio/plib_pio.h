@@ -136,21 +136,11 @@ SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
 
 typedef enum
 {
-    /* Port A Pins */
     PIO_PORT_A = PIOA_BASE_ADDRESS,
-
-    /* Port B Pins */
     PIO_PORT_B = PIOB_BASE_ADDRESS,
-
-    /* Port C Pins */
     PIO_PORT_C = PIOC_BASE_ADDRESS,
-
-    /* Port D Pins */
     PIO_PORT_D = PIOD_BASE_ADDRESS,
-
-    /* Port E Pins */
     PIO_PORT_E = PIOE_BASE_ADDRESS
-
 } PIO_PORT;
 
 // *****************************************************************************

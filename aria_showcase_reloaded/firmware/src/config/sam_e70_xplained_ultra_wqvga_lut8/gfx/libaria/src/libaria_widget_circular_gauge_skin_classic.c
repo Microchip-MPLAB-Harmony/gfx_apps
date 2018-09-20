@@ -282,7 +282,7 @@ static void drawTicksAtAngle(laCircularGaugeWidget* gauge,
 static void drawCircularGauge(laCircularGaugeWidget* gauge)
 {
     GFX_Point p;
-    GFX_Rect arcRect, clipRect;
+    GFX_Rect gaugeRect, clipRect;
     laLayer* layer = laUtils_GetLayer((laWidget*)gauge);
     float degPerUnit;
     unsigned int i;
@@ -292,16 +292,18 @@ static void drawCircularGauge(laCircularGaugeWidget* gauge)
     
     laUtils_PointToLayerSpace((laWidget*)gauge, &p);
     
-    arcRect.x = laWidget_GetX((laWidget*) gauge);
-    arcRect.y = laWidget_GetY((laWidget*) gauge);
-    arcRect.width = laWidget_GetWidth((laWidget*) gauge);
-    arcRect.height = laWidget_GetHeight((laWidget*) gauge);
+    gaugeRect.x = 0;
+    gaugeRect.y = 0;
+    gaugeRect.width = laWidget_GetWidth((laWidget*) gauge);
+    gaugeRect.height = laWidget_GetHeight((laWidget*) gauge);
 
     degPerUnit = (float) gauge->centerAngle / (float) (abs(gauge->endValue - gauge->startValue));
     
-    if(GFX_RectIntersects(&layer->clippedDrawingRect, &arcRect) == GFX_TRUE)
+    laUtils_RectToLayerSpace((laWidget*)gauge, &gaugeRect);
+    
+    if(GFX_RectIntersects(&layer->clippedDrawingRect, &gaugeRect) == GFX_TRUE)
     {
-        GFX_RectClip(&arcRect, &layer->clippedDrawingRect, &clipRect);
+        GFX_RectClip(&gaugeRect, &layer->clippedDrawingRect, &clipRect);
         
         GFX_Set(GFXF_DRAW_CLIP_RECT, &clipRect);
         GFX_Set(GFXF_DRAW_CLIP_ENABLE, GFX_TRUE);

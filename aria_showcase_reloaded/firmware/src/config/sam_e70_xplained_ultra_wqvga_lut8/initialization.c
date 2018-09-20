@@ -154,16 +154,17 @@ SYSTEM_OBJECTS sysObj;
 TIME_PLIB_API sysTimePlibAPI = {
     .timerCallbackSet = (TIME_CallbackSet)TC0_CH0_TimerCallbackRegister,
     .timerCounterGet = (TIME_CounterGet)TC0_CH0_TimerCounterGet,
-    .timerPeriodSet = (TIME_PeriodSet)TC0_CH0_TimerPeriodSet,
+     .timerPeriodSet = (TIME_PeriodSet)TC0_CH0_TimerPeriodSet,
+    .timerFrequencyGet = (TIME_FrequencyGet)TC0_CH0_TimerFrequencyGet,
+    .timerCompareSet = (TIME_CompareSet)TC0_CH0_TimerCompareSet,
     .timerStart = (TIME_Start)TC0_CH0_TimerStart,
-    .timerStop = (TIME_Stop)TC0_CH0_TimerStop
+    .timerStop = (TIME_Stop)TC0_CH0_TimerStop 
 };
 
 SYS_TIME_INIT sysTimeInitData =
 {
     .timePlib = &sysTimePlibAPI,
-    .timeInterrupt = TC0_CH0_IRQn,
-    .timeFrequency = TC0_CH0_TimerFrequencyGet()
+    .hwTimerIntNum = TC0_CH0_IRQn,
 };
 
 // </editor-fold>
@@ -185,7 +186,7 @@ void SYS_Initialize ( void* data )
 	PIO_Initialize();
 
     NVIC_Initialize();
-    XDMAC0_Initialize();
+    XDMAC_Initialize();
 	RSWDT_REGS->RSWDT_MR = RSWDT_MR_WDDIS_Msk;	// Disable RSWDT 
 	WDT_REGS->WDT_MR = WDT_MR_WDDIS_Msk; 		// Disable WDT 
 	BSP_Initialize();

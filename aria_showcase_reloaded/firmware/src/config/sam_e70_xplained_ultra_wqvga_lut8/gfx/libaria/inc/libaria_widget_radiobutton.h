@@ -654,6 +654,7 @@ LIB_EXPORT uint32_t laRadioButtonWidget_GetCircleButtonSize(laRadioButtonWidget*
 LIB_EXPORT laResult laRadioButtonWidget_SetCircleButtonSize(laRadioButtonWidget* btn,
                                                             uint32_t size);
 
+// DOM-IGNORE-BEGIN
 // internal use only
 void _laRadioButtonWidget_Select(laRadioButtonWidget* btn);
 void _laRadioButtonWidget_Deselect(laRadioButtonWidget* btn);
@@ -666,6 +667,7 @@ void _laRadioButtonWidget_GetImageRect(laRadioButtonWidget* btn,
 void _laRadioButtonWidget_GetTextRect(laRadioButtonWidget* btn,
 								      GFX_Rect* textRect,
 								      GFX_Rect* drawRect);
+// DOM-IGNORE-END
 
 #endif // LA_RADIOBUTTON_WIDGET_ENABLED
 #endif /* LIBARIA_RADIOBUTTON_H */

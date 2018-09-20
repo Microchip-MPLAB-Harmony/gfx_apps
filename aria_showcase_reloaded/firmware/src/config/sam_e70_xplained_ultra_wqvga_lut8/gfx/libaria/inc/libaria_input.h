@@ -447,6 +447,7 @@ LIB_EXPORT laResult laInput_InjectTouchUp(uint32_t id, int32_t x, int32_t y);
 */
 LIB_EXPORT laResult laInput_InjectTouchMoved(uint32_t id, int32_t x, int32_t y);
 
+// DOM-IGNORE-BEGIN
 // alternative input APIs (not yet implemented)
 
 /*
@@ -460,5 +461,5 @@ LIB_EXPORT laResult laInput_InjectMouseButtonUp(laMouseButton button);
 LIB_EXPORT laResult laInput_InjectMouseMoved(int32_t x, int32_t y);*/
 
 laEventResult _laInput_HandleInputEvent(laEvent* evt);
-
+// DOM-IGNORE-END
 #endif /* LIBARIA_INPUT_H */

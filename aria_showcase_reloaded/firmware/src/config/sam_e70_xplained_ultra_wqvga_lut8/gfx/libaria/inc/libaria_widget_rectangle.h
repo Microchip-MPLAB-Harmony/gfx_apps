@@ -150,8 +150,10 @@ LIB_EXPORT int32_t laRectangleWidget_GetThickness(laRectangleWidget* rect);
 LIB_EXPORT laResult laRectangleWidget_SetThickness(laRectangleWidget* rect,
                                                    int32_t thk);
 
+// DOM-IGNORE-BEGIN
 // internal use only
 void _laRectangleWidget_InvalidateRect(laRectangleWidget* rct);
+// DOM-IGNORE-END
 
 #endif // LA_RECTANGLE_WIDGET_ENABLED
 #endif /* LIBARIA_RECTANGLE_H */

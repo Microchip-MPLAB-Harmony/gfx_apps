@@ -75,10 +75,10 @@ typedef struct laWindowWidget_t
     laWidget widget; // base widget class
 
     laString title; // title text
-    
+
     GFXU_ImageAsset* icon; // title icon
     uint32_t iconMargin; // title icon margin
-    
+
     struct
     {
         GFX_Rect barRect;
@@ -87,10 +87,13 @@ typedef struct laWindowWidget_t
     GFXU_ExternalAssetReader* reader; // asset reader
 } laWindowWidget;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laWindowWidget_Constructor(laWindowWidget* win);
 void _laWindowWidget_Destructor(laWindowWidget* win);
 
 void _laWindowWidget_Paint(laWindowWidget* win);
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -108,15 +111,15 @@ void _laWindowWidget_Paint(laWindowWidget* win);
     a widget tree.
 
   Description:
-    
+
 
   Parameters:
-    
+
   Returns:
     laWindowWidget*
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laWindowWidget* laWindowWidget_New();
 
@@ -134,12 +137,12 @@ LIB_EXPORT laWindowWidget* laWindowWidget_New();
   Parameters:
     laWindowWidget* win - the widget
     laString* str - a pointer to an laString object
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWindowWidget_GetTitle(laWindowWidget* win, laString* str);
 
@@ -152,18 +155,18 @@ LIB_EXPORT laResult laWindowWidget_GetTitle(laWindowWidget* win, laString* str);
 
   Description:
     This function copies the contents of the input string into its internal
-    string buffer.  The input string can then be freed or altered without 
+    string buffer.  The input string can then be freed or altered without
     affecting the label's internal string value.
 
   Parameters:
     laWindowWidget* win - the widget
     laString str - an laString object
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWindowWidget_SetTitle(laWindowWidget* win, laString str);
 
@@ -175,16 +178,16 @@ LIB_EXPORT laResult laWindowWidget_SetTitle(laWindowWidget* win, laString str);
     Gets the currently used window icon
 
   Description:
-    
+
 
   Parameters:
     laWindowWidget* win - the widget
-        
+
   Returns:
     GFXU_ImageAsset*
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT GFXU_ImageAsset* laWindowWidget_GetIcon(laWindowWidget* win);
 
@@ -197,17 +200,17 @@ LIB_EXPORT GFXU_ImageAsset* laWindowWidget_GetIcon(laWindowWidget* win);
     Sets the image to be used as a window icon
 
   Description:
-    
+
 
   Parameters:
     laWindowWidget* win - the widget
     GFXU_ImageAsset* - pointer to an image asset
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWindowWidget_SetIcon(laWindowWidget* win,
                                            GFXU_ImageAsset* img);
@@ -220,17 +223,17 @@ LIB_EXPORT laResult laWindowWidget_SetIcon(laWindowWidget* win,
     Gets the current image icon margin
 
   Description:
-    
+
 
   Parameters:
     laWindowWidget* win - the widget
-        
+
   Returns:
     uint32_t - the icon margin
-    
+
   Remarks:
-    
-*/                                           
+
+*/
 LIB_EXPORT uint32_t laWindowWidget_GetIconMargin(laWindowWidget* win);
 
 // *****************************************************************************
@@ -241,24 +244,26 @@ LIB_EXPORT uint32_t laWindowWidget_GetIconMargin(laWindowWidget* win);
     Sets the image icon margin
 
   Description:
-    
+
 
   Parameters:
     laWindowWidget* win - the widget
     uint32_t mg - the image icon margin value
-    
+
   Returns:
     laResult - the operation result
-    
-  Remarks:
-    
-*/ 
-LIB_EXPORT laResult laWindowWidget_SetIconMargin(laWindowWidget* win, uint32_t mg);                                                    
 
+  Remarks:
+
+*/
+LIB_EXPORT laResult laWindowWidget_SetIconMargin(laWindowWidget* win, uint32_t mg);
+
+// DOM-IGNORE-BEGIN
 // internal use only
 void laWindowWidget_GetTitleBarRect(laWindowWidget* win, GFX_Rect* barRect);
 void laWindowWidget_GetIconRect(laWindowWidget* win, GFX_Rect* imgRect, GFX_Rect* imgSrcRect);
 void laWindowWidget_GetTextRect(laWindowWidget* win, GFX_Rect* textRect, GFX_Rect* drawRect);
+// DOM-IGNORE-END
 
 #endif // LA_WINDOW_WIDGET_ENABLED
 #endif /* LIBARIA_WINDOW_H */

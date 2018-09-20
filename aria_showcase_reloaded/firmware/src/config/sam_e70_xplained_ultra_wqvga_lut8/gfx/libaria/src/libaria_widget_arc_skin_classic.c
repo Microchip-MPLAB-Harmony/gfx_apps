@@ -112,12 +112,13 @@ static void drawArc(laArcWidget* arc)
     arcRect.width = arc->radius * 2;
     arcRect.height = arc->radius * 2;
     
+    
     if(GFX_RectIntersects(&layer->clippedDrawingRect, &arcRect) == GFX_TRUE)
     {
         GFX_RectClip(&arcRect, &layer->clippedDrawingRect, &clipRect);
         
         GFX_Set(GFXF_DRAW_CLIP_RECT, &clipRect);
-        GFX_Set(GFXF_DRAW_CLIP_ENABLE, &clipRect);
+        GFX_Set(GFXF_DRAW_CLIP_ENABLE, GFX_TRUE);
         GFX_Set(GFXF_DRAW_MODE, GFX_DRAW_LINE);
         GFX_Set(GFXF_DRAW_COLOR, arc->widget.scheme->foreground);
 
