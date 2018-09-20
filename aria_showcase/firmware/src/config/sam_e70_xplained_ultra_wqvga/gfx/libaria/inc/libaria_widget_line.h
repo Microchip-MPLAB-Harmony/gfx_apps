@@ -8,7 +8,7 @@
     libaria_widget_line.h
 
   Summary:
-    
+
 
   Description:
     This module implements line draw widget functions.
@@ -65,7 +65,7 @@ typedef struct laLineWidget_t laLineWidget;
   Description:
     A line widget draws a simple line shape within the confines of its
     bounding rectangle.  All coordinates are expressed in local widget space.
-    
+
     The color of the line is determined by the widget scheme's 'foreground'
     color.
 
@@ -82,10 +82,13 @@ typedef struct laLineWidget_t
     int32_t y2; // point 2 y
 } laLineWidget;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laLineWidget_Constructor(laLineWidget* line);
 void _laLineWidget_Destructor(laLineWidget* line);
 
 void _laLineWidget_Paint(laLineWidget* line);
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -103,15 +106,15 @@ void _laLineWidget_Paint(laLineWidget* line);
     widget is added to a widget tree.
 
   Description:
-    
+
 
   Parameters:
-    
+
   Returns:
     laLineWidget*
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laLineWidget* laLineWidget_New();
 
@@ -123,18 +126,18 @@ LIB_EXPORT laLineWidget* laLineWidget_New();
     Gets the coordinates for the first point of the line.
 
   Description:
-    
+
 
   Parameters:
     laLineWidget* line - the widget
     int32_t* x - pointer to an int to store the x coordinate
     int32_t* y - pointer to tan int to store the y coordinate
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineWidget_GetStartPoint(laLineWidget* line, int32_t* x, int32_t* y);
 
@@ -146,18 +149,18 @@ LIB_EXPORT laResult laLineWidget_GetStartPoint(laLineWidget* line, int32_t* x, i
     Sets the cooridnate for the first point of the line
 
   Description:
-    
+
 
   Parameters:
     laLineWidget* line - the widget
     int32_t x - the x coordinate value
     int32_t y - the y coordinate value
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineWidget_SetStartPoint(laLineWidget* line, int32_t x, int32_t y);
 
@@ -169,18 +172,18 @@ LIB_EXPORT laResult laLineWidget_SetStartPoint(laLineWidget* line, int32_t x, in
     Gets the coordinates for the second point of the line.
 
   Description:
-    
+
 
   Parameters:
     laLineWidget* line - the widget
     int32_t* x - pointer to an int to store the x coordinate
     int32_t* y - pointer to tan int to store the y coordinate
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineWidget_GetEndPoint(laLineWidget* line, int32_t* x, int32_t* y);
 
@@ -192,18 +195,18 @@ LIB_EXPORT laResult laLineWidget_GetEndPoint(laLineWidget* line, int32_t* x, int
     Sets the cooridnate for the second point of the line
 
   Description:
-    
+
 
   Parameters:
     laLineWidget* line - the widget
     int32_t x - the x coordinate value
     int32_t y - the y coordinate value
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineWidget_SetEndPoint(laLineWidget* line, int32_t x, int32_t y);
 

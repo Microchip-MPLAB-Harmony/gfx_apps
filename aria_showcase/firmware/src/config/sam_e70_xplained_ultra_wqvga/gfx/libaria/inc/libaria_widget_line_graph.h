@@ -8,7 +8,7 @@
     libaria_widget_line_graph.h
 
   Summary:
-    
+
 
   Description:
     This module implements line graph drawing widget functions.
@@ -54,26 +54,61 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // Section: Data Types and Constants
 // *****************************************************************************
 // *****************************************************************************
+
+// *****************************************************************************
+/* Enumeration:
+    laLineGraphValueAxis_t
+
+  Summary:
+    The value axis index value
+*/
 typedef enum laLineGraphValueAxis_t
 {
     LINE_GRAPH_AXIS_0 = 0,
 //  LINE_GRAPH_AXIS_1, //unsupported
 } laLineGraphValueAxis;
 
+// *****************************************************************************
+/* Enumeration:
+    laLineGraphTickPosition_t
+
+  Summary:
+    The tick position relative to axis
+*/
 typedef enum laLineGraphTickPosition_t
 {
     LINE_GRAPH_TICK_IN,
     LINE_GRAPH_TICK_OUT,
-    LINE_GRAPH_TICK_CENTER,            
+    LINE_GRAPH_TICK_CENTER,
 } laLineGraphTickPosition;
 
+// *****************************************************************************
+/* Enumeration:
+    laLineGraphDataPointType_t
+
+  Summary:
+    The graph data point type
+*/
 typedef enum laLineGraphDataPointType_t
 {
     LINE_GRAPH_DATA_POINT_NONE,
     LINE_GRAPH_DATA_POINT_CIRCLE,
-    LINE_GRAPH_DATA_POINT_SQUARE,            
+    LINE_GRAPH_DATA_POINT_SQUARE,
 } laLineGraphDataPointType;
 
+// *****************************************************************************
+/* Structure:
+    laLineGraphDataSeries_t
+
+  Summary:
+    The data series object that contains the series properties and data
+
+  Description:
+
+
+  Remarks:
+    None.
+*/
 typedef struct laLineGraphDataSeries_t
 {
     laScheme * scheme;
@@ -85,6 +120,19 @@ typedef struct laLineGraphDataSeries_t
     laBool drawLines;
 } laLineGraphDataSeries;
 
+// *****************************************************************************
+/* Structure:
+    laLineGraphCategory_t
+
+  Summary:
+    Contains the Category properties
+
+  Description:
+
+
+  Remarks:
+    None.
+*/
 typedef struct laLineGraphCategory_t
 {
     laString text;
@@ -130,13 +178,13 @@ typedef struct laLineGraphWidget_t
     uint32_t ticksLabelsStringID; //ID of Superset string containing numbers
     laLineGraphTickPosition valueAxisTicksPosition;
     laLineGraphTickPosition valueAxisSubticksPosition;
-    
+
     //Category axis properties
     laBool categAxisLabelsVisible;
     laBool categAxisTicksVisible;
     laLineGraphTickPosition categAxisTicksPosition;
     laArray categories;
-    
+
     GFXU_ExternalAssetReader* reader; // asset reader
 } laLineGraphWidget;
 
@@ -145,11 +193,13 @@ typedef struct laLineGraphWidget_t
 // Section: Routines
 // *****************************************************************************
 // *****************************************************************************
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laLineGraphWidget_Constructor(laLineGraphWidget* graph);
 void _laLineGraphWidget_Destructor(laLineGraphWidget* graph);
 
 void _laLineGraphWidget_Paint(laLineGraphWidget* graph);
-
+// DOM-IGNORE-END
 
 // *****************************************************************************
 /* Function:
@@ -161,15 +211,15 @@ void _laLineGraphWidget_Paint(laLineGraphWidget* graph);
     widget is added to a widget tree.
 
   Description:
-  
+
   Parameters:
     void
-    
+
   Returns:
     laLineGraphWidget*
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laLineGraphWidget* laLineGraphWidget_New();
 
@@ -181,15 +231,15 @@ LIB_EXPORT laLineGraphWidget* laLineGraphWidget_New();
     Returns the length of the ticks
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
-    
+
   Returns:
     uint32_t - tick length
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laLineGraphWidget_GetTickLength(laLineGraphWidget* graph);
 
@@ -201,16 +251,16 @@ LIB_EXPORT uint32_t laLineGraphWidget_GetTickLength(laLineGraphWidget* graph);
     Sets the length of the ticks
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     uint32_t length - length in pixels
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetTickLength(laLineGraphWidget* graph, uint32_t length);
 
@@ -222,15 +272,15 @@ LIB_EXPORT laResult laLineGraphWidget_SetTickLength(laLineGraphWidget* graph, ui
     Returns the max value of the axis
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
-    
+
   Returns:
     uint32_t - max value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laLineGraphWidget_GetMaxValue(laLineGraphWidget* graph, laLineGraphValueAxis axis);
 
@@ -242,17 +292,17 @@ LIB_EXPORT uint32_t laLineGraphWidget_GetMaxValue(laLineGraphWidget* graph, laLi
     Sets the max value of the axis
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laLineGraphValueAxis axis - the value axis index
     int32_t value - max value
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetMaxValue(laLineGraphWidget* graph, laLineGraphValueAxis axis, int32_t value);
 
@@ -264,15 +314,15 @@ LIB_EXPORT laResult laLineGraphWidget_SetMaxValue(laLineGraphWidget* graph, laLi
     Returns the min value of the axis
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
-    
+
   Returns:
     uint32_t - min value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laLineGraphWidget_GetMinValue(laLineGraphWidget* graph, laLineGraphValueAxis axis);
 
@@ -284,17 +334,17 @@ LIB_EXPORT uint32_t laLineGraphWidget_GetMinValue(laLineGraphWidget* graph, laLi
     Sets the min value of the axis
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laLineGraphValueAxis axis - the value axis index
     int32_t value - min value
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetMinValue(laLineGraphWidget* graph, laLineGraphValueAxis axis, int32_t value);
 
@@ -306,15 +356,15 @@ LIB_EXPORT laResult laLineGraphWidget_SetMinValue(laLineGraphWidget* graph, laLi
     Returns GFX_TRUE if the value axis labels are visible
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
-    
+
   Returns:
     laBool - GFX_TRUE if the value axis labels are visible
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laLineGraphWidget_GetValueAxisLabelsVisible(laLineGraphWidget* graph, laLineGraphValueAxis axis);
 
@@ -326,17 +376,17 @@ LIB_EXPORT laBool laLineGraphWidget_GetValueAxisLabelsVisible(laLineGraphWidget*
     Shows/Hides the labels in the value axis
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laLineGraphValueAxis axis - the value axis index
     laBool visible - shows the labels if GFX_TRUE
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetValueAxisLabelsVisible(laLineGraphWidget* graph, laLineGraphValueAxis axis, laBool visible);
 
@@ -348,15 +398,15 @@ LIB_EXPORT laResult laLineGraphWidget_SetValueAxisLabelsVisible(laLineGraphWidge
     Returns GFX_TRUE if the value axis ticks are visible
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
-    
+
   Returns:
     laBool - GFX_TRUE if the value axis ticks are visible
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laLineGraphWidget_GetValueAxisTicksVisible(laLineGraphWidget* graph, laLineGraphValueAxis axis);
 
@@ -368,17 +418,17 @@ LIB_EXPORT laBool laLineGraphWidget_GetValueAxisTicksVisible(laLineGraphWidget* 
     Shows/Hides the ticks in the value axis
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laLineGraphValueAxis axis - the value axis index
     laBool visible - shows the ticks if GFX_TRUE
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetValueAxisTicksVisible(laLineGraphWidget* graph, laLineGraphValueAxis axis, laBool visible);
 
@@ -390,15 +440,15 @@ LIB_EXPORT laResult laLineGraphWidget_SetValueAxisTicksVisible(laLineGraphWidget
     Returns GFX_TRUE if the value axis subticks are visible
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
-    
+
   Returns:
     laBool - GFX_TRUE if the value axis subticks are visible
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laLineGraphWidget_GetValueAxisSubticksVisible(laLineGraphWidget* graph, laLineGraphValueAxis axis);
 
@@ -410,17 +460,17 @@ LIB_EXPORT laBool laLineGraphWidget_GetValueAxisSubticksVisible(laLineGraphWidge
     Shows/Hides the subticks in the value axis
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laLineGraphValueAxis axis - the value axis index
     laBool visible - shows the subticks if GFX_TRUE
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetValueAxisSubticksVisible(laLineGraphWidget* graph, laLineGraphValueAxis axis, laBool visible);
 
@@ -432,16 +482,16 @@ LIB_EXPORT laResult laLineGraphWidget_SetValueAxisSubticksVisible(laLineGraphWid
     Returns the interval between major ticks in the value axis
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laLineGraphValueAxis axis - the value axis index
-    
+
   Returns:
     uint32_t - ticks in pixels
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laLineGraphWidget_GetValueAxisTickInterval(laLineGraphWidget* graph, laLineGraphValueAxis axis);
 
@@ -453,17 +503,17 @@ LIB_EXPORT uint32_t laLineGraphWidget_GetValueAxisTickInterval(laLineGraphWidget
     Sets the tick interval in the value axis
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laLineGraphValueAxis axis - the value axis index
     uint32_t interval - tick interval in pixels
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetValueAxisTickInterval(laLineGraphWidget* graph, laLineGraphValueAxis axis, uint32_t interval);
 
@@ -475,16 +525,16 @@ LIB_EXPORT laResult laLineGraphWidget_SetValueAxisTickInterval(laLineGraphWidget
     Returns the interval between minor ticks in the value axis
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laLineGraphValueAxis axis - the value axis index
-    
+
   Returns:
     uint32_t - ticks in pixels
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laLineGraphWidget_GetValueAxisSubtickInterval(laLineGraphWidget* graph, laLineGraphValueAxis axis);
 
@@ -496,17 +546,17 @@ LIB_EXPORT uint32_t laLineGraphWidget_GetValueAxisSubtickInterval(laLineGraphWid
     Sets the minor tick interval in the value axis
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laLineGraphValueAxis axis - the value axis index
     uint32_t interval - tick interval in pixels
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetValueAxisSubtickInterval(laLineGraphWidget* graph, laLineGraphValueAxis axis, uint32_t interval);
 
@@ -520,16 +570,16 @@ LIB_EXPORT laResult laLineGraphWidget_SetValueAxisSubtickInterval(laLineGraphWid
     Adds a series to the graph
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     uint32_t * seriesID - destination of the returned series ID
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_AddSeries(laLineGraphWidget* graph, uint32_t * seriesID);
 
@@ -541,15 +591,15 @@ LIB_EXPORT laResult laLineGraphWidget_AddSeries(laLineGraphWidget* graph, uint32
     Returns scheme of the specified series
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
-    
+
   Returns:
     laScheme * - scheme of the specified series
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laScheme * laLineGraphWidget_GetSeriesScheme(laLineGraphWidget* graph, uint32_t seriesID);
 
@@ -561,17 +611,17 @@ LIB_EXPORT laScheme * laLineGraphWidget_GetSeriesScheme(laLineGraphWidget* graph
     Sets the color scheme of the series
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     int32_t seriesID - the series ID, if negative the last series is referenced
     laScheme * scheme - the color scheme
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetSeriesScheme(laLineGraphWidget* graph, int32_t seriesID, laScheme * scheme);
 
@@ -583,15 +633,15 @@ LIB_EXPORT laResult laLineGraphWidget_SetSeriesScheme(laLineGraphWidget* graph, 
     Returns GFX_TRUE if the series points are filled
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
-    
+
   Returns:
     laBool - GFX_TRUE if the series points are filled
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laLineGraphWidget_GetSeriesFillPoints(laLineGraphWidget* graph, uint32_t seriesID);
 
@@ -603,17 +653,17 @@ LIB_EXPORT laBool laLineGraphWidget_GetSeriesFillPoints(laLineGraphWidget* graph
     Sets the series points filled
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     int32_t seriesID - the series ID, if negative the last series is referenced
     laBool fill - fills the points if GFX_TRUE
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetSeriesFillPoints(laLineGraphWidget* graph, int32_t seriesID, laBool fill);
 
@@ -625,15 +675,15 @@ LIB_EXPORT laResult laLineGraphWidget_SetSeriesFillPoints(laLineGraphWidget* gra
     Returns GFX_TRUE if the series lines are visible
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
-    
+
   Returns:
     laBool - GFX_TRUE if the series lines are visible
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laLineGraphWidget_GetSeriesLinesVisible(laLineGraphWidget* graph, uint32_t seriesID);
 
@@ -645,17 +695,17 @@ LIB_EXPORT laBool laLineGraphWidget_GetSeriesLinesVisible(laLineGraphWidget* gra
     Shows/hides the lines between series points
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     int32_t seriesID - the series ID, if negative the last series is referenced
     laBool fill - Shows the lines between series data points if GFX_TRUE
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetSeriesLinesVisible(laLineGraphWidget* graph, int32_t seriesID, laBool visible);
 
@@ -667,16 +717,16 @@ LIB_EXPORT laResult laLineGraphWidget_SetSeriesLinesVisible(laLineGraphWidget* g
     Returns the type of point drawn for the series data points
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     uint32_t seriesID - the series ID,
-    
+
   Returns:
     laLineGraphDataPointType - the point type
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laLineGraphDataPointType laLineGraphWidget_GetSeriesPointType(laLineGraphWidget* graph, uint32_t seriesID);
 
@@ -688,17 +738,17 @@ LIB_EXPORT laLineGraphDataPointType laLineGraphWidget_GetSeriesPointType(laLineG
     Sets the type of point drawn for the series data points
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     int32_t seriesID - the series ID, if negative the last series is referenced
     laLineGraphDataPointType type - point type
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetSeriesPointType(laLineGraphWidget* graph, int32_t seriesID, laLineGraphDataPointType type);
 
@@ -712,16 +762,16 @@ LIB_EXPORT laResult laLineGraphWidget_SetSeriesPointType(laLineGraphWidget* grap
   Description:
     For circular points, this value is the radius
     For square points, the length of each side is twice the value
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     uint32_t seriesID - the series ID
-    
+
   Returns:
     uint32_t - the point size
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laLineGraphWidget_GetSeriesPointSize(laLineGraphWidget* graph, uint32_t seriesID);
 
@@ -735,17 +785,17 @@ LIB_EXPORT uint32_t laLineGraphWidget_GetSeriesPointSize(laLineGraphWidget* grap
   Description:
     For circular points, this value sets the radius
     For square points, the length of each side is twice the value
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     int32_t seriesID - the series ID, if negative the last series is referenced
     uint32_t size - size in pixels
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetSeriesPointSize(laLineGraphWidget* graph, int32_t seriesID, uint32_t size);
 
@@ -757,46 +807,46 @@ LIB_EXPORT laResult laLineGraphWidget_SetSeriesPointSize(laLineGraphWidget* grap
     Adds a data (value) to the specified series at categoryID index
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     uint32_t seriesID - the series ID
     int32_t value - the value
     uint32_t * index - the destination to return the index of the added data
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_AddDataToSeries(laLineGraphWidget* graph, uint32_t seriesID, int32_t value, uint32_t * index);
 
 // *****************************************************************************
 /* Function:
-    laResult laLineGraphWidget_SetDataInSeries(laLineGraphWidget* graph, 
+    laResult laLineGraphWidget_SetDataInSeries(laLineGraphWidget* graph,
                                               uint32_t seriesID,
                                               uint32_t index,
                                               int32_t value);
   Summary:
     Sets the value of the entry in the series index. The entry should have
-    been previously 
+    been previously
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     uint32_t seriesID - the series ID
     uint32_t index - the index of the data
     int32_t value - the value
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laLineGraphWidget_SetDataInSeries(laLineGraphWidget* graph, 
+LIB_EXPORT laResult laLineGraphWidget_SetDataInSeries(laLineGraphWidget* graph,
                                           uint32_t seriesID,
                                           uint32_t index,
                                           int32_t value);
@@ -810,15 +860,15 @@ LIB_EXPORT laResult laLineGraphWidget_SetDataInSeries(laLineGraphWidget* graph,
     Destroys data, series and categories and frees the memory allocated
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_DestroyAll(laLineGraphWidget* graph);
 
@@ -830,16 +880,16 @@ LIB_EXPORT laResult laLineGraphWidget_DestroyAll(laLineGraphWidget* graph);
     Sets the string table used for the generated axis labels
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     GFXU_StringTableAsset * stringTable - the string table
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetStringTable(laLineGraphWidget* graph, GFXU_StringTableAsset * stringTable);
 
@@ -851,16 +901,16 @@ LIB_EXPORT laResult laLineGraphWidget_SetStringTable(laLineGraphWidget* graph, G
     Sets the ID of the superset string used for the value axis tick labels
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     uint32_t stringID - the string ID
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetTicksLabelsStringID(laLineGraphWidget* graph, uint32_t stringID);
 
@@ -872,16 +922,16 @@ LIB_EXPORT laResult laLineGraphWidget_SetTicksLabelsStringID(laLineGraphWidget* 
     Returns GFX_TRUE if the axis gridlines are visible
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laLineGraphValueAxis axis - the value axis index
-    
+
   Returns:
     laBool - GFX_TRUE if the axis gridlines are visible
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laLineGraphWidget_GetGridlinesVisible(laLineGraphWidget* graph, laLineGraphValueAxis axis);
 
@@ -893,17 +943,17 @@ LIB_EXPORT laBool laLineGraphWidget_GetGridlinesVisible(laLineGraphWidget* graph
     Shows/Hides the gridlines
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laLineGraphValueAxis axis - category ID
     laBool visible - shows the gridlines if GFX_TRUE
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetGridlinesVisible(laLineGraphWidget* graph, laLineGraphValueAxis axis, laBool visible);
 
@@ -915,16 +965,16 @@ LIB_EXPORT laResult laLineGraphWidget_SetGridlinesVisible(laLineGraphWidget* gra
     Adds a category to the graph
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     uint32_t * id - destination of the ID of the new category
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_AddCategory(laLineGraphWidget* graph, uint32_t * id);
 
@@ -936,17 +986,17 @@ LIB_EXPORT laResult laLineGraphWidget_AddCategory(laLineGraphWidget* graph, uint
     Gets a copy of the string used to label the category
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     uint32_t categoryID - category ID
-    laString * str - destination of the copied string 
-    
+    laString * str - destination of the copied string
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_GetCategoryText(laLineGraphWidget* graph, uint32_t categoryID, laString * str);
 
@@ -958,17 +1008,17 @@ LIB_EXPORT laResult laLineGraphWidget_GetCategoryText(laLineGraphWidget* graph, 
     Sets the string used to label the category
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     int32_t categoryID - category ID, if -1 the last category is assigned
     laString str - the string to use
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetCategoryText(laLineGraphWidget* graph, int32_t categoryID, laString str);
 
@@ -980,15 +1030,15 @@ LIB_EXPORT laResult laLineGraphWidget_SetCategoryText(laLineGraphWidget* graph, 
     Returns GFX_TRUE if the bars are stacked
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laLineGraphWidget_GetStacked(laLineGraphWidget* graph);
 
@@ -1000,16 +1050,16 @@ LIB_EXPORT laBool laLineGraphWidget_GetStacked(laLineGraphWidget* graph);
     Stacks the line graph
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laBool stacked - if GFX_TRUE, the bars are stacked
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetStacked(laLineGraphWidget* graph, laBool stacked);
 
@@ -1021,15 +1071,15 @@ LIB_EXPORT laResult laLineGraphWidget_SetStacked(laLineGraphWidget* graph, laBoo
     Returns GFX_TRUE if the category axis ticks are visible
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
-    
+
   Returns:
     laBool - GFX_TRUE if the category axis ticks are visible
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laLineGraphWidget_GetCategoryAxisTicksVisible(laLineGraphWidget* graph);
 
@@ -1041,16 +1091,16 @@ LIB_EXPORT laBool laLineGraphWidget_GetCategoryAxisTicksVisible(laLineGraphWidge
     Shows/Hides the category axis ticks
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laBool visible - if GFX_TRUE, the axis ticks are shown
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetCategoryAxisTicksVisible(laLineGraphWidget* graph, laBool visible);
 
@@ -1062,15 +1112,15 @@ LIB_EXPORT laResult laLineGraphWidget_SetCategoryAxisTicksVisible(laLineGraphWid
     Returns GFX_TRUE if the category axis labels are visible
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
-    
+
   Returns:
     laBool - GFX_TRUE if the category axis labels are visible
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laLineGraphWidget_GetCategoryAxisLabelsVisible(laLineGraphWidget* graph);
 
@@ -1082,16 +1132,16 @@ LIB_EXPORT laBool laLineGraphWidget_GetCategoryAxisLabelsVisible(laLineGraphWidg
     Shows/Hides the category axis labels
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laBool visible - if GFX_TRUE, the axis labels are shown
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetCategoryAxisLabelsVisible(laLineGraphWidget* graph, laBool visible);
 
@@ -1103,15 +1153,15 @@ LIB_EXPORT laResult laLineGraphWidget_SetCategoryAxisLabelsVisible(laLineGraphWi
     Returns GFX_TRUE if the graph area is filled
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
-    
+
   Returns:
     laBool - GFX_TRUE if the graph area is filled
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laLineGraphWidget_GetFillGraphArea(laLineGraphWidget* graph);
 
@@ -1123,16 +1173,16 @@ LIB_EXPORT laBool laLineGraphWidget_GetFillGraphArea(laLineGraphWidget* graph);
     Sets the graph area filled or not
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laBool fill - if GFX_TRUE, fills the graph area
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetFillGraphArea(laLineGraphWidget* graph, laBool fill);
 
@@ -1144,15 +1194,15 @@ LIB_EXPORT laResult laLineGraphWidget_SetFillGraphArea(laLineGraphWidget* graph,
     Returns GFX_TRUE if the series area are filled
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
-    
+
   Returns:
     laBool - GFX_TRUE if the series area is filled
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laLineGraphWidget_GetFillSeriesArea(laLineGraphWidget* graph);
 
@@ -1164,16 +1214,16 @@ LIB_EXPORT laBool laLineGraphWidget_GetFillSeriesArea(laLineGraphWidget* graph);
     Sets the series area filled or not
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laBool fill - if GFX_TRUE, fills the series area
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetFillSeriesArea(laLineGraphWidget* graph, laBool fill);
 
@@ -1185,16 +1235,16 @@ LIB_EXPORT laResult laLineGraphWidget_SetFillSeriesArea(laLineGraphWidget* graph
     Returns the position of the ticks in the axis
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laLineGraphValueAxis axis - the index of the value axis
-    
+
   Returns:
     laLineGraphTickPosition - the tick position
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laLineGraphTickPosition laLineGraphWidget_GetValueAxisTicksPosition(laLineGraphWidget* graph, laLineGraphValueAxis axis);
 
@@ -1206,17 +1256,17 @@ LIB_EXPORT laLineGraphTickPosition laLineGraphWidget_GetValueAxisTicksPosition(l
     Sets the position of the ticks in the value axis
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laLineGraphValueAxis axis - the value axis index
     laLineGraphTickPosition position - the tick position
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetValueAxisTicksPosition(laLineGraphWidget* graph, laLineGraphValueAxis axis, laLineGraphTickPosition position);
 
@@ -1228,16 +1278,16 @@ LIB_EXPORT laResult laLineGraphWidget_SetValueAxisTicksPosition(laLineGraphWidge
     Returns the position of the subticks in the axis
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laLineGraphValueAxis axis - the index of the value axis
-    
+
   Returns:
     laLineGraphTickPosition - the subtick position
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laLineGraphTickPosition laLineGraphWidget_GetValueAxisSubticksPosition(laLineGraphWidget* graph, laLineGraphValueAxis axis);
 
@@ -1249,17 +1299,17 @@ LIB_EXPORT laLineGraphTickPosition laLineGraphWidget_GetValueAxisSubticksPositio
     Sets the position of the subticks in the value axis
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laLineGraphValueAxis axis - the value axis index
     laLineGraphTickPosition position  - position of the subticks
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLineGraphWidget_SetValueAxisSubticksPosition(laLineGraphWidget* graph, laLineGraphValueAxis axis, laLineGraphTickPosition position);
 
@@ -1271,15 +1321,15 @@ LIB_EXPORT laResult laLineGraphWidget_SetValueAxisSubticksPosition(laLineGraphWi
     Returns the position of the ticks in the category axis
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
-    
+
   Returns:
     laLineGraphTickPosition - position of the ticks in the category axis
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laLineGraphTickPosition laLineGraphWidget_GetCategoryAxisTicksPosition(laLineGraphWidget* graph);
 
@@ -1291,19 +1341,20 @@ LIB_EXPORT laLineGraphTickPosition laLineGraphWidget_GetCategoryAxisTicksPositio
     Sets the position of the ticks in the category axis
 
   Description:
-    
+
   Parameters:
     laLineGraphWidget* graph - the widget
     laLineGraphTickPosition position  - position of the ticks
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
 
 */
 LIB_EXPORT laResult laLineGraphWidget_SetCategoryAxisTicksPosition(laLineGraphWidget* graph, laLineGraphTickPosition position);
 
+// DOM-IGNORE-BEGIN
 // internal use only
 void _laLineGraphWidget_GetGraphRect(laLineGraphWidget* graph,
                                            GFX_Rect * graphRect);
@@ -1314,6 +1365,7 @@ GFX_Point _laLineGraphWidget_GetValuePoint(laLineGraphWidget* graph,
                                      GFX_Point originPoint);
 
 GFX_Point _laLineGraphWidget_GetOriginPoint(laLineGraphWidget* graph);
+// DOM-IGNORE-END
 
 #endif // LA_LINE_GRAPH_WIDGET_ENABLED
 #endif /* LIBARIA_WIDGET_LINE_GRAPH_H */

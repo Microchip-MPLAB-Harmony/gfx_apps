@@ -8,7 +8,7 @@
     libaria_widget.h
 
   Summary:
-    
+
 
   Description:
     This module implements top level widget control functions.
@@ -135,7 +135,7 @@ typedef enum laWidgetType_t
 #endif
 #if LA_PIE_CHART_WIDGET_ENABLED
     LA_WIDGET_PIE_CHART,
-#endif   
+#endif
 #if LA_PROGRESSBAR_WIDGET_ENABLED
     LA_WIDGET_PROGRESSBAR,
 #endif
@@ -179,13 +179,13 @@ Enumeration:
 
     Description:
         Specifies the different background types used for the widgets in the library
-        
+
         None - No background fill.  Widget must defer to its parent to erase dirty
                pixels.  This may cause additional overhead as clean pixels may be
                repainted as well.
-               
+
         Fill - a scheme color is used to fill the widget rectangle.
-        
+
         Cache - a local framebuffer cache is maintained by the widget and used to
                 clean up dirty pixels.  Will not cause a parent repaint event but
                 will use additional memory to contain the cache.
@@ -231,7 +231,7 @@ Enumeration:
 
     Description:
         Specifies the different dirty states the widget can be assigned
-        This decides whether the particular widget would be re-drawn or not. 
+        This decides whether the particular widget would be re-drawn or not.
         Dirty widget are re-drawn and clean are not painted over.
 
     Remarks:
@@ -253,7 +253,7 @@ Enumeration:
 
     Description:
         Specifies the different draw states the widget can be assigned
-        
+
     Remarks:
         None.
  */
@@ -261,7 +261,7 @@ typedef enum laWidgetDrawState_t
 {
     LA_WIDGET_DRAW_STATE_READY,
     LA_WIDGET_DRAW_STATE_DONE,
-    
+
     // widget-specific draw states start here
 } laWidgetDrawState;
 
@@ -275,7 +275,7 @@ Enumeration:
 
     Description:
         Specifies the different update states the widget can be assigned
-        
+
     Remarks:
         None.
  */
@@ -296,7 +296,7 @@ Enumeration:
 
     Description:
         Specifies the different draw optimization flags for a widget
-        
+
     Remarks:
         None.
  */
@@ -310,14 +310,14 @@ typedef enum laWidgetOptimizationFlags_t
      * background
      */
     LA_WIDGET_OPT_LOCAL_REDRAW = 0x1,
-    
+
     /*
      * draw once
      * Indicates that a widget should draw once per screen show event
      * all other attempts to invalidate or paint a widget will be rejected
      */
     LA_WIDGET_OPT_DRAW_ONCE    = 0x2,
-    
+
     /*
      * opaque
      * Indicates that a widget is fully opaque regardless of its background
@@ -327,7 +327,7 @@ typedef enum laWidgetOptimizationFlags_t
      * helps widgets without backgrounds to pass occlusion tests.
      */
     LA_WIDGET_OPT_OPAQUE    = 0x4,
-    
+
 } laWidgetOptimizationFlags;
 
 
@@ -366,13 +366,13 @@ typedef void (*laWidget_InvalidateBorderAreas_FnPtr)(laWidget*);
 
     Remarks:
         None.
-        
+
 */
 typedef struct laWidget_t
 {
     uint32_t id;  // the id of the widget
     laWidgetType type; // the type of the widget
-    
+
     laBool editable; // indicates if this widget implements the editable interface
 
     laBool visible; // the widget visible flag
@@ -380,24 +380,24 @@ typedef struct laWidget_t
 
     GFX_Rect rect; // the bounding rectangle of the widget
     uint32_t cornerRadius; //corner radius, draws round corners if > 0
-    
+
     laMargin margin; // the margin settings for the widget
 
     laBorderType borderType; // the widget border type
     laBackgroundType backgroundType; // the widget background type
-    
+
     uint32_t optimizationFlags; // optimization flags
-    
+
     uint32_t drawCount; // number of times this widget has been drawn
                         // for the active screen
-    
+
     GFX_PixelBuffer* cache; // the local framebuffer cache for the widget
                             // this can be used to avoid costly parent
                             // redraw operations at the cost of using
                             // more memory
     laBool cacheInvalid;    // indicates that the local cache is invalid
                             // and needs to be refilled
-    
+
     laBool alphaEnabled;    // indicates that the global alpha blending
                             // setting is enabled for this widget
     uint32_t alphaAmount;   // the global alpha amount to apply to this
@@ -405,7 +405,7 @@ typedef struct laWidget_t
 
     uint32_t dirtyState;    // the widget's dirty state
     uint32_t drawState;     // the widget's draw state
-    
+
     laWidget_DrawFunction_FnPtr drawFunc; // the next draw function to call
 
     laScheme* scheme; // the widget's color scheme
@@ -419,7 +419,7 @@ typedef struct laWidget_t
 
     laWidget_Moved_FnPtr moved; // moved function pointer
     laWidget_Resized_FnPtr resized; // resized function pointer
-    
+
     laWidget_Focus_FnPtr focusGained; // focus gained function pointer
     laWidget_Focus_FnPtr focusLost; // focus lost function pointer
 
@@ -429,10 +429,10 @@ typedef struct laWidget_t
     laWidget_TouchDownEvent_FnPtr touchDown; // touch down function pointer
     laWidget_TouchUpEvent_FnPtr touchUp; // touch up function pointer
     laWidget_TouchMovedEvent_FnPtr touchMoved; // touch moved function pointer
-    
+
     laWidget_LanguageChangingEvent_FnPtr languageChangeEvent; // languaged event pointer
 
-	laWidget_InvalidateBorderAreas_FnPtr invalidateBorderAreas;
+    laWidget_InvalidateBorderAreas_FnPtr invalidateBorderAreas;
 } laWidget;
 
 // *****************************************************************************
@@ -443,20 +443,20 @@ typedef struct laWidget_t
 
 /*    Function:
         laWidget* laWidget_New()
- 
+
     Summary:
         Create a new widget.
-        
+
 
     Description:
         Create a new widget, alocate memory for the widget through the current
-        active context.  Returns a widget object pointer.  Application is 
+        active context.  Returns a widget object pointer.  Application is
         responsible for managing the widget pointer until the widget is added
         to a widget tree.
 
     Parameters:
 
-        
+
     Returns:
         lawidget*
 
@@ -465,43 +465,46 @@ LIB_EXPORT laWidget* laWidget_New();
 
 /*    Function:
         void laWidget_Delete(laWidget* wgt)
- 
+
     Summary:
-        Delete the widget object specified        
+        Delete the widget object specified
 
     Description:
         Delete a widget object specified, de-allocate memory for the widget
         through the current active context.  All child widgets are also
         destructed and freed.
-        
+
     Parameters:
         lawidget*
-        
+
     Returns:
         void
 
 */
 LIB_EXPORT void laWidget_Delete(laWidget* wgt);
 
+// DOM-IGNORE-BEGIN
 // internal constructor and destructor
 void _laWidget_Constructor(laWidget* wgt);
 void _laWidget_Destructor(laWidget* wgt);
 
 // internal use only
 void _laWidget_Paint(laWidget* wgt);
+// DOM-IGNORE-END
+
 
 /*    Function:
         int32_t laWidget_GetX(laWidget* wgt)
- 
+
     Summary:
-        Returns the widget rectangles upper left corner x-coordinate        
+        Returns the widget rectangles upper left corner x-coordinate
 
     Description:
         Returns the widget rectangles upper left corner x-coordinate
-        
+
     Parameters:
         lawidget* wgt - the widget
-        
+
     Returns:
         uint32_t
 
@@ -510,17 +513,17 @@ LIB_EXPORT int32_t laWidget_GetX(laWidget* wgt);
 
 /*    Function:
         laResult laWidget_SetX(laWidget* wgt, int32_t x)
- 
+
     Summary:
-        Sets the widget's x coordinate position        
+        Sets the widget's x coordinate position
 
     Description:
-        Sets the widget's x coordinate position        
-        
+        Sets the widget's x coordinate position
+
     Parameters:
         lawidget* wgt - the widget
         int32_t x - the desired x value
-        
+
     Returns:
         laResult - result of the operation
 
@@ -529,16 +532,16 @@ LIB_EXPORT laResult laWidget_SetX(laWidget* wgt, int32_t x);
 
 /*    Function:
         int32_t laWidget_GetY(laWidget* wgt)
- 
+
     Summary:
-        Returns the widget rectangles upper left corner y-coordinate        
+        Returns the widget rectangles upper left corner y-coordinate
 
     Description:
         Returns the widget rectangles upper left corner y-coordinate
-        
+
     Parameters:
         lawidget* wgt - the widget
-        
+
     Returns:
         uint32_t - the y value
 
@@ -547,17 +550,17 @@ LIB_EXPORT int32_t laWidget_GetY(laWidget* wgt);
 
 /*    Function:
         laResult laWidget_SetY(laWidget* wgt, int32_t y)
- 
+
     Summary:
-        Sets the widget's y coordinate position        
+        Sets the widget's y coordinate position
 
     Description:
-        Sets the widget's y coordinate position        
-        
+        Sets the widget's y coordinate position
+
     Parameters:
         lawidget* wgt - the widget
         int32_t y - the desired y value
-        
+
     Returns:
         laResult - result of the operation
 
@@ -566,16 +569,16 @@ LIB_EXPORT laResult laWidget_SetY(laWidget* wgt, int32_t y);
 
 /*    Function:
         int32_t laWidget_GetWidth(laWidget* wgt)
- 
+
     Summary:
-        Returns the widget rectangles width        
+        Returns the widget rectangles width
 
     Description:
         Returns the widget rectangles width
-        
+
     Parameters:
         lawidget* wgt - the widget
-        
+
     Returns:
         uint32_t - the widget's y coordinate value
 
@@ -584,17 +587,17 @@ LIB_EXPORT int32_t laWidget_GetWidth(laWidget* wgt);
 
 /*    Function:
         laResult laWidget_SetWidth(laWidget* wgt, int32_t width)
- 
+
     Summary:
-        Sets the widget's width value        
+        Sets the widget's width value
 
     Description:
-        Sets the widget's width value    
-        
+        Sets the widget's width value
+
     Parameters:
         lawidget* wgt - the widget
         int32_t width - the desired width value, must be > 0
-        
+
     Returns:
         laResult - result of the operation
 
@@ -603,16 +606,16 @@ LIB_EXPORT laResult laWidget_SetWidth(laWidget* wgt, int32_t width);
 
 /*    Function:
         int32_t laWidget_GetHeight(laWidget* wgt)
- 
+
     Summary:
-        Returns the widget rectangles height        
+        Returns the widget rectangles height
 
     Description:
         Returns the widget rectangles height
-        
+
     Parameters:
         lawidget* wgt - the widget
-        
+
     Returns:
         uint32_t - the widget's width value
 
@@ -621,17 +624,17 @@ LIB_EXPORT int32_t laWidget_GetHeight(laWidget* wgt);
 
 /*    Function:
         laResult laWidget_SetHeight(laWidget* wgt, int32_t height)
- 
+
     Summary:
-        Sets the widget's height value        
+        Sets the widget's height value
 
     Description:
-        Sets the widget's height value    
-        
+        Sets the widget's height value
+
     Parameters:
         lawidget* wgt - the widget
         int32_t height - the desired height value, must be > 0
-        
+
     Returns:
         laResult - result of the operation
 
@@ -644,18 +647,18 @@ LIB_EXPORT laResult laWidget_SetHeight(laWidget* wgt, int32_t height);
 
   Summary:
     Return the alpha enable property of the widget
-    
+
   Description:
     Return the alpha enable property of the widget
 
   Parameters:
     lawidget* wgt - the widget
-    
+
   Returns:
     laBool - the widget's alpha enable flag value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laWidget_GetAlphaEnable(laWidget* wgt);
 
@@ -665,18 +668,18 @@ LIB_EXPORT laBool laWidget_GetAlphaEnable(laWidget* wgt);
 
   Summary:
     Determines if this or any ancestor widget has alpha enabled
-    
+
   Description:
-    
+
 
   Parameters:
     lawidget* wgt - the widget
-    
+
   Returns:
     laBool - whether the widget has alpha enabled
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laWidget_GetCumulativeAlphaEnable(laWidget* wgt);
 
@@ -687,7 +690,7 @@ LIB_EXPORT laBool laWidget_GetCumulativeAlphaEnable(laWidget* wgt);
   Summary:
     Set the alpha enable property of the widget with the boolean
     value specified
-    
+
   Description:
     Set the alpha enable property of the widget with the boolean
     value specified
@@ -695,12 +698,12 @@ LIB_EXPORT laBool laWidget_GetCumulativeAlphaEnable(laWidget* wgt);
   Parameters:
     lawidget* wgt - the widget
     laBool enable - the desired alpha enable flag value
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWidget_SetAlphaEnable(laWidget* wgt, laBool enable);
 
@@ -709,20 +712,20 @@ LIB_EXPORT laResult laWidget_SetAlphaEnable(laWidget* wgt, laBool enable);
     uint32_t laWidget_GetAlphaAmount(laWidget* wgt)
 
   Summary:
-    Return the widget's global alpha amount 
+    Return the widget's global alpha amount
 
   Description:
-    Return the widget's global alpha amount 
+    Return the widget's global alpha amount
 
   Parameters:
     lawidget* wgt - the widget
-    
-    
+
+
   Returns:
     uint32_t - the widget's global alpha amount
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laWidget_GetAlphaAmount(laWidget* wgt);
 
@@ -742,19 +745,19 @@ LIB_EXPORT uint32_t laWidget_GetAlphaAmount(laWidget* wgt);
 
   Parameters:
     lawidget* wgt - the widget
-    
+
   Returns:
     uint32_t - the cumulative blending amount
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laWidget_GetCumulativeAlphaAmount(laWidget* wgt);
 
 // *****************************************************************************
 /* Function:
     laResult laWidget_SetAlphaAmount(laWidget* wgt, uint32_t alpha)
-    
+
   Summary:
     Set the widget's global alpha amount to the specified alpha amount
 
@@ -766,19 +769,19 @@ LIB_EXPORT uint32_t laWidget_GetCumulativeAlphaAmount(laWidget* wgt);
   Parameters:
     laWidget* wgt - the widget
     uint32_t alpha - the desired global alpha amount
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWidget_SetAlphaAmount(laWidget* wgt, uint32_t alpha);
 
 // *****************************************************************************
 /* Function:
     laBool laWidget_isOpaque(laWidget* wgt)
-    
+
   Summary:
     Returns true if the widget is considered opaque.
 
@@ -788,82 +791,82 @@ LIB_EXPORT laResult laWidget_SetAlphaAmount(laWidget* wgt, uint32_t alpha);
 
   Parameters:
     laWidget* wgt - the widget
-    
+
   Returns:
     laBool - true if the widget is fully opaque
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laWidget_isOpaque(laWidget* wgt);
 
 // *****************************************************************************
 /* Function:
     GFX_Rect laWidget_RectToParentSpace(laWidget* wgt)
-    
+
   Summary:
     Returns the rectangle containing the parent of the widget specified
 
   Description:
     Returns the rectangle containing the parent of the widget specified
-    If the widget and the parent are not null, the rectangle defining 
+    If the widget and the parent are not null, the rectangle defining
     the parent widget with its upper left corner x and y coordinates is returned
 
   Parameters:
     laWidget* wgt - the widget
-    
+
   Returns:
     GFX_Rect - the widget rectangle in parent space
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT GFX_Rect laWidget_RectToParentSpace(laWidget* wgt);
 
 // *****************************************************************************
 /* Function:
     GFX_Rect laWidget_RectToLayerSpace(laWidget* wgt)
-    
+
   Summary:
-    Transforms a widget rectangle from local space to its root layer space. 
+    Transforms a widget rectangle from local space to its root layer space.
 
   Description:
 
   Parameters:
     laWidget* wgt - the widget
-    
+
   Returns:
     GFX_Rect - the transformed rectangle
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT GFX_Rect laWidget_RectToLayerSpace(laWidget* wgt);
 
 // *****************************************************************************
 /* Function:
     GFX_Rect laWidget_RectToScreenSpace(laWidget* wgt)
-    
+
   Summary:
-    Transforms a widget rectangle from local space to screen space coordinates. 
+    Transforms a widget rectangle from local space to screen space coordinates.
 
   Description:
 
   Parameters:
     laWidget* wgt - the widget
-    
+
   Returns:
     GFX_Rect - the transformed rectangle
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT GFX_Rect laWidget_RectToScreenSpace(laWidget* wgt);
 
 // *****************************************************************************
 /* Function:
     laResult laWidget_AddChild(laWidget* parent, laWidget* child)
-    
+
   Summary:
     Adds the child to the parent widget specified in the argument
 
@@ -874,19 +877,19 @@ LIB_EXPORT GFX_Rect laWidget_RectToScreenSpace(laWidget* wgt);
   Parameters:
     laWidget* parent - the parent widget
     laWidget* child - the child to add
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWidget_AddChild(laWidget* parent, laWidget* child);
 
 // *****************************************************************************
 /* Function:
     laResult laWidget_RemoveChild(laWidget* parent, laWidget* child)
-    
+
   Summary:
     Removes the child from the parent widget specified in the argument
 
@@ -896,19 +899,19 @@ LIB_EXPORT laResult laWidget_AddChild(laWidget* parent, laWidget* child);
   Parameters:
     laWidget* parent - the parent widget
     laWidget* child - the child to remove
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWidget_RemoveChild(laWidget* parent, laWidget* child);
 
 // *****************************************************************************
 /* Function:
     laResult laWidget_SetParent(laWidget* wgt, laWidget* parent)
-    
+
   Summary:
     Sets the parent of the child widget to that specified in the argument list
 
@@ -919,19 +922,19 @@ LIB_EXPORT laResult laWidget_RemoveChild(laWidget* parent, laWidget* child);
   Parameters:
     laWidget* wgt - the widget
     laWidget* parent - the desired parent widget
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWidget_SetParent(laWidget* wgt, laWidget* parent);
 
 // *****************************************************************************
 /* Function:
     uint32_t laWidget_GetChildCount(laWidget* parent)
-    
+
   Summary:
     Returns the size of the children list of the specified parent widget
 
@@ -940,19 +943,19 @@ LIB_EXPORT laResult laWidget_SetParent(laWidget* wgt, laWidget* parent);
 
   Parameters:
     laWidget* wgt - the widget
-        
+
   Returns:
     uint32_t - the number of children of this widget
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laWidget_GetChildCount(laWidget* parent);
 
 // *****************************************************************************
 /* Function:
     laWidget* laWidget_GetChildAtIndex(laWidget* parent, uint32_t idx)
-    
+
   Summary:
     Fetches the child at the specified index from the children list of the
     specified parent widget
@@ -964,51 +967,51 @@ LIB_EXPORT uint32_t laWidget_GetChildCount(laWidget* parent);
   Parameters:
     laWidget* wgt - the widget
     uint32_t idx - the desired child index
-    
+
   Returns:
     laWidget* - a valid child pointer or NULL
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laWidget* laWidget_GetChildAtIndex(laWidget* parent, uint32_t idx);
 
 // *****************************************************************************
 /* Function:
     int32_t laWidget_GetIndexOfChild(laWidget* parent, laWidget* child)
-    
+
   Summary:
     Fetches the index of the child from the children list of the specified
     parent widget
 
   Description:
     Traverses the children list of the specified parent widget and finds the
-    index of the child widget specified. 
+    index of the child widget specified.
 
   Parameters:
     laWidget* parent - the parent widget
     laWidget* child - the child widget
-    
+
   Returns:
     int32_t - the index of the given child pointer or -1 if not found
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT int32_t laWidget_GetIndexOfChild(laWidget* parent, laWidget* child);
 
 /*    Function:
         void laWidget_DeleteAllDescendants(laWidget* wgt)
- 
+
     Summary:
-        Deletes all of the descendants of the given widget.        
+        Deletes all of the descendants of the given widget.
 
     Description:
-        All descendants of this widget are removed and deleted. 
-        
+        All descendants of this widget are removed and deleted.
+
     Parameters:
         lawidget*
-        
+
     Returns:
         void
 
@@ -1018,7 +1021,7 @@ LIB_EXPORT void laWidget_DeleteAllDescendants(laWidget* wgt);
 // *****************************************************************************
 /* Function:
     laBool laWidget_GetEnabled(laWidget* wgt)
-    
+
   Summary:
     Returns the boolean value of the widget enabled property
 
@@ -1029,19 +1032,19 @@ LIB_EXPORT void laWidget_DeleteAllDescendants(laWidget* wgt);
 
   Parameters:
     laWidget* wgt - the widget
-    
+
   Returns:
     laBool - the value of the enabled flag
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laWidget_GetEnabled(laWidget* wgt);
 
 // *****************************************************************************
 /* Function:
     laResult laWidget_SetEnabled(laWidget* wgt, laBool enable)
-    
+
   Summary:
     Sets the boolean value of the widget enabled property
 
@@ -1051,19 +1054,19 @@ LIB_EXPORT laBool laWidget_GetEnabled(laWidget* wgt);
   Parameters:
     laWidget* wgt - the widget
     laBool - the desired enabled flag value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWidget_SetEnabled(laWidget* wgt, laBool enable);
 
 // *****************************************************************************
 /* Function:
     laBool laWidget_GetVisible(laWidget* wgt)
-    
+
   Summary:
     Returns the boolean value of the widget visible property
 
@@ -1074,19 +1077,19 @@ LIB_EXPORT laResult laWidget_SetEnabled(laWidget* wgt, laBool enable);
 
   Parameters:
     laWidget* wgt - the widget
-    
+
   Returns:
     laBool - the flag value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laWidget_GetVisible(laWidget* wgt);
 
 // *****************************************************************************
 /* Function:
     laResult laWidget_SetVisible(laWidget* wgt, laBool visible)
-    
+
   Summary:
     Sets the boolean value of the widget visible property
 
@@ -1096,10 +1099,10 @@ LIB_EXPORT laBool laWidget_GetVisible(laWidget* wgt);
   Parameters:
     laWidget* wgt - the widget
     laBool - the desired setting
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
     This value has no effect on layer objects.  Use laLayer_SetEnabled instead.
 */
@@ -1108,7 +1111,7 @@ LIB_EXPORT laResult laWidget_SetVisible(laWidget* wgt, laBool visible);
 // *****************************************************************************
 /* Function:
     laScheme* laWidget_GetScheme(laWidget* wgt)
-    
+
   Summary:
     Returns the scheme associated with the specified widget
 
@@ -1117,19 +1120,19 @@ LIB_EXPORT laResult laWidget_SetVisible(laWidget* wgt, laBool visible);
 
   Parameters:
     laWidget* wgt - the widget
-        
+
   Returns:
     laScheme* - a pointer to the active scheme for a widget
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laScheme* laWidget_GetScheme(laWidget* wgt);
 
 // *****************************************************************************
 /* Function:
     void laWidget_SetScheme(laWidget* wgt, laScheme* scheme)
-    
+
   Summary:
     Sets the scheme variable for the specified widget
 
@@ -1141,12 +1144,12 @@ LIB_EXPORT laScheme* laWidget_GetScheme(laWidget* wgt);
   Parameters:
     laWidget* wgt - the widget
     laScheme* scheme - a pointer to a scheme or NULL
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWidget_SetScheme(laWidget* wgt,
                                        laScheme* scheme);
@@ -1154,25 +1157,25 @@ LIB_EXPORT laResult laWidget_SetScheme(laWidget* wgt,
 // *****************************************************************************
 /* Function:
     void laWidget_SetPosition(laWidget* wgt, int32_t x, int32_t y)
-    
+
   Summary:
     Changes the widget position to the new defined x and y coordinates.
 
   Description:
     Changes the widget position to the new defined x and y coordinates.  Moving
-    widgets can be expensive as it needs to repaint multiple areas of its 
+    widgets can be expensive as it needs to repaint multiple areas of its
     parent widget.
 
   Parameters:
     laWidget* wgt - the widget
     int32_t x - the new x coordinate
     int32_t y - the new y coordinate
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWidget_SetPosition(laWidget* wgt,
                                          int32_t x,
@@ -1181,7 +1184,7 @@ LIB_EXPORT laResult laWidget_SetPosition(laWidget* wgt,
 // *****************************************************************************
 /* Function:
     void laWidget_Translate(laWidget* wgt, int32_t x, int32_t y)
-    
+
   Summary:
     Changes the widget position by moving the widget by the defined
     x and y increments.
@@ -1196,12 +1199,12 @@ LIB_EXPORT laResult laWidget_SetPosition(laWidget* wgt,
     laWidget* wgt - the widget
     int32_t x - the amount to move in x
     int32_t y - the amount to move in y
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWidget_Translate(laWidget* wgt,
                                        int32_t x,
@@ -1210,23 +1213,23 @@ LIB_EXPORT laResult laWidget_Translate(laWidget* wgt,
 // *****************************************************************************
 /* Function:
     void laWidget_SetSize(laWidget* wgt, uint32_t width, uint32_t height)
-    
+
   Summary:
     Changes the widget size to the new defined width and height dimensions.
 
   Description:
     Changes the widget size to the new width and height dimensions.
-    
+
   Parameters:
     laWidget* wgt - the widget
     int32_t width - the new width size
     int32_t height - the new height size
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWidget_SetSize(laWidget* wgt,
                                      uint32_t width,
@@ -1235,112 +1238,112 @@ LIB_EXPORT laResult laWidget_SetSize(laWidget* wgt,
 // *****************************************************************************
 /* Function:
     void laWidget_Resize(laWidget* wgt, int32_t width, int32_t height)
-    
+
   Summary:
     Changes the widget size by the new defined width and height increments.
 
   Description:
     Changes the widget size by the new defined width and height increments.
-    
+
   Parameters:
     laWidget* wgt - the widget
     int32_t width - the amount to change the width by
     int32_t height - the amount ot change the height by
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWidget_Resize(laWidget* wgt, int32_t width, int32_t height);
 
 // *****************************************************************************
 /* Function:
     laBorderType laWidget_GetBorderType(laWidget* wgt)
-    
+
   Summary:
     Return the border type associated with the widget object
 
   Description:
     Return the border type associated with the widget object
-    
+
   Parameters:
     laWidget* wgt - the widget
-    
+
   Returns:
     laBorderType - the current widget border type
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBorderType laWidget_GetBorderType(laWidget* wgt);
 
 // *****************************************************************************
 /* Function:
     laResult laWidget_SetBorderType(laWidget* wgt, laBorderType type)
-    
+
   Summary:
     Set the border type associated with the widget object
 
   Description:
     Set the border type associated with the widget object
-    
+
   Parameters:
     laWidget* wgt - the widget
     laBorderType type - the desired border type
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWidget_SetBorderType(laWidget* wgt, laBorderType type);
 
 // *****************************************************************************
 /* Function:
     laBackgroundType laWidget_GetBackgroundType(laWidget* wgt)
-    
+
   Summary:
     Return the property value 'background type' associated with the widget object
 
   Description:
     Return the property value 'background type' associated with the widget object
     The background type property decides if the widget background is drawn and
-    re-drawn. If background is none, the entire parent widget will be re-drawn 
+    re-drawn. If background is none, the entire parent widget will be re-drawn
     in the event that the widget gets dirty and needs re-drawing.
-    
+
   Parameters:
     laWidget* wgt - the widget
-        
+
   Returns:
     laBackgroundType - the current background type
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBackgroundType laWidget_GetBackgroundType(laWidget* wgt);
 
 // *****************************************************************************
 /* Function:
     laResult laWidget_SetBackgroundType(laWidget* wgt, laBackgroundType type)
-    
+
   Summary:
     Set the property value 'background type' associated with the widget object
 
   Description:
     Set the property value 'draw background' associated with the widget object
-    
+
   Parameters:
     laWidget* wgt - the widget
     laBackgroundType type - the desired background type
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWidget_SetBackgroundType(laWidget* wgt,
                                                laBackgroundType type);
@@ -1348,64 +1351,64 @@ LIB_EXPORT laResult laWidget_SetBackgroundType(laWidget* wgt,
 // *****************************************************************************
 /* Function:
     laBool laWidget_GetOptimizationFlags(laWidget* wgt)
-    
+
   Summary:
     Returns the optimization flags for the widget
 
   Description:
-    
-    
+
+
   Parameters:
     laWidget* wgt - the widget
-        
+
   Returns:
     laBool - the flag value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laWidget_GetOptimizationFlags(laWidget* wgt);
 
 // *****************************************************************************
 /* Function:
     laResult laWidget_SetOptimizationFlags(laWidget* wgt, uint32_t flags)
-    
+
   Summary:
     Sets the optimizations for a widget
 
   Description:
     See the optimizations enum for a descriptions of the individual flags
-    
+
   Parameters:
     laWidget* wgt - the widget
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWidget_SetOptimizationFlags(laWidget* wgt, uint32_t flags);
 
 // *****************************************************************************
 /* Function:
     laResult laWidget_GetMargin (laWidget* wgt, laMargin* mg)
-    
+
   Summary:
-    Returns the margin value associated with the widget in the laMargin pointer 
+    Returns the margin value associated with the widget in the laMargin pointer
 
   Description:
     Returns the margin value associated with the widget in the laMargin pointer
-    
+
   Parameters:
     laWidget* wgt - the widget
     laMargin* mg - a pointer to an laMargin object to store the margin values
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWidget_GetMargin (laWidget* wgt, laMargin* mg);
 
@@ -1416,7 +1419,7 @@ LIB_EXPORT laResult laWidget_GetMargin (laWidget* wgt, laMargin* mg);
                                  uint32_t top,
                                  uint32_t right,
                                  uint32_t bottom)
-    
+
   Summary:
     Set the margin value for left, right, top and bottom margins associated
     with the widget
@@ -1425,19 +1428,19 @@ LIB_EXPORT laResult laWidget_GetMargin (laWidget* wgt, laMargin* mg);
     Set the margin value for left, right, top and bottom margins associated
     with the widget.  Margins are a generic property and it is up to the
     individual widget to implement them (or not).
-    
+
   Parameters:
     laWidget* wgt - the widget
     uint32_t left - the left margin value
     uint32_t top - the top margin value
     uint32_t right - the right margin value
     uint32_t bottom - the bottom margin value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWidget_SetMargins(laWidget* wgt,
                                         uint32_t left,
@@ -1448,21 +1451,21 @@ LIB_EXPORT laResult laWidget_SetMargins(laWidget* wgt,
 // *****************************************************************************
 /* Function:
     uint32_t laWidget_GetCornerRadius(laWidget* wgt)
-    
+
   Summary:
     Returns the corner radius of the widget
 
   Description:
     Returns the corner radius of the widget
-    
+
   Parameters:
     laWidget* wgt - the widget
-    
+
   Returns:
     uint32_t - the corner radius
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laWidget_GetCornerRadius(laWidget* wgt);
 
@@ -1470,23 +1473,23 @@ LIB_EXPORT uint32_t laWidget_GetCornerRadius(laWidget* wgt);
 /* Function:
     laResult laWidget_SetCornerRadius(laWidget* wgt,
                                       uint32_t radius)
-    
+
   Summary:
     Sets the widget corner radius.
 
   Description:
     Sets the widget corner radius. A widget with non-zero corner radius will have
     round edges. This only supports widgets with non-beveled borders.
-    
+
   Parameters:
     laWidget* wgt - the widget
     uint32_t radius - the radius
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWidget_SetCornerRadius(laWidget* wgt,
                                             uint32_t radius);
@@ -1494,51 +1497,51 @@ LIB_EXPORT laResult laWidget_SetCornerRadius(laWidget* wgt,
 // *****************************************************************************
 /* Function:
     laBool laWidget_HasFocus(laWidget* wgt)
-    
+
   Summary:
     Checks if the widget specified has focus in the current context
 
   Description:
     Checks if the widget specified has focus in the current context
-    
+
   Parameters:
     laWidget* wgt - the widget
-    
+
   Returns:
     laBool - true of the widget currently has context focus
-    
+
   Remarks:
-    
-*/                                
+
+*/
 LIB_EXPORT laBool laWidget_HasFocus(laWidget* wgt);
 
 // *****************************************************************************
 /* Function:
     laResult laWidget_SetFocus(laWidget* wgt)
-    
+
   Summary:
     Set the widget into focus for the current context.
 
   Description:
     Set the widget into focus for the current context.
     The input events etc are received by the widget once it is in focus
-    
+
   Parameters:
     laWidget* wgt - the widget
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
-*/    
-LIB_EXPORT laResult laWidget_SetFocus(laWidget* wgt); 
+
+*/
+LIB_EXPORT laResult laWidget_SetFocus(laWidget* wgt);
 
 // *****************************************************************************
 /* Function:
     laResult laWidget_OverrideTouchDownEvent(laWidget* wgt,
                                              laWidget_TouchDownEvent_FnPtr ptr)
-    
+
   Summary:
     Replace the TouchDownEvent callback for the widget with the new function
     pointer specified
@@ -1547,17 +1550,17 @@ LIB_EXPORT laResult laWidget_SetFocus(laWidget* wgt);
     This function will replace the current touch down event handler for a widget.
     Widgets may have their own internal override for this function and replacing
     it will break their internal capabilties.
-    
+
   Parameters:
     laWidget* wgt - the widget
     laWidget_TouchDownEvent_FnPtr - a valid pointer or NULL
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laResult laWidget_OverrideTouchDownEvent(laWidget* wgt,
                                                     laWidget_TouchDownEvent_FnPtr ptr);
 
@@ -1565,7 +1568,7 @@ LIB_EXPORT laResult laWidget_OverrideTouchDownEvent(laWidget* wgt,
 /* Function:
     laResult laWidget_OverrideTouchUpEvent(laWidget* wgt,
                                            laWidget_TouchUpEvent_FnPtr ptr)
-    
+
   Summary:
     Replace the TouchUpEvent callback for the widget with the new function
     pointer specified
@@ -1574,16 +1577,16 @@ LIB_EXPORT laResult laWidget_OverrideTouchDownEvent(laWidget* wgt,
     This function will replace the current touch up event handler for a widget.
     Widgets may have their own internal override for this function and replacing
     it will break their internal capabilties.
-    
+
   Parameters:
     laWidget* wgt - the widget
     laWidget_TouchUpEvent_FnPtr - a valid pointer or NULL
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWidget_OverrideTouchUpEvent(laWidget* wgt, laWidget_TouchUpEvent_FnPtr ptr);
 
@@ -1591,7 +1594,7 @@ LIB_EXPORT laResult laWidget_OverrideTouchUpEvent(laWidget* wgt, laWidget_TouchU
 /* Function:
     laResult laWidget_OverrideTouchMovedEvent(laWidget* wgt,
                                               laWidget_TouchMovedEvent_FnPtr ptr)
-    
+
   Summary:
     Replace the TouchMovedEvent callback for the widget with the new function
     pointer specified
@@ -1600,16 +1603,16 @@ LIB_EXPORT laResult laWidget_OverrideTouchUpEvent(laWidget* wgt, laWidget_TouchU
     This function will replace the current touch moved event handler for a widget.
     Widgets may have their own internal override for this function and replacing
     it will break their internal capabilties.
-    
+
   Parameters:
     laWidget* wgt - the widget
     laWidget_TouchMovedEvent_FnPtr - a valid pointer or NULL
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laWidget_OverrideTouchMovedEvent(laWidget* wgt,
                                                      laWidget_TouchMovedEvent_FnPtr ptr);
@@ -1617,7 +1620,7 @@ LIB_EXPORT laResult laWidget_OverrideTouchMovedEvent(laWidget* wgt,
 // *****************************************************************************
 /* Function:
     void laWidget_Invalidate(laWidget* wgt)
-    
+
   Summary:
     Invalidates the specified widget.
 
@@ -1625,18 +1628,19 @@ LIB_EXPORT laResult laWidget_OverrideTouchMovedEvent(laWidget* wgt,
     This function invalidates the specified widget.  Invalid widgets are redrawn
     during the next paint loop call.  This function may also invalidate the
     widget's parent, siblings, ancestors, or cousins.
-    
+
   Parameters:
     laWidget* wgt - the widget
-        
+
   Returns:
     void
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT void laWidget_Invalidate(laWidget* wgt);
 
+// DOM-IGNORE-BEGIN
 // internal use only
 void _laWidget_Invalidate(laWidget* wgt, const GFX_Rect* rect);
 laBool _laWidget_IsOccluded(laWidget* wgt, const GFX_Rect* rect);
@@ -1646,5 +1650,6 @@ void _laWidget_ValidateChildren(laWidget* wgt);
 void _laWidget_IncreaseDirtyState(laWidget* wgt, uint32_t state);
 void _laWidget_SetDirtyState(laWidget* wgt, uint32_t state);
 void _laWidget_ClearDirtyState(laWidget* wgt);
+// DOM-IGNORE-END
 
 #endif /* LIBARIA_WIDGET_H */

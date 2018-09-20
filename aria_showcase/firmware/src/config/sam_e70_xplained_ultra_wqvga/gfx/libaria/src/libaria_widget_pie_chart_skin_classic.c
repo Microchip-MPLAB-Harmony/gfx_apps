@@ -104,11 +104,13 @@ static void drawPieChart(laPieChartWidget* chart)
     
     laUtils_PointToLayerSpace((laWidget*)chart, &p);
     
-    chartRect.x = chart->widget.rect.x;
-    chartRect.y = chart->widget.rect.y;
+    chartRect.x = 0;
+    chartRect.y = 0;
     chartRect.width = chart->widget.rect.width;
     chartRect.height = chart->widget.rect.height;
-
+    
+    laUtils_RectToLayerSpace((laWidget*)chart, &chartRect);
+    
     if(GFX_RectIntersects(&layer->clippedDrawingRect, &chartRect) == GFX_TRUE)
     {
         GFX_RectClip(&chartRect, &layer->clippedDrawingRect, &clipRect);

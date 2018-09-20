@@ -125,55 +125,55 @@ typedef struct laLayer_t
 {
     laWidget widget; // base widget
     laScreen* screen; // owning screen pointer
-    
-    
-    
+
+
+
     laBool deleting; // flag indicating that no changes should be made
                      // to the layer because it is in the process of
                      // being deleted
 
     uint32_t bufferCount; // number of buffers in the layer
     laLayerBuffer buffers[GFX_MAX_BUFFER_COUNT]; // buffer array
-    
+
     laBool alphaEnable; // layer-based alpha blending enable flag
-  
+
     laBool maskEnable;  // layer-based color masking enable flag
     GFX_Color maskColor; // layer-based masking color value
 
     laBool vsync; // layer vsync flag
-    
+
     laRectArray prevDamageRects; // previous damaged rectangle list
     laRectArray currentDamageRects; // queued damaged rectangle list
     laRectArray pendingDamageRects; // pending damaged rectangle list
                                     // these are rectangles added during
                                     // a frame in progress
-    
+
     laRectArray scratchRectList; // used for rectangle culling phase
     laRectArray frameRectList;   // this of rects to draw for a frame
     //GFX_Rect currentDrawingRect; // the current damage rectangle
     uint32_t frameRectIdx;
     GFX_Rect clippedDrawingRect; // the current damage rectangle clipped
                                  // to the currently rendering widget
-                                 
+
     laBool drawingPrev;          // indicates if the layer is currently
                                  // drawing from its previous rectangle
                                  // array
 
     laLayerFrameState frameState; // the current frame render state of the
                                   // layer
-                                  
-    uint32_t layerDrawCount;      // the number of times this layer has drawn                             
-                                  
+
+    uint32_t layerDrawCount;      // the number of times this layer has drawn
+
     uint32_t frameDrawCount;      // the number of widgets that have rendered
                                   // on this layer this frame
-    
+
     GFX_Rect inputRect;             // layer input area
     laBool inputRectLocked;       // input area matches layer dimensions
-    
+
     laBool allowInputPassThrough; // indicates that input events should
                                   // be propagated through the layer
                                   // node to left siblings
-    
+
     uint32_t deltaTime;           // stores delta time for updates that happen
                                   // during rendering
 
@@ -190,17 +190,17 @@ typedef struct laLayer_t
     laLayer* laLayer_New()
 
   Summary:
-    Constructor for a new layer    
+    Constructor for a new layer
 
   Description:
     Constructor for a new layer, returns the layer object
 
   Parameters:
     void
-    
+
   Returns:
     laLayer*
-    
+
   Remarks:
     Allocates memory for a layer using the active context memory interface.
     Once added to a screen the it becomes the responsibility of the framework
@@ -213,30 +213,32 @@ LIB_EXPORT laLayer* laLayer_New();
     void laLayer_Delete(laLayer* layer)
 
   Summary:
-    Destructor for the layer object    
+    Destructor for the layer object
 
   Description:
     Destructor for the layer object
 
   Parameters:
     laLayer*
-    
+
   Returns:
     void
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT void laLayer_Delete(laLayer* layer);
 
+// DOM-IGNORE-BEGIN
 // internal functions
 LIB_EXPORT void _laLayer_Moved(laLayer* layer);
 LIB_EXPORT void _laLayer_Resized(laLayer* layer);
+// DOM-IGNORE-END
 
 // *****************************************************************************
 /* Function:
     laBool laLayer_GetEnabled(const laLayer* layer)
-    
+
   Summary:
     Returns the boolean value of the layer enabled property
 
@@ -245,20 +247,20 @@ LIB_EXPORT void _laLayer_Resized(laLayer* layer);
 
   Parameters:
     laLayer* - the layer
-    
-    
+
+
   Returns:
     laBool - the flag value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laLayer_GetEnabled(const laLayer* layer);
 
 // *****************************************************************************
 /* Function:
     laResult laLayer_SetEnabled(laLayer* widget, laBool enable)
-    
+
   Summary:
     Sets the boolean value of the layer enabled property
 
@@ -268,10 +270,10 @@ LIB_EXPORT laBool laLayer_GetEnabled(const laLayer* layer);
   Parameters:
     laLayer* - the layer
     laBool - the desired enabled value
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
     The enabled flag for a layer will often control the hardware setting for
     layer usage, depending on the display driver
@@ -287,7 +289,7 @@ LIB_EXPORT laResult laLayer_SetEnabled(laLayer* widget, laBool enable);
 
   Parameters:
     const laLayer* - the layer
-    
+
   Returns:
     laBool - the value of the alpha enable flag
 */
@@ -303,12 +305,12 @@ LIB_EXPORT laBool laLayer_GetAlphaEnable(const laLayer* layer);
   Parameters:
     laLayer* layer - the layer
     laBool enable - the desired value of the flag
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLayer_SetAlphaEnable(laLayer* layer, laBool enable);
 
@@ -340,12 +342,12 @@ LIB_EXPORT uint32_t laLayer_GetAlphaAmount(const laLayer* layer);
   Parameters:
     laLayer* layer - the layer
     uint32_t amount - an alpha amount from 0 - 255
-    
+
   Returns:
     laResult - success if the operation succeeded
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLayer_SetAlphaAmount(laLayer* layer, uint32_t amount);
 
@@ -361,12 +363,12 @@ LIB_EXPORT laResult laLayer_SetAlphaAmount(laLayer* layer, uint32_t amount);
 
   Parameters:
     laLayer* layer - the layer
-    
+
   Returns:
     laBool - the value of the mask enable flag
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laLayer_GetMaskEnable(const laLayer* layer);
 
@@ -380,12 +382,12 @@ LIB_EXPORT laBool laLayer_GetMaskEnable(const laLayer* layer);
   Parameters:
     laLayer* layer - the layer
     laBool enable - the desired value of the flag
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLayer_SetMaskEnable(laLayer* layer, laBool enable);
 
@@ -394,19 +396,19 @@ LIB_EXPORT laResult laLayer_SetMaskEnable(laLayer* layer, laBool enable);
     GFX_Color laLayer_GetMaskColor(const laLayer* layer)
 
   Summary:
-    Returns the mask color value for the current layer 
+    Returns the mask color value for the current layer
 
   Description:
-    Returns the mask color value for the current layer 
+    Returns the mask color value for the current layer
 
   Parameters:
     laLayer* layer - the layer
-    
+
   Returns:
     GFX_Color - the layer mask color value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT GFX_Color laLayer_GetMaskColor(const laLayer* layer);
 
@@ -418,17 +420,17 @@ LIB_EXPORT GFX_Color laLayer_GetMaskColor(const laLayer* layer);
     Set the mask color value for the current layer to the specified value
 
   Description:
-    Set the mask color value for the current layer to the specified value 
+    Set the mask color value for the current layer to the specified value
 
   Parameters:
     laLayer* layer - the layer
     GFX_color color - the desired mask color value
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLayer_SetMaskColor(laLayer* layer, GFX_Color color);
 
@@ -447,9 +449,9 @@ LIB_EXPORT laResult laLayer_SetMaskColor(laLayer* layer, GFX_Color color);
 
   Returns:
     uint32_t - the current number of buffers for the layer
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laLayer_GetBufferCount(const laLayer* layer);
 
@@ -469,9 +471,9 @@ LIB_EXPORT uint32_t laLayer_GetBufferCount(const laLayer* layer);
 
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLayer_SetBufferCount(laLayer* layer, uint32_t count);
 
@@ -483,17 +485,17 @@ LIB_EXPORT laResult laLayer_SetBufferCount(laLayer* layer, uint32_t count);
     Gets the layer's vsync flag setting
 
   Description:
-    
+
 
   Parameters:
     const laLayer* layer - the layer
-    
+
   Returns:
     laBool - the state of the layer's vsync flag
-    
+
   Remarks:
-    
-*/                                             
+
+*/
 LIB_EXPORT laBool laLayer_GetVSync(const laLayer* layer);
 
 // *****************************************************************************
@@ -508,13 +510,13 @@ LIB_EXPORT laBool laLayer_GetVSync(const laLayer* layer);
 
   Parameters:
     const laLayer* layer - the layer
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laResult laLayer_SetVSync(laLayer* layer, laBool enable);
 
 // *****************************************************************************
@@ -529,13 +531,13 @@ LIB_EXPORT laResult laLayer_SetVSync(laLayer* layer, laBool enable);
 
   Parameters:
     const laLayer* layer - the layer
-    
+
   Returns:
     GFX_Rect - the input rectangle
-    
+
   Remarks:
-    
-*/     
+
+*/
 LIB_EXPORT GFX_Rect laLayer_GetInputRect(const laLayer* layer);
 
 // *****************************************************************************
@@ -551,7 +553,7 @@ LIB_EXPORT GFX_Rect laLayer_GetInputRect(const laLayer* layer);
     if the input is outside of the physical dimensions of the layer.  One example
     is a touch glass that is larger than the size of a display.  Widgets may need
     to be placed in this invisible external area and still be capable of receiving
-    input events. 
+    input events.
 
   Parameters:
     const laLayer* layer - the layer
@@ -559,12 +561,12 @@ LIB_EXPORT GFX_Rect laLayer_GetInputRect(const laLayer* layer);
     int32_t y - the y position of the rectangle
     int32_t width - the width of the rectangle
     int32_t height - the height of the rectangle
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLayer_SetInputRect(laLayer* layer,
                                          int32_t x,
@@ -580,18 +582,18 @@ LIB_EXPORT laResult laLayer_SetInputRect(laLayer* layer,
     Gets the layer's input rect locked flag
 
   Description:
-    This flag controls whether the layer input rectangle is locked to 
+    This flag controls whether the layer input rectangle is locked to
     match the size of the layer's actual dimensions.
 
   Parameters:
     const laLayer* layer - the layer
-    
+
   Returns:
     laBool - the state of the layer's input rect locked flag
-    
+
   Remarks:
-    
-*/     
+
+*/
 LIB_EXPORT laBool laLayer_GetInputRectLocked(const laLayer* layer);
 
 // *****************************************************************************
@@ -605,16 +607,16 @@ LIB_EXPORT laBool laLayer_GetInputRectLocked(const laLayer* layer);
     Sets the layer's input rect locked flag.  This flag controls whether the
     input rectangle is locked to match the size of the layer's actual dimensions.
     When enabled, any change to the layer's size will be propagated to the input
-    area as well.  The default value is true. 
+    area as well.  The default value is true.
 
   Parameters:
     const laLayer* layer - the layer
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLayer_SetInputRectLocked(laLayer* layer, laBool locked);
 
@@ -631,19 +633,19 @@ LIB_EXPORT laResult laLayer_SetInputRectLocked(laLayer* layer, laBool locked);
     should probably not be allowed to pass through.  If the layer is completely
     transparent then input events may be allowed to pass through to interact
     with widgets on layers further back in the hierarchy.
-    
+
     An application that disables this is responsible for ensuring that it
     is modified when the dimensions of the layer change.
 
   Parameters:
     const laLayer* layer - the layer
-    
+
   Returns:
     laBool - the state of the layer's passthrough flag
-    
+
   Remarks:
-    
-*/                                             
+
+*/
 LIB_EXPORT laBool laLayer_GetAllowInputPassThrough(const laLayer* layer);
 
 // *****************************************************************************
@@ -654,17 +656,17 @@ LIB_EXPORT laBool laLayer_GetAllowInputPassThrough(const laLayer* layer);
     Sets the layer's input passthrough flag.
 
   Description:
-    Sets the layer's input passthrough flag.  
+    Sets the layer's input passthrough flag.
 
   Parameters:
     const laLayer* layer - the layer
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laResult laLayer_SetAllowInputPassthrough(laLayer* layer, laBool enable);
 
 // *****************************************************************************
@@ -680,17 +682,17 @@ LIB_EXPORT laResult laLayer_SetAllowInputPassthrough(laLayer* layer, laBool enab
    Parameters:
      laLayer* layer - the layer
      const GFX_Rect* rect - the rectangle
-    
+
   Returns:
     laResult - the result of the operation
 
-  Remarks:    
-    
+  Remarks:
+
 */
 LIB_EXPORT laResult laLayer_AddDamageRect(laLayer* layer,
                                           const GFX_Rect* rect,
-										  laBool noCombine);
-										  
+                                          laBool noCombine);
+
 // *****************************************************************************
 /* Function:
     laBool laLayer_IsDrawing(laLayer* layer)
@@ -702,16 +704,16 @@ LIB_EXPORT laResult laLayer_AddDamageRect(laLayer* layer,
 
    Parameters:
      laLayer* layer - the layer
-         
+
   Returns:
     laBool - the result of the operation
 
-  Remarks:    
-    
-*/
-LIB_EXPORT laBool laLayer_IsDrawing(laLayer* layer);										  
-										  
+  Remarks:
 
+*/
+LIB_EXPORT laBool laLayer_IsDrawing(laLayer* layer);
+
+// DOM-IGNORE-BEGIN
 // these are for internal use only
 void _laLayer_Reset(laLayer* layer);
 
@@ -728,9 +730,10 @@ void _laLayer_RedrawPartial(laLayer* layer);
 void _laLayer_SwapLists(laLayer* layer);
 
 void _laLayer_AddDamageRectToList(laRectArray* arr,
-								  const GFX_Rect* rect,
-								  laBool noCombine);
+                                  const GFX_Rect* rect,
+                                  laBool noCombine);
 
 void _laLayer_MergeRectLists(laLayer* layer);
+// DOM-IGNORE-END
 
 #endif /* LIBARIA_LAYER_H */

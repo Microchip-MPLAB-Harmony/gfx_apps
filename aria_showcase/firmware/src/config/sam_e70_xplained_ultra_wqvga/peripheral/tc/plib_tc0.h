@@ -87,8 +87,6 @@ extern "C" {
  
 
 
-#define TC0_CH0_TimerFrequencyGet() (uint32_t)(150000000UL)
-
 void TC0_CH0_TimerInitialize (void);
 
 void TC0_CH0_TimerStart (void);
@@ -97,13 +95,15 @@ void TC0_CH0_TimerStop (void);
 
 void TC0_CH0_TimerPeriodSet (uint16_t period);
 
+void TC0_CH0_TimerCompareSet (uint16_t compare);
+
+uint32_t TC0_CH0_TimerFrequencyGet (void);
+
 uint16_t TC0_CH0_TimerPeriodGet (void);
 
 uint16_t TC0_CH0_TimerCounterGet (void);
 
-bool TC0_CH0_TimerPeriodHasExpired(void);
-
-void TC0_CH0_TimerCallbackRegister(TC_CALLBACK callback, uintptr_t context);
+void TC0_CH0_TimerCallbackRegister(TC_TIMER_CALLBACK callback, uintptr_t context);
 
 void TC0_CH0_InterruptHandler(void);
 

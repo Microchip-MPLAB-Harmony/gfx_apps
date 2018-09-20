@@ -8,7 +8,7 @@
     libaria_widget_label.h
 
   Summary:
-    
+
 
   Description:
     This module implements label (text) widget functions.
@@ -79,15 +79,17 @@ typedef struct laLabelWidget_t
     laVAlignment valign; // vertical alignment of string
 
     GFXU_ExternalAssetReader* reader; // asset reader
-    
+
     int32_t textLineSpace; //new line space per pixel
 } laLabelWidget;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laLabelWidget_Constructor(laLabelWidget* lbl);
 void _laLabelWidget_Destructor(laLabelWidget* lbl);
 
 void _laLabelWidget_Paint(laLabelWidget* lbl);
-
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -105,15 +107,15 @@ void _laLabelWidget_Paint(laLabelWidget* lbl);
     a widget tree.
 
   Description:
-    
+
 
   Parameters:
-    
+
   Returns:
     laLabelWidget*
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laLabelWidget* laLabelWidget_New();
 
@@ -131,12 +133,12 @@ LIB_EXPORT laLabelWidget* laLabelWidget_New();
   Parameters:
     laLabelWidget* lbl - the widget
     laString* str - a pointer to an laString object
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLabelWidget_GetText(laLabelWidget* lbl, laString* str);
 
@@ -149,18 +151,18 @@ LIB_EXPORT laResult laLabelWidget_GetText(laLabelWidget* lbl, laString* str);
 
   Description:
     This function copies the contents of the input string into its internal
-    string buffer.  The input string can then be freed or altered without 
+    string buffer.  The input string can then be freed or altered without
     affecting the label's internal string value.
 
   Parameters:
     laLabelWidget* lbl - the widget
     laString str - an laString object
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLabelWidget_SetText(laLabelWidget* lbl, laString str);
 
@@ -169,19 +171,19 @@ LIB_EXPORT laResult laLabelWidget_SetText(laLabelWidget* lbl, laString str);
     int32_t laLabelWidget_GetTextLineSpace(laLabelWidget* lbl)
 
   Summary:
-    Returns the line spacing in pixels for the label text. If < 0, the 
+    Returns the line spacing in pixels for the label text. If < 0, the
     ascent value of the string's font is used.
 
   Description:
-    
+
   Parameters:
     laLabelWidget* lbl - the label to reference
-    
+
   Returns:
     int32_t - the line spacing in pixels
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT int32_t laLabelWidget_GetTextLineSpace(laLabelWidget* lbl);
 
@@ -192,18 +194,18 @@ LIB_EXPORT int32_t laLabelWidget_GetTextLineSpace(laLabelWidget* lbl);
   Summary:
     Sets the line space in pixels of the text in the label widget. A value < 0
     sets the spacing to the ascent value of the string's font.
-    
+
   Description:
-    
+
   Parameters:
     laLabelWidget* lbl - the label to modify
     int32_t pixels - the line space, in pixels
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLabelWidget_SetTextLineSpace(laLabelWidget* lbl, int32_t pixels);
 
@@ -215,16 +217,16 @@ LIB_EXPORT laResult laLabelWidget_SetTextLineSpace(laLabelWidget* lbl, int32_t p
     Gets the text horizontal alignment value.
 
   Description:
-    
+
 
   Parameters:
     laLabelWidget* - the widget
-        
+
   Returns:
     laHAlignment - the horizontal alignment value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laHAlignment laLabelWidget_GetHAlignment(laLabelWidget* lbl);
 
@@ -237,17 +239,17 @@ LIB_EXPORT laHAlignment laLabelWidget_GetHAlignment(laLabelWidget* lbl);
     Sets the text horizontal alignment value
 
   Description:
-    
+
 
   Parameters:
     laLabelWidget* - the widget
     laHAlignment align - the horizontal alignment value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLabelWidget_SetHAlignment(laLabelWidget* lbl,
                                                 laHAlignment align);
@@ -260,16 +262,16 @@ LIB_EXPORT laResult laLabelWidget_SetHAlignment(laLabelWidget* lbl,
     Gets the current vertical text alignment
 
   Description:
-    
+
 
   Parameters:
     laLabelWidget* - the widget
-        
+
   Returns:
     laVAlignment - the vertical alignment setting
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laVAlignment laLabelWidget_GetVAlignment(laLabelWidget* lbl);
 
@@ -282,27 +284,27 @@ LIB_EXPORT laVAlignment laLabelWidget_GetVAlignment(laLabelWidget* lbl);
     Sets the vertical text alignment value
 
   Description:
-    
+
 
   Parameters:
     laLabelWidget* - the widget
     laVAlignment align - the vertical alignment setting
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laLabelWidget_SetVAlignment(laLabelWidget* lbl,
                                                 laVAlignment align);
 
-
-// internal use only                                                
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laLabelWidget_GetTextRect(laLabelWidget* lbl,
                                 GFX_Rect* textRect,
                                 GFX_Rect* drawRect);
-
+// DOM-IGNORE-END
 
 #endif // LA_LABEL_WIDGET_ENABLED
 #endif /* LIBARIA_LABEL_H */

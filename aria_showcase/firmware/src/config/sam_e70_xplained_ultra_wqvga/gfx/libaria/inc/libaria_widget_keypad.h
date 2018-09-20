@@ -8,7 +8,7 @@
     libaria_widget_keypad.h
 
   Summary:
-    
+
 
   Description:
     This module implements keypad widget functions.
@@ -70,7 +70,7 @@ typedef void (*laKeyPadWidget_KeyClickEvent)(laKeyPadWidget*,
     Defines an assigned action to a key pad cell
 
   Description:
-    
+
 
   Remarks:
     None.
@@ -93,7 +93,7 @@ typedef enum laKeyPadCellAction_t
     Defines the trigger for keypad action and events
 
   Description:
-    
+
 
   Remarks:
     None.
@@ -150,21 +150,23 @@ typedef struct laKeyPadWidget_t
 
     uint32_t rows; // number of button rows
     uint32_t cols; // number of button columns
-    
+
     laKeyPadActionTrigger trigger; //trigger for action and events
-    
+
     laKeyPadCell* cells; // key cell array
-    
+
     laKeyPadWidget_KeyClickEvent clickEvt; // key click callback event
 
     GFXU_ExternalAssetReader* reader; // asset reader
 } laKeyPadWidget;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laKeyPadWidget_Constructor(laKeyPadWidget* pad, uint32_t rows, uint32_t cols);
 void _laKeyPadWidget_Destructor(laKeyPadWidget* pad);
 
 void _laKeyPadWidget_Paint(laKeyPadWidget* pad);
-
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -182,7 +184,7 @@ void _laKeyPadWidget_Paint(laKeyPadWidget* pad);
     a widget tree.
 
   Description:
-    
+
 
   Parameters:
     uint32_t - number of rows to create
@@ -190,9 +192,9 @@ void _laKeyPadWidget_Paint(laKeyPadWidget* pad);
 
   Returns:
     laKeyPadWidget*
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laKeyPadWidget* laKeyPadWidget_New(uint32_t rows, uint32_t cols);
 
@@ -208,12 +210,12 @@ LIB_EXPORT laKeyPadWidget* laKeyPadWidget_New(uint32_t rows, uint32_t cols);
 
   Parameters:
     laKeyPadWidget* pad - the widget
-    
+
   Returns:
     laKeyPadActionTrigger - the trigger
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laKeyPadActionTrigger laKeyPadWidget_GetKeyPadActionTrigger(laKeyPadWidget* pad);
 
@@ -231,12 +233,12 @@ LIB_EXPORT laKeyPadActionTrigger laKeyPadWidget_GetKeyPadActionTrigger(laKeyPadW
   Parameters:
     laKeyPadWidget* pad - the widget
     laKeyPadActionTrigger trigger - the trigger
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laKeyPadWidget_SetKeyPadActionTrigger(laKeyPadWidget* pad,
                                                           laKeyPadActionTrigger trigger);
@@ -250,16 +252,16 @@ LIB_EXPORT laResult laKeyPadWidget_SetKeyPadActionTrigger(laKeyPadWidget* pad,
     Gets the current key click event callback pointer
 
   Description:
-    
+
 
   Parameters:
     laKeyPadWidget* pad - the widget
-    
+
   Returns:
     laKeyPadWidget_KeyClickEvent - the callback pointer
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laKeyPadWidget_KeyClickEvent laKeyPadWidget_GetKeyClickEventCallback(laKeyPadWidget* pad);
 
@@ -278,12 +280,12 @@ LIB_EXPORT laKeyPadWidget_KeyClickEvent laKeyPadWidget_GetKeyClickEventCallback(
   Parameters:
     laKeyPadWidget* pad - the widget
     laKeyPadWidget_KeyClickEvent cb - the callback pointer
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laKeyPadWidget_SetKeyClickEventCallback(laKeyPadWidget* pad,
                                                             laKeyPadWidget_KeyClickEvent cb);
@@ -298,18 +300,18 @@ LIB_EXPORT laResult laKeyPadWidget_SetKeyClickEventCallback(laKeyPadWidget* pad,
     Gets the enabled flag for a cell at a given row/column
 
   Description:
-    
+
 
   Parameters:
     laKeyPadWidget* pad - the widget
     uint32_t row - the indicated row
     uint32_t col - the indicated column
-    
+
   Returns:
     laBool - the flag value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laKeyPadWidget_GetKeyEnabled(laKeyPadWidget* pad,
                                                uint32_t row,
@@ -336,13 +338,13 @@ LIB_EXPORT laBool laKeyPadWidget_GetKeyEnabled(laKeyPadWidget* pad,
     uint32_t row - the indicated row
     uint32_t col - the indicated column
     laBool enabled - the flag value
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
-*/                                               
+
+*/
 LIB_EXPORT laResult laKeyPadWidget_SetKeyEnabled(laKeyPadWidget* pad,
                                                  uint32_t row,
                                                  uint32_t col,
@@ -362,7 +364,7 @@ LIB_EXPORT laResult laKeyPadWidget_SetKeyEnabled(laKeyPadWidget* pad,
     This function allocates memory for the input string argument.  The application
     becomes responsible for the management of the memory after function
     completion.
-    
+
     The input string does not need to be initialized in any fashion before
     calling this function.
 
@@ -371,11 +373,11 @@ LIB_EXPORT laResult laKeyPadWidget_SetKeyEnabled(laKeyPadWidget* pad,
     uint32_t row - the indicated row
     uint32_t col - the indicated column
     laString* str - a pointer to an laString object
-    
+
   Returns:
     laResult - the result of the operation
-    
-  Remarks: 
+
+  Remarks:
 */
 LIB_EXPORT laResult laKeyPadWidget_GetKeyText(laKeyPadWidget* pad,
                                               uint32_t row,
@@ -400,17 +402,17 @@ LIB_EXPORT laResult laKeyPadWidget_GetKeyText(laKeyPadWidget* pad,
     uint32_t row - the indicated row
     uint32_t col - the indicated column
     laString str - an laString object
-    
+
   Returns:
     laResult - the result of the operation
-    
-  Remarks: 
+
+  Remarks:
 */
-                                   
+
 LIB_EXPORT laResult laKeyPadWidget_SetKeyText(laKeyPadWidget* pad,
                                               uint32_t row,
                                               uint32_t col,
-                                              laString str);                                          
+                                              laString str);
 
 // *****************************************************************************
 /* Function:
@@ -423,19 +425,19 @@ LIB_EXPORT laResult laKeyPadWidget_SetKeyText(laKeyPadWidget* pad,
     a key pad cell
 
   Description:
-    
+
 
   Parameters:
     laKeyPadWidget* pad - the widget
     uint32_t row - the indicated row
     uint32_t col - the indicated column
-    
+
   Returns:
     GFXU_ImageAsset* - pointer to the icon image asset
-    
+
   Remarks:
-    
-*/                                          
+
+*/
 LIB_EXPORT GFXU_ImageAsset* laKeyPadWidget_GetKeyPressedImage(laKeyPadWidget* pad,
                                                               uint32_t row,
                                                               uint32_t col);
@@ -451,20 +453,20 @@ LIB_EXPORT GFXU_ImageAsset* laKeyPadWidget_GetKeyPressedImage(laKeyPadWidget* pa
     Sets the pressed icon image asset pointer for a key pad cell
 
   Description:
-    
+
 
   Parameters:
     laKeyPadWidget* pad - the widget
     uint32_t row - the indicated row
     uint32_t col - the indicated column
     GFXU_ImageAsset* img - pointer to an image asset
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
-*/                                                              
+
+*/
 LIB_EXPORT laResult laKeyPadWidget_SetKeyPressedImage(laKeyPadWidget* pad,
                                                       uint32_t row,
                                                       uint32_t col,
@@ -481,19 +483,19 @@ LIB_EXPORT laResult laKeyPadWidget_SetKeyPressedImage(laKeyPadWidget* pad,
     a key pad cell
 
   Description:
-    
+
 
   Parameters:
     laKeyPadWidget* pad - the widget
     uint32_t row - the indicated row
     uint32_t col - the indicated column
-    
+
   Returns:
     GFXU_ImageAsset* - pointer to the icon image asset
-    
+
   Remarks:
-    
-*/                                                  
+
+*/
 LIB_EXPORT GFXU_ImageAsset* laKeyPadWidget_GetKeyReleasedImage(laKeyPadWidget* pad,
                                                                uint32_t row,
                                                                uint32_t col);
@@ -509,20 +511,20 @@ LIB_EXPORT GFXU_ImageAsset* laKeyPadWidget_GetKeyReleasedImage(laKeyPadWidget* p
     Sets the released icon image asset pointer for a key pad cell
 
   Description:
-    
+
 
   Parameters:
     laKeyPadWidget* pad - the widget
     uint32_t row - the indicated row
     uint32_t col - the indicated column
     GFXU_ImageAsset* img - pointer to an image asset
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
-*/                                                               
+
+*/
 LIB_EXPORT laResult laKeyPadWidget_SetKeyReleasedImage(laKeyPadWidget* pad,
                                                        uint32_t row,
                                                        uint32_t col,
@@ -538,19 +540,19 @@ LIB_EXPORT laResult laKeyPadWidget_SetKeyReleasedImage(laKeyPadWidget* pad,
     Gets the image position for a key pad cell
 
   Description:
-    
+
 
   Parameters:
     laKeyPadWidget* pad - the widget
     uint32_t row - the indicated row
     uint32_t col - the indicated column
-    
+
   Returns:
     laRelativePosition - the image position
-    
+
   Remarks:
-    
-*/                                                   
+
+*/
 LIB_EXPORT laRelativePosition laKeyPadWidget_GetKeyImagePosition(laKeyPadWidget* pad,
                                                                  uint32_t row,
                                                                  uint32_t col);
@@ -563,28 +565,28 @@ LIB_EXPORT laRelativePosition laKeyPadWidget_GetKeyImagePosition(laKeyPadWidget*
                                                 laRelativePosition pos)
 
   Summary:
-    
+
 
   Description:
-    
+
 
   Parameters:
     laKeyPadWidget* pad - the widget
     uint32_t row - the indicated row
     uint32_t col - the indicated column
     laRelativePosition pos - the desired image position
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
-*/                                                                 
+
+*/
 LIB_EXPORT laResult laKeyPadWidget_SetKeyImagePosition(laKeyPadWidget* pad,
                                                        uint32_t row,
                                                        uint32_t col,
                                                        laRelativePosition pos);
-  
+
 // *****************************************************************************
 /* Function:
     uint32_t laKeyPadWidget_GetKeyImageMargin(laKeyPadWidget* pad,
@@ -601,13 +603,13 @@ LIB_EXPORT laResult laKeyPadWidget_SetKeyImagePosition(laKeyPadWidget* pad,
     laKeyPadWidget* pad - the widget
     uint32_t row - the indicated row
     uint32_t col - the indicated column
-    
+
   Returns:
     uint32_t - the margin value
-    
+
   Remarks:
-    
-*/                                                   
+
+*/
 LIB_EXPORT uint32_t laKeyPadWidget_GetKeyImageMargin(laKeyPadWidget* pad,
                                                      uint32_t row,
                                                      uint32_t col);
@@ -623,20 +625,20 @@ LIB_EXPORT uint32_t laKeyPadWidget_GetKeyImageMargin(laKeyPadWidget* pad,
     Sets the key pad cell image margin value for a given cell at row/column
 
   Description:
-    
+
 
   Parameters:
     laKeyPadWidget* pad - the widget
     uint32_t row - the indicated row
     uint32_t col - the indicated column
     uint32_t mg - the desired margin value
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
-*/                                                     
+
+*/
 LIB_EXPORT laResult laKeyPadWidget_SetKeyImageMargin(laKeyPadWidget* pad,
                                                      uint32_t row,
                                                      uint32_t col,
@@ -652,19 +654,19 @@ LIB_EXPORT laResult laKeyPadWidget_SetKeyImageMargin(laKeyPadWidget* pad,
     Gets the background type for a key pad cell at row/column
 
   Description:
-    
+
 
   Parameters:
     laKeyPadWidget* pad - the widget
     uint32_t row - the indicated row
     uint32_t col - the indicated column
-    
+
   Returns:
     laBackgroundType - the cell background type
-    
+
   Remarks:
-    
-*/                                                 
+
+*/
 LIB_EXPORT laBackgroundType laKeyPadWidget_GetKeyDrawBackground(laKeyPadWidget* pad,
                                                                 uint32_t row,
                                                                 uint32_t col);
@@ -680,20 +682,20 @@ LIB_EXPORT laBackgroundType laKeyPadWidget_GetKeyDrawBackground(laKeyPadWidget* 
     Sets the background type for a key pad cell at row/column
 
   Description:
-    
+
 
   Parameters:
     laKeyPadWidget* pad - the widget
     uint32_t row - the indicated row
     uint32_t col - the indicated column
     laBackgroundType type - the desired background type
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
-*/                                                      
+
+*/
 LIB_EXPORT laResult laKeyPadWidget_SetKeyBackgroundType(laKeyPadWidget* pad,
                                                         uint32_t row,
                                                         uint32_t col,
@@ -709,18 +711,18 @@ LIB_EXPORT laResult laKeyPadWidget_SetKeyBackgroundType(laKeyPadWidget* pad,
     Gets the key pad cell action for a cell at row/column
 
   Description:
-    
+
 
   Parameters:
     laKeyPadWidget* pad - the widget
     uint32_t row - the indicated row
     uint32_t col - the indicated column
-    
+
   Returns:
     laKeyPadCellAction - the cell action value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laKeyPadCellAction laKeyPadWidget_GetKeyAction(laKeyPadWidget* pad,
                                                           uint32_t row,
@@ -746,13 +748,13 @@ LIB_EXPORT laKeyPadCellAction laKeyPadWidget_GetKeyAction(laKeyPadWidget* pad,
     uint32_t row - the indicated row
     uint32_t col - the indicated column
     laKeyPadCellAction action - the desired edit action
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
-*/                                                          
+
+*/
 LIB_EXPORT laResult laKeyPadWidget_SetKeyAction(laKeyPadWidget* pad,
                                                 uint32_t row,
                                                 uint32_t col,
@@ -775,14 +777,14 @@ LIB_EXPORT laResult laKeyPadWidget_SetKeyAction(laKeyPadWidget* pad,
     laKeyPadWidget* pad - the widget
     uint32_t row - the indicated row
     uint32_t col - the indicated column
-    
+
   Returns:
     laString* - an initialized string containing a copy of the key pad cell
                 edit value text
-    
+
   Remarks:
-    
-*/                                                
+
+*/
 LIB_EXPORT laString* laKeyPadWidget_GetKeyValue(laKeyPadWidget* pad,
                                                 uint32_t row,
                                                 uint32_t col);
@@ -795,13 +797,13 @@ LIB_EXPORT laString* laKeyPadWidget_GetKeyValue(laKeyPadWidget* pad,
                                         laString str)
 
   Summary:
-    Sets the edit value for a given key pad cell.  
+    Sets the edit value for a given key pad cell.
 
   Description:
     The edit value for a key pad cell is the value that is passed to the Aria
     edit event management system.  This may be different than the displayed text
     of the cell or when the cell is using a picture icon and has no display text.
-    
+
     An input string that references the string table is a valid use case and the
     edit text will change as the active string table language changes.
 
@@ -810,20 +812,22 @@ LIB_EXPORT laString* laKeyPadWidget_GetKeyValue(laKeyPadWidget* pad,
     uint32_t row - the indicated row
     uint32_t col - the indicated column
     laString str - the string to set the key value to
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laResult laKeyPadWidget_SetKeyValue(laKeyPadWidget* pad,
                                                uint32_t row,
                                                uint32_t col,
                                                laString str);
 
+// DOM-IGNORE-BEGIN
 // internal use only
 void _laKeyPadWidget_InvalidateBorderAreas(laKeyPadWidget* pad);
+// DOM-IGNORE-END
 
 #endif // LA_WIDGET_KEYPAD_ENABLED && LA_WIDGET_BUTTON_ENABLED
 #endif /* LIBARIA_KEYPAD_H */

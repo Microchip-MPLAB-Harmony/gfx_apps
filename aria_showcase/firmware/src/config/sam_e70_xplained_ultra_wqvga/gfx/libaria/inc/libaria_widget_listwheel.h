@@ -8,7 +8,7 @@
     libaria_widget_listwheel.h
 
   Summary:
-    
+
 
   Description:
     This module implements list wheel (drawing-style list box) widget functions.
@@ -84,7 +84,7 @@ typedef enum laListWheelZoomEffects_t
     LA_LISTWHEEL_ZOOM_EFFECT_NONE,
     LA_LISTWHEEL_ZOOM_EFFECT_VSCALE,
     LA_LISTWHEEL_ZOOM_EFFECT_FULL_SCALE,
-    LA_LISTWHEEL_ZOOM_EFFECT_FIXED_SCALE,    
+    LA_LISTWHEEL_ZOOM_EFFECT_FIXED_SCALE,
 } laListWheelZoomEffects;
 
 // *****************************************************************************
@@ -123,7 +123,7 @@ typedef void (*laListWheelWidget_SelectedItemChangedEvent)(laListWheelWidget*,
 
   Remarks:
     None.
-*/                                                           
+*/
 typedef struct laListWheelWidget_t
 {
     laWidget widget; // widget base class
@@ -137,61 +137,64 @@ typedef struct laListWheelWidget_t
     laHAlignment halign; // the horizontal alignment of the items
     laRelativePosition iconPos; // the icon position of the items
     uint32_t iconMargin; // the icon margin of the items
-    
+
     laBool showIndicators; // controls the visibility of the horizontal
                            // indicator bars in the center of the widget
     uint32_t indicatorArea; // controls the distance between the indicator bars
-    
+
     uint32_t shaded; // determins if the background of the widget uses gradient
                      // shading to show depth
-    
+
     int32_t cycleDistance; // determins the amount of drag distance needed
                            // to cycle between items
     int32_t cycleDelta; // tracks the current amount of drag distance
 
     // these track drag movement over time
-    int32_t firstTouchY; 
+    int32_t firstTouchY;
     int32_t touchY;
     int32_t lastTouchY;
     laBool  stillTouching;
-    
+
     int32_t minFlickDelta; // amount of distance that must be dragged in a single
                            // frame to trigger momentum mode
-    
+
     int32_t momentum; // current momentum value
     int32_t maxMomentum; // maximum momentum value
     int32_t momentumFalloff; // momentum falloff rate
     int32_t rotation; // determines actual rotation of the wheel
     int32_t rotationCounter; // time-based limiter for rotation calculations
     int32_t rotationTick; // rotation time accumulator
-    
+
     laBool snapPending;
 
     laListWheelIndicatorFill indicatorFill; // the indicator's fill type
     laListWheelZoomEffects zoomEffects; // zoomEffects
     laBool autoHideWheel;   //auto hides the wheel
     laBool hideWheel;       //flag to hide/show the wheel
-    
+
     struct
     {
         int32_t y;
         int32_t per;
-        
+
         uint32_t nextItem;
     } paintState;
-    
+
     laListWheelWidget_SelectedItemChangedEvent cb; // item changed callback
-    
+
     laBorderType borderTypeCache; // Copy of border type, used to restore borders on auto-hide
     laBackgroundType backgroundTypeCache; // Copy of background type, used to restore borders on auto-hide
-    
+
     GFXU_ExternalAssetReader* reader; // asset reader
 } laListWheelWidget;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laListWheelWidget_Constructor(laListWheelWidget* whl);
 void _laListWheelWidget_Destructor(laListWheelWidget* whl);
 
 void _laListWheelWidget_Paint(laListWheelWidget* whl);
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -209,15 +212,15 @@ void _laListWheelWidget_Paint(laListWheelWidget* whl);
     a widget tree.
 
   Description:
-    
+
 
   Parameters:
-    
+
   Returns:
     laListWheelWidget*
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laListWheelWidget* laListWheelWidget_New();
 
@@ -229,16 +232,16 @@ LIB_EXPORT laListWheelWidget* laListWheelWidget_New();
     Gets the horizontal alignment for the list widget
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
-    
+
   Returns:
     laHAlignment - the current list halign mode
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laHAlignment laListWheelWidget_GetAlignment(laListWheelWidget* whl);
 
@@ -251,17 +254,17 @@ LIB_EXPORT laHAlignment laListWheelWidget_GetAlignment(laListWheelWidget* whl);
     Sets the horizontal alignment mode for the list widget.
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
     laHAlignment align - the desired halign mode
-    
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWheelWidget_SetAlignment(laListWheelWidget* whl,
                                                    laHAlignment align);
@@ -274,16 +277,16 @@ LIB_EXPORT laResult laListWheelWidget_SetAlignment(laListWheelWidget* whl,
     Returns the list's visible item count
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
-        
+
   Returns:
     uint32_t - the number of visible items
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laListWheelWidget_GetVisibleItemCount(laListWheelWidget* whl);
 
@@ -297,19 +300,19 @@ LIB_EXPORT uint32_t laListWheelWidget_GetVisibleItemCount(laListWheelWidget* whl
     to three and must be an odd number.
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
     uint32_t cnt - the desired number of items
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laListWheelWidget_SetVisibleItemCount(laListWheelWidget* whl, 
+LIB_EXPORT laResult laListWheelWidget_SetVisibleItemCount(laListWheelWidget* whl,
                                                           uint32_t cnt);
 
 
@@ -321,41 +324,41 @@ LIB_EXPORT laResult laListWheelWidget_SetVisibleItemCount(laListWheelWidget* whl
     Sets the icon position for the list wheel widget.
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
-    
+
   Returns:
     laRelativePosition - the current icon position
-    
+
   Remarks:
-    
-*/                                                  
+
+*/
 LIB_EXPORT laRelativePosition laListWheelWidget_GetIconPosition(laListWheelWidget* whl);
 
 // *****************************************************************************
 /* Function:
-    laResult laListWheelWidget_SetIconPosition(laListWheelWidget* whl, 
+    laResult laListWheelWidget_SetIconPosition(laListWheelWidget* whl,
                                                       laRelativePosition pos)
 
   Summary:
     Sets the icon position for the list wheel widget
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
     laRelativePosition pos - the relative position setting
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laListWheelWidget_SetIconPosition(laListWheelWidget* whl, 
+LIB_EXPORT laResult laListWheelWidget_SetIconPosition(laListWheelWidget* whl,
                                                       laRelativePosition pos);
 
 // *****************************************************************************
@@ -366,16 +369,16 @@ LIB_EXPORT laResult laListWheelWidget_SetIconPosition(laListWheelWidget* whl,
     Gets the icon margin value for the list wheel widget
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
-    
+
   Returns:
     uint32_t - the icon margin value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laListWheelWidget_GetIconMargin(laListWheelWidget* whl);
 
@@ -392,12 +395,12 @@ LIB_EXPORT uint32_t laListWheelWidget_GetIconMargin(laListWheelWidget* whl);
   Parameters:
     laListWheelWidget* whl - the widget
     uint32_t mg - the margin value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWheelWidget_SetIconMargin(laListWheelWidget* whl,
                                                     uint32_t mg);
@@ -410,16 +413,16 @@ LIB_EXPORT laResult laListWheelWidget_SetIconMargin(laListWheelWidget* whl,
     Returns true if the list is displaying its selected item indicators
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
-        
+
   Returns:
     laBool - true if the indicators are being shown
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laListWheelWidget_GetShowIndicators(laListWheelWidget* whl);
 
@@ -432,17 +435,17 @@ LIB_EXPORT laBool laListWheelWidget_GetShowIndicators(laListWheelWidget* whl);
     Configures the list to display the selected item indicator bars
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
     laBool b - configures the indicator bar display state
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWheelWidget_SetShowIndicators(laListWheelWidget* whl,
                                                         laBool b);
@@ -455,16 +458,16 @@ LIB_EXPORT laResult laListWheelWidget_SetShowIndicators(laListWheelWidget* whl,
     Returns the spacing for the selected item indicator bars.
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
-        
+
   Returns:
     uint32_t - the display area
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laListWheelWidget_GetIndicatorArea(laListWheelWidget* whl);
 
@@ -477,17 +480,17 @@ LIB_EXPORT uint32_t laListWheelWidget_GetIndicatorArea(laListWheelWidget* whl);
     Configures the display area for the list selection indicator bars
 
   Description:
-    This space is measured from the middle of the widget outward. 
+    This space is measured from the middle of the widget outward.
 
   Parameters:
     laListWheelWidget* whl - the widget
     uint32_t area - the display area for the indicator bars
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWheelWidget_SetIndicatorArea(laListWheelWidget* whl,
                                                        uint32_t area);
@@ -500,16 +503,16 @@ LIB_EXPORT laResult laListWheelWidget_SetIndicatorArea(laListWheelWidget* whl,
     Returns true if the list is using gradient shading to illustrate depth
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
-        
+
   Returns:
     laBool - true gradient shading is being used
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laListWheelWidget_GetShaded(laListWheelWidget* whl);
 
@@ -522,17 +525,17 @@ LIB_EXPORT laBool laListWheelWidget_GetShaded(laListWheelWidget* whl);
     Configures the list to use gradient or flat background shading
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
     laBool b - true if gradient shading should be used
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWheelWidget_SetShaded(laListWheelWidget* whl,
                                                 laBool b);
@@ -545,16 +548,16 @@ LIB_EXPORT laResult laListWheelWidget_SetShaded(laListWheelWidget* whl,
     Returns the flick init speed for the wheel.
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
-        
+
   Returns:
     uint32_t - the flick init speed value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laListWheelWidget_GetFlickInitSpeed(laListWheelWidget* whl);
 
@@ -574,12 +577,12 @@ LIB_EXPORT uint32_t laListWheelWidget_GetFlickInitSpeed(laListWheelWidget* whl);
   Parameters:
     laListWheelWidget* whl - the widget
     uint32_t speed - the flick init speed value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWheelWidget_SetFlickInitSpeed(laListWheelWidget* whl,
                                                         uint32_t speed);
@@ -592,16 +595,16 @@ LIB_EXPORT laResult laListWheelWidget_SetFlickInitSpeed(laListWheelWidget* whl,
     Returns the maximum momentum value for the wheel.
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
-        
+
   Returns:
     uint32_t - the maximum momentum value.
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laListWheelWidget_GetMaxMomentum(laListWheelWidget* whl);
 
@@ -621,12 +624,12 @@ LIB_EXPORT uint32_t laListWheelWidget_GetMaxMomentum(laListWheelWidget* whl);
   Parameters:
     laListWheelWidget* whl - the widget
     uint32_t max - the maximum momentum value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWheelWidget_SetMaxMomentum(laListWheelWidget* whl,
                                                      uint32_t max);
@@ -639,16 +642,16 @@ LIB_EXPORT laResult laListWheelWidget_SetMaxMomentum(laListWheelWidget* whl,
     Returns the momentum falloff rate for the wheel.
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
-        
+
   Returns:
     uint32_t - the momentum falloff rate value.
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laListWheelWidget_GetMomentumFalloffRate(laListWheelWidget* whl);
 
@@ -669,12 +672,12 @@ LIB_EXPORT uint32_t laListWheelWidget_GetMomentumFalloffRate(laListWheelWidget* 
   Parameters:
     laListWheelWidget* whl - the widget
     uint32_t max - the momentum falloff value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWheelWidget_SetMomentumFalloffRate(laListWheelWidget* whl,
                                                              uint32_t rate);
@@ -687,16 +690,16 @@ LIB_EXPORT laResult laListWheelWidget_SetMomentumFalloffRate(laListWheelWidget* 
     Returns the wheel rotation update rate.
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
-        
+
   Returns:
     uint32_t - the rotation update rate value.
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laListWheelWidget_GetRotationUpdateRate(laListWheelWidget* whl);
 
@@ -720,12 +723,12 @@ LIB_EXPORT uint32_t laListWheelWidget_GetRotationUpdateRate(laListWheelWidget* w
   Parameters:
     laListWheelWidget* whl - the widget
     uint32_t ms - the desired rotation update rate
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWheelWidget_SetRotationUpdateRate(laListWheelWidget* whl,
                                                             uint32_t ms);
@@ -738,16 +741,16 @@ LIB_EXPORT laResult laListWheelWidget_SetRotationUpdateRate(laListWheelWidget* w
     Gets the number of items currently contained in the list
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
-    
+
   Returns:
     uint32_t - the number of items in the list
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laListWheelWidget_GetItemCount(laListWheelWidget* whl);
 
@@ -760,16 +763,16 @@ LIB_EXPORT uint32_t laListWheelWidget_GetItemCount(laListWheelWidget* whl);
     will be empty.
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
-    
+
   Returns:
     uint32_t - the index of the newly appended item
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laListWheelWidget_AppendItem(laListWheelWidget* whl);
 
@@ -782,17 +785,17 @@ LIB_EXPORT uint32_t laListWheelWidget_AppendItem(laListWheelWidget* whl);
     idx or greater will be shuffled one index to the right.
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
     uint32_t idx - the desired index of the new item
-    
+
   Returns:
     uint32_t - the index of the inserted item
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laListWheelWidget_InsertItem(laListWheelWidget* whl, uint32_t idx);
 
@@ -801,18 +804,18 @@ LIB_EXPORT uint32_t laListWheelWidget_InsertItem(laListWheelWidget* whl, uint32_
     laResult laListWheelWidget_RemoveItem(laListWheelWidget* whl, uint32_t idx)
 
   Summary:
-    Attempts to remove an item from the list. 
+    Attempts to remove an item from the list.
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
     uint32_t idx - the index to remove from the list
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
     The memory owned by the string item will be freed automatically.
 */
@@ -823,17 +826,17 @@ LIB_EXPORT laResult laListWheelWidget_RemoveItem(laListWheelWidget* whl, uint32_
     laResult laListWheelWidget_RemoveAllItems(laListWheelWidget* whl)
 
   Summary:
-    Attempts to remove all items from the list.  
+    Attempts to remove all items from the list.
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
     All memory owned by each item string will be freed automatically.
 */
@@ -847,41 +850,41 @@ LIB_EXPORT laResult laListWheelWidget_RemoveAllItems(laListWheelWidget* whl);
     Returns the index of the currently selected item.
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
-    
+
   Returns:
     int32_t - the index of the selected item or -1 if an error occured
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT int32_t laListWheelWidget_GetSelectedItem(laListWheelWidget* whl);
 
 // *****************************************************************************
 /* Function:
-    laResult laListWheelWidget_SetSelectedItem(laListWheelWidget* whl, 
+    laResult laListWheelWidget_SetSelectedItem(laListWheelWidget* whl,
                                                uint32_t idx)
 
   Summary:
     Attempts to set the selectedi tem index
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
     uint32_t idx - the desired selected item index
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laListWheelWidget_SetSelectedItem(laListWheelWidget* whl, 
+LIB_EXPORT laResult laListWheelWidget_SetSelectedItem(laListWheelWidget* whl,
                                                       uint32_t idx);
 
 // *****************************************************************************
@@ -892,18 +895,18 @@ LIB_EXPORT laResult laListWheelWidget_SetSelectedItem(laListWheelWidget* whl,
     Attempts to move the selected item index to the previous item in the list.
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
-*/                                                      
-LIB_EXPORT laResult laListWheelWidget_SelectPreviousItem(laListWheelWidget* whl);                                                      
+
+*/
+LIB_EXPORT laResult laListWheelWidget_SelectPreviousItem(laListWheelWidget* whl);
 
 // *****************************************************************************
 /* Function:
@@ -913,18 +916,18 @@ LIB_EXPORT laResult laListWheelWidget_SelectPreviousItem(laListWheelWidget* whl)
     Attempts to move the selected item index to the next item in the list.
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laListWheelWidget_SelectNextItem(laListWheelWidget* whl);                                                 
+LIB_EXPORT laResult laListWheelWidget_SelectNextItem(laListWheelWidget* whl);
 
 // *****************************************************************************
 /* Function:
@@ -943,12 +946,12 @@ LIB_EXPORT laResult laListWheelWidget_SelectNextItem(laListWheelWidget* whl);
     laListWheelWidget* whl - the widget
     uint32_t idx - the index to consider
     laString* str - a pointer to an laString object
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWheelWidget_GetItemText(laListWheelWidget* whl,
                                                   uint32_t idx,
@@ -965,24 +968,24 @@ LIB_EXPORT laResult laListWheelWidget_GetItemText(laListWheelWidget* whl,
 
   Description:
     This function copies the contents of the input string into its internal
-    string buffer.  The input string can then be freed or altered without 
+    string buffer.  The input string can then be freed or altered without
     affecting the label's internal string value.
 
   Parameters:
     laListWheelWidget* whl - the widget
     uint32_t idx - the index to consider
     laString str - an laString object
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWheelWidget_SetItemText(laListWheelWidget* whl,
                                                   uint32_t index,
                                                   laString str);
-                                              
+
 
 // *****************************************************************************
 /* Function:
@@ -994,17 +997,17 @@ LIB_EXPORT laResult laListWheelWidget_SetItemText(laListWheelWidget* whl,
     index.
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
     uint32_t idx - the index to consider
-    
+
   Returns:
     GFXU_ImageAsset* - the image asset pointer or NULL
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT GFXU_ImageAsset* laListWheelWidget_GetItemIcon(laListWheelWidget* whl,
                                                           uint32_t index);
@@ -1019,23 +1022,23 @@ LIB_EXPORT GFXU_ImageAsset* laListWheelWidget_GetItemIcon(laListWheelWidget* whl
     Sets the icon pointer for a given index.
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
     uint32_t idx - the index to configure
     GFXU_ImageAsset* - the image asset pointer to use as the icon
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
-*/                                                          
+
+*/
 LIB_EXPORT laResult laListWheelWidget_SetItemIcon(laListWheelWidget* whl,
                                                   uint32_t index,
                                                   GFXU_ImageAsset* img);
-                                      
+
 
 
 // *****************************************************************************
@@ -1046,16 +1049,16 @@ LIB_EXPORT laResult laListWheelWidget_SetItemIcon(laListWheelWidget* whl,
     Gets the callback for the item selected changed event
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
-    
+
   Returns:
     laListWheelWidget_SelectedItemChangedEvent - the current pointer to the callback or NULL
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laListWheelWidget_SelectedItemChangedEvent laListWheelWidget_GetSelectedItemChangedEventCallback(laListWheelWidget* whl);
 
@@ -1065,7 +1068,7 @@ LIB_EXPORT laListWheelWidget_SelectedItemChangedEvent laListWheelWidget_GetSelec
                                                                    laListWheelWidget_SelectedItemChangedEvent cb)
 
   Summary:
-    
+
 
   Description:
     This callback is called whenver the wheel's selected item changes.
@@ -1073,12 +1076,12 @@ LIB_EXPORT laListWheelWidget_SelectedItemChangedEvent laListWheelWidget_GetSelec
   Parameters:
     laListWheelWidget* whl - the widget
     laListWheelWidget_SelectedItemChangedEvent - the desired pointer to callback or NULL
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWheelWidget_SetSelectedItemChangedEventCallback(laListWheelWidget* whl,
                                                                           laListWheelWidget_SelectedItemChangedEvent cb);
@@ -1091,16 +1094,16 @@ LIB_EXPORT laResult laListWheelWidget_SetSelectedItemChangedEventCallback(laList
     Gets the indicator area fill type
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
-    
+
   Returns:
     laListWheelIndicatorFill - the indicator area fill type
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laListWheelIndicatorFill laListWheelWidget_GetIndicatorFill(laListWheelWidget* whl);
 
@@ -1117,12 +1120,12 @@ LIB_EXPORT laListWheelIndicatorFill laListWheelWidget_GetIndicatorFill(laListWhe
   Parameters:
     laListWheelWidget* whl - the widget
     laListWheelIndicatorFill fill - fill type
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWheelWidget_SetIndicatorFill(laListWheelWidget* whl, laListWheelIndicatorFill fill);
 
@@ -1134,16 +1137,16 @@ LIB_EXPORT laResult laListWheelWidget_SetIndicatorFill(laListWheelWidget* whl, l
     Gets the list wheel zoom effect
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
-    
+
   Returns:
     laListWheelZoomEffects - the list wheel zoom effect type
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laListWheelZoomEffects laListWheelWidget_GetZoomEffects(laListWheelWidget* whl);
 
@@ -1160,12 +1163,12 @@ LIB_EXPORT laListWheelZoomEffects laListWheelWidget_GetZoomEffects(laListWheelWi
   Parameters:
     laListWheelWidget* whl - the widget
     laListWheelZoomEffects zoomEffects - the zoom effect
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWheelWidget_SetZoomEffects(laListWheelWidget* whl, laListWheelZoomEffects zoomEffects);
 
@@ -1177,16 +1180,16 @@ LIB_EXPORT laResult laListWheelWidget_SetZoomEffects(laListWheelWidget* whl, laL
     Returns the list wheel auto hide setting
 
   Description:
-    
+
 
   Parameters:
     laListWheelWidget* whl - the widget
-    
+
   Returns:
     laBool - true if the list wheel is set to auto hide
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laListWheelWidget_GetAutoHideWheel(laListWheelWidget* whl);
 
@@ -1203,27 +1206,30 @@ LIB_EXPORT laBool laListWheelWidget_GetAutoHideWheel(laListWheelWidget* whl);
   Parameters:
     laListWheelWidget* whl - the widget
     laBool autoHide - sets the list wheel to auto hide
- 
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWheelWidget_SetAutoHideWheel(laListWheelWidget* whl, laBool autoHide);
 
-// internal use only            
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laListWheelWidget_GetItemTextRect(laListWheelWidget* whl,
                                         uint32_t idx,
                                         uint32_t pos,
                                         GFX_Rect* textRect,
                                         GFX_Rect* drawRect);
-                                        
-// internal use only            
+
+// internal use only
 void _laListWheelWidget_GetItemIconRect(laListWheelWidget* whl,
                                         uint32_t idx,
                                         uint32_t pos,
                                         GFX_Rect* imgRect,
                                         GFX_Rect* imgSrcRect);
+// DOM-IGNORE-END
+
 #endif // LA_LISTWHEEL_WIDGET_ENABLED
 #endif /* LIBARIA_LISTWHEELWIDGET_H */

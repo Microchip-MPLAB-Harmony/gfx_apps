@@ -8,7 +8,7 @@
     libaria_widget_circular_gauge.h
 
   Summary:
-    
+
 
   Description:
     This module implements circular gauge drawing widget functions.
@@ -113,8 +113,16 @@ typedef enum laCircularGaugeWidgetArcType_t
     VALUE_ARC,
 } laCircularGaugeWidgetArcType;
 
+// *****************************************************************************
+/* Function Pointer:
+    laCircularGaugeWidget_ValueChangedEvent
+
+  Summary:
+    Value changed event function callback type
+*/
 typedef void (*laCircularGaugeWidget_ValueChangedEvent)(laCircularGaugeWidget*,
                                                         int32_t value);
+
 
 // *****************************************************************************
 /* Structure:
@@ -124,7 +132,7 @@ typedef void (*laCircularGaugeWidget_ValueChangedEvent)(laCircularGaugeWidget*,
     Implementation of a circular gauge widget.
 
   Description:
-    A circular gauge widget draws a circular gauge of the specified properties 
+    A circular gauge widget draws a circular gauge of the specified properties
     inside the widget bounds.  All coordinates are expressed in local widget space.
 
   Remarks:
@@ -142,12 +150,12 @@ typedef struct laCircularGaugeWidget_t
     uint32_t startAngle; //the start angle of the outer arc
     int32_t centerAngle; //the center angle of the outer arc
     laCircularGaugeWidgetDir dir; //the turn direction of the gauge
-        
+
     //Tick properties
     GFX_Bool ticksVisible; // are ticks visible
     uint32_t tickLength; //length of ticks (towards center)
     int32_t tickValue; // tick value (delta)
-    
+
     //Tick label properties
     laBool tickLabelsVisible; // are tick labels visible
     GFXU_StringTableAsset * stringTable; //string table
@@ -159,15 +167,15 @@ typedef struct laCircularGaugeWidget_t
     laBool centerCircleVisible;
     uint32_t centerCircleRadius;
     uint32_t centerCircleThickness;
-    
+
     //Advanced config arrays
     laArray arcsArray; //ArcsArray list
     laArray ticksArray; //ArcsArray list
     laArray labelsArray; //ArcsArray list
 
-    
+
     laCircularGaugeWidget_ValueChangedEvent cb; //value changed event callback
-    
+
 } laCircularGaugeWidget;
 
 // *****************************************************************************
@@ -195,29 +203,60 @@ typedef struct laCircularGaugeArc_t
     laScheme* scheme;
 } laCircularGaugeArc;
 
+// *****************************************************************************
+/* Structure:
+    laCircularGaugeTick_t
+
+  Summary:
+    Tick object for the circular gauge
+
+  Description:
+    Contains properties of the ticks in the gauge
+
+  Remarks:
+    None.
+*/
 typedef struct laCircularGaugeTick_t
 {
     int32_t startValue;
     int32_t endValue;
-    uint32_t interval;    
+    uint32_t interval;
     uint32_t radius;
     uint32_t length;
     laScheme* scheme;
 } laCircularGaugeTick;
 
+// *****************************************************************************
+/* Structure:
+    typedef struct laCircularGaugeLabel_t
+
+
+  Summary:
+    Label object for the circular gauge
+
+  Description:
+    Contains properties of the labels in the gauge
+
+  Remarks:
+    None.
+*/
 typedef struct laCircularGaugeLabel_t
 {
     int32_t startValue;
     int32_t endValue;
-    uint32_t interval;    
+    uint32_t interval;
     uint32_t radius;
     laCircularGaugeWidgetLabelPosition position;
     laScheme* scheme;
 } laCircularGaugeLabel;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laCircularGaugeWidget_Constructor(laCircularGaugeWidget* gauge);
 void _laCircularGaugeWidget_Destructor(laCircularGaugeWidget* gauge);
 void _laCircularGaugeWidget_Paint(laCircularGaugeWidget* gauge);
+
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -235,16 +274,16 @@ void _laCircularGaugeWidget_Paint(laCircularGaugeWidget* gauge);
     widget is added to a widget tree.
 
   Description:
-    
+
 
   Parameters:
     void
-    
+
   Returns:
     laCircularGaugeWidget*
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laCircularGaugeWidget* laCircularGaugeWidget_New();
 
@@ -256,16 +295,16 @@ LIB_EXPORT laCircularGaugeWidget* laCircularGaugeWidget_New();
     Gets the radius of a gauge widget
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
-        
+
   Returns:
     uint32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laCircularGaugeWidget_GetRadius(laCircularGaugeWidget* gauge);
 
@@ -277,17 +316,17 @@ LIB_EXPORT uint32_t laCircularGaugeWidget_GetRadius(laCircularGaugeWidget* gauge
     Sets the radius of a gauge widget
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
     uint32_t red - the desired radius value
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laCircularGaugeWidget_SetRadius(laCircularGaugeWidget* gauge, uint32_t rad);
 
@@ -299,16 +338,16 @@ LIB_EXPORT laResult laCircularGaugeWidget_SetRadius(laCircularGaugeWidget* gauge
     Returns the start angle of the circular gauge
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
-        
+
   Returns:
     int32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT int32_t laCircularGaugeWidget_GetStartAngle(laCircularGaugeWidget* gauge);
 
@@ -320,17 +359,17 @@ LIB_EXPORT int32_t laCircularGaugeWidget_GetStartAngle(laCircularGaugeWidget* ga
     Sets the start angle of the gauge.
 
   Description:
-  
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
     int32_t angle - start angle of the gauge
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laCircularGaugeWidget_SetStartAngle(laCircularGaugeWidget* gauge, int32_t angle);
 
@@ -342,16 +381,16 @@ LIB_EXPORT laResult laCircularGaugeWidget_SetStartAngle(laCircularGaugeWidget* g
     Returns the center angle of the circular gauge
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
-        
+
   Returns:
     int32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT int32_t laCircularGaugeWidget_GetCenterAngle(laCircularGaugeWidget* gauge);
 
@@ -364,17 +403,17 @@ LIB_EXPORT int32_t laCircularGaugeWidget_GetCenterAngle(laCircularGaugeWidget* g
 
   Description:
     A positive center angle draws the gauge, ticks, and hand in CCW, while a negative center
-    angle draws in CW.    
+    angle draws in CW.
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
     int32_t angle - center angle of the gauge
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laCircularGaugeWidget_SetCenterAngle(laCircularGaugeWidget* gauge, int32_t angle);
 
@@ -386,35 +425,35 @@ LIB_EXPORT laResult laCircularGaugeWidget_SetCenterAngle(laCircularGaugeWidget* 
     Returns the direction of the gauge.
 
   Description:
-    The direction is automatically set to CW if the center angle is negative, and CCW if the 
+    The direction is automatically set to CW if the center angle is negative, and CCW if the
     center angle is positive.
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
-        
+
   Returns:
     laCircularGaugeWidgetDir
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laCircularGaugeWidgetDir laCircularGaugeWidget_GetDirection(laCircularGaugeWidget* gauge);
 
 // *****************************************************************************
 /* Function:
-    laResult laCircularGaugeWidget_AddValueArc(laCircularGaugeWidget* gauge, 
-                                               int32_t startValue, 
+    laResult laCircularGaugeWidget_AddValueArc(laCircularGaugeWidget* gauge,
+                                               int32_t startValue,
                                                int32_t endValue,
                                                uint32_t radius,
                                                uint32_t thickness,
                                                laScheme* scheme)
 
   Summary:
-    Adds a 'value arc' in the gauge. 
+    Adds a 'value arc' in the gauge.
 
   Description:
-    Value arcs are drawn inside the gauge from the same origin/center but are 
+    Value arcs are drawn inside the gauge from the same origin/center but are
     bound by the start and end value of the gauge. A value arc that exceeds the start or
     end value of the gauge will not be drawn.
 
@@ -426,15 +465,15 @@ LIB_EXPORT laCircularGaugeWidgetDir laCircularGaugeWidget_GetDirection(laCircula
     uint32_t thickness - the fill thickness of the arc
     laScheme* scheme - scheme used for drawing the arc
 
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laCircularGaugeWidget_AddValueArc(laCircularGaugeWidget* gauge, 
-                                                      int32_t startValue, 
+LIB_EXPORT laResult laCircularGaugeWidget_AddValueArc(laCircularGaugeWidget* gauge,
+                                                      int32_t startValue,
                                                       int32_t endValue,
                                                       uint32_t radius,
                                                       uint32_t thickness,
@@ -442,18 +481,18 @@ LIB_EXPORT laResult laCircularGaugeWidget_AddValueArc(laCircularGaugeWidget* gau
 
 // *****************************************************************************
 /* Function:
-    laResult laCircularGaugeWidget_AddAngularArc(laCircularGaugeWidget* gauge, 
-                                                 int32_t startAngle, 
+    laResult laCircularGaugeWidget_AddAngularArc(laCircularGaugeWidget* gauge,
+                                                 int32_t startAngle,
                                                  int32_t endAngle,
                                                  uint32_t radius,
                                                  uint32_t thickness,
                                                  laScheme* scheme)
 
   Summary:
-    Adds an 'angular arc' in the gauge. 
+    Adds an 'angular arc' in the gauge.
 
   Description:
-    Angular arcs are drawn inside the gauge from the same origin/center but are 
+    Angular arcs are drawn inside the gauge from the same origin/center but are
     not bound by the start/end angle/value of the gauge.
 
   Parameters:
@@ -464,15 +503,15 @@ LIB_EXPORT laResult laCircularGaugeWidget_AddValueArc(laCircularGaugeWidget* gau
     uint32_t thickness - the fill thickness of the arc
     laScheme* scheme - scheme used for drawing the arc
 
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laCircularGaugeWidget_AddAngularArc(laCircularGaugeWidget* gauge, 
-                                                        int32_t startAngle, 
+LIB_EXPORT laResult laCircularGaugeWidget_AddAngularArc(laCircularGaugeWidget* gauge,
+                                                        int32_t startAngle,
                                                         int32_t endAngle,
                                                         uint32_t radius,
                                                         uint32_t thickness,
@@ -490,19 +529,19 @@ LIB_EXPORT laResult laCircularGaugeWidget_AddAngularArc(laCircularGaugeWidget* g
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laCircularGaugeWidget_DeleteArcs(laCircularGaugeWidget* gauge);
 
 // *****************************************************************************
 /* Function:
-    laCircularGaugeWidget_AddMinorTicks(laCircularGaugeWidget* gauge, 
-                                      int32_t startValue, 
+    laCircularGaugeWidget_AddMinorTicks(laCircularGaugeWidget* gauge,
+                                      int32_t startValue,
                                       int32_t endValue,
                                       uint32_t radius,
                                       uint32_t length,
@@ -510,28 +549,28 @@ LIB_EXPORT laResult laCircularGaugeWidget_DeleteArcs(laCircularGaugeWidget* gaug
                                       laScheme* scheme)
 
   Summary:
-    Adds minor ticks in the gauge. 
+    Adds minor ticks in the gauge.
 
   Description:
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
     int32_t startValue - the start value of the ticks (must be within gauge range)
-    int32_t endValue - the end value of the ticks (must be within gauge range) 
+    int32_t endValue - the end value of the ticks (must be within gauge range)
     uint32_t radius - the radius of the ticks
     uint32_t length - the length of the ticks (drawn inward towards center)
     uint32_t interval - the interval between ticks
     laScheme* scheme - scheme used for drawing the tick (uses foreground)
 
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laCircularGaugeWidget_AddMinorTicks(laCircularGaugeWidget* gauge, 
-                                                        int32_t startValue, 
+LIB_EXPORT laResult laCircularGaugeWidget_AddMinorTicks(laCircularGaugeWidget* gauge,
+                                                        int32_t startValue,
                                                         int32_t endValue,
                                                         uint32_t radius,
                                                         uint32_t length,
@@ -550,19 +589,19 @@ LIB_EXPORT laResult laCircularGaugeWidget_AddMinorTicks(laCircularGaugeWidget* g
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laCircularGaugeWidget_DeleteMinorTicks(laCircularGaugeWidget* gauge);
 
 // *****************************************************************************
 /* Function:
-    llaResult laCircularGaugeWidget_AddMinorTickLabels(laCircularGaugeWidget* gauge, 
-                                      int32_t startValue, 
+    llaResult laCircularGaugeWidget_AddMinorTickLabels(laCircularGaugeWidget* gauge,
+                                      int32_t startValue,
                                       int32_t endValue,
                                       uint32_t radius,
                                       laCircularGaugeWidgetLabelPosition position,
@@ -570,27 +609,27 @@ LIB_EXPORT laResult laCircularGaugeWidget_DeleteMinorTicks(laCircularGaugeWidget
                                       laScheme* scheme)
 
   Summary:
-    Adds minor tick labels in the gauge. 
+    Adds minor tick labels in the gauge.
 
   Description:
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
     int32_t startValue - the start value of the reference tick points (must be within gauge range)
-    int32_t endValue - the end value of the reference tick points (must be within gauge range) 
+    int32_t endValue - the end value of the reference tick points (must be within gauge range)
     uint32_t radius - the radius of the reference tick points
     uint32_t position - the position of the label relative to the tick points
     uint32_t interval - the interval between ticks
     laScheme* scheme - scheme used for drawing the tick (uses foreground)
 
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laCircularGaugeWidget_AddMinorTickLabels(laCircularGaugeWidget* gauge, 
+LIB_EXPORT laResult laCircularGaugeWidget_AddMinorTickLabels(laCircularGaugeWidget* gauge,
                                                              int32_t startValue,
                                                              int32_t endValue,
                                                              uint32_t radius,
@@ -610,12 +649,12 @@ LIB_EXPORT laResult laCircularGaugeWidget_AddMinorTickLabels(laCircularGaugeWidg
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laCircularGaugeWidget_DeleteMinorTickLabels(laCircularGaugeWidget* gauge);
 
@@ -627,42 +666,42 @@ LIB_EXPORT laResult laCircularGaugeWidget_DeleteMinorTickLabels(laCircularGaugeW
     Returns the value of the gauge hand
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
-        
+
   Returns:
     int32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT int32_t laCircularGaugeWidget_GetValue(laCircularGaugeWidget* gauge);
 
 // *****************************************************************************
 /* Function:
-    laResult laCircularGaugeWidget_SetValue(laCircularGaugeWidget* gauge, 
+    laResult laCircularGaugeWidget_SetValue(laCircularGaugeWidget* gauge,
                                             int32_t value)
 
   Summary:
     Sets the value of the gauge hand
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
     int32_t value - value of the gauge hand
 
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laCircularGaugeWidget_SetValue(laCircularGaugeWidget* gauge, 
+LIB_EXPORT laResult laCircularGaugeWidget_SetValue(laCircularGaugeWidget* gauge,
                                                    int32_t value);
 
 // *****************************************************************************
@@ -673,42 +712,42 @@ LIB_EXPORT laResult laCircularGaugeWidget_SetValue(laCircularGaugeWidget* gauge,
     Returns the start value of the gauge
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
-        
+
   Returns:
     int32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT int32_t laCircularGaugeWidget_GetStartValue(laCircularGaugeWidget* gauge);
 
 // *****************************************************************************
 /* Function:
-    laResult laCircularGaugeWidget_SetStartValue(laCircularGaugeWidget* gauge, 
+    laResult laCircularGaugeWidget_SetStartValue(laCircularGaugeWidget* gauge,
                                                int32_t value)
 
   Summary:
     Sets the start value of the gauge
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
     int32_t value - start value of the gauge
 
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laCircularGaugeWidget_SetStartValue(laCircularGaugeWidget* gauge, 
+LIB_EXPORT laResult laCircularGaugeWidget_SetStartValue(laCircularGaugeWidget* gauge,
                                                         int32_t value);
 
 // *****************************************************************************
@@ -719,42 +758,42 @@ LIB_EXPORT laResult laCircularGaugeWidget_SetStartValue(laCircularGaugeWidget* g
     Returns the end value of the gauge
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
-        
+
   Returns:
     int32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT int32_t laCircularGaugeWidget_GetEndValue(laCircularGaugeWidget* gauge);
 
 // *****************************************************************************
 /* Function:
-    laResult laCircularGaugeWidget_SetEndValue(laCircularGaugeWidget* gauge, 
+    laResult laCircularGaugeWidget_SetEndValue(laCircularGaugeWidget* gauge,
                                                int32_t value)
 
   Summary:
     Sets the end value of the gauge
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
     int32_t value - end value of the gauge
 
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laCircularGaugeWidget_SetEndValue(laCircularGaugeWidget* gauge, 
+LIB_EXPORT laResult laCircularGaugeWidget_SetEndValue(laCircularGaugeWidget* gauge,
                                                       int32_t value);
 
 // *****************************************************************************
@@ -765,42 +804,42 @@ LIB_EXPORT laResult laCircularGaugeWidget_SetEndValue(laCircularGaugeWidget* gau
     Returns GFX_TRUE if the ticks in the gauge are visible
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
-        
+
   Returns:
     laBool
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laCircularGaugeWidget_GetTicksVisible(laCircularGaugeWidget* gauge);
 
 // *****************************************************************************
 /* Function:
-    laCircularGaugeWidget_SetTicksVisible(laCircularGaugeWidget* gauge, 
+    laCircularGaugeWidget_SetTicksVisible(laCircularGaugeWidget* gauge,
                                        laBool visible)
 
   Summary:
     Sets the increments/distance between ticks
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
     int32_t value - the distance between ticks
 
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laCircularGaugeWidget_SetTicksVisible(laCircularGaugeWidget* gauge, 
+LIB_EXPORT laResult laCircularGaugeWidget_SetTicksVisible(laCircularGaugeWidget* gauge,
                                                           laBool visible);
 
 // *****************************************************************************
@@ -811,42 +850,42 @@ LIB_EXPORT laResult laCircularGaugeWidget_SetTicksVisible(laCircularGaugeWidget*
     Returns the tick increment value in the gauge
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
-        
+
   Returns:
     int32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT int32_t laCircularGaugeWidget_GetTickValue(laCircularGaugeWidget* gauge);
 
 // *****************************************************************************
 /* Function:
-    laResult laCircularGaugeWidget_SetTickValue(laCircularGaugeWidget* gauge, 
+    laResult laCircularGaugeWidget_SetTickValue(laCircularGaugeWidget* gauge,
                                        int32_t value)
 
   Summary:
     Sets the increments/distance between ticks
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
     int32_t value - the distance between ticks
 
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laCircularGaugeWidget_SetTickValue(laCircularGaugeWidget* gauge, 
+LIB_EXPORT laResult laCircularGaugeWidget_SetTickValue(laCircularGaugeWidget* gauge,
                                                        int32_t value);
 
 // *****************************************************************************
@@ -857,42 +896,42 @@ LIB_EXPORT laResult laCircularGaugeWidget_SetTickValue(laCircularGaugeWidget* ga
     Returns the length of the ticks in the gauge in pixels
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
-        
+
   Returns:
     uint32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laCircularGaugeWidget_GetTickLength(laCircularGaugeWidget* gauge);
 
 // *****************************************************************************
 /* Function:
-    laResult laCircularGaugeWidget_SetTickLength(laCircularGaugeWidget* gauge, 
+    laResult laCircularGaugeWidget_SetTickLength(laCircularGaugeWidget* gauge,
                                          uint32_t length)
 
   Summary:
     Sets the length of the ticks
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
     uint32_t length - length of the ticks in pixels
 
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laCircularGaugeWidget_SetTickLength(laCircularGaugeWidget* gauge, 
+LIB_EXPORT laResult laCircularGaugeWidget_SetTickLength(laCircularGaugeWidget* gauge,
                                                         uint32_t length);
 
 // *****************************************************************************
@@ -903,42 +942,42 @@ LIB_EXPORT laResult laCircularGaugeWidget_SetTickLength(laCircularGaugeWidget* g
     Returns GFX_TRUE if the tick labels are visible
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
-        
+
   Returns:
     laBool
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laCircularGaugeWidget_GetTickLabelsVisible(laCircularGaugeWidget* gauge);
 
 // *****************************************************************************
 /* Function:
-    laResult laCircularGaugeWidget_SetTickLabelsVisible(laCircularGaugeWidget* gauge, 
+    laResult laCircularGaugeWidget_SetTickLabelsVisible(laCircularGaugeWidget* gauge,
                                                laBool visible)
 
   Summary:
     Sets the tick labels visible/invisible
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
     laBool visible - tick labels are visible if GFX_TRUE
 
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laCircularGaugeWidget_SetTickLabelsVisible(laCircularGaugeWidget* gauge, 
+LIB_EXPORT laResult laCircularGaugeWidget_SetTickLabelsVisible(laCircularGaugeWidget* gauge,
                                                                laBool visible);
 
 // *****************************************************************************
@@ -949,42 +988,42 @@ LIB_EXPORT laResult laCircularGaugeWidget_SetTickLabelsVisible(laCircularGaugeWi
     Returns GFX_TRUE if the gauge hand is visible
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
-        
+
   Returns:
     laBool
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laCircularGaugeWidget_GetHandVisible(laCircularGaugeWidget* gauge);
 
 // *****************************************************************************
 /* Function:
-    laResult laCircularGaugeWidget_SetHandVisible(laCircularGaugeWidget* gauge, 
+    laResult laCircularGaugeWidget_SetHandVisible(laCircularGaugeWidget* gauge,
                                          laBool visible)
 
   Summary:
     Sets the hand visible/invisible
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
     laBool visible - hand is visible if GFX_TRUE
 
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laCircularGaugeWidget_SetHandVisible(laCircularGaugeWidget* gauge, 
+LIB_EXPORT laResult laCircularGaugeWidget_SetHandVisible(laCircularGaugeWidget* gauge,
                                                          laBool visible);
 
 // *****************************************************************************
@@ -995,42 +1034,42 @@ LIB_EXPORT laResult laCircularGaugeWidget_SetHandVisible(laCircularGaugeWidget* 
     Returns the radius/length of the gauge hand in pixels
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
-        
+
   Returns:
     uint32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laCircularGaugeWidget_GetHandRadius(laCircularGaugeWidget* gauge);
 
 // *****************************************************************************
 /* Function:
-    laResult laCircularGaugeWidget_SetHandRadius(laCircularGaugeWidget* gauge, 
+    laResult laCircularGaugeWidget_SetHandRadius(laCircularGaugeWidget* gauge,
                                         uint32_t length)
 
   Summary:
     Sets the radius/length of the hand
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
     uint32_t length - length of the hand in pixels
 
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laCircularGaugeWidget_SetHandRadius(laCircularGaugeWidget* gauge, 
+LIB_EXPORT laResult laCircularGaugeWidget_SetHandRadius(laCircularGaugeWidget* gauge,
                                                         uint32_t rad);
 
 // *****************************************************************************
@@ -1041,42 +1080,42 @@ LIB_EXPORT laResult laCircularGaugeWidget_SetHandRadius(laCircularGaugeWidget* g
     Returns GFX_TRUE if the center circle is visible
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
-        
+
   Returns:
     laBool
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laCircularGaugeWidget_GetCenterCircleVisible(laCircularGaugeWidget* gauge);
 
 // *****************************************************************************
 /* Function:
-    laResult laCircularGaugeWidget_SetCenterCircleVisible(laCircularGaugeWidget* gauge, 
+    laResult laCircularGaugeWidget_SetCenterCircleVisible(laCircularGaugeWidget* gauge,
                                                  laBool visible)
 
   Summary:
     Sets the center circle visible/invisible
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
     laBool visible - sets visible if GFX_TRUE
 
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laCircularGaugeWidget_SetCenterCircleVisible(laCircularGaugeWidget* gauge, 
+LIB_EXPORT laResult laCircularGaugeWidget_SetCenterCircleVisible(laCircularGaugeWidget* gauge,
                                                                  laBool visible);
 
 // *****************************************************************************
@@ -1087,42 +1126,42 @@ LIB_EXPORT laResult laCircularGaugeWidget_SetCenterCircleVisible(laCircularGauge
     Returns radius of the center circle
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
-        
+
   Returns:
     uint32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laCircularGaugeWidget_GetCenterCircleRadius(laCircularGaugeWidget* gauge);
 
 // *****************************************************************************
 /* Function:
-    laResult laCircularGaugeWidget_SetCenterCircleRadius(laCircularGaugeWidget* gauge, 
+    laResult laCircularGaugeWidget_SetCenterCircleRadius(laCircularGaugeWidget* gauge,
                                                             uint32_t rad)
 
   Summary:
     Sets the center radius of the center circle
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
     uint32_t rad - radius of the center circle
 
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laCircularGaugeWidget_SetCenterCircleRadius(laCircularGaugeWidget* gauge, 
+LIB_EXPORT laResult laCircularGaugeWidget_SetCenterCircleRadius(laCircularGaugeWidget* gauge,
                                                                 uint32_t rad);
 
 // *****************************************************************************
@@ -1133,92 +1172,92 @@ LIB_EXPORT laResult laCircularGaugeWidget_SetCenterCircleRadius(laCircularGaugeW
     Returns thickness of the center circle
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
-        
+
   Returns:
     uint32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laCircularGaugeWidget_GetCenterCircleThickness(laCircularGaugeWidget* gauge);
 
 // *****************************************************************************
 /* Function:
-    laResult laCircularGaugeWidget_SetCenterCircleThickness(laCircularGaugeWidget* gauge, 
+    laResult laCircularGaugeWidget_SetCenterCircleThickness(laCircularGaugeWidget* gauge,
                                                             uint32_t thickness)
 
   Summary:
     Sets the thickness of the center circle
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
     uint32_t thickness - thickness of the center circle
 
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laCircularGaugeWidget_SetCenterCircleThickness(laCircularGaugeWidget* gauge, 
+LIB_EXPORT laResult laCircularGaugeWidget_SetCenterCircleThickness(laCircularGaugeWidget* gauge,
                                                                    uint32_t thickness);
 
 // *****************************************************************************
 /* Function:
-    laResult laCircularGaugeWidget_SetStringTable(laCircularGaugeWidget* gauge, 
+    laResult laCircularGaugeWidget_SetStringTable(laCircularGaugeWidget* gauge,
                                                   GFXU_StringTableAsset * stringTable)
 
   Summary:
     Sets the string table to be used for the tick labels
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
     GFXU_StringTableAsset * stringTable - pointer to the string table
 
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laCircularGaugeWidget_SetStringTable(laCircularGaugeWidget* gauge, 
+LIB_EXPORT laResult laCircularGaugeWidget_SetStringTable(laCircularGaugeWidget* gauge,
                                                          GFXU_StringTableAsset * stringTable);
 
 // *****************************************************************************
 /* Function:
-    laResult laCircularGaugeWidget_SetTicksLabelsStringID(laCircularGaugeWidget* gauge, 
+    laResult laCircularGaugeWidget_SetTicksLabelsStringID(laCircularGaugeWidget* gauge,
                                                           uint32_t stringID)
 
   Summary:
     Sets the ID of the string character superset to be used for the tick labels
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
     uint32_t stringID - string ID
 
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laCircularGaugeWidget_SetTicksLabelsStringID(laCircularGaugeWidget* gauge, 
+LIB_EXPORT laResult laCircularGaugeWidget_SetTicksLabelsStringID(laCircularGaugeWidget* gauge,
                                                                  uint32_t stringID);
 
 
@@ -1231,18 +1270,18 @@ LIB_EXPORT laResult laCircularGaugeWidget_SetTicksLabelsStringID(laCircularGauge
     Sets the function to be called back when the gauge value changes.
 
   Description:
-    
+
 
   Parameters:
     laCircularGaugeWidget* gauge - the widget
     laCircularGaugeWidget_ValueChangedEvent cb - callback function
 
-        
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laCircularGaugeWidget_SetValueChangedEventCallback(laCircularGaugeWidget* gauge,
                                                                         laCircularGaugeWidget_ValueChangedEvent cb);

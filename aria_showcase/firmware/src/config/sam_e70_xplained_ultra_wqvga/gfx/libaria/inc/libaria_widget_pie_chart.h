@@ -8,7 +8,7 @@
     libaria_widget_pie_chart.h
 
   Summary:
-    
+
 
   Description:
     This module implements pie chart drawing widget functions.
@@ -63,7 +63,16 @@ typedef struct laPieChartPie_t
 } laPieChartPie;
 
 typedef struct laPieChartWidget_t laPieChartWidget;
+
+// *****************************************************************************
+/* Function Pointer:
+    laPieChartWidget_PressedEvent
+
+  Summary:
+    Chart pressed event function callback type
+*/
 typedef void (*laPieChartWidget_PressedEvent)(laPieChartWidget *, uint32_t);
+
 
 // *****************************************************************************
 /* Structure:
@@ -88,7 +97,7 @@ typedef struct laPieChartWidget_t
 
     uint32_t startAngle;                    //the start angle of the chart
     int32_t centerAngle;                    //the center angle of the chart
-    
+
     laArray pieArray;                       //list of pie/data
 
     //Label properties
@@ -100,10 +109,13 @@ typedef struct laPieChartWidget_t
     laPieChartWidget_PressedEvent pressedCallback;
 } laPieChartWidget;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laPieChartWidget_Constructor(laPieChartWidget* chart);
 void _laPieChartWidget_Destructor(laPieChartWidget* chart);
 
 void _laPieChartWidget_Paint(laPieChartWidget* chart);
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -121,16 +133,16 @@ void _laPieChartWidget_Paint(laPieChartWidget* chart);
     widget is added to a widget tree.
 
   Description:
-    
+
 
   Parameters:
     void
-    
+
   Returns:
     laPieChartWidget*
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laPieChartWidget* laPieChartWidget_New();
 
@@ -142,18 +154,18 @@ LIB_EXPORT laPieChartWidget* laPieChartWidget_New();
     Gets the origin coordinates of a chart widget
 
   Description:
-    
+
 
   Parameters:
     laPieChartWidget* chart - the widget
     int32_t* x - pointer to an integer pointer to store x
     int32_t* y - pointer to an integer pointer to store y
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laPieChartWidget_GetOrigin(laPieChartWidget* chart, int32_t* x, int32_t* y);
 
@@ -165,18 +177,18 @@ LIB_EXPORT laResult laPieChartWidget_GetOrigin(laPieChartWidget* chart, int32_t*
     Sets the origin coordiates of a chart widget
 
   Description:
-    
+
 
   Parameters:
     laPieChartWidget* chart - the widget
     int32_t x - the desired x origin coordinate
     int32_t y - the desired y origin coordinate
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laPieChartWidget_SetOrigin(laPieChartWidget* chart, int32_t x, int32_t y);
 
@@ -188,16 +200,16 @@ LIB_EXPORT laResult laPieChartWidget_SetOrigin(laPieChartWidget* chart, int32_t 
     Returns the start angle of a chart widget
 
   Description:
-    
+
 
   Parameters:
     laPieChartWidget* chart - the widget
-        
+
   Returns:
     uint32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT int32_t laPieChartWidget_GetStartAngle(laPieChartWidget* chart);
 
@@ -209,17 +221,17 @@ LIB_EXPORT int32_t laPieChartWidget_GetStartAngle(laPieChartWidget* chart);
     Sets the start angle of a chart widget
 
   Description:
-    
+
 
   Parameters:
     laPieChartWidget* chart - the widget
     int32_t angle - the desired start angle value
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laPieChartWidget_SetStartAngle(laPieChartWidget* chart, int32_t angle);
 
@@ -231,16 +243,16 @@ LIB_EXPORT laResult laPieChartWidget_SetStartAngle(laPieChartWidget* chart, int3
     Sets the center angle of the chart widget
 
   Description:
-    
+
 
   Parameters:
     laPieChartWidget* chart - the widget
-        
+
   Returns:
     int32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT int32_t laPieChartWidget_GetCenterAngle(laPieChartWidget* chart);
 
@@ -252,17 +264,17 @@ LIB_EXPORT int32_t laPieChartWidget_GetCenterAngle(laPieChartWidget* chart);
     Sets the center angle of the chart widget
 
   Description:
-    
+
 
   Parameters:
     laPieChartWidget* chart - the widget
     int32_t angle - the desired center angle value
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laPieChartWidget_SetCenterAngle(laPieChartWidget* chart, int32_t angle);
 
@@ -280,12 +292,12 @@ LIB_EXPORT laResult laPieChartWidget_SetCenterAngle(laPieChartWidget* chart, int
   Parameters:
     laPieChartWidget* chart - the widget
     int32_t * index - returns the index of the entry
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laPieChartWidget_AddEntry(laPieChartWidget* chart, int32_t * index);
 
@@ -300,12 +312,12 @@ LIB_EXPORT laResult laPieChartWidget_AddEntry(laPieChartWidget* chart, int32_t *
 
   Parameters:
     laPieChartWidget* chart - the widget
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laPieChartWidget_DeleteEntries(laPieChartWidget* chart);
 
@@ -321,12 +333,12 @@ LIB_EXPORT laResult laPieChartWidget_DeleteEntries(laPieChartWidget* chart);
   Parameters:
     laPieChartWidget* chart - the widget
     uint32_t index - the entry index
-        
+
   Returns:
     uint32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laPieChartWidget_GetEntryValue(laPieChartWidget* chart, uint32_t index);
 
@@ -338,18 +350,18 @@ LIB_EXPORT uint32_t laPieChartWidget_GetEntryValue(laPieChartWidget* chart, uint
     Sets the value of an entry at index
 
   Description:
-    
+
 
   Parameters:
     laPieChartWidget* chart - the widget
     uint32_t index - entry index
     uint32_t value - entry value
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laPieChartWidget_SetEntryValue(laPieChartWidget* chart, uint32_t index, uint32_t value);
 
@@ -361,17 +373,17 @@ LIB_EXPORT laResult laPieChartWidget_SetEntryValue(laPieChartWidget* chart, uint
     Returns the radius of the entry at the specified index
 
   Description:
-    
+
 
   Parameters:
     laPieChartWidget* chart - the widget
     uint32_t index - the entry index
-        
+
   Returns:
     uint32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laPieChartWidget_GetEntryRadius(laPieChartWidget* chart, uint32_t index);
 
@@ -383,18 +395,18 @@ LIB_EXPORT uint32_t laPieChartWidget_GetEntryRadius(laPieChartWidget* chart, uin
     Sets the radius of an entry at index
 
   Description:
-    
+
 
   Parameters:
     laPieChartWidget* chart - the widget
     uint32_t index - entry index
     uint32_t rad - entry radius
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laPieChartWidget_SetEntryRadius(laPieChartWidget* chart, uint32_t index, uint32_t rad);
 
@@ -406,17 +418,17 @@ LIB_EXPORT laResult laPieChartWidget_SetEntryRadius(laPieChartWidget* chart, uin
     Returns the offset of the entry at the specified index
 
   Description:
-    
+
 
   Parameters:
     laPieChartWidget* chart - the widget
     uint32_t index - the entry index
-        
+
   Returns:
     uint32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laPieChartWidget_GetEntryOffset(laPieChartWidget* chart, uint32_t index);
 
@@ -428,18 +440,18 @@ LIB_EXPORT uint32_t laPieChartWidget_GetEntryOffset(laPieChartWidget* chart, uin
     Sets the offset of an entry at index
 
   Description:
-    
+
 
   Parameters:
     laPieChartWidget* chart - the widget
     uint32_t offset - entry offset
     uint32_t rad - entry radius
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laPieChartWidget_SetEntryOffset(laPieChartWidget* chart, uint32_t index, uint32_t offset);
 
@@ -451,17 +463,17 @@ LIB_EXPORT laResult laPieChartWidget_SetEntryOffset(laPieChartWidget* chart, uin
     Returns the scheme of the entry at the specified index
 
   Description:
-    
+
 
   Parameters:
     laPieChartWidget* chart - the widget
     uint32_t index - the entry index
-        
+
   Returns:
     laScheme *
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laScheme * laPieChartWidget_GetEntryScheme(laPieChartWidget* chart, uint32_t index);
 
@@ -473,18 +485,18 @@ LIB_EXPORT laScheme * laPieChartWidget_GetEntryScheme(laPieChartWidget* chart, u
     Sets the scheme of an entry at index
 
   Description:
-    
+
 
   Parameters:
     laPieChartWidget* chart - the widget
     uint32_t scheme - entry scheme
     uint32_t rad - entry radius
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laPieChartWidget_SetEntryScheme(laPieChartWidget* chart, uint32_t index, laScheme * scheme);
 
@@ -496,17 +508,17 @@ LIB_EXPORT laResult laPieChartWidget_SetEntryScheme(laPieChartWidget* chart, uin
     Sets the function called when the chart is pressed/touched
 
   Description:
-    
+
 
   Parameters:
     laPieChartWidget* chart - the widget
     laPieChartWidget_PressedEvent cb - callback function
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laPieChartWidget_SetPressedEventCallback(laPieChartWidget* chart, laPieChartWidget_PressedEvent cb);
 
@@ -518,17 +530,17 @@ LIB_EXPORT laResult laPieChartWidget_SetPressedEventCallback(laPieChartWidget* c
     Sets the string table for the labels
 
   Description:
-    
+
 
   Parameters:
     laPieChartWidget* chart - the widget
     GFXU_StringTableAsset * stringTable - the string table to use
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laPieChartWidget_SetStringTable(laPieChartWidget * chart, GFXU_StringTableAsset * stringTable);
 
@@ -540,17 +552,17 @@ LIB_EXPORT laResult laPieChartWidget_SetStringTable(laPieChartWidget * chart, GF
     Sets the string asset for the labels
 
   Description:
-    
+
 
   Parameters:
     laPieChartWidget* chart - the widget
     uint32_t stringID - the ID of the string asset to use for labels
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laPieChartWidget_SetLabelsStringID(laPieChartWidget* chart, uint32_t stringID);
 
@@ -562,16 +574,16 @@ LIB_EXPORT laResult laPieChartWidget_SetLabelsStringID(laPieChartWidget* chart, 
     Returns GFX_TRUE if the labels are shown, GFX_FALSE if hidden
 
   Description:
-    
+
 
   Parameters:
     laPieChartWidget* chart - the widget
-        
+
   Returns:
     laBool
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laPieChartWidget_GetLabelsVisible(laPieChartWidget* chart);
 
@@ -583,17 +595,17 @@ LIB_EXPORT laBool laPieChartWidget_GetLabelsVisible(laPieChartWidget* chart);
     Shows/hides the data entry labels
 
   Description:
-    
+
 
   Parameters:
     laPieChartWidget* chart - the widget
-    laBool visible 
-        
+    laBool visible
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laPieChartWidget_SetLabelsVisible(laPieChartWidget* chart, laBool visible);
 
@@ -605,16 +617,16 @@ LIB_EXPORT laResult laPieChartWidget_SetLabelsVisible(laPieChartWidget* chart, l
     Gets the offsets of the labels from the center
 
   Description:
-    
+
 
   Parameters:
     laPieChartWidget* chart - the widget
-        
+
   Returns:
     uint32_t - the offset
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laPieChartWidget_GetLabelsOffset(laPieChartWidget* chart);
 
@@ -626,17 +638,17 @@ LIB_EXPORT uint32_t laPieChartWidget_GetLabelsOffset(laPieChartWidget* chart);
     Sets the offsets of the labels from the center
 
   Description:
-    
+
 
   Parameters:
     laPieChartWidget* chart - the widget
     uint32_t offset
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laPieChartWidget_SetLabelsOffset(laPieChartWidget* chart, uint32_t offset);
 

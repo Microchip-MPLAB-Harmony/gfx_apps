@@ -8,7 +8,7 @@
     libaria_widget_imagesequence.h
 
   Summary:
-    
+
 
   Description:
     This module implements image sequence (slide show) widget drawing functions.
@@ -73,13 +73,13 @@ typedef void (*laImageSequenceImageChangedEvent_FnPtr)(laImageSequenceWidget*);
 
   Remarks:
     None.
-*/    
+*/
 typedef struct laImageSequenceEntry_t
 {
     GFXU_ImageAsset* image; // image asset pointer
-    
+
     uint32_t delay; // how many time units to display this entry
-    
+
     laHAlignment halign; // the horizontal alignment for this entry
     laVAlignment valign; // the vertical alignment for this entry
 } laImageSequenceEntry;
@@ -95,7 +95,7 @@ typedef struct laImageSequenceEntry_t
     An image sequence widget is similar to an image widget with the additional
     capability of showing a sequence of images and automating the transition
     between them.
-    
+
     This widget is dependent on the time value provided to laUpdate.  If
     laUpdate is not provided with time information this widget will not be
     able to automatically cycle.
@@ -109,25 +109,28 @@ typedef struct laImageSequenceWidget_t
 
     uint32_t count; // number of image entries for this widget
     laImageSequenceEntry* images; // image entry array
-    
+
     int32_t activeIdx; // currently displayed entry
-    
+
     laBool playing; // indicates that the widget is automatically cycling
     uint32_t time; // current cycle time
-    
+
     laBool repeat; // indicates that the sequence should repeat when it
                    // reaches the end of the sequence
-    
+
     laImageSequenceImageChangedEvent_FnPtr cb; // callback when the image changes
-    
+
     GFXU_ExternalAssetReader* reader; // asset reader pointer
 } laImageSequenceWidget;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laImageSequenceWidget_Constructor(laImageSequenceWidget* img);
 void _laImageSequenceWidget_Destructor(laImageSequenceWidget* img);
 
 laWidgetUpdateState _laImageSequenceWidget_Update(laImageSequenceWidget* img, uint32_t dt);
 void _laImageSequenceWidget_Paint(laImageSequenceWidget* img);
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -151,12 +154,12 @@ void _laImageSequenceWidget_Paint(laImageSequenceWidget* img);
 
   Parameters:
     void
-    
+
   Returns:
     laImageSequenceWidget*
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laImageSequenceWidget* laImageSequenceWidget_New();
 
@@ -168,16 +171,16 @@ LIB_EXPORT laImageSequenceWidget* laImageSequenceWidget_New();
     Gets the number of image entries for this widget.
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
-    
+
   Returns:
     uint32_t - the number of entries for this sequence widget
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laImageSequenceWidget_GetImageCount(laImageSequenceWidget* img);
 
@@ -191,17 +194,17 @@ LIB_EXPORT uint32_t laImageSequenceWidget_GetImageCount(laImageSequenceWidget* i
     null will show nothing.
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
     uint32_t count - the desired number of entries
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laImageSequenceWidget_SetImageCount(laImageSequenceWidget* img,
                                                         uint32_t count);
@@ -215,17 +218,17 @@ LIB_EXPORT laResult laImageSequenceWidget_SetImageCount(laImageSequenceWidget* i
     Gets the image asset pointer for an entry.
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
     uint32_t idx - the index
-    
+
   Returns:
     GFXU_ImageAsset* - the image asset pointer
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT GFXU_ImageAsset* laImageSequenceWidget_GetImage(laImageSequenceWidget* img,
                                                            uint32_t idx);
@@ -239,23 +242,23 @@ LIB_EXPORT GFXU_ImageAsset* laImageSequenceWidget_GetImage(laImageSequenceWidget
     Sets the image asset pointer for an entry.
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
     uint32_t idx - the index
     GFXU_ImageAsset* imgAst - the image asset pointer
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
-*/                                                           
+
+*/
 LIB_EXPORT laResult laImageSequenceWidget_SetImage(laImageSequenceWidget* img,
                                                    uint32_t idx,
                                                    GFXU_ImageAsset* imgAst);
-                                              
+
 // *****************************************************************************
 /* Function:
     uint32_t laImageSequenceWidget_GetImageDelay(laImageSequenceWidget* img,
@@ -265,17 +268,17 @@ LIB_EXPORT laResult laImageSequenceWidget_SetImage(laImageSequenceWidget* img,
     Gets the image delay for an entry.
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
     uint32_t idx - the index
-    
+
   Returns:
     uint32_t - the delay value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laImageSequenceWidget_GetImageDelay(laImageSequenceWidget* img,
                                                         uint32_t idx);
@@ -290,18 +293,18 @@ LIB_EXPORT uint32_t laImageSequenceWidget_GetImageDelay(laImageSequenceWidget* i
     Sets the image delay for an entry.
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
     uint32_t idx - the index
     uint32_t delay - the delay value
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laImageSequenceWidget_SetImageDelay(laImageSequenceWidget* img,
                                                         uint32_t idx,
@@ -316,21 +319,21 @@ LIB_EXPORT laResult laImageSequenceWidget_SetImageDelay(laImageSequenceWidget* i
     Gets the horizontal alignment for an image entry
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
     uint32_t idx - the index
-    
+
   Returns:
     laHAlignment - the halign value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laHAlignment laImageSequenceWidget_GetImageHAlignment(laImageSequenceWidget* img,
                                                                  uint32_t idx);
-                                                                 
+
 // *****************************************************************************
 /* Function:
     laResult laImageSequenceWidget_SetImageHAlignment(laImageSequenceWidget* img,
@@ -341,18 +344,18 @@ LIB_EXPORT laHAlignment laImageSequenceWidget_GetImageHAlignment(laImageSequence
     Sets the horizontal alignment for an image entry.
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
     uint32_t idx - the index
     laHAlignment align - the halign value
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laImageSequenceWidget_SetImageHAlignment(laImageSequenceWidget* img,
                                                              uint32_t idx,
@@ -367,17 +370,17 @@ LIB_EXPORT laResult laImageSequenceWidget_SetImageHAlignment(laImageSequenceWidg
     Sets the vertical alignment for an image entry
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
     uint32_t idx - the index
-    
+
   Returns:
     laVAlignment - the valign value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laVAlignment laImageSequenceWidget_GetImageVAlignment(laImageSequenceWidget* img,
                                                                  uint32_t idx);
@@ -392,19 +395,19 @@ LIB_EXPORT laVAlignment laImageSequenceWidget_GetImageVAlignment(laImageSequence
     Sets the vertical alignment value for an image entry
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
     uint32_t idx - the index
     laVAlignment align - the vertical alignment setting
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
-*/                                                                 
+
+*/
 LIB_EXPORT laResult laImageSequenceWidget_SetImageVAlignment(laImageSequenceWidget* img,
                                                              uint32_t idx,
                                                              laVAlignment align);
@@ -417,16 +420,16 @@ LIB_EXPORT laResult laImageSequenceWidget_SetImageVAlignment(laImageSequenceWidg
     Stops the widget from automatically cycling through the image entries.
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laImageSequenceWidget_Stop(laImageSequenceWidget* img);
 
@@ -438,16 +441,16 @@ LIB_EXPORT laResult laImageSequenceWidget_Stop(laImageSequenceWidget* img);
     Starts the widget automatically cycling through the image entries.
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laImageSequenceWidget_Play(laImageSequenceWidget* img);
 
@@ -459,16 +462,16 @@ LIB_EXPORT laResult laImageSequenceWidget_Play(laImageSequenceWidget* img);
     Resets the current image sequence display index to zero.
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laImageSequenceWidget_Rewind(laImageSequenceWidget* img);
 
@@ -480,16 +483,16 @@ LIB_EXPORT laResult laImageSequenceWidget_Rewind(laImageSequenceWidget* img);
     Indicates if the widget is currently cycling through the image entries.
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
-    
+
   Returns:
     laBool - indicates if the widget is automatically cycling
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laImageSequenceWidget_IsPlaying(laImageSequenceWidget* img);
 
@@ -501,16 +504,16 @@ LIB_EXPORT laBool laImageSequenceWidget_IsPlaying(laImageSequenceWidget* img);
     Indicates if the widget will repeat through the image entries.
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
-    
+
   Returns:
     laBool - indicates if the widget is automatically repeating
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laImageSequenceWidget_GetRepeat(laImageSequenceWidget* img);
 
@@ -523,17 +526,17 @@ LIB_EXPORT laBool laImageSequenceWidget_GetRepeat(laImageSequenceWidget* img);
     Sets the repeat flag for the widget
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
     laBool repeat - the desired repeat setting
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laImageSequenceWidget_SetRepeat(laImageSequenceWidget* img,
                                                     laBool repeat);
@@ -547,17 +550,17 @@ LIB_EXPORT laResult laImageSequenceWidget_SetRepeat(laImageSequenceWidget* img,
     Sets the active display index to the indicated value.
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
     uint32_t idx - the desired index
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laImageSequenceWidget_ShowImage(laImageSequenceWidget* img,
                                                     uint32_t idx);
@@ -570,16 +573,16 @@ LIB_EXPORT laResult laImageSequenceWidget_ShowImage(laImageSequenceWidget* img,
     Sets the active display index to the next index value.
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laImageSequenceWidget_ShowNextImage(laImageSequenceWidget* img);
 
@@ -591,16 +594,16 @@ LIB_EXPORT laResult laImageSequenceWidget_ShowNextImage(laImageSequenceWidget* i
     Sets the active display index to the previous index value.
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laImageSequenceWidget_ShowPreviousImage(laImageSequenceWidget* img);
 
@@ -612,16 +615,16 @@ LIB_EXPORT laResult laImageSequenceWidget_ShowPreviousImage(laImageSequenceWidge
     Gets the image changed event callback pointer.
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
-    
+
   Returns:
     laImageSequenceImageChangedEvent_FnPtr - a valid callback pointer or NULL
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laImageSequenceImageChangedEvent_FnPtr laImageSequenceWidget_GetImageChangedEventCallback(laImageSequenceWidget* img);
 
@@ -635,25 +638,27 @@ LIB_EXPORT laImageSequenceImageChangedEvent_FnPtr laImageSequenceWidget_GetImage
     whenever the active display index is changed.
 
   Description:
-    
+
 
   Parameters:
     laImageSequenceWidget* img - the widget
     laImageSequenceImageChangedEvent_FnPtr cb - a valid callback pointer or NULL
-    
+
   Returns:
     laResult
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laImageSequenceWidget_SetImageChangedEventCallback(laImageSequenceWidget* img,
                                                                        laImageSequenceImageChangedEvent_FnPtr cb);
 
+// DOM-IGNORE-BEGIN
 // internal use only
 void _laImageSequenceWidget_GetImageRect(laImageSequenceWidget* img,
                                          GFX_Rect* imgRect,
                                          GFX_Rect* imgSrcRect);
+// DOM-IGNORE-END
 
-#endif // LA_IMAGESEQUENCE_WIDGET_ENABLED                                                             
+#endif // LA_IMAGESEQUENCE_WIDGET_ENABLED
 #endif /* LIBARIA_IMAGESEQUENCE_H */
