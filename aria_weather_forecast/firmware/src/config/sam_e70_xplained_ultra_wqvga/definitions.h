@@ -51,7 +51,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "peripheral/clk/plib_clk.h"
 #include "peripheral/pio/plib_pio.h"
 #include "peripheral/nvic/plib_nvic.h"
-#include "peripheral/xdmac/plib_xdmac0.h"
+#include "peripheral/xdmac/plib_xdmac.h"
 #include "bsp/bsp.h"
 #include "system/int/sys_int.h"
 #include "osal/osal.h"

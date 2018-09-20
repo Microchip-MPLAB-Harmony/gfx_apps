@@ -8,7 +8,7 @@
     libaria_widget_textfield.h
 
   Summary:
-    
+
 
   Description:
     This module implements text field widget functions.
@@ -51,7 +51,22 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 typedef struct laTextFieldWidget_t laTextFieldWidget;
 
+// *****************************************************************************
+/* Function Pointer:
+    laTextFieldWidget_TextChangedCallback
+
+  Summary:
+    Text changed event function callback type
+*/
 typedef void (*laTextFieldWidget_TextChangedCallback)(laTextFieldWidget*);
+
+// *****************************************************************************
+/* Function Pointer:
+    laTextFieldWidget_FocusChangedCallback
+
+  Summary:
+    Focus changed event function callback type
+*/
 typedef void (*laTextFieldWidget_FocusChangedCallback)(laTextFieldWidget*, laBool);
 
 // *****************************************************************************
@@ -65,7 +80,7 @@ typedef void (*laTextFieldWidget_FocusChangedCallback)(laTextFieldWidget*, laBoo
     laTextFieldWidget_t
 
   Summary:
-    Implementation of a text field widget.  
+    Implementation of a text field widget.
 
   Description:
     A text field widget is a widget that is capable of displaying a single line
@@ -82,25 +97,28 @@ typedef struct laTextFieldWidget_t
     laString text; // the text to edit
 
     laHAlignment halign; // horizontal alignment
-    
+
     uint32_t cursorPos; // current cursor position
     uint32_t cursorDelay; // cursor blink delay
     uint32_t cursorTime; // current cursor tick counter
     laBool cursorEnable; // cursor enabled flag
     laBool cursorVisible; // cursor visbility flag
     laBool clearOnFirstEdit; // needs clear on first edit
-    
+
     laTextFieldWidget_TextChangedCallback textChangedEvent; // text changed event
     laTextFieldWidget_FocusChangedCallback focusChangedEvent; // focus changed event
-    
+
     GFXU_ExternalAssetReader* reader; // asset reader
 } laTextFieldWidget;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laTextFieldWidget_Constructor(laTextFieldWidget* txt);
 void _laTextFieldWidget_Destructor(laTextFieldWidget* txt);
 
 laWidgetUpdateState _laTextFieldWidget_Update(laTextFieldWidget* img, uint32_t dt);
 void _laTextFieldWidget_Paint(laTextFieldWidget* txt);
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -118,15 +136,15 @@ void _laTextFieldWidget_Paint(laTextFieldWidget* txt);
     a widget tree.
 
   Description:
-    
+
 
   Parameters:
-    
+
   Returns:
     laTextFieldWidget*
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laTextFieldWidget* laTextFieldWidget_New();
 
@@ -144,12 +162,12 @@ LIB_EXPORT laTextFieldWidget* laTextFieldWidget_New();
   Parameters:
     laTextFieldWidget* txt - the widget
     laString* str - a pointer to an laString object
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laTextFieldWidget_GetText(laTextFieldWidget* txt, laString* str);
 
@@ -162,18 +180,18 @@ LIB_EXPORT laResult laTextFieldWidget_GetText(laTextFieldWidget* txt, laString* 
 
   Description:
     This function copies the contents of the input string into its internal
-    string buffer.  The input string can then be freed or altered without 
+    string buffer.  The input string can then be freed or altered without
     affecting the label's internal string value.
 
   Parameters:
     laTextFieldWidget* txt - the widget
     laString str - an laString object
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laTextFieldWidget_SetText(laTextFieldWidget* txt, laString str);
 
@@ -185,16 +203,16 @@ LIB_EXPORT laResult laTextFieldWidget_SetText(laTextFieldWidget* txt, laString s
     Gets the text horizontal alignment value.
 
   Description:
-    
+
 
   Parameters:
     laTextFieldWidget* txt - the widget
-        
+
   Returns:
     laHAlignment - the horizontal alignment value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laHAlignment laTextFieldWidget_GetAlignment(laTextFieldWidget* txt);
 
@@ -207,17 +225,17 @@ LIB_EXPORT laHAlignment laTextFieldWidget_GetAlignment(laTextFieldWidget* txt);
     Sets the text horizontal alignment value
 
   Description:
-    
+
 
   Parameters:
     laTextFieldWidget* txt - the widget
     laHAlignment - the horizontal alignment value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laTextFieldWidget_SetAlignment(laTextFieldWidget* txt,
                                                    laHAlignment align);
@@ -230,17 +248,17 @@ LIB_EXPORT laResult laTextFieldWidget_SetAlignment(laTextFieldWidget* txt,
     Gets the current cursor delay.
 
   Description:
-    
+
 
   Parameters:
     laTextFieldWidget* txt - the widget
-        
+
   Returns:
     uint32_t - the current delay value
-    
+
   Remarks:
-    
-*/                                               
+
+*/
 LIB_EXPORT uint32_t laTextFieldWidget_GetCursorDelay(laTextFieldWidget* txt);
 
 // *****************************************************************************
@@ -257,12 +275,12 @@ LIB_EXPORT uint32_t laTextFieldWidget_GetCursorDelay(laTextFieldWidget* txt);
   Parameters:
     laTextFieldWidget* txt - the widget
     uint32_t dt - the cursor delay value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laTextFieldWidget_SetCursorDelay(laTextFieldWidget* txt,
                                                      uint32_t dt);
@@ -275,16 +293,16 @@ LIB_EXPORT laResult laTextFieldWidget_SetCursorDelay(laTextFieldWidget* txt,
     Gets the cursor enabled value
 
   Description:
-    
+
 
   Parameters:
     laTextFieldWidget* txt - the widget
-        
+
   Returns:
     laBool - the cursor enabled flag value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laTextFieldWidget_GetCursorEnabled(laTextFieldWidget* txt);
 
@@ -302,12 +320,12 @@ LIB_EXPORT laBool laTextFieldWidget_GetCursorEnabled(laTextFieldWidget* txt);
   Parameters:
     laTextFieldWidget* txt - the widget
     laBool en - the desired flag state
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laTextFieldWidget_SetCursorEnabled(laTextFieldWidget* txt,
                                                        laBool en);
@@ -324,13 +342,13 @@ LIB_EXPORT laResult laTextFieldWidget_SetCursorEnabled(laTextFieldWidget* txt,
 
   Parameters:
     laTextFieldWidget* txt - the widget
-        
+
   Returns:
     uint32_t - the index of the cursor
-    
+
   Remarks:
-    
-*/                                                   
+
+*/
 LIB_EXPORT uint32_t laTextFieldWidget_GetCursorPosition(laTextFieldWidget* txt);
 
 // *****************************************************************************
@@ -347,12 +365,12 @@ LIB_EXPORT uint32_t laTextFieldWidget_GetCursorPosition(laTextFieldWidget* txt);
   Parameters:
     laTextFieldWidget* txt - the widget
     uint32_t pos - the position of the cursor in character indices
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laTextFieldWidget_SetCursorPosition(laTextFieldWidget* txt,
                                                         uint32_t pos);
@@ -365,17 +383,17 @@ LIB_EXPORT laResult laTextFieldWidget_SetCursorPosition(laTextFieldWidget* txt,
     Gets the current text changed event callback pointer
 
   Description:
-    
+
 
   Parameters:
     laTextFieldWidget* txt - the widget
-        
+
   Returns:
     laTextFieldWidget_TextChangedCallback - a valid pointer or NULL
-    
+
   Remarks:
-    
-*/                                                    
+
+*/
 LIB_EXPORT laTextFieldWidget_TextChangedCallback laTextFieldWidget_GetTextChangedEventCallback(laTextFieldWidget* txt);
 
 // *****************************************************************************
@@ -387,17 +405,17 @@ LIB_EXPORT laTextFieldWidget_TextChangedCallback laTextFieldWidget_GetTextChange
     Sets the text changed event callback pointer
 
   Description:
-    
+
 
   Parameters:
     laTextFieldWidget* txt - the widget
     laTextFieldWidget_TextChangedCallback - a valid pointer or NULL
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laTextFieldWidget_SetTextChangedEventCallback(laTextFieldWidget* txt,
                                                                   laTextFieldWidget_TextChangedCallback cb);
@@ -432,17 +450,17 @@ LIB_EXPORT laResult laTextFieldWidget_SetClearOnFirstEdit(laTextFieldWidget* txt
     Gets the current focus changed event callback pointer
 
   Description:
-    
+
 
   Parameters:
     laTextFieldWidget* txt - the widget
-        
+
   Returns:
     laTextFieldWidget_FocusChangedCallback - a valid pointer or NULL
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laTextFieldWidget_FocusChangedCallback laTextFieldWidget_GetFocusChangedEventCallback(laTextFieldWidget* txt);
 
 // *****************************************************************************
@@ -454,34 +472,36 @@ LIB_EXPORT laTextFieldWidget_FocusChangedCallback laTextFieldWidget_GetFocusChan
     Sets the focus changed event callback pointer
 
   Description:
-    
+
 
   Parameters:
     laTextFieldWidget* txt - the widget
     laTextFieldWidget_FocusChangedCallback - a valid pointer or NULL
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laTextFieldWidget_SetFocusChangedEventCallback(laTextFieldWidget* txt,
                                                        laTextFieldWidget_FocusChangedCallback cb);
 
-// internal use only            
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laTextFieldWidget_TouchDownEvent(laTextFieldWidget* txt, laInput_TouchDownEvent* evt);
 void _laTextFieldWidget_TouchUpEvent(laTextFieldWidget* txt, laInput_TouchUpEvent* evt);
 void _laTextFieldWidget_TouchMovedEvent(laTextFieldWidget* txt, laInput_TouchMovedEvent* evt);
-                                               
+
 void _laTextFieldWidget_FocusGained(laWidget* widget);
 void _laTextFieldWidget_FocusLost(laWidget* widget);
 
 void _laTextFieldWidget_GetTextRect(laTextFieldWidget* txt,
                                     GFX_Rect* textRect,
                                     GFX_Rect* drawRect);
-                                    
+
 void _laTextFieldWidget_GetCursorRect(laTextFieldWidget* txt, GFX_Rect* cursorRect);
+// DOM-IGNORE-END
 
 #endif // LA_TEXTFIELD_WIDGET_ENABLED
 #endif /* LIBARIA_TEXTFIELD_H */

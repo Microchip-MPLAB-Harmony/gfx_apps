@@ -86,8 +86,10 @@ typedef struct laEditWidget_t
     laEditWidget_Backspace_FnPtr backspace;
 } laEditWidget;
 
+// DOM-IGNORE-BEGIN
 void _laEditWidget_Constructor(laEditWidget* edit);
 void _laEditWidget_Destructor(laEditWidget* edit);
+// DOM-IGNORE-END
 
 laResult laEditWidget_StartEdit();
 void laEditWidget_EndEdit();

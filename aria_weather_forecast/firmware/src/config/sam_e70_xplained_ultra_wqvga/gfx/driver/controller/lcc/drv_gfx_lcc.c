@@ -279,12 +279,12 @@ static void lccDMAStartTransfer(const void *srcAddr, size_t srcSize,
                     (uint32_t *)((uint32_t ) srcAddr & ~0x1F),
                     srcSize + 32);
 
-    XDMAC0_ChannelTransfer(DRV_GFX_LCC_DMA_CHANNEL_INDEX, srcAddr, destAddr, 1);
+    XDMAC_ChannelTransfer(DRV_GFX_LCC_DMA_CHANNEL_INDEX, srcAddr, destAddr, 1);
 }
 
 static int DRV_GFX_LCC_Start()
 {
-    XDMAC0_ChannelCallbackRegister(DRV_GFX_LCC_DMA_CHANNEL_INDEX, dmaIntHandler, 0);
+    XDMAC_ChannelCallbackRegister(DRV_GFX_LCC_DMA_CHANNEL_INDEX, dmaIntHandler, 0);
 
     lccDMAStartTransfer(frameBuffer, 
                         2,

@@ -5,7 +5,7 @@
     Microchip Technology Inc.
 
   File Name:
-    plib_xdmac0.c
+    plib_xdmac.c
 
   Summary:
     XDMAC PLIB Implementation File
@@ -39,7 +39,7 @@ SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
 *******************************************************************************/
 
 #include "device.h"
-#include "plib_xdmac0.h"
+#include "plib_xdmac.h"
 
 /* Macro for limiting XDMAC objects to highest channel enabled */
 #define XDMAC_ACTIVE_CHANNELS_MAX 1
@@ -103,7 +103,7 @@ void XDMAC_InterruptHandler( void )
     }
 }
 
-void XDMAC0_Initialize( void )
+void XDMAC_Initialize( void )
 {
     XDMAC_CH_OBJECT *xdmacChObj = (XDMAC_CH_OBJECT *)&xdmacChannelObj[0];
     uint8_t channel = 0;
@@ -129,7 +129,7 @@ void XDMAC0_Initialize( void )
     return;
 }
 
-void XDMAC0_ChannelCallbackRegister( XDMAC_CHANNEL channel, const XDMAC_CHANNEL_CALLBACK eventHandler, const uintptr_t contextHandle )
+void XDMAC_ChannelCallbackRegister( XDMAC_CHANNEL channel, const XDMAC_CHANNEL_CALLBACK eventHandler, const uintptr_t contextHandle )
 {
     xdmacChannelObj[channel].callback = eventHandler;
     xdmacChannelObj[channel].context = contextHandle;
@@ -137,7 +137,7 @@ void XDMAC0_ChannelCallbackRegister( XDMAC_CHANNEL channel, const XDMAC_CHANNEL_
     return;
 }
 
-bool XDMAC0_ChannelTransfer( XDMAC_CHANNEL channel, const void *srcAddr, const void *destAddr, size_t blockSize )
+bool XDMAC_ChannelTransfer( XDMAC_CHANNEL channel, const void *srcAddr, const void *destAddr, size_t blockSize )
 {
     volatile uint32_t status = 0;
     bool returnStatus = false;
@@ -168,12 +168,12 @@ bool XDMAC0_ChannelTransfer( XDMAC_CHANNEL channel, const void *srcAddr, const v
     return returnStatus;
 }
 
-bool XDMAC0_ChannelIsBusy (XDMAC_CHANNEL channel)
+bool XDMAC_ChannelIsBusy (XDMAC_CHANNEL channel)
 {
     return (bool)xdmacChannelObj[channel].busyStatus;
 }
 
-void XDMAC0_ChannelDisable (XDMAC_CHANNEL channel)
+void XDMAC_ChannelDisable (XDMAC_CHANNEL channel)
 {
     /* Disable the channel */
     XDMAC_REGS->XDMAC_GD = (XDMAC_GD_DI0_Msk << channel);
@@ -181,12 +181,12 @@ void XDMAC0_ChannelDisable (XDMAC_CHANNEL channel)
     return;
 }
 
-XDMAC_CHANNEL_CONFIG XDMAC0_ChannelSettingsGet (XDMAC_CHANNEL channel)
+XDMAC_CHANNEL_CONFIG XDMAC_ChannelSettingsGet (XDMAC_CHANNEL channel)
 {
     return (XDMAC_CHANNEL_CONFIG)XDMAC_REGS->XDMAC_CHID[channel].XDMAC_CC;
 }
 
-bool XDMAC0_ChannelSettingsSet (XDMAC_CHANNEL channel, XDMAC_CHANNEL_CONFIG setting)
+bool XDMAC_ChannelSettingsSet (XDMAC_CHANNEL channel, XDMAC_CHANNEL_CONFIG setting)
 {
     /* Disable the channel */
     XDMAC_REGS->XDMAC_GD= (XDMAC_GD_DI0_Msk << channel);
@@ -197,7 +197,7 @@ bool XDMAC0_ChannelSettingsSet (XDMAC_CHANNEL channel, XDMAC_CHANNEL_CONFIG sett
     return true;
 }
 
-void XDMAC0_ChannelBlockLengthSet (XDMAC_CHANNEL channel, uint16_t length)
+void XDMAC_ChannelBlockLengthSet (XDMAC_CHANNEL channel, uint16_t length)
 {
     /* Disable the channel */
     XDMAC_REGS->XDMAC_GD= (XDMAC_GD_DI0_Msk << channel);

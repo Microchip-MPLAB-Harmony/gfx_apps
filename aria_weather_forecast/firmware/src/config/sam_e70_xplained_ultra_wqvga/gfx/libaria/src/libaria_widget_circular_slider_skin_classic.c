@@ -90,12 +90,14 @@ static void drawCircularSlider(laCircularSliderWidget* slider)
     
     laUtils_PointToLayerSpace((laWidget*)slider, &p);
     
-    sliderRect.x = slider->widget.rect.x;
-    sliderRect.y = slider->widget.rect.y;
+    sliderRect.x = 0;
+    sliderRect.y = 0;
     sliderRect.width = slider->widget.rect.width;
     sliderRect.height = slider->widget.rect.height;
 
     valueCenterAngle = (int32_t) ((slider->value - slider->startValue) * slider->degPerUnit);
+    
+    laUtils_RectToLayerSpace((laWidget*)slider, &sliderRect);
     
     if(GFX_RectIntersects(&layer->clippedDrawingRect, &sliderRect) == GFX_TRUE)
     {

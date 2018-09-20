@@ -8,7 +8,7 @@
     libaria_widget_list.h
 
   Summary:
-    
+
 
   Description:
     This module implements list box widget functions.
@@ -94,7 +94,7 @@ typedef enum laListWidget_SelectionMode_t
     Defines a list item struct
 
   Description:
-    
+
 
   Remarks:
     None.
@@ -127,7 +127,7 @@ typedef void (*laListWidget_ItemSelectedChangedEvent)(laListWidget*,
 
   Remarks:
     None.
-*/                                                      
+*/
 typedef struct laListWidget_t
 {
     laWidget widget; // list base class
@@ -141,30 +141,33 @@ typedef struct laListWidget_t
     laHAlignment halign; // horizontal alignment of the list
     laRelativePosition iconPos; // icon position for the list icons
     uint32_t iconMargin; // margin for the list icons
-    
+
     uint32_t itemDown; // tracks whether an input event is in process
-    
+
     laScrollBarWidget* scrollbar; // internal scrollbar for this widget
-    
+
     struct
     {
         laListItem* item;
         GFX_Rect itemRect;
-        
+
         int32_t y;
-        
+
         uint32_t nextItem;
     } paintState;
-    
+
     laListWidget_ItemSelectedChangedEvent cb; // item selected changed event
-    
+
     GFXU_ExternalAssetReader* reader;
 } laListWidget;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laListWidget_Constructor(laListWidget* lst);
 void _laListWidget_Destructor(laListWidget* lst);
 
 void _laListWidget_Paint(laListWidget* lst);
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -182,15 +185,15 @@ void _laListWidget_Paint(laListWidget* lst);
     widget is added to a widget tree.
 
   Description:
-    
+
 
   Parameters:
-    
+
   Returns:
     laListWidget* lst - the widget
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laListWidget* laListWidget_New();
 
@@ -202,16 +205,16 @@ LIB_EXPORT laListWidget* laListWidget_New();
     Gets the selection mode for the list
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
-    
+
   Returns:
     laListWidget_SelectionMode - the list selection mode
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laListWidget_SelectionMode laListWidget_GetSelectionMode(laListWidget* lst);
 
@@ -224,17 +227,17 @@ LIB_EXPORT laListWidget_SelectionMode laListWidget_GetSelectionMode(laListWidget
     Set the list selection mode
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
     laListWidget_SelectionMode mode - the desired list selection mode
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWidget_SetSelectionMode(laListWidget* lst,
                                                   laListWidget_SelectionMode mode);
@@ -247,16 +250,16 @@ LIB_EXPORT laResult laListWidget_SetSelectionMode(laListWidget* lst,
     Returns true of the list allows an empty selection set
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
-        
+
   Returns:
     laBool - true if the list allows an empty selection set
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laListWidget_GetAllowEmptySelection(laListWidget* lst);
 
@@ -269,17 +272,17 @@ LIB_EXPORT laBool laListWidget_GetAllowEmptySelection(laListWidget* lst);
     Configures the list to allow an empty selection set.
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
     laBool allow - the desired empty selection set mode
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWidget_SetAllowEmptySelection(laListWidget* lst,
                                                         laBool allow);
@@ -292,16 +295,16 @@ LIB_EXPORT laResult laListWidget_SetAllowEmptySelection(laListWidget* lst,
     Gets the horizontal alignment for the list widget
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
-        
+
   Returns:
     laHAlignment - the current list halign mode
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laHAlignment laListWidget_GetAlignment(laListWidget* lst);
 
@@ -314,21 +317,21 @@ LIB_EXPORT laHAlignment laListWidget_GetAlignment(laListWidget* lst);
     Sets the horizontal alignment mode for the list widget.
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
     laHAlignment align - the desired halign mode
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWidget_SetAlignment(laListWidget* lst,
                                               laHAlignment align);
-                                          
+
 // *****************************************************************************
 /* Function:
     laRelativePosition laListWidget_GetIconPosition(laListWidget* lst)
@@ -337,41 +340,41 @@ LIB_EXPORT laResult laListWidget_SetAlignment(laListWidget* lst,
     Gets the icon position for the list
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
-        
+
   Returns:
     laRelativePosition - the current icon position
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laRelativePosition laListWidget_GetIconPosition(laListWidget* lst);
 
 // *****************************************************************************
 /* Function:
-    laResult laListWidget_SetIconPosition(laListWidget* lst, 
+    laResult laListWidget_SetIconPosition(laListWidget* lst,
                                           laRelativePosition pos)
 
   Summary:
     Sets the icon position for the list widget
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
     laRelativePosition pos - the relative position setting
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laListWidget_SetIconPosition(laListWidget* lst, 
+LIB_EXPORT laResult laListWidget_SetIconPosition(laListWidget* lst,
                                                  laRelativePosition pos);
 // *****************************************************************************
 /* Function:
@@ -381,16 +384,16 @@ LIB_EXPORT laResult laListWidget_SetIconPosition(laListWidget* lst,
     Gets the icon margin value for the list widget
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
-        
+
   Returns:
     uint32_t - the icon margin value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laListWidget_GetIconMargin(laListWidget* lst);
 
@@ -407,12 +410,12 @@ LIB_EXPORT uint32_t laListWidget_GetIconMargin(laListWidget* lst);
   Parameters:
     laListWidget* lst - the widget
     uint32_t mg - the margin value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWidget_SetIconMargin(laListWidget* lst, uint32_t mg);
 
@@ -424,16 +427,16 @@ LIB_EXPORT laResult laListWidget_SetIconMargin(laListWidget* lst, uint32_t mg);
     Gets the number of items currently contained in the list
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
-        
+
   Returns:
     uint32_t - the number of items in the list
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laListWidget_GetItemCount(laListWidget* lst);
 
@@ -446,16 +449,16 @@ LIB_EXPORT uint32_t laListWidget_GetItemCount(laListWidget* lst);
     will be empty.
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
-        
+
   Returns:
     uint32_t - the index of the newly appended item
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laListWidget_AppendItem(laListWidget* lst);
 
@@ -468,17 +471,17 @@ LIB_EXPORT uint32_t laListWidget_AppendItem(laListWidget* lst);
     idx or greater will be shuffled one index to the right.
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
     uint32_t idx - the desired index of the new item
-    
+
   Returns:
     uint32_t - the index of the inserted item
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laListWidget_InsertItem(laListWidget* lst, uint32_t idx);
 
@@ -487,18 +490,18 @@ LIB_EXPORT uint32_t laListWidget_InsertItem(laListWidget* lst, uint32_t idx);
     laResult laListWidget_RemoveItem(laListWidget* lst, uint32_t idx)
 
   Summary:
-    Attempts to remove an item from the list.  
+    Attempts to remove an item from the list.
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
     uint32_t idx - the index to remove from the list
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
     The memory owned by the string item will be freed automatically.
 */
@@ -509,17 +512,17 @@ LIB_EXPORT laResult laListWidget_RemoveItem(laListWidget* lst, uint32_t idx);
     laResult laListWidget_RemoveAllItems(laListWidget* lst)
 
   Summary:
-    Attempts to remove all items from the list.  
+    Attempts to remove all items from the list.
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
     All memory owned by each item string will be freed automatically.
 */
@@ -534,17 +537,17 @@ LIB_EXPORT laResult laListWidget_RemoveAllItems(laListWidget* lst);
     Returns true if the item at the given index is currently selected.
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
     uint32_t idx - the index to consider
-    
+
   Returns:
     laBool - the selection state of the item
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laListWidget_GetItemSelected(laListWidget* lst,
                                                uint32_t idx);
@@ -559,18 +562,18 @@ LIB_EXPORT laBool laListWidget_GetItemSelected(laListWidget* lst,
     Attempts to set the item at idx as selected.
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
     uint32_t idx - the index to consider
     laBool - the select state to set to the item
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWidget_SetItemSelected(laListWidget* lst,
                                                  uint32_t idx,
@@ -585,18 +588,18 @@ LIB_EXPORT laResult laListWidget_SetItemSelected(laListWidget* lst,
     Attempts to toggle the selected state of the item at idx.
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
     uint32_t idx - the index to consider
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
-*/                                                 
+
+*/
 LIB_EXPORT laResult laListWidget_ToggleItemSelected(laListWidget* lst,
                                                     uint32_t idx);
 
@@ -608,18 +611,18 @@ LIB_EXPORT laResult laListWidget_ToggleItemSelected(laListWidget* lst,
     Attempts to set all item states to selected.
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laListWidget_SelectAll(laListWidget* lst);                                                 
+LIB_EXPORT laResult laListWidget_SelectAll(laListWidget* lst);
 
 // *****************************************************************************
 /* Function:
@@ -629,18 +632,18 @@ LIB_EXPORT laResult laListWidget_SelectAll(laListWidget* lst);
     Attempts to set all item states as not selected.
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
-LIB_EXPORT laResult laListWidget_DeselectAll(laListWidget* lst);                                                    
+LIB_EXPORT laResult laListWidget_DeselectAll(laListWidget* lst);
 
 
 // *****************************************************************************
@@ -651,17 +654,17 @@ LIB_EXPORT laResult laListWidget_DeselectAll(laListWidget* lst);
     Returns the lowest selected item index.
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
-        
+
   Returns:
     uint32_t - the lowest selected item index or -1 if nothing is selected.
-    
+
   Remarks:
-    
-*/                                                    
+
+*/
 LIB_EXPORT uint32_t laListWidget_GetFirstSelectedItem(laListWidget* lst);
 
 // *****************************************************************************
@@ -672,16 +675,16 @@ LIB_EXPORT uint32_t laListWidget_GetFirstSelectedItem(laListWidget* lst);
     Returns the highest selected item index.
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
-        
+
   Returns:
     uint32_t - the highest selected item index or -1 if nothing is selected.
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laListWidget_GetLastSelectedItem(laListWidget* lst);
 
@@ -693,16 +696,16 @@ LIB_EXPORT uint32_t laListWidget_GetLastSelectedItem(laListWidget* lst);
     Returns the number of selected items in the list.
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
-        
+
   Returns:
     uint32_t - the number of selected items
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laListWidget_GetSelectionCount(laListWidget* lst);
 
@@ -724,12 +727,12 @@ LIB_EXPORT uint32_t laListWidget_GetSelectionCount(laListWidget* lst);
     laListWidget* lst - the widget
     uint32_t idx - the index to consider
     laString* str - a pointer to an laString object
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWidget_GetItemText(laListWidget* lst,
                                              uint32_t idx,
@@ -746,19 +749,19 @@ LIB_EXPORT laResult laListWidget_GetItemText(laListWidget* lst,
 
   Description:
     This function copies the contents of the input string into its internal
-    string buffer.  The input string can then be freed or altered without 
+    string buffer.  The input string can then be freed or altered without
     affecting the label's internal string value.
 
   Parameters:
     laListWidget* lst - the widget
     uint32_t idx - the index to consider
     laString str - an laString object
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWidget_SetItemText(laListWidget* lst,
                                              uint32_t index,
@@ -774,17 +777,17 @@ LIB_EXPORT laResult laListWidget_SetItemText(laListWidget* lst,
     index.
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
     uint32_t idx - the index to consider
-    
+
   Returns:
     GFXU_ImageAsset* - the image asset pointer or NULL
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT GFXU_ImageAsset* laListWidget_GetItemIcon(laListWidget* lst,
                                                      uint32_t idx);
@@ -799,19 +802,19 @@ LIB_EXPORT GFXU_ImageAsset* laListWidget_GetItemIcon(laListWidget* lst,
     Sets the icon pointer for a given index.
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
     uint32_t idx - the index to configure
     GFXU_ImageAsset* - the image asset pointer to use as the icon
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
-*/                                                     
+
+*/
 LIB_EXPORT laResult laListWidget_SetItemIcon(laListWidget* lst,
                                              uint32_t idx,
                                               GFXU_ImageAsset* img);
@@ -822,20 +825,20 @@ LIB_EXPORT laResult laListWidget_SetItemIcon(laListWidget* lst,
                                          uint32_t index)
 
   Summary:
-    
+
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
     uint32_t index - the index to modify
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWidget_SetItemVisible(laListWidget* lst,
                                                 uint32_t idx);
@@ -849,17 +852,17 @@ LIB_EXPORT laResult laListWidget_SetItemVisible(laListWidget* lst,
     Returns the enable state of the item in the list widget
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
     uint32_t index - the index of the item in the list
-    
+
   Returns:
     laBool - the enable state of the item
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laBool laListWidget_GetItemEnable(laListWidget* lst,
                                                uint32_t idx);
@@ -871,22 +874,22 @@ LIB_EXPORT laBool laListWidget_GetItemEnable(laListWidget* lst,
                                   laBool newEnableState)
 
   Summary:
-    Enables or disables an item in the list. A disable item becomes 
+    Enables or disables an item in the list. A disable item becomes
     un-selectable.
 
   Description:
-    
+
 
   Parameters:
     laListWidget* lst - the widget
     uint32_t index - the index of the item in the list
     laBool enable - enable/disable the item
-    
+
   Returns:
     laResult - the result of the operation
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laListWidget_SetItemEnable(laListWidget* lst,
                                                uint32_t idx,
@@ -895,20 +898,20 @@ LIB_EXPORT laResult laListWidget_SetItemEnable(laListWidget* lst,
 // *****************************************************************************
 /* Function:
     laListWidget_SelectedItemChangedEvent laListWidget_GetSelectedItemChangedEventCallback(laListWidget* lst)
-    
+
   Summary:
     Gets the callback for the item selected changed event
 
   Description:
-    
+
   Parameters:
     laListWidget* lst - the widget
-        
+
   Returns:
     laListWidget_SelectedItemChangedEvent - the current pointer to callback or NULL
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laListWidget_SelectedItemChangedEvent laListWidget_GetSelectedItemChangedEventCallback(laListWidget* lst);
 
@@ -922,25 +925,25 @@ LIB_EXPORT laListWidget_SelectedItemChangedEvent laListWidget_GetSelectedItemCha
 
   Description:
     This callback is called whenver an items selected state is modified.
-    
+
   Parameters:
     laListWidget* lst - the widget
     laListWidget_SelectedItemChangedEvent - the desired pointer to callback or NULL
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
-*/    
+
+*/
 LIB_EXPORT laResult laListWidget_SetSelectedItemChangedEventCallback(laListWidget* lst,
-                                                                     laListWidget_SelectedItemChangedEvent cb);                                  
+                                                                     laListWidget_SelectedItemChangedEvent cb);
 
-
-// internal use only   
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laListWidget_GetListRect(laListWidget* lst,
                                GFX_Rect* rect);
-          
+
 void _laListWidget_GetRowRect(laListWidget* lst,
                               uint32_t idx,
                               GFX_Rect* rect);
@@ -948,14 +951,14 @@ void _laListWidget_GetRowRect(laListWidget* lst,
 // internal use only
 int32_t _laListWidget_GetRowY(laListWidget* lst, uint32_t idx);
 
-// internal use only                            
+// internal use only
 void _laListWidget_GetLogicalRect(laListWidget* lst, GFX_Rect* rect);
 
 void _laListWidget_GetTextRect(laListWidget* lst,
                                uint32_t idx,
                                GFX_Rect* textRect,
                                GFX_Rect* drawRect);
-                               
+
 void _laListWidget_GetIconRect(laListWidget* lst,
                                uint32_t idx,
                                GFX_Rect* iconRect,
@@ -963,6 +966,7 @@ void _laListWidget_GetIconRect(laListWidget* lst,
 
 void _laListWidget_recalculateRowRect(laListWidget* lst,
                                      uint32_t idx);
+// DOM-IGNORE-END
 
 #endif // LA_LIST_WIDGET_ENABLED && LA_SCROLLBAR_WIDGET_ENABLED
 #endif /* LIBARIA_LISTWIDGET_H */

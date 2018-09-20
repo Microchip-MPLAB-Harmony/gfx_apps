@@ -774,8 +774,10 @@ LIB_EXPORT laRadialMenuWidget_ItemProminenceChangedEvent laRadialMenuWidget_GetI
 LIB_EXPORT laResult laRadialMenuWidget_SetItemProminenceChangedEventCallback(laRadialMenuWidget* mn,
 												laRadialMenuWidget_ItemProminenceChangedEvent cb);
 
+// DOM-IGNORE-BEGIN
 // internal use only
 laWidgetUpdateState _laRadialMenuWidget_Update(laRadialMenuWidget* mn);
+// DOM-IGNORE-END
 
 #endif // LA_RADIALMENU_WIDGET_ENABLED
 #endif /* LIBARIA_RADIALMENU_H */

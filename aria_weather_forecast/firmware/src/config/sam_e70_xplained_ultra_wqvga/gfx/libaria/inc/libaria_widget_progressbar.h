@@ -8,7 +8,7 @@
     libaria_widget_progressbar.h
 
   Summary:
-    
+
 
   Description:
     This module implements progress bar widget functions.
@@ -62,7 +62,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
     Defines the valid values for the progress bar widget fill directions.
 
   Description:
-    
+
 
   Remarks:
     None.
@@ -97,18 +97,21 @@ typedef void (*laProgressBar_ValueChangedEventCallback)(laProgressBar*, uint32_t
 typedef struct laProgressBarWidget_t
 {
     laWidget widget; // base widget class
-    
+
     laProgressBarDirection direction; // the fill direction of the bar
 
     uint32_t value; // fill percentage
-    
+
     laProgressBar_ValueChangedEventCallback cb; // value changed callback
 } laProgressBarWidget;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laProgressBarWidget_Constructor(laProgressBarWidget* bar);
 void _laProgressBarWidget_Destructor(laProgressBarWidget* bar);
 
 void _laProgressBarWidget_Paint(laProgressBarWidget* bar);
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -126,15 +129,15 @@ void _laProgressBarWidget_Paint(laProgressBarWidget* bar);
     a widget tree.
 
   Description:
-    
+
 
   Parameters:
-    
+
   Returns:
     laProgressBarWidget*
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laProgressBarWidget* laProgressBarWidget_New();
 
@@ -146,16 +149,16 @@ LIB_EXPORT laProgressBarWidget* laProgressBarWidget_New();
     Gets the fill direction value for a progress bar widget
 
   Description:
-    
+
 
   Parameters:
     laProgressBarWidget* bar - the widget
-    
+
   Returns:
     laProgressBarDirection - the fill direction value
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laProgressBarDirection laProgressBarWidget_GetDirection(laProgressBarWidget* bar);
 
@@ -168,17 +171,17 @@ LIB_EXPORT laProgressBarDirection laProgressBarWidget_GetDirection(laProgressBar
     Sets the fill direction for a progress bar widget
 
   Description:
-    
+
 
   Parameters:
     laProgressBarWidget* bar - the widget
     laProgressBarDirection dir - the desired fill direction
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laProgressBarWidget_SetDirection(laProgressBarWidget* bar, laProgressBarDirection dir);
 
@@ -193,12 +196,12 @@ LIB_EXPORT laResult laProgressBarWidget_SetDirection(laProgressBarWidget* bar, l
 
   Parameters:
     laProgressBarWidget* bar - the widget
-    
+
   Returns:
     uint32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laProgressBarWidget_GetValue(laProgressBarWidget* bar);
 
@@ -210,17 +213,17 @@ LIB_EXPORT uint32_t laProgressBarWidget_GetValue(laProgressBarWidget* bar);
     Sets the percentage value for a progress bar.  Valid values are 0 - 100.
 
   Description:
-    
+
 
   Parameters:
     laProgressBarWidget* bar - the widget
     uint32_t value - the desired value
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laProgressBarWidget_SetValue(laProgressBarWidget* bar, uint32_t value);
 
@@ -232,16 +235,16 @@ LIB_EXPORT laResult laProgressBarWidget_SetValue(laProgressBarWidget* bar, uint3
     Gets the currently set value changed event callback.
 
   Description:
-    
+
 
   Parameters:
     laProgressBarWidget* bar - the widget
-    
+
   Returns:
     laProgressBar_ValueChangedEventCallback - the current callback pointer or NULL
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laProgressBar_ValueChangedEventCallback laProgressBarWidget_GetValueChangedEventCallback(laProgressBarWidget* bar);
 
@@ -253,25 +256,27 @@ LIB_EXPORT laProgressBar_ValueChangedEventCallback laProgressBarWidget_GetValueC
     Sets the desired value changed event callback pointer
 
   Description:
-    
+
 
   Parameters:
     laProgressBarWidget* bar - the widget
     laProgressBar_ValueChangedEventCallback - a valid callback pointer or NULL
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laProgressBarWidget_SetValueChangedCallback(laProgressBarWidget* bar, laProgressBar_ValueChangedEventCallback cb);
 
+// DOM-IGNORE-BEGIN
 // internal use only
 void _laProgressBarWidget_GetBarRect(laProgressBarWidget* bar,
                                      int32_t val1,
                                      int32_t val2,
                                      GFX_Rect* barRect);
+// DOM-IGNORE-END
 
 #endif // LA_PROGRESSBAR_WIDGET_ENABLED
 #endif /* LIBARIA_PROGRESSBAR_H */

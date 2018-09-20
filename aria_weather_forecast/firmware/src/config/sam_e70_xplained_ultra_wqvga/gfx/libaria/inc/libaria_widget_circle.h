@@ -8,7 +8,7 @@
     libaria_widget_circle.h
 
   Summary:
-    
+
 
   Description:
     This module implements circle drawing widget functions.
@@ -78,13 +78,16 @@ typedef struct laCircleWidget_t
     int32_t y; // the origin y coordinate
     int32_t radius; // the radius of the circle
     int32_t thickness; // the thickness of the circle outline
-    laBool filled; // fills the circle area 
+    laBool filled; // fills the circle area
 } laCircleWidget;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laCircleWidget_Constructor(laCircleWidget* cir);
 void _laCircleWidget_Destructor(laCircleWidget* cir);
 
 void _laCircleWidget_Paint(laCircleWidget* cir);
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -102,16 +105,16 @@ void _laCircleWidget_Paint(laCircleWidget* cir);
     widget is added to a widget tree.
 
   Description:
-    
+
 
   Parameters:
     void
-    
+
   Returns:
     laCircleWidget*
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laCircleWidget* laCircleWidget_New();
 
@@ -123,18 +126,18 @@ LIB_EXPORT laCircleWidget* laCircleWidget_New();
     Gets the origin coordiates of a circle widget
 
   Description:
-    
+
 
   Parameters:
     laCircleWidget* cir - the widget
     int32_t* x - pointer to an integer pointer to store x
     int32_t* y - pointer to an integer pointer to store y
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laCircleWidget_GetOrigin(laCircleWidget* cir, int32_t* x, int32_t* y);
 
@@ -146,18 +149,18 @@ LIB_EXPORT laResult laCircleWidget_GetOrigin(laCircleWidget* cir, int32_t* x, in
     Sets the origin coordiates of a circle widget
 
   Description:
-    
+
 
   Parameters:
     laCircleWidget* cir - the widget
     int32_t x - the desired x origin coordinate
     int32_t y - the desired y origin coordinate
-    
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laCircleWidget_SetOrigin(laCircleWidget* cir, int32_t x, int32_t y);
 
@@ -169,16 +172,16 @@ LIB_EXPORT laResult laCircleWidget_SetOrigin(laCircleWidget* cir, int32_t x, int
     Gets the radius of a circle widget
 
   Description:
-    
+
 
   Parameters:
     laCircleWidget* cir - the widget
-        
+
   Returns:
     uint32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laCircleWidget_GetRadius(laCircleWidget* cir);
 
@@ -190,17 +193,17 @@ LIB_EXPORT uint32_t laCircleWidget_GetRadius(laCircleWidget* cir);
     Sets the radius of a circle widget
 
   Description:
-    
+
 
   Parameters:
     laCircleWidget* cir - the widget
     uint32_t red - the desired radius value
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laCircleWidget_SetRadius(laCircleWidget* cir, uint32_t rad);
 
@@ -212,16 +215,16 @@ LIB_EXPORT laResult laCircleWidget_SetRadius(laCircleWidget* cir, uint32_t rad);
     Gets the thickness of a circle widget
 
   Description:
-    
+
 
   Parameters:
     laCircleWidget* cir - the widget
-        
+
   Returns:
     uint32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laCircleWidget_GetThickness(laCircleWidget* cir);
 
@@ -233,17 +236,17 @@ LIB_EXPORT uint32_t laCircleWidget_GetThickness(laCircleWidget* cir);
     Sets the thickness of a circle widget
 
   Description:
-    
+
 
   Parameters:
     laCircleWidget* cir - the widget
     uint32_t thickness - the desired thickness value
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laCircleWidget_SetThickness(laCircleWidget* cir, uint32_t thickness);
 
@@ -255,16 +258,16 @@ LIB_EXPORT laResult laCircleWidget_SetThickness(laCircleWidget* cir, uint32_t th
     Gets the filled state of a circle widget
 
   Description:
-    
+
 
   Parameters:
     laCircleWidget* cir - the widget
-        
+
   Returns:
     uint32_t
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT uint32_t laCircleWidget_GetFilled(laCircleWidget* cir);
 
@@ -276,17 +279,17 @@ LIB_EXPORT uint32_t laCircleWidget_GetFilled(laCircleWidget* cir);
     Sets the filled state of a circle widget
 
   Description:
-    
+
 
   Parameters:
     laCircleWidget* cir - the widget
     laBool thickness - filled or not
-        
+
   Returns:
     laResult - the operation result
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laResult laCircleWidget_SetFilled(laCircleWidget* cir, laBool filled);
 

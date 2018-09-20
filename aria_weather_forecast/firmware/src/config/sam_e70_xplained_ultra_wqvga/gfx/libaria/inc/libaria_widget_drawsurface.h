@@ -8,7 +8,7 @@
     libaria_widget_drawsurface.h
 
   Summary:
-    
+
 
   Description:
     This module implements surface container drawing functions.
@@ -70,17 +70,17 @@ typedef laBool (*laDrawSurfaceWidget_DrawCallback)(laDrawSurfaceWidget* sfc,
     A draw surface widget is a special widget that allows an application to
     perform custom HAL draw calls during Aria's paint loop.  To use, create
     and add a draw surface widget to the desired place in the widget tree.
-    Then register for the callback through the API 
+    Then register for the callback through the API
     'laDrawSurfaceWidget_SetDrawCallback'.  This callback occurs during the
     paint loop.  The application should then be free to adjust the HAL
     draw state and issue draw calls as desired.  The HAL layer, buffer, or
     context state must not be adjusted in any way.
-    
+
     It is also important to not stall for too long during the draw callback.
 
   Remarks:
     None.
-*/                                                   
+*/
 typedef struct laDrawSurfaceWidget_t
 {
     laWidget widget; // the widget base class
@@ -88,10 +88,13 @@ typedef struct laDrawSurfaceWidget_t
     laDrawSurfaceWidget_DrawCallback cb; // the draw callback
 } laDrawSurfaceWidget;
 
+// DOM-IGNORE-BEGIN
+// internal use only
 void _laDrawSurfaceWidget_Constructor(laDrawSurfaceWidget* sfc);
 void _laDrawSurfaceWidget_Destructor(laDrawSurfaceWidget* sfc);
 
 void _laDrawSurfaceWidget_Paint(laDrawSurfaceWidget* sfc);
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -113,12 +116,12 @@ void _laDrawSurfaceWidget_Paint(laDrawSurfaceWidget* sfc);
 
   Parameters:
     void
-    
+
   Returns:
     laDrawSurfaceWidget*
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laDrawSurfaceWidget* laDrawSurfaceWidget_New();
 
@@ -130,16 +133,16 @@ LIB_EXPORT laDrawSurfaceWidget* laDrawSurfaceWidget_New();
     Returns the pointer to the currently set draw callback.
 
   Description:
-    
+
 
   Parameters:
     laDrawSurfaceWidget* sfc - the widget
-    
+
   Returns:
     laDrawSurfaceWidget_DrawCallback - a valid callback pointer or NULL
-    
+
   Remarks:
-    
+
 */
 LIB_EXPORT laDrawSurfaceWidget_DrawCallback laDrawSurfaceWidget_GetDrawCallback(laDrawSurfaceWidget* sfc);
 
@@ -160,11 +163,11 @@ LIB_EXPORT laDrawSurfaceWidget_DrawCallback laDrawSurfaceWidget_GetDrawCallback(
     The callback should return GFX_TRUE if it has completed drawing.  Returning
     GFX_FALSE will indicate to the renderer that the DrawSurface requires more
     time to draw and will call it again during the next paint loop.
-    
+
   Parameters:
     laDrawSurfaceWidget* sfc - the widget
     laDrawSurfaceWidget_DrawCallback - a valid callback pointer or NULL
-    
+
   Returns:
     laResult - the result of the operation
 */
