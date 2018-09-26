@@ -33,14 +33,16 @@
 // Section: Main Entry Point
 // *****************************************************************************
 // *****************************************************************************
+
 int main ( void )
 {
     /* Initialize all modules */
     SYS_Initialize ( NULL );
-    
+
     while ( true )
     {
-        SYS_Tasks();
+        /* Maintain state machines of all polled MPLAB Harmony modules. */
+        SYS_Tasks ( );
     }
 
     /* Execution should not come here during normal operation */
