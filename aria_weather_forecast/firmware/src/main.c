@@ -27,17 +27,12 @@
 #include <stdlib.h>                     // Defines EXIT_FAILURE
 #include "definitions.h"                // SYS function prototypes
 
-#include "gfx/hal/inc/gfx_common.h"
-#include "gfx/hal/gfx.h"
 
-typedef int32_t      GFX_Result;
-
-GFX_Result GFX_Update();
-void LibAria_Tasks(void);
-GFX_Result GFX_Initialize(void);
-int32_t LibAria_Initialize(void);
-
-void APP_Tasks ( void );
+// *****************************************************************************
+// *****************************************************************************
+// Section: Main Entry Point
+// *****************************************************************************
+// *****************************************************************************
 
 int main ( void )
 {
@@ -46,7 +41,8 @@ int main ( void )
 
     while ( true )
     {
-        SYS_Tasks();
+        /* Maintain state machines of all polled MPLAB Harmony modules. */
+        SYS_Tasks ( );
     }
 
     /* Execution should not come here during normal operation */
