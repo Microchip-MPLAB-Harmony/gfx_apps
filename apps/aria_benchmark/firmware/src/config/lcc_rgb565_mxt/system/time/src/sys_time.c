@@ -17,26 +17,26 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-Copyright (c) 2018 released Microchip Technology Inc.  All rights reserved.
-
-Microchip licenses to you the right to use, modify, copy and distribute Software
-only when embedded on a Microchip microcontroller or digital  signal  controller
-that is integrated into your product or third party  product  (pursuant  to  the
-sublicense terms in the accompanying license agreement).
-
-You should refer to the license agreement accompanying this Software for
-additional information regarding your rights and obligations.
-
-SOFTWARE AND DOCUMENTATION ARE PROVIDED AS IS  WITHOUT  WARRANTY  OF  ANY  KIND,
-EITHER EXPRESS  OR  IMPLIED,  INCLUDING  WITHOUT  LIMITATION,  ANY  WARRANTY  OF
-MERCHANTABILITY, TITLE, NON-INFRINGEMENT AND FITNESS FOR A  PARTICULAR  PURPOSE.
-IN NO EVENT SHALL MICROCHIP OR  ITS  LICENSORS  BE  LIABLE  OR  OBLIGATED  UNDER
-CONTRACT, NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION,  BREACH  OF  WARRANTY,  OR
-OTHER LEGAL  EQUITABLE  THEORY  ANY  DIRECT  OR  INDIRECT  DAMAGES  OR  EXPENSES
-INCLUDING BUT NOT LIMITED TO ANY  INCIDENTAL,  SPECIAL,  INDIRECT,  PUNITIVE  OR
-CONSEQUENTIAL DAMAGES, LOST  PROFITS  OR  LOST  DATA,  COST  OF  PROCUREMENT  OF
-SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
-(INCLUDING BUT NOT LIMITED TO ANY DEFENSE  THEREOF),  OR  OTHER  SIMILAR  COSTS.
+* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+*
+* Subject to your compliance with these terms, you may use Microchip software
+* and any derivatives exclusively with Microchip products. It is your
+* responsibility to comply with third party license terms applicable to your
+* use of third party software (including open source software) that may
+* accompany Microchip software.
+*
+* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
+* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
+* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
+* PARTICULAR PURPOSE.
+*
+* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
+* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
+* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
+* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
+* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 //DOM-IGNORE-END
 
@@ -376,7 +376,7 @@ static uint32_t SYS_TIME_GetTotalElapsedCount(SYS_TIME_TIMER_OBJ* tmr)
     uint32_t elapsedCount = 0;
     uint32_t hwTimerCurrentValue;
 
-    /* Add time from all timers in front */
+    /* Add time from all timers in the front */
     while ((tmrActive != NULL) && (tmrActive != tmr))
     {
         pendingCount += tmrActive->relativeTimePending;
@@ -468,14 +468,31 @@ static void SYS_TIME_ClientNotify(void)
     {
         if(tmrActive->relativeTimePending == 0)
         {
+            tmrActive->tmrElapsedFlag = true;
             tmrActive->tmrElapsed = true;
+
+            if ((tmrActive->type == SYS_TIME_SINGLE) && (tmrActive->callback != NULL))
+            {
+                /* Destroy single shot timer for which the callback is registered */
+                SYS_TIME_TimerDestroy(tmrActive->tmrHandle);
+            }
+            else
+            {
+                /* For periodic timers and delay timers, just remove from the list */
+                /* Removing from list does not clear active flag */
+                SYS_TIME_RemoveFromList(tmrActive);
+                if (tmrActive->type == SYS_TIME_SINGLE)
+                {
+                    /* Delay timers become inactive after expiry. */
+                    tmrActive->active = false;
+                }
+            }
+
             if(tmrActive->callback != NULL)
             {
                 tmrActive->callback(tmrActive->context);
             }
-            SYS_TIME_RemoveFromList(tmrActive);
-            /* Reload the relative pending time with the requested time */
-            tmrActive->relativeTimePending = tmrActive->requestedTime;
+
             tmrActive = counterObj->tmrActive;
         }
         else
@@ -494,16 +511,24 @@ static void SYS_TIME_UpdateTime(uint32_t elapsedCounts)
     /* Add the removed timers back into the linked list if the timer type is periodic. */
     for (uint8_t i = 0; i < SYS_TIME_MAX_TIMERS; i++)
     {
-        if ((timers[i].tmrElapsed == true) && (timers[i].active == true))
+        /* tmrElapsed is cleared anytime a timer is stopped, started, reloaded
+         * or destroyed.
+         * If timer is stopped from CB, there is no need to add it back to list
+         * If timer is started from CB, it is already added to list by start routine
+         * If timer is reloaded from CB, it is already added to list by reload routine
+         * If timer is destroyed from CB, there is no need to add it back to list
+         * Note: tmrElapsedFlag is cleared when the application reads the status
+         * by calling the SYS_TIME_TimerPeriodHasExpired API.
+         */
+        if (timers[i].tmrElapsed == true)
         {
+            timers[i].tmrElapsed = false;
+
             if (timers[i].type == SYS_TIME_PERIODIC)
             {
-                timers[i].tmrElapsed = false;
+                /* Reload the relative pending time with the requested time */
+                timers[i].relativeTimePending = timers[i].requestedTime;
                 SYS_TIME_AddToList(&timers[i]);
-            }
-            else
-            {
-                timers[i].active = false;
             }
         }
     }
@@ -533,6 +558,56 @@ static void SYS_TIME_PLIBCallback(uintptr_t context)
     interruptState = SYS_INT_Disable();
     SYS_TIME_HwTimerCompareUpdate();
     SYS_INT_Restore(interruptState);
+}
+
+static SYS_TIME_HANDLE SYS_TIME_TimerObjectCreate(
+    uint32_t count,
+    uint32_t period,
+    SYS_TIME_CALLBACK callBack,
+    uintptr_t context,
+    SYS_TIME_CALLBACK_TYPE type
+)
+{
+    SYS_TIME_HANDLE tmrHandle = SYS_TIME_HANDLE_INVALID;
+    SYS_TIME_TIMER_OBJ *tmr;
+    uint32_t tmrObjIndex = 0;
+
+    if (SYS_TIME_ResourceLock() == false)
+    {
+        return tmrHandle;
+    }
+    if((gSystemCounterObj.status == SYS_STATUS_READY) && (period > 0) && (period >= count))
+    {
+        for(tmr = timers; tmr < &timers[SYS_TIME_MAX_TIMERS]; tmr++)
+        {
+            if(tmr->inUse == false)
+            {
+                tmr->inUse = true;
+                tmr->active = false;
+                tmr->tmrElapsedFlag = false;
+                tmr->tmrElapsed = false;
+                tmr->type = type;
+                tmr->requestedTime = period;
+                tmr->callback = callBack;
+                tmr->context = context;
+                tmr->relativeTimePending = period - count;
+
+                /* Assign a handle to this request. The timer handle must be unique. */
+                tmr->tmrHandle = (SYS_TIME_HANDLE) SYS_TIME_MAKE_HANDLE(gSysTimeTokenCount, tmrObjIndex);
+                /* Update the token number. */
+                gSysTimeTokenCount = SYS_TIME_UPDATE_TOKEN(gSysTimeTokenCount);
+
+                tmrHandle = tmr->tmrHandle;
+
+                break;
+            }
+            tmrObjIndex++;
+        }
+    }
+
+    SYS_TIME_ResourceUnlock();
+
+    return tmrHandle;
 }
 
 static void SYS_TIME_CounterInit(SYS_MODULE_INIT* init)
@@ -719,45 +794,15 @@ SYS_TIME_HANDLE SYS_TIME_TimerCreate(
     SYS_TIME_CALLBACK_TYPE type
 )
 {
-    SYS_TIME_HANDLE tmrHandle = SYS_TIME_HANDLE_INVALID;
-    SYS_TIME_TIMER_OBJ *tmr;
-    uint32_t tmrObjIndex = 0;
-
-    if (SYS_TIME_ResourceLock() == false)
+    /* Single shot timers must register a callback. This check must be performed
+     * here itself as SYS_TIME_TimerObjectCreate are called by delay APIs as well
+     * which are single shot timers with callBack set to NULL. */
+    if ((type == SYS_TIME_SINGLE) && (callBack == NULL))
     {
-        return tmrHandle;
-    }
-    if((gSystemCounterObj.status == SYS_STATUS_READY) && (period > 0) && (period >= count))
-    {
-        for(tmr = timers; tmr < &timers[SYS_TIME_MAX_TIMERS]; tmr++)
-        {
-            if(tmr->inUse == false)
-            {
-                tmr->inUse = true;
-                tmr->active = false;
-                tmr->tmrElapsed = false;
-                tmr->type = type;
-                tmr->requestedTime = period;
-                tmr->callback = callBack;
-                tmr->context = context;
-                tmr->relativeTimePending = period - count;
-
-                /* Assign a handle to this request. The timer handle must be unique. */
-                tmr->tmrHandle = (SYS_TIME_HANDLE) SYS_TIME_MAKE_HANDLE(gSysTimeTokenCount, tmrObjIndex);
-                /* Update the token number. */
-                gSysTimeTokenCount = SYS_TIME_UPDATE_TOKEN(gSysTimeTokenCount);
-
-                tmrHandle = tmr->tmrHandle;
-
-                break;
-            }
-            tmrObjIndex++;
-        }
+        return SYS_TIME_HANDLE_INVALID;
     }
 
-    SYS_TIME_ResourceUnlock();
-
-    return tmrHandle;
+    return SYS_TIME_TimerObjectCreate(count, period, callBack, context, type);
 }
 
 SYS_TIME_RESULT SYS_TIME_TimerReload(
@@ -777,12 +822,19 @@ SYS_TIME_RESULT SYS_TIME_TimerReload(
         return result;
     }
 
+    /* Single shot timers must register a callback. */
+    if ((type == SYS_TIME_SINGLE) && (callBack == NULL))
+    {
+        return result;
+    }
+
     tmr = SYS_TIME_GetTimerObject(handle);
 
     if((tmr != NULL) && (period > 0) && (period >= count))
     {
         /* Temporarily remove the timer from the list. Update and then add it back */
         SYS_TIME_RemoveFromList(tmr);
+        tmr->tmrElapsedFlag = false;
         tmr->tmrElapsed = false;
         tmr->type = type;
         tmr->requestedTime = period;
@@ -824,6 +876,7 @@ SYS_TIME_RESULT SYS_TIME_TimerDestroy(SYS_TIME_HANDLE handle)
             SYS_TIME_RemoveFromList(tmr);
             tmr->active = false;
         }
+        tmr->tmrElapsedFlag = false;
         tmr->tmrElapsed = false;
         tmr->inUse = false;
         result = SYS_TIME_SUCCESS;
@@ -849,6 +902,14 @@ SYS_TIME_RESULT SYS_TIME_TimerStart(SYS_TIME_HANDLE handle)
     {
         if (tmr->active == false)
         {
+            /* Single shot timers can be started back from the single shot timer's
+             * callback where relativeTimePending is 0. For this reason, if the
+             * relativeTimePending is 0, it is reloaded with the requested time.
+             */
+            if (tmr->relativeTimePending == 0)
+            {
+                tmr->relativeTimePending = tmr->requestedTime;
+            }
             if (gSystemCounterObj.interruptNestingCount == 0)
             {
                 SYS_TIME_TimerAdd(tmr);
@@ -857,6 +918,8 @@ SYS_TIME_RESULT SYS_TIME_TimerStart(SYS_TIME_HANDLE handle)
             {
                 SYS_TIME_AddToList(tmr);
             }
+            tmr->tmrElapsedFlag = false;
+            tmr->tmrElapsed = false;
             tmr->active = true;
         }
         result = SYS_TIME_SUCCESS;
@@ -883,6 +946,8 @@ SYS_TIME_RESULT SYS_TIME_TimerStop(SYS_TIME_HANDLE handle)
         if (tmr->active == true)
         {
             SYS_TIME_RemoveFromList(tmr);
+            tmr->tmrElapsedFlag = false;
+            tmr->tmrElapsed = false;
             tmr->active = false;
             /* Make sure the timer is started fresh, when next time the timer start API is called */
             tmr->relativeTimePending = tmr->requestedTime;
@@ -896,7 +961,7 @@ SYS_TIME_RESULT SYS_TIME_TimerStop(SYS_TIME_HANDLE handle)
 
 SYS_TIME_RESULT SYS_TIME_TimerCounterGet(SYS_TIME_HANDLE handle, uint32_t* count)
 {
-    SYS_TIME_TIMER_OBJ *tmr = NULL;
+    SYS_TIME_TIMER_OBJ* tmr = NULL;
     SYS_TIME_RESULT result = SYS_TIME_ERROR;
     uint32_t elapsedCount;
 
@@ -922,7 +987,7 @@ SYS_TIME_RESULT SYS_TIME_TimerCounterGet(SYS_TIME_HANDLE handle, uint32_t* count
 
 bool SYS_TIME_TimerPeriodHasExpired(SYS_TIME_HANDLE handle)
 {
-    SYS_TIME_TIMER_OBJ *tmr = NULL;
+    SYS_TIME_TIMER_OBJ* tmr = NULL;
     bool status = false;
 
     if (SYS_TIME_ResourceLock() == false)
@@ -934,7 +999,9 @@ bool SYS_TIME_TimerPeriodHasExpired(SYS_TIME_HANDLE handle)
 
     if(tmr != NULL)
     {
-        status = tmr->tmrElapsed;
+        status = tmr->tmrElapsedFlag;
+        /* After the application reads the status, clear it. */
+        tmr->tmrElapsedFlag = false;
     }
 
     SYS_TIME_ResourceUnlock();
@@ -956,7 +1023,7 @@ SYS_TIME_RESULT SYS_TIME_DelayUS ( uint32_t us, SYS_TIME_HANDLE* handle )
         return result;
     }
 
-    *handle = SYS_TIME_TimerCreate(0, SYS_TIME_USToCount(us), NULL, 0, SYS_TIME_SINGLE);
+    *handle = SYS_TIME_TimerObjectCreate(0, SYS_TIME_USToCount(us), NULL, 0, SYS_TIME_SINGLE);
     if(*handle != SYS_TIME_HANDLE_INVALID)
     {
         SYS_TIME_TimerStart(*handle);
@@ -975,11 +1042,11 @@ SYS_TIME_RESULT SYS_TIME_DelayMS ( uint32_t ms, SYS_TIME_HANDLE* handle )
         return result;
     }
 
-    *handle = SYS_TIME_TimerCreate(0, SYS_TIME_MSToCount(ms), NULL, 0, SYS_TIME_SINGLE);
+    *handle = SYS_TIME_TimerObjectCreate(0, SYS_TIME_MSToCount(ms), NULL, 0, SYS_TIME_SINGLE);
     if(*handle != SYS_TIME_HANDLE_INVALID)
     {
-        result = SYS_TIME_SUCCESS;
         SYS_TIME_TimerStart(*handle);
+        result = SYS_TIME_SUCCESS;
     }
 
     return result;
@@ -1008,9 +1075,15 @@ SYS_TIME_HANDLE SYS_TIME_CallbackRegisterUS ( SYS_TIME_CALLBACK callback, uintpt
 {
     SYS_TIME_HANDLE handle = SYS_TIME_HANDLE_INVALID;
 
+    /* Single shot timers must register a callback. */
+    if ((type == SYS_TIME_SINGLE) && (callback == NULL))
+    {
+        return handle;
+    }
+
     if (us != 0)
     {
-        handle = SYS_TIME_TimerCreate(0, SYS_TIME_USToCount(us), callback, context, type);
+        handle = SYS_TIME_TimerObjectCreate(0, SYS_TIME_USToCount(us), callback, context, type);
         if(handle != SYS_TIME_HANDLE_INVALID)
         {
             SYS_TIME_TimerStart(handle);
@@ -1024,9 +1097,15 @@ SYS_TIME_HANDLE SYS_TIME_CallbackRegisterMS ( SYS_TIME_CALLBACK callback, uintpt
 {
     SYS_TIME_HANDLE handle = SYS_TIME_HANDLE_INVALID;
 
+    /* Single shot timers must register a callback. */
+    if ((type == SYS_TIME_SINGLE) && (callback == NULL))
+    {
+        return handle;
+    }
+
     if (ms != 0)
     {
-        handle = SYS_TIME_TimerCreate(0, SYS_TIME_MSToCount(ms), callback, context, type);
+        handle = SYS_TIME_TimerObjectCreate(0, SYS_TIME_MSToCount(ms), callback, context, type);
         if(handle != SYS_TIME_HANDLE_INVALID)
         {
             SYS_TIME_TimerStart(handle);

@@ -11,32 +11,32 @@
     I2C Driver Definitions Header File
 
   Description:
-    This file provides implementation-specific definitions for the I2C 
-	driver's system interface. 
+    This file provides implementation-specific definitions for the I2C
+	driver's system interface.
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-Copyright (c) 2018 released Microchip Technology Inc.  All rights reserved.
-
-Microchip licenses to you the right to use, modify, copy and distribute
-Software only when embedded on a Microchip microcontroller or digital signal
-controller that is integrated into your product or third party product
-(pursuant to the sublicense terms in the accompanying license agreement).
-
-You should refer to the license agreement accompanying this Software for
-additional information regarding your rights and obligations.
-
-SOFTWARE AND DOCUMENTATION ARE PROVIDED AS IS  WITHOUT  WARRANTY  OF  ANY  KIND,
-EITHER EXPRESS  OR  IMPLIED,  INCLUDING  WITHOUT  LIMITATION,  ANY  WARRANTY  OF
-MERCHANTABILITY, TITLE, NON-INFRINGEMENT AND FITNESS FOR A  PARTICULAR  PURPOSE.
-IN NO EVENT SHALL MICROCHIP OR  ITS  LICENSORS  BE  LIABLE  OR  OBLIGATED  UNDER
-CONTRACT, NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION,  BREACH  OF  WARRANTY,  OR
-OTHER LEGAL  EQUITABLE  THEORY  ANY  DIRECT  OR  INDIRECT  DAMAGES  OR  EXPENSES
-INCLUDING BUT NOT LIMITED TO ANY  INCIDENTAL,  SPECIAL,  INDIRECT,  PUNITIVE  OR
-CONSEQUENTIAL DAMAGES, LOST  PROFITS  OR  LOST  DATA,  COST  OF  PROCUREMENT  OF
-SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
-(INCLUDING BUT NOT LIMITED TO ANY DEFENSE  THEREOF),  OR  OTHER  SIMILAR  COSTS.
+* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+*
+* Subject to your compliance with these terms, you may use Microchip software
+* and any derivatives exclusively with Microchip products. It is your
+* responsibility to comply with third party license terms applicable to your
+* use of third party software (including open source software) that may
+* accompany Microchip software.
+*
+* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
+* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
+* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
+* PARTICULAR PURPOSE.
+*
+* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
+* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
+* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
+* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
+* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 //DOM-IGNORE-END
 
@@ -93,31 +93,8 @@ typedef enum
 
 } DRV_I2C_ERROR;
 
-// *****************************************************************************
-/* I2C Driver Transfer Setup Data
-
-  Summary:
-    Defines the data required to setup the I2C transfer
-
-  Description:
-    This data type defines the data required to setup the I2C transfer. The
-    data is passed to the DRV_I2C_TransferSetup API to setup the I2C peripheral
-    settings dynamically.
-
-  Remarks:
-    None.
-*/
-
-typedef struct
-{   
-    /* clock speed */
-    uint32_t clockSpeed;
-    
-} DRV_I2C_TRANSFER_SETUP;
 
 typedef void (* DRV_I2C_PLIB_CALLBACK)( uintptr_t );
-
-typedef void (* DRV_I2C_TRANSFER_SETUP_CALLBACK)( DRV_I2C_TRANSFER_SETUP *, uint32_t );
 
 typedef bool (* DRV_I2C_READ_CALLBACK)( uint16_t, uint8_t *, uint8_t );
 
@@ -144,27 +121,24 @@ typedef void (* DRV_I2C_CALLBACK_REGISTER_CALLBACK)(DRV_I2C_PLIB_CALLBACK, uintp
   Remarks:
     None.
 */
-  
+
 typedef struct
 {
-    /* I2C PLib transfer setup API */
-    DRV_I2C_TRANSFER_SETUP_CALLBACK transferSetup;
-    
     /* I2C PLib read API */
     DRV_I2C_READ_CALLBACK read;
-    
+
     /* I2C PLib write API */
     DRV_I2C_WRITE_CALLBACK write;
-    
+
     /* I2C PLib writeRead API */
     DRV_I2C_WRITE_READ_CALLBACK writeRead;
-    
+
     /* I2C PLib transfer */
     DRV_I2C_ERROR_GET_CALLBACK errorGet;
-    
+
     /* I2C PLib callback register API */
     DRV_I2C_CALLBACK_REGISTER_CALLBACK callbackRegister;
-    
+
 } DRV_I2C_PLIB_INTERFACE;
 
 // *****************************************************************************
@@ -175,7 +149,7 @@ typedef struct
 
   Description:
     This data type defines the data required to initialize or the I2C driver.
-    If the driver is built statically, the members of this data structure are 
+    If the driver is built statically, the members of this data structure are
     statically over-ridden by static override definitions in the
     configuration.h file.
 
@@ -185,7 +159,7 @@ typedef struct
 
 typedef struct
 {
-    /* Identifies the PLIB API set to be used by the driver to access the 
+    /* Identifies the PLIB API set to be used by the driver to access the
      * peripheral. */
     DRV_I2C_PLIB_INTERFACE *i2cPlib;
 
@@ -197,7 +171,7 @@ typedef struct
 
     /* Interrupt source ID for the I2C interrupt. */
     INT_SOURCE interruptI2C;
-    
+
     /* Driver Queue Size */
     size_t queueSize;
 
@@ -206,7 +180,7 @@ typedef struct
 
     /* peripheral clock speed */
     uint32_t clockSpeed;
-    
+
 } DRV_I2C_INIT;
 
 //DOM-IGNORE-BEGIN
