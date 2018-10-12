@@ -60,7 +60,7 @@
 #include "driver/i2c/drv_i2c.h"
 #include "peripheral/smc/plib_smc.h"
 #include "system/time/sys_time.h"
-#include "peripheral/tc/plib_TC0.h"
+#include "peripheral/tc/plib_tc0.h"
 #include "peripheral/twihs/plib_twihs0.h"
 #include "app.h"
 
