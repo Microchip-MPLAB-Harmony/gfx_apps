@@ -1308,6 +1308,7 @@
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="BSP_LCD_HSYNC"/>
             </Dynamic>
+            <User dnOrder="1" value="GFX_DISP_INTF_PIN_HSYNC"/>
           </Values>
         </String>
         <String dnOrder="201" id="PIN_15_FUNCTION_TYPE">
@@ -1413,6 +1414,7 @@
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="BSP_LCD_RESET"/>
             </Dynamic>
+            <User dnOrder="1" value="GFX_DISP_INTF_PIN_RESET"/>
           </Values>
         </String>
         <String dnOrder="217" id="PIN_19_FUNCTION_TYPE">
@@ -2743,6 +2745,7 @@
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="BSP_LCD_VSYNC"/>
             </Dynamic>
+            <User dnOrder="1" value="GFX_DISP_INTF_PIN_VSYNC"/>
           </Values>
         </String>
         <String dnOrder="422" id="PIN_67_FUNCTION_TYPE">
@@ -3318,6 +3321,7 @@
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="BSP_LCD_BACKLIGHT"/>
             </Dynamic>
+            <User dnOrder="1" value="GFX_DISP_INTF_PIN_BACKLIGHT"/>
           </Values>
         </String>
         <String dnOrder="511" id="PIN_86_FUNCTION_TYPE">
@@ -3545,6 +3549,7 @@
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="BSP_LCD_DE"/>
             </Dynamic>
+            <User dnOrder="1" value="GFX_DISP_INTF_PIN_DE"/>
           </Values>
         </String>
         <String dnOrder="546" id="PIN_94_FUNCTION_TYPE">
@@ -3828,244 +3833,244 @@
             </Dynamic>
           </Values>
         </Boolean>
-        <Hex dnOrder="588" id="PIOB_PDR_VALUE">
+        <Hex dnOrder="588" id="PIOB_OER_VALUE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="256"/>
+            </Dynamic>
+          </Values>
+        </Hex>
+        <Hex dnOrder="589" id="PIOB_PDR_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="0"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Hex dnOrder="589" id="PIOC_ABCDSR1_VALUE">
+        <Hex dnOrder="590" id="PIOB_SODR_VALUE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="256"/>
+            </Dynamic>
+          </Values>
+        </Hex>
+        <Hex dnOrder="591" id="PIOC_ABCDSR1_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="0"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Hex dnOrder="590" id="PIOC_ABCDSR2_VALUE">
+        <Hex dnOrder="592" id="PIOC_ABCDSR2_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="0"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Hex dnOrder="591" id="PIOC_AIMER_VALUE">
+        <Hex dnOrder="593" id="PIOC_AIMER_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="0"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Boolean dnOrder="592" id="PIOC_CLOCK_ENABLE">
+        <Boolean dnOrder="594" id="PIOC_CLOCK_ENABLE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="1" value="true"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Boolean dnOrder="593" id="PIOC_INTERRUPT_ENABLE">
+        <Boolean dnOrder="595" id="PIOC_INTERRUPT_ENABLE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="1" value="false"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Boolean dnOrder="594" id="PIOC_INTERRUPT_ENABLE_UPDATE">
+        <Boolean dnOrder="596" id="PIOC_INTERRUPT_ENABLE_UPDATE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="true"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <String dnOrder="595" id="PIOC_INTERRUPT_HANDLER">
+        <String dnOrder="597" id="PIOC_INTERRUPT_HANDLER">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="1" value="PIOC_Handler"/>
             </Dynamic>
           </Values>
         </String>
-        <Boolean dnOrder="596" id="PIOC_INTERRUPT_HANDLER_LOCK">
+        <Boolean dnOrder="598" id="PIOC_INTERRUPT_HANDLER_LOCK">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="1" value="false"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Hex dnOrder="597" id="PIOC_LSR_VALUE">
+        <Hex dnOrder="599" id="PIOC_LSR_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="0"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Hex dnOrder="598" id="PIOC_MDER_VALUE">
+        <Hex dnOrder="600" id="PIOC_MDER_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="0"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Hex dnOrder="599" id="PIOC_OER_VALUE">
+        <Hex dnOrder="601" id="PIOC_OER_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="1073752832"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Hex dnOrder="600" id="PIOC_PDR_VALUE">
+        <Hex dnOrder="602" id="PIOC_PDR_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="511"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Hex dnOrder="601" id="PIOC_PPDEN_VALUE">
+        <Hex dnOrder="603" id="PIOC_PPDEN_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="0"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Hex dnOrder="602" id="PIOC_PUER_VALUE">
+        <Hex dnOrder="604" id="PIOC_PUER_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="0"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Hex dnOrder="603" id="PIOC_REHLSR_VALUE">
+        <Hex dnOrder="605" id="PIOC_REHLSR_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="0"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Hex dnOrder="604" id="PIOC_SODR_VALUE">
+        <Hex dnOrder="606" id="PIOC_SODR_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="1073752832"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Hex dnOrder="605" id="PIOD_ABCDSR1_VALUE">
+        <Hex dnOrder="607" id="PIOD_ABCDSR1_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="0"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Hex dnOrder="606" id="PIOD_ABCDSR2_VALUE">
+        <Hex dnOrder="608" id="PIOD_ABCDSR2_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="0"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Boolean dnOrder="607" id="PIOD_CLOCK_ENABLE">
+        <Boolean dnOrder="609" id="PIOD_CLOCK_ENABLE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="1" value="true"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Hex dnOrder="608" id="PIOD_OER_VALUE">
+        <Hex dnOrder="610" id="PIOD_OER_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="524288"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Hex dnOrder="609" id="PIOD_PDR_VALUE">
+        <Hex dnOrder="611" id="PIOD_PDR_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="0"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Hex dnOrder="610" id="PIOD_SODR_VALUE">
+        <Hex dnOrder="612" id="PIOD_SODR_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="524288"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Hex dnOrder="611" id="PIOE_ABCDSR1_VALUE">
+        <Hex dnOrder="613" id="PIOE_ABCDSR1_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="0"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Hex dnOrder="612" id="PIOE_ABCDSR2_VALUE">
+        <Hex dnOrder="614" id="PIOE_ABCDSR2_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="0"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Boolean dnOrder="613" id="PIOE_CLOCK_ENABLE">
+        <Boolean dnOrder="615" id="PIOE_CLOCK_ENABLE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="1" value="true"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Hex dnOrder="614" id="PIOE_OER_VALUE">
+        <Hex dnOrder="616" id="PIOE_OER_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="0"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Hex dnOrder="615" id="PIOE_PDR_VALUE">
+        <Hex dnOrder="617" id="PIOE_PDR_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="63"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Hex dnOrder="616" id="PIOE_SODR_VALUE">
+        <Hex dnOrder="618" id="PIOE_SODR_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="0"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Boolean dnOrder="617" id="PIO_A_INTERRUPT_USED">
+        <Boolean dnOrder="619" id="PIO_A_INTERRUPT_USED">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="1" value="false"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Integer dnOrder="618" id="PIO_A_NUM_OF_INT_PINS_USED">
-          <Values dnOrder="0">
-            <Dynamic dnOrder="0">
-              <Value dnOrder="0" id="core" priority="1" value="-1"/>
-            </Dynamic>
-          </Values>
-        </Integer>
-        <Hex dnOrder="619" id="PIO_CCFG_SYSIO_VALUE">
+        <Hex dnOrder="620" id="PIO_CCFG_SYSIO_VALUE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="2" value="0"/>
             </Dynamic>
           </Values>
         </Hex>
-        <Boolean dnOrder="620" id="PIO_C_INTERRUPT_USED">
+        <Boolean dnOrder="621" id="PIO_C_INTERRUPT_USED">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="1" value="false"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Integer dnOrder="621" id="PIO_C_NUM_OF_INT_PINS_USED">
-          <Values dnOrder="0">
-            <Dynamic dnOrder="0">
-              <Value dnOrder="0" id="core" priority="1" value="-1"/>
-            </Dynamic>
-          </Values>
-        </Integer>
         <Hex dnOrder="622" id="PMC_PCER0">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
@@ -6052,6 +6057,7 @@
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="core" priority="1" value="true"/>
               <Value dnOrder="1" id="core" priority="1" value="true"/>
+              <Value dnOrder="2" id="core" priority="1" value="true"/>
             </Dynamic>
           </Values>
         </Boolean>
@@ -6097,47 +6103,103 @@
             </Dynamic>
           </Values>
         </Boolean>
+        <File dnOrder="912" id="xdmacCommonHeaderFile">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <File dnOrder="913" id="xdmacHeaderFile">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <File dnOrder="914" id="xdmacSourceFile">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <File dnOrder="915" id="xdmacSystemDefFile">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <File dnOrder="916" id="xdmacSystemInitFile">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
       </Symbols>
     </UniqueComponent>
     <UniqueComponent bsp="true" dnOrder="1" id="BSP_SAM_E70_Xplained_Ultra"/>
     <UniqueComponent dnOrder="2" id="HarmonyCore">
       <Symbols dnOrder="0">
-        <File dnOrder="0" id="DRIVER_COMMON">
+        <File dnOrder="0" id="APP0_C">
           <Attributes dnOrder="0">
             <Boolean dnOrder="0" id="enabled">
               <Value dnOrder="0">true</Value>
             </Boolean>
           </Attributes>
         </File>
-        <File dnOrder="1" id="DRIVER_ROOT">
+        <File dnOrder="1" id="APP0_H">
           <Attributes dnOrder="0">
             <Boolean dnOrder="0" id="enabled">
               <Value dnOrder="0">true</Value>
             </Boolean>
           </Attributes>
         </File>
-        <Boolean dnOrder="2" id="ENABLE_APP_FILE">
+        <File dnOrder="2" id="CONFIGURATION_H">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <File dnOrder="3" id="DRIVER_COMMON">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <File dnOrder="4" id="DRIVER_ROOT">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <Boolean dnOrder="5" id="ENABLE_APP_FILE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="HarmonyCore" priority="1" value="true"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Boolean dnOrder="3" id="ENABLE_DRV_COMMON">
+        <Boolean dnOrder="6" id="ENABLE_DRV_COMMON">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="drv_i2c" priority="1" value="true"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Boolean dnOrder="4" id="ENABLE_OSAL">
+        <Boolean dnOrder="7" id="ENABLE_OSAL">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="HarmonyCore" priority="1" value="true"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Boolean dnOrder="5" id="ENABLE_SYS_COMMON">
+        <Boolean dnOrder="8" id="ENABLE_SYS_COMMON">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="drv_i2c" priority="1" value="true"/>
@@ -6145,55 +6207,146 @@
             </Dynamic>
           </Values>
         </Boolean>
-        <Boolean dnOrder="6" id="ENABLE_SYS_INT">
+        <Boolean dnOrder="9" id="ENABLE_SYS_INT">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="HarmonyCore" priority="1" value="true"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Boolean dnOrder="7" id="ENABLE_SYS_PORTS">
+        <Boolean dnOrder="10" id="ENABLE_SYS_PORTS">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="drv_i2c" priority="1" value="true"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Menu dnOrder="8" id="GEN_APP_RTOS_TASK_CONF_MENU0">
+        <Menu dnOrder="11" id="GEN_APP_TASK_MENU">
           <Attributes dnOrder="0">
             <Boolean dnOrder="0" id="visible">
-              <Value dnOrder="0">false</Value>
+              <Value dnOrder="0">true</Value>
             </Boolean>
           </Attributes>
         </Menu>
-        <File dnOrder="9" id="PORTS_DEF">
+        <File dnOrder="12" id="INT_DEF">
           <Attributes dnOrder="0">
             <Boolean dnOrder="0" id="enabled">
               <Value dnOrder="0">true</Value>
             </Boolean>
           </Attributes>
         </File>
-        <File dnOrder="10" id="PORTS_HEADER">
+        <File dnOrder="13" id="INT_HEADER">
           <Attributes dnOrder="0">
             <Boolean dnOrder="0" id="enabled">
               <Value dnOrder="0">true</Value>
             </Boolean>
           </Attributes>
         </File>
-        <File dnOrder="11" id="PORTS_MAPPING">
+        <File dnOrder="14" id="INT_MAPPING">
           <Attributes dnOrder="0">
             <Boolean dnOrder="0" id="enabled">
               <Value dnOrder="0">true</Value>
             </Boolean>
           </Attributes>
         </File>
-        <Combo dnOrder="12" id="SELECT_RTOS">
+        <File dnOrder="15" id="INT_SOURCE">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <File dnOrder="16" id="OSAL_DEFINITIONS_H">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <File dnOrder="17" id="OSAL_H">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <File dnOrder="18" id="OSAL_IMPL_BASIC_H">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <File dnOrder="19" id="OSAL_SYSDEF_H">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <File dnOrder="20" id="PORTS_DEF">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <File dnOrder="21" id="PORTS_HEADER">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <File dnOrder="22" id="PORTS_MAPPING">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <Combo dnOrder="23" id="SELECT_RTOS">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="HarmonyCore" priority="2" value="BareMetal"/>
             </Dynamic>
           </Values>
         </Combo>
+        <File dnOrder="24" id="SYSTEM_COMMON">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <File dnOrder="25" id="SYSTEM_MODULE">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <File dnOrder="26" id="SYSTEM_ROOT">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <File dnOrder="27" id="TASKS_C">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <File dnOrder="28" id="USER_H">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
       </Symbols>
     </UniqueComponent>
     <UniqueComponent dnOrder="3" id="aria_gfx_library">
@@ -6254,19 +6407,68 @@
         <Dependency dnOrder="0" id="SMC_CS" targetAttachmentID="smc_cs0" targetComponentID="smc"/>
       </Dependencies>
       <Symbols dnOrder="2">
-        <Integer dnOrder="0" id="EBIChipSelectIndex">
+        <Integer dnOrder="0" id="DisplayHeight">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="visible">
+              <Value dnOrder="0">false</Value>
+            </Boolean>
+          </Attributes>
+        </Integer>
+        <Menu dnOrder="1" id="DisplaySettingsMenu">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="visible">
+              <Value dnOrder="0">false</Value>
+            </Boolean>
+          </Attributes>
+        </Menu>
+        <Integer dnOrder="2" id="DisplayWidth">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="visible">
+              <Value dnOrder="0">false</Value>
+            </Boolean>
+          </Attributes>
+        </Integer>
+        <Boolean dnOrder="3" id="DoubleBuffer">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="visible">
+              <Value dnOrder="0">false</Value>
+            </Boolean>
+          </Attributes>
+        </Boolean>
+        <Integer dnOrder="4" id="EBIChipSelectIndex">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="gfx_driver_lcc" priority="1" value="0"/>
             </Dynamic>
           </Values>
         </Integer>
-        <Boolean dnOrder="1" id="HALConnected">
+        <Comment dnOrder="5" id="HALComment">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="visible">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </Comment>
+        <Boolean dnOrder="6" id="HALConnected">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="gfx_hal" priority="1" value="true"/>
             </Dynamic>
           </Values>
+        </Boolean>
+        <Boolean dnOrder="7" id="LCCRefresh">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="visible">
+              <Value dnOrder="0">false</Value>
+            </Boolean>
+          </Attributes>
+        </Boolean>
+        <Boolean dnOrder="8" id="PaletteMode">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="visible">
+              <Value dnOrder="0">false</Value>
+            </Boolean>
+          </Attributes>
         </Boolean>
       </Symbols>
     </UniqueComponent>
@@ -6356,113 +6558,142 @@
             </Dynamic>
           </Values>
         </Integer>
-        <Integer dnOrder="11" id="DisplayHorzPulseWidth">
+        <Menu dnOrder="11" id="DisplayHorzMenu">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="visible">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </Menu>
+        <Integer dnOrder="12" id="DisplayHorzPulseWidth">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="gfx_hal" priority="1" value="41"/>
             </Dynamic>
           </Values>
         </Integer>
-        <Boolean dnOrder="12" id="DisplayInvLeftShift">
+        <Boolean dnOrder="13" id="DisplayInvLeftShift">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="gfx_hal" priority="1" value="false"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <String dnOrder="13" id="DisplayName">
+        <String dnOrder="14" id="DisplayName">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="gfx_hal" priority="1" value="PDA TM4301B"/>
             </Dynamic>
           </Values>
         </String>
-        <Boolean dnOrder="14" id="DisplayResetPolarity">
+        <Boolean dnOrder="15" id="DisplayResetPolarity">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="gfx_hal" priority="1" value="true"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Boolean dnOrder="15" id="DisplayUseChipSelect">
+        <Boolean dnOrder="16" id="DisplayUseChipSelect">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="gfx_hal" priority="1" value="false"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Boolean dnOrder="16" id="DisplayUseReset">
+        <Boolean dnOrder="17" id="DisplayUseReset">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="gfx_hal" priority="1" value="true"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Boolean dnOrder="17" id="DisplayVSYNCNegative">
+        <Boolean dnOrder="18" id="DisplayVSYNCNegative">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="gfx_hal" priority="1" value="false"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Integer dnOrder="18" id="DisplayVertBackPorch">
+        <Integer dnOrder="19" id="DisplayVertBackPorch">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="gfx_hal" priority="1" value="2"/>
             </Dynamic>
           </Values>
         </Integer>
-        <Integer dnOrder="19" id="DisplayVertFrontPorch">
+        <Integer dnOrder="20" id="DisplayVertFrontPorch">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="gfx_hal" priority="1" value="2"/>
             </Dynamic>
           </Values>
         </Integer>
-        <Integer dnOrder="20" id="DisplayVertPulseWidth">
+        <Menu dnOrder="21" id="DisplayVertMenu">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="visible">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </Menu>
+        <Integer dnOrder="22" id="DisplayVertPulseWidth">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="gfx_hal" priority="1" value="10"/>
             </Dynamic>
           </Values>
         </Integer>
-        <Integer dnOrder="21" id="DisplayWidth">
+        <Integer dnOrder="23" id="DisplayWidth">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="gfx_hal" priority="1" value="480"/>
             </Dynamic>
           </Values>
         </Integer>
-        <String dnOrder="22" id="DriverInfoFunction">
+        <String dnOrder="24" id="DriverInfoFunction">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="gfx_hal" priority="1" value="driverLCCInfoGet"/>
             </Dynamic>
           </Values>
         </String>
-        <String dnOrder="23" id="DriverInitFunction">
+        <String dnOrder="25" id="DriverInitFunction">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="gfx_hal" priority="1" value="driverLCCContextInitialize"/>
             </Dynamic>
           </Values>
         </String>
-        <Boolean dnOrder="24" id="GlobalPaletteModeHint">
-          <Values dnOrder="0">
+        <Boolean dnOrder="26" id="GlobalPaletteModeHint">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="readOnly">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+          <Values dnOrder="1">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="aria_gfx_library" priority="1" value="false"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Integer dnOrder="25" id="PixelClock">
-          <Values dnOrder="0">
+        <Integer dnOrder="27" id="PixelClock">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="visible">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+          <Values dnOrder="1">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="gfx_hal" priority="1" value="6250000"/>
             </Dynamic>
           </Values>
         </Integer>
-        <Integer dnOrder="26" id="RefreshRate">
-          <Values dnOrder="0">
+        <Integer dnOrder="28" id="RefreshRate">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="visible">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+          <Values dnOrder="1">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="gfx_hal" priority="1" value="41"/>
             </Dynamic>
@@ -6484,7 +6715,12 @@
           </Values>
         </Integer>
         <Integer dnOrder="1" id="I2CIndex">
-          <Values dnOrder="0">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="readOnly">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+          <Values dnOrder="1">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="gfx_maxtouch_controller" priority="1" value="0"/>
             </Dynamic>
@@ -6738,55 +6974,163 @@
           </Values>
         </String>
         <KeyValueSet dnOrder="6" id="SYS_TIME_TC_CHANNEL">
-          <Values dnOrder="0">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="visible">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+          <Values dnOrder="1">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="tc0" priority="1" value="0"/>
             </Dynamic>
           </Values>
         </KeyValueSet>
-        <Boolean dnOrder="7" id="TC0_ENABLE">
+        <Comment dnOrder="7" id="TC0_CLK_ENABLE_COMMENT">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="visible">
+              <Value dnOrder="0">false</Value>
+            </Boolean>
+          </Attributes>
+        </Comment>
+        <Integer dnOrder="8" id="TC0_CLOCK_FREQ">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="tc0" priority="2" value="150000000"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+        <Boolean dnOrder="9" id="TC0_ENABLE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="tc0" priority="2" value="true"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Boolean dnOrder="8" id="TC0_IER_CPAS">
+        <Boolean dnOrder="10" id="TC0_IER_CPAS">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="visible">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+          <Values dnOrder="1">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="tc0" priority="2" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="11" id="TC0_IER_CPCS">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="tc0" priority="2" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Comment dnOrder="12" id="TC0_NVIC_ENABLE_COMMENT">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="visible">
+              <Value dnOrder="0">false</Value>
+            </Boolean>
+          </Attributes>
+        </Comment>
+        <Comment dnOrder="13" id="TC0_Resolution">
+          <Attributes dnOrder="0">
+            <String dnOrder="0" id="text">
+              <Value dnOrder="0">****Clock&amp;#160;resolution&amp;#160;is&amp;#160;6.66666666667&amp;#160;nS****</Value>
+            </String>
+          </Attributes>
+        </Comment>
+        <Boolean dnOrder="14" id="TC0_SYS_TIME_CONNECTED">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="tc0" priority="2" value="true"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Boolean dnOrder="9" id="TC0_IER_CPCS">
+        <Comment dnOrder="15" id="TC0_TIMER_PERIOD_CMT">
+          <Attributes dnOrder="0">
+            <String dnOrder="0" id="text">
+              <Value dnOrder="0">****Period&amp;#160;Count&amp;#160;is&amp;#160;60000****</Value>
+            </String>
+          </Attributes>
+        </Comment>
+        <Integer dnOrder="16" id="TC0_TIMER_PERIOD_COUNT">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="tc0" priority="2" value="60000"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+        <Float dnOrder="17" id="TC0_TIMER_PERIOD_MS">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="visible">
+              <Value dnOrder="0">false</Value>
+            </Boolean>
+          </Attributes>
+        </Float>
+        <Boolean dnOrder="18" id="TC1_ENABLE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="tc0" priority="2" value="false"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Boolean dnOrder="10" id="TC1_ENABLE">
+        <Boolean dnOrder="19" id="TC1_SYS_TIME_CONNECTED">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="tc0" priority="2" value="false"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <Boolean dnOrder="11" id="TC2_ENABLE">
+        <Comment dnOrder="20" id="TC1_TIMER_PERIOD_CMT">
+          <Attributes dnOrder="0">
+            <String dnOrder="0" id="text">
+              <Value dnOrder="0">****Period&amp;#160;Count&amp;#160;is&amp;#160;60000****</Value>
+            </String>
+          </Attributes>
+        </Comment>
+        <Integer dnOrder="21" id="TC1_TIMER_PERIOD_COUNT">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="tc0" priority="2" value="60000"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+        <Boolean dnOrder="22" id="TC2_ENABLE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="tc0" priority="2" value="false"/>
             </Dynamic>
           </Values>
         </Boolean>
-        <String dnOrder="12" id="TIMER_START_API_NAME">
+        <Boolean dnOrder="23" id="TC2_SYS_TIME_CONNECTED">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="tc0" priority="2" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Comment dnOrder="24" id="TC2_TIMER_PERIOD_CMT">
+          <Attributes dnOrder="0">
+            <String dnOrder="0" id="text">
+              <Value dnOrder="0">****Period&amp;#160;Count&amp;#160;is&amp;#160;60000****</Value>
+            </String>
+          </Attributes>
+        </Comment>
+        <Integer dnOrder="25" id="TC2_TIMER_PERIOD_COUNT">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="tc0" priority="2" value="60000"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+        <String dnOrder="26" id="TIMER_START_API_NAME">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="tc0" priority="2" value="TC0_CH0_TimerStart"/>
             </Dynamic>
           </Values>
         </String>
-        <String dnOrder="13" id="TIMER_STOP_API_NAME">
+        <String dnOrder="27" id="TIMER_STOP_API_NAME">
           <Values dnOrder="0">
             <Dynamic dnOrder="0">
               <Value dnOrder="0" id="tc0" priority="2" value="TC0_CH0_TimerStop "/>
@@ -6825,7 +7169,8 @@
     </UniqueComponent>
   </Components>
   <UserData>
-    <ComponentGraph dnOrder="0">
+    <GraphSettings canvasHeight="400" canvasWidth="400" dnOrder="0" minimap="false"/>
+    <ComponentGraph dnOrder="1">
       <ElementPositions dnOrder="0">
         <ElementPosition dnOrder="0" id="BSP_SAM_E70_Xplained_Ultra" x="417" y="16"/>
         <ElementPosition dnOrder="1" id="HarmonyCore" x="678" y="11"/>
@@ -6846,6 +7191,5 @@
         <ElementPosition dnOrder="16" id="twihs0" x="253" y="316"/>
       </ElementPositions>
     </ComponentGraph>
-    <GraphSettings canvasHeight="400" canvasWidth="400" dnOrder="1" minimap="false"/>
   </UserData>
 </Configuration>
