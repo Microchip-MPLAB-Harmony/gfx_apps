@@ -62,26 +62,26 @@ uint16_t __attribute__((aligned(16))) frameBuffer[BUFFER_COUNT][DISPLAY_WIDTH * 
 
 #define DRV_GFX_LCC_DMA_CHANNEL_INDEX XDMAC_CHANNEL_0
 
-#ifndef BSP_LCD_RESET_Set
-#error "BSP_LCD_RESET GPIO must be defined in the Pin Settings"
+#ifndef GFX_DISP_INTF_PIN_RESET_Set
+#error "GFX_DISP_INTF_PIN_RESET GPIO must be defined in the Pin Settings"
 #endif
 
 
-#ifndef BSP_LCD_BACKLIGHT_Set
-#warning "BSP_LCD_BACKLIGHT GPIO must be defined in the Pin Settings"
-#define BSP_LCD_BACKLIGHT_Set()
+#ifndef GFX_DISP_INTF_PIN_BACKLIGHT_Set
+#warning "GFX_DISP_INTF_PIN_BACKLIGHT GPIO must be defined in the Pin Settings"
+#define GFX_DISP_INTF_PIN_BACKLIGHT_Set()
 #endif
 
-#ifndef BSP_LCD_VSYNC_Set
-#error "BSP_LCD_VSYNC GPIO must be defined in the Pin Settings"
+#ifndef GFX_DISP_INTF_PIN_VSYNC_Set
+#error "GFX_DISP_INTF_PIN_VSYNC GPIO must be defined in the Pin Settings"
 #endif
 
-#ifndef BSP_LCD_DE_Set
-#error "BSP_LCD_DE GPIO must be defined in the Pin Settings"
+#ifndef GFX_DISP_INTF_PIN_DE_Set
+#error "GFX_DISP_INTF_PIN_DE GPIO must be defined in the Pin Settings"
 #endif
 
-#ifndef BSP_LCD_HSYNC_Set
-#error "BSP_LCD_HSYNC GPIO must be defined in the Pin Settings"
+#ifndef GFX_DISP_INTF_PIN_HSYNC_Set
+#error "GFX_DISP_INTF_PIN_HSYNC GPIO must be defined in the Pin Settings"
 #endif
 
 /**** Hardware Abstraction Interfaces ****/
@@ -245,10 +245,10 @@ static GFX_Result lccInitialize(GFX_Context* context)
 
     vsyncPeriod = DISP_VER_FRONT_PORCH + DISP_VER_RESOLUTION + DISP_VER_BACK_PORCH;  
 
-    BSP_LCD_RESET_Set();
+    GFX_DISP_INTF_PIN_RESET_Set();
 
     /*Turn Backlight on*/
-    BSP_LCD_BACKLIGHT_Set();
+    GFX_DISP_INTF_PIN_BACKLIGHT_Set();
 
     return GFX_SUCCESS;
 }
@@ -322,7 +322,7 @@ static void DRV_GFX_LCC_DisplayRefresh(void)
         {
             if (hSyncs > vsyncPulseDown)
             {
-                BSP_LCD_VSYNC_Clear();
+                GFX_DISP_INTF_PIN_VSYNC_Clear();
 
                 vsyncPulseUp = hSyncs + DISP_VER_PULSE_WIDTH;
                 vsyncState = VSYNC_PULSE;
@@ -342,7 +342,7 @@ static void DRV_GFX_LCC_DisplayRefresh(void)
         {
             if (hSyncs >= vsyncPulseUp)
             {
-                BSP_LCD_VSYNC_Set();
+                GFX_DISP_INTF_PIN_VSYNC_Set();
                 vsyncEnd = hSyncs + DISP_VER_BACK_PORCH;
                 vsyncState = VSYNC_BACK_PORCH;
             }
@@ -366,7 +366,7 @@ static void DRV_GFX_LCC_DisplayRefresh(void)
     {
         case HSYNC_FRONT_PORCH:
         {
-            BSP_LCD_DE_Clear();
+            GFX_DISP_INTF_PIN_DE_Clear();
 
             hsyncState = HSYNC_PULSE;
 
@@ -378,7 +378,7 @@ static void DRV_GFX_LCC_DisplayRefresh(void)
         }
         case HSYNC_PULSE:
         {
-            BSP_LCD_HSYNC_Clear();
+            GFX_DISP_INTF_PIN_HSYNC_Clear();
 
             if (hSyncs >= vsyncPeriod)
             {
@@ -396,7 +396,7 @@ static void DRV_GFX_LCC_DisplayRefresh(void)
         }
         case HSYNC_BACK_PORCH:
         {
-            BSP_LCD_HSYNC_Set();
+            GFX_DISP_INTF_PIN_HSYNC_Set();
 
             hsyncState = HSYNC_DATA_ENABLE; 
 
@@ -410,7 +410,7 @@ static void DRV_GFX_LCC_DisplayRefresh(void)
         {
             if (vsyncState == VSYNC_BLANK)
             {
-                BSP_LCD_DE_Set();
+                GFX_DISP_INTF_PIN_DE_Set();
                 drawPoint.x = 0;
                 drawPoint.y = line++;
 
