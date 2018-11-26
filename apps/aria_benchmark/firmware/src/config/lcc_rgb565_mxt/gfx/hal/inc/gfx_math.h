@@ -310,21 +310,19 @@ LIB_EXPORT int32_t GFX_Lerp(int32_t x, int32_t y, uint32_t per);
 */
 LIB_EXPORT int32_t GFX_DivideRounding(int32_t num, int32_t denom);
 
-// *****************************************************************************
-/* Function:
-    GFX_Result GFX_PolarToXY(int32_t r, int32_t a, GFX_Point* p);
-
+/**************************************************************************
+  Function:
+       GFX_Result GFX_PolarToXY(int32_t r, int32_t a, GFX_Point* p);
+    
   Summary:
-    Performs a cosine lookup to determine the points in an arc at specified radius and angle
-    (polar -> cartesian conversion)
-
+    Performs a cosine lookup to determine the points in an arc at specified
+    radius and angle (polar to Cartesian conversion)
   Parameters:
-    r - radius
-    a - angle (in degrees)
-
+    r -  radius
+    a -  angle (in degrees)
   Returns:
-    p - the output point in cartesian plane
-*/
+    p - the output point in Cartesian plane                                
+  **************************************************************************/
 LIB_EXPORT GFX_Result GFX_PolarToXY(int32_t r, int32_t a, GFX_Point* p);
 
 // *****************************************************************************
@@ -364,23 +362,21 @@ LIB_EXPORT int16_t GFX_Normalize360(int16_t t);
 */
 LIB_EXPORT int16_t GFX_SineCosineGet(int16_t v, GFX_TRIG_FUNCTION_TYPE type);
 
-// *****************************************************************************
-/* Function:
-    GFX_Result GFX_EllipsePoint(int32_t t, int32_t a, int32_t b, int32_t theta, GFX_Point* p);
-
+/************************************************************************************************
+  Function:
+       GFX_Result GFX_EllipsePoint(int32_t t, int32_t a, int32_t b, int32_t theta, GFX_Point* p);
+    
   Summary:
-    Performs a cosine lookup to determine the points in an arc at specified radius and angle
-    (polar -> cartesian conversion)
-
+    Performs a cosine lookup to determine the points in an arc at specified
+    radius and angle (polar \> cartesian conversion)
   Parameters:
-    t - angle of the point on the ellipse (in degrees)
-    a - the half-length of 0-180 axis of the ellipse
-    b - the half-length of 90-270 axis of the ellipse
-    theta - angle of the ellipse (in degrees)
-
+    t -      angle of the point on the ellipse (in degrees)
+    a -      the half\-length of 0\-180 axis of the ellipse
+    b -      the half\-length of 90\-270 axis of the ellipse
+    theta -  angle of the ellipse (in degrees)
   Returns:
-    p - the output point in cartesian plane
-*/
+    p - the output point in cartesian plane                                                      
+  ************************************************************************************************/
 LIB_EXPORT GFX_Result GFX_EllipsePoint(int32_t t, int32_t a, int32_t b, int32_t theta, GFX_Point* p);
 
 // *****************************************************************************
