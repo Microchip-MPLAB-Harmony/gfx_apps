@@ -54,10 +54,10 @@
 /*  This section Includes other configuration headers necessary to completely
     define this configuration.
 */
-#include "gfx/libaria/libaria_harmony.h"
 #include "gfx/hal/gfx.h"
-#include "driver/input/drv_maxtouch.h"
 #include "system/input/sys_input.h"
+#include "gfx/libaria/libaria_harmony.h"
+#include "driver/input/drv_maxtouch.h"
 
 #include "user.h"
 
@@ -91,6 +91,8 @@ extern "C" {
 #define SYS_TIME_HW_COUNTER_PERIOD           0xFFFF
 #define SYS_TIME_HW_COUNTER_HALF_PERIOD		 (SYS_TIME_HW_COUNTER_PERIOD>>1)
 #define SYS_TIME_CPU_CLOCK_FREQUENCY         300000000
+#define SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES      (900)
+
 
 
 // *****************************************************************************
@@ -98,16 +100,16 @@ extern "C" {
 // Section: Driver Configuration
 // *****************************************************************************
 // *****************************************************************************
-/* I2C Driver Common Configuration Options */
-#define DRV_I2C_INSTANCES_NUMBER              1
-
-
 /* I2C Driver Instance 0 Configuration Options */
 #define DRV_I2C_INDEX_0                       0
 #define DRV_I2C_CLIENTS_NUMBER_IDX0           1
 #define DRV_I2C_INT_SRC_IDX0                  TWIHS0_IRQn
 #define DRV_I2C_QUEUE_SIZE_IDX0               2
 #define DRV_I2C_CLOCK_SPEED_IDX0              400000
+
+/* I2C Driver Common Configuration Options */
+#define DRV_I2C_INSTANCES_NUMBER              1
+
 
 
 /*** MXT336T Driver Configuration ***/

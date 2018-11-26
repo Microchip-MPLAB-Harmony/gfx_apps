@@ -79,8 +79,8 @@ DRV_MAXTOUCH_Tasks(sysObj.drvMAXTOUCH);
 
 
     /* Maintain Middleware & Other Libraries */
-        LibAria_Tasks(); // update the UI library
-SYS_INP_Tasks();
+    SYS_INP_Tasks();
+    LibAria_Tasks(); // update the UI library
 
 
     /* Maintain the application's state machine. */
