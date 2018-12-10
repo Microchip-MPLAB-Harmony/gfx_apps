@@ -64,7 +64,7 @@ extern "C" {
  * GFX Image Asset
  * Name:   Bar
  * Size:   480x65 pixels
- * Mode:   RGB_565
+ * Mode:   GS_8
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset Bar;
@@ -73,7 +73,7 @@ extern GFXU_ImageAsset Bar;
  * GFX Image Asset
  * Name:   HarmonyLogo
  * Size:   197x139 pixels
- * Mode:   RGB_565
+ * Mode:   GS_8
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset HarmonyLogo;
@@ -82,7 +82,7 @@ extern GFXU_ImageAsset HarmonyLogo;
  * GFX Image Asset
  * Name:   MicrochipLogo
  * Size:   144x39 pixels
- * Mode:   RGB_565
+ * Mode:   GS_8
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset MicrochipLogo;
@@ -91,7 +91,7 @@ extern GFXU_ImageAsset MicrochipLogo;
  * GFX Image Asset
  * Name:   PIC32Logo
  * Size:   240x62 pixels
- * Mode:   RGB_565
+ * Mode:   GS_8
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset PIC32Logo;
@@ -100,7 +100,7 @@ extern GFXU_ImageAsset PIC32Logo;
  * GFX Image Asset
  * Name:   CrossFade0
  * Size:   240x139 pixels
- * Mode:   RGB_565
+ * Mode:   GS_8
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset CrossFade0;
@@ -109,7 +109,7 @@ extern GFXU_ImageAsset CrossFade0;
  * GFX Image Asset
  * Name:   CrossFade1
  * Size:   240x139 pixels
- * Mode:   RGB_565
+ * Mode:   GS_8
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset CrossFade1;
@@ -118,7 +118,7 @@ extern GFXU_ImageAsset CrossFade1;
  * GFX Image Asset
  * Name:   CrossFade2
  * Size:   240x139 pixels
- * Mode:   RGB_565
+ * Mode:   GS_8
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset CrossFade2;
@@ -127,93 +127,334 @@ extern GFXU_ImageAsset CrossFade2;
  * GFX Image Asset
  * Name:   CrossFade3
  * Size:   240x139 pixels
- * Mode:   RGB_565
+ * Mode:   GS_8
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset CrossFade3;
 	
 /*********************************
  * GFX Image Asset
- * Name:   cloudy
- * Size:   272x100 pixels
- * Mode:   RGB_565
+ * Name:   Brewery_Icons_01
+ * Size:   120x120 pixels
+ * Mode:   GS_8
  * Format: RAW
  ***********************************/
-extern GFXU_ImageAsset cloudy;
+extern GFXU_ImageAsset Brewery_Icons_01;
 	
 /*********************************
  * GFX Image Asset
- * Name:   fog
- * Size:   272x100 pixels
- * Mode:   RGB_565
+ * Name:   Brewery_Icons_02
+ * Size:   120x120 pixels
+ * Mode:   GS_8
  * Format: RAW
  ***********************************/
-extern GFXU_ImageAsset fog;
+extern GFXU_ImageAsset Brewery_Icons_02;
 	
 /*********************************
  * GFX Image Asset
- * Name:   lightning
- * Size:   272x100 pixels
- * Mode:   RGB_565
+ * Name:   Brewery_Icons_03
+ * Size:   120x120 pixels
+ * Mode:   GS_8
  * Format: RAW
  ***********************************/
-extern GFXU_ImageAsset lightning;
+extern GFXU_ImageAsset Brewery_Icons_03;
 	
 /*********************************
  * GFX Image Asset
- * Name:   rainbow
- * Size:   272x100 pixels
- * Mode:   RGB_565
+ * Name:   Brewery_Icons_04
+ * Size:   120x120 pixels
+ * Mode:   GS_8
  * Format: RAW
  ***********************************/
-extern GFXU_ImageAsset rainbow;
+extern GFXU_ImageAsset Brewery_Icons_04;
 	
 /*********************************
  * GFX Image Asset
- * Name:   raindrops
- * Size:   272x100 pixels
- * Mode:   RGB_565
+ * Name:   Brewery_Icons_05
+ * Size:   120x120 pixels
+ * Mode:   GS_8
  * Format: RAW
  ***********************************/
-extern GFXU_ImageAsset raindrops;
+extern GFXU_ImageAsset Brewery_Icons_05;
 	
 /*********************************
  * GFX Image Asset
- * Name:   sunny
- * Size:   272x100 pixels
- * Mode:   RGB_565
+ * Name:   Brewery_Icons_06
+ * Size:   120x120 pixels
+ * Mode:   GS_8
  * Format: RAW
  ***********************************/
-extern GFXU_ImageAsset sunny;
+extern GFXU_ImageAsset Brewery_Icons_06;
 	
 /*********************************
  * GFX Image Asset
- * Name:   windy
- * Size:   272x100 pixels
- * Mode:   RGB_565
+ * Name:   Loading0
+ * Size:   143x143 pixels
+ * Mode:   GS_8
  * Format: RAW
  ***********************************/
-extern GFXU_ImageAsset windy;
+extern GFXU_ImageAsset Loading0;
 	
 /*********************************
  * GFX Image Asset
- * Name:   citySkyline
- * Size:   40x40 pixels
- * Mode:   INDEX_8
+ * Name:   Loading1
+ * Size:   143x143 pixels
+ * Mode:   GS_8
  * Format: RAW
  ***********************************/
-extern GFXU_ImageAsset citySkyline;
+extern GFXU_ImageAsset Loading1;
 	
-/*****************************************************************************
- * MPLAB Harmony Graphics Palette Assets
- *****************************************************************************/
 /*********************************
- * GFX Palette Asset
- * Name:   citySkyline_palette
- * Colors: 63
- * Format: RGB_565
+ * GFX Image Asset
+ * Name:   Loading10
+ * Size:   143x143 pixels
+ * Mode:   GS_8
+ * Format: RAW
  ***********************************/
-extern GFXU_PaletteAsset citySkyline_palette;
+extern GFXU_ImageAsset Loading10;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Loading11
+ * Size:   143x143 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Loading11;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Loading2
+ * Size:   143x143 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Loading2;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Loading3
+ * Size:   143x143 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Loading3;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Loading4
+ * Size:   143x143 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Loading4;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Loading5
+ * Size:   143x143 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Loading5;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Loading6
+ * Size:   143x143 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Loading6;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Loading7
+ * Size:   143x143 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Loading7;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Loading8
+ * Size:   143x143 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Loading8;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Loading9
+ * Size:   143x143 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Loading9;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Premium_Beer_Icons_01
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Premium_Beer_Icons_01;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Premium_Beer_Icons_02
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Premium_Beer_Icons_02;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Premium_Beer_Icons_03
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Premium_Beer_Icons_03;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Premium_Beer_Icons_04
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Premium_Beer_Icons_04;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Premium_Beer_Icons_05
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Premium_Beer_Icons_05;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Premium_Beer_Icons_06
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Premium_Beer_Icons_06;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Lager_Icons_01
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Lager_Icons_01;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Lager_Icons_02
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Lager_Icons_02;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Lager_Icons_03
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Lager_Icons_03;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Lager_Icons_04
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Lager_Icons_04;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Lager_Icons_05
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Lager_Icons_05;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Lager_Icons_06
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Lager_Icons_06;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Info
+ * Size:   32x32 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Info;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Down
+ * Size:   96x64 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Down;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Up
+ * Size:   96x64 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Up;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Down_Press
+ * Size:   96x64 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Down_Press;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Up_Press
+ * Size:   96x64 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Up_Press;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Info_Press
+ * Size:   32x32 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Info_Press;
 	
 /*****************************************************************************
  * MPLAB Harmony Graphics Font Assets
@@ -222,7 +463,7 @@ extern GFXU_PaletteAsset citySkyline_palette;
  * GFX Font Asset
  * Name:         ArialUnicodeMS_Medium
  * Height:       23
- * Style:        Antialias
+ * Style:        Plain
  * Glyph Count:  96
  * Range Count:  45
  * Glyph Ranges: 0x20
@@ -277,7 +518,7 @@ extern GFXU_FontAsset ArialUnicodeMS_Medium;
  * GFX Font Asset
  * Name:         ArialUnicodeMS_Large
  * Height:       38
- * Style:        Antialias
+ * Style:        Plain
  * Glyph Count:  16
  * Range Count:  12
  * Glyph Ranges: 0x20
@@ -299,7 +540,7 @@ extern GFXU_FontAsset ArialUnicodeMS_Large;
  * GFX Font Asset
  * Name:         ArialUnicodeMS_Small
  * Height:       14
- * Style:        Antialias
+ * Style:        Plain
  * Glyph Count:  50
  * Range Count:  26
  * Glyph Ranges: 0x20
@@ -335,7 +576,7 @@ extern GFXU_FontAsset ArialUnicodeMS_Small;
  * GFX Font Asset
  * Name:         ArialUnicodeMS_Huge
  * Height:       49
- * Style:        Antialias
+ * Style:        Plain
  * Glyph Count:  7
  * Range Count:  5
  * Glyph Ranges: 0x32-0x33
@@ -350,7 +591,7 @@ extern GFXU_FontAsset ArialUnicodeMS_Huge;
  * GFX Font Asset
  * Name:         ArialUnicodeMS_Tiny
  * Height:       13
- * Style:        Antialias
+ * Style:        Plain
  * Glyph Count:  31
  * Range Count:  21
  * Glyph Ranges: 0x20
@@ -447,6 +688,11 @@ extern GFXU_FontAsset ArialUnicodeMS_Tiny;
  
 extern GFXU_StringTableAsset stringTable;
 
+/*****************************************************************************
+ * MPLAB Harmony Graphics Global Palette
+ *****************************************************************************/
+
+extern uint16_t globalColorPalette[256];
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }

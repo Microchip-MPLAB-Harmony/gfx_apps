@@ -93,7 +93,7 @@ int32_t LibAria_Initialize(void)
     memIntf.read = &LibAria_MediaReadRequest;
     memIntf.close = &LibAria_MediaCloseRequest;
 
-    libariaObj.context = laContext_Create(0, 0, 0, GFX_COLOR_MODE_RGB_565, &memIntf);
+    libariaObj.context = laContext_Create(0, 0, 0, GFX_COLOR_MODE_GS_8, &memIntf);
 
     if(libariaObj.context == NULL)
         return -1;

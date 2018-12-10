@@ -169,7 +169,7 @@ void APP_Tasks ( void )
         {
             if (APP_IsSplashScreenComplete())
             {
-                //laContext_SetActiveScreen(MainScreen_ID);                
+                laContext_SetActiveScreen(MainScreen_ID);                
 
                 appData.state = APP_STATE_DRAW;
             }
@@ -182,9 +182,9 @@ void APP_Tasks ( void )
             if (laContext_IsDrawing())
                 break;
 
-//            if (laContext_GetActiveScreen() && 
-//                laContext_GetActiveScreen()->id != MainScreen_ID)
-//                 break;
+            if (laContext_GetActiveScreen() && 
+                laContext_GetActiveScreen()->id != MainScreen_ID)
+                 break;
             
             appData.state = APP_STATE_DONE;
             break;

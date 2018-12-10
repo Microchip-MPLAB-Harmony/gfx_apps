@@ -55,9 +55,15 @@ extern "C" {
 #endif
 // DOM-IGNORE-END 
 
-#define LIBARIA_SCREEN_COUNT   1
+#define LIBARIA_SCREEN_COUNT   3
 
 // reference IDs for generated libaria screens
+// screen "LoadScreen"
+#define LoadScreen_ID    2
+
+// screen "MainScreen"
+#define MainScreen_ID    1
+
 // screen "SplashScreen"
 #define SplashScreen_ID    0
 
@@ -81,11 +87,35 @@ extern laScheme TempHourlyGraphScheme;
 extern laScheme TitleBarScheme;
 extern laScheme Green;
 extern laScheme TextWhite;
+extern laScheme defaultPaletteScheme;
 extern laImageWidget* ImageWidget1;
 extern laImageWidget* ImageWidget2;
 extern laWidget* PanelWidget3;
 extern laImageWidget* ImageWidget3;
 extern laImageWidget* ImageWidget4;
+extern laWidget* PanelItem0;
+extern laButtonWidget* ButtonItem0;
+extern laLabelWidget* LabelItem0;
+extern laWidget* PanelItem1;
+extern laButtonWidget* ButtonItem1;
+extern laLabelWidget* LabelItem1;
+extern laWidget* PanelItem2;
+extern laButtonWidget* ButtonItem2;
+extern laLabelWidget* LabelItem2;
+extern laWidget* PanelItem3;
+extern laButtonWidget* ButtonItem3;
+extern laLabelWidget* LabelItem3;
+extern laWidget* PanelItem4;
+extern laButtonWidget* ButtonItem4;
+extern laLabelWidget* LabelItem4;
+extern laWidget* PanelItem5;
+extern laButtonWidget* ButtonItem5;
+extern laLabelWidget* LabelItem5;
+extern laButtonWidget* ButtonUp;
+extern laButtonWidget* ButtonDown;
+extern laButtonWidget* ButtonWidget8;
+extern laImageSequenceWidget* ImageSequence_LoadingIcon;
+extern laLabelWidget* LabelLoading;
 
 
 int32_t libaria_initialize(void);

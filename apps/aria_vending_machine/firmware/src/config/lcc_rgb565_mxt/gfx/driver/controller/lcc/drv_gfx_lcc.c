@@ -53,12 +53,13 @@
 #define EBI_BASE_ADDR  EBI_CS0_ADDR
 
 
-#define FRAMEBUFFER_COLOR_MODE GFX_COLOR_MODE_RGB_565
+#define FRAMEBUFFER_COLOR_MODE GFX_COLOR_MODE_GS_8
 
 const char* DRIVER_NAME = "LCC SMC";
 static uint32_t supported_color_formats = GFX_COLOR_MASK_RGB_565;
 
-uint16_t __attribute__((aligned(16))) frameBuffer[BUFFER_COUNT][DISPLAY_WIDTH * DISPLAY_HEIGHT];
+uint8_t frameBuffer[BUFFER_COUNT][DISPLAY_WIDTH * DISPLAY_HEIGHT];
+uint16_t __attribute__((aligned(16))) frameLine[DISPLAY_WIDTH];
 
 #define DRV_GFX_LCC_DMA_CHANNEL_INDEX XDMAC_CHANNEL_0
 
@@ -283,7 +284,7 @@ static int DRV_GFX_LCC_Start()
 {
     XDMAC_ChannelCallbackRegister(DRV_GFX_LCC_DMA_CHANNEL_INDEX, dmaIntHandler, 0);
 
-    lccDMAStartTransfer(frameBuffer, 
+    lccDMAStartTransfer(frameLine,
                         2,
                         (const void *) EBI_BASE_ADDR);
     
@@ -294,7 +295,9 @@ static void DRV_GFX_LCC_DisplayRefresh(void)
 {
     GFX_Point drawPoint;
     GFX_PixelBuffer* buffer;
-    GFX_Buffer* buffer_to_tx = (GFX_Buffer *) frameBuffer;
+    uint8_t * bufferPtr;
+    uint16_t* palette;
+    uint32_t i;
 
     typedef enum
     {
@@ -416,7 +419,12 @@ static void DRV_GFX_LCC_DisplayRefresh(void)
 
                 buffer = &cntxt->layer.active->buffers[cntxt->layer.active->buffer_read_idx].pb;
 
-                buffer_to_tx = GFX_PixelBufferOffsetGet_Unsafe(buffer, &drawPoint);
+                bufferPtr = GFX_PixelBufferOffsetGet_Unsafe(buffer, &drawPoint);
+                
+                palette = (uint16_t*)GFX_ActiveContext()->globalPalette;
+                
+                for(i = 0; i < DISPLAY_WIDTH; i++)
+                    frameLine[i] = palette[bufferPtr[i]];
 
             }
 
@@ -433,7 +441,7 @@ static void DRV_GFX_LCC_DisplayRefresh(void)
         }
     }
 
-    lccDMAStartTransfer(buffer_to_tx,
+    lccDMAStartTransfer(frameLine,
                         (pixels << 1), //2 bytes per pixel
                         (uint32_t*) EBI_BASE_ADDR);
 }
