@@ -55,7 +55,6 @@
 #include "peripheral/tc/plib_tc0.h"
 #include "driver/i2c/drv_i2c.h"
 #include "system/time/sys_time.h"
-#include "bsp/bsp.h"
 #include "peripheral/smc/plib_smc.h"
 #include "peripheral/twihs/plib_twihs0.h"
 #include "system/int/sys_int.h"
