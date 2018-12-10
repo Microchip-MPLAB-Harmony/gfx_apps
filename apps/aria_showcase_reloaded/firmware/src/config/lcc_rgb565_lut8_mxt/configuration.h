@@ -60,6 +60,7 @@
 #include "driver/input/drv_maxtouch.h"
 
 #include "user.h"
+#include "toolchain_specifics.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -76,7 +77,6 @@ extern "C" {
 // *****************************************************************************
 #define DCACHE_CLEAN_BY_ADDR(data, size)       SCB_CleanDCache_by_Addr((uint32_t *)data, size)
 #define DCACHE_INVALIDATE_BY_ADDR(data, size)  SCB_InvalidateDCache_by_Addr((uint32_t *)data, size)
-
 #define DATA_CACHE_ENABLED                     true
 
 // *****************************************************************************
@@ -86,7 +86,7 @@ extern "C" {
 // *****************************************************************************
 /* TIME System Service Configuration Options */
 #define SYS_TIME_INDEX_0                     0
-#define SYS_TIME_MAX_TIMERS                  10
+#define SYS_TIME_MAX_TIMERS                  5
 #define SYS_TIME_HW_COUNTER_WIDTH            16
 #define SYS_TIME_HW_COUNTER_PERIOD           0xFFFF
 #define SYS_TIME_HW_COUNTER_HALF_PERIOD		 (SYS_TIME_HW_COUNTER_PERIOD>>1)
