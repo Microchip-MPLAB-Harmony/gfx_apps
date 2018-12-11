@@ -44,7 +44,7 @@
 #include "definitions.h"
 
 #define MAX_LAYER_COUNT 1
-#define BUFFER_COUNT    1
+#define BUFFER_COUNT    2
 #define DISPLAY_WIDTH   480
 #define DISPLAY_HEIGHT  272
 
@@ -122,6 +122,8 @@ uint32_t vsyncPulseDown = 0;
 uint32_t vsyncPulseUp = 0;
 uint32_t vsyncEnd = 0;
 
+volatile unsigned int activeReadBuffer = 0;
+volatile bool swapPending = false;
 
 // function that returns the information for this driver
 GFX_Result driverLCCInfoGet(GFX_DriverInfo* info)
@@ -191,6 +193,18 @@ static GFX_Result layerBufferAllocate(uint32_t idx)
     return GFX_SUCCESS;
 }
 
+static void layerSwapped(GFX_Layer* layer)
+{
+    //Do nothing
+    activeReadBuffer = cntxt->layer.active->buffer_read_idx;
+}
+
+static void layerSwapPending(GFX_Layer* layer)
+{
+    swapPending = true;
+
+    while(swapPending);
+}
 
 static GFX_Result lccInitialize(GFX_Context* context)
 {
@@ -208,6 +222,8 @@ static GFX_Result lccInitialize(GFX_Context* context)
     context->hal.layerBufferCountSet = &layerBufferCountSet;
     context->hal.layerBufferAddressSet = &layerBufferAddressSet;
     context->hal.layerBufferAllocate = &layerBufferAllocate;
+    context->hal.layerSwapped = &layerSwapped;
+    context->hal.layerSwapPending = &layerSwapPending;
     
     // driver specific initialization tasks    
     // initialize all layer color modes
@@ -331,9 +347,11 @@ static void DRV_GFX_LCC_DisplayRefresh(void)
                 vsyncState = VSYNC_PULSE;
 
                 if(cntxt->layer.active->vsync == GFX_TRUE
-                    && cntxt->layer.active->swap == GFX_TRUE)
+                    && cntxt->layer.active->swap == GFX_TRUE
+                    && swapPending == true)
                 {
                     GFX_LayerSwap(cntxt->layer.active);
+                    swapPending = false;
                 }
 
                 line = 0;

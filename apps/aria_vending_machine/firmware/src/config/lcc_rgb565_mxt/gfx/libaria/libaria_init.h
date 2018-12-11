@@ -113,7 +113,8 @@ extern laButtonWidget* ButtonItem5;
 extern laLabelWidget* LabelItem5;
 extern laButtonWidget* ButtonUp;
 extern laButtonWidget* ButtonDown;
-extern laButtonWidget* ButtonWidget8;
+extern laButtonWidget* ButtonInfo;
+extern laButtonWidget* ButtonLanguage_Main;
 extern laImageSequenceWidget* ImageSequence_LoadingIcon;
 extern laLabelWidget* LabelLoading;
 

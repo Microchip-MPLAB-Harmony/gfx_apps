@@ -85,7 +85,8 @@ laButtonWidget* ButtonItem5;
 laLabelWidget* LabelItem5;
 laButtonWidget* ButtonUp;
 laButtonWidget* ButtonDown;
-laButtonWidget* ButtonWidget8;
+laButtonWidget* ButtonInfo;
+laButtonWidget* ButtonLanguage_Main;
 laImageSequenceWidget* ImageSequence_LoadingIcon;
 laLabelWidget* LabelLoading;
 
@@ -718,18 +719,31 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laButtonWidget_SetPressedOffset(ButtonDown, 0);
     laWidget_AddChild((laWidget*)layer0, (laWidget*)ButtonDown);
 
-    ButtonWidget8 = laButtonWidget_New();
-    laWidget_SetPosition((laWidget*)ButtonWidget8, 360, 0);
-    laWidget_SetSize((laWidget*)ButtonWidget8, 120, 40);
-    laWidget_SetScheme((laWidget*)ButtonWidget8, &WhiteScheme);
-    laWidget_SetBackgroundType((laWidget*)ButtonWidget8, LA_WIDGET_BACKGROUND_FILL);
-    laWidget_SetBorderType((laWidget*)ButtonWidget8, LA_WIDGET_BORDER_NONE);
-    laButtonWidget_SetHAlignment(ButtonWidget8, LA_HALIGN_RIGHT);
-    laButtonWidget_SetVAlignment(ButtonWidget8, LA_VALIGN_TOP);
-    laButtonWidget_SetPressedImage(ButtonWidget8, &Info_Press);
-    laButtonWidget_SetReleasedImage(ButtonWidget8, &Info);
-    laButtonWidget_SetPressedOffset(ButtonWidget8, 0);
-    laWidget_AddChild((laWidget*)layer0, (laWidget*)ButtonWidget8);
+    ButtonInfo = laButtonWidget_New();
+    laWidget_SetPosition((laWidget*)ButtonInfo, 360, 0);
+    laWidget_SetSize((laWidget*)ButtonInfo, 120, 40);
+    laWidget_SetScheme((laWidget*)ButtonInfo, &WhiteScheme);
+    laWidget_SetBackgroundType((laWidget*)ButtonInfo, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)ButtonInfo, LA_WIDGET_BORDER_NONE);
+    laButtonWidget_SetHAlignment(ButtonInfo, LA_HALIGN_RIGHT);
+    laButtonWidget_SetVAlignment(ButtonInfo, LA_VALIGN_TOP);
+    laButtonWidget_SetPressedImage(ButtonInfo, &Info_Press);
+    laButtonWidget_SetReleasedImage(ButtonInfo, &Info);
+    laButtonWidget_SetPressedOffset(ButtonInfo, 0);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ButtonInfo);
+
+    ButtonLanguage_Main = laButtonWidget_New();
+    laWidget_SetPosition((laWidget*)ButtonLanguage_Main, 360, 220);
+    laWidget_SetSize((laWidget*)ButtonLanguage_Main, 120, 52);
+    laWidget_SetScheme((laWidget*)ButtonLanguage_Main, &WhiteScheme);
+    laWidget_SetBackgroundType((laWidget*)ButtonLanguage_Main, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)ButtonLanguage_Main, LA_WIDGET_BORDER_NONE);
+    laButtonWidget_SetHAlignment(ButtonLanguage_Main, LA_HALIGN_RIGHT);
+    laButtonWidget_SetVAlignment(ButtonLanguage_Main, LA_VALIGN_BOTTOM);
+    laButtonWidget_SetPressedImage(ButtonLanguage_Main, &Language_Change_Press);
+    laButtonWidget_SetReleasedImage(ButtonLanguage_Main, &Language_Change);
+    laButtonWidget_SetPressedOffset(ButtonLanguage_Main, 0);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ButtonLanguage_Main);
 
 }
 

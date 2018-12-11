@@ -456,6 +456,24 @@ extern GFXU_ImageAsset Up_Press;
  ***********************************/
 extern GFXU_ImageAsset Info_Press;
 	
+/*********************************
+ * GFX Image Asset
+ * Name:   Language_Change
+ * Size:   39x36 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Language_Change;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Language_Change_Press
+ * Size:   39x36 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Language_Change_Press;
+	
 /*****************************************************************************
  * MPLAB Harmony Graphics Font Assets
  *****************************************************************************/
