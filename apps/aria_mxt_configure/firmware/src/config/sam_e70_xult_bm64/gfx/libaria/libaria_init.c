@@ -71,9 +71,8 @@ laButtonWidget* stageSDCardButton;
 laButtonWidget* stagePCButton;
 laButtonWidget* stageProgramButton;
 laButtonWidget* stageUsbButton;
-laButtonWidget* stageLoadButton;
+laButtonWidget* stageNextButton;
 laImageWidget* ImageWidget8;
-laButtonWidget* loadTestButton;
 laImageWidget* ImageWidget10;
 laButtonWidget* loadButton;
 laProgressBarWidget* loadProgressBar;
@@ -88,6 +87,7 @@ laButtonWidget* loadProgramButton;
 laButtonWidget* loadSDCardButton;
 laButtonWidget* loadPCButton;
 laButtonWidget* loadUSBBUtton;
+laButtonWidget* loadNextButton;
 laKeyPadWidget* KeyPadWidget2;
 laButtonWidget* ButtonWidget3;
 laButtonWidget* ButtonWidget4;
@@ -221,7 +221,7 @@ static void ScreenCreate_splash_screen(laScreen* screen)
     laWidget_SetPosition((laWidget*)PanelWidget3, 0, 215);
     laWidget_SetSize((laWidget*)PanelWidget3, 480, 65);
     laWidget_SetOptimizationFlags((laWidget*)PanelWidget3, LA_WIDGET_OPT_DRAW_ONCE);
-    laWidget_SetBackgroundType((laWidget*)PanelWidget3, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBackgroundType((laWidget*)PanelWidget3, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)PanelWidget3, LA_WIDGET_BORDER_NONE);
     laWidget_AddChild((laWidget*)layer0, PanelWidget3);
 
@@ -275,11 +275,11 @@ static void ScreenCreate_main_screen(laScreen* screen)
     laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget);
 
     mainLoadButton = laButtonWidget_New();
-    laWidget_SetPosition((laWidget*)mainLoadButton, 76, 211);
+    laWidget_SetPosition((laWidget*)mainLoadButton, 80, 211);
     laWidget_SetSize((laWidget*)mainLoadButton, 111, 40);
     laWidget_SetBackgroundType((laWidget*)mainLoadButton, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)mainLoadButton, LA_WIDGET_BORDER_BEVEL);
-    laButtonWidget_SetText(mainLoadButton, laString_CreateFromID(string_Load));
+    laButtonWidget_SetText(mainLoadButton, laString_CreateFromID(string_Configure));
     laButtonWidget_SetReleasedEventCallback(mainLoadButton, &mainLoadButton_ReleasedEvent);
 
     laWidget_AddChild((laWidget*)layer0, (laWidget*)mainLoadButton);
@@ -388,7 +388,7 @@ static void ScreenCreate_stage_screen(laScreen* screen)
     laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget28);
 
     ImageWidget35 = laImageWidget_New();
-    laWidget_SetPosition((laWidget*)ImageWidget35, 383, 70);
+    laWidget_SetPosition((laWidget*)ImageWidget35, 373, 75);
     laWidget_SetSize((laWidget*)ImageWidget35, 48, 26);
     laWidget_SetBackgroundType((laWidget*)ImageWidget35, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)ImageWidget35, LA_WIDGET_BORDER_NONE);
@@ -396,7 +396,7 @@ static void ScreenCreate_stage_screen(laScreen* screen)
     laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget35);
 
     stageButton = laButtonWidget_New();
-    laWidget_SetPosition((laWidget*)stageButton, 376, 12);
+    laWidget_SetPosition((laWidget*)stageButton, 367, 20);
     laWidget_SetSize((laWidget*)stageButton, 74, 41);
     laWidget_SetBackgroundType((laWidget*)stageButton, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)stageButton, LA_WIDGET_BORDER_BEVEL);
@@ -486,16 +486,17 @@ static void ScreenCreate_stage_screen(laScreen* screen)
 
     laWidget_AddChild((laWidget*)layer0, (laWidget*)stageUsbButton);
 
-    stageLoadButton = laButtonWidget_New();
-    laWidget_SetPosition((laWidget*)stageLoadButton, 377, 12);
-    laWidget_SetSize((laWidget*)stageLoadButton, 74, 41);
-    laWidget_SetVisible((laWidget*)stageLoadButton, LA_FALSE);
-    laWidget_SetBackgroundType((laWidget*)stageLoadButton, LA_WIDGET_BACKGROUND_FILL);
-    laWidget_SetBorderType((laWidget*)stageLoadButton, LA_WIDGET_BORDER_BEVEL);
-    laButtonWidget_SetText(stageLoadButton, laString_CreateFromID(string_Load));
-    laButtonWidget_SetReleasedEventCallback(stageLoadButton, &stageLoadButton_ReleasedEvent);
+    stageNextButton = laButtonWidget_New();
+    laWidget_SetPosition((laWidget*)stageNextButton, 422, 2);
+    laWidget_SetSize((laWidget*)stageNextButton, 60, 50);
+    laWidget_SetVisible((laWidget*)stageNextButton, LA_FALSE);
+    laWidget_SetBackgroundType((laWidget*)stageNextButton, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)stageNextButton, LA_WIDGET_BORDER_BEVEL);
+    laButtonWidget_SetPressedImage(stageNextButton, &forward);
+    laButtonWidget_SetReleasedImage(stageNextButton, &forward);
+    laButtonWidget_SetReleasedEventCallback(stageNextButton, &stageNextButton_ReleasedEvent);
 
-    laWidget_AddChild((laWidget*)layer0, (laWidget*)stageLoadButton);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)stageNextButton);
 
 }
 
@@ -503,6 +504,8 @@ static void ScreenCreate_load_screen(laScreen* screen)
 {
     laLayer* layer0;
     laRadioButtonGroup* radioButtonGroup_0;
+
+    laScreen_SetShowEventCallback(screen, &load_screen_ShowEvent);
 
     layer0 = laLayer_New();
     laWidget_SetPosition((laWidget*)layer0, 0, 0);
@@ -519,17 +522,6 @@ static void ScreenCreate_load_screen(laScreen* screen)
     laWidget_SetBorderType((laWidget*)ImageWidget8, LA_WIDGET_BORDER_NONE);
     laImageWidget_SetImage(ImageWidget8, &flash);
     laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget8);
-
-    loadTestButton = laButtonWidget_New();
-    laWidget_SetPosition((laWidget*)loadTestButton, 332, 70);
-    laWidget_SetSize((laWidget*)loadTestButton, 74, 41);
-    laWidget_SetVisible((laWidget*)loadTestButton, LA_FALSE);
-    laWidget_SetBackgroundType((laWidget*)loadTestButton, LA_WIDGET_BACKGROUND_FILL);
-    laWidget_SetBorderType((laWidget*)loadTestButton, LA_WIDGET_BORDER_BEVEL);
-    laButtonWidget_SetText(loadTestButton, laString_CreateFromID(string_Test));
-    laButtonWidget_SetReleasedEventCallback(loadTestButton, &loadTestButton_ReleasedEvent);
-
-    laWidget_AddChild((laWidget*)layer0, (laWidget*)loadTestButton);
 
     ImageWidget10 = laImageWidget_New();
     laWidget_SetPosition((laWidget*)ImageWidget10, 344, 115);
@@ -580,7 +572,7 @@ static void ScreenCreate_load_screen(laScreen* screen)
 
     LabelWidget15 = laLabelWidget_New();
     laWidget_SetPosition((laWidget*)LabelWidget15, 1, 120);
-    laWidget_SetSize((laWidget*)LabelWidget15, 169, 25);
+    laWidget_SetSize((laWidget*)LabelWidget15, 179, 25);
     laWidget_SetBackgroundType((laWidget*)LabelWidget15, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)LabelWidget15, LA_WIDGET_BORDER_NONE);
     laLabelWidget_SetText(LabelWidget15, laString_CreateFromID(string_load_source));
@@ -669,6 +661,18 @@ static void ScreenCreate_load_screen(laScreen* screen)
     laButtonWidget_SetReleasedEventCallback(loadUSBBUtton, &loadUSBBUtton_ReleasedEvent);
 
     laWidget_AddChild((laWidget*)layer0, (laWidget*)loadUSBBUtton);
+
+    loadNextButton = laButtonWidget_New();
+    laWidget_SetPosition((laWidget*)loadNextButton, 422, 2);
+    laWidget_SetSize((laWidget*)loadNextButton, 60, 50);
+    laWidget_SetVisible((laWidget*)loadNextButton, LA_FALSE);
+    laWidget_SetBackgroundType((laWidget*)loadNextButton, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)loadNextButton, LA_WIDGET_BORDER_BEVEL);
+    laButtonWidget_SetPressedImage(loadNextButton, &forward);
+    laButtonWidget_SetReleasedImage(loadNextButton, &forward);
+    laButtonWidget_SetReleasedEventCallback(loadNextButton, &loadNextButton_ReleasedEvent);
+
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)loadNextButton);
 
 }
 
@@ -817,6 +821,8 @@ static void ScreenCreate_test_screen(laScreen* screen)
     testStoreButton = laButtonWidget_New();
     laWidget_SetPosition((laWidget*)testStoreButton, 170, 221);
     laWidget_SetSize((laWidget*)testStoreButton, 130, 40);
+    laWidget_SetEnabled((laWidget*)testStoreButton, LA_FALSE);
+    laWidget_SetVisible((laWidget*)testStoreButton, LA_FALSE);
     laWidget_SetBackgroundType((laWidget*)testStoreButton, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)testStoreButton, LA_WIDGET_BORDER_BEVEL);
     laButtonWidget_SetText(testStoreButton, laString_CreateFromID(string_Store));

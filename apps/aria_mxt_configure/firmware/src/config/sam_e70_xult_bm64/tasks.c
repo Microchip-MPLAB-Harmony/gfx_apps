@@ -80,18 +80,26 @@ SYS_FS_Tasks();
 
 
     /* Maintain Device Drivers */
-        GFX_Update();
-DRV_MAXTOUCH_Tasks(sysObj.drvMAXTOUCH);
+    
+    GFX_Update();
+
+
+    DRV_MAXTOUCH_Tasks(sysObj.drvMAXTOUCH);
+
 
 
     /* Maintain Middleware & Other Libraries */
-        LibAria_Tasks(); // update the UI library
-SYS_INP_Tasks();
+    	/* USB Device layer tasks routine */ 
+    USB_DEVICE_Tasks(sysObj.usbDevObject0);
+
 	/* USB HS Driver Task Routine */ 
     DRV_USBHSV1_Tasks(sysObj.drvUSBHSV1Object);
 
-	/* USB Device layer tasks routine */ 
-    USB_DEVICE_Tasks(sysObj.usbDevObject0);
+
+    SYS_INP_Tasks();
+
+
+    LibAria_Tasks();
 
 
 

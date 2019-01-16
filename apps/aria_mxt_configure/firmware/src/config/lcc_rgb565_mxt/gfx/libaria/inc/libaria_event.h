@@ -40,6 +40,10 @@
 #define LIBARIA_EVENT_H
 //DOM-IGNORE-END
 
+#include "gfx/libaria/libaria_config.h"
+#ifdef LIBARIA_USE_RTOS_EXTENSIONS
+#include "osal/osal.h"
+#endif
 #include "gfx/libaria/inc/libaria_common.h"
 #include "gfx/libaria/inc/libaria_list.h"
 
@@ -118,7 +122,7 @@ typedef laBool (*laEvent_FilterEvent)(laEvent*);
 typedef struct laEventState_t
 {
 #ifndef _WIN32
-#ifdef LIBARIA_USE_OSAL
+#ifdef LIBARIA_USE_RTOS_EXTENSIONS
     OSAL_SEM_HANDLE_TYPE eventCountSem;
     OSAL_MUTEX_HANDLE_TYPE eventLock;
 #endif

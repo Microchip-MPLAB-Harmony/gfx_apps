@@ -80,15 +80,6 @@
 #define GFX_DISP_INTF_PIN_RESET_InputEnable()       (PIOC_REGS->PIO_ODR = (1<<13))
 #define GFX_DISP_INTF_PIN_RESET_PIN                  PIO_PIN_PC13
 
-/*** Macros for BM64_MFB pin ***/
-#define BM64_MFB_Set()               (PIOB_REGS->PIO_SODR = (1<<2))
-#define BM64_MFB_Clear()             (PIOB_REGS->PIO_CODR = (1<<2))
-#define BM64_MFB_Toggle()            (PIOB_REGS->PIO_ODSR ^= (1<<2))
-#define BM64_MFB_Get()               ((PIOB_REGS->PIO_PDSR >> 2) & 0x1)
-#define BM64_MFB_OutputEnable()      (PIOB_REGS->PIO_OER = (1<<2))
-#define BM64_MFB_InputEnable()       (PIOB_REGS->PIO_ODR = (1<<2))
-#define BM64_MFB_PIN                  PIO_PIN_PB2
-
 /*** Macros for GFX_DISP_INTF_PIN_VSYNC pin ***/
 #define GFX_DISP_INTF_PIN_VSYNC_Set()               (PIOD_REGS->PIO_SODR = (1<<19))
 #define GFX_DISP_INTF_PIN_VSYNC_Clear()             (PIOD_REGS->PIO_CODR = (1<<19))

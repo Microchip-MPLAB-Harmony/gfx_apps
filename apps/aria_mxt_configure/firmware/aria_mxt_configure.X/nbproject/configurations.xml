@@ -4,27 +4,269 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="f4" displayName="arm" projectFiles="true">
+        <itemPath>../src/arm/toolchain_specifics.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="f1" displayName="config" projectFiles="true">
+        <logicalFolder name="f2" displayName="lcc_rgb565_mxt" projectFiles="true">
+          <logicalFolder name="f6" displayName="bsp" projectFiles="true">
+            <itemPath>../src/config/lcc_rgb565_mxt/bsp/bsp.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f4" displayName="driver" projectFiles="true">
+            <logicalFolder name="f2" displayName="i2c" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/driver/i2c/drv_i2c.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/driver/i2c/drv_i2c_definitions.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f3" displayName="input" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/driver/input/drv_maxtouch.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f1" displayName="sdhc" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/driver/sdhc/src/drv_sdhc_host_local.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/driver/sdhc/src/drv_sdhc_host.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/driver/sdhc/drv_sdhc.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/driver/sdhc/src/drv_sdhc_local.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f4" displayName="usb" projectFiles="true">
+              <logicalFolder name="f1" displayName="usbhsv1" projectFiles="true">
+                <logicalFolder name="f1" displayName="src" projectFiles="true">
+                  <itemPath>../src/config/lcc_rgb565_mxt/driver/usb/usbhsv1/src/drv_usbhsv1_variant_mapping.h</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/driver/usb/usbhsv1/src/drv_usbhsv1_local.h</itemPath>
+                </logicalFolder>
+                <itemPath>../src/config/lcc_rgb565_mxt/driver/usb/usbhsv1/drv_usbhsv1.h</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/lcc_rgb565_mxt/driver/usb/drv_usb.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/driver/usb/drv_usb_external_dependencies.h</itemPath>
+            </logicalFolder>
+            <itemPath>../src/config/lcc_rgb565_mxt/driver/driver.h</itemPath>
+            <itemPath>../src/config/lcc_rgb565_mxt/driver/driver_common.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f1" displayName="gfx" projectFiles="true">
+            <logicalFolder name="f2" displayName="driver" projectFiles="true">
+              <logicalFolder name="f1" displayName="lcc" projectFiles="true">
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/driver/controller/lcc/drv_gfx_lcc.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="f1" displayName="hal" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/gfx.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_color.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_common.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_context.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_default_impl.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_display.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_driver_interface.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_hal.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_interface.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_layer.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_pixel_buffer.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_processor_interface.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_rect.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_util.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_draw.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_draw_arc.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_draw_blit.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_draw_circle.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_draw_ellipse.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_draw_line.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_draw_pixel.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_draw_rect.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_draw_stretchblit.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_math.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/gfx_config.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f5" displayName="libaria" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/libaria_harmony.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/libaria_config.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/libaria_init.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/libaria.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_array.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_common.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_context.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_draw.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_editwidget.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_event.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_global.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_input.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_layer.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_math.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_list.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_rectarray.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_scheme.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_screen.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_string.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_utils.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_skin_classic_common.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_arc.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_bar_graph.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_button.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_checkbox.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_circle.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_circular_gauge.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_circular_slider.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_drawsurface.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_gradient.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_groupbox.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_image.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_imageplus.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_imagesequence.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_keypad.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_label.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_line.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_line_graph.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_list.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_listwheel.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_pie_chart.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_progressbar.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_radial_menu.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_radiobutton.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_radiobutton_group.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_rectangle.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_scrollbar.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_slider.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_textfield.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_touchtest.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/inc/libaria_widget_window.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/libaria_events.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/libaria_macros.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f4" displayName="third_party" projectFiles="true">
+              <logicalFolder name="f1" displayName="lodepng" projectFiles="true">
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/third_party/lodepng/lodepng.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="f3" displayName="utils" projectFiles="true">
+              <logicalFolder name="f1" displayName="inc" projectFiles="true">
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/inc/gfxu_binary.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/inc/gfxu_font.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/inc/gfxu_global.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/inc/gfxu_image.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/inc/gfxu_image_utils.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/inc/gfxu_palette.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/inc/gfxu_string.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/inc/gfxu_string_utils.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/inc/gfxu_image_jpg_common.h</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/gfx_utils.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/gfxu_config.h</itemPath>
+            </logicalFolder>
+            <itemPath>../src/config/lcc_rgb565_mxt/gfx/gfx_assets.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f3" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="f4" displayName="clk" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/clk/plib_clk.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f6" displayName="nvic" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/nvic/plib_nvic.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f5" displayName="pio" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/pio/plib_pio.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f8" displayName="smc" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/smc/plib_smc.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f1" displayName="tc" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/tc/plib_tc0.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/tc/plib_tc_common.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f2" displayName="twihs" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/twihs/plib_twihs_master.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/twihs/plib_twihs0.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f3" displayName="usart" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/usart/plib_usart_common.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/usart/plib_usart0.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f7" displayName="xdmac" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/xdmac/plib_xdmac_common.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/xdmac/plib_xdmac.h</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="f5" displayName="system" projectFiles="true">
+            <logicalFolder name="f5" displayName="fs" projectFiles="true">
+              <logicalFolder name="f1" displayName="fat_fs" projectFiles="true">
+                <logicalFolder name="f1" displayName="file_system" projectFiles="true">
+                  <itemPath>../src/config/lcc_rgb565_mxt/system/fs/fat_fs/src/file_system/ff.h</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/system/fs/fat_fs/src/file_system/ffconf.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="f2" displayName="hardware_access" projectFiles="true">
+                  <itemPath>../src/config/lcc_rgb565_mxt/system/fs/fat_fs/src/hardware_access/diskio.h</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+              <logicalFolder name="f2" displayName="mpfs" projectFiles="true">
+                <itemPath>../src/config/lcc_rgb565_mxt/system/fs/mpfs/mpfs.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/system/fs/mpfs/src/mpfs_local.h</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/lcc_rgb565_mxt/system/fs/sys_fs.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/system/fs/src/sys_fs_local.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/system/fs/sys_fs_media_manager.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/system/fs/src/sys_fs_media_manager_local.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f4" displayName="input" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input_gesture.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input_keyboard.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input_listener.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input_mouse.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input_touch.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f2" displayName="int" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/system/int/sys_int.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/system/int/sys_int_mapping.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f3" displayName="ports" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/system/ports/sys_ports.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/system/ports/sys_ports_mapping.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f1" displayName="time" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/system/time/sys_time.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/system/time/sys_time_definitions.h</itemPath>
+            </logicalFolder>
+            <itemPath>../src/config/lcc_rgb565_mxt/system/system.h</itemPath>
+            <itemPath>../src/config/lcc_rgb565_mxt/system/system_common.h</itemPath>
+            <itemPath>../src/config/lcc_rgb565_mxt/system/system_module.h</itemPath>
+            <itemPath>../src/config/lcc_rgb565_mxt/system/system_media.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f2" displayName="usb" projectFiles="true">
+            <logicalFolder name="f1" displayName="src" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/usb/src/usb_device_local.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/usb/src/usb_device_mapping.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/usb/src/usb_device_function_driver.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/usb/src/usb_external_dependencies.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/usb/src/usb_device_cdc_local.h</itemPath>
+            </logicalFolder>
+            <itemPath>../src/config/lcc_rgb565_mxt/usb/usb_device.h</itemPath>
+            <itemPath>../src/config/lcc_rgb565_mxt/usb/usb_common.h</itemPath>
+            <itemPath>../src/config/lcc_rgb565_mxt/usb/usb_chapter_9.h</itemPath>
+            <itemPath>../src/config/lcc_rgb565_mxt/usb/usb_device_cdc.h</itemPath>
+            <itemPath>../src/config/lcc_rgb565_mxt/usb/usb_cdc.h</itemPath>
+            <itemPath>../src/config/lcc_rgb565_mxt/usb/usb_host_client_driver.h</itemPath>
+            <itemPath>../src/config/lcc_rgb565_mxt/usb/usb_host_hub_interface.h</itemPath>
+            <itemPath>../src/config/lcc_rgb565_mxt/usb/usb_host.h</itemPath>
+            <itemPath>../src/config/lcc_rgb565_mxt/usb/usb_hub.h</itemPath>
+          </logicalFolder>
+          <itemPath>../src/config/lcc_rgb565_mxt/user.h</itemPath>
+          <itemPath>../src/config/lcc_rgb565_mxt/configuration.h</itemPath>
+          <itemPath>../src/config/lcc_rgb565_mxt/definitions.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="f1" displayName="sam_e70_xult_bm64" projectFiles="true">
-          <logicalFolder name="f2" displayName="bsp" projectFiles="true">
+          <logicalFolder name="f6" displayName="bsp" projectFiles="true">
             <itemPath>../src/config/sam_e70_xult_bm64/bsp/bsp.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f3" displayName="driver" projectFiles="true">
-            <logicalFolder name="f1" displayName="i2c" projectFiles="true">
+          <logicalFolder name="f4" displayName="driver" projectFiles="true">
+            <logicalFolder name="f2" displayName="i2c" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/driver/i2c/drv_i2c.h</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/driver/i2c/drv_i2c_definitions.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="input" projectFiles="true">
+            <logicalFolder name="f3" displayName="input" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/driver/input/drv_maxtouch.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="sdhc" projectFiles="true">
-              <itemPath>../src/config/sam_e70_xult_bm64/driver/sdhc/src/drv_sdhc_variant_mapping.h</itemPath>
-              <itemPath>../src/config/sam_e70_xult_bm64/driver/sdhc/drv_sdhc.h</itemPath>
-              <itemPath>../src/config/sam_e70_xult_bm64/driver/sdhc/src/drv_sdhc_local.h</itemPath>
+            <logicalFolder name="f1" displayName="sdhc" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/driver/sdhc/src/drv_sdhc_host_local.h</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/driver/sdhc/src/drv_sdhc_host.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_bm64/driver/sdhc/drv_sdhc.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_bm64/driver/sdhc/src/drv_sdhc_local.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="usb" projectFiles="true">
+            <logicalFolder name="f4" displayName="usb" projectFiles="true">
               <logicalFolder name="f1" displayName="usbhsv1" projectFiles="true">
                 <logicalFolder name="f1" displayName="src" projectFiles="true">
                   <itemPath>../src/config/sam_e70_xult_bm64/driver/usb/usbhsv1/src/drv_usbhsv1_variant_mapping.h</itemPath>
@@ -38,13 +280,13 @@
             <itemPath>../src/config/sam_e70_xult_bm64/driver/driver.h</itemPath>
             <itemPath>../src/config/sam_e70_xult_bm64/driver/driver_common.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f5" displayName="gfx" projectFiles="true">
-            <logicalFolder name="f4" displayName="driver" projectFiles="true">
+          <logicalFolder name="f1" displayName="gfx" projectFiles="true">
+            <logicalFolder name="f2" displayName="driver" projectFiles="true">
               <logicalFolder name="f1" displayName="lcc" projectFiles="true">
                 <itemPath>../src/config/sam_e70_xult_bm64/gfx/driver/controller/lcc/drv_gfx_lcc.h</itemPath>
               </logicalFolder>
             </logicalFolder>
-            <logicalFolder name="f5" displayName="hal" projectFiles="true">
+            <logicalFolder name="f1" displayName="hal" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/hal/gfx.h</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/hal/inc/gfx_color.h</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/hal/inc/gfx_common.h</itemPath>
@@ -71,7 +313,7 @@
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/hal/inc/gfx_math.h</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/hal/gfx_config.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="libaria" projectFiles="true">
+            <logicalFolder name="f5" displayName="libaria" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/libaria/libaria_harmony.h</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/libaria/libaria_config.h</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/libaria/libaria_init.h</itemPath>
@@ -127,12 +369,12 @@
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/libaria/libaria_events.h</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/libaria/libaria_macros.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="third_party" projectFiles="true">
+            <logicalFolder name="f4" displayName="third_party" projectFiles="true">
               <logicalFolder name="f1" displayName="lodepng" projectFiles="true">
                 <itemPath>../src/config/sam_e70_xult_bm64/gfx/third_party/lodepng/lodepng.h</itemPath>
               </logicalFolder>
             </logicalFolder>
-            <logicalFolder name="f1" displayName="utils" projectFiles="true">
+            <logicalFolder name="f3" displayName="utils" projectFiles="true">
               <logicalFolder name="f1" displayName="inc" projectFiles="true">
                 <itemPath>../src/config/sam_e70_xult_bm64/gfx/utils/inc/gfxu_binary.h</itemPath>
                 <itemPath>../src/config/sam_e70_xult_bm64/gfx/utils/inc/gfxu_font.h</itemPath>
@@ -149,38 +391,38 @@
             </logicalFolder>
             <itemPath>../src/config/sam_e70_xult_bm64/gfx/gfx_assets.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f1" displayName="peripheral" projectFiles="true">
-            <logicalFolder name="f1" displayName="clk" projectFiles="true">
+          <logicalFolder name="f3" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="f4" displayName="clk" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/peripheral/clk/plib_clk.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="nvic" projectFiles="true">
+            <logicalFolder name="f6" displayName="nvic" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/peripheral/nvic/plib_nvic.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="pio" projectFiles="true">
+            <logicalFolder name="f5" displayName="pio" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/peripheral/pio/plib_pio.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f5" displayName="smc" projectFiles="true">
+            <logicalFolder name="f8" displayName="smc" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/peripheral/smc/plib_smc.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f6" displayName="tc" projectFiles="true">
+            <logicalFolder name="f1" displayName="tc" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/peripheral/tc/plib_tc0.h</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/peripheral/tc/plib_tc_common.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f7" displayName="twihs" projectFiles="true">
+            <logicalFolder name="f2" displayName="twihs" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/peripheral/twihs/plib_twihs_master.h</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/peripheral/twihs/plib_twihs0.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f8" displayName="usart" projectFiles="true">
+            <logicalFolder name="f3" displayName="usart" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/peripheral/usart/plib_usart_common.h</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/peripheral/usart/plib_usart0.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="xdmac" projectFiles="true">
+            <logicalFolder name="f7" displayName="xdmac" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/peripheral/xdmac/plib_xdmac_common.h</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/peripheral/xdmac/plib_xdmac.h</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f4" displayName="system" projectFiles="true">
-            <logicalFolder name="f3" displayName="fs" projectFiles="true">
+          <logicalFolder name="f5" displayName="system" projectFiles="true">
+            <logicalFolder name="f5" displayName="fs" projectFiles="true">
               <logicalFolder name="f1" displayName="fat_fs" projectFiles="true">
                 <logicalFolder name="f1" displayName="file_system" projectFiles="true">
                   <itemPath>../src/config/sam_e70_xult_bm64/system/fs/fat_fs/src/file_system/ff.h</itemPath>
@@ -207,15 +449,15 @@
               <itemPath>../src/config/sam_e70_xult_bm64/system/input/sys_input_mouse.h</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/system/input/sys_input_touch.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f1" displayName="int" projectFiles="true">
+            <logicalFolder name="f2" displayName="int" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/system/int/sys_int.h</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/system/int/sys_int_mapping.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="ports" projectFiles="true">
+            <logicalFolder name="f3" displayName="ports" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/system/ports/sys_ports.h</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/system/ports/sys_ports_mapping.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f5" displayName="time" projectFiles="true">
+            <logicalFolder name="f1" displayName="time" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/system/time/sys_time.h</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/system/time/sys_time_definitions.h</itemPath>
             </logicalFolder>
@@ -224,7 +466,7 @@
             <itemPath>../src/config/sam_e70_xult_bm64/system/system_module.h</itemPath>
             <itemPath>../src/config/sam_e70_xult_bm64/system/system_media.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f6" displayName="usb" projectFiles="true">
+          <logicalFolder name="f2" displayName="usb" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/usb/src/usb_device_local.h</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/usb/src/usb_device_mapping.h</itemPath>
@@ -232,28 +474,28 @@
               <itemPath>../src/config/sam_e70_xult_bm64/usb/src/usb_external_dependencies.h</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/usb/src/usb_device_cdc_local.h</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/sam_e70_xult_bm64/usb/usb_host_client_driver.h</itemPath>
-            <itemPath>../src/config/sam_e70_xult_bm64/usb/usb_host_hub_interface.h</itemPath>
-            <itemPath>../src/config/sam_e70_xult_bm64/usb/usb_host.h</itemPath>
-            <itemPath>../src/config/sam_e70_xult_bm64/usb/usb_hub.h</itemPath>
             <itemPath>../src/config/sam_e70_xult_bm64/usb/usb_device.h</itemPath>
             <itemPath>../src/config/sam_e70_xult_bm64/usb/usb_common.h</itemPath>
             <itemPath>../src/config/sam_e70_xult_bm64/usb/usb_chapter_9.h</itemPath>
             <itemPath>../src/config/sam_e70_xult_bm64/usb/usb_device_cdc.h</itemPath>
             <itemPath>../src/config/sam_e70_xult_bm64/usb/usb_cdc.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_bm64/usb/usb_host_client_driver.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_bm64/usb/usb_host_hub_interface.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_bm64/usb/usb_host.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_bm64/usb/usb_hub.h</itemPath>
           </logicalFolder>
-          <itemPath>../src/config/sam_e70_xult_bm64/definitions.h</itemPath>
           <itemPath>../src/config/sam_e70_xult_bm64/user.h</itemPath>
           <itemPath>../src/config/sam_e70_xult_bm64/configuration.h</itemPath>
+          <itemPath>../src/config/sam_e70_xult_bm64/definitions.h</itemPath>
         </logicalFolder>
       </logicalFolder>
-      <logicalFolder name="f2" displayName="osal" projectFiles="true">
-        <itemPath>../src/config/sam_e70_xult_bm64/osal/osal.h</itemPath>
-        <itemPath>../src/config/sam_e70_xult_bm64/osal/osal_definitions.h</itemPath>
-        <itemPath>../src/config/sam_e70_xult_bm64/osal/osal_impl_basic.h</itemPath>
+      <logicalFolder name="f3" displayName="osal" projectFiles="true">
+        <itemPath>../src/config/lcc_rgb565_mxt/osal/osal.h</itemPath>
+        <itemPath>../src/config/lcc_rgb565_mxt/osal/osal_definitions.h</itemPath>
+        <itemPath>../src/config/lcc_rgb565_mxt/osal/osal_impl_basic.h</itemPath>
       </logicalFolder>
-      <logicalFolder name="f3" displayName="packs" projectFiles="true">
-        <logicalFolder name="f2" displayName="ATSAME70Q21B_DFP" projectFiles="true">
+      <logicalFolder name="f2" displayName="packs" projectFiles="true">
+        <logicalFolder name="f1" displayName="ATSAME70Q21B_DFP" projectFiles="true">
           <logicalFolder name="f1" displayName="component" projectFiles="true">
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/acc.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/aes.h</itemPath>
@@ -298,7 +540,7 @@
           <itemPath>../src/packs/ATSAME70Q21B_DFP/device.h</itemPath>
           <itemPath>../src/packs/ATSAME70Q21B_DFP/atsame70q21b.h</itemPath>
         </logicalFolder>
-        <logicalFolder name="f1" displayName="CMSIS" projectFiles="true">
+        <logicalFolder name="f2" displayName="CMSIS" projectFiles="true">
           <logicalFolder name="f1" displayName="CMSIS" projectFiles="true">
             <logicalFolder name="f1" displayName="Core" projectFiles="true">
               <logicalFolder name="f1" displayName="Include" projectFiles="true">
@@ -331,24 +573,268 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="config" projectFiles="true">
+        <logicalFolder name="f2" displayName="lcc_rgb565_mxt" projectFiles="true">
+          <logicalFolder name="f6" displayName="bsp" projectFiles="true">
+            <itemPath>../src/config/lcc_rgb565_mxt/bsp/bsp.c</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f4" displayName="driver" projectFiles="true">
+            <logicalFolder name="f2" displayName="i2c" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/driver/i2c/src/drv_i2c.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/driver/i2c/src/drv_i2c_local.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f3" displayName="input" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/driver/input/drv_maxtouch.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f1" displayName="sdhc" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/driver/sdhc/src/drv_sdhc_host.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/driver/sdhc/src/drv_sdhc.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f4" displayName="usb" projectFiles="true">
+              <logicalFolder name="f1" displayName="usbhsv1" projectFiles="true">
+                <logicalFolder name="f1" displayName="src" projectFiles="true">
+                  <itemPath>../src/config/lcc_rgb565_mxt/driver/usb/usbhsv1/src/drv_usbhsv1.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/driver/usb/usbhsv1/src/drv_usbhsv1_device.c</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="f1" displayName="gfx" projectFiles="true">
+            <logicalFolder name="f2" displayName="driver" projectFiles="true">
+              <logicalFolder name="f1" displayName="lcc" projectFiles="true">
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/driver/controller/lcc/drv_gfx_lcc.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="f1" displayName="hal" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_color.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_context.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_default_impl.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_display.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_display_def.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_driver_interface.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_driver_def.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_processor_def.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_get.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_interface.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_layer.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_pixel_buffer.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_processor_interface.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_rect.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_util.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_set.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_color_blend.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_color_convert.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_color_lerp.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_color_value.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_draw_arc.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_draw_blit.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_draw_circle.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_draw_ellipse.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_draw_line.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_draw_pixel.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_draw_rect.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_draw_stretchblit.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_math.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f5" displayName="libaria" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/libaria_harmony.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/libaria_init.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_array.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_context.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_context_paint.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_draw.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_editwidget.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_event.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_input.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_layer.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_list.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_rectarray.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_scheme.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_screen.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_string.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_utils.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_skin_classic_common.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_arc.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_arc_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_bar_graph.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_bar_graph_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_button.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_button_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_checkbox.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_checkbox_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_circle.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_circle_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_circular_gauge.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_circular_gauge_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_circular_slider.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_circular_slider_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_drawsurface.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_drawsurface_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_gradient.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_gradient_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_groupbox.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_groupbox_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_image.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_image_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_imageplus.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_imageplus_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_imagesequence.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_imagesequence_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_keypad.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_keypad_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_label.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_label_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_line.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_line_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_line_graph.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_line_graph_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_list.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_list_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_listwheel.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_listwheel_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_pie_chart.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_pie_chart_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_progressbar.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_progressbar_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_radial_menu.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_radial_menu_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_radiobutton.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_radiobutton_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_radiobutton_group.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_rectangle.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_rectangle_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_scrollbar.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_scrollbar_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_slider.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_slider_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_textfield.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_textfield_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_touchtest.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_touchtest_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_window.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria_widget_window_skin_classic.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/libaria_events.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/libaria_macros.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f4" displayName="third_party" projectFiles="true">
+              <logicalFolder name="f1" displayName="lodepng" projectFiles="true">
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/third_party/src/lodepng/lodepng.c</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/third_party/decoder/src/jidctint.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f3" displayName="utils" projectFiles="true">
+              <logicalFolder name="f1" displayName="src" projectFiles="true">
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_image_jpg_common.c</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_image_jpg_internal.c</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_image_jpg_external.c</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_image_png_external.c</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_image_png_internal.c</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_image.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_image_raw_external.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_image_raw_internal.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_image_rle_external.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_image_rle_internal.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_image_utils.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_palette.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_string.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_string_external.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_stringbuffer_external.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_string_internal.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_string_query.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_string_utils.c</itemPath>
+            </logicalFolder>
+            <itemPath>../src/config/lcc_rgb565_mxt/gfx/gfx_assets.c</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f3" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="f4" displayName="clk" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/clk/plib_clk.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f6" displayName="nvic" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/nvic/plib_nvic.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f5" displayName="pio" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/pio/plib_pio.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f8" displayName="smc" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/smc/plib_smc.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f1" displayName="tc" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/tc/plib_tc0.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f2" displayName="twihs" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/twihs/plib_twihs0.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f3" displayName="usart" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/usart/plib_usart0.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f7" displayName="xdmac" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/xdmac/plib_xdmac.c</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="f7" displayName="stdio" projectFiles="true">
+            <itemPath>../src/config/lcc_rgb565_mxt/stdio/xc32_monitor.c</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f5" displayName="system" projectFiles="true">
+            <logicalFolder name="f4" displayName="fs" projectFiles="true">
+              <logicalFolder name="f1" displayName="fat_fs" projectFiles="true">
+                <itemPath>../src/config/lcc_rgb565_mxt/system/fs/fat_fs/src/ff.c</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/system/fs/fat_fs/src/diskio.c</itemPath>
+              </logicalFolder>
+              <logicalFolder name="f2" displayName="mpfs" projectFiles="true">
+                <itemPath>../src/config/lcc_rgb565_mxt/system/fs/mpfs/src/mpfs.c</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/lcc_rgb565_mxt/system/fs/src/sys_fs.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/system/fs/src/sys_fs_media_manager.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f3" displayName="input" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input_listener.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f2" displayName="int" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/system/int/src/sys_int.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f1" displayName="time" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/system/time/src/sys_time.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/system/time/src/sys_time_local.h</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="f2" displayName="usb" projectFiles="true">
+            <logicalFolder name="f1" displayName="src" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/usb/src/usb_device.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/usb/src/usb_device_cdc.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/usb/src/usb_device_cdc_acm.c</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <itemPath>../src/config/lcc_rgb565_mxt/usb_device_init_data.c</itemPath>
+          <itemPath>../src/config/lcc_rgb565_mxt/tasks.c</itemPath>
+          <itemPath>../src/config/lcc_rgb565_mxt/initialization.c</itemPath>
+          <itemPath>../src/config/lcc_rgb565_mxt/interrupts.c</itemPath>
+          <itemPath>../src/config/lcc_rgb565_mxt/exceptions.c</itemPath>
+          <itemPath>../src/config/lcc_rgb565_mxt/startup.c</itemPath>
+          <itemPath>../src/config/lcc_rgb565_mxt/libc_syscalls.c</itemPath>
+        </logicalFolder>
         <logicalFolder name="f1" displayName="sam_e70_xult_bm64" projectFiles="true">
-          <logicalFolder name="f3" displayName="bsp" projectFiles="true">
+          <logicalFolder name="f6" displayName="bsp" projectFiles="true">
             <itemPath>../src/config/sam_e70_xult_bm64/bsp/bsp.c</itemPath>
           </logicalFolder>
-          <logicalFolder name="f6" displayName="driver" projectFiles="true">
-            <logicalFolder name="f1" displayName="i2c" projectFiles="true">
+          <logicalFolder name="f4" displayName="driver" projectFiles="true">
+            <logicalFolder name="f2" displayName="i2c" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/driver/i2c/src/drv_i2c.c</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/driver/i2c/src/drv_i2c_local.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="input" projectFiles="true">
+            <logicalFolder name="f3" displayName="input" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/driver/input/drv_maxtouch.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="sdhc" projectFiles="true">
-              <itemPath>../src/config/sam_e70_xult_bm64/driver/sdhc/src/drv_sdhc_file_system.c</itemPath>
-              <itemPath>../src/config/sam_e70_xult_bm64/driver/sdhc/src/drv_sdhc.c</itemPath>
+            <logicalFolder name="f1" displayName="sdhc" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/driver/sdhc/src/drv_sdhc_host.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_bm64/driver/sdhc/src/drv_sdhc.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_bm64/driver/sdhc/src/drv_sdhc_file_system.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="usb" projectFiles="true">
+            <logicalFolder name="f4" displayName="usb" projectFiles="true">
               <logicalFolder name="f1" displayName="usbhsv1" projectFiles="true">
                 <logicalFolder name="f1" displayName="src" projectFiles="true">
                   <itemPath>../src/config/sam_e70_xult_bm64/driver/usb/usbhsv1/src/drv_usbhsv1.c</itemPath>
@@ -357,13 +843,13 @@
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f5" displayName="gfx" projectFiles="true">
-            <logicalFolder name="f4" displayName="driver" projectFiles="true">
+          <logicalFolder name="f1" displayName="gfx" projectFiles="true">
+            <logicalFolder name="f2" displayName="driver" projectFiles="true">
               <logicalFolder name="f1" displayName="lcc" projectFiles="true">
                 <itemPath>../src/config/sam_e70_xult_bm64/gfx/driver/controller/lcc/drv_gfx_lcc.c</itemPath>
               </logicalFolder>
             </logicalFolder>
-            <logicalFolder name="f5" displayName="hal" projectFiles="true">
+            <logicalFolder name="f1" displayName="hal" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/hal/src/gfx.c</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/hal/src/gfx_color.c</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/hal/src/gfx_context.c</itemPath>
@@ -395,7 +881,7 @@
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/hal/src/gfx_draw_stretchblit.c</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/hal/src/gfx_math.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="libaria" projectFiles="true">
+            <logicalFolder name="f5" displayName="libaria" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/libaria/libaria_harmony.c</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/libaria/libaria_init.c</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/libaria/src/libaria.c</itemPath>
@@ -478,13 +964,13 @@
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/libaria/libaria_events.c</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/libaria/libaria_macros.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="third_party" projectFiles="true">
+            <logicalFolder name="f4" displayName="third_party" projectFiles="true">
               <logicalFolder name="f1" displayName="lodepng" projectFiles="true">
                 <itemPath>../src/config/sam_e70_xult_bm64/gfx/third_party/src/lodepng/lodepng.c</itemPath>
               </logicalFolder>
               <itemPath>../src/config/sam_e70_xult_bm64/gfx/third_party/decoder/src/jidctint.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f1" displayName="utils" projectFiles="true">
+            <logicalFolder name="f3" displayName="utils" projectFiles="true">
               <logicalFolder name="f1" displayName="src" projectFiles="true">
                 <itemPath>../src/config/sam_e70_xult_bm64/gfx/utils/src/gfxu_image_jpg_common.c</itemPath>
                 <itemPath>../src/config/sam_e70_xult_bm64/gfx/utils/src/gfxu_image_jpg_internal.c</itemPath>
@@ -508,37 +994,37 @@
             </logicalFolder>
             <itemPath>../src/config/sam_e70_xult_bm64/gfx/gfx_assets.c</itemPath>
           </logicalFolder>
-          <logicalFolder name="f2" displayName="peripheral" projectFiles="true">
-            <logicalFolder name="f1" displayName="clk" projectFiles="true">
+          <logicalFolder name="f3" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="f4" displayName="clk" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/peripheral/clk/plib_clk.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="nvic" projectFiles="true">
+            <logicalFolder name="f6" displayName="nvic" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/peripheral/nvic/plib_nvic.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="pio" projectFiles="true">
+            <logicalFolder name="f5" displayName="pio" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/peripheral/pio/plib_pio.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f5" displayName="smc" projectFiles="true">
+            <logicalFolder name="f8" displayName="smc" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/peripheral/smc/plib_smc.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f6" displayName="tc" projectFiles="true">
+            <logicalFolder name="f1" displayName="tc" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/peripheral/tc/plib_tc0.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f7" displayName="twihs" projectFiles="true">
+            <logicalFolder name="f2" displayName="twihs" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/peripheral/twihs/plib_twihs0.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f8" displayName="usart" projectFiles="true">
+            <logicalFolder name="f3" displayName="usart" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/peripheral/usart/plib_usart0.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="xdmac" projectFiles="true">
+            <logicalFolder name="f7" displayName="xdmac" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/peripheral/xdmac/plib_xdmac.c</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f1" displayName="stdio" projectFiles="true">
+          <logicalFolder name="f7" displayName="stdio" projectFiles="true">
             <itemPath>../src/config/sam_e70_xult_bm64/stdio/xc32_monitor.c</itemPath>
           </logicalFolder>
-          <logicalFolder name="f4" displayName="system" projectFiles="true">
-            <logicalFolder name="f2" displayName="fs" projectFiles="true">
+          <logicalFolder name="f5" displayName="system" projectFiles="true">
+            <logicalFolder name="f4" displayName="fs" projectFiles="true">
               <logicalFolder name="f1" displayName="fat_fs" projectFiles="true">
                 <itemPath>../src/config/sam_e70_xult_bm64/system/fs/fat_fs/src/ff.c</itemPath>
                 <itemPath>../src/config/sam_e70_xult_bm64/system/fs/fat_fs/src/diskio.c</itemPath>
@@ -553,33 +1039,33 @@
               <itemPath>../src/config/sam_e70_xult_bm64/system/input/sys_input.c</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/system/input/sys_input_listener.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f1" displayName="int" projectFiles="true">
+            <logicalFolder name="f2" displayName="int" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/system/int/src/sys_int.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="time" projectFiles="true">
+            <logicalFolder name="f1" displayName="time" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/system/time/src/sys_time.c</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/system/time/src/sys_time_local.h</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f7" displayName="usb" projectFiles="true">
+          <logicalFolder name="f2" displayName="usb" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <itemPath>../src/config/sam_e70_xult_bm64/usb/src/usb_device.c</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/usb/src/usb_device_cdc.c</itemPath>
               <itemPath>../src/config/sam_e70_xult_bm64/usb/src/usb_device_cdc_acm.c</itemPath>
             </logicalFolder>
           </logicalFolder>
+          <itemPath>../src/config/sam_e70_xult_bm64/usb_device_init_data.c</itemPath>
+          <itemPath>../src/config/sam_e70_xult_bm64/tasks.c</itemPath>
           <itemPath>../src/config/sam_e70_xult_bm64/initialization.c</itemPath>
           <itemPath>../src/config/sam_e70_xult_bm64/interrupts.c</itemPath>
           <itemPath>../src/config/sam_e70_xult_bm64/exceptions.c</itemPath>
           <itemPath>../src/config/sam_e70_xult_bm64/startup.c</itemPath>
           <itemPath>../src/config/sam_e70_xult_bm64/libc_syscalls.c</itemPath>
-          <itemPath>../src/config/sam_e70_xult_bm64/tasks.c</itemPath>
-          <itemPath>../src/config/sam_e70_xult_bm64/usb_device_init_data.c</itemPath>
         </logicalFolder>
       </logicalFolder>
       <itemPath>../src/app_splash_single_layer.c</itemPath>
-      <itemPath>../src/main.c</itemPath>
       <itemPath>../src/app.c</itemPath>
+      <itemPath>../src/main.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -593,7 +1079,7 @@
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="sam_e70_xult_bm64" type="2">
+    <conf name="lcc_rgb565_mxt" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <targetDevice>ATSAME70Q21B</targetDevice>
@@ -601,7 +1087,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>ICD4Tool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.10</languageToolchainVersion>
+        <languageToolchainVersion>2.15</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
@@ -665,7 +1151,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/sam_e70_xult_bm64;../src/packs/ATSAME70Q21B_DFP;../src/packs/CMSIS;../src;../src/config/sam_e70_xult_bm64;../src/packs/ATSAME70Q21B_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;"/>
+                  value="../src;../src/config/sam_e70_xult_bm64;../src/packs/ATSAME70Q21B_DFP;../src/packs/CMSIS;../src;../src/config/sam_e70_xult_bm64;../src/packs/ATSAME70Q21B_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/arm;../src/config/lcc_rgb565_mxt"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>

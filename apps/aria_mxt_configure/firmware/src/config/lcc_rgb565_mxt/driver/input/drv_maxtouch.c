@@ -49,10 +49,7 @@
 #include <string.h>
 #include <stdio.h>
 
-/* Firmware files */
-#define MXT_MOUNT_NAME       "/mnt/mydrive"
-#define MXT_DEV_NAME         "/dev/mmcblka1"
-#define MXT_FILE_NAME        "maxtouch.xcfg"
+/* Firmware config definitions */
 #define MXT_CFG_MAGIC		 "OBP_RAW V1"
 
 /* Registers */
@@ -91,24 +88,24 @@
 #define MXT_COMMAND_DIAGNOSTIC	5
 
 /* Define for MXT_GEN_COMMAND_T6 */
-#define MXT_BOOT_VALUE		0xa5
-#define MXT_RESET_VALUE		0x01
-#define MXT_BACKUP_VALUE	0x55
+#define MXT_BOOT_VALUE          0xa5
+#define MXT_RESET_VALUE         0x01
+#define MXT_BACKUP_VALUE        0x55
 
 /* Delay times */
-#define MXT_BACKUP_TIME         50      /* msec */
-#define MXT_RESET_GPIO_TIME     20      /* msec */
-#define MXT_RESET_INVALID_CHG	100     /* msec */
-#define MXT_RESET_TIME          200     /* msec */
-#define MXT_RESET_TIMEOUT       3000	/* msec */
-#define MXT_CRC_TIMEOUT         1000	/* msec */
-#define MXT_FW_RESET_TIME       3000	/* msec */
-#define MXT_FW_CHG_TIMEOUT      300     /* msec */
+#define MXT_BACKUP_TIME             50      /* msec */
+#define MXT_RESET_GPIO_TIME         20      /* msec */
+#define MXT_RESET_INVALID_CHG       100     /* msec */
+#define MXT_RESET_TIME              200     /* msec */
+#define MXT_RESET_TIMEOUT           3000	/* msec */
+#define MXT_CRC_TIMEOUT             1000	/* msec */
+#define MXT_FW_RESET_TIME           3000	/* msec */
+#define MXT_FW_CHG_TIMEOUT          300     /* msec */
 #define MXT_POWER_CFG_RUN           0
 #define MXT_POWER_CFG_DEEPSLEEP		1
 
 /* MXT_GEN_MESSAGE_T5 object */
-#define MXT_RPTID_NOMSG                 0xff
+#define MXT_RPTID_NOMSG             0xff
 
 /* T100 Multiple Touch Touchscreen */
 #define MXT_T100_CTRL		0
@@ -259,8 +256,7 @@ struct t7_config {
 /* Each client has this additional data */
 struct mxt_data {
 	struct i2c_client *client;
-	struct input_dev *input_dev;
-	char phys[64];		/* device physical location */
+//	struct input_dev *input_dev;
 	struct mxt_object *object_table;
 	struct mxt_info *info;
 	void *raw_info_block;
@@ -329,199 +325,14 @@ struct mxt_data {
 
     SYS_STATUS status;
     bool isExclusive;
-   int cfg_start_ofs;
-   uint8_t config_mem[2000];
-   size_t config_mem_size;
-   int num_left;
-   int count;
-   uint32_t progress;
+    
+    int cfg_start_ofs;
+    uint8_t config_mem[2000];
+    size_t config_mem_size;
+    int num_left;
+    int count;
+    uint32_t progress;
 };
-
-// MAXTOUCH object IDs
-typedef enum
-{
-    MAXTOUCH_OBJECT_RESERVED_T0 = 0 , 
-    MAXTOUCH_OBJECT_RESERVED_T1 = 1 , 
-    MAXTOUCH_OBJECT_DEBUG_DELTAS_T2 = 2 , 
-    MAXTOUCH_OBJECT_DEBUG_REFERENCES_T3 = 3 , 
-    MAXTOUCH_OBJECT_DEBUG_SIGNALS_T4 = 4 , 
-    MAXTOUCH_OBJECT_GEN_MESSAGEPROCESSOR_T5 = 5 , 
-    MAXTOUCH_OBJECT_GEN_COMMANDPROCESSOR_T6 = 6 , 
-    MAXTOUCH_OBJECT_GEN_POWERCONFIG_T7 = 7 , 
-    MAXTOUCH_OBJECT_GEN_ACQUISITIONCONFIG_T8 = 8 , 
-    MAXTOUCH_OBJECT_TOUCH_MULTITOUCHSCREEN_T9 = 9 , 
-    MAXTOUCH_OBJECT_TOUCH_SINGLETOUCHSCREEN_T10 = 10 , 
-    MAXTOUCH_OBJECT_TOUCH_XSLIDER_T11 = 11 , 
-    MAXTOUCH_OBJECT_TOUCH_YSLIDER_T12 = 12 , 
-    MAXTOUCH_OBJECT_TOUCH_XWHEEL_T13 = 13 , 
-    MAXTOUCH_OBJECT_TOUCH_YWHEEL_T14 = 14 , 
-    MAXTOUCH_OBJECT_TOUCH_KEYARRAY_T15 = 15 , 
-    MAXTOUCH_OBJECT_PROCG_SIGNALFILTER_T16 = 16 , 
-    MAXTOUCH_OBJECT_PROCI_LINEARIZATIONTABLE_T17 = 17 , 
-    MAXTOUCH_OBJECT_SPT_COMMSCONFIG_T18 = 18 , 
-    MAXTOUCH_OBJECT_SPT_GPIOPWM_T19 = 19 , 
-    MAXTOUCH_OBJECT_PROCI_GRIPFACESUPPRESSION_T20 = 20 , 
-    MAXTOUCH_OBJECT_RESERVED_T21 = 21 , 
-    MAXTOUCH_OBJECT_PROCG_NOISESUPPRESSION_T22 = 22 , 
-    MAXTOUCH_OBJECT_TOUCH_PROXIMITY_T23 = 23 , 
-    MAXTOUCH_OBJECT_PROCI_ONETOUCHGESTUREPROCESSOR_T24 = 24 , 
-    MAXTOUCH_OBJECT_SPT_SELFTEST_T25 = 25 , 
-    MAXTOUCH_OBJECT_DEBUG_CTERANGE_T26 = 26 , 
-    MAXTOUCH_OBJECT_PROCI_TWOTOUCHGESTUREPROCESSOR_T27 = 27 , 
-    MAXTOUCH_OBJECT_SPT_CTECONFIG_T28 = 28 , 
-    MAXTOUCH_OBJECT_SPT_GPI_T29 = 29 , 
-    MAXTOUCH_OBJECT_SPT_GATE_T30 = 30 , 
-    MAXTOUCH_OBJECT_TOUCH_KEYSET_T31 = 31 , 
-    MAXTOUCH_OBJECT_TOUCH_XSLIDERSET_T32 = 32 , 
-    MAXTOUCH_OBJECT_RESERVED_T33 = 33 , 
-    MAXTOUCH_OBJECT_GEN_MESSAGEBLOCK_T34 = 34 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T35 = 35 , 
-    MAXTOUCH_OBJECT_RESERVED_T36 = 36 , 
-    MAXTOUCH_OBJECT_DEBUG_DIAGNOSTIC_T37 = 37 , 
-    MAXTOUCH_OBJECT_SPT_USERDATA_T38 = 38 , 
-    MAXTOUCH_OBJECT_SPARE_T39 = 39 , 
-    MAXTOUCH_OBJECT_PROCI_GRIPSUPPRESSION_T40 = 40 , 
-    MAXTOUCH_OBJECT_PROCI_PALMSUPPRESSION_T41 = 41 , 
-    MAXTOUCH_OBJECT_PROCI_TOUCHSUPPRESSION_T42 = 42 , 
-    MAXTOUCH_OBJECT_SPT_DIGITIZER_T43 = 43 , 
-    MAXTOUCH_OBJECT_SPT_MESSAGECOUNT_T44 = 44 , 
-    MAXTOUCH_OBJECT_PROCI_VIRTUALKEY_T45 = 45 , 
-    MAXTOUCH_OBJECT_SPT_CTECONFIG_T46 = 46 , 
-    MAXTOUCH_OBJECT_PROCI_STYLUS_T47 = 47 , 
-    MAXTOUCH_OBJECT_PROCG_NOISESUPPRESSION_T48 = 48 , 
-    MAXTOUCH_OBJECT_GEN_DUALPULSE_T49 = 49 , 
-    MAXTOUCH_OBJECT_SPARE_T50 = 50 , 
-    MAXTOUCH_OBJECT_SPT_SONY_CUSTOM_T51 = 51 , 
-    MAXTOUCH_OBJECT_TOUCH_PROXKEY_T52 = 52 , 
-    MAXTOUCH_OBJECT_GEN_DATASOURCE_T53 = 53 , 
-    MAXTOUCH_OBJECT_PROCG_NOISESUPPRESSION_T54 = 54 , 
-    MAXTOUCH_OBJECT_PROCI_ADAPTIVETHRESHOLD_T55 = 55 , 
-    MAXTOUCH_OBJECT_PROCI_SHIELDLESS_T56 = 56 , 
-    MAXTOUCH_OBJECT_PROCI_EXTRATOUCHSCREENDATA_T57 = 57 , 
-    MAXTOUCH_OBJECT_SPT_EXTRANOISESUPCTRLS_T58 = 58 , 
-    MAXTOUCH_OBJECT_SPT_FASTDRIFT_T59 = 59 , 
-    MAXTOUCH_OBJECT_SPT_TIMER_T61 = 61 , 
-    MAXTOUCH_OBJECT_PROCG_NOISESUPPRESSION_T62 = 62 , 
-    MAXTOUCH_OBJECT_PROCI_ACTIVESTYLUS_T63 = 63 , 
-    MAXTOUCH_OBJECT_SPT_REFERENCERELOAD_T64 = 64 , 
-    MAXTOUCH_OBJECT_PROCI_LENSBENDING_T65 = 65 , 
-    MAXTOUCH_OBJECT_SPT_GOLDENREFERENCES_T66 = 66 , 
-    MAXTOUCH_OBJECT_PROCI_CUSTOMGESTUREPROCESSOR_T67 = 67 , 
-    MAXTOUCH_OBJECT_SERIAL_DATA_COMMAND_T68 = 68 , 
-    MAXTOUCH_OBJECT_PROCI_PALMGESTUREPROCESSOR_T69 = 69 , 
-    MAXTOUCH_OBJECT_SPT_DYNAMICCONFIGURATIONCONTROLLER_T70 = 70 , 
-    MAXTOUCH_OBJECT_SPT_DYNAMICCONFIGURATIONCONTAINER_T71 = 71 , 
-    MAXTOUCH_OBJECT_PROCG_NOISESUPPRESSION_T72 = 72 , 
-    MAXTOUCH_OBJECT_PROCI_ZONEINDICATION_T73 = 73 , 
-    MAXTOUCH_OBJECT_PROCG_SIMPLEGESTUREPROCESSOR_T74 = 74 , 
-    MAXTOUCH_OBJECT_MOTION_SENSING_OBJECT_T75 = 75 , 
-    MAXTOUCH_OBJECT_PROCI_MOTION_GESTURES_T76 = 76 , 
-    MAXTOUCH_OBJECT_SPT_CTESCANCONFIG_T77 = 77 , 
-    MAXTOUCH_OBJECT_PROCI_GLOVEDETECTION_T78 = 78 , 
-    MAXTOUCH_OBJECT_SPT_TOUCHEVENTTRIGGER_T79 = 79 , 
-    MAXTOUCH_OBJECT_PROCI_RETRANSMISSIONCOMPENSATION_T80 = 80 , 
-    MAXTOUCH_OBJECT_PROCI_UNLOCKGESTURE_T81 = 81 , 
-    MAXTOUCH_OBJECT_SPT_NOISESUPEXTENSION_T82 = 82 , 
-    MAXTOUCH_OBJECT_ENVIRO_LIGHTSENSING_T83 = 83 , 
-    MAXTOUCH_OBJECT_PROCI_GESTUREPROCESSOR_T84 = 84 , 
-    MAXTOUCH_OBJECT_PEN_ACTIVESTYLUSPOWER_T85 = 85 , 
-    MAXTOUCH_OBJECT_PROCG_NOISESUPACTIVESTYLUS_T86 = 86 , 
-    MAXTOUCH_OBJECT_PEN_ACTIVESTYLUSDATA_T87 = 87 , 
-    MAXTOUCH_OBJECT_PEN_ACTIVESTYLUSRECEIVE_T88 = 88 , 
-    MAXTOUCH_OBJECT_PEN_ACTIVESTYLUSTRANSMIT_T89 = 89 , 
-    MAXTOUCH_OBJECT_PEN_ACTIVESTYLUSWINDOW_T90 = 90 , 
-    MAXTOUCH_OBJECT_DEBUG_CUSTOMDATACONFIG_T91 = 91 , 
-    MAXTOUCH_OBJECT_PROCI_SYMBOLGESTUREPROCESSOR_T92 = 92 , 
-    MAXTOUCH_OBJECT_PROCI_TOUCHSEQUENCELOGGER_T93 = 93 , 
-    MAXTOUCH_OBJECT_SPT_PTCCONFIG_T95 = 95 , 
-    MAXTOUCH_OBJECT_SPT_PTCTUNINGPARAMS_T96 = 96 , 
-    MAXTOUCH_OBJECT_TOUCH_PTCKEYS_T97 = 97 , 
-    MAXTOUCH_OBJECT_PROCG_PTCNOISESUPPRESSION_T98 = 98 , 
-    MAXTOUCH_OBJECT_PROCI_KEYGESTUREPROCESSOR_T99 = 99 , 
-    MAXTOUCH_OBJECT_TOUCH_MULTITOUCHSCREEN_T100 = 100 , 
-    MAXTOUCH_OBJECT_SPT_TOUCHSCREENHOVER_T101 = 101 , 
-    MAXTOUCH_OBJECT_SPT_SELFCAPHOVERCTECONFIG_T102 = 102 , 
-    MAXTOUCH_OBJECT_PROCI_SCHNOISESUPPRESSION_T103 = 103 , 
-    MAXTOUCH_OBJECT_SPT_AUXTOUCHCONFIG_T104 = 104 , 
-    MAXTOUCH_OBJECT_SPT_DRIVENPLATEHOVERCONFIG_T105 = 105 , 
-    MAXTOUCH_OBJECT_SPT_ACTIVESTYLUSMMBCONFIG_T106 = 106 , 
-    MAXTOUCH_OBJECT_PROCI_ACTIVESTYLUS_T107 = 107 , 
-    MAXTOUCH_OBJECT_PROCG_NOISESUPSELFCAP_T108 = 108 , 
-    MAXTOUCH_OBJECT_SPT_SELFCAPGLOBALCONFIG_T109 = 109 , 
-    MAXTOUCH_OBJECT_SPT_SELFCAPTUNINGPARAMS_T110 = 110 , 
-    MAXTOUCH_OBJECT_SPT_SELFCAPCONFIG_T111 = 111 , 
-    MAXTOUCH_OBJECT_PROCI_SELFCAPGRIPSUPPRESSION_T112 = 112 , 
-    MAXTOUCH_OBJECT_SPT_PROXMEASURECONFIG_T113 = 113 , 
-    MAXTOUCH_OBJECT_SPT_ACTIVESTYLUSMEASCONFIG_T114 = 114 , 
-    MAXTOUCH_OBJECT_PROCI_SYMBOLGESTURE_T115 = 115 , 
-    MAXTOUCH_OBJECT_SPT_SYMBOLGESTURECONFIG_T116 = 116 , 
-    MAXTOUCH_OBJECT_GEN_INFOBLOCK16BIT_T254 = 254 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T220 = 220 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T221 = 221 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T222 = 222 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T223 = 223 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T224 = 224 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T225 = 225 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T226 = 226 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T227 = 227 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T228 = 228 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T229 = 229 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T230 = 230 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T231 = 231 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T232 = 232 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T233 = 233 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T234 = 234 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T235 = 235 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T236 = 236 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T237 = 237 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T238 = 238 , 
-    MAXTOUCH_OBJECT_SPT_PROTOTYPE_T239 = 239 , 
-    MAXTOUCH_OBJECT_RESERVED_T255 = 255 ,
-} MAXTOUCH_OBJECT_TYPE;
-
-//#define MESSAGE_CHECKSUM_ENABLED
-
-// structs defining pieces of the MAXTOUCH information header block
-typedef struct MAXTOUCH_ID_Info_t
-{
-    uint8_t family_id;              /* address 0 */
-    uint8_t variant_id;             /* address 1 */
-    uint8_t version;                /* address 2 */
-    uint8_t build;                  /* address 3 */
-    uint8_t matrix_x_size;          /* address 4 */
-    uint8_t matrix_y_size;          /* address 5 */
-    uint8_t num_declared_objects;   /* address 6 */
-} __attribute__((packed)) MAXTOUCH_ID_Info;
-
-typedef struct MAXTOUCH_Object_t
-{
-    uint8_t  object_type;            /* Object type ID */
-    uint16_t i2c_address;            /* Start address of the obj config structure */
-    uint8_t  size;                   /* Byte length of the obj config structure -1 */
-    uint8_t  instances;              /* Number of objects of this obj. type -1 */
-    uint8_t  num_report_ids;         /* e.g. max number of touches in a screen etc */
-    
-} __attribute__((packed)) MAXTOUCH_Object;
-
-
-typedef struct MAXTOUCH_CRC_t
-{
-    uint16_t CRC_lo;                 /* low 16 bits of 24 bit value */
-    uint8_t  CRC_hi;                 /* high 8 bits of 24 bit value */
-} __attribute__((packed)) MAXTOUCH_CRC;
-
-typedef struct MAXTOUCH_InfoBlock_t
-{
-    /* Pointer to the struct containing ID information */
-    MAXTOUCH_ID_Info* id;
-    
-    /* Pointer to an array of objects */
-    MAXTOUCH_Object* objectTable;
-        
-    /* Pointer to information block checksum */
-    MAXTOUCH_CRC* crc;
-    
-} MAXTOUCH_InfoBlock;
 
 // this is the maximum message size the message processor may issue
 // hardcoded for simplicity but this value may change between part versions
@@ -546,29 +357,6 @@ typedef struct MAXTOUCH_TouchEvent_t
     uint8_t y_hi;
     uint8_t aux[4];
 } MAXTOUCH_TouchEvent;
-
-/* maxtouch information block */
-uint32_t objectCount;
-//uint32_t messageDataSize = MESSAGE_DATA_SIZE; // Prevent assert at line 739 from
-//                                              // firing at startup.
-MAXTOUCH_Object* objectTable;
-
-void* idBlock;
-void* infoBlockData;
-uint32_t infoBlockSize;
-MAXTOUCH_InfoBlock infoBlock;
-
-
-typedef struct MAXTOUCH_ReportIDMap_t
-{
-    uint8_t objectType;
-    uint8_t instance;
-    uint8_t baseID;
-} MAXTOUCH_ReportIDMap;
-
-MAXTOUCH_ReportIDMap report_id_map[50];
-MAXTOUCH_ReportIDMap* reportIDMapList;
-uint32_t reportIDMapSize;
 
 // MAXTOUCH Driver Module Index Count
 typedef enum {
@@ -648,7 +436,7 @@ typedef enum
     APP_DRV_MAXTOUCH_ConfigLoad,
     APP_DRV_MAXTOUCH_ConfigParse,
     APP_DRV_MAXTOUCH_ConfigSave,
-    APP_DRV_MAXTOUCH_Tasks,
+    APP_DRV_MAXTOUCH_ResetCallback,
     /* TODO: Define states used by the application state machine. */
 
 } API_EVENTS;
@@ -662,13 +450,6 @@ typedef enum
     CONFIG_STATE_MXT_COMMAND_RESET_READ,
     CONFIG_STATE_MXT_COMMAND_RESET_HANDLE,
 } CONFIG_STATE;
-
-// I2C task buffer
-//typedef struct
-//{
-//    /* Response to Read Object Command */
-//    uint8_t drvI2CFrameData[I2C_FRAME_SIZE];
-//} TASK_QUEUE;
 
 // defines an MAXTOUCH driver object instance
 struct DEVICE_OBJECT
@@ -754,7 +535,7 @@ struct DEVICE_OBJECT
     DRV_MAXTOUCH_ConfigFileEof_FnPtr eof;
 };
 
-uint8_t CONFIG_MEM[0x800];
+//uint8_t CONFIG_MEM[0x800];
 static uint32_t progress[9] = { 12, 24, 36, 48, 60, 72, 94, 100, 0 };
 static uint8_t buf[255];
 
@@ -781,12 +562,10 @@ return(BSP_MAXTOUCH_CHG_Get());
 #endif
 }
 
-//static int32_t buildObjectMap();
-//static void _findTouchBaseID();
 static void _handleTouchMessage(uint8_t touchID, MAXTOUCH_TouchEvent* tchEvt);
 static bool mxt_init_t7_power_cfg(struct DEVICE_OBJECT* pDeviceObject);
 static bool mxt_load_xcfg_file(struct DEVICE_OBJECT* pDeviceObject, const char *filename);
-static bool mxt_load_raw_file(struct DEVICE_OBJECT* pDeviceObject, const char *filename);
+static bool mxt_load_raw_file(struct DEVICE_OBJECT* pDeviceObject, char * cfg);
 static bool mxt_load_raw_flash(struct DEVICE_OBJECT* pDeviceObject, char * cfg);
 static bool mxt_soft_reset(struct DEVICE_OBJECT* pDeviceObject);
 static bool mxt_configure_objects(struct DEVICE_OBJECT* pDeviceObject, DRV_MAXTOUCH_Firmware *firmware);
@@ -795,6 +574,7 @@ static bool mxt_parse_object_table(struct DEVICE_OBJECT* pDeviceObject,
 				  struct mxt_object *object_table);
 static int mxt_upload_cfg_mem(struct DEVICE_OBJECT* pDeviceObject);
 static bool mxt_proc_message(struct mxt_data *data, uint8_t *message);
+static bool mxt_load_xcfg_file(struct DEVICE_OBJECT *pDrvObject, const char *filename);
 
 
 #ifdef MESSAGE_CHECKSUM_ENABLED
@@ -803,8 +583,6 @@ static uint8_t checksumMessage(uint8_t* msg);
 
 /* MAXTOUCH Driver instance object */
 struct DEVICE_OBJECT sMAXTOUCHDriverInstances[DRV_MAXTOUCH_INDEX_COUNT];
-
-bool mxt_load_xcfg_file(struct DEVICE_OBJECT *pDrvObject, const char *filename);
 
 static SYS_TIME_HANDLE resetTimer;
 
@@ -835,7 +613,7 @@ static void resetTimer_Callback ( uintptr_t context )
             obj->configState = CONFIG_STATE_MXT_COMMAND_BACKUPNV_WRITE;
             break;
             
-        case APP_DRV_MAXTOUCH_Tasks:
+        case APP_DRV_MAXTOUCH_ResetCallback:
             obj->deviceState = DEVICE_STATE_REQUEST_ID_BLOCK;
             break;
             
@@ -1012,7 +790,7 @@ SYS_MODULE_OBJ DRV_MAXTOUCH_Initialize(const SYS_MODULE_INDEX index,
     /* */
     pDrvInstance->drvOpen         = pInit->drvOpen;
     pDrvInstance->drvI2CHandle    = DRV_HANDLE_INVALID;
-    infoBlockData = NULL;
+//    infoBlockData = NULL;
     
     if(pInit->horizontalResolution > 0)
         pDrvInstance->xRes            = pInit->horizontalResolution - 1;
@@ -1134,7 +912,7 @@ void DRV_MAXTOUCH_Close (DRV_HANDLE handle)
     pDrvObject->deviceState = DEVICE_STATE_REQUEST_ID_BLOCK;    
     
     /* free up the memory used */
-    OSAL_Free(infoBlockData);
+    OSAL_Free(pDrvObject->data.object_table);
 }
 
 void DRV_MAXTOUCH_ConfigParse ( SYS_MODULE_OBJ object, DRV_MAXTOUCH_Firmware * firmware )
@@ -1229,7 +1007,7 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
                                 DRV_MAXTOUCH_RESET_TIMER_PERIOD_MS,
                                 SYS_TIME_SINGLE);
             
-            pDrvObject->apiEvent = APP_DRV_MAXTOUCH_Tasks;
+            pDrvObject->apiEvent = APP_DRV_MAXTOUCH_ResetCallback;
             pDrvObject->deviceState = DEVICE_STATE_WAIT;
 
             break;
@@ -1240,15 +1018,18 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
             SYS_DEBUG_Print("MXT State Init\n");
 #endif           
 			
+            /* set information block address read */
             buf[0] = 0;
             buf[1] = 0;
             
+            /* request info block from the controller */
             DRV_I2C_WriteTransferAdd(pDrvObject->drvI2CHandle,
                                        I2C_MASTER_WRITE_ID, 
                                        &buf[0],
                                        2,
                                        &pDrvObject->hInformationBlockRequest);
 
+            /* wait for read complete callback from I2C */
             pDrvObject->deviceState = DEVICE_STATE_WAIT;
             
             break;
@@ -1260,15 +1041,18 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
             SYS_DEBUG_Print("MXT Reset\n");
 #endif
             
-            /* Read 7-byte ID information block starting at address 0 */
-	        idBlock = OSAL_Malloc(sizeof(MAXTOUCH_ID_Info));
+            /* allocate memory to hold information block */
+	        pDrvObject->data.info = OSAL_Malloc(sizeof(struct mxt_info));
 
+            /* clock in the information block */
+            /* read  7-byte ID information block starting at address 0 */
             DRV_I2C_ReadTransferAdd(pDrvObject->drvI2CHandle,
                                       I2C_MASTER_READ_ID,
-                                      idBlock,
-                                      sizeof(MAXTOUCH_ID_Info),
+                                      pDrvObject->data.info,
+                                      sizeof(struct mxt_info),
                                       &pDrvObject->hInformationBlockRead);            
             
+            /* wait for read complete callback from I2C */
             pDrvObject->deviceState = DEVICE_STATE_WAIT;
                         
             break;          
@@ -1276,15 +1060,18 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
         
         case DEVICE_STATE_REQUEST_OBJECT_TABLE: /* Request object table */
         {
-            buf[0] = sizeof(MAXTOUCH_ID_Info);
+            /* set object block address read */
+            buf[0] = sizeof(struct mxt_info);
             buf[1] = 0;
             
+            /* request object block from the controller */
             DRV_I2C_WriteTransferAdd(pDrvObject->drvI2CHandle,
                                        I2C_MASTER_WRITE_ID, 
                                        &buf[0],
                                        2,
                                        &pDrvObject->hObjectBlockRequest);
 
+            /* wait for write complete callback from I2C */
             pDrvObject->deviceState = DEVICE_STATE_WAIT;
             break;
         }
@@ -1295,34 +1082,32 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
             SYS_DEBUG_Print("MXT Read Info Block\n");
 #endif
             
-            /* copy the information block */
-            objectCount = ((MAXTOUCH_ID_Info *)idBlock)->num_declared_objects;
+            /* size of info */
+            int size = sizeof(struct mxt_info);
+
+            /* Resize buffer to give space for rest of info block */
+            uint8_t num_objects = pDrvObject->data.info->object_num;
+            size += (num_objects * sizeof(struct mxt_object))
+                + MXT_INFO_CHECKSUM_SIZE;
             
-            /* read the object table */
-            infoBlockSize = sizeof(MAXTOUCH_ID_Info) +
-                            (objectCount * sizeof(MAXTOUCH_Object)) +
-                            sizeof(MAXTOUCH_CRC);
+            pDrvObject->data.raw_info_block = OSAL_Malloc(size);
+            memcpy(pDrvObject->data.raw_info_block, pDrvObject->data.info, size);
             
-            infoBlockData = OSAL_Malloc(infoBlockSize);
-            memcpy(infoBlockData, idBlock, infoBlockSize);
-            
-            infoBlock.id = (MAXTOUCH_ID_Info*)infoBlockData;
-            infoBlock.objectTable = (MAXTOUCH_Object*)((uint8_t*)infoBlockData + sizeof(MAXTOUCH_ID_Info));
-            infoBlock.crc = (MAXTOUCH_CRC*)((uint8_t*)infoBlockData + sizeof(MAXTOUCH_ID_Info)  + (objectCount * sizeof(MAXTOUCH_Object)));
-                       
-//            SYS_ASSERT(messageDataSize == MESSAGE_DATA_SIZE,
-//                       "MAXTOUCH Driver: Predefined max message data size does not match calculated value.");
-           
+            pDrvObject->data.object_table = (struct mxt_object*)((uint8_t*)pDrvObject->data.raw_info_block + sizeof(struct mxt_info));
+                                  
 #ifdef DEBUG_ENABLE            
             SYS_DEBUG_Print("Message data size: %d\n", messageDataSize);
 #endif
             
+            /* clock in the object table */
+            /* read starting at object table */
             DRV_I2C_ReadTransferAdd(pDrvObject->drvI2CHandle,
                                     I2C_MASTER_READ_ID,
-                                    infoBlock.objectTable,
-                                    infoBlockSize-7,
+                                    pDrvObject->data.object_table,
+                                    size-sizeof(struct mxt_info),
                                     &pDrvObject->hObjectBlockRead);
             
+            /* wait for read complete callback from I2C */
             pDrvObject->deviceState = DEVICE_STATE_WAIT;
 
             break;            
@@ -1335,19 +1120,19 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
             SYS_DEBUG_Print("MXT Read Object Table\n");
 #endif
                         
-            /* Read 7-byte ID information block starting at address 0 */
+            /* size of info */
             int size = sizeof(struct mxt_info);
 
             /* Resize buffer to give space for rest of info block */
-            uint8_t num_objects = ((struct mxt_info *)idBlock)->object_num;
+            uint8_t num_objects = pDrvObject->data.info->object_num;
             size += (num_objects * sizeof(struct mxt_object))
                 + MXT_INFO_CHECKSUM_SIZE;
     
             /* Extract & calculate checksum */
-            uint8_t * crc_ptr = infoBlockData + size - MXT_INFO_CHECKSUM_SIZE;
+            uint8_t * crc_ptr = (uint8_t *)pDrvObject->data.raw_info_block + size - MXT_INFO_CHECKSUM_SIZE;
             pDrvObject->data.info_crc = crc_ptr[0] | (crc_ptr[1] << 8) | (crc_ptr[2] << 16);
 
-            uint32_t calculated_crc = mxt_calculate_crc(infoBlockData, 0,
+            uint32_t calculated_crc = mxt_calculate_crc((uint8_t*)pDrvObject->data.raw_info_block, 0,
                                size - MXT_INFO_CHECKSUM_SIZE);
 
             /*
@@ -1356,25 +1141,20 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
              */
             if ((pDrvObject->data.info_crc == 0) || (pDrvObject->data.info_crc != calculated_crc)) {
                 pDrvObject->deviceState = DEVICE_STATE_ERROR;
-                break;
+//                break;
             }                        
             
             // turn on message crc8 checksum
 #ifdef MESSAGE_CHECKSUM_ENABLED
             messageProcessor->i2c_address |= 0x8000;
-#endif
-                                      
-            pDrvObject->deviceState = DEVICE_STATE_CONFIGURE_RESOLUTION;
-//            pDrvObject->deviceState = DEVICE_STATE_T44_T5_MESSAGE_REQUEST;
-
-            pDrvObject->data.raw_info_block = idBlock;
-            pDrvObject->data.info = (struct mxt_info *)idBlock;
+#endif                                     
 
             /* Parse object table information */
-            mxt_parse_object_table(pDrvObject, infoBlockData + MXT_OBJECT_START);
-
-            pDrvObject->data.object_table = (struct mxt_object *)(infoBlockData + MXT_OBJECT_START);
+            mxt_parse_object_table(pDrvObject, pDrvObject->data.object_table);// + MXT_OBJECT_START);
     
+            /* new state is config resolution */
+            pDrvObject->deviceState = DEVICE_STATE_CONFIGURE_RESOLUTION;
+
             break;
         }   
         
@@ -1386,8 +1166,7 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
             
             _RegWrite16(pDrvObject, T100_XRANGE, pDrvObject->xRes, &pDrvObject->hXRangeWrite );
             
-            //pDrvObject->status = SYS_STATUS_READY;
-            pDrvObject->deviceState = DEVICE_STATE_WRITE_T100_XRANGE;
+            /* wait for response from I2C then new state wll be T100_XRANGE */
             pDrvObject->deviceState = DEVICE_STATE_WAIT;
 
             break;
@@ -1402,7 +1181,7 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
            
             _RegWrite16(pDrvObject, T100_YRANGE, pDrvObject->yRes, &pDrvObject->hYRangeWrite);
     
-            pDrvObject->deviceState = DEVICE_STATE_WRITE_T100_YRANGE;
+            /* wait for response from I2C then new state will be T100_YRANGE */
             pDrvObject->deviceState = DEVICE_STATE_WAIT;
 
             break;
@@ -1415,8 +1194,11 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
             SYS_DEBUG_Print("MXT Write T100 YRange %d\n", pDrvObject->taskQueue[0].drvI2CFrameData[2] | pDrvObject->taskQueue[0].drvI2CFrameData[3] << 8);
 #endif
             
+            /* say we are ready and go to ready state */
             pDrvObject->status = SYS_STATUS_READY;
             pDrvObject->deviceState = DEVICE_STATE_READY;
+            
+            /* this for T44 T5 message count method  */
 ////            pDrvObject->deviceState = DEVICE_STATE_T44_T5_MESSAGE_REQUEST;
             
             break;
@@ -1557,10 +1339,13 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
         { 
             /* Check for ~CHG line asserted in case interrupt line did not come back up high */
             /* send a read request to the message processor object T5 */ 
+            /* use multi-message - NOT IMPLEMENTED */
 //            if(MXT_INTERRUPT_PIN_VALUE_GET() == false)
 //                pDrvObject->deviceState = DEVICE_STATE_T44_T5_MESSAGE_REQUEST;
 //            else
 //                break;
+            
+            /* use single message */
             if(MXT_INTERRUPT_PIN_VALUE_GET() == false)
             {
                 _MessageObjectRead(pDrvObject);
@@ -2374,7 +2159,7 @@ static bool mxt_prepare_cfg_mem(struct DEVICE_OBJECT *pDrvObject,
 		/* Read type, instance, length */
 		ret = sscanf(ptr, "%x %x %x",
 			     &type, &instance, &size);
-		if (ret == EOF) {
+		if (ret == EOF || type == 0x0 ) {
 			/* EOF */
 			break;
 		} else if (ret != 3) {
@@ -2457,12 +2242,11 @@ static bool mxt_prepare_cfg_mem(struct DEVICE_OBJECT *pDrvObject,
 				return false;
 			}
 		}
+        ptr+=1;
 	}
 
 	return true;
 }
-
-//static  uint8_t MEM[6][255];
 
 int mxt_upload_cfg_mem(struct DEVICE_OBJECT* pDeviceObject)
 {
@@ -2560,7 +2344,7 @@ bool mxt_configure_objects(struct DEVICE_OBJECT* pDeviceObject, DRV_MAXTOUCH_Fir
         if (extension && !strcmp(extension, ".xcfg")) {
           mxt_load_xcfg_file(pDeviceObject, (const char*)firmware->data);
         } else {
-          mxt_load_raw_file(pDeviceObject, (const char*)firmware->data);
+          mxt_load_raw_file(pDeviceObject, (char*)firmware->data);
         }
     }
     
@@ -2866,10 +2650,7 @@ static bool mxt_load_raw_flash(struct DEVICE_OBJECT* pDeviceObject, char * flash
 {
 	struct mxt_info cfg_info;
 	int ret=0;
-//	int cfg_start_ofs;
 	uint32_t info_crc, config_crc, calculated_crc;
-//	uint8_t *config_mem;
-//	size_t config_mem_size;
     
 	mxt_update_crc(pDeviceObject, MXT_COMMAND_REPORTALL, 1);
     
@@ -2972,9 +2753,110 @@ static bool mxt_load_raw_flash(struct DEVICE_OBJECT* pDeviceObject, char * flash
 }
 
 
-bool mxt_load_raw_file(struct DEVICE_OBJECT* pDeviceObject, const char *filename)
+bool mxt_load_raw_file(struct DEVICE_OBJECT* pDeviceObject, char * cfg)
 {
-    return true;
+	struct mxt_info cfg_info;
+	int ret=0;
+	uint32_t info_crc, config_crc, calculated_crc;
+    
+	mxt_update_crc(pDeviceObject, MXT_COMMAND_REPORTALL, 1);
+        
+    char * ptr = strtok((char*)cfg, "\n");
+    
+	if (strncmp(ptr, MXT_CFG_MAGIC, strlen(MXT_CFG_MAGIC))) {
+		dev_err(dev, "Unrecognised config file\n");
+		return false;
+	}
+	ptr = strtok(NULL, "\n");
+    
+	/* Load information block and check */
+    ret = sscanf(ptr, "%2x %2x %2x %2x %2x %2x %2x",
+            (unsigned int *)&cfg_info.family_id, (unsigned int *)&cfg_info.variant_id,
+            (unsigned int *)&cfg_info.version, (unsigned int *)&cfg_info.build,
+            (unsigned int *)&cfg_info.matrix_xsize, (unsigned int *)&cfg_info.matrix_ysize,
+            (unsigned int *)&cfg_info.object_num
+            );
+        
+    if (ret != sizeof(struct mxt_info)) {
+        dev_err(dev, "Bad format\n");
+        return false;
+    }
+
+    ptr = strtok(NULL, "\n");
+
+	if (cfg_info.family_id != pDeviceObject->data.info->family_id) {
+		dev_err(dev, "Family ID mismatch!\n");
+		return false;
+	}
+
+	if (cfg_info.variant_id != pDeviceObject->data.info->variant_id) {
+		dev_err(dev, "Variant ID mismatch!\n");
+		return false;
+	}
+
+	/* Read CRCs */
+	ret = sscanf(ptr, "%x", (unsigned int*)&info_crc);
+	if (ret != 1) {
+		dev_err(dev, "Bad format: failed to parse Info CRC\n");
+		return false;
+	}
+    ptr = strtok(NULL, "\n");
+
+	ret = sscanf(ptr, "%x", (unsigned int*)&config_crc);
+	if (ret != 1) {
+		dev_err(dev, "Bad format: failed to parse Config CRC\n");
+		return false;
+	}
+    ptr = strtok(NULL, "\n");
+
+	/*
+	 * The Info Block CRC is calculated over mxt_info and the object
+	 * table. If it does not match then we are trying to load the
+	 * configuration from a different chip or firmware version, so
+	 * the configuration CRC is invalid anyway.
+	 */
+	if (info_crc == pDeviceObject->data.info_crc) {
+		if (config_crc == 0 || pDeviceObject->data.config_crc == 0) {
+			dev_info(dev, "CRC zero, attempting to apply config\n");
+		} else if (config_crc == pDeviceObject->data.config_crc) {
+			dev_dbg(dev, "Config CRC 0x%06X: OK\n",
+				 pDeviceObject->data.config_crc);
+			return false;
+		} else {
+			dev_info(dev, "Config CRC 0x%06X: does not match file 0x%06X\n",
+				 pDeviceObject->data.config_crc, config_crc);
+		}
+	} else {
+		dev_warn(dev,
+			 "Warning: Info CRC error - device=0x%06X file=0x%06X\n",
+			 pDeviceObject->data.info_crc, info_crc);
+	}
+    
+	/* Malloc memory to store configuration */
+	pDeviceObject->data.cfg_start_ofs = MXT_OBJECT_START +
+			pDeviceObject->data.info->object_num * sizeof(struct mxt_object) +
+			MXT_INFO_CHECKSUM_SIZE;
+	pDeviceObject->data.config_mem_size = pDeviceObject->data.mem_size - pDeviceObject->data.cfg_start_ofs;
+    
+	mxt_prepare_cfg_mem(pDeviceObject, ptr, pDeviceObject->data.cfg_start_ofs,
+				  pDeviceObject->data.config_mem, pDeviceObject->data.config_mem_size);
+
+	/* Calculate crc of the received configs (not the raw config file) */
+	if (pDeviceObject->data.T7_address < pDeviceObject->data.cfg_start_ofs) {
+		dev_err(dev, "Bad T7 address, T7addr = %x, config offset %x\n",
+			pDeviceObject->data.T7_address, pDeviceObject->data.cfg_start_ofs);
+		return false;
+    }
+
+	calculated_crc = mxt_calculate_crc(pDeviceObject->data.config_mem,
+					   pDeviceObject->data.T71_address - pDeviceObject->data.cfg_start_ofs,
+					   pDeviceObject->data.config_mem_size);
+            
+	if (config_crc > 0 && config_crc != calculated_crc)
+		dev_warn(dev, "Config CRC error, calculated=%06X, file=%06X\n",
+			 calculated_crc, config_crc);
+
+	return false;
 }
 
 static inline uint16_t get_unaligned_le16(const void *p)

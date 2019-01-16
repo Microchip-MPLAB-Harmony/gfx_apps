@@ -152,7 +152,7 @@ static DRV_I2C_CLIENT_OBJ * DRV_I2C_DriverHandleValidate(DRV_HANDLE handle)
 
     if((handle == DRV_HANDLE_INVALID) || (handle == 0))
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Invalid Driver Handle");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Invalid Driver Handle");
         return(NULL);
     }
 
@@ -319,25 +319,6 @@ static void DRV_I2C_PLibCallbackHandler( uintptr_t contextHandle )
 // *****************************************************************************
 // *****************************************************************************
 
-// *****************************************************************************
-/* Function:
-    SYS_MODULE_OBJ DRV_I2C_Initialize
-    (
-        const SYS_MODULE_INDEX drvIndex,
-        const SYS_MODULE_INIT * const init
-    )
-
-  Summary:
-    Dynamic implementation of DRV_I2C_Initialize system interface function.
-
-  Description:
-    This is the dynamic implementation of DRV_I2C_Initialize system interface
-    function.
-
-  Remarks:
-    See drv_i2c.h for usage information.
-*/
-
 SYS_MODULE_OBJ DRV_I2C_Initialize( const SYS_MODULE_INDEX drvIndex, const SYS_MODULE_INIT * const init )
 {
     DRV_I2C_OBJ *dObj     = (DRV_I2C_OBJ *)NULL;
@@ -346,13 +327,13 @@ SYS_MODULE_OBJ DRV_I2C_Initialize( const SYS_MODULE_INDEX drvIndex, const SYS_MO
     /* Validate the request */
     if(drvIndex >= DRV_I2C_INSTANCES_NUMBER)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Invalid driver instance");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Invalid driver instance");
         return SYS_MODULE_OBJ_INVALID;
     }
 
     if(gDrvI2CObj[drvIndex].inUse == true)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Instance already in use");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Instance already in use");
         return SYS_MODULE_OBJ_INVALID;
     }
 
@@ -403,48 +384,17 @@ SYS_MODULE_OBJ DRV_I2C_Initialize( const SYS_MODULE_INDEX drvIndex, const SYS_MO
     return ( (SYS_MODULE_OBJ)drvIndex );
 }
 
-// *****************************************************************************
-/* Function:
-    SYS_STATUS DRV_I2C_Status( SYS_MODULE_OBJ object )
-
-  Summary:
-    Dynamic implementation of DRV_I2C_Status system interface function.
-
-  Description:
-    This is the dynamic implementation of DRV_I2C_Status system interface
-    function.
-
-  Remarks:
-    See drv_i2c.h for usage information.
-*/
-
-SYS_STATUS DRV_I2C_Status( SYS_MODULE_OBJ object)
+SYS_STATUS DRV_I2C_Status( const SYS_MODULE_OBJ object)
 {
     /* Validate the request */
     if( (object == SYS_MODULE_OBJ_INVALID) || (object >= DRV_I2C_INSTANCES_NUMBER) )
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Invalid system object handle");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Invalid system object handle");
         return SYS_STATUS_UNINITIALIZED;
     }
 
     return (gDrvI2CObj[object].status);
 }
-
-// *****************************************************************************
-/* Function:
-    DRV_HANDLE DRV_I2C_Open( const SYS_MODULE_INDEX index,
-                             const DRV_IO_INTENT    ioIntent )
-
-  Summary:
-    Dynamic implementation of DRV_I2C_Open client interface function.
-
-  Description:
-    This is the dynamic implementation of DRV_I2C_Open client interface
-    function.
-
-  Remarks:
-    See drv_i2c.h for usage information.
-*/
 
 DRV_HANDLE DRV_I2C_Open( const SYS_MODULE_INDEX drvIndex, const DRV_IO_INTENT ioIntent )
 {
@@ -455,7 +405,7 @@ DRV_HANDLE DRV_I2C_Open( const SYS_MODULE_INDEX drvIndex, const DRV_IO_INTENT io
     /* Validate the request */
     if (drvIndex >= DRV_I2C_INSTANCES_NUMBER)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Invalid Driver Instance");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Invalid Driver Instance");
         return DRV_HANDLE_INVALID;
     }
 
@@ -469,7 +419,7 @@ DRV_HANDLE DRV_I2C_Open( const SYS_MODULE_INDEX drvIndex, const DRV_IO_INTENT io
     if((dObj->status != SYS_STATUS_READY) || (dObj->inUse == false))
     {
         OSAL_MUTEX_Unlock(&(dObj->mutexClientObjects));
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Was the driver initialized?");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Was the driver initialized?");
         return DRV_HANDLE_INVALID;
     }
 
@@ -534,22 +484,7 @@ DRV_HANDLE DRV_I2C_Open( const SYS_MODULE_INDEX drvIndex, const DRV_IO_INTENT io
     return DRV_HANDLE_INVALID;
 }
 
-// *****************************************************************************
-/* Function:
-    void DRV_I2C_Close ( DRV_HANDLE handle)
-
-  Summary:
-    Dynamic implementation of DRV_I2C_Close client interface function.
-
-  Description:
-    This is the dynamic implementation of DRV_I2C_Close client interface
-    function.
-
-  Remarks:
-    See drv_i2c.h for usage information.
-*/
-
-void DRV_I2C_Close( DRV_HANDLE handle )
+void DRV_I2C_Close( const DRV_HANDLE handle )
 {
     /* This function closes the client, The client
        object is deallocated and returned to the
@@ -595,26 +530,11 @@ void DRV_I2C_Close( DRV_HANDLE handle )
     return;
 }
 
-// *****************************************************************************
-/* Function:
-    void DRV_I2C_TransferEventHandlerSet
-    (
-        const SYS_MODULE_INDEX index,
-        const DRV_I2C_TRANSFER_EVENT_HANDLER eventHandler
-    )
-
-  Summary:
-    Registers transfer callback function.
-
-  Description:
-    This function is used to register the callback function to be invoked
-    upon transmission of a buffer.
-
-  Remarks:
-    See drv_i2c.h for usage information.
-*/
-
-void DRV_I2C_TransferEventHandlerSet( const DRV_HANDLE handle, const DRV_I2C_TRANSFER_EVENT_HANDLER eventHandler, const uintptr_t context )
+void DRV_I2C_TransferEventHandlerSet(
+    const DRV_HANDLE handle,
+    const DRV_I2C_TRANSFER_EVENT_HANDLER eventHandler,
+    const uintptr_t context
+)
 {
     DRV_I2C_CLIENT_OBJ * client = NULL;
     DRV_I2C_OBJ* dObj = (DRV_I2C_OBJ *)NULL;
@@ -622,7 +542,7 @@ void DRV_I2C_TransferEventHandlerSet( const DRV_HANDLE handle, const DRV_I2C_TRA
     /* Validate the Request */
     if(handle == DRV_HANDLE_INVALID)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Invalid Driver Handle");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Invalid Driver Handle");
         return;
     }
 
@@ -630,7 +550,7 @@ void DRV_I2C_TransferEventHandlerSet( const DRV_HANDLE handle, const DRV_I2C_TRA
 
     if(client->inUse == false)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Invalid Driver Handle");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Invalid Driver Handle");
         return;
     }
 
@@ -638,7 +558,7 @@ void DRV_I2C_TransferEventHandlerSet( const DRV_HANDLE handle, const DRV_I2C_TRA
 
     if(DRV_I2C_ResourceLock(dObj) == false)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Failed to get resource lock");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Failed to get resource lock");
         return;
     }
 
@@ -647,21 +567,6 @@ void DRV_I2C_TransferEventHandlerSet( const DRV_HANDLE handle, const DRV_I2C_TRA
 
     DRV_I2C_ResourceUnlock(dObj);
 }
-
-// *****************************************************************************
-/* Function:
-    DRV_I2C_ERROR DRV_I2C_ErrorGet( const DRV_HANDLE handle )
-
-   Summary:
-    Gets the I2C hardware errors associated with the client.
-
-   Description:
-    This function returns the errors associated with the given client.
-    The call to this function also clears all the associated error flags.
-
-   Remarks:
-    See drv_i2c.h for usage information.
-*/
 
 DRV_I2C_ERROR DRV_I2C_ErrorGet( const DRV_HANDLE handle )
 {
@@ -673,7 +578,7 @@ DRV_I2C_ERROR DRV_I2C_ErrorGet( const DRV_HANDLE handle )
     clientObj = DRV_I2C_DriverHandleValidate(handle);
     if(clientObj == NULL)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Invalid Transfer Handle");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Invalid Transfer Handle");
         return DRV_I2C_ERROR_NONE;
     }
 
@@ -681,7 +586,7 @@ DRV_I2C_ERROR DRV_I2C_ErrorGet( const DRV_HANDLE handle )
 
     if(DRV_I2C_ResourceLock(dObj) == false)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Failed to get resource lock");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Failed to get resource lock");
         return DRV_I2C_ERROR_NONE;
     }
 
@@ -693,35 +598,13 @@ DRV_I2C_ERROR DRV_I2C_ErrorGet( const DRV_HANDLE handle )
     return errors;
 }
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: I2C Driver Transfer Queue Interface Implementation
-// *****************************************************************************
-// *****************************************************************************
-// *****************************************************************************
-
-// *****************************************************************************
-/* Function:
-    void DRV_I2C_ReadTransferAdd
-    (
-        const DRV_HANDLE handle,
-        void * buffer,
-        const size_t size,
-        DRV_I2C_TRANSFER_HANDLE * const transferHandle
-    )
-
-  Summary:
-    Dynamic implementation of DRV_I2C_ReadTransferAdd system interface function.
-
-  Description:
-    This is the dynamic implementation of DRV_I2C_ReadTransferAdd system interface
-    function.
-
-  Remarks:
-    See drv_i2c.h for usage information.
-*/
-
-void DRV_I2C_ReadTransferAdd( const DRV_HANDLE handle, const uint16_t address, void * buffer, const size_t size, DRV_I2C_TRANSFER_HANDLE * const transferHandle )
+void DRV_I2C_ReadTransferAdd(
+    const DRV_HANDLE handle,
+    const uint16_t address,
+    void * const buffer,
+    const size_t size,
+    DRV_I2C_TRANSFER_HANDLE * const transferHandle
+)
 {
     DRV_I2C_CLIENT_OBJ     * clientObj        = (DRV_I2C_CLIENT_OBJ *)     NULL;
     DRV_I2C_OBJ            * hDriver          = (DRV_I2C_OBJ *)            NULL;
@@ -733,28 +616,28 @@ void DRV_I2C_ReadTransferAdd( const DRV_HANDLE handle, const uint16_t address, v
     clientObj = DRV_I2C_DriverHandleValidate(handle);
     if(clientObj == NULL)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Invalid Transfer Handle");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Invalid Transfer Handle");
         return;
     }
 
     /* Validate the Request */
     if (transferHandle == NULL)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "NULL Transfer Handle Pointer");
+        SYS_DEBUG(SYS_ERROR_ERROR, "NULL Transfer Handle Pointer");
         return;
     }
 
     if((size == 0) || (buffer == NULL))
     {
         /* We either got an invalid source pointer or 0 bytes to transfer */
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Invalid Transfer Handle");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Invalid Transfer Handle");
 
         return;
     }
 
     if(clientObj->inUse == false)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Invalid Driver Handle");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Invalid Driver Handle");
         return;
     }
 
@@ -762,7 +645,7 @@ void DRV_I2C_ReadTransferAdd( const DRV_HANDLE handle, const uint16_t address, v
 
     if(DRV_I2C_ResourceLock(hDriver) == false)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Failed to get resource lock");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Failed to get resource lock");
         return;
     }
 
@@ -823,28 +706,13 @@ void DRV_I2C_ReadTransferAdd( const DRV_HANDLE handle, const uint16_t address, v
     return;
 }
 
-// *****************************************************************************
-/* Function:
-    void DRV_I2C_WriteTransferAdd
-    (
-        const DRV_HANDLE handle,
-        void * buffer,
-        const size_t size,
-        DRV_I2C_TRANSFER_HANDLE * const transferHandle
-    )
-
-  Summary:
-    Dynamic implementation of DRV_I2C_WriteTransferAdd system interface function.
-
-  Description:
-    This is the dynamic implementation of DRV_I2C_WriteTransferAdd system interface
-    function.
-
-  Remarks:
-    See drv_i2c.h for usage information.
-*/
-
-void DRV_I2C_WriteTransferAdd( const DRV_HANDLE handle, const uint16_t address, void * buffer, const size_t size, DRV_I2C_TRANSFER_HANDLE * transferHandle )
+void DRV_I2C_WriteTransferAdd(
+    const DRV_HANDLE handle,
+    const uint16_t address,
+    void * const buffer,
+    const size_t size,
+    DRV_I2C_TRANSFER_HANDLE * const transferHandle
+)
 {
     DRV_I2C_CLIENT_OBJ     * clientObj        = (DRV_I2C_CLIENT_OBJ *)     NULL;
     DRV_I2C_OBJ            * hDriver          = (DRV_I2C_OBJ *)            NULL;
@@ -856,28 +724,28 @@ void DRV_I2C_WriteTransferAdd( const DRV_HANDLE handle, const uint16_t address, 
     clientObj = DRV_I2C_DriverHandleValidate(handle);
     if(clientObj == NULL)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Invalid Transfer Handle");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Invalid Transfer Handle");
         return;
     }
 
     /* Validate the Request */
     if (transferHandle == NULL)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "NULL Transfer Handle Pointer");
+        SYS_DEBUG(SYS_ERROR_ERROR, "NULL Transfer Handle Pointer");
         return;
     }
 
     if((size == 0) || (buffer == NULL))
     {
         /* We either got an invalid source pointer or 0 bytes to transfer */
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Invalid Transfer Handle");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Invalid Transfer Handle");
 
         return;
     }
 
     if(clientObj->inUse == false)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Invalid Driver Handle");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Invalid Driver Handle");
         return;
     }
 
@@ -885,7 +753,7 @@ void DRV_I2C_WriteTransferAdd( const DRV_HANDLE handle, const uint16_t address, 
 
     if(DRV_I2C_ResourceLock(hDriver) == false)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Failed to get resource lock");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Failed to get resource lock");
         return;
     }
 
@@ -946,30 +814,15 @@ void DRV_I2C_WriteTransferAdd( const DRV_HANDLE handle, const uint16_t address, 
     return;
 }
 
-// *****************************************************************************
-/* Function:
-    void DRV_I2C_WriteReadTransferAdd
-    (
-        const DRV_HANDLE handle,
-        void * writeBuffer,
-        const size_t writeSize,
-        void * readBuffer,
-        const size_t readSize,
-        DRV_I2C_TRANSFER_HANDLE * const transferHandle
-    )
-
-  Summary:
-    Dynamic implementation of DRV_I2C_WriteReadTransferAdd system interface function.
-
-  Description:
-    This is the dynamic implementation of DRV_I2C_WriteReadTransferAdd system interface
-    function.
-
-  Remarks:
-    See drv_i2c.h for usage information.
-*/
-
-void DRV_I2C_WriteReadTransferAdd ( const DRV_HANDLE handle, const uint16_t address, void *writeBuffer, size_t writeSize, void *readBuffer, size_t readSize, DRV_I2C_TRANSFER_HANDLE * transferHandle )
+void DRV_I2C_WriteReadTransferAdd (
+    const DRV_HANDLE handle,
+    const uint16_t address,
+    void * const writeBuffer,
+    const size_t writeSize,
+    void * const readBuffer,
+    const size_t readSize,
+    DRV_I2C_TRANSFER_HANDLE * const transferHandle
+)
 {
     DRV_I2C_CLIENT_OBJ     * clientObj        = (DRV_I2C_CLIENT_OBJ *)     NULL;
     DRV_I2C_OBJ            * hDriver          = (DRV_I2C_OBJ *)            NULL;
@@ -982,28 +835,28 @@ void DRV_I2C_WriteReadTransferAdd ( const DRV_HANDLE handle, const uint16_t addr
     clientObj = DRV_I2C_DriverHandleValidate(handle);
     if(clientObj == NULL)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Invalid Transfer Handle");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Invalid Transfer Handle");
         return;
     }
 
     /* Validate the Request */
     if (transferHandle == NULL)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "NULL Transfer Handle Pointer");
+        SYS_DEBUG(SYS_ERROR_ERROR, "NULL Transfer Handle Pointer");
         return;
     }
 
     if((writeSize == 0) || (writeBuffer == NULL) || (readSize == 0) || (readBuffer == NULL))
     {
         /* We either got an invalid source pointer or 0 bytes to transfer */
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Invalid Transfer Handle");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Invalid Transfer Handle");
 
         return;
     }
 
     if(clientObj->inUse == false)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Invalid Driver Handle");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Invalid Driver Handle");
         return;
     }
 
@@ -1011,7 +864,7 @@ void DRV_I2C_WriteReadTransferAdd ( const DRV_HANDLE handle, const uint16_t addr
 
     if(DRV_I2C_ResourceLock(hDriver) == false)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Failed to get resource lock");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Failed to get resource lock");
         return;
     }
 
@@ -1072,21 +925,6 @@ void DRV_I2C_WriteReadTransferAdd ( const DRV_HANDLE handle, const uint16_t addr
     return;
 }
 
-// *****************************************************************************
-/* Function:
-    DRV_I2C_TRANSFER_EVENT DRV_I2C_TransferStatusGet( const DRV_I2C_TRANSFER_HANDLE transferHandle )
-
-  Summary:
-    Dynamic implementation of DRV_I2C_TransferStatusGet client interface function.
-
-  Description:
-    This is the dynamic implementation of DRV_I2C_TransferStatusGet client
-    interface function.
-
-  Remarks:
-    See drv_i2c.h for usage information.
-*/
-
 DRV_I2C_TRANSFER_EVENT DRV_I2C_TransferStatusGet( const DRV_I2C_TRANSFER_HANDLE transferHandle )
 {
     DRV_I2C_OBJ * dObj        = NULL;
@@ -1097,7 +935,7 @@ DRV_I2C_TRANSFER_EVENT DRV_I2C_TransferStatusGet( const DRV_I2C_TRANSFER_HANDLE 
     drvInstance = ((transferHandle & DRV_I2C_INSTANCE_MASK) >> 8);
     if(drvInstance >= DRV_I2C_INSTANCES_NUMBER)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Transfer Handle Invalid");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Transfer Handle Invalid");
         return (DRV_I2C_TRANSFER_EVENT) DRV_I2C_TRANSFER_HANDLE_INVALID;
     }
 
@@ -1109,12 +947,12 @@ DRV_I2C_TRANSFER_EVENT DRV_I2C_TransferStatusGet( const DRV_I2C_TRANSFER_HANDLE 
     /* Validate the transferIndex and corresponding request */
     if(transferIndex >= dObj->trQueueSize)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Transfer Handle Invalid");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Transfer Handle Invalid");
         return (DRV_I2C_TRANSFER_EVENT) DRV_I2C_TRANSFER_HANDLE_INVALID;
     }
     else if(transferHandle != dObj->trObjArr[transferIndex].transferHandle)
     {
-        SYS_i2c_DEBUG(SYS_ERROR_ERROR, "Transfer Handle Expired");
+        SYS_DEBUG(SYS_ERROR_ERROR, "Transfer Handle Expired");
         return (DRV_I2C_TRANSFER_EVENT) DRV_I2C_TRANSFER_HANDLE_INVALID;
     }
     else

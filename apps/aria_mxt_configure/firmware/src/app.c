@@ -74,6 +74,7 @@ DRV_MAXTOUCH_ConfigProgress_FnPtr funcPtr;
 
 #define MXT_MOUNT_NAME    "/mnt/mydrive"
 #define MXT_DEV_NAME      "/dev/mmcblka1"
+#define PROGRESS_COMPLETE 100
 
 uint8_t APP_MAKE_BUFFER_DMA_READY readBuffer[APP_READ_BUFFER_SIZE] ;
 uint8_t APP_MAKE_BUFFER_DMA_READY configFile[8192];
@@ -469,13 +470,11 @@ void APP_Initialize ( void )
     appData.buttonDelay = 0;        // used for button debounce
 
     /* Place the App state machine in its initial state. */
-    appData.state = APP_STATE_INIT;
     config.data = RAW_FILENAME;
     config.reader = &App_FileReader;
     config.eof = &App_FileEof;
     config.progress = &App_StageProgramProgressHandler;
     appData.epDataReadPending = false;
-
 
 }
 
@@ -486,8 +485,7 @@ void APP_Initialize ( void )
 
   Remarks:
     See prototype in app.h.
- */
-DRV_HANDLE tmrHandle;
+*/
 
 void APP_Tasks ( void )
 {
@@ -525,7 +523,6 @@ void APP_Tasks ( void )
                 laContext_SetActiveScreen(main_screen_ID);
                 appData.state = APP_STATE_IDLE;
             }
-        
             break;
         }
             
@@ -556,7 +553,6 @@ void APP_Tasks ( void )
             if(appData.deviceIsConfigured)
             {
                 /* Schedule the first read from CDC function driver */
-
                 appData.state = APP_STATE_CHECK_CDC_READ;
                 appData.isCDCReadComplete = false;
 				
@@ -572,13 +568,17 @@ void APP_Tasks ( void )
                 break;
             }
             
-            if ( appData.tick > 900000 )
+            if ( appData.tick > 800000 )
             {
                 appData.isReadingFile = false;
                 if ( App_FileXCFG((char*)&configFile[0]) )
+                {
                     config.type = DRV_MAXTOUCH_RAW_FILE;
+                }
                 else
+                {
                     config.type = DRV_MAXTOUCH_XCFG_FILE;
+                }
                 config.data = &configFile[0];
                 config.progress = &App_StageSDCardProgressHandler;
                 progressBar = stageProgressBar;   
@@ -600,15 +600,15 @@ void APP_Tasks ( void )
                     appData.readBuffer, APP_READ_BUFFER_SIZE);
                 
                 appData.isReadingFile = true;
-//                appData.tick=0;
-                if ( appData.tick++ > 9000 )
-                    {
-                        if ( value++ < 100 )
+                if ( appData.tick++ > 8000 )
+                {
+                    if ( value++ < 100 )
                         laProgressBarWidget_SetValue(stageProgressBar,  value);
-                        appData.tick=0;
-                    }
+                    appData.tick=0;
+                }
 
-            } else 
+            } 
+            else 
             {
                 if ( appData.isReadingFile )
                 {
@@ -698,6 +698,38 @@ void APP_Button_Tasks()
 }
 
 /* load screen */
+void APP_OnLoadScreenShow()
+{
+        /* show state load source selection */
+        switch ( appData.stageSource )
+        {
+            case APP_STAGE_SOURCE_PROGRAMFLASH:
+                laRadioButtonWidget_SetSelected(loadProgramRadioButton);
+                break;
+
+            case APP_STAGE_SOURCE_SDCARD:
+                laRadioButtonWidget_SetSelected(loadSDCardRadioButton);
+                break;
+
+            case APP_STAGE_SOURCE_USBDRIVE:
+                laRadioButtonWidget_SetSelected(loadUSBRadioButton);
+                break;
+                
+            case APP_STAGE_SOURCE_PC:
+                laRadioButtonWidget_SetSelected(loadPCRadioButton);
+                break;
+        }
+        /* disable selection of radio buttons - use to show selection only */
+        laWidget_SetEnabled((laWidget*)loadProgramRadioButton, false);
+        laWidget_SetEnabled((laWidget*)loadSDCardRadioButton, false);
+        laWidget_SetEnabled((laWidget*)loadUSBRadioButton, false);
+        laWidget_SetEnabled((laWidget*)loadPCRadioButton, false);
+        laWidget_SetEnabled((laWidget*)loadProgramButton, false);
+        laWidget_SetEnabled((laWidget*)loadSDCardButton, false);
+        laWidget_SetEnabled((laWidget*)loadPCButton, false);
+        laWidget_SetEnabled((laWidget*)loadUSBBUtton, false);
+}
+
 void APP_OnLoadButtonReleased()
 {
     
@@ -770,23 +802,24 @@ void App_LoadFlashProgressHandler(uint32_t progress)
     if ( progress > 0 ) 
         laProgressBarWidget_SetValue(progressBar,  progress);
     
-    if ( progress == 100 )
+    if ( progress == PROGRESS_COMPLETE )
     {
         laWidget_SetVisible((laWidget*)loadButton, false);
-        laWidget_SetVisible((laWidget*)loadTestButton, true);
+        laWidget_SetVisible((laWidget*)ImageWidget10, false);
+        laWidget_SetVisible((laWidget*)loadNextButton, true);
     }
 }
 
-  
 void App_LoadPCProgressHandler(uint32_t progress)
 {
     if ( progress > 0 ) 
         laProgressBarWidget_SetValue(progressBar,  progress);
     
-    if ( progress == 100 )
+    if ( progress == PROGRESS_COMPLETE )
     {
         laWidget_SetVisible((laWidget*)loadButton, false);
-        laWidget_SetVisible((laWidget*)loadTestButton, true);
+        laWidget_SetVisible((laWidget*)ImageWidget10, false);
+        laWidget_SetVisible((laWidget*)loadNextButton, true);
     }
 }
 
@@ -795,10 +828,11 @@ void App_LoadUSBDriveProgressHandler(uint32_t progress)
     if ( progress > 0 ) 
         laProgressBarWidget_SetValue(progressBar,  progress);
     
-    if ( progress == 100 )
+    if ( progress == PROGRESS_COMPLETE )
     {
         laWidget_SetVisible((laWidget*)loadButton, false);
-        laWidget_SetVisible((laWidget*)loadTestButton, true);
+        laWidget_SetVisible((laWidget*)ImageWidget10, false);
+        laWidget_SetVisible((laWidget*)loadNextButton, true);
     }
 }
 
@@ -807,10 +841,11 @@ void App_LoadSDCardProgressHandler(uint32_t progress)
     if ( progress > 0 ) 
         laProgressBarWidget_SetValue(progressBar,  progress);
     
-    if ( progress == 100 )
+    if ( progress == PROGRESS_COMPLETE )
     {
         laWidget_SetVisible((laWidget*)loadButton, false);
-        laWidget_SetVisible((laWidget*)loadTestButton, true);
+        laWidget_SetVisible((laWidget*)ImageWidget10, false);
+        laWidget_SetVisible((laWidget*)loadNextButton, true);
     }
 }
 
@@ -819,10 +854,11 @@ void App_SaveProgressHandler(uint32_t progress)
     if ( progress > 0 ) 
         laProgressBarWidget_SetValue(progressBar,  progress);
         
-    if ( progress == 100 )
+    if ( progress == PROGRESS_COMPLETE )
     {
-        laWidget_SetVisible((laWidget*)loadButton, false);
-        laWidget_SetVisible((laWidget*)loadTestButton, true);
+        laWidget_SetVisible((laWidget*)storeSaveButton, false);
+        laWidget_SetVisible((laWidget*)ImageWidget10, false);
+        laWidget_SetVisible((laWidget*)storeDoneButton, true);
     }
 }
 
@@ -863,6 +899,9 @@ void APP_OnStageButtonReleased()
                 appData.state = APP_STATE_OPENUSB;
 
         }
+        
+        laWidget_SetVisible((laWidget*)stageButton, false);
+        laWidget_SetVisible((laWidget*)ImageWidget35, false);       
     }
 }
     
@@ -898,52 +937,57 @@ void APP_OnStageUSBCardButtonReleased(void)
 
 void App_StageProgramProgressHandler(uint32_t progress)
 {
-    if ( progress > 0 && progress <= 100) 
+    if ( progress > 0 && progress <= PROGRESS_COMPLETE) 
         laProgressBarWidget_SetValue(progressBar,  progress); 
     
-    if ( progress == 100 )
+    if ( progress == PROGRESS_COMPLETE )
     {
         laWidget_SetVisible((laWidget*)stageButton, false);
-        laWidget_SetVisible((laWidget*)stageLoadButton, true);
+        laWidget_SetVisible((laWidget*)ImageWidget35, false);
+        laWidget_SetVisible((laWidget*)stageNextButton, true);
     }
 }
 
 void App_StageSDCardProgressHandler(uint32_t progress)
 {
-    if ( progress > 0 && progress <= 100) 
+    if ( progress > 0 && progress <= PROGRESS_COMPLETE) 
         laProgressBarWidget_SetValue(progressBar,  progress);    
     
-    if ( progress == 100 )
+    if ( progress == PROGRESS_COMPLETE )
     {
         laWidget_SetVisible((laWidget*)stageButton, false);
-        laWidget_SetVisible((laWidget*)stageLoadButton, true);
+        laWidget_SetVisible((laWidget*)ImageWidget35, false);
+        laWidget_SetVisible((laWidget*)stageNextButton, true);
     }
 }
 
 void App_StageUSBProgressHandler(uint32_t progress)
 {
-    if ( progress > 0 && progress <= 100) 
+    if ( progress > 0 && progress <= PROGRESS_COMPLETE) 
         laProgressBarWidget_SetValue(progressBar,  progress); 
     
-    if ( progress == 100 )
+    if ( progress == PROGRESS_COMPLETE )
     {
         laWidget_SetVisible((laWidget*)stageButton, false);
-        laWidget_SetVisible((laWidget*)stageLoadButton, true);
+        laWidget_SetVisible((laWidget*)ImageWidget35, false);
+        laWidget_SetVisible((laWidget*)stageNextButton, true);
     }
 }
 
 void App_StagePCProgressHandler(uint32_t progress)
 {
-    if ( progress > 0 && progress <= 100) 
+    if ( progress > 0 && progress <= PROGRESS_COMPLETE) 
         laProgressBarWidget_SetValue(progressBar,  progress);   
     
-    if ( progress == 100 )
+    if ( progress == PROGRESS_COMPLETE )
     {
         laWidget_SetVisible((laWidget*)stageButton, false);
-        laWidget_SetVisible((laWidget*)stageLoadButton, true);
+        laWidget_SetVisible((laWidget*)ImageWidget35, false);
+        laWidget_SetVisible((laWidget*)stageNextButton, true);
     }
 }
 
+/* SD Card callback routines */
 void App_FileReader(char * ptr)
 {
     char c;

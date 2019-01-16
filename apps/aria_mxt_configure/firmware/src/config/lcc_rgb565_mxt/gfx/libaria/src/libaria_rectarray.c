@@ -255,7 +255,7 @@ laResult laRectArray_RemoveDuplicates(laRectArray* arr)
 {
     uint32_t i, j;
     
-    if(arr == NULL)
+    if(arr == NULL || arr->size == 0)
         return LA_FAILURE;
         
     for(i = 0; i < arr->size - 1; i++)

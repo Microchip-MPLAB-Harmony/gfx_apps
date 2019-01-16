@@ -276,32 +276,33 @@ extern GFXU_FontAsset TimesNewRoman12;
  * Name:         stringTable
  * Encoding:     ASCII
  * Languages:    default
- * String Count: 20
+ * String Count: 21
  ***********************************/
 // language IDs
 #define language_default    0
 
 // string IDs
-#define string_GFX_MXT_Configure    0
-#define string_Load    1
-#define string_Store    2
-#define string_Test    3
-#define string_button_test    4
-#define string_load_destination    5
-#define string_load_pc    6
-#define string_load_programflash    7
-#define string_load_sdcard    8
-#define string_load_source    9
-#define string_load_title    10
-#define string_load_usbdrive    11
-#define string_stage    12
-#define string_stage_source    13
-#define string_stage_title    14
-#define string_store_done    15
-#define string_store_dontsave    16
-#define string_store_save    17
-#define string_store_title    18
-#define string_test_title    19
+#define string_Configure    0
+#define string_GFX_MXT_Configure    1
+#define string_Load    2
+#define string_Store    3
+#define string_Test    4
+#define string_button_test    5
+#define string_load_destination    6
+#define string_load_pc    7
+#define string_load_programflash    8
+#define string_load_sdcard    9
+#define string_load_source    10
+#define string_load_title    11
+#define string_load_usbdrive    12
+#define string_stage    13
+#define string_stage_source    14
+#define string_stage_title    15
+#define string_store_done    16
+#define string_store_dontsave    17
+#define string_store_save    18
+#define string_store_title    19
+#define string_test_title    20
  
 extern GFXU_StringTableAsset stringTable;
 

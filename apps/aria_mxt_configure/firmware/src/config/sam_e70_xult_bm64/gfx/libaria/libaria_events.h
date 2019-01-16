@@ -78,11 +78,11 @@ void stageProgramButton_ReleasedEvent(laButtonWidget* btn);
 // Generated Event Handler - Origin: stageUsbButton, Event: ReleasedEvent
 void stageUsbButton_ReleasedEvent(laButtonWidget* btn);
 
-// Generated Event Handler - Origin: stageLoadButton, Event: ReleasedEvent
-void stageLoadButton_ReleasedEvent(laButtonWidget* btn);
+// Generated Event Handler - Origin: stageNextButton, Event: ReleasedEvent
+void stageNextButton_ReleasedEvent(laButtonWidget* btn);
 
-// Generated Event Handler - Origin: loadTestButton, Event: ReleasedEvent
-void loadTestButton_ReleasedEvent(laButtonWidget* btn);
+// Generated Event Handler - Origin: load_screen, Event: ShowEvent
+void load_screen_ShowEvent(laScreen* scr);
 
 // Generated Event Handler - Origin: loadButton, Event: ReleasedEvent
 void loadButton_ReleasedEvent(laButtonWidget* btn);
@@ -104,6 +104,9 @@ void loadPCButton_ReleasedEvent(laButtonWidget* btn);
 
 // Generated Event Handler - Origin: loadUSBBUtton, Event: ReleasedEvent
 void loadUSBBUtton_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: loadNextButton, Event: ReleasedEvent
+void loadNextButton_ReleasedEvent(laButtonWidget* btn);
 
 // Generated Event Handler - Origin: ButtonWidget3, Event: ReleasedEvent
 void ButtonWidget3_ReleasedEvent(laButtonWidget* btn);

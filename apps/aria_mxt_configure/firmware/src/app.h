@@ -371,6 +371,7 @@ void APP_OnLoadSDCardButtonReleased(void);
 void APP_OnLoadPCButtonReleased(void);
 void APP_OnLoadUSBButtonReleased(void);
 void APP_OnLoadTestButtonReleased(void);
+void APP_OnLoadScreenShow(void);
 
 void APP_OnSaveButtonReleased(void);
 void APP_OnPCStreamReleased(void);

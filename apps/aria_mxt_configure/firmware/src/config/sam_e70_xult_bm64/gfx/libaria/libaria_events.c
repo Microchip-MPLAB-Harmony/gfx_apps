@@ -40,7 +40,9 @@
 // DOM-IGNORE-END
 
 #include "gfx/libaria/libaria_events.h"
+//CUSTOM CODE - DO NOT MODIFY OR REMOVE!!
 #include "app.h"
+//END OF CUSTOM CODE
 
 // mainLoadButton - ReleasedEvent
 void mainLoadButton_ReleasedEvent(laButtonWidget* btn)
@@ -98,18 +100,18 @@ void stageUsbButton_ReleasedEvent(laButtonWidget* btn)
     APP_OnStageUSBCardButtonReleased();
 }
 
-// stageLoadButton - ReleasedEvent
-void stageLoadButton_ReleasedEvent(laButtonWidget* btn)
+// stageNextButton - ReleasedEvent
+void stageNextButton_ReleasedEvent(laButtonWidget* btn)
 {
-    // onStageLoadButtonReleased - Show Screen - load_screen
+    // onStageNextButtonReleassed - Show Screen - load_screen
     laContext_SetActiveScreen(load_screen_ID);
 }
 
-// loadTestButton - ReleasedEvent
-void loadTestButton_ReleasedEvent(laButtonWidget* btn)
+// load_screen - ShowEvent
+void load_screen_ShowEvent(laScreen* scr)
 {
-    // onLoadTestButtonReleased - Show Screen - test_screen_buttons
-    laContext_SetActiveScreen(test_screen_buttons_ID);
+    // onLoadScreenShow
+    APP_OnLoadScreenShow();
 }
 
 // loadButton - ReleasedEvent
@@ -157,6 +159,13 @@ void loadUSBBUtton_ReleasedEvent(laButtonWidget* btn)
 {
     // onLoadUSBButtonReleased
     APP_OnLoadUSBButtonReleased();
+}
+
+// loadNextButton - ReleasedEvent
+void loadNextButton_ReleasedEvent(laButtonWidget* btn)
+{
+    // onLoadNextButtonReleased - Show Screen - test_screen_buttons
+    laContext_SetActiveScreen(test_screen_buttons_ID);
 }
 
 // ButtonWidget3 - ReleasedEvent

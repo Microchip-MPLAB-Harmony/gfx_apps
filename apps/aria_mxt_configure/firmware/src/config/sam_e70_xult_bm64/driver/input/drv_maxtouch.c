@@ -50,9 +50,6 @@
 #include <stdio.h>
 
 /* Firmware config definitions */
-#define MXT_MOUNT_NAME       "/mnt/mydrive"
-#define MXT_DEV_NAME         "/dev/mmcblka1"
-#define MXT_FILE_NAME        "maxtouch.xcfg"
 #define MXT_CFG_MAGIC		 "OBP_RAW V1"
 
 /* Registers */
@@ -91,24 +88,24 @@
 #define MXT_COMMAND_DIAGNOSTIC	5
 
 /* Define for MXT_GEN_COMMAND_T6 */
-#define MXT_BOOT_VALUE		0xa5
-#define MXT_RESET_VALUE		0x01
-#define MXT_BACKUP_VALUE	0x55
+#define MXT_BOOT_VALUE          0xa5
+#define MXT_RESET_VALUE         0x01
+#define MXT_BACKUP_VALUE        0x55
 
 /* Delay times */
-#define MXT_BACKUP_TIME         50      /* msec */
-#define MXT_RESET_GPIO_TIME     20      /* msec */
-#define MXT_RESET_INVALID_CHG	100     /* msec */
-#define MXT_RESET_TIME          200     /* msec */
-#define MXT_RESET_TIMEOUT       3000	/* msec */
-#define MXT_CRC_TIMEOUT         1000	/* msec */
-#define MXT_FW_RESET_TIME       3000	/* msec */
-#define MXT_FW_CHG_TIMEOUT      300     /* msec */
+#define MXT_BACKUP_TIME             50      /* msec */
+#define MXT_RESET_GPIO_TIME         20      /* msec */
+#define MXT_RESET_INVALID_CHG       100     /* msec */
+#define MXT_RESET_TIME              200     /* msec */
+#define MXT_RESET_TIMEOUT           3000	/* msec */
+#define MXT_CRC_TIMEOUT             1000	/* msec */
+#define MXT_FW_RESET_TIME           3000	/* msec */
+#define MXT_FW_CHG_TIMEOUT          300     /* msec */
 #define MXT_POWER_CFG_RUN           0
 #define MXT_POWER_CFG_DEEPSLEEP		1
 
 /* MXT_GEN_MESSAGE_T5 object */
-#define MXT_RPTID_NOMSG                 0xff
+#define MXT_RPTID_NOMSG             0xff
 
 /* T100 Multiple Touch Touchscreen */
 #define MXT_T100_CTRL		0
@@ -259,8 +256,7 @@ struct t7_config {
 /* Each client has this additional data */
 struct mxt_data {
 	struct i2c_client *client;
-	struct input_dev *input_dev;
-	char phys[64];		/* device physical location */
+//	struct input_dev *input_dev;
 	struct mxt_object *object_table;
 	struct mxt_info *info;
 	void *raw_info_block;
@@ -1090,7 +1086,7 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
             int size = sizeof(struct mxt_info);
 
             /* Resize buffer to give space for rest of info block */
-            uint8_t num_objects = pDrvObject->data.info->object_num;//((struct mxt_info *)idBlock)->object_num;
+            uint8_t num_objects = pDrvObject->data.info->object_num;
             size += (num_objects * sizeof(struct mxt_object))
                 + MXT_INFO_CHECKSUM_SIZE;
             
@@ -1128,7 +1124,7 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
             int size = sizeof(struct mxt_info);
 
             /* Resize buffer to give space for rest of info block */
-            uint8_t num_objects = pDrvObject->data.info->object_num;//((struct mxt_info *)idBlock)->object_num;
+            uint8_t num_objects = pDrvObject->data.info->object_num;
             size += (num_objects * sizeof(struct mxt_object))
                 + MXT_INFO_CHECKSUM_SIZE;
     
@@ -2654,10 +2650,7 @@ static bool mxt_load_raw_flash(struct DEVICE_OBJECT* pDeviceObject, char * flash
 {
 	struct mxt_info cfg_info;
 	int ret=0;
-//	int cfg_start_ofs;
 	uint32_t info_crc, config_crc, calculated_crc;
-//	uint8_t *config_mem;
-//	size_t config_mem_size;
     
 	mxt_update_crc(pDeviceObject, MXT_COMMAND_REPORTALL, 1);
     
