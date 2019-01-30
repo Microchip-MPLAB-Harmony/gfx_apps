@@ -2104,9 +2104,6 @@
                 <name>$PROJ_DIR$\..\src\app.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\src\app_splash.h</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\..\src\packs\CMSIS\CMSIS\DSP\Include\arm_common_tables.h</name>
             </file>
             <file>
@@ -2509,9 +2506,6 @@
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\clk\plib_clk.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\l2cc\plib_l2cc.h</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\lcdc\plib_lcdc.h</name>
             </file>
             <file>
@@ -2629,6 +2623,9 @@
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\time\sys_time_definitions.h</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\time\src\sys_time_local.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\system.h</name>
             </file>
             <file>
@@ -2675,9 +2672,6 @@
             <name>Source Files</name>
             <file>
                 <name>$PROJ_DIR$\..\src\app.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\app_splash_single_layer.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\bsp\bsp.c</name>
@@ -3115,9 +3109,6 @@
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\clk\plib_clk.c</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\l2cc\plib_l2cc.c</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\lcdc\plib_lcdc.c</name>
             </file>
             <file>
@@ -3151,9 +3142,6 @@
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\time\src\sys_time.c</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\time\src\sys_time_local.h</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\tasks.c</name>
             </file>
             <file>
@@ -3161,6 +3149,12 @@
             </file>
         </group>
     </group>
+    <file>
+        <name>$PROJ_DIR$\..\src\app_splash.h</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\..\src\app_splash_single_layer.c</name>
+    </file>
     <file>
         <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\lcdc_rgba8888_mxt_a5d2.ipcf</name>
     </file>

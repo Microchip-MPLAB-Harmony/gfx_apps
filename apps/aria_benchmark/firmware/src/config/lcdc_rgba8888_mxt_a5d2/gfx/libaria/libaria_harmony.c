@@ -87,7 +87,9 @@ int32_t LibAria_Initialize(void)
     //memIntf.heap.coherent_free = &__pic32_free_coherent; // FIXME for H3
 
     memIntf.heap.memcpy = &memcpy;
+//CUSTOM CODE - DO NOT MODIFY OR REMOVE
     memIntf.heap.memset = &memset;
+//END OF CUSTOM CODE
     memIntf.heap.realloc = &realloc;
     memIntf.open = &LibAria_MediaOpenRequest;
     memIntf.read = &LibAria_MediaReadRequest;

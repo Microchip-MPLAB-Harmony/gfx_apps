@@ -203,8 +203,9 @@ typedef struct GFX_ColorModeInfo_t
     } shift;
     
 } GFX_ColorModeInfo;
-
+//CUSTOM CODE - DO NOT MODIFY OR REMOVE
 extern GFX_ColorModeInfo GFX_ColorInfo[GFX_COLOR_MODE_COUNT];
+//END OF CUSTOM CODE
 
 // *****************************************************************************
 /* Structure:

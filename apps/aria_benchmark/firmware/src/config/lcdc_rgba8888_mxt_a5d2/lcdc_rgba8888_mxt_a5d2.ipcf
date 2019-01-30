@@ -48,7 +48,6 @@
             <path>\definitions.h</path>
             <path>\peripheral\mmu\plib_mmu.h</path>
             <path>\peripheral\matrix\plib_matrix.h</path>
-            <path>\peripheral\l2cc\plib_l2cc.h</path>
             <path>\peripheral\clk\plib_clk.h</path>
             <path>\peripheral\pio\plib_pio.h</path>
             <path>\peripheral\pio\plib_pio_pin.h</path>
@@ -60,6 +59,7 @@
             <path>\driver\i2c\drv_i2c_definitions.h</path>
             <path>\system\time\sys_time.h</path>
             <path>\system\time\sys_time_definitions.h</path>
+            <path>\system\time\src\sys_time_local.h</path>
             <path>\bsp\bsp.h</path>
             <path>\system\input\sys_input.h</path>
             <path>\system\input\sys_input_gesture.h</path>
@@ -67,6 +67,7 @@
             <path>\system\input\sys_input_listener.h</path>
             <path>\system\input\sys_input_mouse.h</path>
             <path>\system\input\sys_input_touch.h</path>
+            <path>\..\..\packs\ATSAMA5D27_DFP\device.h</path>
             <path>\..\..\packs\ATSAMA5D27_DFP\component\acc.h</path>
             <path>\..\..\packs\ATSAMA5D27_DFP\component\adc.h</path>
             <path>\..\..\packs\ATSAMA5D27_DFP\component\aes.h</path>
@@ -116,7 +117,6 @@
             <path>\..\..\packs\ATSAMA5D27_DFP\component\uhphs.h</path>
             <path>\..\..\packs\ATSAMA5D27_DFP\component\wdt.h</path>
             <path>\..\..\packs\ATSAMA5D27_DFP\component\xdmac.h</path>
-            <path>\..\..\packs\ATSAMA5D27_DFP\device.h</path>
             <path>\..\..\packs\ATSAMA5D27_DFP\atsama5d27.h</path>
             <path>\..\..\packs\ATSAMA5D27_DFP\pio\sama5d27.h</path>
             <path>\peripheral\twihs\plib_twihs_master.h</path>
@@ -129,7 +129,6 @@
             <path>\..\..\packs\CMSIS\CMSIS\DSP\Include\arm_common_tables.h</path>
             <path>\..\..\packs\CMSIS\CMSIS\DSP\Include\arm_const_structs.h</path>
             <path>\..\..\packs\CMSIS\CMSIS\DSP\Include\arm_math.h</path>
-            <path>\driver\input\drv_maxtouch.h</path>
             <path>\gfx\utils\gfx_utils.h</path>
             <path>\gfx\utils\gfxu_config.h</path>
             <path>\gfx\utils\inc\gfxu_binary.h</path>
@@ -196,6 +195,8 @@
             <path>\gfx\libaria\inc\libaria_widget_window.h</path>
             <path>\gfx\libaria\libaria_events.h</path>
             <path>\gfx\libaria\libaria_macros.h</path>
+            <path>\driver\input\drv_maxtouch.h</path>
+            <path>\gfx\driver\controller\lcdc\drv_gfx_lcdc.h</path>
             <path>\driver\driver.h</path>
             <path>\driver\driver_common.h</path>
             <path>\system\system.h</path>
@@ -208,10 +209,8 @@
             <path>\osal\osal_definitions.h</path>
             <path>\osal\osal_impl_basic.h</path>
             <path>\..\..\app.h</path>
-            <path>\..\..\app_splash.h</path>
             <path>\user.h</path>
             <path>\configuration.h</path>
-            <path>\gfx\driver\controller\lcdc\drv_gfx_lcdc.h</path>
             <path>\gfx\gfx_assets.h</path>
         </group>
         <group name="Source Files" relRoot="$PROJ_DIR$\..\..\firmware\src\config\lcdc_rgba8888_mxt_a5d2">
@@ -252,7 +251,6 @@
             <path>\stdio\iar_monitor.c</path>
             <path>\peripheral\mmu\plib_mmu.c</path>
             <path>\peripheral\matrix\plib_matrix.c</path>
-            <path>\peripheral\l2cc\plib_l2cc.c</path>
             <path>\peripheral\clk\plib_clk.c</path>
             <path>\peripheral\pio\plib_pio.c</path>
             <path>\peripheral\aic\plib_aic.c</path>
@@ -263,12 +261,10 @@
             <path>\driver\i2c\src\drv_i2c.c</path>
             <path>\driver\i2c\src\drv_i2c_local.h</path>
             <path>\system\time\src\sys_time.c</path>
-            <path>\system\time\src\sys_time_local.h</path>
             <path>\bsp\bsp.c</path>
             <path>\system\input\sys_input.c</path>
             <path>\system\input\sys_input_listener.c</path>
             <path>\peripheral\twihs\plib_twihs1.c</path>
-            <path>\driver\input\drv_maxtouch.c</path>
             <path>\gfx\utils\src\gfxu_image_jpg_common.c</path>
             <path>\gfx\utils\src\gfxu_image_jpg_internal.c</path>
             <path>\gfx\utils\src\gfxu_image_jpg_external.c</path>
@@ -370,12 +366,12 @@
             <path>\gfx\libaria\src\libaria_widget_window_skin_classic.c</path>
             <path>\gfx\libaria\libaria_events.c</path>
             <path>\gfx\libaria\libaria_macros.c</path>
+            <path>\driver\input\drv_maxtouch.c</path>
+            <path>\gfx\driver\controller\lcdc\drv_gfx_lcdc.c</path>
             <path>\system\int\src\sys_int.c</path>
             <path>\system\cache\sys_cache.c</path>
             <path>\..\..\app.c</path>
-            <path>\..\..\app_splash_single_layer.c</path>
             <path>\tasks.c</path>
-            <path>\gfx\driver\controller\lcdc\drv_gfx_lcdc.c</path>
             <path>\gfx\gfx_assets.c</path>
         </group>
     </files>

@@ -48,11 +48,13 @@
 #include "device.h"
 
 
+
 // ****************************************************************************
 // ****************************************************************************
 // Section: Configuration Bits
 // ****************************************************************************
 // ****************************************************************************
+
 
 
 // *****************************************************************************
@@ -87,6 +89,15 @@ const DRV_I2C_PLIB_INTERFACE drvI2C0PLibAPI = {
     .callbackRegister = (DRV_I2C_PLIB_CALLBACK_REGISTER)TWIHS1_CallbackRegister,
 };
 
+
+const DRV_I2C_INTERRUPT_SOURCES drvI2C0InterruptSources =
+{
+    /* Peripheral has single interrupt vector */
+    .isSingleIntSrc                        = true,
+    /* Peripheral interrupt line */
+    .intSources.i2cInterrupt               = TWIHS1_IRQn,
+};
+
 /* I2C Driver Initialization Data */
 const DRV_I2C_INIT drvI2C0InitData =
 {
@@ -99,14 +110,14 @@ const DRV_I2C_INIT drvI2C0InitData =
     /* I2C Client Objects Pool */
     .clientObjPool = (uintptr_t)&drvI2C0ClientObjPool[0],
 
-    /* I2C IRQ */
-    .interruptI2C = DRV_I2C_INT_SRC_IDX0,
-
     /* I2C TWI Queue Size */
     .queueSize = DRV_I2C_QUEUE_SIZE_IDX0,
 
     /* I2C Transfer Objects */
     .transferObj = (uintptr_t)&drvI2C0TransferObj[0],
+
+    /* I2C interrupt sources */
+    .interruptSources = &drvI2C0InterruptSources,
 
     /* I2C Clock Speed */
     .clockSpeed = DRV_I2C_CLOCK_SPEED_IDX0,
@@ -135,6 +146,7 @@ const DRV_MAXTOUCH_INIT drvMAXTOUCHInitData =
 // *****************************************************************************
 /* Structure to hold the object handles for the modules in the system. */
 SYSTEM_OBJECTS sysObj;
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Library/Stack Initialization Data
@@ -168,6 +180,7 @@ const SYS_TIME_INIT sysTimeInitData =
 // </editor-fold>
 
 
+
 /*******************************************************************************
   Function:
     void SYS_Initialize ( void *data )
@@ -180,14 +193,13 @@ const SYS_TIME_INIT sysTimeInitData =
 
 void SYS_Initialize ( void* data )
 {
+  
     CLK_Initialize();
 	PIO_Initialize();
 
 
     MMU_Initialize();
     Matrix_Initialize();
-
-    PLIB_L2CC_Initialize();
 
     INT_Initialize();
 	WDT_REGS->WDT_MR = WDT_MR_WDDIS_Msk; 		// Disable WDT 
@@ -224,6 +236,7 @@ void SYS_Initialize ( void* data )
     APP_Initialize();
 
 
+  
 }
 
 

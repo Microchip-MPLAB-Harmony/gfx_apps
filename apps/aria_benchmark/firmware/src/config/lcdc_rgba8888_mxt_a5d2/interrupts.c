@@ -154,6 +154,7 @@ void RTC_Handler( void )                 __attribute__((weak, alias("DefaultInte
 
 void TWIHS1_InterruptHandler(            void );
 void TC0_InterruptHandler(               void );
+void LCDC_Interrupt_Handler(             void );
 
 /* Handlers for vectors that are shared by multiple interrupts */
 void SYSC_SharedHandler( void )
@@ -164,10 +165,10 @@ void SYSC_SharedHandler( void )
 IrqData irqData[] = {
     { 30,  (uint32_t) AIC_REGS,    TWIHS1_InterruptHandler,    AIC_SMR_SRCTYPE_INT_LEVEL_SENSITIVE_Val,  AIC_SMR_PRIORITY_MINIMUM_Val   },
     { 35,  (uint32_t) AIC_REGS,    TC0_InterruptHandler,       AIC_SMR_SRCTYPE_INT_LEVEL_SENSITIVE_Val,  AIC_SMR_PRIORITY_MINIMUM_Val   },
+    { 45,  (uint32_t) AIC_REGS,    LCDC_Interrupt_Handler,     AIC_SMR_SRCTYPE_INT_LEVEL_SENSITIVE_Val,  AIC_SMR_PRIORITY_MINIMUM_Val   },
 };
 
 uint32_t irqDataEntryCount = sizeof( irqData ) / sizeof( irqData[ 0 ]);
-
 
 
 

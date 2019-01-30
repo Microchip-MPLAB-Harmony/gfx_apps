@@ -83,6 +83,7 @@ typedef struct
 //--------------------------------------------------------------------------
 typedef struct __display_layer {
     LCDC_LAYER_ID hwLayerID;
+    GFX_Layer * layer;
     FRAMEBUFFER_PIXEL_TYPE  *baseaddr[BUFFER_PER_LAYER];
     int        draw;
     int        frame;
@@ -126,7 +127,9 @@ uint32_t state;
 static DISPLAY_LAYER drvLayer[LCDC_NUM_LAYERS];
 static volatile int32_t waitForAlphaSetting[LCDC_NUM_LAYERS] = {0};
 
-unsigned int vsyncCount = 0;
+//CUSTOM CODE - DO NOT MODIFY OR REMOVE
+unsigned int vsyncCount = 44;
+//END OF CUSTOM CODE
 
 /**** Hardware Abstraction Interfaces ****/
 enum
@@ -137,9 +140,13 @@ enum
 
 static int DRV_GFX_LCDC_Start();
 
+void _IntHandlerVSync(uintptr_t context);
+
 GFX_Context* cntxt;
 
 volatile GFX_Bool waitingForVSync;
+
+volatile GFX_Bool pendingDMATransfer[LCDC_NUM_LAYERS];
 
 static void LCDCUpdateDMADescriptor(LCDC_DMA_DESC * desc, uint32_t addr, uint32_t ctrl, uint32_t next)
 {
@@ -397,10 +404,12 @@ static GFX_Result layerEnabledSet(GFX_Bool val)
     if(val == GFX_TRUE)
     {
         LCDC_SetChannelEnable(drvLayer[layerIdx].hwLayerID, true);
+        LCDC_IRQ_Enable(LCDC_INTERRUPT_BASE + drvLayer[layerIdx].hwLayerID);
     }
     else
     {
         LCDC_SetChannelEnable(drvLayer[layerIdx].hwLayerID, false);
+        LCDC_IRQ_Disable(LCDC_INTERRUPT_BASE + drvLayer[layerIdx].hwLayerID);
     }
     
     return GFX_SUCCESS;
@@ -531,6 +540,7 @@ static GFX_Result LCDCInitialize(GFX_Context* context)
     
     for (layerCount = 0; layerCount < context->layer.count; layerCount++)
     {
+        drvLayer[layerCount].layer = &context->layer.layers[layerCount];
         drvLayer[layerCount].hwLayerID = lcdcLayerZOrder[layerCount];
         drvLayer[layerCount].resx       = context->layer.layers[layerCount].rect.display.width;
         drvLayer[layerCount].resy       = context->layer.layers[layerCount].rect.display.height;
@@ -579,13 +589,9 @@ static GFX_Result LCDCInitialize(GFX_Context* context)
         context->layer.layers[layerCount].enabled = GFX_FALSE;
     }
 
-    //TODO: Configure interrupts, and enable to start first frame blank?
-/*
-    SYS_INT_VectorPrioritySet(INT_VECTOR_LCDC, INT_PRIORITY_LEVEL1);
-    SYS_INT_VectorSubprioritySet(INT_VECTOR_LCDC, INT_SUBPRIORITY_LEVEL0);
-    SYS_INT_SourceStatusClear(INT_SOURCE_LCDC);
-    SYS_INT_SourceEnable(INT_SOURCE_LCDC);
-*/
+    //Register the interrupt handler
+    LCDC_IRQ_CallbackRegister(_IntHandlerVSync, NULL);
+
     
     return GFX_SUCCESS;
 }
@@ -595,48 +601,49 @@ static void layerSwapPending(GFX_Layer* layer)
     uint32_t l;
     GFX_Context* context = GFX_ActiveContext();
     GFX_Layer* lyr;
-	
+    LCDC_LAYER_ID hwLayerID;
+
     if(context->layerSwapSync)
     {
 	for(l = 0; l < context->layer.count; l++)
 	{
             lyr = &context->layer.layers[l];
-            
+            hwLayerID = drvLayer[lyr->id].hwLayerID;
+
             if(lyr->enabled == GFX_TRUE)
             {
                 if(lyr->invalid == GFX_TRUE && lyr->swap == GFX_FALSE)
-                  return;
-            }
-        }
-    }
-    
-    //TODO: This block needs to be in the ISR
-    {
-        unsigned int i;
-        
-        for(i = 0; i < context->layer.count; i++)
-        {
-            if(context->layer.layers[i].swap == GFX_TRUE)
-                GFX_LayerSwap(&context->layer.layers[i]);
+                    return;
                 
-            if(waitForAlphaSetting[i] >= 0)
-            {
-                context->layer.layers[i].alphaAmount = waitForAlphaSetting[i];
-
+                pendingDMATransfer[hwLayerID] = GFX_TRUE;
+                LCDC_LAYER_IRQ_Enable(hwLayerID, LCDC_LAYER_INTERRUPT_DMA);
             }
+            else
+                pendingDMATransfer[hwLayerID] = GFX_FALSE;
+        }
+        
+        //Wait until DMA is complete on all layers
+        for(l = 0; l < context->layer.count; l++)
+        {
+            lyr = &context->layer.layers[l];
+            hwLayerID = drvLayer[lyr->id].hwLayerID;
+            
+            if (pendingDMATransfer[hwLayerID] == GFX_TRUE)
+                l = 0;
         }
     }
     
-    return;
-    
-    //TODO: Enable EOF/VSYNC interrupt
-    
-    waitingForVSync = GFX_TRUE;
-    
-	// need to spin until vsync happens to ensure content does not get
-	// drawn to the wrong frame buffer
-    while(waitingForVSync == GFX_TRUE)
-    { }
+    //swap the descriptors
+    for(l = 0; l < context->layer.count; l++)
+    {    
+        lyr = &context->layer.layers[l];
+
+        if(lyr->swap == GFX_TRUE)
+            GFX_LayerSwap(lyr);    
+            
+        if(waitForAlphaSetting[l] >= 0)
+            lyr->alphaAmount = waitForAlphaSetting[l];
+    }
 }
 
 // function that initialized the driver context
@@ -654,35 +661,23 @@ GFX_Result driverLCDCContextInitialize(GFX_Context* context)
 	return GFX_SUCCESS;
 }
 
-//TODO: Configure interrupt handler
-#if 0
-void __ISR(_LCDC_VECTOR, ipl1AUTO) _IntHandlerVSync(void)
+void _IntHandlerVSync(uintptr_t context)
 {
-    uint32_t i;
-    GFX_Context* context = GFX_ActiveContext();
+    GFX_Context* gfxContext= GFX_ActiveContext();
+    uint32_t i, status;
     
-	// disable vsync interrupt
-    //TODO: Disable EOF interrupt 
-	
-	// clear interrupt flag
-    //TODO: Clear EOF Interrupt
-    
-	// swap all pending layers
-    for(i = 0; i < context->layer.count; i++)
+    for (i = 0; i < LCDC_NUM_LAYERS; i++)
     {
-        if(context->layer.layers[i].swap == GFX_TRUE)
-            GFX_LayerSwap(&context->layer.layers[i]);
-            
-        if(waitForAlphaSetting[i] >= 0)
+        LCDC_LAYER_ID layerID = lcdcLayerZOrder[i];
+        status = LCDC_LAYER_IRQ_Status(layerID);
+        if (status)
         {
-            context->layer.layers[i].alphaAmount = waitForAlphaSetting[i];
-
+            LCDC_LAYER_IRQ_Disable(layerID, LCDC_LAYER_INTERRUPT_DMA);
+            
+            pendingDMATransfer[layerID] = GFX_FALSE;
         }
     }
-    
-    waitingForVSync = GFX_FALSE;
 }
-#endif
 
 /**** End Hardware Abstraction Interfaces ****/
 

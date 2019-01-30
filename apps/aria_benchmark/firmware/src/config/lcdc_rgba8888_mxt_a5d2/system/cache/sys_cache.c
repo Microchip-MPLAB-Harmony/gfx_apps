@@ -47,7 +47,6 @@
 // *****************************************************************************
 #include "device.h"
 #include "system/cache/sys_cache.h"
-#include "peripheral/l2cc/plib_l2cc.h"
 
 #define DATA_CACHE_IS_ENABLED            (__get_SCTLR() & (uint32_t)SCTLR_C_Msk)
 #define INSTRUCTION_CACHE_IS_ENABLED     (__get_SCTLR() & (uint32_t)SCTLR_I_Msk)

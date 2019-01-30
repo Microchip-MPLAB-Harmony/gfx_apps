@@ -55,8 +55,6 @@
     define this configuration.
 */
 
-#include <stdint.h>
-#include "peripheral/l2cc/plib_l2cc.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -78,16 +76,14 @@ extern "C" {
 #define L1_DCACHE_CLEAN_ALL()                          L1C_CleanDCacheAll()
 #define L1_DCACHE_CLEAN_INVALIDATE_ALL()               L1C_CleanInvalidateDCacheAll()
 
-#define L2_DCACHE_IN_USE                               true
-#define L2_DCACHE_CLEAN_ALL()                          PLIB_L2CC_CleanCache()
-#define L2_DCACHE_INVALIDATE_BY_ADDR(addr,sz)          PLIB_L2CC_InvalidateCacheByAddr(addr,sz)
+#define L2_DCACHE_IN_USE                               false
+#define L2_DCACHE_CLEAN_ALL()
+#define L2_DCACHE_INVALIDATE_BY_ADDR(addr,sz)
 // 
-#define DCACHE_CLEAN_BY_ADDR(addr,sz)                  PLIB_L2CC_CleanCacheByAddr(addr,sz);\
-                                                       L1C_CleanDCacheAll()
-#define DCACHE_INVALIDATE_BY_ADDR(addr,sz)             L1C_InvalidateDCacheAll();\
-                                                       PLIB_L2CC_InvalidateCacheByAddr(addr,sz)
+#define DCACHE_CLEAN_BY_ADDR(addr,sz)                  L1C_CleanDCacheAll()
+#define DCACHE_INVALIDATE_BY_ADDR(addr,sz)             L1C_InvalidateDCacheAll()
 // 
-#define DATA_CACHE_ENABLED                             true
+#define DATA_CACHE_ENABLED                             false
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

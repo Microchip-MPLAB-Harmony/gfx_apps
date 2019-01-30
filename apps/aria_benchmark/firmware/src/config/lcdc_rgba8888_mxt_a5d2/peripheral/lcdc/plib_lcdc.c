@@ -44,6 +44,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include "definitions.h"
 
+LCDC_IRQ_CALLBACK_OBJECT LCDC_IRQ_CallbackObj;
+
 void LCDC_SetPixelClockPolarity(LCDC_SIGNAL_POLARITY polarity)
 {
     LCDC_REGS->LCDC_LCDCFG0 = (LCDC_REGS->LCDC_LCDCFG0 & ~LCDC_LCDCFG0_CLKPOL_Msk) | 
@@ -900,4 +902,220 @@ void LCDC_UpdateAttribute(LCDC_LAYER_ID layer)
           break;
     }   
 
+}
+
+/* Register callback for period interrupt */
+void LCDC_IRQ_CallbackRegister(LCDC_IRQ_CALLBACK callback, uintptr_t context)
+{
+    LCDC_IRQ_CallbackObj.callback_fn = callback;
+    LCDC_IRQ_CallbackObj.context = context;
+}
+
+void LCDC_IRQ_Enable(LCDC_INTERRUPT interrupt)
+{
+    switch(interrupt)
+    {
+        case LCDC_INTERRUPT_SOF:
+            LCDC_REGS->LCDC_LCDIER = (LCDC_REGS->LCDC_LCDIER & ~LCDC_LCDIER_SOFIE_Msk) |
+                                      LCDC_LCDIER_SOFIE(1);
+            break;
+        case LCDC_INTERRUPT_DIS:
+            LCDC_REGS->LCDC_LCDIER = (LCDC_REGS->LCDC_LCDIER & ~LCDC_LCDIER_DISIE_Msk) |
+                                      LCDC_LCDIER_DISIE(1);
+            break;
+        case LCDC_INTERRUPT_DISP:
+            LCDC_REGS->LCDC_LCDIER = (LCDC_REGS->LCDC_LCDIER & ~LCDC_LCDIER_DISPIE_Msk) |
+                                      LCDC_LCDIER_DISPIE(1);
+            break;
+        case LCDC_INTERRUPT_FIFOERR:
+            LCDC_REGS->LCDC_LCDIER = (LCDC_REGS->LCDC_LCDIER & ~LCDC_LCDIER_FIFOERRIE_Msk) |
+                                      LCDC_LCDIER_FIFOERRIE(1);
+            break;
+        case LCDC_INTERRUPT_BASE:
+            LCDC_REGS->LCDC_LCDIER = (LCDC_REGS->LCDC_LCDIER & ~LCDC_LCDIER_BASEIE_Msk) |
+                                      LCDC_LCDIER_BASEIE(1);          
+            break;
+        case LCDC_INTERRUPT_OVR1:
+            LCDC_REGS->LCDC_LCDIER = (LCDC_REGS->LCDC_LCDIER & ~LCDC_LCDIER_OVR1IE_Msk) |
+                                      LCDC_LCDIER_OVR1IE(1);          
+            break;
+        case LCDC_INTERRUPT_OVR2:
+            LCDC_REGS->LCDC_LCDIER = (LCDC_REGS->LCDC_LCDIER & ~LCDC_LCDIER_OVR2IE_Msk) |
+                                      LCDC_LCDIER_OVR2IE(1);          
+            break;
+        case LCDC_INTERRUPT_HEO:
+            LCDC_REGS->LCDC_LCDIER = (LCDC_REGS->LCDC_LCDIER & ~LCDC_LCDIER_HEOIE_Msk) |
+                                      LCDC_LCDIER_HEOIE(1);                    
+            break;
+        case LCDC_INTERRUPT_PP:
+            LCDC_REGS->LCDC_LCDIER = (LCDC_REGS->LCDC_LCDIER & ~LCDC_LCDIER_PPIE_Msk) |
+                                      LCDC_LCDIER_PPIE(1);                 
+            break;
+        default:
+          break;
+    }
+}
+
+void LCDC_IRQ_Disable(LCDC_INTERRUPT interrupt)
+{
+    switch(interrupt)
+    {
+        case LCDC_INTERRUPT_SOF:
+            LCDC_REGS->LCDC_LCDIDR = (LCDC_REGS->LCDC_LCDIDR & ~LCDC_LCDIDR_SOFID_Msk) |
+                                      LCDC_LCDIDR_SOFID(1);
+            break;
+        case LCDC_INTERRUPT_DIS:
+            LCDC_REGS->LCDC_LCDIDR = (LCDC_REGS->LCDC_LCDIDR & ~LCDC_LCDIDR_DISID_Msk) |
+                                      LCDC_LCDIDR_DISID(1);
+            break;
+        case LCDC_INTERRUPT_DISP:
+            LCDC_REGS->LCDC_LCDIDR = (LCDC_REGS->LCDC_LCDIDR & ~LCDC_LCDIDR_DISPID_Msk) |
+                                      LCDC_LCDIDR_DISPID(1);
+            break;
+        case LCDC_INTERRUPT_FIFOERR:
+            LCDC_REGS->LCDC_LCDIDR = (LCDC_REGS->LCDC_LCDIDR & ~LCDC_LCDIDR_FIFOERRID_Msk) |
+                                      LCDC_LCDIDR_FIFOERRID(1);
+            break;
+        case LCDC_INTERRUPT_BASE:
+            LCDC_REGS->LCDC_LCDIDR = (LCDC_REGS->LCDC_LCDIDR & ~LCDC_LCDIDR_BASEID_Msk) |
+                                      LCDC_LCDIDR_BASEID(1);          
+            break;
+        case LCDC_INTERRUPT_OVR1:
+            LCDC_REGS->LCDC_LCDIDR = (LCDC_REGS->LCDC_LCDIDR & ~LCDC_LCDIDR_OVR1ID_Msk) |
+                                      LCDC_LCDIDR_OVR1ID(1);          
+            break;
+        case LCDC_INTERRUPT_OVR2:
+            LCDC_REGS->LCDC_LCDIDR = (LCDC_REGS->LCDC_LCDIDR & ~LCDC_LCDIDR_OVR2ID_Msk) |
+                                      LCDC_LCDIDR_OVR2ID(1);          
+            break;
+        case LCDC_INTERRUPT_HEO:
+            LCDC_REGS->LCDC_LCDIDR = (LCDC_REGS->LCDC_LCDIDR & ~LCDC_LCDIDR_HEOID_Msk) |
+                                      LCDC_LCDIDR_HEOID(1);                    
+            break;
+        case LCDC_INTERRUPT_PP:
+            LCDC_REGS->LCDC_LCDIDR = (LCDC_REGS->LCDC_LCDIDR & ~LCDC_LCDIDR_PPID_Msk) |
+                                      LCDC_LCDIDR_PPID(1);
+            break;
+        default:
+          break;
+    }
+}
+
+uint32_t LCDC_IRQ_Status(void)
+{
+    return LCDC_REGS->LCDC_LCDISR;
+}
+    
+void LCDC_LAYER_IRQ_Enable(LCDC_LAYER_ID layer, LCDC_LAYER_INTERRUPT interrupt)
+{
+    uint32_t volatile * reg;
+    switch(layer)
+    {
+        case LCDC_LAYER_BASE:
+            reg = &LCDC_REGS->LCDC_BASEIER;
+            break;
+        case LCDC_LAYER_OVR1:
+            reg = &LCDC_REGS->LCDC_OVR1IER;
+            break;
+        case LCDC_LAYER_OVR2:
+            reg = &LCDC_REGS->LCDC_OVR2IER;
+            break;
+        case LCDC_LAYER_HEO:
+            reg = &LCDC_REGS->LCDC_HEOIER;
+            break;
+        case LCDC_LAYER_PP:
+        default:
+            return;
+    }
+    
+    switch(interrupt)
+    {
+        case LCDC_LAYER_INTERRUPT_DMA:
+            *reg = (*reg & ~LCDC_BASEIER_DMA_Msk) | LCDC_BASEIER_DMA(1);
+            break;
+        case LCDC_LAYER_INTERRUPT_DSCR:
+            *reg = (*reg & ~LCDC_BASEIER_DSCR_Msk) | LCDC_BASEIER_DSCR(1);
+            break;
+        case LCDC_LAYER_INTERRUPT_ADD:
+            *reg = (*reg & ~LCDC_BASEIER_ADD_Msk) | LCDC_BASEIER_ADD(1);
+            break;
+        case LCDC_LAYER_INTERRUPT_DONE:
+            *reg = (*reg & ~LCDC_BASEIER_DONE_Msk) | LCDC_BASEIER_DONE(1);
+            break;
+        case LCDC_LAYER_INTERRUPT_OVR:
+            *reg = (*reg & ~LCDC_BASEIER_OVR_Msk) | LCDC_BASEIER_OVR(1);
+            break;
+        default:
+            break;
+    }
+}
+
+void LCDC_LAYER_IRQ_Disable(LCDC_LAYER_ID layer, LCDC_LAYER_INTERRUPT interrupt)
+{
+    uint32_t volatile * reg;
+    switch(layer)
+    {
+        case LCDC_LAYER_BASE:
+            reg = &LCDC_REGS->LCDC_BASEIDR;
+            break;
+        case LCDC_LAYER_OVR1:
+            reg = &LCDC_REGS->LCDC_OVR1IDR;
+            break;
+        case LCDC_LAYER_OVR2:
+            reg = &LCDC_REGS->LCDC_OVR2IDR;
+            break;
+        case LCDC_LAYER_HEO:
+            reg = &LCDC_REGS->LCDC_HEOIDR;
+            break;
+        case LCDC_LAYER_PP:
+        default:
+            return;
+    }
+    
+    switch(interrupt)
+    {
+        case LCDC_LAYER_INTERRUPT_DMA:
+            *reg = (*reg & ~LCDC_BASEIDR_DMA_Msk) | LCDC_BASEIDR_DMA(1);
+            break;
+        case LCDC_LAYER_INTERRUPT_DSCR:
+            *reg = (*reg & ~LCDC_BASEIDR_DSCR_Msk) | LCDC_BASEIDR_DSCR(1);
+            break;
+        case LCDC_LAYER_INTERRUPT_ADD:
+            *reg = (*reg & ~LCDC_BASEIDR_ADD_Msk) | LCDC_BASEIDR_ADD(1);
+            break;
+        case LCDC_LAYER_INTERRUPT_DONE:
+            *reg = (*reg & ~LCDC_BASEIDR_DONE_Msk) | LCDC_BASEIDR_DONE(1);
+            break;
+        case LCDC_LAYER_INTERRUPT_OVR:
+            *reg = (*reg & ~LCDC_BASEIDR_OVR_Msk) | LCDC_BASEIDR_OVR(1);
+            break;
+        default:
+            break;
+    }
+}
+
+uint32_t LCDC_LAYER_IRQ_Status(LCDC_LAYER_ID layer)
+{
+    switch(layer)
+    {
+        case LCDC_LAYER_BASE:
+            return LCDC_REGS->LCDC_BASEISR;
+        case LCDC_LAYER_OVR1:
+            return LCDC_REGS->LCDC_OVR1ISR;
+        case LCDC_LAYER_OVR2:
+            return LCDC_REGS->LCDC_OVR2ISR;
+        case LCDC_LAYER_HEO:
+            return LCDC_REGS->LCDC_HEOISR;
+        case LCDC_LAYER_PP:
+        default:
+            return 0;
+    }
+}
+
+void LCDC_Interrupt_Handler(void)
+{
+    if (LCDC_IRQ_CallbackObj.callback_fn != NULL)
+    {
+        LCDC_IRQ_CallbackObj.callback_fn(LCDC_IRQ_CallbackObj.context);
+    }
 }
