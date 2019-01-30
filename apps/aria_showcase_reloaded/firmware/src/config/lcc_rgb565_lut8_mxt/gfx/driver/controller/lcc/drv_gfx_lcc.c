@@ -206,6 +206,21 @@ static void layerSwapPending(GFX_Layer* layer)
     while(swapPending);
 }
 
+static GFX_Result lccBacklightBrightnessSet(uint32_t brightness)
+{
+    if (brightness == 0)
+    {
+        GFX_DISP_INTF_PIN_BACKLIGHT_Clear();
+    }
+    else
+    {
+        GFX_DISP_INTF_PIN_BACKLIGHT_Set();
+    }
+
+    return GFX_SUCCESS;
+
+}
+
 static GFX_Result lccInitialize(GFX_Context* context)
 {
     uint32_t i, j;
@@ -222,6 +237,7 @@ static GFX_Result lccInitialize(GFX_Context* context)
     context->hal.layerBufferCountSet = &layerBufferCountSet;
     context->hal.layerBufferAddressSet = &layerBufferAddressSet;
     context->hal.layerBufferAllocate = &layerBufferAllocate;
+    context->hal.brightnessSet = &lccBacklightBrightnessSet;
     context->hal.layerSwapped = &layerSwapped;
     context->hal.layerSwapPending = &layerSwapPending;
     
@@ -265,7 +281,8 @@ static GFX_Result lccInitialize(GFX_Context* context)
     GFX_DISP_INTF_PIN_RESET_Set();
 
     /*Turn Backlight on*/
-    GFX_DISP_INTF_PIN_BACKLIGHT_Set();
+
+    lccBacklightBrightnessSet(100);
 
     return GFX_SUCCESS;
 }
