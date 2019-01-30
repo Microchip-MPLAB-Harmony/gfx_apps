@@ -162,6 +162,9 @@
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f4" displayName="system" projectFiles="true">
+            <logicalFolder name="f5" displayName="cache" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/system/cache/sys_cache.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="f2" displayName="input" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input_gesture.h</itemPath>
@@ -181,11 +184,13 @@
             <logicalFolder name="f1" displayName="time" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/system/time/sys_time.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/system/time/sys_time_definitions.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/system/time/src/sys_time_local.h</itemPath>
             </logicalFolder>
             <itemPath>../src/config/lcc_rgb565_mxt/system/system.h</itemPath>
             <itemPath>../src/config/lcc_rgb565_mxt/system/system_common.h</itemPath>
             <itemPath>../src/config/lcc_rgb565_mxt/system/system_module.h</itemPath>
           </logicalFolder>
+          <itemPath>../src/config/lcc_rgb565_mxt/device_cache.h</itemPath>
           <itemPath>../src/config/lcc_rgb565_mxt/definitions.h</itemPath>
           <itemPath>../src/config/lcc_rgb565_mxt/user.h</itemPath>
           <itemPath>../src/config/lcc_rgb565_mxt/configuration.h</itemPath>
@@ -247,6 +252,7 @@
             <logicalFolder name="f1" displayName="Core" projectFiles="true">
               <logicalFolder name="f1" displayName="Include" projectFiles="true">
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_iccarm.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/tz_context.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm7.h</itemPath>
@@ -467,6 +473,9 @@
             <itemPath>../src/config/lcc_rgb565_mxt/stdio/xc32_monitor.c</itemPath>
           </logicalFolder>
           <logicalFolder name="f5" displayName="system" projectFiles="true">
+            <logicalFolder name="f4" displayName="cache" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/system/cache/sys_cache.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="f2" displayName="input" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input.c</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input_listener.c</itemPath>
@@ -476,13 +485,12 @@
             </logicalFolder>
             <logicalFolder name="f1" displayName="time" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/system/time/src/sys_time.c</itemPath>
-              <itemPath>../src/config/lcc_rgb565_mxt/system/time/src/sys_time_local.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <itemPath>../src/config/lcc_rgb565_mxt/initialization.c</itemPath>
           <itemPath>../src/config/lcc_rgb565_mxt/interrupts.c</itemPath>
           <itemPath>../src/config/lcc_rgb565_mxt/exceptions.c</itemPath>
-          <itemPath>../src/config/lcc_rgb565_mxt/startup.c</itemPath>
+          <itemPath>../src/config/lcc_rgb565_mxt/startup_xc32.c</itemPath>
           <itemPath>../src/config/lcc_rgb565_mxt/libc_syscalls.c</itemPath>
           <itemPath>../src/config/lcc_rgb565_mxt/tasks.c</itemPath>
         </logicalFolder>
@@ -509,7 +517,7 @@
         <targetDevice>ATSAME70Q21B</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>EdbgTool</platformTool>
+        <platformTool>ICD4Tool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.10</languageToolchainVersion>
         <platform>3</platform>
