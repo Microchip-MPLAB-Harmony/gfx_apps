@@ -48,6 +48,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 /* Firmware config definitions */
 #define MXT_CFG_MAGIC		 "OBP_RAW V1"
@@ -569,7 +570,7 @@ static bool mxt_load_raw_file(struct DEVICE_OBJECT* pDeviceObject, char * cfg);
 static bool mxt_load_raw_flash(struct DEVICE_OBJECT* pDeviceObject, char * cfg);
 static bool mxt_soft_reset(struct DEVICE_OBJECT* pDeviceObject);
 static bool mxt_configure_objects(struct DEVICE_OBJECT* pDeviceObject, DRV_MAXTOUCH_Firmware *firmware);
-static uint32_t mxt_calculate_crc(uint8_t *base, off_t start_off, off_t end_off);
+static uint32_t mxt_calculate_crc(uint8_t *base, long start_off, long end_off);
 static bool mxt_parse_object_table(struct DEVICE_OBJECT* pDeviceObject,
 				  struct mxt_object *object_table);
 static int mxt_upload_cfg_mem(struct DEVICE_OBJECT* pDeviceObject);
@@ -2018,7 +2019,7 @@ static void mxt_calc_crc24(uint32_t *crc, uint8_t firstbyte, uint8_t secondbyte)
 	*crc = result;
 }
 
-uint32_t mxt_calculate_crc(uint8_t *base, off_t start_off, off_t end_off)
+uint32_t mxt_calculate_crc(uint8_t *base, long start_off, long end_off)
 {
 	uint32_t crc = 0;
 	uint8_t *ptr = base + start_off;
