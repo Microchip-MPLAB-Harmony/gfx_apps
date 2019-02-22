@@ -65,10 +65,10 @@
 // <editor-fold defaultstate="collapsed" desc="DRV_I2C Instance 0 Initialization Data">
 
 /* I2C Client Objects Pool */
-static DRV_I2C_CLIENT_OBJ drvI2C0ClientObjPool[DRV_I2C_CLIENTS_NUMBER_IDX0] = {0};
+static DRV_I2C_CLIENT_OBJ drvI2C0ClientObjPool[DRV_I2C_CLIENTS_NUMBER_IDX0];
 
 /* I2C Transfer Objects Pool */
-static DRV_I2C_TRANSFER_OBJ drvI2C0TransferObj[DRV_I2C_QUEUE_SIZE_IDX0] = {0};
+static DRV_I2C_TRANSFER_OBJ drvI2C0TransferObj[DRV_I2C_QUEUE_SIZE_IDX0];
 
 /* I2C PLib Interface Initialization */
 const DRV_I2C_PLIB_INTERFACE drvI2C0PLibAPI = {
@@ -94,8 +94,9 @@ const DRV_I2C_INTERRUPT_SOURCES drvI2C0InterruptSources =
 {
     /* Peripheral has single interrupt vector */
     .isSingleIntSrc                        = true,
+
     /* Peripheral interrupt line */
-    .intSources.i2cInterrupt               = TWIHS1_IRQn,
+    .intSources.i2cInterrupt             = TWIHS1_IRQn,
 };
 
 /* I2C Driver Initialization Data */
@@ -111,10 +112,10 @@ const DRV_I2C_INIT drvI2C0InitData =
     .clientObjPool = (uintptr_t)&drvI2C0ClientObjPool[0],
 
     /* I2C TWI Queue Size */
-    .queueSize = DRV_I2C_QUEUE_SIZE_IDX0,
+    .transferObjPoolSize = DRV_I2C_QUEUE_SIZE_IDX0,
 
     /* I2C Transfer Objects */
-    .transferObj = (uintptr_t)&drvI2C0TransferObj[0],
+    .transferObjPool = (uintptr_t)&drvI2C0TransferObj[0],
 
     /* I2C interrupt sources */
     .interruptSources = &drvI2C0InterruptSources,
@@ -213,7 +214,6 @@ void SYS_Initialize ( void* data )
 
 
 
-
     GFX_Initialize();
 
     /* Initialize I2C0 Driver Instance */
@@ -236,7 +236,7 @@ void SYS_Initialize ( void* data )
     APP_Initialize();
 
 
-  
+
 }
 
 
