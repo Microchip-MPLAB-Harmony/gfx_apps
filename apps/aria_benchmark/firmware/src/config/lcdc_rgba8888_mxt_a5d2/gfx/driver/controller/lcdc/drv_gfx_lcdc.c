@@ -53,7 +53,7 @@
 #define LCDC_SYNC_EDGE LCDC_SYNC_EDGE_FIRST
 #define LCDC_PWM_POLARITY LCDC_POLARITY_POSITIVE
 #define GFX_LCDC_BACKGROUND_COLOR 0xffffffff
-#define LCDC_NUM_LAYERS 1
+#define LCDC_NUM_LAYERS 3
 
 #define LCDC_DEFAULT_GFX_COLOR_MODE GFX_COLOR_MODE_RGBA_8888
 #define FRAMEBUFFER_PIXEL_TYPE    uint32_t
@@ -107,12 +107,18 @@ typedef struct __display_layer {
 static LCDC_LAYER_ID lcdcLayerZOrder[LCDC_NUM_LAYERS] =
 {
     LCDC_LAYER_BASE,
+    LCDC_LAYER_OVR1,
+    LCDC_LAYER_OVR2,
 };
 
 FRAMEBUFFER_PIXEL_TYPE  __attribute__ ((aligned (64))) framebuffer_0[DISPLAY_WIDTH * DISPLAY_HEIGHT] __REGION__;
+FRAMEBUFFER_PIXEL_TYPE  __attribute__ ((aligned (64))) framebuffer_1[DISPLAY_WIDTH * DISPLAY_HEIGHT] __REGION__;
+FRAMEBUFFER_PIXEL_TYPE  __attribute__ ((aligned (64))) framebuffer_2[DISPLAY_WIDTH * DISPLAY_HEIGHT] __REGION__;
 
 
 LCDC_DMA_DESC __attribute__ ((aligned (32))) channelDesc0 __REGION__;
+LCDC_DMA_DESC __attribute__ ((aligned (32))) channelDesc1 __REGION__;
+LCDC_DMA_DESC __attribute__ ((aligned (32))) channelDesc2 __REGION__;
 
 const char* DRIVER_NAME = "LCDC";
 static uint32_t supported_color_format = GFX_COLOR_MASK_RGBA_8888;
@@ -524,7 +530,11 @@ static GFX_Result LCDCInitialize(GFX_Context* context)
     LCDC_SetPWMEnable(true);
 
     drvLayer[0].baseaddr[0] = framebuffer_0;
+    drvLayer[1].baseaddr[0] = framebuffer_1;
+    drvLayer[2].baseaddr[0] = framebuffer_2;
     drvLayer[0].desc = &channelDesc0;
+    drvLayer[1].desc = &channelDesc1;
+    drvLayer[2].desc = &channelDesc2;
     
     for (layerCount = 0; layerCount < context->layer.count; layerCount++)
     {

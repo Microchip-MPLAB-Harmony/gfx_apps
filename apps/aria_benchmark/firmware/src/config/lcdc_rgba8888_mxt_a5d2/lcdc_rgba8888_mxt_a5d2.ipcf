@@ -203,6 +203,7 @@
             <path>\gfx\libaria\libaria_events.h</path>
             <path>\gfx\libaria\libaria_macros.h</path>
             <path>\driver\input\drv_maxtouch.h</path>
+            <path>\gfx\driver\controller\lcdc\drv_gfx_lcdc.h</path>
             <path>\driver\driver.h</path>
             <path>\driver\driver_common.h</path>
             <path>\system\system.h</path>
@@ -217,7 +218,6 @@
             <path>\..\..\app.h</path>
             <path>\user.h</path>
             <path>\configuration.h</path>
-            <path>\gfx\driver\controller\lcdc\drv_gfx_lcdc.h</path>
             <path>\gfx\gfx_assets.h</path>
         </group>
         <group name="Source Files" relRoot="$PROJ_DIR$\..\..\firmware\src\config\lcdc_rgba8888_mxt_a5d2">
@@ -374,11 +374,11 @@
             <path>\gfx\libaria\libaria_events.c</path>
             <path>\gfx\libaria\libaria_macros.c</path>
             <path>\driver\input\drv_maxtouch.c</path>
+            <path>\gfx\driver\controller\lcdc\drv_gfx_lcdc.c</path>
             <path>\system\int\src\sys_int.c</path>
             <path>\system\cache\sys_cache.c</path>
             <path>\..\..\app.c</path>
             <path>\tasks.c</path>
-            <path>\gfx\driver\controller\lcdc\drv_gfx_lcdc.c</path>
             <path>\gfx\gfx_assets.c</path>
         </group>
     </files>

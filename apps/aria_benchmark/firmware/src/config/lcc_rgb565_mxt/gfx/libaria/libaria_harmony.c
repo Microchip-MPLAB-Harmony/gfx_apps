@@ -78,20 +78,20 @@ int32_t LibAria_Initialize(void)
     if(laInitialize() == LA_FAILURE)
         return -1;
 
-    memIntf.heap.malloc = &malloc;
-    //memIntf.heap.coherent_alloc = &__pic32_alloc_coherent; // FIXME for H3
-    memIntf.heap.coherent_alloc = &malloc;
-    memIntf.heap.calloc = &calloc;
-    memIntf.heap.free = &free;
-    memIntf.heap.coherent_free = &free;
-    //memIntf.heap.coherent_free = &__pic32_free_coherent; // FIXME for H3
+    memIntf.heap.malloc = (GFX_Malloc_FnPtr) &malloc;
+    //memIntf.heap.coherent_alloc = (GFX_Malloc_FnPtr) &__pic32_alloc_coherent; // FIXME for H3
+    memIntf.heap.coherent_alloc = (GFX_Malloc_FnPtr) &malloc;
+    memIntf.heap.calloc = (GFX_Calloc_FnPtr) &calloc;
+    memIntf.heap.free = (GFX_Free_FnPtr) &free;
+    memIntf.heap.coherent_free = (GFX_Free_FnPtr) &free;
+    //memIntf.heap.coherent_free = (GFX_Free_FnPtr) &__pic32_free_coherent; // FIXME for H3
 
-    memIntf.heap.memcpy = &memcpy;
-    memIntf.heap.memset = (void*)&memset;
-    memIntf.heap.realloc = &realloc;
-    memIntf.open = &LibAria_MediaOpenRequest;
-    memIntf.read = &LibAria_MediaReadRequest;
-    memIntf.close = &LibAria_MediaCloseRequest;
+    memIntf.heap.memcpy = (GFX_Memcpy_FnPtr) &memcpy;
+    memIntf.heap.memset = (GFX_Memset_FnPtr) &memset;
+    memIntf.heap.realloc = (GFX_Realloc_FnPtr) &realloc;
+    memIntf.open = (GFXU_MediaOpenRequest_FnPtr) &LibAria_MediaOpenRequest;
+    memIntf.read = (GFXU_MediaReadRequest_FnPtr) &LibAria_MediaReadRequest;
+    memIntf.close = (GFXU_MediaCloseRequest_FnPtr) &LibAria_MediaCloseRequest;
 
     libariaObj.context = laContext_Create(0, 0, 0, GFX_COLOR_MODE_RGB_565, &memIntf);
 
