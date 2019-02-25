@@ -175,6 +175,22 @@ static GFX_Result drawImageData(GFXU_ImageAssetReader* imgReader)
     {
         GFX_Set(GFXF_DRAW_MASK_ENABLE, GFX_FALSE);
     }
+    
+    switch(imgReader->img->colorMode)
+    {
+        case GFX_COLOR_MODE_RGBA_5551:
+        case GFX_COLOR_MODE_RGBA_8888:
+        case GFX_COLOR_MODE_ARGB_8888:
+        {
+            //Process alpha channel for these RAW formats
+            GFX_BlendMode blendMode;
+            GFX_Get(GFXF_DRAW_BLEND_MODE, &blendMode);
+            GFX_Set(GFXF_DRAW_BLEND_MODE, blendMode | GFX_BLEND_CHANNEL);
+            break;
+        }
+        default:
+            break;
+    }        
        
     GFX_DrawPixel(imgReader->destPoint.x + imgReader->col,
                   imgReader->destPoint.y + imgReader->row);
