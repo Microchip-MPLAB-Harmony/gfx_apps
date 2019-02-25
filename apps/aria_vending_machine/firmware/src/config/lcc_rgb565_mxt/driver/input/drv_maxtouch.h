@@ -50,6 +50,10 @@
 #ifdef __cplusplus
     extern "C" {
 #endif
+        
+typedef void (*DRV_MAXTOUCH_ConfigProgress_FnPtr)(uint32_t);
+typedef void (*DRV_MAXTOUCH_ConfigFileReader_FnPtr)(char * ptr);
+typedef bool (*DRV_MAXTOUCH_ConfigFileEof_FnPtr)(void);
 
 // *****************************************************************************
 /* MAXTOUCH Driver Module Index Numbers
@@ -131,6 +135,45 @@ typedef struct
 } DRV_MAXTOUCH_INIT;
 
 // *****************************************************************************
+/* DRV_MAXTOUCH_CONFIG_SOURCE
+
+  Summary:
+    Identifies the source of configuration input.
+
+  Description:
+    This enumeration identifies the current source from which a configuration file
+    is read.
+
+  Remarks:
+    This enumeration is the input type for the load config status routine.
+*/
+
+typedef enum
+{
+    // Indicates that the configuration file is stored in program flash.
+    DRV_MAXTOUCH_RAW_FLASH   = 0,
+
+    // Indicates that the configuration file is stored in USB thumb drive.
+    DRV_MAXTOUCH_RAW_FILE    = 1,
+
+    // Indicates that the configuration file is stored in sdcard drive.
+    DRV_MAXTOUCH_XCFG_FILE   = 2,
+            
+    DRV_MAXTOUCH_UNKNOWN_FILE,
+
+} DRV_MAXTOUCH_CONFIG_TYPE;
+
+typedef struct DRV_MAXTOUCH_Firmware_t
+{
+    void * data;
+    DRV_MAXTOUCH_CONFIG_TYPE type;
+    DRV_MAXTOUCH_ConfigFileReader_FnPtr reader;
+    DRV_MAXTOUCH_ConfigFileEof_FnPtr eof;
+    DRV_MAXTOUCH_ConfigProgress_FnPtr progress;
+    void * mem;
+    size_t mem_size;
+} DRV_MAXTOUCH_Firmware;
+
 // *****************************************************************************
 // Section: Interface Routines - System Level
 // *****************************************************************************
@@ -326,6 +369,115 @@ void DRV_MAXTOUCH_Deinitialize(SYS_MODULE_OBJ object);
 
 SYS_STATUS DRV_MAXTOUCH_Status(SYS_MODULE_OBJ object);
 
+// *****************************************************************************
+/* Function:
+    void DRV_MAXTOUCH_ConfigParse ( SYS_MODULE_OBJ object, DRV_MAXTOUCH_Firmware * firmware );
+
+  Summary:
+    Implements the loading of maxTouch configuration to MXT Device RAM.
+	<p><b>Implementation:</b> Dynamic</p>
+
+  Description:
+	This routine is used to update mxt device ram with a configuration specific 
+    by config_data and from a location named source. 
+
+  Precondition:
+    The DRV_MAXTOUCH_Initialize routine must have been called for the 
+    specified MAXTOUCH driver instance.
+
+  Parameters:
+    config - pointer to configuration data structure
+
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    DRV_MAXTOUCH_Firmware config;
+  
+    config.data = Default_RAW_FLASH;
+    config.type = DRV_MAXTOUCH_RAW_FLASH;
+
+    DRV_MAXTOUCH_ConfigLoad ( &config );
+    </code>
+
+  Remarks:
+
+*/
+
+void DRV_MAXTOUCH_ConfigParse ( SYS_MODULE_OBJ object, DRV_MAXTOUCH_Firmware * firmware );
+
+// *****************************************************************************
+/* Function:
+    void DRV_MAXTOUCH_ConfigLoad ( uint8_t* config_data, DRV_MAXTOUCH_CONFIG_SOURCE source );
+
+  Summary:
+    Implements the loading of maxTouch configuration to MXT Device RAM.
+	<p><b>Implementation:</b> Dynamic</p>
+
+  Description:
+	This routine is used to update mxt device ram with a configuration specific 
+    by config_data and from a location named source. 
+
+  Precondition:
+    The DRV_MAXTOUCH_Initialize routine must have been called for the 
+    specified MAXTOUCH driver instance.
+
+  Parameters:
+    config - pointer to configuration data structure
+
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    DRV_MAXTOUCH_Firmware config;
+  
+    config.data = Default_RAW_FLASH;
+    config.type = DRV_MAXTOUCH_RAW_FLASH;
+
+    DRV_MAXTOUCH_ConfigLoad ( &config );
+    </code>
+
+  Remarks:
+
+*/
+void DRV_MAXTOUCH_ConfigLoad ( SYS_MODULE_OBJ object, DRV_MAXTOUCH_Firmware * firmware );
+
+// *****************************************************************************
+/* Function:
+    void DRV_MAXTOUCH_ConfigSave ( );
+
+  Summary:
+    Implements the saving of maxTouch configuration to MXT Device 
+    non-volatile memory.
+	<p><b>Implementation:</b> Dynamic</p>
+
+  Description:
+	This routine is used to save configuration from RAM to non-volatile memory. 
+
+  Precondition:
+    The DRV_MAXTOUCH_ConfigLoad routine must have been called for the 
+    specified MAXTOUCH driver instance.
+
+  Parameters:
+    None.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+
+    DRV_MAXTOUCH_ConfigSave ();
+    </code>
+
+  Remarks:
+
+*/
+void DRV_MAXTOUCH_ConfigSave (SYS_MODULE_OBJ object, DRV_MAXTOUCH_ConfigProgress_FnPtr ptr );
 
 // *****************************************************************************
 /* Function:

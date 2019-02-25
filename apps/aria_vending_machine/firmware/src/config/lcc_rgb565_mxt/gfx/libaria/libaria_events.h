@@ -54,6 +54,40 @@ extern "C" {
 #endif
 // DOM-IGNORE-END 
 
+// Generated Event Handler - Origin: ButtonItem0, Event: ReleasedEvent
+void ButtonItem0_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonItem1, Event: ReleasedEvent
+void ButtonItem1_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonItem2, Event: ReleasedEvent
+void ButtonItem2_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonItem3, Event: ReleasedEvent
+void ButtonItem3_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonItem4, Event: ReleasedEvent
+void ButtonItem4_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonItem5, Event: ReleasedEvent
+void ButtonItem5_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonUp, Event: ReleasedEvent
+void ButtonUp_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonDown, Event: ReleasedEvent
+void ButtonDown_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonLanguage_Main, Event: ReleasedEvent
+void ButtonLanguage_Main_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonLanguage_Item, Event: ReleasedEvent
+void ButtonLanguage_Item_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonMain_Item, Event: ReleasedEvent
+void ButtonMain_Item_ReleasedEvent(laButtonWidget* btn);
+
+
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

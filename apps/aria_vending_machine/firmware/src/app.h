@@ -57,6 +57,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include <stddef.h>
 #include <stdlib.h>
 #include "configuration.h"
+#include "gfx/libaria/libaria.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -72,6 +73,8 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
+#define APP_NUM_ITEMS_PER_PAGE 6
+    
 typedef enum
 {
 	APP_DISPLAY_HOURLY,
@@ -94,8 +97,11 @@ typedef enum
 	/* Application's state machine's initial state. */
 	APP_STATE_INIT=0,
     APP_STATE_SPLASH,
-    APP_STATE_DRAW,
-    APP_STATE_DONE
+    APP_STATE_LOAD_ITEMS,
+    APP_STATE_MAIN,
+    APP_STATE_MAIN_LOADING,
+    APP_STATE_ITEM,
+    APP_STATE_ITEM_LOADING
 
 	/* TODO: Define states used by the application state machine. */
 
@@ -117,11 +123,39 @@ typedef enum
 
 typedef struct
 {
+    GFXU_ImageAsset* image;
+
+    laString string;
+    
+    int idx;
+} APP_ITEM;
+
+typedef struct
+{
     /* The application's current state */
     APP_STATES state;
 
     APP_DISPLAY_STATES displayState;
-
+    
+    int loadTickCounter;
+    
+    int loadTime;
+    
+    APP_ITEM items[36];
+    
+    APP_ITEM menuItems[APP_NUM_ITEMS_PER_PAGE];
+    
+    laButtonWidget* itemButtons[APP_NUM_ITEMS_PER_PAGE];
+    
+    int totalItems;
+    
+    int itemSelected; //Keeps track of the index of the item selected
+    
+    int currentPage;
+    
+    int totalPages;
+    
+    bool needPopulateMenu;
 } APP_DATA;
 
 
@@ -133,13 +167,15 @@ typedef struct
 /* These routines are called by drivers when certain events occur.
 */
 
-void app_cycleLanguage( void );
+void APP_GoToMain( void ); 
 
-void app_toggleDisplay( void );
+void APP_CycleLanguage( void );
 
-void app_displayHourly( void );
+void APP_PageUp( void );
 
-void app_displayDaily( void );
+void APP_PageDown( void );
+
+void APP_ItemSelect( int itemNum );
 
 // *****************************************************************************
 // *****************************************************************************

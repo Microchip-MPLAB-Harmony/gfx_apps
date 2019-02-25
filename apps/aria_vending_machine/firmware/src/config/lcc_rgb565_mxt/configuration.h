@@ -54,10 +54,6 @@
 /*  This section Includes other configuration headers necessary to completely
     define this configuration.
 */
-#include "gfx/hal/gfx.h"
-#include "system/input/sys_input.h"
-#include "gfx/libaria/libaria_harmony.h"
-#include "driver/input/drv_maxtouch.h"
 
 #include "user.h"
 #include "toolchain_specifics.h"
@@ -75,9 +71,8 @@ extern "C" {
 // Section: System Configuration
 // *****************************************************************************
 // *****************************************************************************
-#define DCACHE_CLEAN_BY_ADDR(data, size)       SCB_CleanDCache_by_Addr((uint32_t *)data, size)
-#define DCACHE_INVALIDATE_BY_ADDR(data, size)  SCB_InvalidateDCache_by_Addr((uint32_t *)data, size)
-#define DATA_CACHE_ENABLED                     true
+
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -103,7 +98,6 @@ extern "C" {
 /* I2C Driver Instance 0 Configuration Options */
 #define DRV_I2C_INDEX_0                       0
 #define DRV_I2C_CLIENTS_NUMBER_IDX0           1
-#define DRV_I2C_INT_SRC_IDX0                  TWIHS0_IRQn
 #define DRV_I2C_QUEUE_SIZE_IDX0               2
 #define DRV_I2C_CLOCK_SPEED_IDX0              400000
 

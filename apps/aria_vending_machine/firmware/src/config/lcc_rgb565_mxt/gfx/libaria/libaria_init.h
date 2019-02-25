@@ -44,6 +44,7 @@
 #define _LIBARIA_INIT_H
 
 #include "gfx/libaria/libaria.h"
+#include "gfx/libaria/libaria_events.h"
 
 #include "gfx/gfx_assets.h"
 
@@ -58,8 +59,8 @@ extern "C" {
 #define LIBARIA_SCREEN_COUNT   3
 
 // reference IDs for generated libaria screens
-// screen "LoadScreen"
-#define LoadScreen_ID    2
+// screen "ItemScreen"
+#define ItemScreen_ID    2
 
 // screen "MainScreen"
 #define MainScreen_ID    1
@@ -113,10 +114,18 @@ extern laButtonWidget* ButtonItem5;
 extern laLabelWidget* LabelItem5;
 extern laButtonWidget* ButtonUp;
 extern laButtonWidget* ButtonDown;
-extern laButtonWidget* ButtonInfo;
+extern laButtonWidget* ButtonInfo_Main;
 extern laButtonWidget* ButtonLanguage_Main;
-extern laImageSequenceWidget* ImageSequence_LoadingIcon;
-extern laLabelWidget* LabelLoading;
+extern laWidget* PanelLoading_Main;
+extern laImageSequenceWidget* ImageLoading_Main;
+extern laWidget* PanelBackgound_Item;
+extern laButtonWidget* ButtonLanguage_Item;
+extern laImageWidget* ImageItem_Item;
+extern laButtonWidget* ButtonBuy_Item;
+extern laButtonWidget* ButtonMain_Item;
+extern laLabelWidget* LabelItemDetail_Item;
+extern laWidget* PanelLoading_Item;
+extern laImageSequenceWidget* ImageLoading_Item;
 
 
 int32_t libaria_initialize(void);

@@ -39,7 +39,90 @@
 *******************************************************************************/
 // DOM-IGNORE-END
 
+#include "app.h"
 #include "gfx/libaria/libaria_events.h"
+
+// ButtonItem0 - ReleasedEvent
+void ButtonItem0_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_ItemSelect(0);
+}
+
+// ButtonItem1 - ReleasedEvent
+void ButtonItem1_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_ItemSelect(1);
+}
+
+// ButtonItem2 - ReleasedEvent
+void ButtonItem2_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_ItemSelect(2);
+}
+
+// ButtonItem3 - ReleasedEvent
+void ButtonItem3_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_ItemSelect(3);
+}
+
+// ButtonItem4 - ReleasedEvent
+void ButtonItem4_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_ItemSelect(4);
+}
+
+// ButtonItem5 - ReleasedEvent
+void ButtonItem5_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_ItemSelect(5);
+}
+
+// ButtonUp - ReleasedEvent
+void ButtonUp_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_PageUp();
+}
+
+// ButtonDown - ReleasedEvent
+void ButtonDown_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_PageDown();
+}
+
+// ButtonLanguage_Main - ReleasedEvent
+void ButtonLanguage_Main_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_CycleLanguage();
+}
+
+// ButtonLanguage_Item - ReleasedEvent
+void ButtonLanguage_Item_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_CycleLanguage();
+}
+
+// ButtonMain_Item - ReleasedEvent
+void ButtonMain_Item_ReleasedEvent(laButtonWidget* btn)
+{
+    // Show Screen (MainScreen) - Show Screen - MainScreen
+    laContext_SetActiveScreen(MainScreen_ID);
+
+    // Custom Action
+    APP_GoToMain();
+}
+
+
 
 
 

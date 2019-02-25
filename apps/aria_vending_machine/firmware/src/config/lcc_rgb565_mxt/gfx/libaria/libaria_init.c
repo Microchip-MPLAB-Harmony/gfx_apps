@@ -85,15 +85,23 @@ laButtonWidget* ButtonItem5;
 laLabelWidget* LabelItem5;
 laButtonWidget* ButtonUp;
 laButtonWidget* ButtonDown;
-laButtonWidget* ButtonInfo;
+laButtonWidget* ButtonInfo_Main;
 laButtonWidget* ButtonLanguage_Main;
-laImageSequenceWidget* ImageSequence_LoadingIcon;
-laLabelWidget* LabelLoading;
+laWidget* PanelLoading_Main;
+laImageSequenceWidget* ImageLoading_Main;
+laWidget* PanelBackgound_Item;
+laButtonWidget* ButtonLanguage_Item;
+laImageWidget* ImageItem_Item;
+laButtonWidget* ButtonBuy_Item;
+laButtonWidget* ButtonMain_Item;
+laLabelWidget* LabelItemDetail_Item;
+laWidget* PanelLoading_Item;
+laImageSequenceWidget* ImageLoading_Item;
 
 
 static void ScreenCreate_SplashScreen(laScreen* screen);
 static void ScreenCreate_MainScreen(laScreen* screen);
-static void ScreenCreate_LoadScreen(laScreen* screen);
+static void ScreenCreate_ItemScreen(laScreen* screen);
 
 
 int32_t libaria_initialize(void)
@@ -202,7 +210,7 @@ int32_t libaria_initialize(void)
     WhiteScheme.background = 0xF;
     WhiteScheme.backgroundInactive = 0xFC;
     WhiteScheme.backgroundDisabled = 0xFC;
-    WhiteScheme.text = 0xF3;
+    WhiteScheme.text = 0x0;
     WhiteScheme.textHighlight = 0xC;
     WhiteScheme.textHighlightText = 0xF;
     WhiteScheme.textInactive = 0xFC;
@@ -452,7 +460,7 @@ int32_t libaria_initialize(void)
     screen = laScreen_New(LA_FALSE, LA_FALSE, &ScreenCreate_MainScreen);
     laContext_AddScreen(screen);
 
-    screen = laScreen_New(LA_FALSE, LA_FALSE, &ScreenCreate_LoadScreen);
+    screen = laScreen_New(LA_FALSE, LA_FALSE, &ScreenCreate_ItemScreen);
     laContext_AddScreen(screen);
 
     laContext_SetActiveScreen(0);
@@ -542,8 +550,8 @@ static void ScreenCreate_MainScreen(laScreen* screen)
 
     PanelItem0 = laWidget_New();
     laWidget_SetSize((laWidget*)PanelItem0, 120, 136);
-    laWidget_SetScheme((laWidget*)PanelItem0, &defaultPaletteScheme);
-    laWidget_SetBackgroundType((laWidget*)PanelItem0, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetScheme((laWidget*)PanelItem0, &WhiteScheme);
+    laWidget_SetBackgroundType((laWidget*)PanelItem0, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)PanelItem0, LA_WIDGET_BORDER_NONE);
     laWidget_AddChild((laWidget*)layer0, PanelItem0);
 
@@ -552,8 +560,10 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetScheme((laWidget*)ButtonItem0, &defaultPaletteScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonItem0, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)ButtonItem0, LA_WIDGET_BORDER_NONE);
-    laButtonWidget_SetPressedImage(ButtonItem0, &Brewery_Icons_01);
-    laButtonWidget_SetReleasedImage(ButtonItem0, &Brewery_Icons_01);
+    laButtonWidget_SetPressedImage(ButtonItem0, &Premium_Beer_Icons_01);
+    laButtonWidget_SetReleasedImage(ButtonItem0, &Premium_Beer_Icons_01);
+    laButtonWidget_SetReleasedEventCallback(ButtonItem0, &ButtonItem0_ReleasedEvent);
+
     laWidget_AddChild((laWidget*)PanelItem0, (laWidget*)ButtonItem0);
 
     LabelItem0 = laLabelWidget_New();
@@ -568,8 +578,8 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     PanelItem1 = laWidget_New();
     laWidget_SetPosition((laWidget*)PanelItem1, 120, 0);
     laWidget_SetSize((laWidget*)PanelItem1, 120, 136);
-    laWidget_SetScheme((laWidget*)PanelItem1, &defaultPaletteScheme);
-    laWidget_SetBackgroundType((laWidget*)PanelItem1, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetScheme((laWidget*)PanelItem1, &WhiteScheme);
+    laWidget_SetBackgroundType((laWidget*)PanelItem1, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)PanelItem1, LA_WIDGET_BORDER_NONE);
     laWidget_AddChild((laWidget*)layer0, PanelItem1);
 
@@ -578,8 +588,10 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetScheme((laWidget*)ButtonItem1, &defaultPaletteScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonItem1, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)ButtonItem1, LA_WIDGET_BORDER_NONE);
-    laButtonWidget_SetPressedImage(ButtonItem1, &Brewery_Icons_02);
-    laButtonWidget_SetReleasedImage(ButtonItem1, &Brewery_Icons_02);
+    laButtonWidget_SetPressedImage(ButtonItem1, &Premium_Beer_Icons_02);
+    laButtonWidget_SetReleasedImage(ButtonItem1, &Premium_Beer_Icons_02);
+    laButtonWidget_SetReleasedEventCallback(ButtonItem1, &ButtonItem1_ReleasedEvent);
+
     laWidget_AddChild((laWidget*)PanelItem1, (laWidget*)ButtonItem1);
 
     LabelItem1 = laLabelWidget_New();
@@ -594,8 +606,8 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     PanelItem2 = laWidget_New();
     laWidget_SetPosition((laWidget*)PanelItem2, 240, 0);
     laWidget_SetSize((laWidget*)PanelItem2, 120, 136);
-    laWidget_SetScheme((laWidget*)PanelItem2, &defaultPaletteScheme);
-    laWidget_SetBackgroundType((laWidget*)PanelItem2, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetScheme((laWidget*)PanelItem2, &WhiteScheme);
+    laWidget_SetBackgroundType((laWidget*)PanelItem2, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)PanelItem2, LA_WIDGET_BORDER_NONE);
     laWidget_AddChild((laWidget*)layer0, PanelItem2);
 
@@ -604,8 +616,10 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetScheme((laWidget*)ButtonItem2, &defaultPaletteScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonItem2, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)ButtonItem2, LA_WIDGET_BORDER_NONE);
-    laButtonWidget_SetPressedImage(ButtonItem2, &Brewery_Icons_03);
-    laButtonWidget_SetReleasedImage(ButtonItem2, &Brewery_Icons_03);
+    laButtonWidget_SetPressedImage(ButtonItem2, &Premium_Beer_Icons_03);
+    laButtonWidget_SetReleasedImage(ButtonItem2, &Premium_Beer_Icons_03);
+    laButtonWidget_SetReleasedEventCallback(ButtonItem2, &ButtonItem2_ReleasedEvent);
+
     laWidget_AddChild((laWidget*)PanelItem2, (laWidget*)ButtonItem2);
 
     LabelItem2 = laLabelWidget_New();
@@ -620,8 +634,8 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     PanelItem3 = laWidget_New();
     laWidget_SetPosition((laWidget*)PanelItem3, 0, 136);
     laWidget_SetSize((laWidget*)PanelItem3, 120, 136);
-    laWidget_SetScheme((laWidget*)PanelItem3, &defaultPaletteScheme);
-    laWidget_SetBackgroundType((laWidget*)PanelItem3, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetScheme((laWidget*)PanelItem3, &WhiteScheme);
+    laWidget_SetBackgroundType((laWidget*)PanelItem3, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)PanelItem3, LA_WIDGET_BORDER_NONE);
     laWidget_AddChild((laWidget*)layer0, PanelItem3);
 
@@ -630,8 +644,10 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetScheme((laWidget*)ButtonItem3, &defaultPaletteScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonItem3, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)ButtonItem3, LA_WIDGET_BORDER_NONE);
-    laButtonWidget_SetPressedImage(ButtonItem3, &Brewery_Icons_04);
-    laButtonWidget_SetReleasedImage(ButtonItem3, &Brewery_Icons_04);
+    laButtonWidget_SetPressedImage(ButtonItem3, &Premium_Beer_Icons_04);
+    laButtonWidget_SetReleasedImage(ButtonItem3, &Premium_Beer_Icons_04);
+    laButtonWidget_SetReleasedEventCallback(ButtonItem3, &ButtonItem3_ReleasedEvent);
+
     laWidget_AddChild((laWidget*)PanelItem3, (laWidget*)ButtonItem3);
 
     LabelItem3 = laLabelWidget_New();
@@ -646,8 +662,8 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     PanelItem4 = laWidget_New();
     laWidget_SetPosition((laWidget*)PanelItem4, 120, 136);
     laWidget_SetSize((laWidget*)PanelItem4, 120, 136);
-    laWidget_SetScheme((laWidget*)PanelItem4, &defaultPaletteScheme);
-    laWidget_SetBackgroundType((laWidget*)PanelItem4, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetScheme((laWidget*)PanelItem4, &WhiteScheme);
+    laWidget_SetBackgroundType((laWidget*)PanelItem4, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)PanelItem4, LA_WIDGET_BORDER_NONE);
     laWidget_AddChild((laWidget*)layer0, PanelItem4);
 
@@ -656,8 +672,10 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetScheme((laWidget*)ButtonItem4, &defaultPaletteScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonItem4, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)ButtonItem4, LA_WIDGET_BORDER_NONE);
-    laButtonWidget_SetPressedImage(ButtonItem4, &Brewery_Icons_05);
-    laButtonWidget_SetReleasedImage(ButtonItem4, &Brewery_Icons_05);
+    laButtonWidget_SetPressedImage(ButtonItem4, &Premium_Beer_Icons_05);
+    laButtonWidget_SetReleasedImage(ButtonItem4, &Premium_Beer_Icons_05);
+    laButtonWidget_SetReleasedEventCallback(ButtonItem4, &ButtonItem4_ReleasedEvent);
+
     laWidget_AddChild((laWidget*)PanelItem4, (laWidget*)ButtonItem4);
 
     LabelItem4 = laLabelWidget_New();
@@ -672,8 +690,8 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     PanelItem5 = laWidget_New();
     laWidget_SetPosition((laWidget*)PanelItem5, 240, 136);
     laWidget_SetSize((laWidget*)PanelItem5, 120, 136);
-    laWidget_SetScheme((laWidget*)PanelItem5, &defaultPaletteScheme);
-    laWidget_SetBackgroundType((laWidget*)PanelItem5, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetScheme((laWidget*)PanelItem5, &WhiteScheme);
+    laWidget_SetBackgroundType((laWidget*)PanelItem5, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)PanelItem5, LA_WIDGET_BORDER_NONE);
     laWidget_AddChild((laWidget*)layer0, PanelItem5);
 
@@ -682,8 +700,10 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetScheme((laWidget*)ButtonItem5, &defaultPaletteScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonItem5, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)ButtonItem5, LA_WIDGET_BORDER_NONE);
-    laButtonWidget_SetPressedImage(ButtonItem5, &Brewery_Icons_06);
-    laButtonWidget_SetReleasedImage(ButtonItem5, &Brewery_Icons_06);
+    laButtonWidget_SetPressedImage(ButtonItem5, &Premium_Beer_Icons_06);
+    laButtonWidget_SetReleasedImage(ButtonItem5, &Premium_Beer_Icons_06);
+    laButtonWidget_SetReleasedEventCallback(ButtonItem5, &ButtonItem5_ReleasedEvent);
+
     laWidget_AddChild((laWidget*)PanelItem5, (laWidget*)ButtonItem5);
 
     LabelItem5 = laLabelWidget_New();
@@ -705,6 +725,8 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laButtonWidget_SetPressedImage(ButtonUp, &Up_Press);
     laButtonWidget_SetReleasedImage(ButtonUp, &Up);
     laButtonWidget_SetPressedOffset(ButtonUp, 0);
+    laButtonWidget_SetReleasedEventCallback(ButtonUp, &ButtonUp_ReleasedEvent);
+
     laWidget_AddChild((laWidget*)layer0, (laWidget*)ButtonUp);
 
     ButtonDown = laButtonWidget_New();
@@ -717,37 +739,73 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laButtonWidget_SetPressedImage(ButtonDown, &Down_Press);
     laButtonWidget_SetReleasedImage(ButtonDown, &Down);
     laButtonWidget_SetPressedOffset(ButtonDown, 0);
+    laButtonWidget_SetReleasedEventCallback(ButtonDown, &ButtonDown_ReleasedEvent);
+
     laWidget_AddChild((laWidget*)layer0, (laWidget*)ButtonDown);
 
-    ButtonInfo = laButtonWidget_New();
-    laWidget_SetPosition((laWidget*)ButtonInfo, 360, 0);
-    laWidget_SetSize((laWidget*)ButtonInfo, 120, 40);
-    laWidget_SetScheme((laWidget*)ButtonInfo, &WhiteScheme);
-    laWidget_SetBackgroundType((laWidget*)ButtonInfo, LA_WIDGET_BACKGROUND_FILL);
-    laWidget_SetBorderType((laWidget*)ButtonInfo, LA_WIDGET_BORDER_NONE);
-    laButtonWidget_SetHAlignment(ButtonInfo, LA_HALIGN_RIGHT);
-    laButtonWidget_SetVAlignment(ButtonInfo, LA_VALIGN_TOP);
-    laButtonWidget_SetPressedImage(ButtonInfo, &Info_Press);
-    laButtonWidget_SetReleasedImage(ButtonInfo, &Info);
-    laButtonWidget_SetPressedOffset(ButtonInfo, 0);
-    laWidget_AddChild((laWidget*)layer0, (laWidget*)ButtonInfo);
+    ButtonInfo_Main = laButtonWidget_New();
+    laWidget_SetPosition((laWidget*)ButtonInfo_Main, 360, 0);
+    laWidget_SetSize((laWidget*)ButtonInfo_Main, 120, 40);
+    laWidget_SetScheme((laWidget*)ButtonInfo_Main, &WhiteScheme);
+    laWidget_SetBackgroundType((laWidget*)ButtonInfo_Main, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)ButtonInfo_Main, LA_WIDGET_BORDER_NONE);
+    laButtonWidget_SetHAlignment(ButtonInfo_Main, LA_HALIGN_RIGHT);
+    laButtonWidget_SetVAlignment(ButtonInfo_Main, LA_VALIGN_TOP);
+    laButtonWidget_SetPressedImage(ButtonInfo_Main, &Info_Press);
+    laButtonWidget_SetReleasedImage(ButtonInfo_Main, &Info);
+    laButtonWidget_SetPressedOffset(ButtonInfo_Main, 0);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ButtonInfo_Main);
 
     ButtonLanguage_Main = laButtonWidget_New();
-    laWidget_SetPosition((laWidget*)ButtonLanguage_Main, 360, 220);
-    laWidget_SetSize((laWidget*)ButtonLanguage_Main, 120, 52);
+    laWidget_SetPosition((laWidget*)ButtonLanguage_Main, 361, 228);
+    laWidget_SetSize((laWidget*)ButtonLanguage_Main, 120, 45);
     laWidget_SetScheme((laWidget*)ButtonLanguage_Main, &WhiteScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonLanguage_Main, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)ButtonLanguage_Main, LA_WIDGET_BORDER_NONE);
     laButtonWidget_SetHAlignment(ButtonLanguage_Main, LA_HALIGN_RIGHT);
-    laButtonWidget_SetVAlignment(ButtonLanguage_Main, LA_VALIGN_BOTTOM);
+    laButtonWidget_SetVAlignment(ButtonLanguage_Main, LA_VALIGN_TOP);
     laButtonWidget_SetPressedImage(ButtonLanguage_Main, &Language_Change_Press);
     laButtonWidget_SetReleasedImage(ButtonLanguage_Main, &Language_Change);
     laButtonWidget_SetPressedOffset(ButtonLanguage_Main, 0);
+    laButtonWidget_SetReleasedEventCallback(ButtonLanguage_Main, &ButtonLanguage_Main_ReleasedEvent);
+
     laWidget_AddChild((laWidget*)layer0, (laWidget*)ButtonLanguage_Main);
+
+    PanelLoading_Main = laWidget_New();
+    laWidget_SetSize((laWidget*)PanelLoading_Main, 360, 272);
+    laWidget_SetEnabled((laWidget*)PanelLoading_Main, LA_FALSE);
+    laWidget_SetVisible((laWidget*)PanelLoading_Main, LA_FALSE);
+    laWidget_SetScheme((laWidget*)PanelLoading_Main, &WhiteScheme);
+    laWidget_SetBackgroundType((laWidget*)PanelLoading_Main, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)PanelLoading_Main, LA_WIDGET_BORDER_NONE);
+    laWidget_AddChild((laWidget*)layer0, PanelLoading_Main);
+
+    ImageLoading_Main = laImageSequenceWidget_New();
+    laWidget_SetPosition((laWidget*)ImageLoading_Main, 120, 60);
+    laWidget_SetSize((laWidget*)ImageLoading_Main, 143, 143);
+    laWidget_SetScheme((laWidget*)ImageLoading_Main, &WhiteScheme);
+    laWidget_SetBackgroundType((laWidget*)ImageLoading_Main, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)ImageLoading_Main, LA_WIDGET_BORDER_NONE);
+    laImageSequenceWidget_SetImageCount(ImageLoading_Main, 12);
+    laImageSequenceWidget_SetImage(ImageLoading_Main, 0, &Loading0);
+    laImageSequenceWidget_SetImage(ImageLoading_Main, 1, &Loading1);
+    laImageSequenceWidget_SetImage(ImageLoading_Main, 2, &Loading2);
+    laImageSequenceWidget_SetImage(ImageLoading_Main, 3, &Loading3);
+    laImageSequenceWidget_SetImage(ImageLoading_Main, 4, &Loading4);
+    laImageSequenceWidget_SetImage(ImageLoading_Main, 5, &Loading5);
+    laImageSequenceWidget_SetImage(ImageLoading_Main, 6, &Loading6);
+    laImageSequenceWidget_SetImage(ImageLoading_Main, 7, &Loading7);
+    laImageSequenceWidget_SetImage(ImageLoading_Main, 8, &Loading8);
+    laImageSequenceWidget_SetImage(ImageLoading_Main, 9, &Loading9);
+    laImageSequenceWidget_SetImage(ImageLoading_Main, 10, &Loading10);
+    laImageSequenceWidget_SetImage(ImageLoading_Main, 11, &Loading11);
+    laImageSequenceWidget_SetRepeat(ImageLoading_Main, LA_TRUE);
+    laImageSequenceWidget_Play(ImageLoading_Main);
+    laWidget_AddChild((laWidget*)PanelLoading_Main, (laWidget*)ImageLoading_Main);
 
 }
 
-static void ScreenCreate_LoadScreen(laScreen* screen)
+static void ScreenCreate_ItemScreen(laScreen* screen)
 {
     laLayer* layer0;
 
@@ -755,38 +813,104 @@ static void ScreenCreate_LoadScreen(laScreen* screen)
     laWidget_SetPosition((laWidget*)layer0, 0, 0);
     laWidget_SetSize((laWidget*)layer0, 480, 272);
     laWidget_SetBackgroundType((laWidget*)layer0, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetScheme((laWidget*)layer0, &WhiteScheme);
     laLayer_SetBufferCount(layer0, 2);
 
     laScreen_SetLayer(screen, 0, layer0);
 
-    ImageSequence_LoadingIcon = laImageSequenceWidget_New();
-    laWidget_SetPosition((laWidget*)ImageSequence_LoadingIcon, 165, 50);
-    laWidget_SetSize((laWidget*)ImageSequence_LoadingIcon, 143, 143);
-    laWidget_SetScheme((laWidget*)ImageSequence_LoadingIcon, &defaultPaletteScheme);
-    laWidget_SetBackgroundType((laWidget*)ImageSequence_LoadingIcon, LA_WIDGET_BACKGROUND_NONE);
-    laWidget_SetBorderType((laWidget*)ImageSequence_LoadingIcon, LA_WIDGET_BORDER_NONE);
-    laImageSequenceWidget_SetImageCount(ImageSequence_LoadingIcon, 12);
-    laImageSequenceWidget_SetImage(ImageSequence_LoadingIcon, 0, &Loading0);
-    laImageSequenceWidget_SetImage(ImageSequence_LoadingIcon, 1, &Loading1);
-    laImageSequenceWidget_SetImage(ImageSequence_LoadingIcon, 2, &Loading2);
-    laImageSequenceWidget_SetImage(ImageSequence_LoadingIcon, 3, &Loading3);
-    laImageSequenceWidget_SetImage(ImageSequence_LoadingIcon, 4, &Loading4);
-    laImageSequenceWidget_SetImage(ImageSequence_LoadingIcon, 5, &Loading5);
-    laImageSequenceWidget_SetImage(ImageSequence_LoadingIcon, 6, &Loading6);
-    laImageSequenceWidget_SetImage(ImageSequence_LoadingIcon, 7, &Loading7);
-    laImageSequenceWidget_SetImage(ImageSequence_LoadingIcon, 8, &Loading8);
-    laImageSequenceWidget_SetImage(ImageSequence_LoadingIcon, 9, &Loading9);
-    laImageSequenceWidget_SetImage(ImageSequence_LoadingIcon, 10, &Loading10);
-    laImageSequenceWidget_SetImage(ImageSequence_LoadingIcon, 11, &Loading11);
-    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageSequence_LoadingIcon);
+    PanelBackgound_Item = laWidget_New();
+    laWidget_SetSize((laWidget*)PanelBackgound_Item, 480, 272);
+    laWidget_SetScheme((laWidget*)PanelBackgound_Item, &WhiteScheme);
+    laWidget_SetBackgroundType((laWidget*)PanelBackgound_Item, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)PanelBackgound_Item, LA_WIDGET_BORDER_NONE);
+    laWidget_AddChild((laWidget*)layer0, PanelBackgound_Item);
 
-    LabelLoading = laLabelWidget_New();
-    laWidget_SetPosition((laWidget*)LabelLoading, 160, 206);
-    laWidget_SetSize((laWidget*)LabelLoading, 160, 30);
-    laWidget_SetScheme((laWidget*)LabelLoading, &defaultPaletteScheme);
-    laWidget_SetBackgroundType((laWidget*)LabelLoading, LA_WIDGET_BACKGROUND_NONE);
-    laWidget_SetBorderType((laWidget*)LabelLoading, LA_WIDGET_BORDER_NONE);
-    laWidget_AddChild((laWidget*)layer0, (laWidget*)LabelLoading);
+    ButtonLanguage_Item = laButtonWidget_New();
+    laWidget_SetPosition((laWidget*)ButtonLanguage_Item, 0, 213);
+    laWidget_SetSize((laWidget*)ButtonLanguage_Item, 120, 60);
+    laWidget_SetScheme((laWidget*)ButtonLanguage_Item, &WhiteScheme);
+    laWidget_SetBackgroundType((laWidget*)ButtonLanguage_Item, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)ButtonLanguage_Item, LA_WIDGET_BORDER_NONE);
+    laButtonWidget_SetPressedImage(ButtonLanguage_Item, &Language_Change_Press);
+    laButtonWidget_SetReleasedImage(ButtonLanguage_Item, &Language_Change);
+    laButtonWidget_SetImagePosition(ButtonLanguage_Item, LA_RELATIVE_POSITION_BELOW);
+    laButtonWidget_SetPressedOffset(ButtonLanguage_Item, 0);
+    laButtonWidget_SetReleasedEventCallback(ButtonLanguage_Item, &ButtonLanguage_Item_ReleasedEvent);
+
+    laWidget_AddChild((laWidget*)PanelBackgound_Item, (laWidget*)ButtonLanguage_Item);
+
+    ImageItem_Item = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageItem_Item, 0, 15);
+    laWidget_SetSize((laWidget*)ImageItem_Item, 120, 120);
+    laWidget_SetScheme((laWidget*)ImageItem_Item, &WhiteScheme);
+    laWidget_SetBackgroundType((laWidget*)ImageItem_Item, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)ImageItem_Item, LA_WIDGET_BORDER_NONE);
+    laWidget_AddChild((laWidget*)PanelBackgound_Item, (laWidget*)ImageItem_Item);
+
+    ButtonBuy_Item = laButtonWidget_New();
+    laWidget_SetPosition((laWidget*)ButtonBuy_Item, 322, 213);
+    laWidget_SetSize((laWidget*)ButtonBuy_Item, 160, 60);
+    laWidget_SetScheme((laWidget*)ButtonBuy_Item, &WhiteScheme);
+    laWidget_SetBackgroundType((laWidget*)ButtonBuy_Item, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)ButtonBuy_Item, LA_WIDGET_BORDER_NONE);
+    laButtonWidget_SetText(ButtonBuy_Item, laString_CreateFromID(string_String_Price));
+    laButtonWidget_SetPressedImage(ButtonBuy_Item, &Elongated_Button_Press);
+    laButtonWidget_SetReleasedImage(ButtonBuy_Item, &Elongated_Button);
+    laButtonWidget_SetImagePosition(ButtonBuy_Item, LA_RELATIVE_POSITION_BEHIND);
+    laWidget_AddChild((laWidget*)PanelBackgound_Item, (laWidget*)ButtonBuy_Item);
+
+    ButtonMain_Item = laButtonWidget_New();
+    laWidget_SetPosition((laWidget*)ButtonMain_Item, 421, 0);
+    laWidget_SetSize((laWidget*)ButtonMain_Item, 60, 60);
+    laWidget_SetScheme((laWidget*)ButtonMain_Item, &WhiteScheme);
+    laWidget_SetBackgroundType((laWidget*)ButtonMain_Item, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)ButtonMain_Item, LA_WIDGET_BORDER_NONE);
+    laButtonWidget_SetPressedImage(ButtonMain_Item, &Home_Press);
+    laButtonWidget_SetReleasedImage(ButtonMain_Item, &Home);
+    laButtonWidget_SetReleasedEventCallback(ButtonMain_Item, &ButtonMain_Item_ReleasedEvent);
+
+    laWidget_AddChild((laWidget*)PanelBackgound_Item, (laWidget*)ButtonMain_Item);
+
+    LabelItemDetail_Item = laLabelWidget_New();
+    laWidget_SetPosition((laWidget*)LabelItemDetail_Item, 120, 15);
+    laWidget_SetSize((laWidget*)LabelItemDetail_Item, 300, 190);
+    laWidget_SetScheme((laWidget*)LabelItemDetail_Item, &WhiteScheme);
+    laWidget_SetBackgroundType((laWidget*)LabelItemDetail_Item, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)LabelItemDetail_Item, LA_WIDGET_BORDER_NONE);
+    laLabelWidget_SetText(LabelItemDetail_Item, laString_CreateFromID(string_String_ItemDetail));
+    laLabelWidget_SetHAlignment(LabelItemDetail_Item, LA_HALIGN_LEFT);
+    laLabelWidget_SetVAlignment(LabelItemDetail_Item, LA_VALIGN_TOP);
+    laWidget_AddChild((laWidget*)PanelBackgound_Item, (laWidget*)LabelItemDetail_Item);
+
+    PanelLoading_Item = laWidget_New();
+    laWidget_SetSize((laWidget*)PanelLoading_Item, 480, 272);
+    laWidget_SetScheme((laWidget*)PanelLoading_Item, &WhiteScheme);
+    laWidget_SetBackgroundType((laWidget*)PanelLoading_Item, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)PanelLoading_Item, LA_WIDGET_BORDER_NONE);
+    laWidget_AddChild((laWidget*)PanelBackgound_Item, PanelLoading_Item);
+
+    ImageLoading_Item = laImageSequenceWidget_New();
+    laWidget_SetPosition((laWidget*)ImageLoading_Item, 180, 60);
+    laWidget_SetSize((laWidget*)ImageLoading_Item, 143, 143);
+    laWidget_SetScheme((laWidget*)ImageLoading_Item, &WhiteScheme);
+    laWidget_SetBackgroundType((laWidget*)ImageLoading_Item, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)ImageLoading_Item, LA_WIDGET_BORDER_NONE);
+    laImageSequenceWidget_SetImageCount(ImageLoading_Item, 12);
+    laImageSequenceWidget_SetImage(ImageLoading_Item, 0, &Loading0);
+    laImageSequenceWidget_SetImage(ImageLoading_Item, 1, &Loading1);
+    laImageSequenceWidget_SetImage(ImageLoading_Item, 2, &Loading2);
+    laImageSequenceWidget_SetImage(ImageLoading_Item, 3, &Loading3);
+    laImageSequenceWidget_SetImage(ImageLoading_Item, 4, &Loading4);
+    laImageSequenceWidget_SetImage(ImageLoading_Item, 5, &Loading5);
+    laImageSequenceWidget_SetImage(ImageLoading_Item, 6, &Loading6);
+    laImageSequenceWidget_SetImage(ImageLoading_Item, 7, &Loading7);
+    laImageSequenceWidget_SetImage(ImageLoading_Item, 8, &Loading8);
+    laImageSequenceWidget_SetImage(ImageLoading_Item, 9, &Loading9);
+    laImageSequenceWidget_SetImage(ImageLoading_Item, 10, &Loading10);
+    laImageSequenceWidget_SetImage(ImageLoading_Item, 11, &Loading11);
+    laImageSequenceWidget_SetRepeat(ImageLoading_Item, LA_TRUE);
+    laImageSequenceWidget_Play(ImageLoading_Item);
+    laWidget_AddChild((laWidget*)PanelLoading_Item, (laWidget*)ImageLoading_Item);
 
 }
 

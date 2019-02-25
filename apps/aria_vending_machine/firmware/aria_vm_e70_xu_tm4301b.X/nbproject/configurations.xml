@@ -56,7 +56,7 @@
               <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/inc/gfx_math.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/gfx_config.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f5" displayName="libaria" projectFiles="true">
+            <logicalFolder name="f4" displayName="libaria" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/libaria_harmony.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/libaria_config.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/libaria_init.h</itemPath>
@@ -112,11 +112,6 @@
               <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/libaria_events.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/libaria_macros.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="third_party" projectFiles="true">
-              <logicalFolder name="f1" displayName="lodepng" projectFiles="true">
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/third_party/lodepng/lodepng.h</itemPath>
-              </logicalFolder>
-            </logicalFolder>
             <logicalFolder name="f3" displayName="utils" projectFiles="true">
               <logicalFolder name="f1" displayName="inc" projectFiles="true">
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/inc/gfxu_binary.h</itemPath>
@@ -127,7 +122,6 @@
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/inc/gfxu_palette.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/inc/gfxu_string.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/inc/gfxu_string_utils.h</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/inc/gfxu_image_jpg_common.h</itemPath>
               </logicalFolder>
               <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/gfx_utils.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/gfxu_config.h</itemPath>
@@ -161,6 +155,9 @@
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f4" displayName="system" projectFiles="true">
+            <logicalFolder name="f5" displayName="cache" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/system/cache/sys_cache.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="f2" displayName="input" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input_gesture.h</itemPath>
@@ -180,6 +177,7 @@
             <logicalFolder name="f1" displayName="time" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/system/time/sys_time.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/system/time/sys_time_definitions.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/system/time/src/sys_time_local.h</itemPath>
             </logicalFolder>
             <itemPath>../src/config/lcc_rgb565_mxt/system/system.h</itemPath>
             <itemPath>../src/config/lcc_rgb565_mxt/system/system_common.h</itemPath>
@@ -324,7 +322,7 @@
               <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_draw_stretchblit.c</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/gfx/hal/src/gfx_math.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f5" displayName="libaria" projectFiles="true">
+            <logicalFolder name="f4" displayName="libaria" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/libaria_harmony.c</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/libaria_init.c</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/src/libaria.c</itemPath>
@@ -407,20 +405,7 @@
               <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/libaria_events.c</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/gfx/libaria/libaria_macros.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="third_party" projectFiles="true">
-              <logicalFolder name="f1" displayName="lodepng" projectFiles="true">
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/third_party/src/lodepng/lodepng.c</itemPath>
-              </logicalFolder>
-              <itemPath>../src/config/lcc_rgb565_mxt/gfx/third_party/decoder/src/jidctint.c</itemPath>
-            </logicalFolder>
             <logicalFolder name="f3" displayName="utils" projectFiles="true">
-              <logicalFolder name="f1" displayName="src" projectFiles="true">
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_image_jpg_common.c</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_image_jpg_internal.c</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_image_jpg_external.c</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_image_png_external.c</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_image_png_internal.c</itemPath>
-              </logicalFolder>
               <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_image.c</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_image_raw_external.c</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/gfx/utils/src/gfxu_image_raw_internal.c</itemPath>
@@ -464,6 +449,9 @@
             <itemPath>../src/config/lcc_rgb565_mxt/stdio/xc32_monitor.c</itemPath>
           </logicalFolder>
           <logicalFolder name="f5" displayName="system" projectFiles="true">
+            <logicalFolder name="f4" displayName="cache" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/system/cache/sys_cache.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="f2" displayName="input" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input.c</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input_listener.c</itemPath>
@@ -473,7 +461,6 @@
             </logicalFolder>
             <logicalFolder name="f1" displayName="time" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/system/time/src/sys_time.c</itemPath>
-              <itemPath>../src/config/lcc_rgb565_mxt/system/time/src/sys_time_local.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <itemPath>../src/config/lcc_rgb565_mxt/initialization.c</itemPath>
@@ -505,9 +492,9 @@
         <targetDevice>ATSAME70Q21B</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>EdbgTool</platformTool>
+        <platformTool>ICD4Tool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.10</languageToolchainVersion>
+        <languageToolchainVersion>2.15</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
@@ -716,7 +703,51 @@
         <property key="programoptions.preserveprogram.ranges" value=""/>
         <property key="programoptions.preserveprogramrange" value="false"/>
         <property key="programoptions.preserveuserid" value="false"/>
+        <property key="programoptions.programuserotp" value="false"/>
       </EdbgTool>
+      <ICD4Tool>
+        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
+        <property key="ToolFirmwareFilePath"
+                  value="Press to browse for a specific firmware version"/>
+        <property key="ToolFirmwareOption.UpdateOptions"
+                  value="ToolFirmwareOption.UseLatest"/>
+        <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="hwtoolclock.frcindebug" value="false"/>
+        <property key="memories.aux" value="false"/>
+        <property key="memories.bootflash" value="true"/>
+        <property key="memories.configurationmemory" value="true"/>
+        <property key="memories.configurationmemory2" value="true"/>
+        <property key="memories.dataflash" value="true"/>
+        <property key="memories.eeprom" value="true"/>
+        <property key="memories.exclude.configurationmemory" value="true"/>
+        <property key="memories.flashdata" value="true"/>
+        <property key="memories.id" value="true"/>
+        <property key="memories.instruction.ram.ranges"
+                  value="${memories.instruction.ram.ranges}"/>
+        <property key="memories.programmemory" value="true"/>
+        <property key="memories.programmemory.ranges" value="400000-5fffff"/>
+        <property key="poweroptions.powerenable" value="false"/>
+        <property key="programoptions.donoteraseauxmem" value="false"/>
+        <property key="programoptions.eraseb4program" value="true"/>
+        <property key="programoptions.ledbrightness" value="5"/>
+        <property key="programoptions.pgcconfig" value="pull down"/>
+        <property key="programoptions.pgcresistor.value" value="4.7"/>
+        <property key="programoptions.pgdconfig" value="pull down"/>
+        <property key="programoptions.pgdresistor.value" value="4.7"/>
+        <property key="programoptions.pgmentry.voltage" value="low"/>
+        <property key="programoptions.pgmspeed" value="Med"/>
+        <property key="programoptions.preservedataflash" value="false"/>
+        <property key="programoptions.preserveeeprom" value="false"/>
+        <property key="programoptions.preserveeeprom.ranges" value=""/>
+        <property key="programoptions.preserveprogram.ranges" value=""/>
+        <property key="programoptions.preserveprogramrange" value="false"/>
+        <property key="programoptions.preserveuserid" value="false"/>
+        <property key="programoptions.programcalmem" value="false"/>
+        <property key="programoptions.programuserotp" value="false"/>
+        <property key="programoptions.testmodeentrymethod" value="VDDFirst"/>
+        <property key="voltagevalue" value="3.25"/>
+      </ICD4Tool>
       <PICkit3PlatformTool>
         <property key="ADC 1" value="true"/>
         <property key="AutoSelectMemRanges" value="auto"/>

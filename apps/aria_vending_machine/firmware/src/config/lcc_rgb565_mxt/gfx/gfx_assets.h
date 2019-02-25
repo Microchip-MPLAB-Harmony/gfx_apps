@@ -134,60 +134,6 @@ extern GFXU_ImageAsset CrossFade3;
 	
 /*********************************
  * GFX Image Asset
- * Name:   Brewery_Icons_01
- * Size:   120x120 pixels
- * Mode:   GS_8
- * Format: RAW
- ***********************************/
-extern GFXU_ImageAsset Brewery_Icons_01;
-	
-/*********************************
- * GFX Image Asset
- * Name:   Brewery_Icons_02
- * Size:   120x120 pixels
- * Mode:   GS_8
- * Format: RAW
- ***********************************/
-extern GFXU_ImageAsset Brewery_Icons_02;
-	
-/*********************************
- * GFX Image Asset
- * Name:   Brewery_Icons_03
- * Size:   120x120 pixels
- * Mode:   GS_8
- * Format: RAW
- ***********************************/
-extern GFXU_ImageAsset Brewery_Icons_03;
-	
-/*********************************
- * GFX Image Asset
- * Name:   Brewery_Icons_04
- * Size:   120x120 pixels
- * Mode:   GS_8
- * Format: RAW
- ***********************************/
-extern GFXU_ImageAsset Brewery_Icons_04;
-	
-/*********************************
- * GFX Image Asset
- * Name:   Brewery_Icons_05
- * Size:   120x120 pixels
- * Mode:   GS_8
- * Format: RAW
- ***********************************/
-extern GFXU_ImageAsset Brewery_Icons_05;
-	
-/*********************************
- * GFX Image Asset
- * Name:   Brewery_Icons_06
- * Size:   120x120 pixels
- * Mode:   GS_8
- * Format: RAW
- ***********************************/
-extern GFXU_ImageAsset Brewery_Icons_06;
-	
-/*********************************
- * GFX Image Asset
  * Name:   Loading0
  * Size:   143x143 pixels
  * Mode:   GS_8
@@ -458,6 +404,24 @@ extern GFXU_ImageAsset Info_Press;
 	
 /*********************************
  * GFX Image Asset
+ * Name:   Elongated_Button
+ * Size:   145x50 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Elongated_Button;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Elongated_Button_Press
+ * Size:   145x50 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Elongated_Button_Press;
+	
+/*********************************
+ * GFX Image Asset
  * Name:   Language_Change
  * Size:   39x36 pixels
  * Mode:   GS_8
@@ -474,6 +438,186 @@ extern GFXU_ImageAsset Language_Change;
  ***********************************/
 extern GFXU_ImageAsset Language_Change_Press;
 	
+/*********************************
+ * GFX Image Asset
+ * Name:   Home
+ * Size:   32x28 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Home;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Home_Press
+ * Size:   32x28 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Home_Press;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Premium_Beer_Icons_07
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Premium_Beer_Icons_07;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Premium_Beer_Icons_08
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Premium_Beer_Icons_08;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Premium_Beer_Icons_09
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Premium_Beer_Icons_09;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Premium_Beer_Icons_10
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Premium_Beer_Icons_10;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Premium_Beer_Icons_11
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Premium_Beer_Icons_11;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Premium_Beer_Icons_12
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Premium_Beer_Icons_12;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Premium_Beer_Icons_13
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Premium_Beer_Icons_13;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Premium_Beer_Icons_14
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Premium_Beer_Icons_14;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Premium_Beer_Icons_15
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Premium_Beer_Icons_15;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Premium_Beer_Icons_16
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Premium_Beer_Icons_16;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Premium_Beer_Icons_17
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Premium_Beer_Icons_17;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Premium_Beer_Icons_18
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Premium_Beer_Icons_18;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Long_Frank_Beer_Icons_01
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Long_Frank_Beer_Icons_01;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Long_Frank_Beer_Icons_02
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Long_Frank_Beer_Icons_02;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Long_Frank_Beer_Icons_03
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Long_Frank_Beer_Icons_03;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Long_Frank_Beer_Icons_04
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Long_Frank_Beer_Icons_04;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Long_Frank_Beer_Icons_05
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Long_Frank_Beer_Icons_05;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Long_Frank_Beer_Icons_06
+ * Size:   120x120 pixels
+ * Mode:   GS_8
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Long_Frank_Beer_Icons_06;
+	
 /*****************************************************************************
  * MPLAB Harmony Graphics Font Assets
  *****************************************************************************/
@@ -482,53 +626,80 @@ extern GFXU_ImageAsset Language_Change_Press;
  * Name:         ArialUnicodeMS_Medium
  * Height:       23
  * Style:        Plain
- * Glyph Count:  96
- * Range Count:  45
- * Glyph Ranges: 0x20
-			     0x25
-			     0x2B
-			     0x2F-0x35
-			     0x38-0x3A
-			     0x41-0x46
-			     0x48-0x59
-			     0x61-0x65
-			     0x67-0x70
-			     0x72-0x7A
-			     0xED
+ * Glyph Count:  167
+ * Range Count:  72
+ * Glyph Ranges: 0x20-0x7F
 			     0xF1
+			     0x3002
 			     0x4E00
-			     0x4E09
-			     0x4E8C
-			     0x4E91
-			     0x4E94
-			     0x4F4E
-			     0x516D
-			     0x524D
-			     0x53D6
-			     0x56DB
-			     0x591A
-			     0x592A
-			     0x5B9A
+			     0x4E4E
+			     0x4E7E
+			     0x4E9B
+			     0x4E9E
+			     0x4EE3
+			     0x4EE5
+			     0x4F10
+			     0x4F46
+			     0x500B
+			     0x50B3
+			     0x5149
+			     0x5176
+			     0x5217
+			     0x5229
+			     0x539F
+			     0x53CA
+			     0x53EB
+			     0x540D
+			     0x5473
+			     0x548C
+			     0x5564
+			     0x5728
+			     0x5B63
+			     0x5BB6
 			     0x5C0F
-			     0x5E02
-			     0x5EA6
-			     0x5F53
-			     0x6307
-			     0x6570
-			     0x65E5
-			     0x65F6
-			     0x6B61
+			     0x5C3C
+			     0x5DDE
+			     0x5DF4
+			     0x5E7E
+			     0x5E95
+			     0x6027
+			     0x6155
+			     0x65B9
+			     0x662F
+			     0x6709
+			     0x68EE
 			     0x6BCF
-			     0x6D88
-			     0x6E7F
+			     0x6BD4
+			     0x6C41
+			     0x6DE8
+			     0x6ED1
+			     0x723E
+			     0x767C
 			     0x7684
-			     0x78BA
-			     0x8FCE
-			     0x901F
+			     0x7A96
+			     0x7BC0
+			     0x7CFB
+			     0x7D71
+			     0x800C
+			     0x805E
+			     0x80CC
+			     0x8207
+			     0x8272
+			     0x8A5E
+			     0x9019
+			     0x9053
+			     0x90E8
 			     0x90FD
-			     0x9633
-			     0x96E8
-			     0x98CE
+			     0x9152
+			     0x9175
+			     0x91C0
+			     0x91D1
+			     0x9762
+			     0x99B3
+			     0x9EA5
+			     0x9ED1
+			     0xFF0C
+			     0xFF1A
  ***********************************/
 extern GFXU_FontAsset ArialUnicodeMS_Medium;
 	
@@ -537,104 +708,43 @@ extern GFXU_FontAsset ArialUnicodeMS_Medium;
  * Name:         ArialUnicodeMS_Large
  * Height:       38
  * Style:        Plain
- * Glyph Count:  16
- * Range Count:  12
- * Glyph Ranges: 0x20
-			     0x41
-			     0x4C-0x4D
-			     0x61
-			     0x64-0x65
-			     0x67
-			     0x69
-			     0x6C
-			     0x6E-0x6F
-			     0x72-0x73
-			     0x4E0A
-			     0x6D77
+ * Glyph Count:  96
+ * Range Count:  1
+ * Glyph Ranges: 0x20-0x7F
  ***********************************/
 extern GFXU_FontAsset ArialUnicodeMS_Large;
 	
 /*********************************
  * GFX Font Asset
  * Name:         ArialUnicodeMS_Small
- * Height:       14
+ * Height:       19
  * Style:        Plain
- * Glyph Count:  50
- * Range Count:  26
- * Glyph Ranges: 0x20
-			     0x30-0x33
-			     0x35-0x36
-			     0x38-0x3A
-			     0x41-0x43
-			     0x48
-			     0x50
-			     0x54
-			     0x61-0x65
-			     0x67-0x6A
-			     0x6C-0x70
-			     0x72-0x77
-			     0x79
-			     0x4E0B
-			     0x4F1A
-			     0x5B9E
-			     0x5EA6
-			     0x6309
-			     0x6539
-			     0x66F4
-			     0x673A
-			     0x6E29
-			     0x6E7F
-			     0x9645
-			     0x96E8
-			     0x9762
+ * Glyph Count:  99
+ * Range Count:  4
+ * Glyph Ranges: 0x20-0x7F
+			     0xE1
+			     0xED
+			     0xF3
  ***********************************/
 extern GFXU_FontAsset ArialUnicodeMS_Small;
 	
 /*********************************
  * GFX Font Asset
- * Name:         ArialUnicodeMS_Huge
- * Height:       49
- * Style:        Plain
- * Glyph Count:  7
- * Range Count:  5
- * Glyph Ranges: 0x32-0x33
-			     0x35
-			     0x37-0x38
-			     0x2103
-			     0x2109
+ * Name:         ArialUnicodeMS_Bold
+ * Height:       28
+ * Style:        Bold
+ * Glyph Count:  10
+ * Range Count:  8
+ * Glyph Ranges: 0x41
+			     0x44-0x45
+			     0x49
+			     0x4E
+			     0x50
+			     0x52-0x53
+			     0x5206
+			     0x767C
  ***********************************/
-extern GFXU_FontAsset ArialUnicodeMS_Huge;
-	
-/*********************************
- * GFX Font Asset
- * Name:         ArialUnicodeMS_Tiny
- * Height:       13
- * Style:        Plain
- * Glyph Count:  31
- * Range Count:  21
- * Glyph Ranges: 0x20
-			     0x25
-			     0x30-0x33
-			     0x35-0x36
-			     0x38
-			     0x46
-			     0x4C
-			     0x53
-			     0x61
-			     0x65
-			     0x69
-			     0x6B-0x6E
-			     0x70
-			     0x72-0x75
-			     0x2103
-			     0x2109
-			     0x50CF
-			     0x5EA6
-			     0x611F
-			     0x6E29
-			     0x89C9
- ***********************************/
-extern GFXU_FontAsset ArialUnicodeMS_Tiny;
+extern GFXU_FontAsset ArialUnicodeMS_Bold;
 	
 /*****************************************************************************
  * MPLAB Harmony Graphics String Table
@@ -644,7 +754,7 @@ extern GFXU_FontAsset ArialUnicodeMS_Tiny;
  * Name:         stringTable
  * Encoding:     UTF8
  * Languages:    English, Chinese, Spanish
- * String Count: 51
+ * String Count: 3
  ***********************************/
 // language IDs
 #define language_English    0
@@ -652,57 +762,9 @@ extern GFXU_FontAsset ArialUnicodeMS_Tiny;
 #define language_Spanish    2
 
 // string IDs
-#define string_Cancel    0
-#define string_City    1
-#define string_Cloudy    2
-#define string_Current    3
-#define string_LanguageID    4
-#define string_LayerTitle    5
-#define string_LocalizationTitle    6
-#define string_Ok    7
-#define string_PressToChange    8
-#define string_Quit    9
-#define string_Rain    10
-#define string_Start    11
-#define string_Stop    12
-#define string_String_0Percent    13
-#define string_String_0Temp    14
-#define string_String_100Percent    15
-#define string_String_100Temp    16
-#define string_String_50Percent    17
-#define string_String_ActualTemp    18
-#define string_String_FeelTemp    19
-#define string_String_Friday    20
-#define string_String_Humidity    21
-#define string_String_Midnight    22
-#define string_String_Monday    23
-#define string_String_NineAM    24
-#define string_String_NinePM    25
-#define string_String_Noon    26
-#define string_String_Precipitation    27
-#define string_String_Saturday    28
-#define string_String_SixAM    29
-#define string_String_SixPM    30
-#define string_String_Sunday    31
-#define string_String_ThreeAM    32
-#define string_String_ThreePM    33
-#define string_String_Thursday    34
-#define string_String_Tuesday    35
-#define string_String_Wednesday    36
-#define string_Sunny    37
-#define string_TimeHour    38
-#define string_TimeMinute    39
-#define string_Welcome    40
-#define string_degrees    41
-#define string_humidity    42
-#define string_lbl_City    43
-#define string_lbl_Daily    44
-#define string_lbl_Hourly    45
-#define string_ninemph    46
-#define string_thirteenpercent    47
-#define string_uvindex    48
-#define string_uvlow    49
-#define string_windspeed    50
+#define string_LanguageID    0
+#define string_String_ItemDetail    1
+#define string_String_Price    2
  
 extern GFXU_StringTableAsset stringTable;
 
