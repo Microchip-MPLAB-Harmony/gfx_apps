@@ -180,10 +180,10 @@ typedef struct
     APP_STAGE_SOURCE    stageSource;
     
    /* Device layer handle returned by device layer open function */
-    USB_DEVICE_HANDLE usbDevHandle;
-
-    /* Application CDC Instance */
-    USB_DEVICE_CDC_INDEX cdcInstance;
+//    USB_DEVICE_HANDLE usbDevHandle;
+//
+//    /* Application CDC Instance */
+//    USB_DEVICE_CDC_INDEX cdcInstance;
 
     /* Application USART Driver handle */
     DRV_HANDLE usartHandle;
@@ -198,22 +198,22 @@ typedef struct
     uint8_t * readBuffer;
 
     /* Set Line Coding Data */
-    USB_CDC_LINE_CODING setLineCodingData;
-
-    /* Get Line Coding Data */
-    USB_CDC_LINE_CODING getLineCodingData;
-
-    /* Control Line State */
-    USB_CDC_CONTROL_LINE_STATE controlLineStateData;
+//    USB_CDC_LINE_CODING setLineCodingData;
+//
+//    /* Get Line Coding Data */
+//    USB_CDC_LINE_CODING getLineCodingData;
+//
+//    /* Control Line State */
+//    USB_CDC_CONTROL_LINE_STATE controlLineStateData;
 
     /* Break data */
     uint16_t breakData;
 
     /* Read transfer handle */
-    USB_DEVICE_CDC_TRANSFER_HANDLE readTransferHandle;
-
-    /* Write transfer handle */
-    USB_DEVICE_CDC_TRANSFER_HANDLE writeTransferHandle;
+//    USB_DEVICE_CDC_TRANSFER_HANDLE readTransferHandle;
+//
+//    /* Write transfer handle */
+//    USB_DEVICE_CDC_TRANSFER_HANDLE writeTransferHandle;
 
     /* True if a character was read */
     bool isCDCReadComplete;
@@ -246,7 +246,7 @@ typedef struct
     uint8_t configValue;
 
     /* speed */
-    USB_SPEED speed;
+//    USB_SPEED speed;
 
     /* ep data sent */
     bool epDataWritePending;
@@ -255,16 +255,16 @@ typedef struct
     bool epDataReadPending;
 
     /* Transfer handle */
-    USB_DEVICE_TRANSFER_HANDLE writeTranferHandle;
-
-    /* Transfer handle */
-    USB_DEVICE_TRANSFER_HANDLE readTranferHandle;
-
-    /* The transmit endpoint address */
-    USB_ENDPOINT_ADDRESS endpointTx;
-
-    /* The receive endpoint address */
-    USB_ENDPOINT_ADDRESS endpointRx;
+//    USB_DEVICE_TRANSFER_HANDLE writeTranferHandle;
+//
+//    /* Transfer handle */
+//    USB_DEVICE_TRANSFER_HANDLE readTranferHandle;
+//
+//    /* The transmit endpoint address */
+//    USB_ENDPOINT_ADDRESS endpointTx;
+//
+//    /* The receive endpoint address */
+//    USB_ENDPOINT_ADDRESS endpointRx;
 
     /* Tracks the alternate setting */
     uint8_t altSetting;

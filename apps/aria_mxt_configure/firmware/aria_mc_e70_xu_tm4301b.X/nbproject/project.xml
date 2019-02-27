@@ -16,19 +16,20 @@
             <formatting>
                 <project-formatting-style>false</project-formatting-style>
             </formatting>
+            <make-dep-projects/>
             <sourceRootList>
                 <sourceRootElem>../src</sourceRootElem>
+                <sourceRootElem>../../../../../../gfx_apps/apps/aria_mxt_configure/firmware/src</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>
-                    <name>sam_e70_xult_bm64</name>
+                    <name>lcc_rgb565_mxt</name>
                     <type>2</type>
                 </confElem>
             </confList>
             <formatting>
                 <project-formatting-style>false</project-formatting-style>
             </formatting>
-            <make-dep-projects/>
         </data>
     </configuration>
 </project>

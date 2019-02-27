@@ -71,9 +71,8 @@ extern "C" {
 // Section: System Configuration
 // *****************************************************************************
 // *****************************************************************************
-#define DCACHE_CLEAN_BY_ADDR(data, size)       SCB_CleanDCache_by_Addr((uint32_t *)data, size)
-#define DCACHE_INVALIDATE_BY_ADDR(data, size)  SCB_InvalidateDCache_by_Addr((uint32_t *)data, size)
-#define DATA_CACHE_ENABLED                     true
+
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -84,7 +83,7 @@ extern "C" {
 #define SYS_TIME_INDEX_0                     0
 #define SYS_TIME_MAX_TIMERS                  5
 #define SYS_TIME_HW_COUNTER_WIDTH            16
-#define SYS_TIME_HW_COUNTER_PERIOD           0xFFFF
+#define SYS_TIME_HW_COUNTER_PERIOD           65535U
 #define SYS_TIME_HW_COUNTER_HALF_PERIOD		 (SYS_TIME_HW_COUNTER_PERIOD>>1)
 #define SYS_TIME_CPU_CLOCK_FREQUENCY         300000000
 #define SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES      (900)
@@ -97,7 +96,7 @@ extern "C" {
 #define SYS_FS_VOLUME_NUMBER              1
 
 #define SYS_FS_AUTOMOUNT_ENABLE           false
-#define SYS_FS_MAX_FILES                  1
+#define SYS_FS_MAX_FILES                  2
 #define SYS_FS_MAX_FILE_SYSTEM_TYPE       1
 #define SYS_FS_MEDIA_MAX_BLOCK_SIZE       512
 #define SYS_FS_MEDIA_MANAGER_BUFFER_SIZE  2048
@@ -118,30 +117,34 @@ extern "C" {
 /* I2C Driver Instance 0 Configuration Options */
 #define DRV_I2C_INDEX_0                       0
 #define DRV_I2C_CLIENTS_NUMBER_IDX0           1
-#define DRV_I2C_INT_SRC_IDX0                  TWIHS0_IRQn
 #define DRV_I2C_QUEUE_SIZE_IDX0               2
 #define DRV_I2C_CLOCK_SPEED_IDX0              400000
 
-
-
-/*** SDHC Driver Configuration ***/
-#define DRV_SDHC_CLIENTS_NUMBER 1
-#define DRV_SDHC_BUFFER_QUEUE_SIZE 1
-#define DRV_SDHC_CARD_DETECT_ENABLE  false
-#define	DRV_SDHC_WRITE_PROTECT_ENABLE  false
-
-
-
+/* SDMMC Driver Global Configuration Options */
+#define DRV_SDMMC_INSTANCES_NUMBER                       1
+#define DRV_SDMMC_CONFIG_SPEED_MODE_DEFAULT              0
+#define DRV_SDMMC_CONFIG_SPEED_MODE_HIGH                 1
+#define DRV_SDMMC_CONFIG_BUS_WIDTH_1_BIT                 0
+#define DRV_SDMMC_CONFIG_BUS_WIDTH_4_BIT                 1
 /* I2C Driver Common Configuration Options */
 #define DRV_I2C_INSTANCES_NUMBER              1
+
+
+
+/*** SDMMC Driver Instance 0 Configuration ***/
+#define DRV_SDMMC_INDEX_0                                0
+#define DRV_SDMMC_CLIENTS_NUMBER_IDX0                    1
+#define DRV_SDMMC_QUEUE_SIZE_IDX0                        1
+#define DRV_SDMMC_CONFIG_SPEED_MODE_IDX0                 DRV_SDMMC_CONFIG_SPEED_MODE_DEFAULT
+#define DRV_SDMMC_CONFIG_BUS_WIDTH_IDX0                  DRV_SDMMC_CONFIG_BUS_WIDTH_4_BIT
+
+
 
 
 
 /*** MXT336T Driver Configuration ***/
 #define DRV_MAXTOUCH_I2C_MODULE_INDEX   0
 
-/* SDHC Driver Global Configuration Options */
-#define DRV_SDHC_INSTANCES_NUMBER 1
 
 
 // *****************************************************************************
@@ -149,45 +152,6 @@ extern "C" {
 // Section: Middleware & Other Library Configuration
 // *****************************************************************************
 // *****************************************************************************
-/* Number of Endpoints used */
-#define DRV_USBHSV1_ENDPOINTS_NUMBER                        4
-
-/* The USB Device Layer will not initialize the USB Driver */
-#define USB_DEVICE_DRIVER_INITIALIZE_EXPLICIT 
-
-/* Maximum device layer instances */
-#define USB_DEVICE_INSTANCES_NUMBER                         1 
-
-/* EP0 size in bytes */
-#define USB_DEVICE_EP0_BUFFER_SIZE                          64
-
-
-
-
-
-
-/* Maximum instances of CDC function driver */
-#define USB_DEVICE_CDC_INSTANCES_NUMBER                     1
-
-/* CDC Transfer Queue Size for both read and
-   write. Applicable to all instances of the
-   function driver */
-#define USB_DEVICE_CDC_QUEUE_DEPTH_COMBINED                 4
-
-/*** USB Driver Configuration ***/
-
-/* Maximum USB driver instances */
-#define DRV_USBHSV1_INSTANCES_NUMBER                        1
-
-/* Interrupt mode enabled */
-#define DRV_USBHSV1_INTERRUPT_MODE                          true
-
-/* Enables Device Support */
-#define DRV_USBHSV1_DEVICE_SUPPORT                          true
-	
-/* Disable Host Support */
-#define DRV_USBHSV1_HOST_SUPPORT                            false
-
 
 
 // *****************************************************************************

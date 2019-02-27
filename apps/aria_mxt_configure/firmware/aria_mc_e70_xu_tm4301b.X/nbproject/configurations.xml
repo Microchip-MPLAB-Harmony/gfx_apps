@@ -4,15 +4,12 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <logicalFolder name="f4" displayName="arm" projectFiles="true">
-        <itemPath>../src/arm/toolchain_specifics.h</itemPath>
-      </logicalFolder>
       <logicalFolder name="f1" displayName="config" projectFiles="true">
         <logicalFolder name="f1" displayName="lcc_rgb565_mxt" projectFiles="true">
-          <logicalFolder name="f6" displayName="bsp" projectFiles="true">
+          <logicalFolder name="f5" displayName="bsp" projectFiles="true">
             <itemPath>../src/config/lcc_rgb565_mxt/bsp/bsp.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f4" displayName="driver" projectFiles="true">
+          <logicalFolder name="f2" displayName="driver" projectFiles="true">
             <logicalFolder name="f2" displayName="i2c" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/driver/i2c/drv_i2c.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/driver/i2c/drv_i2c_definitions.h</itemPath>
@@ -20,22 +17,9 @@
             <logicalFolder name="f3" displayName="input" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/driver/input/drv_maxtouch.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f1" displayName="sdhc" projectFiles="true">
-              <itemPath>../src/config/lcc_rgb565_mxt/driver/sdhc/src/drv_sdhc_host_local.h</itemPath>
-              <itemPath>../src/config/lcc_rgb565_mxt/driver/sdhc/src/drv_sdhc_host.h</itemPath>
-              <itemPath>../src/config/lcc_rgb565_mxt/driver/sdhc/drv_sdhc.h</itemPath>
-              <itemPath>../src/config/lcc_rgb565_mxt/driver/sdhc/src/drv_sdhc_local.h</itemPath>
-            </logicalFolder>
-            <logicalFolder name="f4" displayName="usb" projectFiles="true">
-              <logicalFolder name="f1" displayName="usbhsv1" projectFiles="true">
-                <logicalFolder name="f1" displayName="src" projectFiles="true">
-                  <itemPath>../src/config/lcc_rgb565_mxt/driver/usb/usbhsv1/src/drv_usbhsv1_variant_mapping.h</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/driver/usb/usbhsv1/src/drv_usbhsv1_local.h</itemPath>
-                </logicalFolder>
-                <itemPath>../src/config/lcc_rgb565_mxt/driver/usb/usbhsv1/drv_usbhsv1.h</itemPath>
-              </logicalFolder>
-              <itemPath>../src/config/lcc_rgb565_mxt/driver/usb/drv_usb.h</itemPath>
-              <itemPath>../src/config/lcc_rgb565_mxt/driver/usb/drv_usb_external_dependencies.h</itemPath>
+            <logicalFolder name="f1" displayName="sdmmc" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/driver/sdmmc/drv_sdmmc.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/driver/sdmmc/drv_sdmmc_definitions.h</itemPath>
             </logicalFolder>
             <itemPath>../src/config/lcc_rgb565_mxt/driver/driver.h</itemPath>
             <itemPath>../src/config/lcc_rgb565_mxt/driver/driver_common.h</itemPath>
@@ -152,37 +136,44 @@
             <itemPath>../src/config/lcc_rgb565_mxt/gfx/gfx_assets.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f3" displayName="peripheral" projectFiles="true">
-            <logicalFolder name="f4" displayName="clk" projectFiles="true">
+            <logicalFolder name="f1" displayName="clk" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/clk/plib_clk.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f6" displayName="nvic" projectFiles="true">
+            <logicalFolder name="f9" displayName="hsmci" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/hsmci/plib_hsmci_common.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/hsmci/plib_hsmci.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f3" displayName="nvic" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/nvic/plib_nvic.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f5" displayName="pio" projectFiles="true">
+            <logicalFolder name="f2" displayName="pio" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/pio/plib_pio.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f8" displayName="smc" projectFiles="true">
+            <logicalFolder name="f6" displayName="smc" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/smc/plib_smc.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f1" displayName="tc" projectFiles="true">
+            <logicalFolder name="f5" displayName="tc" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/tc/plib_tc0.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/tc/plib_tc_common.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="twihs" projectFiles="true">
+            <logicalFolder name="f7" displayName="twihs" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/twihs/plib_twihs_master.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/twihs/plib_twihs0.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="usart" projectFiles="true">
+            <logicalFolder name="f8" displayName="usart" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/usart/plib_usart_common.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/usart/plib_usart0.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f7" displayName="xdmac" projectFiles="true">
+            <logicalFolder name="f4" displayName="xdmac" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/xdmac/plib_xdmac_common.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/xdmac/plib_xdmac.h</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f5" displayName="system" projectFiles="true">
-            <logicalFolder name="f5" displayName="fs" projectFiles="true">
+          <logicalFolder name="f4" displayName="system" projectFiles="true">
+            <logicalFolder name="f6" displayName="cache" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/system/cache/sys_cache.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f3" displayName="fs" projectFiles="true">
               <logicalFolder name="f1" displayName="fat_fs" projectFiles="true">
                 <logicalFolder name="f1" displayName="file_system" projectFiles="true">
                   <itemPath>../src/config/lcc_rgb565_mxt/system/fs/fat_fs/src/file_system/ff.h</itemPath>
@@ -201,7 +192,7 @@
               <itemPath>../src/config/lcc_rgb565_mxt/system/fs/sys_fs_media_manager.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/system/fs/src/sys_fs_media_manager_local.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="input" projectFiles="true">
+            <logicalFolder name="f2" displayName="input" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input_gesture.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input_keyboard.h</itemPath>
@@ -209,44 +200,29 @@
               <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input_mouse.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input_touch.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="int" projectFiles="true">
+            <logicalFolder name="f4" displayName="int" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/system/int/sys_int.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/system/int/sys_int_mapping.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="ports" projectFiles="true">
+            <logicalFolder name="f5" displayName="ports" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/system/ports/sys_ports.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/system/ports/sys_ports_mapping.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f1" displayName="time" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/system/time/sys_time.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/system/time/sys_time_definitions.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/system/time/src/sys_time_local.h</itemPath>
             </logicalFolder>
             <itemPath>../src/config/lcc_rgb565_mxt/system/system.h</itemPath>
             <itemPath>../src/config/lcc_rgb565_mxt/system/system_common.h</itemPath>
             <itemPath>../src/config/lcc_rgb565_mxt/system/system_module.h</itemPath>
             <itemPath>../src/config/lcc_rgb565_mxt/system/system_media.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f2" displayName="usb" projectFiles="true">
-            <logicalFolder name="f1" displayName="src" projectFiles="true">
-              <itemPath>../src/config/lcc_rgb565_mxt/usb/src/usb_device_local.h</itemPath>
-              <itemPath>../src/config/lcc_rgb565_mxt/usb/src/usb_device_mapping.h</itemPath>
-              <itemPath>../src/config/lcc_rgb565_mxt/usb/src/usb_device_function_driver.h</itemPath>
-              <itemPath>../src/config/lcc_rgb565_mxt/usb/src/usb_external_dependencies.h</itemPath>
-              <itemPath>../src/config/lcc_rgb565_mxt/usb/src/usb_device_cdc_local.h</itemPath>
-            </logicalFolder>
-            <itemPath>../src/config/lcc_rgb565_mxt/usb/usb_device.h</itemPath>
-            <itemPath>../src/config/lcc_rgb565_mxt/usb/usb_common.h</itemPath>
-            <itemPath>../src/config/lcc_rgb565_mxt/usb/usb_chapter_9.h</itemPath>
-            <itemPath>../src/config/lcc_rgb565_mxt/usb/usb_device_cdc.h</itemPath>
-            <itemPath>../src/config/lcc_rgb565_mxt/usb/usb_cdc.h</itemPath>
-            <itemPath>../src/config/lcc_rgb565_mxt/usb/usb_host_client_driver.h</itemPath>
-            <itemPath>../src/config/lcc_rgb565_mxt/usb/usb_host_hub_interface.h</itemPath>
-            <itemPath>../src/config/lcc_rgb565_mxt/usb/usb_host.h</itemPath>
-            <itemPath>../src/config/lcc_rgb565_mxt/usb/usb_hub.h</itemPath>
-          </logicalFolder>
+          <itemPath>../src/config/lcc_rgb565_mxt/device_cache.h</itemPath>
+          <itemPath>../src/config/lcc_rgb565_mxt/toolchain_specifics.h</itemPath>
+          <itemPath>../src/config/lcc_rgb565_mxt/definitions.h</itemPath>
           <itemPath>../src/config/lcc_rgb565_mxt/user.h</itemPath>
           <itemPath>../src/config/lcc_rgb565_mxt/configuration.h</itemPath>
-          <itemPath>../src/config/lcc_rgb565_mxt/definitions.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f3" displayName="osal" projectFiles="true">
@@ -305,6 +281,7 @@
             <logicalFolder name="f1" displayName="Core" projectFiles="true">
               <logicalFolder name="f1" displayName="Include" projectFiles="true">
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_iccarm.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/tz_context.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm7.h</itemPath>
@@ -337,7 +314,7 @@
           <logicalFolder name="f6" displayName="bsp" projectFiles="true">
             <itemPath>../src/config/lcc_rgb565_mxt/bsp/bsp.c</itemPath>
           </logicalFolder>
-          <logicalFolder name="f4" displayName="driver" projectFiles="true">
+          <logicalFolder name="f2" displayName="driver" projectFiles="true">
             <logicalFolder name="f2" displayName="i2c" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/driver/i2c/src/drv_i2c.c</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/driver/i2c/src/drv_i2c_local.h</itemPath>
@@ -345,18 +322,10 @@
             <logicalFolder name="f3" displayName="input" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/driver/input/drv_maxtouch.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f1" displayName="sdhc" projectFiles="true">
-              <itemPath>../src/config/lcc_rgb565_mxt/driver/sdhc/src/drv_sdhc_host.c</itemPath>
-              <itemPath>../src/config/lcc_rgb565_mxt/driver/sdhc/src/drv_sdhc.c</itemPath>
-              <itemPath>../src/config/lcc_rgb565_mxt/driver/sdhc/src/drv_sdhc_file_system.c</itemPath>
-            </logicalFolder>
-            <logicalFolder name="f4" displayName="usb" projectFiles="true">
-              <logicalFolder name="f1" displayName="usbhsv1" projectFiles="true">
-                <logicalFolder name="f1" displayName="src" projectFiles="true">
-                  <itemPath>../src/config/lcc_rgb565_mxt/driver/usb/usbhsv1/src/drv_usbhsv1.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/driver/usb/usbhsv1/src/drv_usbhsv1_device.c</itemPath>
-                </logicalFolder>
-              </logicalFolder>
+            <logicalFolder name="f1" displayName="sdmmc" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/driver/sdmmc/src/drv_sdmmc.c</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/driver/sdmmc/src/drv_sdmmc_local.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/driver/sdmmc/src/drv_sdmmc_file_system.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f1" displayName="gfx" projectFiles="true">
@@ -510,37 +479,43 @@
             </logicalFolder>
             <itemPath>../src/config/lcc_rgb565_mxt/gfx/gfx_assets.c</itemPath>
           </logicalFolder>
-          <logicalFolder name="f3" displayName="peripheral" projectFiles="true">
-            <logicalFolder name="f4" displayName="clk" projectFiles="true">
+          <logicalFolder name="f4" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="f1" displayName="clk" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/clk/plib_clk.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f6" displayName="nvic" projectFiles="true">
+            <logicalFolder name="f9" displayName="hsmci" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/hsmci/plib_hsmci.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f3" displayName="nvic" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/nvic/plib_nvic.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f5" displayName="pio" projectFiles="true">
+            <logicalFolder name="f2" displayName="pio" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/pio/plib_pio.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f8" displayName="smc" projectFiles="true">
+            <logicalFolder name="f6" displayName="smc" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/smc/plib_smc.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f1" displayName="tc" projectFiles="true">
+            <logicalFolder name="f5" displayName="tc" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/tc/plib_tc0.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="twihs" projectFiles="true">
+            <logicalFolder name="f7" displayName="twihs" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/twihs/plib_twihs0.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="usart" projectFiles="true">
+            <logicalFolder name="f8" displayName="usart" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/usart/plib_usart0.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f7" displayName="xdmac" projectFiles="true">
+            <logicalFolder name="f4" displayName="xdmac" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/xdmac/plib_xdmac.c</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f7" displayName="stdio" projectFiles="true">
+          <logicalFolder name="f3" displayName="stdio" projectFiles="true">
             <itemPath>../src/config/lcc_rgb565_mxt/stdio/xc32_monitor.c</itemPath>
           </logicalFolder>
           <logicalFolder name="f5" displayName="system" projectFiles="true">
-            <logicalFolder name="f4" displayName="fs" projectFiles="true">
+            <logicalFolder name="f5" displayName="cache" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt/system/cache/sys_cache.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f3" displayName="fs" projectFiles="true">
               <logicalFolder name="f1" displayName="fat_fs" projectFiles="true">
                 <itemPath>../src/config/lcc_rgb565_mxt/system/fs/fat_fs/src/ff.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/system/fs/fat_fs/src/diskio.c</itemPath>
@@ -551,37 +526,28 @@
               <itemPath>../src/config/lcc_rgb565_mxt/system/fs/src/sys_fs.c</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/system/fs/src/sys_fs_media_manager.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f3" displayName="input" projectFiles="true">
+            <logicalFolder name="f2" displayName="input" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input.c</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input_listener.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="int" projectFiles="true">
+            <logicalFolder name="f4" displayName="int" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/system/int/src/sys_int.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f1" displayName="time" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/system/time/src/sys_time.c</itemPath>
-              <itemPath>../src/config/lcc_rgb565_mxt/system/time/src/sys_time_local.h</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f2" displayName="usb" projectFiles="true">
-            <logicalFolder name="f1" displayName="src" projectFiles="true">
-              <itemPath>../src/config/lcc_rgb565_mxt/usb/src/usb_device.c</itemPath>
-              <itemPath>../src/config/lcc_rgb565_mxt/usb/src/usb_device_cdc.c</itemPath>
-              <itemPath>../src/config/lcc_rgb565_mxt/usb/src/usb_device_cdc_acm.c</itemPath>
-            </logicalFolder>
-          </logicalFolder>
-          <itemPath>../src/config/lcc_rgb565_mxt/usb_device_init_data.c</itemPath>
-          <itemPath>../src/config/lcc_rgb565_mxt/tasks.c</itemPath>
           <itemPath>../src/config/lcc_rgb565_mxt/initialization.c</itemPath>
           <itemPath>../src/config/lcc_rgb565_mxt/interrupts.c</itemPath>
           <itemPath>../src/config/lcc_rgb565_mxt/exceptions.c</itemPath>
-          <itemPath>../src/config/lcc_rgb565_mxt/startup.c</itemPath>
+          <itemPath>../src/config/lcc_rgb565_mxt/startup_xc32.c</itemPath>
           <itemPath>../src/config/lcc_rgb565_mxt/libc_syscalls.c</itemPath>
+          <itemPath>../src/config/lcc_rgb565_mxt/tasks.c</itemPath>
         </logicalFolder>
       </logicalFolder>
       <itemPath>../src/app_splash_single_layer.c</itemPath>
-      <itemPath>../src/app.c</itemPath>
       <itemPath>../src/main.c</itemPath>
+      <itemPath>../src/app.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -607,8 +573,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAME70_DFP" vendor="Atmel" version="2.3.117"/>
         <pack name="CMSIS" vendor="ARM" version="5.0.1"/>
+        <pack name="SAME70_DFP" vendor="Microchip" version="3.0.10"/>
       </packs>
       <compileType>
         <linkerTool>
@@ -667,7 +633,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/sam_e70_xult_bm64;../src/packs/ATSAME70Q21B_DFP;../src/packs/CMSIS;../src;../src/config/sam_e70_xult_bm64;../src/packs/ATSAME70Q21B_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/arm;../src/config/lcc_rgb565_mxt"/>
+                  value="../src;../src/config/lcc_rgb565_mxt;../src/packs/ATSAME70Q21B_DFP;../src/packs/CMSIS;../src;../src/config/lcc_rgb565_mxt;../src/packs/ATSAME70Q21B_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/arm;../src/config/lcc_rgb565_mxt"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>

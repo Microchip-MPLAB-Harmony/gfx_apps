@@ -70,7 +70,6 @@ void __attribute__((optimize("-O1"),section(".text.Dummy_Handler"),long_call))Du
     {
     }
 }
-
 /* Device vectors list dummy definition*/
 void Reset_Handler              ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void NonMaskableInt_Handler     ( void ) __attribute__((weak, alias("Dummy_Handler")));
@@ -94,12 +93,12 @@ void UART1_Handler              ( void ) __attribute__((weak, alias("Dummy_Handl
 void PIOA_Handler               ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void PIOB_Handler               ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void PIOC_Handler               ( void ) __attribute__((weak, alias("Dummy_Handler")));
-void USART0_InterruptHandler    ( void ) __attribute__((weak, alias("Dummy_Handler")));
+void USART0_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void USART1_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void USART2_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void PIOD_Handler               ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void PIOE_Handler               ( void ) __attribute__((weak, alias("Dummy_Handler")));
-void SDHC_InterruptHandler      ( void ) __attribute__((weak, alias("Dummy_Handler")));
+void HSMCI_InterruptHandler     ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void TWIHS0_InterruptHandler    ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void TWIHS1_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void SPI0_Handler               ( void ) __attribute__((weak, alias("Dummy_Handler")));
@@ -152,7 +151,7 @@ void I2SC1_Handler              ( void ) __attribute__((weak, alias("Dummy_Handl
 void GMAC_Q3_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void GMAC_Q4_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void GMAC_Q5_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler")));
-    
+
 
 
 /* Mutiple handlers for vector */
@@ -162,8 +161,8 @@ void GMAC_Q5_Handler            ( void ) __attribute__((weak, alias("Dummy_Handl
 __attribute__ ((section(".vectors")))
 const DeviceVectors exception_table=
 {
-  /* Configure Initial Stack Pointer, using linker-generated symbols */
-  .pvStack = (void*) (&_stack),
+    /* Configure Initial Stack Pointer, using linker-generated symbols */
+    .pvStack = (void*) (&_stack),
 
     .pfnReset_Handler              = ( void * ) Reset_Handler,
     .pfnNonMaskableInt_Handler     = ( void * ) NonMaskableInt_Handler,
@@ -187,12 +186,12 @@ const DeviceVectors exception_table=
     .pfnPIOA_Handler               = ( void * ) PIOA_Handler,
     .pfnPIOB_Handler               = ( void * ) PIOB_Handler,
     .pfnPIOC_Handler               = ( void * ) PIOC_Handler,
-    .pfnUSART0_Handler             = ( void * ) USART0_InterruptHandler,
+    .pfnUSART0_Handler             = ( void * ) USART0_Handler,
     .pfnUSART1_Handler             = ( void * ) USART1_Handler,
     .pfnUSART2_Handler             = ( void * ) USART2_Handler,
     .pfnPIOD_Handler               = ( void * ) PIOD_Handler,
     .pfnPIOE_Handler               = ( void * ) PIOE_Handler,
-    .pfnHSMCI_Handler              = ( void * ) SDHC_InterruptHandler,
+    .pfnHSMCI_Handler              = ( void * ) HSMCI_InterruptHandler,
     .pfnTWIHS0_Handler             = ( void * ) TWIHS0_InterruptHandler,
     .pfnTWIHS1_Handler             = ( void * ) TWIHS1_Handler,
     .pfnSPI0_Handler               = ( void * ) SPI0_Handler,
@@ -247,9 +246,7 @@ const DeviceVectors exception_table=
     .pfnGMAC_Q5_Handler            = ( void * ) GMAC_Q5_Handler,
 
 
-
 };
-
 
 /*******************************************************************************
  End of File

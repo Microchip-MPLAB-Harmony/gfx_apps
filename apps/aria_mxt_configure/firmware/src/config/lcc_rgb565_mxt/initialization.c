@@ -45,6 +45,8 @@
 // *****************************************************************************
 #include "configuration.h"
 #include "definitions.h"
+#include "device.h"
+
 
 
 // ****************************************************************************
@@ -83,6 +85,7 @@
 
 
 
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Driver Initialization Data
@@ -91,10 +94,10 @@
 // <editor-fold defaultstate="collapsed" desc="DRV_I2C Instance 0 Initialization Data">
 
 /* I2C Client Objects Pool */
-static DRV_I2C_CLIENT_OBJ drvI2C0ClientObjPool[DRV_I2C_CLIENTS_NUMBER_IDX0] = {0};
+static DRV_I2C_CLIENT_OBJ drvI2C0ClientObjPool[DRV_I2C_CLIENTS_NUMBER_IDX0];
 
 /* I2C Transfer Objects Pool */
-static DRV_I2C_TRANSFER_OBJ drvI2C0TransferObj[DRV_I2C_QUEUE_SIZE_IDX0] = {0};
+static DRV_I2C_TRANSFER_OBJ drvI2C0TransferObj[DRV_I2C_QUEUE_SIZE_IDX0];
 
 /* I2C PLib Interface Initialization */
 const DRV_I2C_PLIB_INTERFACE drvI2C0PLibAPI = {
@@ -115,6 +118,16 @@ const DRV_I2C_PLIB_INTERFACE drvI2C0PLibAPI = {
     .callbackRegister = (DRV_I2C_PLIB_CALLBACK_REGISTER)TWIHS0_CallbackRegister,
 };
 
+
+const DRV_I2C_INTERRUPT_SOURCES drvI2C0InterruptSources =
+{
+    /* Peripheral has single interrupt vector */
+    .isSingleIntSrc                        = true,
+
+    /* Peripheral interrupt line */
+    .intSources.i2cInterrupt             = TWIHS0_IRQn,
+};
+
 /* I2C Driver Initialization Data */
 const DRV_I2C_INIT drvI2C0InitData =
 {
@@ -127,14 +140,14 @@ const DRV_I2C_INIT drvI2C0InitData =
     /* I2C Client Objects Pool */
     .clientObjPool = (uintptr_t)&drvI2C0ClientObjPool[0],
 
-    /* I2C IRQ */
-    .interruptI2C = DRV_I2C_INT_SRC_IDX0,
-
     /* I2C TWI Queue Size */
-    .queueSize = DRV_I2C_QUEUE_SIZE_IDX0,
+    .transferObjPoolSize = DRV_I2C_QUEUE_SIZE_IDX0,
 
     /* I2C Transfer Objects */
-    .transferObj = (uintptr_t)&drvI2C0TransferObj[0],
+    .transferObjPool = (uintptr_t)&drvI2C0TransferObj[0],
+
+    /* I2C interrupt sources */
+    .interruptSources = &drvI2C0InterruptSources,
 
     /* I2C Clock Speed */
     .clockSpeed = DRV_I2C_CLOCK_SPEED_IDX0,
@@ -142,15 +155,49 @@ const DRV_I2C_INIT drvI2C0InitData =
 
 // </editor-fold>
 
+// <editor-fold defaultstate="collapsed" desc="DRV_SDMMC Instance 0 Initialization Data">
 
-/*** SDHC Driver Initialization Data ***/
-const DRV_SDHC_INIT drvSDHCInitData =
+/* SDMMC Client Objects Pool */
+static DRV_SDMMC_CLIENT_OBJ drvSDMMC0ClientObjPool[DRV_SDMMC_CLIENTS_NUMBER_IDX0] = {0};
+
+/* SDMMC Transfer Objects Pool */
+static DRV_SDMMC_BUFFER_OBJ drvSDMMC0BufferObjPool[DRV_SDMMC_QUEUE_SIZE_IDX0] = {0};
+
+
+const DRV_SDMMC_PLIB_API drvSDMMC0PlibAPI = {
+    .sdhostCallbackRegister = (DRV_SDMMC_PLIB_CALLBACK_REGISTER)HSMCI_CallbackRegister,
+    .sdhostInitModule = (DRV_SDMMC_PLIB_INIT_MODULE)HSMCI_ModuleInit,
+    .sdhostSetClock  = (DRV_SDMMC_PLIB_SET_CLOCK)HSMCI_ClockSet,
+    .sdhostIsCmdLineBusy = (DRV_SDMMC_PLIB_IS_CMD_LINE_BUSY)HSMCI_IsCmdLineBusy,
+    .sdhostIsDatLineBusy = (DRV_SDMMC_PLIB_IS_DATA_LINE_BUSY)HSMCI_IsDatLineBusy,
+    .sdhostSendCommand = (DRV_SDMMC_PLIB_SEND_COMMAND)HSMCI_CommandSend,
+    .sdhostReadResponse = (DRV_SDMMC_PLIB_READ_RESPONSE)HSMCI_ResponseRead,
+    .sdhostSetBlockCount = (DRV_SDMMC_PLIB_SET_BLOCK_COUNT)HSMCI_BlockCountSet,
+    .sdhostSetBlockSize = (DRV_SDMMC_PLIB_SET_BLOCK_SIZE)HSMCI_BlockSizeSet,
+    .sdhostSetBusWidth = (DRV_SDMMC_PLIB_SET_BUS_WIDTH)HSMCI_BusWidthSet,
+    .sdhostSetSpeedMode = (DRV_SDMMC_PLIB_SET_SPEED_MODE)HSMCI_SpeedModeSet,
+    .sdhostSetupDma = (DRV_SDMMC_PLIB_SETUP_DMA)HSMCI_DmaSetup,
+    .sdhostGetCommandError = (DRV_SDMMC_PLIB_GET_COMMAND_ERROR)HSMCI_CommandErrorGet,
+    .sdhostGetDataError = (DRV_SDMMC_PLIB_GET_DATA_ERROR)HSMCI_DataErrorGet,
+    .sdhostClockEnable = (DRV_SDMMC_PLIB_CLOCK_ENABLE)NULL,
+    .sdhostResetError = (DRV_SDMMC_PLIB_RESET_ERROR)NULL,
+    .sdhostIsCardAttached = (DRV_SDMMC_PLIB_IS_CARD_ATTACHED)NULL,
+    .sdhostIsWriteProtected = (DRV_SDMMC_PLIB_IS_WRITE_PROTECTED)NULL,
+};
+
+/*** SDMMC Driver Initialization Data ***/
+const DRV_SDMMC_INIT drvSDMMC0InitData =
 {
-    .sdCardDetectEnable     = false,
-    .sdWriteProtectEnable   = false,
-    .speedMode              = DRV_SDHC_SPEED_MODE_DEFAULT,
-    .busWidth               = DRV_SDHC_BUS_WIDTH_4_BIT,
-    .isFsEnabled            = true,
+    .sdmmcPlib                      = &drvSDMMC0PlibAPI,
+    .bufferObjPool                  = (uintptr_t)&drvSDMMC0BufferObjPool[0],
+    .bufferObjPoolSize              = DRV_SDMMC_QUEUE_SIZE_IDX0,
+    .clientObjPool                  = (uintptr_t)&drvSDMMC0ClientObjPool[0],
+    .numClients                     = DRV_SDMMC_CLIENTS_NUMBER_IDX0,
+    .isCardDetectEnabled            = false,
+    .isWriteProtectCheckEnabled     = false,
+    .speedMode                      = (DRV_SDMMC_SPEED_MODE)DRV_SDMMC_CONFIG_SPEED_MODE_IDX0,
+    .busWidth                       = (DRV_SDMMC_BUS_WIDTH)DRV_SDMMC_CONFIG_BUS_WIDTH_IDX0,
+    .isFsEnabled                    = true,
 };
 
 // </editor-fold>
@@ -176,48 +223,12 @@ const DRV_MAXTOUCH_INIT drvMAXTOUCHInitData =
 // *****************************************************************************
 /* Structure to hold the object handles for the modules in the system. */
 SYSTEM_OBJECTS sysObj;
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Library/Stack Initialization Data
 // *****************************************************************************
 // *****************************************************************************
-/******************************************************
- * USB Driver Initialization
- ******************************************************/
- 
-static DRV_USB_VBUS_LEVEL DRV_USBHSV1_VBUS_Comparator(void)
-{
-    DRV_USB_VBUS_LEVEL retVal = DRV_USB_VBUS_LEVEL_INVALID;
-    if(true == USB_VBUS_INState_Get())
-    {
-        retVal = DRV_USB_VBUS_LEVEL_VALID;
-    }
-	return (retVal);
-
-}
-
-const DRV_USBHSV1_INIT drvUSBInit =
-{
-    /* Interrupt Source for USB module */
-    .interruptSource = USBHS_IRQn,
-
-    /* System module initialization */
-    .moduleInit = {0},
-
-    /* USB Controller to operate as USB Device */
-    .operationMode = DRV_USBHSV1_OPMODE_DEVICE,
-
-    /* To operate in USB Normal Mode */
-    .operationSpeed = DRV_USBHSV1_DEVICE_SPEEDCONF_NORMAL,
-
-    /* Identifies peripheral (PLIB-level) ID */
-    .usbID = USBHS_REGS,
-	
-    /* Function to check for VBus */
-    .vbusComparator = DRV_USBHSV1_VBUS_Comparator
-};
-
-
 /*** File System Initialization Data ***/
 
 
@@ -266,6 +277,7 @@ const SYS_TIME_INIT sysTimeInitData =
 // </editor-fold>
 
 
+
 /*******************************************************************************
   Function:
     void SYS_Initialize ( void *data )
@@ -278,27 +290,27 @@ const SYS_TIME_INIT sysTimeInitData =
 
 void SYS_Initialize ( void* data )
 {
+  
     CLK_Initialize();
 	PIO_Initialize();
 
 
- 
-    TC0_CH0_TimerInitialize(); 
-     
-    
-	BSP_Initialize();
-	TWIHS0_Initialize();
-
-	USART0_Initialize();
-
-    NVIC_Initialize();
     XDMAC_Initialize();
 
 	RSWDT_REGS->RSWDT_MR = RSWDT_MR_WDDIS_Msk;	// Disable RSWDT 
 
 	WDT_REGS->WDT_MR = WDT_MR_WDDIS_Msk; 		// Disable WDT 
 
+ 
+    TC0_CH0_TimerInitialize(); 
+     
+    
+	BSP_Initialize();
     SMC_Initialize();
+
+	TWIHS0_Initialize();
+
+	HSMCI_Initialize();
 
 
 
@@ -307,8 +319,7 @@ void SYS_Initialize ( void* data )
     /* Initialize I2C0 Driver Instance */
     sysObj.drvI2C0 = DRV_I2C_Initialize(DRV_I2C_INDEX_0, (SYS_MODULE_INIT *)&drvI2C0InitData);
 
-sysObj.drvSDHC = DRV_SDHC_Initialize(DRV_SDHC_INDEX_0,(SYS_MODULE_INIT *)&drvSDHCInitData);
-
+    sysObj.drvSDMMC0 = DRV_SDMMC_Initialize(DRV_SDMMC_INDEX_0,(SYS_MODULE_INIT *)&drvSDMMC0InitData);
 
 
     sysObj.drvMAXTOUCH = DRV_MAXTOUCH_Initialize(0, (SYS_MODULE_INIT *)&drvMAXTOUCHInitData);
@@ -318,15 +329,6 @@ sysObj.drvSDHC = DRV_SDHC_Initialize(DRV_SDHC_INDEX_0,(SYS_MODULE_INIT *)&drvSDH
 
     SYS_INP_Init();
 
-
-
-	 /* Initialize the USB device layer */
-    sysObj.usbDevObject0 = USB_DEVICE_Initialize (USB_DEVICE_INDEX_0 , ( SYS_MODULE_INIT* ) & usbDevInitData);
-	
-	
-
-	/* Initialize USB Driver */ 
-    sysObj.drvUSBHSV1Object = DRV_USBHSV1_Initialize(DRV_USBHSV1_INDEX_0, (SYS_MODULE_INIT *) &drvUSBInit);	
 
     /*** File System Service Initialization Code ***/
     SYS_FS_Initialize( (const void *) sysFSInit );
@@ -340,10 +342,11 @@ sysObj.drvSDHC = DRV_SDHC_Initialize(DRV_SDHC_INDEX_0,(SYS_MODULE_INIT *)&drvSDH
     APP_Initialize();
 
 
+    NVIC_Initialize();
+
 }
 
 
 /*******************************************************************************
  End of File
 */
-

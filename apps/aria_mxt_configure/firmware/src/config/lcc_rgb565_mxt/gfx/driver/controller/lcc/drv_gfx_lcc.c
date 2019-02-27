@@ -60,7 +60,7 @@ static uint32_t supported_color_formats = GFX_COLOR_MASK_RGB_565;
 
 uint16_t __attribute__((aligned(16))) frameBuffer[BUFFER_COUNT][DISPLAY_WIDTH * DISPLAY_HEIGHT];
 
-#define DRV_GFX_LCC_DMA_CHANNEL_INDEX XDMAC_CHANNEL_2
+#define DRV_GFX_LCC_DMA_CHANNEL_INDEX XDMAC_CHANNEL_1
 
 #ifndef GFX_DISP_INTF_PIN_RESET_Set
 #error "GFX_DISP_INTF_PIN_RESET GPIO must be defined in the Pin Settings"

@@ -71,11 +71,12 @@
 void SYS_Tasks ( void )
 {
     /* Maintain system services */
-    DRV_SDHC_Tasks(sysObj.drvSDHC);
-
-
-
+    
 SYS_FS_Tasks();
+
+DRV_SDMMC_Tasks(sysObj.drvSDMMC0);
+
+
 
 
 
@@ -89,13 +90,7 @@ SYS_FS_Tasks();
 
 
     /* Maintain Middleware & Other Libraries */
-    	/* USB Device layer tasks routine */ 
-    USB_DEVICE_Tasks(sysObj.usbDevObject0);
-
-	/* USB HS Driver Task Routine */ 
-    DRV_USBHSV1_Tasks(sysObj.drvUSBHSV1Object);
-
-
+    
     SYS_INP_Tasks();
 
 
