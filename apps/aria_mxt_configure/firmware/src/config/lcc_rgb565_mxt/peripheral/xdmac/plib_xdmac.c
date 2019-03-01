@@ -42,7 +42,7 @@
 #include "plib_xdmac.h"
 
 /* Macro for limiting XDMAC objects to highest channel enabled */
-#define XDMAC_ACTIVE_CHANNELS_MAX 2
+#define XDMAC_ACTIVE_CHANNELS_MAX 3
 
 typedef struct
 {
@@ -131,6 +131,12 @@ void XDMAC_Initialize( void )
     XDMAC_REGS->XDMAC_CHID[1].XDMAC_CIE= (XDMAC_CIE_BIE_Msk | XDMAC_CIE_RBIE_Msk | XDMAC_CIE_WBIE_Msk | XDMAC_CIE_ROIE_Msk);
     XDMAC_REGS->XDMAC_GIE= (XDMAC_GIE_IE0_Msk << 1);
     xdmacChannelObj[1].inUse = 1;
+
+    /* Configure Channel 2 */
+    XDMAC_REGS->XDMAC_CHID[2].XDMAC_CC= (XDMAC_CC_TYPE_MEM_TRAN | XDMAC_CC_DAM_INCREMENTED_AM | XDMAC_CC_SAM_FIXED_AM | XDMAC_CC_SIF_AHB_IF1 | XDMAC_CC_DIF_AHB_IF1 | XDMAC_CC_DWIDTH_HALFWORD | XDMAC_CC_MBSIZE_SIXTEEN);
+    XDMAC_REGS->XDMAC_CHID[2].XDMAC_CIE= (XDMAC_CIE_BIE_Msk | XDMAC_CIE_RBIE_Msk | XDMAC_CIE_WBIE_Msk | XDMAC_CIE_ROIE_Msk);
+    XDMAC_REGS->XDMAC_GIE= (XDMAC_GIE_IE0_Msk << 2);
+    xdmacChannelObj[2].inUse = 1;
 
     return;
 }

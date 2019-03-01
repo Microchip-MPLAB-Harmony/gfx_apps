@@ -49,15 +49,26 @@
 #include <stddef.h>
 #include <stdbool.h>
 #include "gfx/hal/gfx.h"
+#include "usb/usb_chapter_9.h"
+#include "usb/usb_device.h"
+#include "peripheral/tc/plib_tc0.h"
+#include "driver/i2c/drv_i2c.h"
+#include "system/time/sys_time.h"
+#include "usb/usb_device_cdc.h"
+#include "usb/usb_cdc.h"
+#include "bsp/bsp.h"
+#include "peripheral/twihs/plib_twihs0.h"
+#include "peripheral/usart/plib_usart0.h"
+#include "driver/input/drv_maxtouch.h"
+#include "system/int/sys_int.h"
+#include "system/cache/sys_cache.h"
+#include "osal/osal.h"
 #include "driver/sdmmc/drv_sdmmc.h"
 #include "peripheral/clk/plib_clk.h"
 #include "peripheral/pio/plib_pio.h"
 #include "peripheral/nvic/plib_nvic.h"
 #include "peripheral/xdmac/plib_xdmac.h"
-#include "peripheral/tc/plib_tc0.h"
-#include "driver/i2c/drv_i2c.h"
-#include "system/time/sys_time.h"
-#include "bsp/bsp.h"
+#include "driver/usb/usbhsv1/drv_usbhsv1.h"
 #include "system/input/sys_input.h"
 #include "peripheral/smc/plib_smc.h"
 #include "system/fs/sys_fs.h"
@@ -65,13 +76,8 @@
 #include "system/fs/fat_fs/src/file_system/ff.h"
 #include "system/fs/fat_fs/src/file_system/ffconf.h"
 #include "system/fs/fat_fs/src/hardware_access/diskio.h"
-#include "peripheral/twihs/plib_twihs0.h"
-#include "peripheral/hsmci/plib_hsmci.h"
 #include "gfx/libaria/libaria_harmony.h"
-#include "driver/input/drv_maxtouch.h"
-#include "system/int/sys_int.h"
-#include "system/cache/sys_cache.h"
-#include "osal/osal.h"
+#include "peripheral/hsmci/plib_hsmci.h"
 #include "app.h"
 
 
@@ -197,11 +203,15 @@ typedef struct
     /* I2C0 Driver Object */
     SYS_MODULE_OBJ drvI2C0;
 
+	SYS_MODULE_OBJ  usbDevObject0;
+
     SYS_MODULE_OBJ  sysTime;
+    SYS_MODULE_OBJ  drvMAXTOUCH;
+
+	SYS_MODULE_OBJ  drvUSBHSV1Object;
+
     SYS_MODULE_OBJ  drvSDMMC0;
 
-
-    SYS_MODULE_OBJ  drvMAXTOUCH;
 
 
 } SYSTEM_OBJECTS;
@@ -212,6 +222,8 @@ typedef struct
 // Section: extern declarations
 // *****************************************************************************
 // *****************************************************************************
+
+extern const USB_DEVICE_INIT usbDevInitData; 
 
 
 

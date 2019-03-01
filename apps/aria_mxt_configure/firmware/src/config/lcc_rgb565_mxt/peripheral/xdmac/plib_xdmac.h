@@ -64,6 +64,7 @@
 typedef enum {
     XDMAC_CHANNEL_0,
     XDMAC_CHANNEL_1,
+    XDMAC_CHANNEL_2,
 } XDMAC_CHANNEL;
 
 

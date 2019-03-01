@@ -155,6 +155,18 @@ const DRV_I2C_INIT drvI2C0InitData =
 
 // </editor-fold>
 
+// <editor-fold defaultstate="collapsed" desc="DRV_INPUT_MXT336T Initialization Data">
+/*** MaxTouch Driver Initialization Data ***/
+const DRV_MAXTOUCH_INIT drvMAXTOUCHInitData =
+{
+    .drvOpen                     = DRV_I2C_Open,
+    .orientation                 = 0,
+    .horizontalResolution        = 480,
+    .verticalResolution          = 272,
+};
+
+// </editor-fold>
+
 // <editor-fold defaultstate="collapsed" desc="DRV_SDMMC Instance 0 Initialization Data">
 
 /* SDMMC Client Objects Pool */
@@ -202,18 +214,6 @@ const DRV_SDMMC_INIT drvSDMMC0InitData =
 
 // </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc="DRV_INPUT_MXT336T Initialization Data">
-/*** MaxTouch Driver Initialization Data ***/
-const DRV_MAXTOUCH_INIT drvMAXTOUCHInitData =
-{
-    .drvOpen                     = DRV_I2C_Open,
-    .orientation                 = 0,
-    .horizontalResolution        = 480,
-    .verticalResolution          = 272,
-};
-
-// </editor-fold>
-
 
 
 // *****************************************************************************
@@ -229,6 +229,43 @@ SYSTEM_OBJECTS sysObj;
 // Section: Library/Stack Initialization Data
 // *****************************************************************************
 // *****************************************************************************
+/******************************************************
+ * USB Driver Initialization
+ ******************************************************/
+ 
+static DRV_USB_VBUS_LEVEL DRV_USBHSV1_VBUS_Comparator(void)
+{
+    DRV_USB_VBUS_LEVEL retVal = DRV_USB_VBUS_LEVEL_INVALID;
+    if(true == USB_VBUS_SENSE_Get())
+    {
+        retVal = DRV_USB_VBUS_LEVEL_VALID;
+    }
+	return (retVal);
+
+}
+
+const DRV_USBHSV1_INIT drvUSBInit =
+{
+    /* Interrupt Source for USB module */
+    .interruptSource = USBHS_IRQn,
+
+    /* System module initialization */
+    .moduleInit = {0},
+
+    /* USB Controller to operate as USB Device */
+    .operationMode = DRV_USBHSV1_OPMODE_DEVICE,
+
+    /* To operate in USB Normal Mode */
+    .operationSpeed = DRV_USBHSV1_DEVICE_SPEEDCONF_NORMAL,
+
+    /* Identifies peripheral (PLIB-level) ID */
+    .usbID = USBHS_REGS,
+	
+    /* Function to check for VBus */
+    .vbusComparator = DRV_USBHSV1_VBUS_Comparator
+};
+
+
 /*** File System Initialization Data ***/
 
 
@@ -295,20 +332,22 @@ void SYS_Initialize ( void* data )
 	PIO_Initialize();
 
 
+ 
+    TC0_CH0_TimerInitialize(); 
+     
+    
+	BSP_Initialize();
+	TWIHS0_Initialize();
+
+	USART0_Initialize();
+
     XDMAC_Initialize();
 
 	RSWDT_REGS->RSWDT_MR = RSWDT_MR_WDDIS_Msk;	// Disable RSWDT 
 
 	WDT_REGS->WDT_MR = WDT_MR_WDDIS_Msk; 		// Disable WDT 
 
- 
-    TC0_CH0_TimerInitialize(); 
-     
-    
-	BSP_Initialize();
     SMC_Initialize();
-
-	TWIHS0_Initialize();
 
 	HSMCI_Initialize();
 
@@ -319,16 +358,25 @@ void SYS_Initialize ( void* data )
     /* Initialize I2C0 Driver Instance */
     sysObj.drvI2C0 = DRV_I2C_Initialize(DRV_I2C_INDEX_0, (SYS_MODULE_INIT *)&drvI2C0InitData);
 
-    sysObj.drvSDMMC0 = DRV_SDMMC_Initialize(DRV_SDMMC_INDEX_0,(SYS_MODULE_INIT *)&drvSDMMC0InitData);
-
-
     sysObj.drvMAXTOUCH = DRV_MAXTOUCH_Initialize(0, (SYS_MODULE_INIT *)&drvMAXTOUCHInitData);
+
+
+    sysObj.drvSDMMC0 = DRV_SDMMC_Initialize(DRV_SDMMC_INDEX_0,(SYS_MODULE_INIT *)&drvSDMMC0InitData);
 
 
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
 
     SYS_INP_Init();
 
+
+
+	 /* Initialize the USB device layer */
+    sysObj.usbDevObject0 = USB_DEVICE_Initialize (USB_DEVICE_INDEX_0 , ( SYS_MODULE_INIT* ) & usbDevInitData);
+	
+	
+
+	/* Initialize USB Driver */ 
+    sysObj.drvUSBHSV1Object = DRV_USBHSV1_Initialize(DRV_USBHSV1_INDEX_0, (SYS_MODULE_INIT *) &drvUSBInit);	
 
     /*** File System Service Initialization Code ***/
     SYS_FS_Initialize( (const void *) sysFSInit );

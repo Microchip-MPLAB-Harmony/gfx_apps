@@ -42,7 +42,9 @@
 #include "plib_hsmci.h"
 #include "peripheral/xdmac/plib_xdmac.h"
 
+//CUSTOM CODE - DO NOT MODIFY OR REMOVE!!
 #define HSMCI_DMA_CHANNEL      0
+//END OF CUSTOM CODE
 
 // *****************************************************************************
 // *****************************************************************************

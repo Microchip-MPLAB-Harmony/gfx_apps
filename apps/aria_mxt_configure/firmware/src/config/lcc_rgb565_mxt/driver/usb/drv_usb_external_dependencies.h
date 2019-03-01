@@ -51,7 +51,9 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #define SYS_DEBUG_PRINT(level, format, ...) 
 #define SYS_DEBUG_MESSAGE(a,b, ...)
+//CUSTOM CODE - DO NOT MODIFY OR REMOVE!!
 //#define SYS_DEBUG(a,b)
+//END OF CUSTOM CODE
 //#define SYS_DEBUG_MESSAGE(a , b)
 #endif 
 /*******************************************************************************

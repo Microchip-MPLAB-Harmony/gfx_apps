@@ -90,7 +90,13 @@ DRV_SDMMC_Tasks(sysObj.drvSDMMC0);
 
 
     /* Maintain Middleware & Other Libraries */
-    
+    	/* USB Device layer tasks routine */ 
+    USB_DEVICE_Tasks(sysObj.usbDevObject0);
+
+	/* USB HS Driver Task Routine */ 
+    DRV_USBHSV1_Tasks(sysObj.drvUSBHSV1Object);
+
+
     SYS_INP_Tasks();
 
 
