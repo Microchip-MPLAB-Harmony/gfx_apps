@@ -504,6 +504,8 @@ static void ScreenCreate_load_screen(laScreen* screen)
     laLayer* layer0;
     laRadioButtonGroup* radioButtonGroup_0;
 
+    laScreen_SetShowEventCallback(screen, &load_screen_ShowEvent);
+
     layer0 = laLayer_New();
     laWidget_SetPosition((laWidget*)layer0, 0, 0);
     laWidget_SetSize((laWidget*)layer0, 480, 272);
@@ -515,7 +517,7 @@ static void ScreenCreate_load_screen(laScreen* screen)
     ImageWidget8 = laImageWidget_New();
     laWidget_SetPosition((laWidget*)ImageWidget8, 271, 152);
     laWidget_SetSize((laWidget*)ImageWidget8, 200, 105);
-    laWidget_SetBackgroundType((laWidget*)ImageWidget8, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget8, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)ImageWidget8, LA_WIDGET_BORDER_NONE);
     laImageWidget_SetImage(ImageWidget8, &flash);
     laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget8);

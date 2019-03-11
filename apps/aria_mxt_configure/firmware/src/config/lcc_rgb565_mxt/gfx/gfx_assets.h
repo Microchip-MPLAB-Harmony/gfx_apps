@@ -136,7 +136,7 @@ extern GFXU_ImageAsset down_arrow;
  * GFX Image Asset
  * Name:   Bar
  * Size:   480x65 pixels
- * Mode:   RGB_888
+ * Mode:   RGB_565
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset Bar;
@@ -145,7 +145,7 @@ extern GFXU_ImageAsset Bar;
  * GFX Image Asset
  * Name:   MicrochipLogo
  * Size:   144x39 pixels
- * Mode:   RGB_888
+ * Mode:   RGB_565
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset MicrochipLogo;
@@ -154,7 +154,7 @@ extern GFXU_ImageAsset MicrochipLogo;
  * GFX Image Asset
  * Name:   PIC32Logo
  * Size:   240x62 pixels
- * Mode:   RGB_888
+ * Mode:   RGB_565
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset PIC32Logo;
@@ -163,46 +163,10 @@ extern GFXU_ImageAsset PIC32Logo;
  * GFX Image Asset
  * Name:   HarmonyLogo
  * Size:   197x139 pixels
- * Mode:   RGB_888
+ * Mode:   RGB_565
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset HarmonyLogo;
-	
-/*********************************
- * GFX Image Asset
- * Name:   CrossFade0
- * Size:   372x214 pixels
- * Mode:   RGB_888
- * Format: RAW
- ***********************************/
-extern GFXU_ImageAsset CrossFade0;
-	
-/*********************************
- * GFX Image Asset
- * Name:   CrossFade1
- * Size:   372x214 pixels
- * Mode:   RGB_888
- * Format: RAW
- ***********************************/
-extern GFXU_ImageAsset CrossFade1;
-	
-/*********************************
- * GFX Image Asset
- * Name:   CrossFade2
- * Size:   372x214 pixels
- * Mode:   RGB_888
- * Format: RAW
- ***********************************/
-extern GFXU_ImageAsset CrossFade2;
-	
-/*********************************
- * GFX Image Asset
- * Name:   CrossFade3
- * Size:   372x214 pixels
- * Mode:   RGB_888
- * Format: RAW
- ***********************************/
-extern GFXU_ImageAsset CrossFade3;
 	
 /*********************************
  * GFX Image Asset
@@ -226,10 +190,46 @@ extern GFXU_ImageAsset forward;
  * GFX Image Asset
  * Name:   mcu
  * Size:   200x157 pixels
- * Mode:   RGB_888
+ * Mode:   RGB_565
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset mcu;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   CrossFade0
+ * Size:   240x139 pixels
+ * Mode:   RGB_565
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset CrossFade0;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   CrossFade1
+ * Size:   240x139 pixels
+ * Mode:   RGB_565
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset CrossFade1;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   CrossFade2
+ * Size:   240x139 pixels
+ * Mode:   RGB_565
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset CrossFade2;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   CrossFade3
+ * Size:   240x139 pixels
+ * Mode:   RGB_565
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset CrossFade3;
 	
 /*****************************************************************************
  * MPLAB Harmony Graphics Font Assets

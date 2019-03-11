@@ -81,6 +81,9 @@ void stageUsbButton_ReleasedEvent(laButtonWidget* btn);
 // Generated Event Handler - Origin: stageNextButton, Event: ReleasedEvent
 void stageNextButton_ReleasedEvent(laButtonWidget* btn);
 
+// Generated Event Handler - Origin: load_screen, Event: ShowEvent
+void load_screen_ShowEvent(laScreen* scr);
+
 // Generated Event Handler - Origin: loadButton, Event: ReleasedEvent
 void loadButton_ReleasedEvent(laButtonWidget* btn);
 

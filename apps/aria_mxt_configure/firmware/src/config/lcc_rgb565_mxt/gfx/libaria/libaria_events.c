@@ -107,6 +107,13 @@ void stageNextButton_ReleasedEvent(laButtonWidget* btn)
     laContext_SetActiveScreen(load_screen_ID);
 }
 
+// load_screen - ShowEvent
+void load_screen_ShowEvent(laScreen* scr)
+{
+    // onLoadScreenShow
+    APP_OnLoadScreenShow();
+}
+
 // loadButton - ReleasedEvent
 void loadButton_ReleasedEvent(laButtonWidget* btn)
 {
