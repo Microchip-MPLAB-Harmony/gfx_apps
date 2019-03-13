@@ -153,9 +153,12 @@ GFX_Point GFX_UtilPointFromOrientedSpace(const GFX_Rect* screenRect,
                                          GFX_Orientation ori,
                                          GFX_Bool mirrored)
 {
-    GFX_Point res = {0};
+    GFX_Point res;
     
-    switch(ori)
+	res.x = 0;
+	res.y = 0;
+
+	switch (ori)
     {
         case GFX_ORIENTATION_0:
         {
@@ -212,9 +215,12 @@ GFX_Point GFX_UtilPointToOrientedSpace(const GFX_Rect* screenRect,
                                        GFX_Orientation ori,
                                        GFX_Bool mirrored)
 {
-    GFX_Point res = {0};
+    GFX_Point res;
 
-    switch(ori)
+	res.x = 0;
+	res.y = 0;
+
+	switch (ori)
     {
         case GFX_ORIENTATION_0:
         {

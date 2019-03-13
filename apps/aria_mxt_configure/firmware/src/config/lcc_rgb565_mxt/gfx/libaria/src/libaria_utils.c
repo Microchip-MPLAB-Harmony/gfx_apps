@@ -273,9 +273,14 @@ void laUtils_ClipRectToParent(laWidget* parent, GFX_Rect* rect)
 
 GFX_Rect laUtils_WidgetLocalRect(laWidget* widget)
 {
-    GFX_Rect res = {0};
+    GFX_Rect res;
     
-    if(widget != NULL)
+	res.x = 0;
+	res.y = 0;
+	res.width = 0;
+	res.height = 0;
+
+	if (widget != NULL)
     {
         res = widget->rect;
         res.x = 0;
@@ -287,7 +292,12 @@ GFX_Rect laUtils_WidgetLocalRect(laWidget* widget)
 
 GFX_Rect laUtils_WidgetLayerRect(laWidget* widget)
 {
-    GFX_Rect res = {0};
+    GFX_Rect res;
+
+	res.x = 0;
+	res.y = 0;
+	res.width = 0;
+	res.height = 0;
     
     if(widget != NULL)
     {

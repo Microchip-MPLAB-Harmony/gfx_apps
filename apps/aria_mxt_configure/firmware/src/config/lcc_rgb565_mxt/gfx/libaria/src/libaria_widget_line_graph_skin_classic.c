@@ -417,7 +417,7 @@ static void drawLineGraph(laLineGraphWidget* graph)
     if(GFX_RectIntersects(&layer->clippedDrawingRect, &widgetRect) == GFX_TRUE)
     {
         GFX_Point originPoint = {0};
-        int32_t originValue;
+        int32_t originValue = 0;
         
         GFX_RectClip(&widgetRect, &layer->clippedDrawingRect, &clipRect);
         
