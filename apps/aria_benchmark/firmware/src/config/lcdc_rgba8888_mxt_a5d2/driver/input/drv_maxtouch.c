@@ -1477,7 +1477,7 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
                 
         case DEVICE_STATE_PROCESS_T5_MESSAGE:
         {
-            int num_valid;
+            int num_valid = 0;
             int i;
             int ret;
             for (i = 0;  i < pDrvObject->data.num_left; i++) 
@@ -2392,21 +2392,23 @@ bool mxt_configure_objects(struct DEVICE_OBJECT* pDeviceObject, DRV_MAXTOUCH_Fir
 bool mxt_load_xcfg_file(struct DEVICE_OBJECT * pDeviceObject, const char *filename)
 {
     char c;
-    char item[255];
-    char readline[255];
+	char item[255];
+	char readline[255];
     char *substr;
     int instance;
     int object_address;
     bool ignore_line = true;
     int i;
     struct mxt_object * object;
-    unsigned int type, last_type, size;
+    unsigned int type, last_type=0, size=0;
     int object_num=0;
     unsigned int byte_offset;
     uint16_t reg;
-    uint32_t config_crc, calculated_crc;
+    uint32_t config_crc = 0, calculated_crc = 0;
 
     i = 0;
+	item[0] = '\0';
+	readline[0] = '\0';
     
     /* Malloc memory to store configuration */
     pDeviceObject->data.cfg_start_ofs = MXT_OBJECT_START +

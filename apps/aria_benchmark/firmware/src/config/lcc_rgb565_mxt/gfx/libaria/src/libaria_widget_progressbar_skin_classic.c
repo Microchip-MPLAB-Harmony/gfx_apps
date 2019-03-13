@@ -52,11 +52,16 @@ void _laProgressBarWidget_GetBarRect(laProgressBarWidget* bar,
                                      GFX_Rect* barRect)
 {
     GFX_Rect rect;
-    GFX_Rect fill = {0};
+    GFX_Rect fill;
     int32_t i;
     uint32_t p1, p2;
-    
-    rect = laUtils_WidgetLayerRect((laWidget*)bar);
+
+	fill.x = 0;
+	fill.y = 0;
+	fill.width = 0;
+	fill.height = 0;
+
+	rect = laUtils_WidgetLayerRect((laWidget*)bar);
     
     if(val2 < val1)
     {
