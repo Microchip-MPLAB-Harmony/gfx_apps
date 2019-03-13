@@ -36,9 +36,9 @@
 
 The current known issues are as follows:
 
-* **Programming and debugging through EDBG is not supported**. The ICD4 needs to be used for programming and debugging.
-
 * The ICD4 loads the reset line of the SAM V71 Xplained Ultra board. The following demo project drives the reset line and requires the ICD4 flex cable to be removed after programming to run the application.
+
+* Applications are compliant to MISRA C 2012 Mandatory guidelines, except for Rules R.9.1 and R.17.3
 
 | Project Name | Development Kit |
 | --- | --- |
