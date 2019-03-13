@@ -1634,8 +1634,8 @@ static void ScreenCreate_CircularGaugeDemo(laScreen* screen)
     laCircularGaugeWidget_SetRadius(CircularGaugeWidget43, 100);
     laCircularGaugeWidget_SetStartAngle(CircularGaugeWidget43, 270);
     laCircularGaugeWidget_SetCenterAngle(CircularGaugeWidget43, -230);
-    laCircularGaugeWidget_SetValue(CircularGaugeWidget43, 0);
     laCircularGaugeWidget_SetEndValue(CircularGaugeWidget43, 100);
+    laCircularGaugeWidget_SetValue(CircularGaugeWidget43, 0);
     laCircularGaugeWidget_SetTickLength(CircularGaugeWidget43, 15);
     laCircularGaugeWidget_SetTickLabelsVisible(CircularGaugeWidget43, LA_FALSE);
     laCircularGaugeWidget_SetTicksLabelsStringID(CircularGaugeWidget43, string_NumsSmall);
@@ -1660,8 +1660,8 @@ static void ScreenCreate_CircularGaugeDemo(laScreen* screen)
     laCircularGaugeWidget_SetRadius(SpeedoCircularGaugeWidget, 55);
     laCircularGaugeWidget_SetStartAngle(SpeedoCircularGaugeWidget, 210);
     laCircularGaugeWidget_SetCenterAngle(SpeedoCircularGaugeWidget, 230);
-    laCircularGaugeWidget_SetValue(SpeedoCircularGaugeWidget, 0);
     laCircularGaugeWidget_SetEndValue(SpeedoCircularGaugeWidget, 160);
+    laCircularGaugeWidget_SetValue(SpeedoCircularGaugeWidget, 0);
     laCircularGaugeWidget_SetTickValue(SpeedoCircularGaugeWidget, 40);
     laCircularGaugeWidget_SetTicksLabelsStringID(SpeedoCircularGaugeWidget, string_NumsSmall);
     laCircularGaugeWidget_SetStringTable(SpeedoCircularGaugeWidget, &stringTable);

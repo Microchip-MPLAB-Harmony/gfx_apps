@@ -204,7 +204,7 @@ typedef struct GFX_ColorModeInfo_t
     
 } GFX_ColorModeInfo;
 
-LIB_EXPORT GFX_ColorModeInfo GFX_ColorInfo[GFX_COLOR_MODE_COUNT];
+extern GFX_ColorModeInfo GFX_ColorInfo[GFX_COLOR_MODE_COUNT];
 
 // *****************************************************************************
 /* Structure:

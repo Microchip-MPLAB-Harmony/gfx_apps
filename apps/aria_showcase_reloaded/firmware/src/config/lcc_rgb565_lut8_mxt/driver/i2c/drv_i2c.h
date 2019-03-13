@@ -114,10 +114,10 @@ typedef uintptr_t DRV_I2C_TRANSFER_HANDLE;
 // *****************************************************************************
 /* I2C Driver Transfer Events
 
-   Summary
+   Summary:
     Identifies the possible events that can result from a buffer add request.
 
-   Description
+   Description:
     This enumeration identifies the possible events that can result from a
     buffer add request caused by the client calling either the
     DRV_I2C_ReadTransferAdd, DRV_I2C_WriteTransferAdd or
@@ -133,23 +133,29 @@ typedef uintptr_t DRV_I2C_TRANSFER_HANDLE;
 typedef enum
 {
     /* Transfer request is pending */
-    DRV_I2C_TRANSFER_EVENT_PENDING,
+    DRV_I2C_TRANSFER_EVENT_PENDING = 0,
 
     /* All data from or to the buffer was transferred successfully. */
-    DRV_I2C_TRANSFER_EVENT_COMPLETE,
+    DRV_I2C_TRANSFER_EVENT_COMPLETE = 1,
+
+    /* Transfer Handle given is expired. It means transfer
+    is completed but with or without error is not known. */
+    DRV_I2C_TRANSFER_EVENT_HANDLE_EXPIRED = 2,
 
     /* There was an error while processing the buffer transfer request. */
-    DRV_I2C_TRANSFER_EVENT_ERROR,
+    DRV_I2C_TRANSFER_EVENT_ERROR = -1,
+
+    DRV_I2C_TRANSFER_EVENT_HANDLE_INVALID = -2
 
 } DRV_I2C_TRANSFER_EVENT;
 
 // *****************************************************************************
 /* I2C Driver Transfer Event Handler Function Pointer
 
-   Summary
+   Summary:
     Pointer to a I2C Driver Transfer Event handler function
 
-   Description
+   Description:
     This data type defines the required function signature for the I2C driver
     buffer event handling callback function. A client must register a pointer
     using the buffer event handling function whose function signature (parameter

@@ -508,9 +508,14 @@ GFX_Rect laWidget_RectToParentSpace(laWidget* wgt)
 
 GFX_Rect laWidget_RectToLayerSpace(laWidget* wgt)
 {
-    GFX_Rect rect = {0};
+    GFX_Rect rect;
     
-    if(wgt == NULL)
+	rect.x = 0;
+	rect.y = 0;
+	rect.width = 0;
+	rect.height = 0;
+
+	if (wgt == NULL)
         return rect;
     
     rect = wgt->rect;
@@ -527,7 +532,12 @@ GFX_Rect laWidget_RectToScreenSpace(laWidget* wgt)
 {
     GFX_Rect rect = {0};
     
-    if(wgt != NULL && wgt->parent != NULL)
+	rect.x = 0;
+	rect.y = 0;
+	rect.width = 0;
+	rect.height = 0;
+
+	if (wgt != NULL && wgt->parent != NULL)
     {
         rect = wgt->rect;
         
