@@ -108,9 +108,14 @@ void _laButtonWidget_GetTextRect(laButtonWidget* btn,
 {
     GFX_Rect bounds;
     
-    GFX_Rect imgRect = {0};
+    GFX_Rect imgRect;
     
-    bounds = laUtils_WidgetLocalRect((laWidget*)btn);
+	imgRect.x = 0;
+	imgRect.y = 0;
+	imgRect.width = 0;
+	imgRect.height = 0;
+
+	bounds = laUtils_WidgetLocalRect((laWidget*)btn);
     
     laString_GetMultiLineRect(&btn->text, textRect, btn->textLineSpace);
     
