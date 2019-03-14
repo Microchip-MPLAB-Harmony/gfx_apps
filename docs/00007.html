@@ -75,6 +75,10 @@ The demonstration supports three input options for reading the configuration fil
 </ul><p class="Element10">
 &nbsp;</p>
 <p class="Element10">
+<strong>Note</strong>: This demonstration does not communicate error conditions related to inability to read from SDCARD or PC.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
 Following instructions below for each specific option of choice:&nbsp;</p>
 <p class="Element10">
 &nbsp;</p><p class="Element10" style="text-align: center;">
@@ -152,13 +156,31 @@ To run this option.:</p>
 <li value="3" class="Element600">Press the <strong>Stage</strong> (<img src="APP_MXT_stage_button.png" border="0" alt="" title="">) button. The step will create the USB CDC device on the USB bus, establish connection, and wait for PC to initiate the transfer.</li>
 <li value="4" class="Element600">On the PC, invoke <strong>RealTerm</strong> application .</li>
 <li value="5" class="Element600">Using the <strong>Port</strong> Tab, connect to the new Serial comm port.</li>
-<li value="6" class="Element600">Using the <strong>Send</strong> Tab, select the <strong>Dump File to Port</strong> drop down.</li>
+<li value="6" class="Element600">Using the <strong>Send</strong> Tab, select the <strong>Dump File to Port</strong> drop down. Select the <strong>maxtouch.raw</strong> file.</li>
+</ol><p class="Element10" style="text-align: center;">
+<img src="GFX APPS mc_realterm_file.png" border="0" alt="" title=""></p>
+<ol class="Element630">
 <li value="7" class="Element600">Set <strong>Delays</strong> to 1 and 5</li>
-<li value="8" class="Element600">Set <strong>Repeats</strong> 0 and 0</li>
-<li value="9" class="Element600">Finally, select the <strong>Send</strong> <strong>File</strong> button</li>
-<li value="10" class="Element600"> When complete, the <strong>Progress</strong> bar on the RealTerm interface will display “Done”</li>
-<li value="11" class="Element600"> Observe the Target board UI , when complete, the Stage button will be removed, and the Next screen button image will be displayed.</li>
-<li value="12" class="Element600"> Go to Step &quot;All Options&quot; below.</li>
+</ol><p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+See image below for Realterm Send setup:&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="GFX APPS mc_realterm_setup.png" border="0" alt="" title="">&nbsp;</p>
+<ol class="Element630">
+<li value="8" class="Element600">Finally, select the <strong>Send</strong> <strong>File</strong> button</li>
+<li value="9" class="Element600"> When complete, the <strong>Progress</strong> bar on the RealTerm interface will display “Done”</li>
+</ol><p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+See image below for Realterm Done display:&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="GFX APPS mc_realterm_done.png" border="0" alt="" title="">&nbsp;</p>
+<ol class="Element630">
+<li value="10" class="Element600"> Observe the Target board UI , when complete, the Stage button will be removed, and the Next screen button image will be displayed.</li>
+<li value="11" class="Element600"> Go to Step &quot;All Options&quot; below.</li>
 </ol><p class="Element10">
 &nbsp;</p>
 <div class="Element15">
@@ -168,7 +190,7 @@ All Options</div>
 <p class="Element10">
 To complete the demonstration for all options.</p>
 <ol class="Element630">
-<li value="1" class="Element600">Use the <strong>Next</strong> (<img src="APP_MXT_stage_button.png" border="0" alt="" title="">) button to transition to the Load Configuration Screen</li>
+<li value="1" class="Element600">Use the <strong>Next</strong> (<img src="APP_MXT_next_button.png" border="0" alt="" title="">) button to transition to the Load Configuration Screen</li>
 </ol><p class="Element10" style="text-align: center;">
 <img src="APP_MXT_load_screen.png" border="0" alt="" title=""></p>
 <ol class="Element630">
@@ -179,13 +201,8 @@ To complete the demonstration for all options.</p>
 <p class="Element10" style="text-align: center;">
 <img src="APP_MXT_keypad_screen.png" border="0" alt="" title=""></p>
 <ol class="Element630">
-<li value="4" class="Element600">Press key pad buttons</li>
+<li value="4" class="Element600">Press key pad buttons to test touch button accuracy.</li>
 </ol><p class="Element10">
-&nbsp;</p>
-<p class="Element10" style="text-align: center;">
-<img src="APP_MXT_load_screen.png" border="0" alt="" title=""></p><p class="Element10">
-&nbsp;</p>
-<p class="Element10">
 &nbsp;</p>
 
 <ol class="Element630">
@@ -198,14 +215,18 @@ To complete the demonstration for all options.</p>
 &nbsp;</p>
 
 <ol class="Element630">
-<li value="6" class="Element600">Drag finger across display</li>
+<li value="6" class="Element600">Drag finger across display, to test gesture accuracy.</li>
+</ol><p class="Element10">
+&nbsp;</p>
+
+<ol class="Element630">
 <li value="7" class="Element600">Use <strong>Next</strong> button Button to transition to the Store Configuration (Flash) Screen</li>
 </ol><p class="Element10">
 &nbsp;</p>
 <p class="Element10" style="text-align: center;">
 <img src="APP_MXT_store_screen.png" border="0" alt="" title=""></p>
 <ol class="Element630">
-<li value="8" class="Element600">Press <strong>Save </strong>button</li>
+<li value="8" class="Element600">Press <strong>Save </strong>button to move config information from maXTouch RAM to maXTouch non-volatile memory for persistent storage.</li>
 </ol></div>
 </div>
 </div>
