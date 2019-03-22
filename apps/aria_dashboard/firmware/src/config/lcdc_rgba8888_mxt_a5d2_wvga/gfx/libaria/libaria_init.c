@@ -51,8 +51,8 @@ laScheme YellowScheme;
 laScheme BlackBackWhiteTextScheme;
 laScheme WhiteFillScheme;
 laImageWidget* ImageWidget1;
-laImageWidget* ImageWidget3;
 laImageWidget* ImageWidget4;
+laImageWidget* ImageWidget3;
 laImageWidget* BackgroundImageWidget;
 laLabelWidget* ClimateControlUnitLabelWidget;
 laLabelWidget* MPHLabelWidget;
@@ -84,6 +84,7 @@ laImageWidget* DriveModeImageWidget;
 laLabelWidget* GearLabelWidget;
 laCircleWidget* NeedleCenter;
 laButtonWidget* CenterButtonWidget;
+laButtonWidget* EngineOnButton;
 
 
 static void ScreenCreate_Splash(laScreen* screen);
@@ -294,23 +295,6 @@ static void ScreenCreate_Splash(laScreen* screen)
     laImageWidget_SetImage(ImageWidget1, &PIC100MPLAB0);
     laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget1);
 
-    ImageWidget3 = laImageWidget_New();
-    laWidget_SetPosition((laWidget*)ImageWidget3, 801, 389);
-    laWidget_SetSize((laWidget*)ImageWidget3, 800, 91);
-    laWidget_SetBackgroundType((laWidget*)ImageWidget3, LA_WIDGET_BACKGROUND_NONE);
-    laWidget_SetBorderType((laWidget*)ImageWidget3, LA_WIDGET_BORDER_NONE);
-    laImageWidget_SetImage(ImageWidget3, &Bar);
-    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget3);
-
-    ImageWidget4 = laImageWidget_New();
-    laWidget_SetPosition((laWidget*)ImageWidget4, 11, 417);
-    laWidget_SetSize((laWidget*)ImageWidget4, 202, 55);
-    laWidget_SetVisible((laWidget*)ImageWidget4, LA_FALSE);
-    laWidget_SetBackgroundType((laWidget*)ImageWidget4, LA_WIDGET_BACKGROUND_NONE);
-    laWidget_SetBorderType((laWidget*)ImageWidget4, LA_WIDGET_BORDER_NONE);
-    laImageWidget_SetImage(ImageWidget4, &MicrochipLogo);
-    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget4);
-
     layer1 = laLayer_New();
     laWidget_SetPosition((laWidget*)layer1, 0, 0);
     laWidget_SetSize((laWidget*)layer1, 800, 480);
@@ -320,6 +304,15 @@ static void ScreenCreate_Splash(laScreen* screen)
 
     laScreen_SetLayer(screen, 1, layer1);
 
+    ImageWidget4 = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageWidget4, 11, 417);
+    laWidget_SetSize((laWidget*)ImageWidget4, 202, 55);
+    laWidget_SetVisible((laWidget*)ImageWidget4, LA_FALSE);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget4, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget4, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget4, &MicrochipLogo);
+    laWidget_AddChild((laWidget*)layer1, (laWidget*)ImageWidget4);
+
     layer2 = laLayer_New();
     laWidget_SetPosition((laWidget*)layer2, 0, 0);
     laWidget_SetSize((laWidget*)layer2, 800, 480);
@@ -328,6 +321,14 @@ static void ScreenCreate_Splash(laScreen* screen)
     laLayer_SetBufferCount(layer2, 2);
 
     laScreen_SetLayer(screen, 2, layer2);
+
+    ImageWidget3 = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageWidget3, 801, 389);
+    laWidget_SetSize((laWidget*)ImageWidget3, 800, 91);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget3, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget3, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget3, &Bar);
+    laWidget_AddChild((laWidget*)layer2, (laWidget*)ImageWidget3);
 
 }
 
@@ -405,6 +406,7 @@ static void ScreenCreate_Main(laScreen* screen)
     SpeedoLabelWidget = laLabelWidget_New();
     laWidget_SetPosition((laWidget*)SpeedoLabelWidget, 570, 350);
     laWidget_SetSize((laWidget*)SpeedoLabelWidget, 170, 81);
+    laWidget_SetVisible((laWidget*)SpeedoLabelWidget, LA_FALSE);
     laWidget_SetScheme((laWidget*)SpeedoLabelWidget, &BlackBackWhiteTextScheme);
     laWidget_SetBackgroundType((laWidget*)SpeedoLabelWidget, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)SpeedoLabelWidget, LA_WIDGET_BORDER_NONE);
@@ -524,6 +526,7 @@ static void ScreenCreate_Main(laScreen* screen)
     ClimateControlLabelWidget = laLabelWidget_New();
     laWidget_SetPosition((laWidget*)ClimateControlLabelWidget, 112, 390);
     laWidget_SetSize((laWidget*)ClimateControlLabelWidget, 59, 50);
+    laWidget_SetVisible((laWidget*)ClimateControlLabelWidget, LA_FALSE);
     laWidget_SetScheme((laWidget*)ClimateControlLabelWidget, &BlackBackWhiteTextScheme);
     laWidget_SetBackgroundType((laWidget*)ClimateControlLabelWidget, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)ClimateControlLabelWidget, LA_WIDGET_BORDER_NONE);
@@ -534,6 +537,7 @@ static void ScreenCreate_Main(laScreen* screen)
     TripBLabelWidget = laLabelWidget_New();
     laWidget_SetPosition((laWidget*)TripBLabelWidget, 76, 302);
     laWidget_SetSize((laWidget*)TripBLabelWidget, 45, 14);
+    laWidget_SetVisible((laWidget*)TripBLabelWidget, LA_FALSE);
     laWidget_SetScheme((laWidget*)TripBLabelWidget, &BlackBackWhiteTextScheme);
     laWidget_SetBackgroundType((laWidget*)TripBLabelWidget, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)TripBLabelWidget, LA_WIDGET_BORDER_NONE);
@@ -544,6 +548,7 @@ static void ScreenCreate_Main(laScreen* screen)
     OdometerLabelWidget = laLabelWidget_New();
     laWidget_SetPosition((laWidget*)OdometerLabelWidget, 44, 250);
     laWidget_SetSize((laWidget*)OdometerLabelWidget, 96, 20);
+    laWidget_SetVisible((laWidget*)OdometerLabelWidget, LA_FALSE);
     laWidget_SetScheme((laWidget*)OdometerLabelWidget, &BlackBackWhiteTextScheme);
     laWidget_SetBackgroundType((laWidget*)OdometerLabelWidget, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)OdometerLabelWidget, LA_WIDGET_BORDER_NONE);
@@ -554,6 +559,7 @@ static void ScreenCreate_Main(laScreen* screen)
     TripALabelWidget = laLabelWidget_New();
     laWidget_SetPosition((laWidget*)TripALabelWidget, 76, 283);
     laWidget_SetSize((laWidget*)TripALabelWidget, 58, 14);
+    laWidget_SetVisible((laWidget*)TripALabelWidget, LA_FALSE);
     laWidget_SetScheme((laWidget*)TripALabelWidget, &BlackBackWhiteTextScheme);
     laWidget_SetBackgroundType((laWidget*)TripALabelWidget, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)TripALabelWidget, LA_WIDGET_BORDER_NONE);
@@ -564,6 +570,7 @@ static void ScreenCreate_Main(laScreen* screen)
     MPGLabelWidget = laLabelWidget_New();
     laWidget_SetPosition((laWidget*)MPGLabelWidget, 73, 328);
     laWidget_SetSize((laWidget*)MPGLabelWidget, 44, 25);
+    laWidget_SetVisible((laWidget*)MPGLabelWidget, LA_FALSE);
     laWidget_SetScheme((laWidget*)MPGLabelWidget, &BlackBackWhiteTextScheme);
     laWidget_SetBackgroundType((laWidget*)MPGLabelWidget, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)MPGLabelWidget, LA_WIDGET_BORDER_NONE);
@@ -584,6 +591,7 @@ static void ScreenCreate_Main(laScreen* screen)
     TurnLeftImageWidget = laImageWidget_New();
     laWidget_SetPosition((laWidget*)TurnLeftImageWidget, 274, 37);
     laWidget_SetSize((laWidget*)TurnLeftImageWidget, 31, 31);
+    laWidget_SetVisible((laWidget*)TurnLeftImageWidget, LA_FALSE);
     laWidget_SetBackgroundType((laWidget*)TurnLeftImageWidget, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)TurnLeftImageWidget, LA_WIDGET_BORDER_NONE);
     laImageWidget_SetImage(TurnLeftImageWidget, &TurnLeft);
@@ -592,6 +600,7 @@ static void ScreenCreate_Main(laScreen* screen)
     TurnRightImageWidget = laImageWidget_New();
     laWidget_SetPosition((laWidget*)TurnRightImageWidget, 498, 38);
     laWidget_SetSize((laWidget*)TurnRightImageWidget, 31, 31);
+    laWidget_SetVisible((laWidget*)TurnRightImageWidget, LA_FALSE);
     laWidget_SetBackgroundType((laWidget*)TurnRightImageWidget, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)TurnRightImageWidget, LA_WIDGET_BORDER_NONE);
     laImageWidget_SetImage(TurnRightImageWidget, &TurnRight);
@@ -600,6 +609,7 @@ static void ScreenCreate_Main(laScreen* screen)
     GPSBaseImageWidget = laImageWidget_New();
     laWidget_SetPosition((laWidget*)GPSBaseImageWidget, 16, 92);
     laWidget_SetSize((laWidget*)GPSBaseImageWidget, 182, 150);
+    laWidget_SetVisible((laWidget*)GPSBaseImageWidget, LA_FALSE);
     laWidget_SetBackgroundType((laWidget*)GPSBaseImageWidget, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)GPSBaseImageWidget, LA_WIDGET_BORDER_NONE);
     laImageWidget_SetImage(GPSBaseImageWidget, &Globe);
@@ -608,6 +618,7 @@ static void ScreenCreate_Main(laScreen* screen)
     IndicatorLightsOnImageWidget = laImageWidget_New();
     laWidget_SetPosition((laWidget*)IndicatorLightsOnImageWidget, 580, 92);
     laWidget_SetSize((laWidget*)IndicatorLightsOnImageWidget, 206, 61);
+    laWidget_SetVisible((laWidget*)IndicatorLightsOnImageWidget, LA_FALSE);
     laWidget_SetBackgroundType((laWidget*)IndicatorLightsOnImageWidget, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)IndicatorLightsOnImageWidget, LA_WIDGET_BORDER_NONE);
     laImageWidget_SetImage(IndicatorLightsOnImageWidget, &IndicatorLights);
@@ -657,6 +668,21 @@ static void ScreenCreate_Main(laScreen* screen)
     laWidget_SetBackgroundType((laWidget*)CenterButtonWidget, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)CenterButtonWidget, LA_WIDGET_BORDER_NONE);
     laWidget_AddChild((laWidget*)layer2, (laWidget*)CenterButtonWidget);
+
+    EngineOnButton = laButtonWidget_New();
+    laWidget_SetPosition((laWidget*)EngineOnButton, 329, 365);
+    laWidget_SetSize((laWidget*)EngineOnButton, 150, 119);
+    laWidget_SetBackgroundType((laWidget*)EngineOnButton, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)EngineOnButton, LA_WIDGET_BORDER_NONE);
+    laWidget_SetMargins((laWidget*)EngineOnButton, 4, 0, 4, 4);
+    laButtonWidget_SetToggleable(EngineOnButton, LA_TRUE);
+    laButtonWidget_SetVAlignment(EngineOnButton, LA_VALIGN_BOTTOM);
+    laButtonWidget_SetPressedImage(EngineOnButton, &enginestartstop120on);
+    laButtonWidget_SetReleasedImage(EngineOnButton, &enginestartstop120);
+    laButtonWidget_SetPressedEventCallback(EngineOnButton, &EngineOnButton_PressedEvent);
+    laButtonWidget_SetReleasedEventCallback(EngineOnButton, &EngineOnButton_ReleasedEvent);
+
+    laWidget_AddChild((laWidget*)layer2, (laWidget*)EngineOnButton);
 
 }
 

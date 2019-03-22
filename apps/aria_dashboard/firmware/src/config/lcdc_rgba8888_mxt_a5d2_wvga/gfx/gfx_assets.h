@@ -177,6 +177,24 @@ extern GFXU_ImageAsset PIC75MPLAB25;
  ***********************************/
 extern GFXU_ImageAsset PIC100MPLAB0;
 	
+/*********************************
+ * GFX Image Asset
+ * Name:   enginestartstop120
+ * Size:   120x105 pixels
+ * Mode:   RGBA_8888
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset enginestartstop120;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   enginestartstop120on
+ * Size:   120x105 pixels
+ * Mode:   RGBA_8888
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset enginestartstop120on;
+	
 /*****************************************************************************
  * MPLAB Harmony Graphics Font Assets
  *****************************************************************************/

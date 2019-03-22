@@ -77,8 +77,8 @@ extern laScheme YellowScheme;
 extern laScheme BlackBackWhiteTextScheme;
 extern laScheme WhiteFillScheme;
 extern laImageWidget* ImageWidget1;
-extern laImageWidget* ImageWidget3;
 extern laImageWidget* ImageWidget4;
+extern laImageWidget* ImageWidget3;
 extern laImageWidget* BackgroundImageWidget;
 extern laLabelWidget* ClimateControlUnitLabelWidget;
 extern laLabelWidget* MPHLabelWidget;
@@ -110,6 +110,7 @@ extern laImageWidget* DriveModeImageWidget;
 extern laLabelWidget* GearLabelWidget;
 extern laCircleWidget* NeedleCenter;
 extern laButtonWidget* CenterButtonWidget;
+extern laButtonWidget* EngineOnButton;
 
 
 int32_t libaria_initialize(void);

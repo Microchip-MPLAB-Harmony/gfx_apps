@@ -57,6 +57,12 @@ extern "C" {
 // Generated Event Handler - Origin: TachoDrawSurface, Event: DrawNotificationEvent
 laBool TachoDrawSurface_DrawNotificationEvent(laDrawSurfaceWidget* sfc, GFX_Rect* rect);
 
+// Generated Event Handler - Origin: EngineOnButton, Event: PressedEvent
+void EngineOnButton_PressedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: EngineOnButton, Event: ReleasedEvent
+void EngineOnButton_ReleasedEvent(laButtonWidget* btn);
+
 
 
 //DOM-IGNORE-BEGIN

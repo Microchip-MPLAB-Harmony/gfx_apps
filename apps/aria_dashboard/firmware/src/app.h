@@ -77,6 +77,7 @@ extern "C" {
   
 #define MAX_FUEL_VALUE  100000
 #define FUEL_DEC_VALUE  200
+#define FUEL_DEC_OFF_VALUE  2000
 #define FUEL_INC_VALUE  1
 
 #define GET_VALUE_FROM_RPMx100(rpm)             (rpm * VALUE_RPM_FACTOR)
@@ -89,6 +90,7 @@ extern "C" {
   
 #define SPEED_VALUE_DEC_OFF 2
 #define SPEED_VALUE_INC_RUN 1
+#define SPEED_VALUE_INC_STARTUP 2 
 #define SPEED_VALUE_DEC_GEAR_CHANGE 5
   
 #define SPEED_VALUE_INC_ANGLE_STARTUP 30
@@ -98,7 +100,10 @@ extern "C" {
                                 
 #define BACKLIGHT_PWM_DELTA 0x1
 #define BACKLIGHT_DELTA_DELAY_MS 2
-      
+                                
+#define BACKLIGHT_PWM_VALUE_ENGINE_OFF 0x1F
+#define BACKLIGHT_PWM_VALUE_ENGINE_ON 0xFF
+                                
 // *****************************************************************************
 /* Application states
 
@@ -121,13 +126,20 @@ typedef enum
     APP_STATE_SCREEN_ON,
     APP_STATE_TACHO_REV_UP,
     APP_STATE_TACHO_REV_DOWN, 
-    APP_STATE_INDICATOR_LIGHTS_INIT,
+    APP_STATE_INDICATORS_LIGHTS_INIT,
     APP_STATE_INDICATOR_TEXTS_INIT,
+    APP_STATE_STARTUP_FUEL,
     APP_STATE_STARTUP,
     APP_STATE_REFUEL,    
     APP_STATE_IDLE,
     APP_STATE_RUN,
     APP_STATE_COAST,
+    APP_STATE_ENGINE_OFF,
+    APP_STATE_ENGINE_TURNING_ON,
+    APP_STATE_ENGINE_TURNING_OFF_ENGINE,
+    APP_STATE_ENGINE_TURNING_OFF_FUEL,
+    APP_STATE_ENGINE_TURNING_OFF_INDICATORS,
+    APP_STATE_ENGINE_TURNING_OFF_DIM,
 } APP_STATES;
 
 typedef enum
@@ -143,6 +155,8 @@ typedef enum
 
 typedef enum
 {
+    APP_EVENT_ENGINE_ON,
+    APP_EVENT_ENGINE_OFF,
     APP_EVENT_GAS_ON_LEFT,
     APP_EVENT_GAS_ON_RIGHT,
     APP_EVENT_GAS_ON,

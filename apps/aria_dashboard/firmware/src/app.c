@@ -266,45 +266,61 @@ static inline void APP_DelayMS(int ms)
            
 static void buttonTouchDown(laWidget* widget, laInput_TouchDownEvent* evt)
 {
+    evt->event.accepted = LA_TRUE;
+    
     if (evt->x > GFX_ActiveContext()->display_info->rect.width * 2 / 3)
         appData.event = APP_EVENT_GAS_ON_RIGHT;
     else if (evt->x > GFX_ActiveContext()->display_info->rect.width / 3)
         appData.event = APP_EVENT_GAS_ON;
     else
         appData.event = APP_EVENT_GAS_ON_LEFT;
-    
+        
     if (handleTimerBlinker == SYS_TIME_HANDLE_INVALID)
         handleTimerBlinker = SYS_TIME_CallbackRegisterMS(Timer_Callback, 1, 500, SYS_TIME_PERIODIC);
 
     evt->event.accepted = LA_TRUE;
 }
  
- static void buttonTouchMoved(laWidget* widget, laInput_TouchMovedEvent* evt)
- {
-     if (evt->x > GFX_ActiveContext()->display_info->rect.width * 2 / 3)
+static void buttonTouchMoved(laWidget* widget, laInput_TouchMovedEvent* evt)
+{
+    evt->event.accepted = LA_TRUE;
+
+    if (evt->x > GFX_ActiveContext()->display_info->rect.width * 2 / 3)
         appData.event = APP_EVENT_GAS_ON_RIGHT;
-     else if (evt->x > GFX_ActiveContext()->display_info->rect.width / 3)
+    else if (evt->x > GFX_ActiveContext()->display_info->rect.width / 3)
         appData.event = APP_EVENT_GAS_ON;
-     else
+    else
         appData.event = APP_EVENT_GAS_ON_LEFT;
          
-     evt->event.accepted = LA_TRUE;
- }
+    evt->event.accepted = LA_TRUE;
+}
 
 static void buttonTouchUp(laWidget* widget, laInput_TouchUpEvent* evt)
 {
-     appData.event = APP_EVENT_GAS_OFF;
+    evt->event.accepted = LA_TRUE;
+    
+    appData.event = APP_EVENT_GAS_OFF;
      
-     laWidget_SetVisible((laWidget*) TurnLeftImageWidget, LA_FALSE);
-     laWidget_SetVisible((laWidget*) TurnRightImageWidget, LA_FALSE);
-     
-     evt->event.accepted = LA_TRUE;
+    laWidget_SetVisible((laWidget*) TurnLeftImageWidget, LA_FALSE);
+    laWidget_SetVisible((laWidget*) TurnRightImageWidget, LA_FALSE);
      
     if (handleTimerBlinker != SYS_TIME_HANDLE_INVALID)
     {
         SYS_TIME_TimerDestroy(handleTimerBlinker);        
         handleTimerBlinker = SYS_TIME_HANDLE_INVALID;
     }
+}
+
+static void APP_EnableIndicators(laBool enable)
+{
+    laWidget_SetVisible((laWidget*) ClimateControlLabelWidget, enable);
+    laWidget_SetVisible((laWidget*) TripBLabelWidget, enable);
+    laWidget_SetVisible((laWidget*) OdometerLabelWidget, enable);
+    laWidget_SetVisible((laWidget*) TripALabelWidget, enable);
+    laWidget_SetVisible((laWidget*) MPGLabelWidget, enable);
+    laWidget_SetVisible((laWidget*) GPSBaseImageWidget, enable);
+    laWidget_SetVisible((laWidget*) DriveModeImageWidget, enable);
+    laWidget_SetVisible((laWidget*) SpeedoLabelWidget, enable);
 }
 
 /******************************************************************************
@@ -317,6 +333,8 @@ static void buttonTouchUp(laWidget* widget, laInput_TouchUpEvent* evt)
 
 void APP_Tasks ( void )
 {
+  
+    static uint32_t pwmCompare = 0;
 
     /* Check the application's current state. */
     switch ( appData.state )
@@ -326,7 +344,6 @@ void APP_Tasks ( void )
         {
             bool appInitialized = true;
 
-
             if (appInitialized)
             {
                 appData.speed = 0;
@@ -334,13 +351,12 @@ void APP_Tasks ( void )
                 appData.value = MIN_VALUE;
                 appData.event = APP_EVENT_NONE;
                 appData.fuel = 0;
+                pwmCompare = 0;
             }
             break;
         }
         case APP_STATE_SPLASH_BRIGHTEN:
         {
-            static uint32_t pwmCompare = 0;
-            
             if (laContext_GetActive()->activeScreen->id != 0)
                 break;            
             
@@ -362,17 +378,16 @@ void APP_Tasks ( void )
             if (APP_IsSplashScreenComplete())
             {   
                 appData.state = APP_STATE_SPLASH_DIM;
+                pwmCompare = 0xff;
             }
             break;
         }
         case APP_STATE_SPLASH_DIM:
         {
-            static int pwmCompare1 = 0xFF;
-            
-            if (pwmCompare1 > 0)
+            if (pwmCompare > 0)
             {
-                LCDC_SetPWMCompareValue(pwmCompare1);
-                pwmCompare1 -= BACKLIGHT_PWM_DELTA;
+                LCDC_SetPWMCompareValue(pwmCompare);
+                pwmCompare -= BACKLIGHT_PWM_DELTA;
                 APP_DelayMS(BACKLIGHT_DELTA_DELAY_MS);
             }
             else
@@ -396,27 +411,67 @@ void APP_Tasks ( void )
             laWidget_OverrideTouchDownEvent((laWidget*)CenterButtonWidget, &buttonTouchDown);
             laWidget_OverrideTouchMovedEvent((laWidget*)CenterButtonWidget, &buttonTouchMoved);
             laWidget_OverrideTouchUpEvent((laWidget*)CenterButtonWidget, &buttonTouchUp);
-              
+            
+            laWidget_SetEnabled((laWidget *) CenterButtonWidget, LA_FALSE);
+            
             appData.state = APP_STATE_SCREEN_ON;
+            pwmCompare = 0;
           
             break;
         }
         case APP_STATE_SCREEN_ON:
         {
-            static uint32_t pwmCompare2 = 0;
-            
-            if (pwmCompare2 < 0xFF)
+            if (pwmCompare < BACKLIGHT_PWM_VALUE_ENGINE_OFF)
             {
-                LCDC_SetPWMCompareValue(pwmCompare2);
-                pwmCompare2 += BACKLIGHT_PWM_DELTA;
+                LCDC_SetPWMCompareValue(pwmCompare);
+                pwmCompare += BACKLIGHT_PWM_DELTA;
                 APP_DelayMS(BACKLIGHT_DELTA_DELAY_MS);
             }
             else
             {
-                LCDC_SetPWMCompareValue(0xFF);
-                appData.state = APP_STATE_TACHO_REV_UP;
+                LCDC_SetPWMCompareValue(BACKLIGHT_PWM_VALUE_ENGINE_OFF);
+                appData.state = APP_STATE_ENGINE_OFF;
+                
+                laWidget_SetEnabled((laWidget*) EngineOnButton, LA_TRUE);
             }
             break;
+        }
+        case APP_STATE_ENGINE_OFF:
+        {
+            if (appData.event == APP_EVENT_ENGINE_ON)
+            {
+                pwmCompare = BACKLIGHT_PWM_VALUE_ENGINE_OFF;
+                appData.state = APP_STATE_ENGINE_TURNING_ON;
+                appData.event = APP_EVENT_NONE;
+                
+                appData.value = MIN_VALUE;
+                
+                appData.fuel = 0;
+                
+                APP_Update_Fuel_Gauge(appData.fuel);
+                laWidget_Invalidate((laWidget*) TachoDrawSurface);                
+                
+                laWidget_SetEnabled((laWidget*) EngineOnButton, LA_FALSE);
+            }
+            
+            break;
+        }
+        case APP_STATE_ENGINE_TURNING_ON:
+        {
+            if (pwmCompare < BACKLIGHT_PWM_VALUE_ENGINE_ON)
+            {
+                LCDC_SetPWMCompareValue(pwmCompare);
+                pwmCompare += BACKLIGHT_PWM_DELTA;
+                APP_DelayMS(BACKLIGHT_DELTA_DELAY_MS);
+            }
+            else
+            {
+                LCDC_SetPWMCompareValue(BACKLIGHT_PWM_VALUE_ENGINE_ON);
+                
+                appData.state = APP_STATE_TACHO_REV_UP;
+            }
+            
+            break;          
         }
         case APP_STATE_TACHO_REV_UP:
         {
@@ -439,44 +494,73 @@ void APP_Tasks ( void )
             if (appData.value < MIN_VALUE)
             {
                 appData.value = MIN_VALUE;
-                appData.state = APP_STATE_STARTUP;
+                appData.state = APP_STATE_INDICATORS_LIGHTS_INIT;
             }
             
             laWidget_Invalidate((laWidget*) TachoDrawSurface);
             
             break;
         }
-        case APP_STATE_STARTUP:
+        case APP_STATE_INDICATORS_LIGHTS_INIT:
+        {
+            laWidget_SetVisible((laWidget*) IndicatorLightsOnImageWidget, LA_TRUE);
+            laWidget_SetVisible((laWidget*) TurnLeftImageWidget, LA_TRUE);
+            laWidget_SetVisible((laWidget*) TurnRightImageWidget, LA_TRUE);  
+            
+            appData.state = APP_STATE_INDICATOR_TEXTS_INIT;
+            
+            break;
+        }
+        case APP_STATE_INDICATOR_TEXTS_INIT:
+        {
+            APP_EnableIndicators(LA_TRUE);
+            
+            appData.state = APP_STATE_STARTUP_FUEL;
+            
+            break;
+        }
+        case APP_STATE_STARTUP_FUEL:
         {
             if (appData.fuel < MAX_FUEL_VALUE)
             {
                 appData.fuel += FUEL_INC_VALUE;
                 APP_Update_Fuel_Gauge(appData.fuel);
             }
-            
+            else
+            {
+                appData.fuel = MAX_FUEL_VALUE;
+                
+                APP_Update_Fuel_Gauge(appData.fuel);
+
+                laWidget_SetVisible((laWidget*) IndicatorLightsOnImageWidget, LA_FALSE);
+                laWidget_SetVisible((laWidget*) TurnLeftImageWidget, LA_FALSE);
+                laWidget_SetVisible((laWidget*) TurnRightImageWidget, LA_FALSE);
+                
+                appData.state = APP_STATE_STARTUP;           
+            }            
+            break;
+        }
+        case APP_STATE_STARTUP:
+        {
             if (appData.value < IDLE_VALUE)
             {
-                appData.value += SPEED_VALUE_INC_RUN;
+                appData.value += SPEED_VALUE_INC_STARTUP;
                 laWidget_Invalidate((laWidget*) TachoDrawSurface);
             }
-            
-            if (appData.value >= IDLE_VALUE &&
-                appData.fuel >= MAX_FUEL_VALUE)
+            else
             {
                 appData.value = IDLE_VALUE;
-                appData.fuel = MAX_FUEL_VALUE;
                 
                 appData.state = APP_STATE_IDLE;
                 appData.gear = APP_GEAR_IDLE;
                 
                 appData.event = APP_EVENT_NONE;
                 
-                APP_Update_Fuel_Gauge(appData.fuel);
                 laWidget_Invalidate((laWidget*) TachoDrawSurface);
-                laWidget_SetVisible((laWidget*) IndicatorLightsOnImageWidget, LA_FALSE);
-                laWidget_SetVisible((laWidget*) TurnLeftImageWidget, LA_FALSE);
-                laWidget_SetVisible((laWidget*) TurnRightImageWidget, LA_FALSE);
                 laWidget_SetVisible((laWidget*) DriveModeImageWidget, LA_TRUE);
+                
+                laWidget_SetEnabled((laWidget*) EngineOnButton, LA_TRUE);
+                laWidget_SetEnabled((laWidget *) CenterButtonWidget, LA_TRUE);
             }
             
             break;
@@ -492,6 +576,19 @@ void APP_Tasks ( void )
                     appData.gear = APP_GEAR_FIRST;
                     appData.state = APP_STATE_RUN;
                     APP_Update_Gear(GearNums[appData.gear]);
+                    laWidget_SetEnabled((laWidget*) EngineOnButton, LA_FALSE);
+
+                    break;
+                }
+                case APP_EVENT_ENGINE_OFF:
+                {
+                    appData.gear = APP_GEAR_IDLE;
+                    appData.state = APP_STATE_ENGINE_TURNING_OFF_ENGINE;
+                    appData.event = APP_EVENT_NONE;
+                    pwmCompare = BACKLIGHT_PWM_VALUE_ENGINE_ON;
+                    
+                    laWidget_SetEnabled((laWidget *) CenterButtonWidget, LA_FALSE);
+                    laWidget_SetEnabled((laWidget*) EngineOnButton, LA_FALSE);
                     break;
                 }
                 default:
@@ -509,6 +606,69 @@ void APP_Tasks ( void )
             
             break;
         }
+        case APP_STATE_ENGINE_TURNING_OFF_ENGINE:
+        {
+            if (appData.value > MIN_VALUE)
+            {
+                laWidget_Invalidate((laWidget*) TachoDrawSurface);
+                appData.value -= SPEED_VALUE_INC_STARTUP;
+            }
+            else
+            {
+                appData.value = MIN_VALUE;
+                
+                laWidget_Invalidate((laWidget*) TachoDrawSurface);
+                
+                appData.state = APP_STATE_ENGINE_TURNING_OFF_FUEL;
+            }
+            
+            break;
+        }
+       case APP_STATE_ENGINE_TURNING_OFF_FUEL:
+        {
+            if (appData.fuel > 0)
+            {
+                APP_Update_Fuel_Gauge(appData.fuel);
+                appData.fuel -= FUEL_DEC_OFF_VALUE;
+            }
+            else
+            {
+                appData.fuel = 0;
+                
+                APP_Update_Fuel_Gauge(appData.fuel);
+                
+                appData.state = APP_STATE_ENGINE_TURNING_OFF_INDICATORS;
+            }
+            
+            break;
+        }
+        case APP_STATE_ENGINE_TURNING_OFF_INDICATORS:
+        {
+            APP_EnableIndicators(LA_FALSE);
+                
+            appData.state = APP_STATE_ENGINE_TURNING_OFF_DIM;
+            
+            break;
+        }           
+        case APP_STATE_ENGINE_TURNING_OFF_DIM:
+        {
+            if (pwmCompare > BACKLIGHT_PWM_VALUE_ENGINE_OFF)
+            {
+                LCDC_SetPWMCompareValue(pwmCompare);
+                pwmCompare -= BACKLIGHT_PWM_DELTA;
+                APP_DelayMS(BACKLIGHT_DELTA_DELAY_MS);
+            }
+            else
+            {
+                LCDC_SetPWMCompareValue(BACKLIGHT_PWM_VALUE_ENGINE_OFF);
+                
+                laWidget_SetEnabled((laWidget*) EngineOnButton, LA_TRUE);
+                
+                appData.state = APP_STATE_ENGINE_OFF;
+            }
+            
+            break;
+        }              
         case APP_STATE_RUN:
         {
             if (appData.event == APP_EVENT_GAS_OFF)
@@ -522,7 +682,8 @@ void APP_Tasks ( void )
                 {
                     APP_Update_Gear(GearNums[appData.gear]);
                     appData.state = APP_STATE_IDLE;
-                    APP_Update_Speed(0);                  
+                    APP_Update_Speed(0);
+                    laWidget_SetEnabled((laWidget*) EngineOnButton, LA_TRUE);
                 }
                 else
                 {
@@ -610,6 +771,7 @@ void APP_Tasks ( void )
                 appData.state = APP_STATE_IDLE;
                 appData.gear = APP_GEAR_IDLE;
                 appData.fuel = MAX_FUEL_VALUE;
+                laWidget_SetEnabled((laWidget*) EngineOnButton, LA_TRUE);
                 
             }
             
