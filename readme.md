@@ -14,8 +14,8 @@ the following GFX links for release notes, home page, training materials, framew
  - [Release Notes](./release_notes.md)
  - [MPLAB Harmony 3 GFX Wiki](https://github.com/Microchip-MPLAB-Harmony/gfx/wiki)
  - [MPLAB Harmony 3 GFX Training](https://www.youtube.com/playlist?list=PL9B4edd-p2ag5xsIIHhja-caKYY7AKPxe)
- - [MPLAB Harmony 3 GFX Help](https://github.com/Microchip-MPLAB-Harmony/gfx/tree/master/doc)
- - [MPLAB Harmony 3 GFX Apps Help](https://github.com/Microchip-MPLAB-Harmony/gfx_apps/tree/master/doc)
+ - [MPLAB Harmony 3 GFX Help](https://microchip-mplab-harmony.github.io/gfx)
+ - [MPLAB Harmony 3 GFX Apps Help](https://microchip-mplab-harmony.github.io/gfx_apps)
 
 # Contents Summary
 
