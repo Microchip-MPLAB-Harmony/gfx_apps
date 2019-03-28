@@ -121,15 +121,13 @@ void EngineOnButton_PressedEvent(laButtonWidget* btn)
 {
     // Custom Action
     appData.event = APP_EVENT_ENGINE_ON;
-    
 }
 
 // EngineOnButton - ReleasedEvent
 void EngineOnButton_ReleasedEvent(laButtonWidget* btn)
 {
     // Custom Action
-  appData.event = APP_EVENT_ENGINE_OFF;
-    
+    appData.event = APP_EVENT_ENGINE_OFF;
 }
 
 
