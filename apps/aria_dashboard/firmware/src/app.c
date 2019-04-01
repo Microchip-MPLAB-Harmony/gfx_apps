@@ -30,14 +30,13 @@
 #include <stdio.h>
 #include "gfx/libaria/inc/libaria_utils.h"
 #include "gfx/hal/inc/gfx_common.h"
+#include "gfx/hal/inc/gfx_interface.h"
 #include "gfx/hal/inc/gfx_math.h"
 #include "gfx/hal/inc/gfx_context.h"
 #include "gfx/libaria/libaria_init.h"
 #include "system/time/sys_time.h"
 #include "app_splash.h"
 #include "app.h"
-
-extern void LCDC_SetPWMCompareValue(uint32_t value);
 
 // *****************************************************************************
 // *****************************************************************************
@@ -323,6 +322,12 @@ static void APP_EnableIndicators(laBool enable)
     laWidget_SetVisible((laWidget*) SpeedoLabelWidget, enable);
 }
 
+static void APP_SetdisplayBrightnessPctValue(unsigned int pct)
+{
+    if (pct <= 100)
+        GFX_Set(GFXF_BRIGHTNESS, pct);
+}
+
 /******************************************************************************
   Function:
     void APP_Tasks ( void )
@@ -334,7 +339,7 @@ static void APP_EnableIndicators(laBool enable)
 void APP_Tasks ( void )
 {
   
-    static uint32_t pwmCompare = 0;
+    static uint32_t displayBrightnessPct = 0;
 
     /* Check the application's current state. */
     switch ( appData.state )
@@ -351,7 +356,7 @@ void APP_Tasks ( void )
                 appData.value = MIN_VALUE;
                 appData.event = APP_EVENT_NONE;
                 appData.fuel = 0;
-                pwmCompare = 0;
+                displayBrightnessPct = 0;
             }
             break;
         }
@@ -360,15 +365,15 @@ void APP_Tasks ( void )
             if (laContext_GetActive()->activeScreen->id != 0)
                 break;            
             
-            if (pwmCompare < 0xFF)
+            if (displayBrightnessPct < 100)
             {
-                LCDC_SetPWMCompareValue(pwmCompare);
-                pwmCompare += BACKLIGHT_PWM_DELTA;
+                APP_SetdisplayBrightnessPctValue(displayBrightnessPct);
+                displayBrightnessPct += BACKLIGHT_PWM_DELTA;
                 APP_DelayMS(BACKLIGHT_DELTA_DELAY_MS);
             }
             else
             {
-                LCDC_SetPWMCompareValue(0xFF);
+                APP_SetdisplayBrightnessPctValue(100);
                 appData.state = APP_STATE_SPLASH;
             }    
             break;          
@@ -378,21 +383,21 @@ void APP_Tasks ( void )
             if (APP_IsSplashScreenComplete())
             {   
                 appData.state = APP_STATE_SPLASH_DIM;
-                pwmCompare = 0xff;
+                displayBrightnessPct = 100;
             }
             break;
         }
         case APP_STATE_SPLASH_DIM:
         {
-            if (pwmCompare > 0)
+            if (displayBrightnessPct > 0)
             {
-                LCDC_SetPWMCompareValue(pwmCompare);
-                pwmCompare -= BACKLIGHT_PWM_DELTA;
+                APP_SetdisplayBrightnessPctValue(displayBrightnessPct);
+                displayBrightnessPct -= BACKLIGHT_PWM_DELTA;
                 APP_DelayMS(BACKLIGHT_DELTA_DELAY_MS);
             }
             else
             {
-                LCDC_SetPWMCompareValue(0);
+                APP_SetdisplayBrightnessPctValue(0);
                 
                 laContext_SetActiveScreen(1);
                 appData.state = APP_STATE_SCREEN_INIT;
@@ -415,21 +420,21 @@ void APP_Tasks ( void )
             laWidget_SetEnabled((laWidget *) CenterButtonWidget, LA_FALSE);
             
             appData.state = APP_STATE_SCREEN_ON;
-            pwmCompare = 0;
+            displayBrightnessPct = 0;
           
             break;
         }
         case APP_STATE_SCREEN_ON:
         {
-            if (pwmCompare < BACKLIGHT_PWM_VALUE_ENGINE_OFF)
+            if (displayBrightnessPct < BACKLIGHT_PWM_VALUE_ENGINE_OFF)
             {
-                LCDC_SetPWMCompareValue(pwmCompare);
-                pwmCompare += BACKLIGHT_PWM_DELTA;
+                APP_SetdisplayBrightnessPctValue(displayBrightnessPct);
+                displayBrightnessPct += BACKLIGHT_PWM_DELTA;
                 APP_DelayMS(BACKLIGHT_DELTA_DELAY_MS);
             }
             else
             {
-                LCDC_SetPWMCompareValue(BACKLIGHT_PWM_VALUE_ENGINE_OFF);
+                APP_SetdisplayBrightnessPctValue(BACKLIGHT_PWM_VALUE_ENGINE_OFF);
                 appData.state = APP_STATE_ENGINE_OFF;
                 
                 laWidget_SetEnabled((laWidget*) EngineOnButton, LA_TRUE);
@@ -440,7 +445,7 @@ void APP_Tasks ( void )
         {
             if (appData.event == APP_EVENT_ENGINE_ON)
             {
-                pwmCompare = BACKLIGHT_PWM_VALUE_ENGINE_OFF;
+                displayBrightnessPct = BACKLIGHT_PWM_VALUE_ENGINE_OFF;
                 appData.state = APP_STATE_ENGINE_TURNING_ON;
                 appData.event = APP_EVENT_NONE;
                 
@@ -458,15 +463,15 @@ void APP_Tasks ( void )
         }
         case APP_STATE_ENGINE_TURNING_ON:
         {
-            if (pwmCompare < BACKLIGHT_PWM_VALUE_ENGINE_ON)
+            if (displayBrightnessPct < BACKLIGHT_PWM_VALUE_ENGINE_ON)
             {
-                LCDC_SetPWMCompareValue(pwmCompare);
-                pwmCompare += BACKLIGHT_PWM_DELTA;
+                APP_SetdisplayBrightnessPctValue(displayBrightnessPct);
+                displayBrightnessPct += BACKLIGHT_PWM_DELTA;
                 APP_DelayMS(BACKLIGHT_DELTA_DELAY_MS);
             }
             else
             {
-                LCDC_SetPWMCompareValue(BACKLIGHT_PWM_VALUE_ENGINE_ON);
+                APP_SetdisplayBrightnessPctValue(BACKLIGHT_PWM_VALUE_ENGINE_ON);
                 
                 appData.state = APP_STATE_TACHO_REV_UP;
             }
@@ -585,7 +590,7 @@ void APP_Tasks ( void )
                     appData.gear = APP_GEAR_IDLE;
                     appData.state = APP_STATE_ENGINE_TURNING_OFF_ENGINE;
                     appData.event = APP_EVENT_NONE;
-                    pwmCompare = BACKLIGHT_PWM_VALUE_ENGINE_ON;
+                    displayBrightnessPct = BACKLIGHT_PWM_VALUE_ENGINE_ON;
                     
                     laWidget_SetEnabled((laWidget *) CenterButtonWidget, LA_FALSE);
                     laWidget_SetEnabled((laWidget*) EngineOnButton, LA_FALSE);
@@ -652,15 +657,15 @@ void APP_Tasks ( void )
         }           
         case APP_STATE_ENGINE_TURNING_OFF_DIM:
         {
-            if (pwmCompare > BACKLIGHT_PWM_VALUE_ENGINE_OFF)
+            if (displayBrightnessPct > BACKLIGHT_PWM_VALUE_ENGINE_OFF)
             {
-                LCDC_SetPWMCompareValue(pwmCompare);
-                pwmCompare -= BACKLIGHT_PWM_DELTA;
+                APP_SetdisplayBrightnessPctValue(displayBrightnessPct);
+                displayBrightnessPct -= BACKLIGHT_PWM_DELTA;
                 APP_DelayMS(BACKLIGHT_DELTA_DELAY_MS);
             }
             else
             {
-                LCDC_SetPWMCompareValue(BACKLIGHT_PWM_VALUE_ENGINE_OFF);
+                APP_SetdisplayBrightnessPctValue(BACKLIGHT_PWM_VALUE_ENGINE_OFF);
                 
                 laWidget_SetEnabled((laWidget*) EngineOnButton, LA_TRUE);
                 

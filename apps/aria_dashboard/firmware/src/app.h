@@ -101,8 +101,8 @@ extern "C" {
 #define BACKLIGHT_PWM_DELTA 0x1
 #define BACKLIGHT_DELTA_DELAY_MS 2
                                 
-#define BACKLIGHT_PWM_VALUE_ENGINE_OFF 0x1F
-#define BACKLIGHT_PWM_VALUE_ENGINE_ON 0xFF
+#define BACKLIGHT_PWM_VALUE_ENGINE_OFF 33
+#define BACKLIGHT_PWM_VALUE_ENGINE_ON 100
                                 
 // *****************************************************************************
 /* Application states
