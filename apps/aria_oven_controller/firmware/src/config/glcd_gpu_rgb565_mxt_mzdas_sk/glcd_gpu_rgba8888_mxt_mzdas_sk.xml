@@ -1,0 +1,1162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Configuration>
+  <Components>
+    <UniqueComponent dnOrder="0" id="aria_gfx_library">
+      <Symbols dnOrder="0">
+        <Boolean dnOrder="0" id="enableInput">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="1" id="useGlobalPalette">
+          <Values dnOrder="0">
+            <User dnOrder="0" value="false"/>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="2" id="useRTOSExtensions">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_library" priority="1" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+      </Symbols>
+      <Attachments dnOrder="1">
+        <DirectDependency dnOrder="0" id="gfx_hal">
+          <Attributes dnOrder="0">
+            <String dnOrder="0" id="targetComponentID">
+              <Value dnOrder="0">gfx_hal</Value>
+            </String>
+            <String dnOrder="1" id="targetAttachmentID">
+              <Value dnOrder="0">gfx_hal</Value>
+            </String>
+          </Attributes>
+        </DirectDependency>
+      </Attachments>
+    </UniqueComponent>
+    <UniqueComponent dnOrder="1" id="aria_gfx_pda_tm4301b"/>
+    <UniqueComponent bsp="true" dnOrder="2" id="BSP_PIC32MZ_DA_Starter_Kit"/>
+    <UniqueComponent dnOrder="3" id="core">
+      <Symbols dnOrder="0">
+        <String dnOrder="0" id="BSP_PIN_146_DIR">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="Out"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <String dnOrder="1" id="BSP_PIN_146_FUNCTION_NAME">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="TM4301B_BACKLIGHT"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <String dnOrder="2" id="BSP_PIN_146_FUNCTION_TYPE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="GPIO"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <String dnOrder="3" id="BSP_PIN_146_LAT">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="High"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <String dnOrder="4" id="BSP_PIN_154_FUNCTION_TYPE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="SCL1"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <String dnOrder="5" id="BSP_PIN_167_FUNCTION_TYPE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="SDA1"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <String dnOrder="6" id="BSP_PIN_16_DIR">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="Out"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <String dnOrder="7" id="BSP_PIN_16_FUNCTION_NAME">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="CAMERA_ENABLE"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <String dnOrder="8" id="BSP_PIN_16_FUNCTION_TYPE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="GPIO"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <String dnOrder="9" id="BSP_PIN_16_LAT">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value=""/>
+            </Dynamic>
+          </Values>
+        </String>
+        <String dnOrder="10" id="BSP_PIN_22_DIR">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="In"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <String dnOrder="11" id="BSP_PIN_22_FUNCTION_NAME">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="BSP_MAXTOUCH_CHG"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <String dnOrder="12" id="BSP_PIN_22_FUNCTION_TYPE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="GPIO"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <String dnOrder="13" id="BSP_PIN_22_LAT">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value=""/>
+            </Dynamic>
+          </Values>
+        </String>
+        <KeyValueSet dnOrder="14" id="COMPILER_CHOICE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="0"/>
+            </Dynamic>
+          </Values>
+        </KeyValueSet>
+        <Combo dnOrder="15" id="CONFIG_ICESEL">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="ICS_PGx2"/>
+            </Dynamic>
+          </Values>
+        </Combo>
+        <Combo dnOrder="16" id="CONFIG_POSCAGC">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="OFF"/>
+            </Dynamic>
+          </Values>
+        </Combo>
+        <Combo dnOrder="17" id="CONFIG_POSCMOD">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="EC"/>
+            </Dynamic>
+          </Values>
+        </Combo>
+        <Boolean dnOrder="18" id="CONFIG_SYS_CLK_REFCLK5_ENABLE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_driver_glcd" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="19" id="CORE_SOFTWARE_0_INTERRUPT_ENABLE_UPDATE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="20" id="CORE_TIMER_INTERRUPT_ENABLE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core_timer" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="21" id="CORE_TIMER_INTERRUPT_ENABLE_UPDATE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <String dnOrder="22" id="CORE_TIMER_INTERRUPT_HANDLER">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core_timer" priority="1" value="CORE_TIMER_InterruptHandler"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <Boolean dnOrder="23" id="CORE_TIMER_INTERRUPT_HANDLER_LOCK">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core_timer" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="24" id="EVIC_0_ENABLE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="25" id="EVIC_0_HANDLER_LOCK">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <String dnOrder="26" id="EVIC_0_INTERRUPT_HANDLER">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="CORE_TIMER_InterruptHandler"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <Boolean dnOrder="27" id="EVIC_115_ENABLE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="28" id="EVIC_115_HANDLER_LOCK">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <String dnOrder="29" id="EVIC_115_INTERRUPT_HANDLER">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="I2C1_BUS_InterruptHandler"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <Boolean dnOrder="30" id="EVIC_117_ENABLE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="31" id="EVIC_117_HANDLER_LOCK">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <String dnOrder="32" id="EVIC_117_INTERRUPT_HANDLER">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="I2C1_MASTER_InterruptHandler"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <Boolean dnOrder="33" id="EVIC_192_ENABLE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="34" id="EVIC_192_HANDLER_LOCK">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <String dnOrder="35" id="EVIC_192_INTERRUPT_HANDLER">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="GLCD_Interrupt_Handler"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <Boolean dnOrder="36" id="EVIC_1_ENABLE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="1" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="37" id="EVIC_1_ENABLE_GENERATE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="38" id="EVIC_1_ENABLE_LOCK">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="1" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="39" id="EVIC_1_HANDLER_LOCK">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="1" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="40" id="EVIC_1_PRIORITY_GENERATE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="41" id="EVIC_1_PRIORITY_LOCK">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="1" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="42" id="EVIC_1_SUBPRIORITY_GENERATE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="43" id="EVIC_1_SUBPRIORITY_LOCK">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="1" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="44" id="EVIC_4_ENABLE_GENERATE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="45" id="EVIC_4_ENABLE_LOCK">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="1" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="46" id="EVIC_4_HANDLER_LOCK">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="1" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="47" id="EVIC_4_PRIORITY_GENERATE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="48" id="EVIC_4_PRIORITY_LOCK">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="1" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Hex dnOrder="49" id="EVIC_4_PRIVALUE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="4"/>
+            </Dynamic>
+          </Values>
+        </Hex>
+        <Boolean dnOrder="50" id="EVIC_4_SUBPRIORITY_GENERATE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="51" id="EVIC_4_SUBPRIORITY_LOCK">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="1" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Hex dnOrder="52" id="EVIC_4_SUBPRIVALUE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="0"/>
+            </Dynamic>
+          </Values>
+        </Hex>
+        <Boolean dnOrder="53" id="GLCD_INTERRUPT_ENABLE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_driver_glcd" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="54" id="GLCD_INTERRUPT_ENABLE_UPDATE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <String dnOrder="55" id="GLCD_INTERRUPT_HANDLER">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_driver_glcd" priority="1" value="GLCD_Interrupt_Handler"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <Boolean dnOrder="56" id="GLCD_INTERRUPT_HANDLER_LOCK">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_driver_glcd" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="57" id="I2C1_BUS_INTERRUPT_ENABLE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="i2c1" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="58" id="I2C1_BUS_INTERRUPT_ENABLE_UPDATE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <String dnOrder="59" id="I2C1_BUS_INTERRUPT_HANDLER">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="i2c1" priority="1" value="I2C1_BUS_InterruptHandler"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <Boolean dnOrder="60" id="I2C1_BUS_INTERRUPT_HANDLER_LOCK">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="i2c1" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="61" id="I2C1_MASTER_INTERRUPT_ENABLE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="i2c1" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="62" id="I2C1_MASTER_INTERRUPT_ENABLE_UPDATE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <String dnOrder="63" id="I2C1_MASTER_INTERRUPT_HANDLER">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="i2c1" priority="1" value="I2C1_MASTER_InterruptHandler"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <Boolean dnOrder="64" id="I2C1_MASTER_INTERRUPT_HANDLER_LOCK">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="i2c1" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Hex dnOrder="65" id="SYS_PORT_B_ANSEL">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="28672"/>
+            </Dynamic>
+          </Values>
+        </Hex>
+        <Hex dnOrder="66" id="SYS_PORT_B_CNPU">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="28672"/>
+            </Dynamic>
+          </Values>
+        </Hex>
+        <Hex dnOrder="67" id="SYS_PORT_B_LAT">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="0"/>
+            </Dynamic>
+          </Values>
+        </Hex>
+        <Hex dnOrder="68" id="SYS_PORT_B_TRIS">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="0"/>
+            </Dynamic>
+          </Values>
+        </Hex>
+        <Hex dnOrder="69" id="SYS_PORT_E_LAT">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="8"/>
+            </Dynamic>
+          </Values>
+        </Hex>
+        <Hex dnOrder="70" id="SYS_PORT_E_TRIS">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="24"/>
+            </Dynamic>
+          </Values>
+        </Hex>
+        <Hex dnOrder="71" id="SYS_PORT_H_LAT">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="0"/>
+            </Dynamic>
+          </Values>
+        </Hex>
+        <Hex dnOrder="72" id="SYS_PORT_H_TRIS">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="7"/>
+            </Dynamic>
+          </Values>
+        </Hex>
+        <Boolean dnOrder="73" id="TIMER_1_INTERRUPT_ENABLE_UPDATE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="2" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Setting dnOrder="74" id="XC32_HEAP">
+          <Attributes dnOrder="0">
+            <String dnOrder="0" id="value">
+              <Value dnOrder="0">32768</Value>
+            </String>
+          </Attributes>
+        </Setting>
+        <Integer dnOrder="75" id="XC32_HEAP_SIZE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_library" priority="1" value="32768"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+        <KeyValueSet dnOrder="76" id="clkSvcMode">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core" priority="1" value="0"/>
+            </Dynamic>
+          </Values>
+        </KeyValueSet>
+      </Symbols>
+    </UniqueComponent>
+    <UniqueComponent dnOrder="4" id="core_timer">
+      <Symbols dnOrder="0">
+        <Boolean dnOrder="0" id="CORE_TIMER_INTERRUPT_MODE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core_timer" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="1" id="CORE_TIMER_PERIODIC_INTERRUPT">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="core_timer" priority="1" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+      </Symbols>
+      <Attachments dnOrder="1">
+        <DirectCapability dnOrder="0" id="CORE_TIMER_TMR">
+          <Attributes dnOrder="0">
+            <String dnOrder="0" id="targetComponentID">
+              <Value dnOrder="0">sys_time</Value>
+            </String>
+            <String dnOrder="1" id="targetAttachmentID">
+              <Value dnOrder="0">sys_time_TMR_dependency</Value>
+            </String>
+          </Attributes>
+        </DirectCapability>
+      </Attachments>
+    </UniqueComponent>
+    <UniqueComponent dnOrder="5" id="ddr"/>
+    <UniqueComponent dnOrder="6" id="dfp"/>
+    <GeneratorComponent dnOrder="7" id="drv_i2c">
+      <Symbols dnOrder="0">
+        <Combo dnOrder="0" id="DRV_I2C_MODE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="drv_i2c" priority="1" value="Asynchronous"/>
+            </Dynamic>
+          </Values>
+        </Combo>
+      </Symbols>
+      <Instances dnOrder="1">
+        <InstanceComponent dnOrder="0" id="drv_i2c" instance="0">
+          <Symbols dnOrder="0">
+            <String dnOrder="0" id="DRV_I2C_PLIB">
+              <Values dnOrder="0">
+                <Dynamic dnOrder="0">
+                  <Value dnOrder="0" id="drv_i2c_0" priority="1" value="I2C1"/>
+                </Dynamic>
+              </Values>
+            </String>
+          </Symbols>
+          <Attachments dnOrder="1">
+            <DirectCapability dnOrder="0" id="drv_i2c">
+              <Attributes dnOrder="0">
+                <String dnOrder="0" id="targetComponentID">
+                  <Value dnOrder="0">gfx_maxtouch_controller</Value>
+                </String>
+                <String dnOrder="1" id="targetAttachmentID">
+                  <Value dnOrder="0">i2c</Value>
+                </String>
+              </Attributes>
+            </DirectCapability>
+            <DirectDependency dnOrder="1" id="drv_i2c_I2C_dependency">
+              <Attributes dnOrder="0">
+                <String dnOrder="0" id="targetComponentID">
+                  <Value dnOrder="0">i2c1</Value>
+                </String>
+                <String dnOrder="1" id="targetAttachmentID">
+                  <Value dnOrder="0">I2C1_I2C</Value>
+                </String>
+              </Attributes>
+            </DirectDependency>
+          </Attachments>
+        </InstanceComponent>
+      </Instances>
+    </GeneratorComponent>
+    <UniqueComponent dnOrder="8" id="gfx_disp_pdatm4301b_480x272">
+      <Attachments dnOrder="0">
+        <DirectCapability dnOrder="0" id="gfx_display">
+          <Attributes dnOrder="0">
+            <String dnOrder="0" id="targetComponentID">
+              <Value dnOrder="0">gfx_hal</Value>
+            </String>
+            <String dnOrder="1" id="targetAttachmentID">
+              <Value dnOrder="0">gfx_display</Value>
+            </String>
+          </Attributes>
+        </DirectCapability>
+        <DirectCapability dnOrder="1" id="touch_panel">
+          <Attributes dnOrder="0">
+            <String dnOrder="0" id="targetComponentID">
+              <Value dnOrder="0">gfx_maxtouch_controller</Value>
+            </String>
+            <String dnOrder="1" id="targetAttachmentID">
+              <Value dnOrder="0">touch_panel</Value>
+            </String>
+          </Attributes>
+        </DirectCapability>
+      </Attachments>
+    </UniqueComponent>
+    <UniqueComponent dnOrder="9" id="gfx_driver_2dgpu"/>
+    <UniqueComponent dnOrder="10" id="gfx_driver_glcd">
+      <Symbols dnOrder="0">
+        <KeyValueSet dnOrder="0" id="FrameBufferMemoryMode">
+          <Values dnOrder="0">
+            <User dnOrder="0" value="0"/>
+          </Values>
+        </KeyValueSet>
+        <Boolean dnOrder="1" id="HALConnected">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="2" id="Layer1Enable">
+          <Values dnOrder="0">
+            <User dnOrder="0" value="false"/>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="3" id="Layer2Enable">
+          <Values dnOrder="0">
+            <User dnOrder="0" value="false"/>
+          </Values>
+        </Boolean>
+        <Integer dnOrder="4" id="TotalNumLayers">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_driver_glcd" priority="1" value="1"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+      </Symbols>
+      <Attachments dnOrder="1">
+        <DirectCapability dnOrder="0" id="gfx_driver_glcd">
+          <Attributes dnOrder="0">
+            <String dnOrder="0" id="targetComponentID">
+              <Value dnOrder="0">gfx_hal</Value>
+            </String>
+            <String dnOrder="1" id="targetAttachmentID">
+              <Value dnOrder="0">gfx_display_driver</Value>
+            </String>
+          </Attributes>
+        </DirectCapability>
+      </Attachments>
+    </UniqueComponent>
+    <UniqueComponent dnOrder="11" id="gfx_hal">
+      <Symbols dnOrder="0">
+        <Combo dnOrder="0" id="ColorModeHint">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_pda_tm4301b" priority="1" value="GFX_COLOR_MODE_RGBA_8888"/>
+            </Dynamic>
+            <User dnOrder="1" value="GFX_COLOR_MODE_RGB_565"/>
+          </Values>
+        </Combo>
+        <Boolean dnOrder="1" id="DisableGlobalPaletteModeHint">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_library" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Integer dnOrder="2" id="DisplayBacklightDisable">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="1"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+        <Integer dnOrder="3" id="DisplayBacklightEnable">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="1"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+        <Boolean dnOrder="4" id="DisplayChipSelectPolarity">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="5" id="DisplayDataEnable">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="6" id="DisplayDataEnablePolarity">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Integer dnOrder="7" id="DisplayDataWidth">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="16"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+        <Boolean dnOrder="8" id="DisplayHSYNCNegative">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Integer dnOrder="9" id="DisplayHeight">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="272"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+        <Integer dnOrder="10" id="DisplayHorzBackPorch">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="2"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+        <Integer dnOrder="11" id="DisplayHorzFrontPorch">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="2"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+        <Integer dnOrder="12" id="DisplayHorzPulseWidth">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="41"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+        <Boolean dnOrder="13" id="DisplayInvLeftShift">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <String dnOrder="14" id="DisplayName">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="PDA TM4301B"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <Boolean dnOrder="15" id="DisplayResetPolarity">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="16" id="DisplayUseChipSelect">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="17" id="DisplayUseReset">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="18" id="DisplayVSYNCNegative">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Integer dnOrder="19" id="DisplayVertBackPorch">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="2"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+        <Integer dnOrder="20" id="DisplayVertFrontPorch">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="2"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+        <Integer dnOrder="21" id="DisplayVertPulseWidth">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="10"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+        <Integer dnOrder="22" id="DisplayWidth">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="480"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+        <String dnOrder="23" id="DriverInfoFunction">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="driverGLCDInfoGet"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <String dnOrder="24" id="DriverInitFunction">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="driverGLCDContextInitialize"/>
+            </Dynamic>
+          </Values>
+        </String>
+        <Boolean dnOrder="25" id="GlobalPaletteModeHint">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="aria_gfx_library" priority="1" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Integer dnOrder="26" id="HardwareLayerCountHint">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_driver_glcd" priority="1" value="3"/>
+              <Value dnOrder="1" id="gfx_driver_glcd" priority="1" value="1"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+        <Integer dnOrder="27" id="PixelClock">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="50000000"/>
+              <Value dnOrder="1" id="gfx_hal" priority="1" value="50000000"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+        <Integer dnOrder="28" id="RefreshRate">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_hal" priority="1" value="333"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+      </Symbols>
+      <Attachments dnOrder="1">
+        <DirectDependency dnOrder="0" id="gfx_display">
+          <Attributes dnOrder="0">
+            <String dnOrder="0" id="targetComponentID">
+              <Value dnOrder="0">gfx_disp_pdatm4301b_480x272</Value>
+            </String>
+            <String dnOrder="1" id="targetAttachmentID">
+              <Value dnOrder="0">gfx_display</Value>
+            </String>
+          </Attributes>
+        </DirectDependency>
+        <DirectDependency dnOrder="1" id="gfx_display_driver">
+          <Attributes dnOrder="0">
+            <String dnOrder="0" id="targetComponentID">
+              <Value dnOrder="0">gfx_driver_glcd</Value>
+            </String>
+            <String dnOrder="1" id="targetAttachmentID">
+              <Value dnOrder="0">gfx_driver_glcd</Value>
+            </String>
+          </Attributes>
+        </DirectDependency>
+        <DirectCapability dnOrder="2" id="gfx_hal">
+          <Attributes dnOrder="0">
+            <String dnOrder="0" id="targetComponentID">
+              <Value dnOrder="0">aria_gfx_library</Value>
+            </String>
+            <String dnOrder="1" id="targetAttachmentID">
+              <Value dnOrder="0">gfx_hal</Value>
+            </String>
+          </Attributes>
+        </DirectCapability>
+      </Attachments>
+    </UniqueComponent>
+    <UniqueComponent dnOrder="12" id="gfx_maxtouch_controller">
+      <Symbols dnOrder="0">
+        <Integer dnOrder="0" id="Height">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_maxtouch_controller" priority="1" value="272"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+        <Integer dnOrder="1" id="I2CIndex">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_maxtouch_controller" priority="1" value="0"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+        <Integer dnOrder="2" id="Width">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="gfx_maxtouch_controller" priority="1" value="480"/>
+            </Dynamic>
+          </Values>
+        </Integer>
+      </Symbols>
+      <Attachments dnOrder="1">
+        <DirectDependency dnOrder="0" id="i2c">
+          <Attributes dnOrder="0">
+            <String dnOrder="0" id="targetComponentID">
+              <Value dnOrder="0">drv_i2c_0</Value>
+            </String>
+            <String dnOrder="1" id="targetAttachmentID">
+              <Value dnOrder="0">drv_i2c</Value>
+            </String>
+          </Attributes>
+        </DirectDependency>
+        <DirectDependency dnOrder="1" id="touch_panel">
+          <Attributes dnOrder="0">
+            <String dnOrder="0" id="targetComponentID">
+              <Value dnOrder="0">gfx_disp_pdatm4301b_480x272</Value>
+            </String>
+            <String dnOrder="1" id="targetAttachmentID">
+              <Value dnOrder="0">touch_panel</Value>
+            </String>
+          </Attributes>
+        </DirectDependency>
+      </Attachments>
+    </UniqueComponent>
+    <UniqueComponent dnOrder="13" id="HarmonyCore">
+      <Symbols dnOrder="0">
+        <File dnOrder="0" id="DRIVER_COMMON">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <File dnOrder="1" id="DRIVER_ROOT">
+          <Attributes dnOrder="0">
+            <Boolean dnOrder="0" id="enabled">
+              <Value dnOrder="0">true</Value>
+            </Boolean>
+          </Attributes>
+        </File>
+        <Boolean dnOrder="2" id="ENABLE_APP_FILE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="HarmonyCore" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="3" id="ENABLE_DRV_COMMON">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="drv_i2c" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="4" id="ENABLE_OSAL">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="HarmonyCore" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="5" id="ENABLE_SYS_CACHE">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="HarmonyCore" priority="1" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="6" id="ENABLE_SYS_COMMON">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="drv_i2c" priority="1" value="true"/>
+              <Value dnOrder="1" id="sys_time" priority="2" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Boolean dnOrder="7" id="ENABLE_SYS_INT">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="HarmonyCore" priority="1" value="true"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+        <Combo dnOrder="8" id="SELECT_RTOS">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="HarmonyCore" priority="1" value="BareMetal"/>
+            </Dynamic>
+          </Values>
+        </Combo>
+      </Symbols>
+    </UniqueComponent>
+    <UniqueComponent dnOrder="14" id="i2c1">
+      <Attachments dnOrder="0">
+        <DirectCapability dnOrder="0" id="I2C1_I2C">
+          <Attributes dnOrder="0">
+            <String dnOrder="0" id="targetComponentID">
+              <Value dnOrder="0">drv_i2c_0</Value>
+            </String>
+            <String dnOrder="1" id="targetAttachmentID">
+              <Value dnOrder="0">drv_i2c_I2C_dependency</Value>
+            </String>
+          </Attributes>
+        </DirectCapability>
+      </Attachments>
+    </UniqueComponent>
+    <UniqueComponent dnOrder="15" id="sys_input">
+      <Symbols dnOrder="0">
+        <Boolean dnOrder="0" id="RTOSEnabled">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="sys_input" priority="1" value="false"/>
+            </Dynamic>
+          </Values>
+        </Boolean>
+      </Symbols>
+    </UniqueComponent>
+    <UniqueComponent dnOrder="16" id="sys_time">
+      <Symbols dnOrder="0">
+        <String dnOrder="0" id="SYS_TIME_PLIB">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0">
+              <Value dnOrder="0" id="sys_time" priority="2" value="CORE_TIMER"/>
+            </Dynamic>
+          </Values>
+        </String>
+      </Symbols>
+      <Attachments dnOrder="1">
+        <DirectDependency dnOrder="0" id="sys_time_TMR_dependency">
+          <Attributes dnOrder="0">
+            <String dnOrder="0" id="targetComponentID">
+              <Value dnOrder="0">core_timer</Value>
+            </String>
+            <String dnOrder="1" id="targetAttachmentID">
+              <Value dnOrder="0">CORE_TIMER_TMR</Value>
+            </String>
+          </Attributes>
+        </DirectDependency>
+      </Attachments>
+    </UniqueComponent>
+  </Components>
+  <UserData>
+    <ComponentGraph dnOrder="0" id="__ROOTVIEW">
+      <ElementPositions dnOrder="0">
+        <ElementPosition dnOrder="0" id="BSP_PIC32MZ_DA_Starter_Kit" x="340" y="20"/>
+        <ElementPosition dnOrder="1" id="HarmonyCore" x="740" y="20"/>
+        <ElementPosition dnOrder="2" id="aria_gfx_library" x="470" y="101"/>
+        <ElementPosition dnOrder="3" id="aria_gfx_pda_tm4301b" x="30" y="320"/>
+        <ElementPosition dnOrder="4" id="core" x="240" y="20"/>
+        <ElementPosition dnOrder="5" id="core_timer" x="570" y="220"/>
+        <ElementPosition dnOrder="6" id="ddr" x="30" y="260"/>
+        <ElementPosition dnOrder="7" id="dfp" x="20" y="20"/>
+        <ElementPosition dnOrder="8" id="drv_i2c" x="410" y="220"/>
+        <ElementPosition dnOrder="9" id="gfx_disp_pdatm4301b_480x272" x="610" y="121"/>
+        <ElementPosition dnOrder="10" id="gfx_driver_2dgpu" x="570" y="340"/>
+        <ElementPosition dnOrder="11" id="gfx_driver_glcd" x="582" y="20"/>
+        <ElementPosition dnOrder="12" id="gfx_hal" x="273" y="60"/>
+        <ElementPosition dnOrder="13" id="gfx_maxtouch_controller" x="30" y="140"/>
+        <ElementPosition dnOrder="14" id="i2c1" x="250" y="220"/>
+        <ElementPosition dnOrder="15" id="sys_input" x="30" y="60"/>
+        <ElementPosition dnOrder="16" id="sys_time" x="730" y="220"/>
+      </ElementPositions>
+    </ComponentGraph>
+    <GraphSettings canvasHeight="400" canvasWidth="400" dnOrder="1"/>
+  </UserData>
+</Configuration>
