@@ -44,6 +44,7 @@
 #include "plib_pio.h"
 
 
+
 /******************************************************************************
   Function:
     PIO_Initialize ( void )
@@ -90,9 +91,9 @@ void PIO_Initialize ( void )
     /* PORTC Output Write Enable */
     ((pio_registers_t*)PIO_PORT_C)->PIO_OWER = PIO_OWER_Msk;
     /* PORTC Output Direction Enable */
-    ((pio_registers_t*)PIO_PORT_C)->PIO_OER = 0x40002b00;
+    ((pio_registers_t*)PIO_PORT_C)->PIO_OER = 0x40002a00;
     /* PORTC Initial state High */
-    ((pio_registers_t*)PIO_PORT_C)->PIO_SODR = 0x40002b00;
+    ((pio_registers_t*)PIO_PORT_C)->PIO_SODR = 0x40002a00;
 
     /************************ PIO D Initialization ************************/
     /* PORTD Pull Up Enable/Disable as per MHC selection */
@@ -256,6 +257,7 @@ void PIO_PortOutputEnable(PIO_PORT port, uint32_t mask)
 {
     ((pio_registers_t*)port)->PIO_OER = mask;
 }
+
 
 
 

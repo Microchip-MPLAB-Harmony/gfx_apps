@@ -246,6 +246,9 @@ extern laImageWidget* ImageWidget25;
 extern laImageWidget* ImageWidget26;
 
 
+
+
+
 int32_t libaria_initialize(void);
 
 //DOM-IGNORE-BEGIN

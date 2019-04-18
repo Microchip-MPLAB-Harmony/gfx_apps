@@ -99,6 +99,11 @@ void APP_Initialize ( void )
      */
 }
 
+void APP_SendEvent(APP_EVENTS event )
+{
+    appData.event = event;
+}
+
 /******************************************************************************
   Function:
     void APP_Tasks ( void )
