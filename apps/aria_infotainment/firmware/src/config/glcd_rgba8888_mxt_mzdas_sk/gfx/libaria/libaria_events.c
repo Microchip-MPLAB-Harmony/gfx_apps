@@ -45,11 +45,25 @@
 
 #include "gfx/libaria/libaria_events.h"
 
+// ButtonACFace - PressedEvent
+void ButtonACFace_PressedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_MoveTrayIn();
+}
+
 // ButtonACFace - ReleasedEvent
 void ButtonACFace_ReleasedEvent(laButtonWidget* btn)
 {
     // Custom Action
     APP_ACMode(0);
+}
+
+// ButtonACBoth - PressedEvent
+void ButtonACBoth_PressedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_MoveTrayIn();
 }
 
 // ButtonACBoth - ReleasedEvent
@@ -59,11 +73,32 @@ void ButtonACBoth_ReleasedEvent(laButtonWidget* btn)
     APP_ACMode(1);
 }
 
+// ButtonACFeet - PressedEvent
+void ButtonACFeet_PressedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_MoveTrayIn();
+}
+
 // ButtonACFeet - ReleasedEvent
 void ButtonACFeet_ReleasedEvent(laButtonWidget* btn)
 {
     // Custom Action
     APP_ACMode(2);
+}
+
+// ButtonDefrost - PressedEvent
+void ButtonDefrost_PressedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_MoveTrayIn();
+}
+
+// ButtonACIntake - PressedEvent
+void ButtonACIntake_PressedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_MoveTrayIn();
 }
 
 // ButtonACIntake - ReleasedEvent
@@ -73,11 +108,25 @@ void ButtonACIntake_ReleasedEvent(laButtonWidget* btn)
     APP_ACIntake(0);
 }
 
+// ButtonACLoop - PressedEvent
+void ButtonACLoop_PressedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_MoveTrayIn();
+}
+
 // ButtonACLoop - ReleasedEvent
 void ButtonACLoop_ReleasedEvent(laButtonWidget* btn)
 {
     // Custom Action
     APP_ACIntake(1);
+}
+
+// ButtonACSync - PressedEvent
+void ButtonACSync_PressedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_MoveTrayIn();
 }
 
 // ButtonACSync - ReleasedEvent
@@ -94,6 +143,13 @@ void CircularSliderACRight_ValueChangedEvent(laCircularSliderWidget * slider, in
     APP_RightACChange(value);
 }
 
+// CircularSliderACRight - PressedEvent
+void CircularSliderACRight_PressedEvent(laCircularSliderWidget * slider, int32_t value)
+{
+    // Custom Action
+    APP_MoveTrayIn();
+}
+
 // CircularSliderACLeft - ValueChangedEvent
 void CircularSliderACLeft_ValueChangedEvent(laCircularSliderWidget * slider, int32_t value)
 {
@@ -101,11 +157,39 @@ void CircularSliderACLeft_ValueChangedEvent(laCircularSliderWidget * slider, int
     APP_LeftACChange(value);
 }
 
+// CircularSliderACLeft - PressedEvent
+void CircularSliderACLeft_PressedEvent(laCircularSliderWidget * slider, int32_t value)
+{
+    // Custom Action
+    APP_MoveTrayIn();
+}
+
+// TextFieldPhone - TextChangedEvent
+void TextFieldPhone_TextChangedEvent(laTextFieldWidget* txt)
+{
+    // Custom Action
+    APP_MoveTrayIn();
+}
+
+// TextFieldPhone - FocusChangedEvent
+void TextFieldPhone_FocusChangedEvent(laTextFieldWidget* txt, laBool focus)
+{
+    // Custom Action
+    APP_MoveTrayIn();
+}
+
 // ButtonBackspace - ReleasedEvent
 void ButtonBackspace_ReleasedEvent(laButtonWidget* btn)
 {
     // Custom Action
     TextFieldPhone->editWidget.clear((void*)TextFieldPhone);
+}
+
+// ButtonCall - PressedEvent
+void ButtonCall_PressedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_MoveTrayIn();
 }
 
 // ButtonPhone1 - ReleasedEvent
@@ -192,6 +276,34 @@ void ButtonPhonePound_ReleasedEvent(laButtonWidget* btn)
     TextFieldPhone->editWidget.append((void*)TextFieldPhone, laString_CreateFromID(string_String_Pound));
 }
 
+// ButtonBluetoothPhone1 - PressedEvent
+void ButtonBluetoothPhone1_PressedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_MoveTrayIn();
+}
+
+// ButtonBluetoothPhone2 - PressedEvent
+void ButtonBluetoothPhone2_PressedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_MoveTrayIn();
+}
+
+// ButtonNavRead - PressedEvent
+void ButtonNavRead_PressedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_MoveTrayIn();
+}
+
+// ButtonShuffle - PressedEvent
+void ButtonShuffle_PressedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_MoveTrayIn();
+}
+
 // ButtonShuffle - ReleasedEvent
 void ButtonShuffle_ReleasedEvent(laButtonWidget* btn)
 {
@@ -199,11 +311,46 @@ void ButtonShuffle_ReleasedEvent(laButtonWidget* btn)
     APP_MusicShuffle();
 }
 
+// ButtonPlayPause - PressedEvent
+void ButtonPlayPause_PressedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_MoveTrayIn();
+}
+
+// ButtonNextTrack - PressedEvent
+void ButtonNextTrack_PressedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_MoveTrayIn();
+}
+
 // ButtonNextTrack - ReleasedEvent
 void ButtonNextTrack_ReleasedEvent(laButtonWidget* btn)
 {
     // Custom Action
     APP_MusicPlayTrack();
+}
+
+// ButtonVolumeUp - PressedEvent
+void ButtonVolumeUp_PressedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_MoveTrayIn();
+}
+
+// ButtonVolumeDown - PressedEvent
+void ButtonVolumeDown_PressedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_MoveTrayIn();
+}
+
+// LeftTrayLid - ReleasedEvent
+void LeftTrayLid_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_HandleTray(0);
 }
 
 // ModeSelector - ItemProminenceChangedEvent
@@ -228,6 +375,27 @@ void ButtonInfo_ReleasedEvent(laButtonWidget* btn)
 
     // GoToInfoState
     APP_GoToInfoState();
+}
+
+// RightTrayLid - ReleasedEvent
+void RightTrayLid_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_HandleTray(1);
+}
+
+// ButtonChevronUp - ReleasedEvent
+void ButtonChevronUp_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_ModeUp();
+}
+
+// ButtonChevronDown - ReleasedEvent
+void ButtonChevronDown_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_ModeDown();
 }
 
 // ReturnToMainButton - ReleasedEvent

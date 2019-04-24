@@ -289,7 +289,7 @@ extern GFXU_ImageAsset WifiWeak;
  * GFX Image Asset
  * Name:   chevron_down
  * Size:   120x30 pixels
- * Mode:   RGB_565
+ * Mode:   INDEX_8
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset chevron_down;
@@ -298,7 +298,7 @@ extern GFXU_ImageAsset chevron_down;
  * GFX Image Asset
  * Name:   chevron_up
  * Size:   120x30 pixels
- * Mode:   RGB_565
+ * Mode:   INDEX_8
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset chevron_up;
@@ -307,7 +307,7 @@ extern GFXU_ImageAsset chevron_up;
  * GFX Image Asset
  * Name:   AC_Both
  * Size:   60x60 pixels
- * Mode:   RGB_565
+ * Mode:   INDEX_8
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset AC_Both;
@@ -316,7 +316,7 @@ extern GFXU_ImageAsset AC_Both;
  * GFX Image Asset
  * Name:   AC_Face
  * Size:   60x60 pixels
- * Mode:   RGB_565
+ * Mode:   INDEX_8
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset AC_Face;
@@ -325,7 +325,7 @@ extern GFXU_ImageAsset AC_Face;
  * GFX Image Asset
  * Name:   AC_Feet
  * Size:   60x60 pixels
- * Mode:   RGB_565
+ * Mode:   INDEX_8
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset AC_Feet;
@@ -334,7 +334,7 @@ extern GFXU_ImageAsset AC_Feet;
  * GFX Image Asset
  * Name:   AC_Intake
  * Size:   60x60 pixels
- * Mode:   RGB_565
+ * Mode:   INDEX_8
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset AC_Intake;
@@ -343,7 +343,7 @@ extern GFXU_ImageAsset AC_Intake;
  * GFX Image Asset
  * Name:   AC_Loop
  * Size:   60x60 pixels
- * Mode:   RGB_565
+ * Mode:   INDEX_8
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset AC_Loop;
@@ -658,7 +658,7 @@ extern GFXU_ImageAsset HomeButton;
  * GFX Image Asset
  * Name:   microchip_button
  * Size:   60x62 pixels
- * Mode:   RGB_565
+ * Mode:   INDEX_8
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset microchip_button;
@@ -862,6 +862,54 @@ extern GFXU_PaletteAsset WifiWeak_palette;
 	
 /*********************************
  * GFX Palette Asset
+ * Name:   chevron_down_palette
+ * Colors: 60
+ * Format: RGB_565
+ ***********************************/
+extern GFXU_PaletteAsset chevron_down_palette;
+	
+/*********************************
+ * GFX Palette Asset
+ * Name:   AC_Both_palette
+ * Colors: 59
+ * Format: RGB_565
+ ***********************************/
+extern GFXU_PaletteAsset AC_Both_palette;
+	
+/*********************************
+ * GFX Palette Asset
+ * Name:   AC_Face_palette
+ * Colors: 52
+ * Format: RGB_565
+ ***********************************/
+extern GFXU_PaletteAsset AC_Face_palette;
+	
+/*********************************
+ * GFX Palette Asset
+ * Name:   AC_Feet_palette
+ * Colors: 55
+ * Format: RGB_565
+ ***********************************/
+extern GFXU_PaletteAsset AC_Feet_palette;
+	
+/*********************************
+ * GFX Palette Asset
+ * Name:   AC_Intake_palette
+ * Colors: 48
+ * Format: RGB_565
+ ***********************************/
+extern GFXU_PaletteAsset AC_Intake_palette;
+	
+/*********************************
+ * GFX Palette Asset
+ * Name:   AC_Loop_palette
+ * Colors: 50
+ * Format: RGB_565
+ ***********************************/
+extern GFXU_PaletteAsset AC_Loop_palette;
+	
+/*********************************
+ * GFX Palette Asset
  * Name:   Defrost_palette
  * Colors: 57
  * Format: RGB_565
@@ -1028,6 +1076,14 @@ extern GFXU_PaletteAsset PlusSmall_palette;
  ***********************************/
 extern GFXU_PaletteAsset HomeButton_palette;
 	
+/*********************************
+ * GFX Palette Asset
+ * Name:   microchip_button_palette
+ * Colors: 107
+ * Format: RGB_565
+ ***********************************/
+extern GFXU_PaletteAsset microchip_button_palette;
+	
 /*****************************************************************************
  * MPLAB Harmony Graphics Font Assets
  *****************************************************************************/
@@ -1081,11 +1137,11 @@ extern GFXU_FontAsset NotoSans_Bold_Small;
  * Name:         NotoSans_Regular
  * Height:       23
  * Style:        Bold, Antialias
- * Glyph Count:  33
+ * Glyph Count:  42
  * Range Count:  19
  * Glyph Ranges: 0x20
 			     0x2E
-			     0x32
+			     0x30-0x39
 			     0x43-0x44
 			     0x46-0x47
 			     0x4D-0x50
@@ -1145,7 +1201,7 @@ extern GFXU_FontAsset NotoSans_Regular_Small;
  * Name:         stringTable
  * Encoding:     UTF8
  * Languages:    default
- * String Count: 45
+ * String Count: 46
  ***********************************/
 // language IDs
 #define language_default    0
@@ -1190,12 +1246,13 @@ extern GFXU_FontAsset NotoSans_Regular_Small;
 #define string_String_Space    36
 #define string_String_Star    37
 #define string_String_TempCelcius    38
-#define string_String_Three    39
-#define string_String_Time    40
-#define string_String_TravelTime    41
-#define string_String_Two    42
-#define string_String_Zero    43
-#define string_TitleString    44
+#define string_String_TempValues    39
+#define string_String_Three    40
+#define string_String_Time    41
+#define string_String_TravelTime    42
+#define string_String_Two    43
+#define string_String_Zero    44
+#define string_TitleString    45
  
 extern GFXU_StringTableAsset stringTable;
 

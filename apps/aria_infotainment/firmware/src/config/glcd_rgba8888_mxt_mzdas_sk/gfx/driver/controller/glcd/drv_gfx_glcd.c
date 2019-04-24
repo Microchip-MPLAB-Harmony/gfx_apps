@@ -585,10 +585,10 @@ static void layerSwapPending(GFX_Layer* layer)
     }
     }
 
+    waitingForVSync = GFX_TRUE;
+
     PLIB_GLCD_VSyncInterruptEnable(); // enable vsync interrupt
 
-    waitingForVSync = GFX_TRUE;
-    
     // need to spin until vsync happens to ensure content does not get
     // drawn to the wrong frame buffer
     while(waitingForVSync == GFX_TRUE ||

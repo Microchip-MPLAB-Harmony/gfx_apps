@@ -45,8 +45,8 @@
 laScheme ACButtonScheme;
 laScheme ACDialScheme;
 laScheme ClearScheme;
+laScheme ButtonScheme;
 laScheme PhoneListScheme;
-laScheme NewScheme;
 laScheme WhiteScheme;
 laScheme TextScheme;
 laScheme RadialMenuScheme;
@@ -66,10 +66,6 @@ laButtonWidget* ButtonACSync;
 laLabelWidget* LabelSync;
 laCircularSliderWidget* CircularSliderACRight;
 laCircularSliderWidget* CircularSliderACLeft;
-laLabelWidget* LabelACTempRight;
-laLabelWidget* LabelCelciusRight;
-laLabelWidget* LabelACTempLeft;
-laLabelWidget* LabelCelciusLeft;
 laWidget* PhonePanel;
 laTextFieldWidget* TextFieldPhone;
 laButtonWidget* ButtonBackspace;
@@ -98,6 +94,7 @@ laButtonWidget* ButtonPhoneStar;
 laButtonWidget* ButtonPhone0;
 laLabelWidget* LabelNumber0;
 laButtonWidget* ButtonPhonePound;
+laListWidget* ListContacts;
 laWidget* BluetoothPanel;
 laButtonWidget* ButtonBluetoothPhone1;
 laImageWidget* ImageSelectBluetoothDevice1;
@@ -113,7 +110,7 @@ laWidget* BottomPanel;
 laLabelWidget* LabelDistance;
 laLabelWidget* LabelTravelTime;
 laLabelWidget* LabelETA;
-laButtonWidget* ButtonWidget1;
+laButtonWidget* ButtonNavRead;
 laWidget* MusicPanel;
 laRadialMenuWidget* MusicSelector;
 laImagePlusWidget* MusicSelector_Item0;
@@ -134,13 +131,16 @@ laButtonWidget* ButtonVolumeUp;
 laButtonWidget* ButtonVolumeDown;
 laLineWidget* MusicLine;
 laWidget* MusicPosition;
-laListWidget* ListContacts;
 laWidget* IconPanel;
 laImageSequenceWidget* CellSignal;
 laImageSequenceWidget* BatteryPower;
 laImageSequenceWidget* WifiSignal;
 laLabelWidget* LabelClock;
-laImageWidget* ImageWidget40;
+laImageWidget* ImageMCHPLogo;
+laLabelWidget* LabelACTempLeft;
+laLabelWidget* LabelCelciusLeft;
+laLabelWidget* LabelACTempRight;
+laLabelWidget* LabelCelciusRight;
 laWidget* LeftTrayPanel;
 laButtonWidget* LeftTrayLid;
 laImageWidget* LeftLidArrow;
@@ -160,9 +160,9 @@ laImageWidget* ImageTrunk;
 laButtonWidget* RightTrayLid;
 laImageWidget* RightLidArrow;
 laWidget* PanelUpChevron;
-laImageWidget* ImageChevronUp;
+laButtonWidget* ButtonChevronUp;
 laWidget* PanelDownChevron;
-laImageWidget* ImageChevronDown;
+laButtonWidget* ButtonChevronDown;
 laImageWidget* InfoPageHarmonyLogo;
 laImageWidget* ImageWidget7;
 laImageWidget* InfoTextDragPanel;
@@ -235,6 +235,24 @@ int32_t libaria_initialize(void)
     ClearScheme.textInactive = 0xFFFFFF00;
     ClearScheme.textDisabled = 0xFFFFFF00;
 
+    laScheme_Initialize(&ButtonScheme, GFX_COLOR_MODE_RGBA_8888);
+    ButtonScheme.base = 0xFFFFFFFF;
+    ButtonScheme.highlight = 0xC8D0D4FF;
+    ButtonScheme.highlightLight = 0xFFFFFFFF;
+    ButtonScheme.shadow = 0x808080FF;
+    ButtonScheme.shadowDark = 0x404040FF;
+    ButtonScheme.foreground = 0xC0C0C0FF;
+    ButtonScheme.foregroundInactive = 0xD6E3E7FF;
+    ButtonScheme.foregroundDisabled = 0x808080FF;
+    ButtonScheme.background = 0xFFFFFFFF;
+    ButtonScheme.backgroundInactive = 0xD6E3E7FF;
+    ButtonScheme.backgroundDisabled = 0xC8D0D4FF;
+    ButtonScheme.text = 0xFF;
+    ButtonScheme.textHighlight = 0xFFFF;
+    ButtonScheme.textHighlightText = 0xFFFFFFFF;
+    ButtonScheme.textInactive = 0xD6E3E7FF;
+    ButtonScheme.textDisabled = 0x8C9294FF;
+
     laScheme_Initialize(&PhoneListScheme, GFX_COLOR_MODE_RGBA_8888);
     PhoneListScheme.base = 0xFFFFFFFF;
     PhoneListScheme.highlight = 0xFFFFFFFF;
@@ -252,24 +270,6 @@ int32_t libaria_initialize(void)
     PhoneListScheme.textHighlightText = 0xE0E0E0FF;
     PhoneListScheme.textInactive = 0xFFFFFFFF;
     PhoneListScheme.textDisabled = 0xFFFFFFFF;
-
-    laScheme_Initialize(&NewScheme, GFX_COLOR_MODE_RGBA_8888);
-    NewScheme.base = 0x808080FF;
-    NewScheme.highlight = 0xC8D0D4FF;
-    NewScheme.highlightLight = 0xFFFFFFFF;
-    NewScheme.shadow = 0x808080FF;
-    NewScheme.shadowDark = 0x404040FF;
-    NewScheme.foreground = 0xC0C0C0FF;
-    NewScheme.foregroundInactive = 0xD6E3E7FF;
-    NewScheme.foregroundDisabled = 0x808080FF;
-    NewScheme.background = 0xFFFFFFFF;
-    NewScheme.backgroundInactive = 0xD6E3E7FF;
-    NewScheme.backgroundDisabled = 0xC8D0D4FF;
-    NewScheme.text = 0xFF;
-    NewScheme.textHighlight = 0xFFFF;
-    NewScheme.textHighlightText = 0xFFFFFFFF;
-    NewScheme.textInactive = 0xD6E3E7FF;
-    NewScheme.textDisabled = 0x8C9294FF;
 
     laScheme_Initialize(&WhiteScheme, GFX_COLOR_MODE_RGBA_8888);
     WhiteScheme.base = 0xFFFFFFFF;
@@ -309,8 +309,8 @@ int32_t libaria_initialize(void)
 
     laScheme_Initialize(&RadialMenuScheme, GFX_COLOR_MODE_RGBA_8888);
     RadialMenuScheme.base = 0xFFFFFFFF;
-    RadialMenuScheme.highlight = 0x404040FF;
-    RadialMenuScheme.highlightLight = 0x404040FF;
+    RadialMenuScheme.highlight = 0xFFFFFFFF;
+    RadialMenuScheme.highlightLight = 0xFFFFFFFF;
     RadialMenuScheme.shadow = 0xFFFFFFFF;
     RadialMenuScheme.shadowDark = 0xFFFFFFFF;
     RadialMenuScheme.foreground = 0xFFFFFFFF;
@@ -423,7 +423,7 @@ static void ScreenCreate_SplashScreen(laScreen* screen)
     laWidget_AddChild((laWidget*)layer2, (laWidget*)ImageWidget2);
 
     ImageWidget4 = laImageWidget_New();
-    laWidget_SetPosition((laWidget*)ImageWidget4, 13, 220);
+    laWidget_SetPosition((laWidget*)ImageWidget4, 13, 225);
     laWidget_SetSize((laWidget*)ImageWidget4, 144, 39);
     laWidget_SetBackgroundType((laWidget*)ImageWidget4, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)ImageWidget4, LA_WIDGET_BORDER_NONE);
@@ -460,11 +460,12 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     ButtonACFace = laButtonWidget_New();
     laWidget_SetPosition((laWidget*)ButtonACFace, 180, 10);
     laWidget_SetSize((laWidget*)ButtonACFace, 60, 60);
-    laWidget_SetScheme((laWidget*)ButtonACFace, &NewScheme);
+    laWidget_SetScheme((laWidget*)ButtonACFace, &ButtonScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonACFace, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)ButtonACFace, LA_WIDGET_BORDER_BEVEL);
     laButtonWidget_SetPressedImage(ButtonACFace, &AC_Face);
     laButtonWidget_SetReleasedImage(ButtonACFace, &AC_Face);
+    laButtonWidget_SetPressedEventCallback(ButtonACFace, &ButtonACFace_PressedEvent);
     laButtonWidget_SetReleasedEventCallback(ButtonACFace, &ButtonACFace_ReleasedEvent);
 
     laWidget_AddChild((laWidget*)ClimateControlPanel, (laWidget*)ButtonACFace);
@@ -472,23 +473,25 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     ButtonACBoth = laButtonWidget_New();
     laWidget_SetPosition((laWidget*)ButtonACBoth, 180, 70);
     laWidget_SetSize((laWidget*)ButtonACBoth, 60, 60);
-    laWidget_SetScheme((laWidget*)ButtonACBoth, &NewScheme);
+    laWidget_SetScheme((laWidget*)ButtonACBoth, &ButtonScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonACBoth, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)ButtonACBoth, LA_WIDGET_BORDER_BEVEL);
     laButtonWidget_SetPressedImage(ButtonACBoth, &AC_Both);
     laButtonWidget_SetReleasedImage(ButtonACBoth, &AC_Both);
+    laButtonWidget_SetPressedEventCallback(ButtonACBoth, &ButtonACBoth_PressedEvent);
     laButtonWidget_SetReleasedEventCallback(ButtonACBoth, &ButtonACBoth_ReleasedEvent);
 
     laWidget_AddChild((laWidget*)ClimateControlPanel, (laWidget*)ButtonACBoth);
 
     ButtonACFeet = laButtonWidget_New();
-    laWidget_SetPosition((laWidget*)ButtonACFeet, 180, 130);
+    laWidget_SetPosition((laWidget*)ButtonACFeet, 240, 70);
     laWidget_SetSize((laWidget*)ButtonACFeet, 60, 60);
-    laWidget_SetScheme((laWidget*)ButtonACFeet, &NewScheme);
+    laWidget_SetScheme((laWidget*)ButtonACFeet, &ButtonScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonACFeet, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)ButtonACFeet, LA_WIDGET_BORDER_BEVEL);
     laButtonWidget_SetPressedImage(ButtonACFeet, &AC_Feet);
     laButtonWidget_SetReleasedImage(ButtonACFeet, &AC_Feet);
+    laButtonWidget_SetPressedEventCallback(ButtonACFeet, &ButtonACFeet_PressedEvent);
     laButtonWidget_SetReleasedEventCallback(ButtonACFeet, &ButtonACFeet_ReleasedEvent);
 
     laWidget_AddChild((laWidget*)ClimateControlPanel, (laWidget*)ButtonACFeet);
@@ -496,22 +499,25 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     ButtonDefrost = laButtonWidget_New();
     laWidget_SetPosition((laWidget*)ButtonDefrost, 240, 10);
     laWidget_SetSize((laWidget*)ButtonDefrost, 60, 60);
-    laWidget_SetScheme((laWidget*)ButtonDefrost, &NewScheme);
+    laWidget_SetScheme((laWidget*)ButtonDefrost, &ButtonScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonDefrost, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)ButtonDefrost, LA_WIDGET_BORDER_BEVEL);
     laButtonWidget_SetToggleable(ButtonDefrost, LA_TRUE);
     laButtonWidget_SetPressedImage(ButtonDefrost, &Defrost);
     laButtonWidget_SetReleasedImage(ButtonDefrost, &Defrost);
+    laButtonWidget_SetPressedEventCallback(ButtonDefrost, &ButtonDefrost_PressedEvent);
+
     laWidget_AddChild((laWidget*)ClimateControlPanel, (laWidget*)ButtonDefrost);
 
     ButtonACIntake = laButtonWidget_New();
-    laWidget_SetPosition((laWidget*)ButtonACIntake, 240, 70);
+    laWidget_SetPosition((laWidget*)ButtonACIntake, 180, 130);
     laWidget_SetSize((laWidget*)ButtonACIntake, 60, 60);
-    laWidget_SetScheme((laWidget*)ButtonACIntake, &NewScheme);
+    laWidget_SetScheme((laWidget*)ButtonACIntake, &ButtonScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonACIntake, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)ButtonACIntake, LA_WIDGET_BORDER_BEVEL);
     laButtonWidget_SetPressedImage(ButtonACIntake, &AC_Intake);
     laButtonWidget_SetReleasedImage(ButtonACIntake, &AC_Intake);
+    laButtonWidget_SetPressedEventCallback(ButtonACIntake, &ButtonACIntake_PressedEvent);
     laButtonWidget_SetReleasedEventCallback(ButtonACIntake, &ButtonACIntake_ReleasedEvent);
 
     laWidget_AddChild((laWidget*)ClimateControlPanel, (laWidget*)ButtonACIntake);
@@ -519,11 +525,12 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     ButtonACLoop = laButtonWidget_New();
     laWidget_SetPosition((laWidget*)ButtonACLoop, 240, 130);
     laWidget_SetSize((laWidget*)ButtonACLoop, 60, 60);
-    laWidget_SetScheme((laWidget*)ButtonACLoop, &NewScheme);
+    laWidget_SetScheme((laWidget*)ButtonACLoop, &ButtonScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonACLoop, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)ButtonACLoop, LA_WIDGET_BORDER_BEVEL);
     laButtonWidget_SetPressedImage(ButtonACLoop, &AC_Loop);
     laButtonWidget_SetReleasedImage(ButtonACLoop, &AC_Loop);
+    laButtonWidget_SetPressedEventCallback(ButtonACLoop, &ButtonACLoop_PressedEvent);
     laButtonWidget_SetReleasedEventCallback(ButtonACLoop, &ButtonACLoop_ReleasedEvent);
 
     laWidget_AddChild((laWidget*)ClimateControlPanel, (laWidget*)ButtonACLoop);
@@ -537,6 +544,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetMargins((laWidget*)ButtonACSync, 0, 0, 0, 0);
     laButtonWidget_SetPressedImage(ButtonACSync, &OvalButtonPress);
     laButtonWidget_SetReleasedImage(ButtonACSync, &OvalButton);
+    laButtonWidget_SetPressedEventCallback(ButtonACSync, &ButtonACSync_PressedEvent);
     laButtonWidget_SetReleasedEventCallback(ButtonACSync, &ButtonACSync_ReleasedEvent);
 
     laWidget_AddChild((laWidget*)ClimateControlPanel, (laWidget*)ButtonACSync);
@@ -558,15 +566,17 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetBorderType((laWidget*)CircularSliderACRight, LA_WIDGET_BORDER_NONE);
     laCircularSliderWidget_SetRadius(CircularSliderACRight, 70);
     laCircularSliderWidget_SetStartAngle(CircularSliderACRight, 90);
-    laCircularSliderWidget_SetDirection(CircularSliderACRight, CIRCULAR_SLIDER_DIR_CLOCKWISE);
+    laCircularSliderWidget_SetTouchOnButtonOnly(CircularSliderACRight, LA_FALSE);
     laCircularSliderWidget_SetArcVisible(CircularSliderACRight, OUTSIDE_CIRCLE_BORDER, LA_FALSE);
     laCircularSliderWidget_SetArcThickness(CircularSliderACRight, OUTSIDE_CIRCLE_BORDER, 2);
     laCircularSliderWidget_SetArcVisible(CircularSliderACRight, INSIDE_CIRCLE_BORDER, LA_FALSE);
     laCircularSliderWidget_SetArcThickness(CircularSliderACRight, INSIDE_CIRCLE_BORDER, 2);
-    laCircularSliderWidget_SetArcRadius(CircularSliderACRight, CIRCLE_BUTTON, 17);
+    laCircularSliderWidget_SetArcThickness(CircularSliderACRight, ACTIVE_AREA, 38);
+    laCircularSliderWidget_SetArcRadius(CircularSliderACRight, CIRCLE_BUTTON, 20);
     laCircularSliderWidget_SetArcThickness(CircularSliderACRight, CIRCLE_BUTTON, 0);
     laCircularSliderWidget_SetArcScheme(CircularSliderACRight, CIRCLE_BUTTON, &ACButtonScheme);
     laCircularSliderWidget_SetValueChangedEventCallback(CircularSliderACRight, &CircularSliderACRight_ValueChangedEvent);
+    laCircularSliderWidget_SetPressedEventCallback(CircularSliderACRight, &CircularSliderACRight_PressedEvent);
     laWidget_AddChild((laWidget*)ClimateControlPanel, (laWidget*)CircularSliderACRight);
 
     CircularSliderACLeft = laCircularSliderWidget_New();
@@ -577,62 +587,24 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetBorderType((laWidget*)CircularSliderACLeft, LA_WIDGET_BORDER_NONE);
     laCircularSliderWidget_SetRadius(CircularSliderACLeft, 70);
     laCircularSliderWidget_SetStartAngle(CircularSliderACLeft, 90);
-    laCircularSliderWidget_SetDirection(CircularSliderACLeft, CIRCULAR_SLIDER_DIR_CLOCKWISE);
+    laCircularSliderWidget_SetTouchOnButtonOnly(CircularSliderACLeft, LA_FALSE);
     laCircularSliderWidget_SetArcVisible(CircularSliderACLeft, OUTSIDE_CIRCLE_BORDER, LA_FALSE);
     laCircularSliderWidget_SetArcThickness(CircularSliderACLeft, OUTSIDE_CIRCLE_BORDER, 2);
     laCircularSliderWidget_SetArcVisible(CircularSliderACLeft, INSIDE_CIRCLE_BORDER, LA_FALSE);
     laCircularSliderWidget_SetArcThickness(CircularSliderACLeft, INSIDE_CIRCLE_BORDER, 2);
-    laCircularSliderWidget_SetArcRadius(CircularSliderACLeft, CIRCLE_BUTTON, 17);
+    laCircularSliderWidget_SetArcThickness(CircularSliderACLeft, ACTIVE_AREA, 38);
+    laCircularSliderWidget_SetArcRadius(CircularSliderACLeft, CIRCLE_BUTTON, 20);
     laCircularSliderWidget_SetArcThickness(CircularSliderACLeft, CIRCLE_BUTTON, 0);
     laCircularSliderWidget_SetArcScheme(CircularSliderACLeft, CIRCLE_BUTTON, &ACButtonScheme);
     laCircularSliderWidget_SetValueChangedEventCallback(CircularSliderACLeft, &CircularSliderACLeft_ValueChangedEvent);
+    laCircularSliderWidget_SetPressedEventCallback(CircularSliderACLeft, &CircularSliderACLeft_PressedEvent);
     laWidget_AddChild((laWidget*)ClimateControlPanel, (laWidget*)CircularSliderACLeft);
-
-    LabelACTempRight = laLabelWidget_New();
-    laWidget_SetPosition((laWidget*)LabelACTempRight, 350, 190);
-    laWidget_SetSize((laWidget*)LabelACTempRight, 60, 30);
-    laWidget_SetScheme((laWidget*)LabelACTempRight, &TextScheme);
-    laWidget_SetBackgroundType((laWidget*)LabelACTempRight, LA_WIDGET_BACKGROUND_FILL);
-    laWidget_SetBorderType((laWidget*)LabelACTempRight, LA_WIDGET_BORDER_NONE);
-    laWidget_SetMargins((laWidget*)LabelACTempRight, 0, 0, 30, 0);
-    laLabelWidget_SetText(LabelACTempRight, laString_CreateFromID(string_String_ACTemp));
-    laLabelWidget_SetHAlignment(LabelACTempRight, LA_HALIGN_RIGHT);
-    laWidget_AddChild((laWidget*)ClimateControlPanel, (laWidget*)LabelACTempRight);
-
-    LabelCelciusRight = laLabelWidget_New();
-    laWidget_SetPosition((laWidget*)LabelCelciusRight, 30, 0);
-    laWidget_SetSize((laWidget*)LabelCelciusRight, 30, 30);
-    laWidget_SetScheme((laWidget*)LabelCelciusRight, &TextScheme);
-    laWidget_SetBackgroundType((laWidget*)LabelCelciusRight, LA_WIDGET_BACKGROUND_FILL);
-    laWidget_SetBorderType((laWidget*)LabelCelciusRight, LA_WIDGET_BORDER_NONE);
-    laLabelWidget_SetText(LabelCelciusRight, laString_CreateFromID(string_String_TempCelcius));
-    laLabelWidget_SetHAlignment(LabelCelciusRight, LA_HALIGN_LEFT);
-    laWidget_AddChild((laWidget*)LabelACTempRight, (laWidget*)LabelCelciusRight);
-
-    LabelACTempLeft = laLabelWidget_New();
-    laWidget_SetPosition((laWidget*)LabelACTempLeft, 80, 190);
-    laWidget_SetSize((laWidget*)LabelACTempLeft, 60, 30);
-    laWidget_SetScheme((laWidget*)LabelACTempLeft, &TextScheme);
-    laWidget_SetBackgroundType((laWidget*)LabelACTempLeft, LA_WIDGET_BACKGROUND_FILL);
-    laWidget_SetBorderType((laWidget*)LabelACTempLeft, LA_WIDGET_BORDER_NONE);
-    laWidget_SetMargins((laWidget*)LabelACTempLeft, 0, 0, 30, 0);
-    laLabelWidget_SetText(LabelACTempLeft, laString_CreateFromID(string_String_ACTemp));
-    laLabelWidget_SetHAlignment(LabelACTempLeft, LA_HALIGN_RIGHT);
-    laWidget_AddChild((laWidget*)ClimateControlPanel, (laWidget*)LabelACTempLeft);
-
-    LabelCelciusLeft = laLabelWidget_New();
-    laWidget_SetPosition((laWidget*)LabelCelciusLeft, 30, 0);
-    laWidget_SetSize((laWidget*)LabelCelciusLeft, 30, 30);
-    laWidget_SetScheme((laWidget*)LabelCelciusLeft, &TextScheme);
-    laWidget_SetBackgroundType((laWidget*)LabelCelciusLeft, LA_WIDGET_BACKGROUND_FILL);
-    laWidget_SetBorderType((laWidget*)LabelCelciusLeft, LA_WIDGET_BORDER_NONE);
-    laLabelWidget_SetText(LabelCelciusLeft, laString_CreateFromID(string_String_TempCelcius));
-    laLabelWidget_SetHAlignment(LabelCelciusLeft, LA_HALIGN_LEFT);
-    laWidget_AddChild((laWidget*)LabelACTempLeft, (laWidget*)LabelCelciusLeft);
 
     PhonePanel = laWidget_New();
     laWidget_SetPosition((laWidget*)PhonePanel, 31, 30);
     laWidget_SetSize((laWidget*)PhonePanel, 420, 242);
+    laWidget_SetEnabled((laWidget*)PhonePanel, LA_FALSE);
+    laWidget_SetVisible((laWidget*)PhonePanel, LA_FALSE);
     laWidget_SetScheme((laWidget*)PhonePanel, &WhiteScheme);
     laWidget_SetBackgroundType((laWidget*)PhonePanel, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)PhonePanel, LA_WIDGET_BORDER_NONE);
@@ -646,6 +618,8 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetBorderType((laWidget*)TextFieldPhone, LA_WIDGET_BORDER_LINE);
     laTextFieldWidget_SetText(TextFieldPhone, laString_CreateFromID(string_String_Space));
     laTextFieldWidget_SetCursorEnabled(TextFieldPhone, LA_TRUE);
+    laTextFieldWidget_SetTextChangedEventCallback(TextFieldPhone, &TextFieldPhone_TextChangedEvent);
+    laTextFieldWidget_SetFocusChangedEventCallback(TextFieldPhone, &TextFieldPhone_FocusChangedEvent);
     laWidget_AddChild((laWidget*)PhonePanel, (laWidget*)TextFieldPhone);
 
     ButtonBackspace = laButtonWidget_New();
@@ -658,8 +632,8 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_AddChild((laWidget*)TextFieldPhone, (laWidget*)ButtonBackspace);
 
     LabelBackspace = laLabelWidget_New();
-    laWidget_SetPosition((laWidget*)LabelBackspace, 0, 5);
-    laWidget_SetSize((laWidget*)LabelBackspace, 30, 30);
+    laWidget_SetPosition((laWidget*)LabelBackspace, 1, 1);
+    laWidget_SetSize((laWidget*)LabelBackspace, 33, 38);
     laWidget_SetScheme((laWidget*)LabelBackspace, &ClearScheme);
     laWidget_SetBackgroundType((laWidget*)LabelBackspace, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)LabelBackspace, LA_WIDGET_BORDER_NONE);
@@ -676,6 +650,8 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetMargins((laWidget*)ButtonCall, 0, 0, 0, 0);
     laButtonWidget_SetPressedImage(ButtonCall, &OvalButtonPress);
     laButtonWidget_SetReleasedImage(ButtonCall, &OvalButton);
+    laButtonWidget_SetPressedEventCallback(ButtonCall, &ButtonCall_PressedEvent);
+
     laWidget_AddChild((laWidget*)PhonePanel, (laWidget*)ButtonCall);
 
     ImagePhoneIcon = laImageWidget_New();
@@ -914,6 +890,30 @@ static void ScreenCreate_MainScreen(laScreen* screen)
 
     laWidget_AddChild((laWidget*)PhoneKeyPadPanel, (laWidget*)ButtonPhonePound);
 
+    ListContacts = laListWidget_New();
+    laWidget_SetPosition((laWidget*)ListContacts, 46, 95);
+    laWidget_SetSize((laWidget*)ListContacts, 215, 120);
+    laWidget_SetEnabled((laWidget*)ListContacts, LA_FALSE);
+    laWidget_SetVisible((laWidget*)ListContacts, LA_FALSE);
+    laWidget_SetScheme((laWidget*)ListContacts, &PhoneListScheme);
+    laWidget_SetBackgroundType((laWidget*)ListContacts, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)ListContacts, LA_WIDGET_BORDER_LINE);
+    laListWidget_SetSelectionMode(ListContacts, LA_LIST_WIDGET_SELECTION_MODE_SINGLE);
+    laListWidget_SetAlignment(ListContacts, LA_HALIGN_CENTER);
+    laListWidget_SetIconPosition(ListContacts, LA_RELATIVE_POSITION_RIGHTOF);
+    laListWidget_SetIconMargin(ListContacts, 5);
+    laListWidget_AppendItem(ListContacts);
+    laListWidget_SetItemText(ListContacts, 0, laString_CreateFromID(string_String_Contacts1));
+    laListWidget_AppendItem(ListContacts);
+    laListWidget_SetItemText(ListContacts, 1, laString_CreateFromID(string_String_Contacts2));
+    laListWidget_AppendItem(ListContacts);
+    laListWidget_SetItemText(ListContacts, 2, laString_CreateFromID(string_String_Contacts3));
+    laListWidget_AppendItem(ListContacts);
+    laListWidget_SetItemText(ListContacts, 3, laString_CreateFromID(string_String_Contacts4));
+    laListWidget_AppendItem(ListContacts);
+    laListWidget_AppendItem(ListContacts);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ListContacts);
+
     BluetoothPanel = laWidget_New();
     laWidget_SetPosition((laWidget*)BluetoothPanel, 30, 30);
     laWidget_SetSize((laWidget*)BluetoothPanel, 420, 242);
@@ -931,6 +931,8 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetBackgroundType((laWidget*)ButtonBluetoothPhone1, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)ButtonBluetoothPhone1, LA_WIDGET_BORDER_LINE);
     laWidget_SetMargins((laWidget*)ButtonBluetoothPhone1, 0, 0, 0, 0);
+    laButtonWidget_SetPressedEventCallback(ButtonBluetoothPhone1, &ButtonBluetoothPhone1_PressedEvent);
+
     laWidget_AddChild((laWidget*)BluetoothPanel, (laWidget*)ButtonBluetoothPhone1);
 
     ImageSelectBluetoothDevice1 = laImageWidget_New();
@@ -968,6 +970,8 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetBackgroundType((laWidget*)ButtonBluetoothPhone2, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)ButtonBluetoothPhone2, LA_WIDGET_BORDER_LINE);
     laWidget_SetMargins((laWidget*)ButtonBluetoothPhone2, 0, 0, 0, 0);
+    laButtonWidget_SetPressedEventCallback(ButtonBluetoothPhone2, &ButtonBluetoothPhone2_PressedEvent);
+
     laWidget_AddChild((laWidget*)BluetoothPanel, (laWidget*)ButtonBluetoothPhone2);
 
     ImageSelectBluetoothDevice2 = laImageWidget_New();
@@ -1054,11 +1058,13 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laLabelWidget_SetHAlignment(LabelETA, LA_HALIGN_RIGHT);
     laWidget_AddChild((laWidget*)BottomPanel, (laWidget*)LabelETA);
 
-    ButtonWidget1 = laButtonWidget_New();
-    laWidget_SetSize((laWidget*)ButtonWidget1, 100, 25);
-    laWidget_SetBackgroundType((laWidget*)ButtonWidget1, LA_WIDGET_BACKGROUND_FILL);
-    laWidget_SetBorderType((laWidget*)ButtonWidget1, LA_WIDGET_BORDER_BEVEL);
-    laWidget_AddChild((laWidget*)NavPanel, (laWidget*)ButtonWidget1);
+    ButtonNavRead = laButtonWidget_New();
+    laWidget_SetSize((laWidget*)ButtonNavRead, 420, 242);
+    laWidget_SetBackgroundType((laWidget*)ButtonNavRead, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ButtonNavRead, LA_WIDGET_BORDER_NONE);
+    laButtonWidget_SetPressedEventCallback(ButtonNavRead, &ButtonNavRead_PressedEvent);
+
+    laWidget_AddChild((laWidget*)NavPanel, (laWidget*)ButtonNavRead);
 
     MusicPanel = laWidget_New();
     laWidget_SetPosition((laWidget*)MusicPanel, 30, 30);
@@ -1080,9 +1086,9 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laRadialMenuWidget_SetSizeScaling(MusicSelector, LA_RADIAL_MENU_SCALE_GRADUAL);
     laRadialMenuWidget_SetAlphaScaling(MusicSelector, LA_RADIAL_MENU_SCALE_GRADUAL);
     laRadialMenuWidget_SetSizeScaleMinMax(MusicSelector, 40, 100);
-    laRadialMenuWidget_SetAlphaScaleMinMax(MusicSelector, 0, 255);
+    laRadialMenuWidget_SetAlphaScaleMinMax(MusicSelector, 0, 250);
     laRadialMenuWidget_SetTheta(MusicSelector, 0);
-    laRadialMenuWidget_SetTouchArea(MusicSelector, 57, 0, 315, 150);
+    laRadialMenuWidget_SetTouchArea(MusicSelector, 0, 0, 420, 150);
     laRadialMenuWidget_SetHighlightProminent(MusicSelector, LA_TRUE);
     laRadialMenuWidget_SetEllipseType(MusicSelector, LA_RADIAL_MENU_ELLIPSE_TYPE_ORBITAL);
 
@@ -1227,6 +1233,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetBorderType((laWidget*)ButtonShuffle, LA_WIDGET_BORDER_NONE);
     laButtonWidget_SetPressedImage(ButtonShuffle, &Shuffle);
     laButtonWidget_SetReleasedImage(ButtonShuffle, &Shuffle);
+    laButtonWidget_SetPressedEventCallback(ButtonShuffle, &ButtonShuffle_PressedEvent);
     laButtonWidget_SetReleasedEventCallback(ButtonShuffle, &ButtonShuffle_ReleasedEvent);
 
     laWidget_AddChild((laWidget*)MusicPanel, (laWidget*)ButtonShuffle);
@@ -1239,6 +1246,8 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetBorderType((laWidget*)ButtonPlayPause, LA_WIDGET_BORDER_NONE);
     laButtonWidget_SetPressedImage(ButtonPlayPause, &PlayPause);
     laButtonWidget_SetReleasedImage(ButtonPlayPause, &PlayPause);
+    laButtonWidget_SetPressedEventCallback(ButtonPlayPause, &ButtonPlayPause_PressedEvent);
+
     laWidget_AddChild((laWidget*)MusicPanel, (laWidget*)ButtonPlayPause);
 
     ButtonNextTrack = laButtonWidget_New();
@@ -1249,6 +1258,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetBorderType((laWidget*)ButtonNextTrack, LA_WIDGET_BORDER_NONE);
     laButtonWidget_SetPressedImage(ButtonNextTrack, &NextTrack);
     laButtonWidget_SetReleasedImage(ButtonNextTrack, &NextTrack);
+    laButtonWidget_SetPressedEventCallback(ButtonNextTrack, &ButtonNextTrack_PressedEvent);
     laButtonWidget_SetReleasedEventCallback(ButtonNextTrack, &ButtonNextTrack_ReleasedEvent);
 
     laWidget_AddChild((laWidget*)MusicPanel, (laWidget*)ButtonNextTrack);
@@ -1270,6 +1280,8 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetBorderType((laWidget*)ButtonVolumeUp, LA_WIDGET_BORDER_NONE);
     laButtonWidget_SetPressedImage(ButtonVolumeUp, &Plus);
     laButtonWidget_SetReleasedImage(ButtonVolumeUp, &Plus);
+    laButtonWidget_SetPressedEventCallback(ButtonVolumeUp, &ButtonVolumeUp_PressedEvent);
+
     laWidget_AddChild((laWidget*)ImageVolumeIcon, (laWidget*)ButtonVolumeUp);
 
     ButtonVolumeDown = laButtonWidget_New();
@@ -1280,12 +1292,14 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetBorderType((laWidget*)ButtonVolumeDown, LA_WIDGET_BORDER_NONE);
     laButtonWidget_SetPressedImage(ButtonVolumeDown, &Minus);
     laButtonWidget_SetReleasedImage(ButtonVolumeDown, &Minus);
+    laButtonWidget_SetPressedEventCallback(ButtonVolumeDown, &ButtonVolumeDown_PressedEvent);
+
     laWidget_AddChild((laWidget*)ImageVolumeIcon, (laWidget*)ButtonVolumeDown);
 
     MusicLine = laLineWidget_New();
     laWidget_SetPosition((laWidget*)MusicLine, 20, 160);
     laWidget_SetSize((laWidget*)MusicLine, 380, 10);
-    laWidget_SetScheme((laWidget*)MusicLine, &NewScheme);
+    laWidget_SetScheme((laWidget*)MusicLine, &ButtonScheme);
     laWidget_SetBackgroundType((laWidget*)MusicLine, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)MusicLine, LA_WIDGET_BORDER_NONE);
     laLineWidget_SetStartPoint(MusicLine, 0, 5);
@@ -1295,34 +1309,10 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     MusicPosition = laWidget_New();
     laWidget_SetPosition((laWidget*)MusicPosition, 160, 0);
     laWidget_SetSize((laWidget*)MusicPosition, 20, 10);
-    laWidget_SetScheme((laWidget*)MusicPosition, &NewScheme);
+    laWidget_SetScheme((laWidget*)MusicPosition, &ButtonScheme);
     laWidget_SetBackgroundType((laWidget*)MusicPosition, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)MusicPosition, LA_WIDGET_BORDER_NONE);
     laWidget_AddChild((laWidget*)MusicLine, MusicPosition);
-
-    ListContacts = laListWidget_New();
-    laWidget_SetPosition((laWidget*)ListContacts, 46, 95);
-    laWidget_SetSize((laWidget*)ListContacts, 215, 120);
-    laWidget_SetEnabled((laWidget*)ListContacts, LA_FALSE);
-    laWidget_SetVisible((laWidget*)ListContacts, LA_FALSE);
-    laWidget_SetScheme((laWidget*)ListContacts, &PhoneListScheme);
-    laWidget_SetBackgroundType((laWidget*)ListContacts, LA_WIDGET_BACKGROUND_FILL);
-    laWidget_SetBorderType((laWidget*)ListContacts, LA_WIDGET_BORDER_LINE);
-    laListWidget_SetSelectionMode(ListContacts, LA_LIST_WIDGET_SELECTION_MODE_SINGLE);
-    laListWidget_SetAlignment(ListContacts, LA_HALIGN_CENTER);
-    laListWidget_SetIconPosition(ListContacts, LA_RELATIVE_POSITION_RIGHTOF);
-    laListWidget_SetIconMargin(ListContacts, 5);
-    laListWidget_AppendItem(ListContacts);
-    laListWidget_SetItemText(ListContacts, 0, laString_CreateFromID(string_String_Contacts1));
-    laListWidget_AppendItem(ListContacts);
-    laListWidget_SetItemText(ListContacts, 1, laString_CreateFromID(string_String_Contacts2));
-    laListWidget_AppendItem(ListContacts);
-    laListWidget_SetItemText(ListContacts, 2, laString_CreateFromID(string_String_Contacts3));
-    laListWidget_AppendItem(ListContacts);
-    laListWidget_SetItemText(ListContacts, 3, laString_CreateFromID(string_String_Contacts4));
-    laListWidget_AppendItem(ListContacts);
-    laListWidget_AppendItem(ListContacts);
-    laWidget_AddChild((laWidget*)layer0, (laWidget*)ListContacts);
 
     IconPanel = laWidget_New();
     laWidget_SetPosition((laWidget*)IconPanel, 30, 0);
@@ -1393,13 +1383,55 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laLabelWidget_SetVAlignment(LabelClock, LA_VALIGN_TOP);
     laWidget_AddChild((laWidget*)IconPanel, (laWidget*)LabelClock);
 
-    ImageWidget40 = laImageWidget_New();
-    laWidget_SetPosition((laWidget*)ImageWidget40, 0, 2);
-    laWidget_SetSize((laWidget*)ImageWidget40, 120, 28);
-    laWidget_SetBackgroundType((laWidget*)ImageWidget40, LA_WIDGET_BACKGROUND_NONE);
-    laWidget_SetBorderType((laWidget*)ImageWidget40, LA_WIDGET_BORDER_NONE);
-    laImageWidget_SetImage(ImageWidget40, &mchp_logo);
-    laWidget_AddChild((laWidget*)IconPanel, (laWidget*)ImageWidget40);
+    ImageMCHPLogo = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageMCHPLogo, 0, 2);
+    laWidget_SetSize((laWidget*)ImageMCHPLogo, 120, 28);
+    laWidget_SetBackgroundType((laWidget*)ImageMCHPLogo, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageMCHPLogo, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageMCHPLogo, &mchp_logo);
+    laWidget_AddChild((laWidget*)IconPanel, (laWidget*)ImageMCHPLogo);
+
+    LabelACTempLeft = laLabelWidget_New();
+    laWidget_SetPosition((laWidget*)LabelACTempLeft, 80, 220);
+    laWidget_SetSize((laWidget*)LabelACTempLeft, 60, 30);
+    laWidget_SetScheme((laWidget*)LabelACTempLeft, &TextScheme);
+    laWidget_SetBackgroundType((laWidget*)LabelACTempLeft, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)LabelACTempLeft, LA_WIDGET_BORDER_NONE);
+    laWidget_SetMargins((laWidget*)LabelACTempLeft, 0, 0, 30, 0);
+    laLabelWidget_SetText(LabelACTempLeft, laString_CreateFromID(string_String_ACTemp));
+    laLabelWidget_SetHAlignment(LabelACTempLeft, LA_HALIGN_RIGHT);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)LabelACTempLeft);
+
+    LabelCelciusLeft = laLabelWidget_New();
+    laWidget_SetPosition((laWidget*)LabelCelciusLeft, 30, 0);
+    laWidget_SetSize((laWidget*)LabelCelciusLeft, 30, 30);
+    laWidget_SetScheme((laWidget*)LabelCelciusLeft, &TextScheme);
+    laWidget_SetBackgroundType((laWidget*)LabelCelciusLeft, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)LabelCelciusLeft, LA_WIDGET_BORDER_NONE);
+    laLabelWidget_SetText(LabelCelciusLeft, laString_CreateFromID(string_String_TempCelcius));
+    laLabelWidget_SetHAlignment(LabelCelciusLeft, LA_HALIGN_LEFT);
+    laWidget_AddChild((laWidget*)LabelACTempLeft, (laWidget*)LabelCelciusLeft);
+
+    LabelACTempRight = laLabelWidget_New();
+    laWidget_SetPosition((laWidget*)LabelACTempRight, 350, 220);
+    laWidget_SetSize((laWidget*)LabelACTempRight, 60, 30);
+    laWidget_SetScheme((laWidget*)LabelACTempRight, &TextScheme);
+    laWidget_SetBackgroundType((laWidget*)LabelACTempRight, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)LabelACTempRight, LA_WIDGET_BORDER_NONE);
+    laWidget_SetMargins((laWidget*)LabelACTempRight, 0, 0, 30, 0);
+    laLabelWidget_SetText(LabelACTempRight, laString_CreateFromID(string_String_ACTemp));
+    laLabelWidget_SetHAlignment(LabelACTempRight, LA_HALIGN_RIGHT);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)LabelACTempRight);
+
+    LabelCelciusRight = laLabelWidget_New();
+    laWidget_SetPosition((laWidget*)LabelCelciusRight, 30, 0);
+    laWidget_SetSize((laWidget*)LabelCelciusRight, 30, 30);
+    laWidget_SetScheme((laWidget*)LabelCelciusRight, &TextScheme);
+    laWidget_SetBackgroundType((laWidget*)LabelCelciusRight, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)LabelCelciusRight, LA_WIDGET_BORDER_NONE);
+    laLabelWidget_SetText(LabelCelciusRight, laString_CreateFromID(string_String_TempCelcius));
+    laLabelWidget_SetHAlignment(LabelCelciusRight, LA_HALIGN_LEFT);
+    laWidget_AddChild((laWidget*)LabelACTempRight, (laWidget*)LabelCelciusRight);
 
     layer1 = laLayer_New();
     laWidget_SetPosition((laWidget*)layer1, 0, 0);
@@ -1429,6 +1461,8 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetMargins((laWidget*)LeftTrayLid, 0, 0, 0, 0);
     laButtonWidget_SetPressedImage(LeftTrayLid, &TrayLeftPress);
     laButtonWidget_SetReleasedImage(LeftTrayLid, &TrayLeft);
+    laButtonWidget_SetReleasedEventCallback(LeftTrayLid, &LeftTrayLid_ReleasedEvent);
+
     laWidget_AddChild((laWidget*)LeftTrayPanel, (laWidget*)LeftTrayLid);
 
     LeftLidArrow = laImageWidget_New();
@@ -1441,16 +1475,16 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_AddChild((laWidget*)LeftTrayLid, (laWidget*)LeftLidArrow);
 
     PanelWidget = laWidget_New();
-    laWidget_SetPosition((laWidget*)PanelWidget, 0, -136);
-    laWidget_SetSize((laWidget*)PanelWidget, 180, 544);
+    laWidget_SetPosition((laWidget*)PanelWidget, 0, -100);
+    laWidget_SetSize((laWidget*)PanelWidget, 180, 480);
     laWidget_SetScheme((laWidget*)PanelWidget, &WhiteScheme);
     laWidget_SetBackgroundType((laWidget*)PanelWidget, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)PanelWidget, LA_WIDGET_BORDER_NONE);
     laWidget_AddChild((laWidget*)LeftTrayPanel, PanelWidget);
 
     ModeSelector = laRadialMenuWidget_New();
-    laWidget_SetSize((laWidget*)ModeSelector, 180, 544);
-    laWidget_SetScheme((laWidget*)ModeSelector, &RadialMenuScheme);
+    laWidget_SetSize((laWidget*)ModeSelector, 180, 480);
+    laWidget_SetScheme((laWidget*)ModeSelector, &WhiteScheme);
     laWidget_SetBackgroundType((laWidget*)ModeSelector, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)ModeSelector, LA_WIDGET_BORDER_NONE);
     laWidget_SetAlphaEnable((laWidget*)ModeSelector, GFX_TRUE);
@@ -1458,9 +1492,9 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laRadialMenuWidget_SetSizeScaling(ModeSelector, LA_RADIAL_MENU_SCALE_GRADUAL);
     laRadialMenuWidget_SetAlphaScaling(ModeSelector, LA_RADIAL_MENU_SCALE_GRADUAL);
     laRadialMenuWidget_SetSizeScaleMinMax(ModeSelector, 60, 100);
-    laRadialMenuWidget_SetAlphaScaleMinMax(ModeSelector, 200, 255);
+    laRadialMenuWidget_SetAlphaScaleMinMax(ModeSelector, 0, 240);
     laRadialMenuWidget_SetTheta(ModeSelector, 90);
-    laRadialMenuWidget_SetTouchArea(ModeSelector, 0, 0, 180, 544);
+    laRadialMenuWidget_SetTouchArea(ModeSelector, 0, 0, 180, 480);
     laRadialMenuWidget_SetEllipseType(ModeSelector, LA_RADIAL_MENU_ELLIPSE_TYPE_ROLLODEX);
 
     ModeSelector_Item0 = laImagePlusWidget_New();
@@ -1471,7 +1505,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laImagePlusWidget_SetStretchEnabled(ModeSelector_Item0, LA_TRUE);
     laImagePlusWidget_SetPreserveAspectEnabled(ModeSelector_Item0, LA_TRUE);
     laWidget_SetVisible((laWidget*)ModeSelector_Item0, LA_TRUE);
-    laWidget_SetPosition((laWidget*)ModeSelector_Item0, 90, 272);
+    laWidget_SetPosition((laWidget*)ModeSelector_Item0, 90, 240);
     laWidget_SetSize((laWidget*)ModeSelector_Item0, 160, 160);
     laRadialMenuWidget_AddWidget(ModeSelector, (laWidget*)ModeSelector_Item0);
     laWidget_AddChild((laWidget*)ModeSelector, (laWidget*)ModeSelector_Item0);
@@ -1484,7 +1518,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laImagePlusWidget_SetStretchEnabled(ModeSelector_Item1, LA_TRUE);
     laImagePlusWidget_SetPreserveAspectEnabled(ModeSelector_Item1, LA_TRUE);
     laWidget_SetVisible((laWidget*)ModeSelector_Item1, LA_TRUE);
-    laWidget_SetPosition((laWidget*)ModeSelector_Item1, 90, 272);
+    laWidget_SetPosition((laWidget*)ModeSelector_Item1, 90, 240);
     laWidget_SetSize((laWidget*)ModeSelector_Item1, 160, 160);
     laRadialMenuWidget_AddWidget(ModeSelector, (laWidget*)ModeSelector_Item1);
     laWidget_AddChild((laWidget*)ModeSelector, (laWidget*)ModeSelector_Item1);
@@ -1497,7 +1531,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laImagePlusWidget_SetStretchEnabled(ModeSelector_Item2, LA_TRUE);
     laImagePlusWidget_SetPreserveAspectEnabled(ModeSelector_Item2, LA_TRUE);
     laWidget_SetVisible((laWidget*)ModeSelector_Item2, LA_TRUE);
-    laWidget_SetPosition((laWidget*)ModeSelector_Item2, 90, 272);
+    laWidget_SetPosition((laWidget*)ModeSelector_Item2, 90, 240);
     laWidget_SetSize((laWidget*)ModeSelector_Item2, 160, 160);
     laRadialMenuWidget_AddWidget(ModeSelector, (laWidget*)ModeSelector_Item2);
     laWidget_AddChild((laWidget*)ModeSelector, (laWidget*)ModeSelector_Item2);
@@ -1510,7 +1544,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laImagePlusWidget_SetStretchEnabled(ModeSelector_Item3, LA_TRUE);
     laImagePlusWidget_SetPreserveAspectEnabled(ModeSelector_Item3, LA_TRUE);
     laWidget_SetVisible((laWidget*)ModeSelector_Item3, LA_TRUE);
-    laWidget_SetPosition((laWidget*)ModeSelector_Item3, 90, 272);
+    laWidget_SetPosition((laWidget*)ModeSelector_Item3, 90, 240);
     laWidget_SetSize((laWidget*)ModeSelector_Item3, 160, 160);
     laRadialMenuWidget_AddWidget(ModeSelector, (laWidget*)ModeSelector_Item3);
     laWidget_AddChild((laWidget*)ModeSelector, (laWidget*)ModeSelector_Item3);
@@ -1523,7 +1557,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laImagePlusWidget_SetStretchEnabled(ModeSelector_Item4, LA_TRUE);
     laImagePlusWidget_SetPreserveAspectEnabled(ModeSelector_Item4, LA_TRUE);
     laWidget_SetVisible((laWidget*)ModeSelector_Item4, LA_TRUE);
-    laWidget_SetPosition((laWidget*)ModeSelector_Item4, 90, 272);
+    laWidget_SetPosition((laWidget*)ModeSelector_Item4, 90, 240);
     laWidget_SetSize((laWidget*)ModeSelector_Item4, 160, 160);
     laRadialMenuWidget_AddWidget(ModeSelector, (laWidget*)ModeSelector_Item4);
     laWidget_AddChild((laWidget*)ModeSelector, (laWidget*)ModeSelector_Item4);
@@ -1578,7 +1612,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetScheme((laWidget*)LabelGPU, &ClearScheme);
     laWidget_SetBackgroundType((laWidget*)LabelGPU, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)LabelGPU, LA_WIDGET_BORDER_NONE);
-    laLabelWidget_SetText(LabelGPU, laString_CreateFromID(string_String_GPUOn));
+    laLabelWidget_SetText(LabelGPU, laString_CreateFromID(string_String_GPUOff));
     laWidget_AddChild((laWidget*)ButtonGPU, (laWidget*)LabelGPU);
 
     ButtonInfo = laButtonWidget_New();
@@ -1611,6 +1645,8 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetMargins((laWidget*)RightTrayLid, 0, 0, 0, 0);
     laButtonWidget_SetPressedImage(RightTrayLid, &TrayRightPress);
     laButtonWidget_SetReleasedImage(RightTrayLid, &TrayRight);
+    laButtonWidget_SetReleasedEventCallback(RightTrayLid, &RightTrayLid_ReleasedEvent);
+
     laWidget_AddChild((laWidget*)RightTrayPanel, (laWidget*)RightTrayLid);
 
     RightLidArrow = laImageWidget_New();
@@ -1629,17 +1665,18 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetBorderType((laWidget*)PanelUpChevron, LA_WIDGET_BORDER_NONE);
     laWidget_AddChild((laWidget*)layer2, PanelUpChevron);
 
-    ImageChevronUp = laImageWidget_New();
-    laWidget_SetSize((laWidget*)ImageChevronUp, 180, 30);
-    laWidget_SetEnabled((laWidget*)ImageChevronUp, LA_FALSE);
-    laWidget_SetVisible((laWidget*)ImageChevronUp, LA_FALSE);
-    laWidget_SetScheme((laWidget*)ImageChevronUp, &ClearScheme);
-    laWidget_SetBackgroundType((laWidget*)ImageChevronUp, LA_WIDGET_BACKGROUND_FILL);
-    laWidget_SetBorderType((laWidget*)ImageChevronUp, LA_WIDGET_BORDER_NONE);
-    laWidget_SetAlphaEnable((laWidget*)ImageChevronUp, GFX_TRUE);
-    laWidget_SetAlphaAmount((laWidget*)ImageChevronUp, 200);
-    laImageWidget_SetImage(ImageChevronUp, &chevron_up);
-    laWidget_AddChild((laWidget*)PanelUpChevron, (laWidget*)ImageChevronUp);
+    ButtonChevronUp = laButtonWidget_New();
+    laWidget_SetSize((laWidget*)ButtonChevronUp, 180, 30);
+    laWidget_SetEnabled((laWidget*)ButtonChevronUp, LA_FALSE);
+    laWidget_SetVisible((laWidget*)ButtonChevronUp, LA_FALSE);
+    laWidget_SetScheme((laWidget*)ButtonChevronUp, &ClearScheme);
+    laWidget_SetBackgroundType((laWidget*)ButtonChevronUp, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)ButtonChevronUp, LA_WIDGET_BORDER_NONE);
+    laButtonWidget_SetPressedImage(ButtonChevronUp, &chevron_up);
+    laButtonWidget_SetReleasedImage(ButtonChevronUp, &chevron_up);
+    laButtonWidget_SetReleasedEventCallback(ButtonChevronUp, &ButtonChevronUp_ReleasedEvent);
+
+    laWidget_AddChild((laWidget*)PanelUpChevron, (laWidget*)ButtonChevronUp);
 
     PanelDownChevron = laWidget_New();
     laWidget_SetPosition((laWidget*)PanelDownChevron, 0, 242);
@@ -1649,17 +1686,18 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetBorderType((laWidget*)PanelDownChevron, LA_WIDGET_BORDER_NONE);
     laWidget_AddChild((laWidget*)layer2, PanelDownChevron);
 
-    ImageChevronDown = laImageWidget_New();
-    laWidget_SetSize((laWidget*)ImageChevronDown, 180, 30);
-    laWidget_SetEnabled((laWidget*)ImageChevronDown, LA_FALSE);
-    laWidget_SetVisible((laWidget*)ImageChevronDown, LA_FALSE);
-    laWidget_SetScheme((laWidget*)ImageChevronDown, &ClearScheme);
-    laWidget_SetBackgroundType((laWidget*)ImageChevronDown, LA_WIDGET_BACKGROUND_FILL);
-    laWidget_SetBorderType((laWidget*)ImageChevronDown, LA_WIDGET_BORDER_NONE);
-    laWidget_SetAlphaEnable((laWidget*)ImageChevronDown, GFX_TRUE);
-    laWidget_SetAlphaAmount((laWidget*)ImageChevronDown, 200);
-    laImageWidget_SetImage(ImageChevronDown, &chevron_down);
-    laWidget_AddChild((laWidget*)PanelDownChevron, (laWidget*)ImageChevronDown);
+    ButtonChevronDown = laButtonWidget_New();
+    laWidget_SetSize((laWidget*)ButtonChevronDown, 180, 30);
+    laWidget_SetEnabled((laWidget*)ButtonChevronDown, LA_FALSE);
+    laWidget_SetVisible((laWidget*)ButtonChevronDown, LA_FALSE);
+    laWidget_SetScheme((laWidget*)ButtonChevronDown, &ClearScheme);
+    laWidget_SetBackgroundType((laWidget*)ButtonChevronDown, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)ButtonChevronDown, LA_WIDGET_BORDER_NONE);
+    laButtonWidget_SetPressedImage(ButtonChevronDown, &chevron_down);
+    laButtonWidget_SetReleasedImage(ButtonChevronDown, &chevron_down);
+    laButtonWidget_SetReleasedEventCallback(ButtonChevronDown, &ButtonChevronDown_ReleasedEvent);
+
+    laWidget_AddChild((laWidget*)PanelDownChevron, (laWidget*)ButtonChevronDown);
 
 }
 

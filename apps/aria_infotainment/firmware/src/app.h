@@ -63,6 +63,7 @@ typedef enum
     /* Application's state machine's initial state. */
     APP_STATE_INIT=0,
     APP_STATE_SPLASH,
+    APP_STATE_MAIN_PRETRANSITION,
     APP_STATE_MAIN_TRANSITION,
     APP_STATE_MAIN,
     APP_STATE_INFO
@@ -146,6 +147,12 @@ typedef struct
     
     uint32_t leftTemp;
     
+    int32_t aspectRatio;
+    
+    bool touchDown0;
+    
+    bool touchDown1;
+    
 } APP_DATA;
 
 
@@ -179,6 +186,13 @@ void APP_MusicShuffle(void);
 
 void APP_MusicPlayTrack(void);
 
+void APP_MoveTrayIn(void);
+
+void APP_ModeUp(void);
+
+void APP_ModeDown(void);
+
+void APP_HandleTray(int32_t value);
 
 // *****************************************************************************
 // *****************************************************************************

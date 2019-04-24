@@ -54,20 +54,41 @@ extern "C" {
 #endif
 // DOM-IGNORE-END 
 
+// Generated Event Handler - Origin: ButtonACFace, Event: PressedEvent
+void ButtonACFace_PressedEvent(laButtonWidget* btn);
+
 // Generated Event Handler - Origin: ButtonACFace, Event: ReleasedEvent
 void ButtonACFace_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonACBoth, Event: PressedEvent
+void ButtonACBoth_PressedEvent(laButtonWidget* btn);
 
 // Generated Event Handler - Origin: ButtonACBoth, Event: ReleasedEvent
 void ButtonACBoth_ReleasedEvent(laButtonWidget* btn);
 
+// Generated Event Handler - Origin: ButtonACFeet, Event: PressedEvent
+void ButtonACFeet_PressedEvent(laButtonWidget* btn);
+
 // Generated Event Handler - Origin: ButtonACFeet, Event: ReleasedEvent
 void ButtonACFeet_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonDefrost, Event: PressedEvent
+void ButtonDefrost_PressedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonACIntake, Event: PressedEvent
+void ButtonACIntake_PressedEvent(laButtonWidget* btn);
 
 // Generated Event Handler - Origin: ButtonACIntake, Event: ReleasedEvent
 void ButtonACIntake_ReleasedEvent(laButtonWidget* btn);
 
+// Generated Event Handler - Origin: ButtonACLoop, Event: PressedEvent
+void ButtonACLoop_PressedEvent(laButtonWidget* btn);
+
 // Generated Event Handler - Origin: ButtonACLoop, Event: ReleasedEvent
 void ButtonACLoop_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonACSync, Event: PressedEvent
+void ButtonACSync_PressedEvent(laButtonWidget* btn);
 
 // Generated Event Handler - Origin: ButtonACSync, Event: ReleasedEvent
 void ButtonACSync_ReleasedEvent(laButtonWidget* btn);
@@ -75,11 +96,26 @@ void ButtonACSync_ReleasedEvent(laButtonWidget* btn);
 // Generated Event Handler - Origin: CircularSliderACRight, Event: ValueChangedEvent
 void CircularSliderACRight_ValueChangedEvent(laCircularSliderWidget * slider, int32_t value);
 
+// Generated Event Handler - Origin: CircularSliderACRight, Event: PressedEvent
+void CircularSliderACRight_PressedEvent(laCircularSliderWidget * slider, int32_t value);
+
 // Generated Event Handler - Origin: CircularSliderACLeft, Event: ValueChangedEvent
 void CircularSliderACLeft_ValueChangedEvent(laCircularSliderWidget * slider, int32_t value);
 
+// Generated Event Handler - Origin: CircularSliderACLeft, Event: PressedEvent
+void CircularSliderACLeft_PressedEvent(laCircularSliderWidget * slider, int32_t value);
+
+// Generated Event Handler - Origin: TextFieldPhone, Event: TextChangedEvent
+void TextFieldPhone_TextChangedEvent(laTextFieldWidget* txt);
+
+// Generated Event Handler - Origin: TextFieldPhone, Event: FocusChangedEvent
+void TextFieldPhone_FocusChangedEvent(laTextFieldWidget* txt, laBool focus);
+
 // Generated Event Handler - Origin: ButtonBackspace, Event: ReleasedEvent
 void ButtonBackspace_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonCall, Event: PressedEvent
+void ButtonCall_PressedEvent(laButtonWidget* btn);
 
 // Generated Event Handler - Origin: ButtonPhone1, Event: ReleasedEvent
 void ButtonPhone1_ReleasedEvent(laButtonWidget* btn);
@@ -117,11 +153,38 @@ void ButtonPhone0_ReleasedEvent(laButtonWidget* btn);
 // Generated Event Handler - Origin: ButtonPhonePound, Event: ReleasedEvent
 void ButtonPhonePound_ReleasedEvent(laButtonWidget* btn);
 
+// Generated Event Handler - Origin: ButtonBluetoothPhone1, Event: PressedEvent
+void ButtonBluetoothPhone1_PressedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonBluetoothPhone2, Event: PressedEvent
+void ButtonBluetoothPhone2_PressedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonNavRead, Event: PressedEvent
+void ButtonNavRead_PressedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonShuffle, Event: PressedEvent
+void ButtonShuffle_PressedEvent(laButtonWidget* btn);
+
 // Generated Event Handler - Origin: ButtonShuffle, Event: ReleasedEvent
 void ButtonShuffle_ReleasedEvent(laButtonWidget* btn);
 
+// Generated Event Handler - Origin: ButtonPlayPause, Event: PressedEvent
+void ButtonPlayPause_PressedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonNextTrack, Event: PressedEvent
+void ButtonNextTrack_PressedEvent(laButtonWidget* btn);
+
 // Generated Event Handler - Origin: ButtonNextTrack, Event: ReleasedEvent
 void ButtonNextTrack_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonVolumeUp, Event: PressedEvent
+void ButtonVolumeUp_PressedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonVolumeDown, Event: PressedEvent
+void ButtonVolumeDown_PressedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: LeftTrayLid, Event: ReleasedEvent
+void LeftTrayLid_ReleasedEvent(laButtonWidget* btn);
 
 // Generated Event Handler - Origin: ModeSelector, Event: ItemProminenceChangedEvent
 void ModeSelector_ItemProminenceChangedEvent(laRadialMenuWidget * mn, laWidget * prominentWidget, int32_t value);
@@ -131,6 +194,15 @@ void ButtonGPU_ReleasedEvent(laButtonWidget* btn);
 
 // Generated Event Handler - Origin: ButtonInfo, Event: ReleasedEvent
 void ButtonInfo_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: RightTrayLid, Event: ReleasedEvent
+void RightTrayLid_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonChevronUp, Event: ReleasedEvent
+void ButtonChevronUp_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonChevronDown, Event: ReleasedEvent
+void ButtonChevronDown_ReleasedEvent(laButtonWidget* btn);
 
 // Generated Event Handler - Origin: ReturnToMainButton, Event: ReleasedEvent
 void ReturnToMainButton_ReleasedEvent(laButtonWidget* btn);

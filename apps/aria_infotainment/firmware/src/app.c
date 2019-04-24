@@ -30,6 +30,7 @@
 #include <stdio.h>
 #include "app.h"
 #include "app_splash.h"
+#include "gfx/hal/inc/gfx_math.h"
 #include "gfx/hal/inc/gfx_context.h"
 #include "gfx/libaria/libaria_init.h"
 
@@ -72,6 +73,140 @@ void APP_SetChevronVisibility(bool);
 // Section: Application Callback Functions
 // *****************************************************************************
 // *****************************************************************************
+
+static void touchDownNav(laWidget* widget, laInput_TouchDownEvent* evt)
+{
+    APP_MoveTrayIn();
+    
+    switch(evt->touchID)
+    {
+        case 0:
+        {
+            appData.touchDown0 = true;
+            break;
+        }
+        case 1:
+        {
+            appData.touchDown1 = true;
+            break;
+        }
+    }
+
+    evt->event.accepted = LA_TRUE;
+}
+
+static void touchUpNav(laWidget* widget, laInput_TouchUpEvent* evt)
+{
+    APP_MoveTrayIn();
+
+    switch(evt->touchID)
+    {
+        case 0:
+        {
+            appData.touchDown0 = false;
+            break;
+        }
+        case 1:
+        {
+            appData.touchDown1 = false;
+            break;
+        }
+    }
+
+    evt->event.accepted = LA_TRUE;
+}
+
+static void touchMoveNav(laWidget* widget, laInput_TouchMovedEvent* evt)
+{
+    APP_MoveTrayIn();
+
+    evt->event.accepted = LA_TRUE;
+    int32_t dx = evt->x - evt->prevX;
+    int32_t dy = evt->y - evt->prevY;
+    
+    switch(evt->touchID)
+    {
+        case 0:
+        {
+            // image translate
+            if(appData.touchDown1 == false)
+            {
+                NavMap->transformX += dx;
+                NavMap->transformY += dy;
+            }
+            else if (appData.touchDown0 == true 
+                    && appData.touchDown1 == true)
+            {
+                dy *= 3;
+                dx = ((dy * 100) * (int32_t)appData.aspectRatio) / 10000;
+
+                if (NavMap->touch0.y > NavMap->touch1.y)
+                {
+                    if ((NavMap->widget.rect.width - 2 * NavMap->transformX) < (NavMap->image->width + NavMap->transformWidth + dx)
+                            && (NavMap->widget.rect.height - 2 * NavMap->transformY) < (NavMap->image->height + NavMap->transformHeight + dy))
+                    {
+                        NavMap->transformWidth += dx;
+                        NavMap->transformHeight += dy;
+                    }
+                }
+                else
+                {
+                    if ((NavMap->widget.rect.width - 2 * NavMap->transformX) < (NavMap->image->width + NavMap->transformWidth - dx)
+                            && (NavMap->widget.rect.height - 2 * NavMap->transformY) < (NavMap->image->height + NavMap->transformHeight - dy))
+                    {
+                        NavMap->transformWidth -= dx;
+                        NavMap->transformHeight -= dy;
+                    }
+                }
+            }
+            NavMap->touch0.x = evt->x;
+            NavMap->touch0.y = evt->y;
+            break;
+        }
+        case 1:
+        {
+            if (appData.touchDown0 == true 
+                    && appData.touchDown1 == true)
+            {
+                dy *= 3;
+                dx = ((dy * 100) * (int32_t)appData.aspectRatio) / 10000;
+
+                if (NavMap->touch0.y > NavMap->touch1.y)
+                {
+                    if ((NavMap->widget.rect.width - 2 * NavMap->transformX) < (NavMap->image->width + NavMap->transformWidth - dx)
+                            && (NavMap->widget.rect.height - 2 * NavMap->transformY) < (NavMap->image->height + NavMap->transformHeight - dy))
+                    {
+                        NavMap->transformWidth -= dx;
+                        NavMap->transformHeight -= dy;
+                    }
+                }
+                else
+                {
+                    if ((NavMap->widget.rect.width - 2 * NavMap->transformX) < (NavMap->image->width + NavMap->transformWidth + dx)
+                            && (NavMap->widget.rect.height - 2 * NavMap->transformY) < (NavMap->image->height + NavMap->transformHeight + dy))
+                    {
+                        NavMap->transformWidth += dx;
+                        NavMap->transformHeight += dy;
+                    }
+                }
+
+                NavMap->touch1.x = evt->x;
+                NavMap->touch1.y = evt->y;
+            }
+            break;
+        }
+    }
+    
+    NavMap->preserveAspect = LA_TRUE;
+    laWidget_Invalidate((laWidget*)NavMap);
+}
+
+static void touchDownGeneric(laWidget* widget, laInput_TouchDownEvent* evt)
+{
+    APP_MoveTrayIn();
+    
+    evt->event.accepted = LA_TRUE;
+}
 
 static void touchDown(laWidget* widget, laInput_TouchDownEvent* evt)
 {
@@ -235,6 +370,36 @@ static void touchMovedUpDown(laWidget* widget, laInput_TouchMovedEvent* evt)
 // *****************************************************************************
 // *****************************************************************************
 
+void APP_ModeUp( void )
+{
+    int index = laRadialMenuWidget_GetProminentIndex(ModeSelector);
+
+    index++;
+    
+    if (index >= ModeSelector->widgetList.size)
+    {
+        index = 0;
+    }
+
+    ModeSelector->userRequestedAngleDiff += 40;
+    laRadialMenuWidget_SetProminentIndex(ModeSelector, index);
+}
+
+void APP_ModeDown( void )
+{
+    int32_t index = laRadialMenuWidget_GetProminentIndex(ModeSelector);
+
+    index--;
+    
+    if (index < 0)
+    {
+        index = index - ModeSelector->widgetList.size;
+    }
+
+    ModeSelector->userRequestedAngleDiff -= 40;
+    laRadialMenuWidget_SetProminentIndex(ModeSelector, ModeSelector->prominentIndex--);
+}
+
 void APP_SelectItem(int32_t value)
 {
     static bool bufferFill = false;
@@ -254,6 +419,10 @@ void APP_SelectItem(int32_t value)
         {
             laWidget_SetEnabled((laWidget*)ClimateControlPanel, LA_TRUE);
             laWidget_SetVisible((laWidget*)ClimateControlPanel, LA_TRUE);
+            laWidget_SetEnabled((laWidget*)LabelACTempLeft, LA_TRUE);
+            laWidget_SetVisible((laWidget*)LabelACTempLeft, LA_TRUE);
+            laWidget_SetEnabled((laWidget*)LabelACTempRight, LA_TRUE);
+            laWidget_SetVisible((laWidget*)LabelACTempRight, LA_TRUE);
             laWidget_SetEnabled((laWidget*)NavPanel, LA_FALSE);
             laWidget_SetVisible((laWidget*)NavPanel, LA_FALSE);
             laWidget_SetEnabled((laWidget*)PhonePanel, LA_FALSE);
@@ -278,6 +447,10 @@ void APP_SelectItem(int32_t value)
             laWidget_SetVisible((laWidget*)MusicPanel, LA_FALSE);
             laWidget_SetEnabled((laWidget*)ClimateControlPanel, LA_FALSE);
             laWidget_SetVisible((laWidget*)ClimateControlPanel, LA_FALSE);
+            laWidget_SetEnabled((laWidget*)LabelACTempLeft, LA_FALSE);
+            laWidget_SetVisible((laWidget*)LabelACTempLeft, LA_FALSE);
+            laWidget_SetEnabled((laWidget*)LabelACTempRight, LA_FALSE);
+            laWidget_SetVisible((laWidget*)LabelACTempRight, LA_FALSE);
             laWidget_SetEnabled((laWidget*)ListContacts, LA_FALSE);
             laWidget_SetVisible((laWidget*)ListContacts, LA_FALSE);
             break;
@@ -294,6 +467,10 @@ void APP_SelectItem(int32_t value)
             laWidget_SetVisible((laWidget*)MusicPanel, LA_FALSE);
             laWidget_SetEnabled((laWidget*)ClimateControlPanel, LA_FALSE);
             laWidget_SetVisible((laWidget*)ClimateControlPanel, LA_FALSE);
+            laWidget_SetEnabled((laWidget*)LabelACTempLeft, LA_FALSE);
+            laWidget_SetVisible((laWidget*)LabelACTempLeft, LA_FALSE);
+            laWidget_SetEnabled((laWidget*)LabelACTempRight, LA_FALSE);
+            laWidget_SetVisible((laWidget*)LabelACTempRight, LA_FALSE);
             laWidget_SetEnabled((laWidget*)ListContacts, LA_FALSE);
             laWidget_SetVisible((laWidget*)ListContacts, LA_FALSE);
             break;
@@ -310,6 +487,10 @@ void APP_SelectItem(int32_t value)
             laWidget_SetVisible((laWidget*)BluetoothPanel, LA_FALSE);
             laWidget_SetEnabled((laWidget*)ClimateControlPanel, LA_FALSE);
             laWidget_SetVisible((laWidget*)ClimateControlPanel, LA_FALSE);
+            laWidget_SetEnabled((laWidget*)LabelACTempLeft, LA_FALSE);
+            laWidget_SetVisible((laWidget*)LabelACTempLeft, LA_FALSE);
+            laWidget_SetEnabled((laWidget*)LabelACTempRight, LA_FALSE);
+            laWidget_SetVisible((laWidget*)LabelACTempRight, LA_FALSE);
             laWidget_SetEnabled((laWidget*)ListContacts, LA_FALSE);
             laWidget_SetVisible((laWidget*)ListContacts, LA_FALSE);
             break;
@@ -328,6 +509,10 @@ void APP_SelectItem(int32_t value)
             laWidget_SetVisible((laWidget*)MusicPanel, LA_FALSE);
             laWidget_SetEnabled((laWidget*)ClimateControlPanel, LA_FALSE);
             laWidget_SetVisible((laWidget*)ClimateControlPanel, LA_FALSE);
+            laWidget_SetEnabled((laWidget*)LabelACTempLeft, LA_FALSE);
+            laWidget_SetVisible((laWidget*)LabelACTempLeft, LA_FALSE);
+            laWidget_SetEnabled((laWidget*)LabelACTempRight, LA_FALSE);
+            laWidget_SetVisible((laWidget*)LabelACTempRight, LA_FALSE);
             break;
         }
     }
@@ -336,15 +521,55 @@ void APP_SelectItem(int32_t value)
     bufferFill = true;
 }
 
+void APP_HandleTray(int32_t value)
+{
+    switch (value)
+    {
+        case 0:
+        {
+            if (LeftTrayPanel->rect.x >= maxx_Left)
+            {
+                APP_MoveTrayIn();
+            }
+            else if (LeftTrayPanel->rect.x <= minx_Left)
+            {
+                appData.moveLeftTrayOut = true;
+                appData.moveLeftTrayIn = false;
+            }
+            break;
+        }
+        case 1:
+        {
+            if (RightTrayPanel->rect.x <= minx_Right)
+            {
+                APP_MoveTrayIn();
+            }
+            else if (RightTrayPanel->rect.x >= maxx_Right)
+            {
+                appData.moveRightTrayOut = true;
+                appData.moveRightTrayIn = false;
+            }
+            break;
+        }
+    }
+}
+
+void APP_MoveTrayIn( void )
+{
+    appData.moveLeftTrayIn = true;
+    appData.moveRightTrayIn = true;
+    appData.moveLeftTrayOut = false;
+    appData.moveRightTrayOut = false;
+}
 
 void APP_SetChevronVisibility(bool enable)
 {
     laBool la_enable = enable == true ? LA_TRUE : LA_FALSE;
 
-    //laWidget_SetEnabled((laWidget*)ImageChevronUp, la_enable);
-    laWidget_SetVisible((laWidget*)ImageChevronUp, la_enable);
-    //laWidget_SetEnabled((laWidget*)ImageChevronDown, la_enable);
-    laWidget_SetVisible((laWidget*)ImageChevronDown, la_enable);
+    laWidget_SetEnabled((laWidget*)ButtonChevronUp, la_enable);
+    laWidget_SetVisible((laWidget*)ButtonChevronUp, la_enable);
+    laWidget_SetEnabled((laWidget*)ButtonChevronDown, la_enable);
+    laWidget_SetVisible((laWidget*)ButtonChevronDown, la_enable);
     
     laWidget_Invalidate(PanelUpChevron);
     laWidget_Invalidate(PanelDownChevron);
@@ -352,6 +577,12 @@ void APP_SetChevronVisibility(bool enable)
 
 void APP_ToggleGPU( void )
 {
+    //Do not process request unless the tray is completely out
+    if (RightTrayPanel->rect.x > minx_Right)
+    {
+        return;
+    }
+
     appData.isGPUOn = !appData.isGPUOn;
     appData.gpuButtonNeedsUpdate = true;
 
@@ -377,7 +608,7 @@ void APP_GoToInfoState( void )
 
 void APP_GoToMainState( void )
 {
-    appData.state = APP_STATE_MAIN_TRANSITION;                     
+    appData.state = APP_STATE_MAIN_PRETRANSITION;                     
     appData.gpuButtonNeedsUpdate = true;
     appData.delayCounter = 0;
     appData.baseLayerAlpha = 0;
@@ -390,67 +621,108 @@ void APP_GoToMainState( void )
 
 void APP_ACMode(int32_t mode)
 {
+    //Set the button states directly to avoid triggering button events
+    switch(mode)
+    {
+        case MODE_FACE:
+            ButtonACFace->state = LA_BUTTON_STATE_DOWN;
+            ButtonACBoth->state = LA_BUTTON_STATE_UP;
+            ButtonACFeet->state = LA_BUTTON_STATE_UP;
+            break;
+        case MODE_BOTH:
+            ButtonACFace->state = LA_BUTTON_STATE_UP;
+            ButtonACBoth->state = LA_BUTTON_STATE_DOWN;
+            ButtonACFeet->state = LA_BUTTON_STATE_UP;
+            break;
+        case MODE_FEET:
+            ButtonACFace->state = LA_BUTTON_STATE_UP;
+            ButtonACBoth->state = LA_BUTTON_STATE_UP;
+            ButtonACFeet->state = LA_BUTTON_STATE_DOWN;
+            break;
+    }
+
+    laWidget_Invalidate((laWidget*)ButtonACFace);
+    laWidget_Invalidate((laWidget*)ButtonACBoth);
+    laWidget_Invalidate((laWidget*)ButtonACFeet);
+    
     appData.acMode = mode;
 }
 
 void APP_ACIntake(int32_t mode)
 {
+    //Set the button states directly to avoid triggering button events
+    switch(mode)
+    {
+        case MODE_INTAKE:
+            ButtonACIntake->state = LA_BUTTON_STATE_DOWN;
+            ButtonACLoop->state = LA_BUTTON_STATE_UP;
+            break;
+        case MODE_LOOP:
+            ButtonACIntake->state = LA_BUTTON_STATE_UP;
+            ButtonACLoop->state = LA_BUTTON_STATE_DOWN;
+            break;
+    }
+
+    laWidget_Invalidate((laWidget*)ButtonACIntake);
+    laWidget_Invalidate((laWidget*)ButtonACLoop);
+
     appData.intakeMode = mode;
 }
 
 void APP_SyncAC(void)
 {
-    static char charBuff[2];
+    static char charBuff[5];
     laString str;
+    int32_t value;
 
-    appData.leftTemp = appData.rightTemp;
+    appData.rightTemp = appData.leftTemp;
     
     sprintf(charBuff, "%u", appData.rightTemp);
 
-    str = laString_CreateFromCharBuffer(charBuff, 
-        GFXU_StringFontIndexLookup(&stringTable, string_String_TempCelcius, 0));
+    str = laString_CreateFromCharBuffer(charBuff, &NotoSans_Regular);
     
-    laLabelWidget_SetText(LabelCelciusRight, str);
-    laLabelWidget_SetText(LabelCelciusLeft, str);
+    value = laCircularSliderWidget_GetValue(CircularSliderACLeft);
+    laCircularSliderWidget_SetValue(CircularSliderACRight, value);
     
-    laString_Destroy(&str);
+    laLabelWidget_SetText(LabelACTempLeft, str);
+    laLabelWidget_SetText(LabelACTempRight, str);
+    
+    laWidget_Invalidate((laWidget*)LabelACTempLeft);
+    laWidget_Invalidate((laWidget*)LabelACTempRight);
 
-    laWidget_Invalidate((laWidget*)LabelCelciusLeft);
-    laWidget_Invalidate((laWidget*)LabelCelciusRight);
+    laString_Destroy(&str);
 }
 
 void APP_RightACChange(int32_t value)
 {
-    static char charBuff[2];
+    static char charBuff[5];
     laString str;
     
     value /= 10;
-    appData.rightTemp = 4 + value;
+    appData.rightTemp = 27 - value;
 
     sprintf(charBuff, "%u", appData.rightTemp);
 
-    str = laString_CreateFromCharBuffer(charBuff, 
-        GFXU_StringFontIndexLookup(&stringTable, string_String_TempCelcius, 0));
+    str = laString_CreateFromCharBuffer(charBuff, &NotoSans_Regular);
     
-    laLabelWidget_SetText(LabelCelciusRight, str);
-    
+    laLabelWidget_SetText(LabelACTempRight, str);
+
     laString_Destroy(&str);
 }
 
 void APP_LeftACChange(int32_t value)
 {
-    static char charBuff[2];
+    static char charBuff[5];
     laString str;
     
     value /= 10;
-    appData.leftTemp = 4 + value;
+    appData.leftTemp = 27 - value;
 
     sprintf(charBuff, "%u", appData.leftTemp);
     
-    str = laString_CreateFromCharBuffer(charBuff, 
-        GFXU_StringFontIndexLookup(&stringTable, string_String_TempCelcius, 0));
+    str = laString_CreateFromCharBuffer(charBuff, &NotoSans_Regular);
     
-    laLabelWidget_SetText(LabelCelciusLeft, str);
+    laLabelWidget_SetText(LabelACTempLeft, str);
     
     laString_Destroy(&str);
 }
@@ -466,6 +738,7 @@ void APP_MusicShuffle(void)
         index = index - MusicSelector->widgetList.size;
     }
     
+    MusicSelector->userRequestedAngleDiff += 900;
     laRadialMenuWidget_SetProminentIndex(MusicSelector, index);
 }
 
@@ -477,9 +750,10 @@ void APP_MusicPlayTrack(void)
     
     if (index >= MusicSelector->widgetList.size)
     {
-        index = index - MusicSelector->widgetList.size;
+        index = 0;
     }
 
+    MusicSelector->userRequestedAngleDiff += 30;
     laRadialMenuWidget_SetProminentIndex(MusicSelector, index);
 }
 
@@ -510,7 +784,10 @@ void APP_Initialize ( void )
     appData.launched = false;
 
     appData.isGPUOn = true;
-    GFX_Set(GFXF_DRAW_PIPELINE_MODE, GFX_PIPELINE_GCUGPU);       
+    GFX_Set(GFXF_DRAW_PIPELINE_MODE, GFX_PIPELINE_GCUGPU);
+    
+    appData.acMode = MODE_FACE;
+    appData.intakeMode = MODE_INTAKE;
 }
 
 
@@ -573,6 +850,29 @@ void APP_Tasks ( void )
         
             break;
         }
+        
+        //Use this state to set AC modes before the transition
+        case APP_STATE_MAIN_PRETRANSITION:
+        {
+            // Do not continue to trigger any redraw if any layer hasn't been completely drawn
+            if (laContext_IsDrawing())
+                break;
+                
+            if (laContext_GetActive()->activeScreen->id != MainScreen_ID)
+                break;
+
+            appData.leftTemp = appData.rightTemp = 22;
+
+            APP_ACMode(appData.acMode);
+            APP_ACIntake(appData.intakeMode);
+            
+            appData.aspectRatio = GFX_PercentWholeRounded(NavMap->image->width, NavMap->image->height);
+
+            appData.state = APP_STATE_MAIN_TRANSITION;
+            
+            break;            
+        }
+        
         case APP_STATE_MAIN_TRANSITION:
         {
             // Do not continue to trigger any redraw if any layer hasn't been completely drawn
@@ -618,9 +918,20 @@ void APP_Tasks ( void )
 
                 laWidget_OverrideTouchDownEvent((laWidget*)RightTrayPanel, &touchDown);
                 laWidget_OverrideTouchMovedEvent((laWidget*)RightTrayPanel, &touchMovedRight);
-                laWidget_OverrideTouchUpEvent((laWidget*)RightTrayPanel, &touchUp);
+                laWidget_OverrideTouchUpEvent((laWidget*)RightTrayPanel, &touchUp);                
+
+                laWidget_OverrideTouchDownEvent((laWidget*)IconPanel, &touchDownGeneric);
+                laWidget_OverrideTouchDownEvent((laWidget*)ClimateControlPanel, &touchDownGeneric);
+                laWidget_OverrideTouchDownEvent((laWidget*)NavPanel, &touchDownGeneric);
+                laWidget_OverrideTouchDownEvent((laWidget*)PhonePanel, &touchDownGeneric);
+                laWidget_OverrideTouchDownEvent((laWidget*)BluetoothPanel, &touchDownGeneric);
+                laWidget_OverrideTouchDownEvent((laWidget*)MusicPanel, &touchDownGeneric);
                 
-                APP_SelectItem(laRadialMenuWidget_GetProminentIndex(ModeSelector));
+                laWidget_OverrideTouchMovedEvent((laWidget*)ButtonNavRead, &touchMoveNav);
+                laWidget_OverrideTouchUpEvent((laWidget*)ButtonNavRead, &touchUpNav);                
+                laWidget_OverrideTouchDownEvent((laWidget*)ButtonNavRead, &touchDownNav);
+                
+                APP_SelectItem(MODE_AC);
             }
             break;
         }            
@@ -634,6 +945,12 @@ void APP_Tasks ( void )
             if (laContext_GetActive()->activeScreen->id != MainScreen_ID)
                 break;
 
+            if (appData.mode == MODE_MUSIC
+                    && MusicSelector->state == LA_RADIAL_MENU_HANDLE_USER_MOVE_REQUEST)
+            {
+                APP_MoveTrayIn();
+            }
+            
             if (LeftTrayPanel != NULL && LeftTrayLid != NULL
                     && RightTrayPanel != NULL && RightTrayLid != NULL)
             {
@@ -643,7 +960,7 @@ void APP_Tasks ( void )
                     {
                         if (LabelGPU != NULL)
                         {
-                            laLabelWidget_SetText(LabelGPU, laString_CreateFromID(string_String_GPUOn));
+                            laLabelWidget_SetText(LabelGPU, laString_CreateFromID(string_String_GPUOff));
                             laWidget_Invalidate((laWidget*)ButtonGPU);
                         }        
                     }
@@ -651,7 +968,7 @@ void APP_Tasks ( void )
                     {
                         if (LabelGPU != NULL)
                         {
-                            laLabelWidget_SetText(LabelGPU, laString_CreateFromID(string_String_GPUOff));            
+                            laLabelWidget_SetText(LabelGPU, laString_CreateFromID(string_String_GPUOn));            
                             laWidget_Invalidate((laWidget*)ButtonGPU);
                         }        
                     }
