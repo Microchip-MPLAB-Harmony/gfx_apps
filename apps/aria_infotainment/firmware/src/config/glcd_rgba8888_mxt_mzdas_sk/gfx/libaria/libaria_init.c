@@ -47,6 +47,7 @@ laScheme ACDialScheme;
 laScheme ClearScheme;
 laScheme ButtonScheme;
 laScheme PhoneListScheme;
+laScheme NewScheme;
 laScheme WhiteScheme;
 laScheme TextScheme;
 laScheme RadialMenuScheme;
@@ -165,7 +166,8 @@ laWidget* PanelDownChevron;
 laButtonWidget* ButtonChevronDown;
 laImageWidget* InfoPageHarmonyLogo;
 laImageWidget* ImageWidget7;
-laImageWidget* InfoTextDragPanel;
+laWidget* InfoTextDragPanel;
+laImageWidget* InfoText;
 laWidget* PanelWidget1;
 laLabelWidget* TextTitle;
 laButtonWidget* ReturnToMainButton;
@@ -270,6 +272,24 @@ int32_t libaria_initialize(void)
     PhoneListScheme.textHighlightText = 0xE0E0E0FF;
     PhoneListScheme.textInactive = 0xFFFFFFFF;
     PhoneListScheme.textDisabled = 0xFFFFFFFF;
+
+    laScheme_Initialize(&NewScheme, GFX_COLOR_MODE_RGBA_8888);
+    NewScheme.base = 0xC8D0D4FF;
+    NewScheme.highlight = 0xC8D0D4FF;
+    NewScheme.highlightLight = 0xFFFFFFFF;
+    NewScheme.shadow = 0x808080FF;
+    NewScheme.shadowDark = 0x404040FF;
+    NewScheme.foreground = 0xFF;
+    NewScheme.foregroundInactive = 0xD6E3E7FF;
+    NewScheme.foregroundDisabled = 0x808080FF;
+    NewScheme.background = 0xFFFFFFFF;
+    NewScheme.backgroundInactive = 0xD6E3E7FF;
+    NewScheme.backgroundDisabled = 0xC8D0D4FF;
+    NewScheme.text = 0xFF;
+    NewScheme.textHighlight = 0xFFFF;
+    NewScheme.textHighlightText = 0xFFFFFFFF;
+    NewScheme.textInactive = 0xD6E3E7FF;
+    NewScheme.textDisabled = 0x8C9294FF;
 
     laScheme_Initialize(&WhiteScheme, GFX_COLOR_MODE_RGBA_8888);
     WhiteScheme.base = 0xFFFFFFFF;
@@ -392,6 +412,8 @@ static void ScreenCreate_SplashScreen(laScreen* screen)
     laLayer_SetBufferCount(layer1, 2);
     laLayer_SetAlphaEnable(layer1, LA_TRUE);
     laLayer_SetAlphaAmount(layer1, 0xFF);
+    laLayer_SetMaskEnable(layer1, LA_TRUE);
+    laLayer_SetMaskColor(layer1, 0xFFFFFFFF);
 
     laScreen_SetLayer(screen, 1, layer1);
 
@@ -572,7 +594,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laCircularSliderWidget_SetArcVisible(CircularSliderACRight, INSIDE_CIRCLE_BORDER, LA_FALSE);
     laCircularSliderWidget_SetArcThickness(CircularSliderACRight, INSIDE_CIRCLE_BORDER, 2);
     laCircularSliderWidget_SetArcThickness(CircularSliderACRight, ACTIVE_AREA, 38);
-    laCircularSliderWidget_SetArcRadius(CircularSliderACRight, CIRCLE_BUTTON, 20);
+    laCircularSliderWidget_SetArcRadius(CircularSliderACRight, CIRCLE_BUTTON, 19);
     laCircularSliderWidget_SetArcThickness(CircularSliderACRight, CIRCLE_BUTTON, 0);
     laCircularSliderWidget_SetArcScheme(CircularSliderACRight, CIRCLE_BUTTON, &ACButtonScheme);
     laCircularSliderWidget_SetValueChangedEventCallback(CircularSliderACRight, &CircularSliderACRight_ValueChangedEvent);
@@ -593,7 +615,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laCircularSliderWidget_SetArcVisible(CircularSliderACLeft, INSIDE_CIRCLE_BORDER, LA_FALSE);
     laCircularSliderWidget_SetArcThickness(CircularSliderACLeft, INSIDE_CIRCLE_BORDER, 2);
     laCircularSliderWidget_SetArcThickness(CircularSliderACLeft, ACTIVE_AREA, 38);
-    laCircularSliderWidget_SetArcRadius(CircularSliderACLeft, CIRCLE_BUTTON, 20);
+    laCircularSliderWidget_SetArcRadius(CircularSliderACLeft, CIRCLE_BUTTON, 19);
     laCircularSliderWidget_SetArcThickness(CircularSliderACLeft, CIRCLE_BUTTON, 0);
     laCircularSliderWidget_SetArcScheme(CircularSliderACLeft, CIRCLE_BUTTON, &ACButtonScheme);
     laCircularSliderWidget_SetValueChangedEventCallback(CircularSliderACLeft, &CircularSliderACLeft_ValueChangedEvent);
@@ -1017,8 +1039,6 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetBackgroundType((laWidget*)NavMap, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)NavMap, LA_WIDGET_BORDER_NONE);
     laImagePlusWidget_SetImage(NavMap, &ChargerMap);
-    laImagePlusWidget_SetTransformX(NavMap, -280);
-    laImagePlusWidget_SetTransformY(NavMap, -140);
     laImagePlusWidget_SetPreserveAspectEnabled(NavMap, LA_TRUE);
     laWidget_AddChild((laWidget*)NavPanel, (laWidget*)NavMap);
 
@@ -1226,7 +1246,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_AddChild((laWidget*)MusicPanel, (laWidget*)MusicSelector);
 
     ButtonShuffle = laButtonWidget_New();
-    laWidget_SetPosition((laWidget*)ButtonShuffle, 0, 180);
+    laWidget_SetPosition((laWidget*)ButtonShuffle, 30, 180);
     laWidget_SetSize((laWidget*)ButtonShuffle, 60, 60);
     laWidget_SetScheme((laWidget*)ButtonShuffle, &WhiteScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonShuffle, LA_WIDGET_BACKGROUND_FILL);
@@ -1239,7 +1259,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_AddChild((laWidget*)MusicPanel, (laWidget*)ButtonShuffle);
 
     ButtonPlayPause = laButtonWidget_New();
-    laWidget_SetPosition((laWidget*)ButtonPlayPause, 110, 180);
+    laWidget_SetPosition((laWidget*)ButtonPlayPause, 125, 180);
     laWidget_SetSize((laWidget*)ButtonPlayPause, 60, 60);
     laWidget_SetScheme((laWidget*)ButtonPlayPause, &WhiteScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonPlayPause, LA_WIDGET_BACKGROUND_FILL);
@@ -1251,7 +1271,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_AddChild((laWidget*)MusicPanel, (laWidget*)ButtonPlayPause);
 
     ButtonNextTrack = laButtonWidget_New();
-    laWidget_SetPosition((laWidget*)ButtonNextTrack, 220, 180);
+    laWidget_SetPosition((laWidget*)ButtonNextTrack, 215, 180);
     laWidget_SetSize((laWidget*)ButtonNextTrack, 60, 60);
     laWidget_SetScheme((laWidget*)ButtonNextTrack, &WhiteScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonNextTrack, LA_WIDGET_BACKGROUND_FILL);
@@ -1267,7 +1287,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetPosition((laWidget*)ImageVolumeIcon, 300, 180);
     laWidget_SetSize((laWidget*)ImageVolumeIcon, 120, 60);
     laWidget_SetScheme((laWidget*)ImageVolumeIcon, &WhiteScheme);
-    laWidget_SetBackgroundType((laWidget*)ImageVolumeIcon, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBackgroundType((laWidget*)ImageVolumeIcon, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)ImageVolumeIcon, LA_WIDGET_BORDER_NONE);
     laImageWidget_SetImage(ImageVolumeIcon, &VolumeIcon);
     laImageWidget_SetVAlignment(ImageVolumeIcon, LA_VALIGN_BOTTOM);
@@ -1276,7 +1296,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     ButtonVolumeUp = laButtonWidget_New();
     laWidget_SetSize((laWidget*)ButtonVolumeUp, 60, 60);
     laWidget_SetScheme((laWidget*)ButtonVolumeUp, &ClearScheme);
-    laWidget_SetBackgroundType((laWidget*)ButtonVolumeUp, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBackgroundType((laWidget*)ButtonVolumeUp, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)ButtonVolumeUp, LA_WIDGET_BORDER_NONE);
     laButtonWidget_SetPressedImage(ButtonVolumeUp, &Plus);
     laButtonWidget_SetReleasedImage(ButtonVolumeUp, &Plus);
@@ -1288,7 +1308,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetPosition((laWidget*)ButtonVolumeDown, 60, 0);
     laWidget_SetSize((laWidget*)ButtonVolumeDown, 60, 60);
     laWidget_SetScheme((laWidget*)ButtonVolumeDown, &ClearScheme);
-    laWidget_SetBackgroundType((laWidget*)ButtonVolumeDown, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBackgroundType((laWidget*)ButtonVolumeDown, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)ButtonVolumeDown, LA_WIDGET_BORDER_NONE);
     laButtonWidget_SetPressedImage(ButtonVolumeDown, &Minus);
     laButtonWidget_SetReleasedImage(ButtonVolumeDown, &Minus);
@@ -1309,7 +1329,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     MusicPosition = laWidget_New();
     laWidget_SetPosition((laWidget*)MusicPosition, 160, 0);
     laWidget_SetSize((laWidget*)MusicPosition, 20, 10);
-    laWidget_SetScheme((laWidget*)MusicPosition, &ButtonScheme);
+    laWidget_SetScheme((laWidget*)MusicPosition, &NewScheme);
     laWidget_SetBackgroundType((laWidget*)MusicPosition, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)MusicPosition, LA_WIDGET_BORDER_NONE);
     laWidget_AddChild((laWidget*)MusicLine, MusicPosition);
@@ -1334,6 +1354,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laImageSequenceWidget_SetImage(CellSignal, 2, &CellSignal03);
     laImageSequenceWidget_SetImage(CellSignal, 3, &CellSignal02);
     laImageSequenceWidget_SetImage(CellSignal, 4, &CellSignal01);
+    laImageSequenceWidget_SetRepeat(CellSignal, LA_TRUE);
     laWidget_AddChild((laWidget*)IconPanel, (laWidget*)CellSignal);
 
     BatteryPower = laImageSequenceWidget_New();
@@ -1358,6 +1379,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laImageSequenceWidget_SetImageVAlignment(BatteryPower, 5, LA_VALIGN_TOP);
     laImageSequenceWidget_SetImage(BatteryPower, 6, &BatteryExtremelyLow);
     laImageSequenceWidget_SetImageVAlignment(BatteryPower, 6, LA_VALIGN_TOP);
+    laImageSequenceWidget_SetRepeat(BatteryPower, LA_TRUE);
     laWidget_AddChild((laWidget*)IconPanel, (laWidget*)BatteryPower);
 
     WifiSignal = laImageSequenceWidget_New();
@@ -1371,6 +1393,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laImageSequenceWidget_SetImage(WifiSignal, 1, &WifiStrong);
     laImageSequenceWidget_SetImage(WifiSignal, 2, &WifiGood);
     laImageSequenceWidget_SetImage(WifiSignal, 3, &WifiWeak);
+    laImageSequenceWidget_SetRepeat(WifiSignal, LA_TRUE);
     laWidget_AddChild((laWidget*)IconPanel, (laWidget*)WifiSignal);
 
     LabelClock = laLabelWidget_New();
@@ -1747,15 +1770,25 @@ static void ScreenCreate_InfoScreen(laScreen* screen)
 
     laScreen_SetLayer(screen, 1, layer1);
 
-    InfoTextDragPanel = laImageWidget_New();
-    laWidget_SetPosition((laWidget*)InfoTextDragPanel, 0, 49);
-    laWidget_SetSize((laWidget*)InfoTextDragPanel, 480, 384);
-    laWidget_SetBackgroundType((laWidget*)InfoTextDragPanel, LA_WIDGET_BACKGROUND_NONE);
+    InfoTextDragPanel = laWidget_New();
+    laWidget_SetSize((laWidget*)InfoTextDragPanel, 480, 272);
+    laWidget_SetScheme((laWidget*)InfoTextDragPanel, &ClearScheme);
+    laWidget_SetBackgroundType((laWidget*)InfoTextDragPanel, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)InfoTextDragPanel, LA_WIDGET_BORDER_NONE);
-    laImageWidget_SetImage(InfoTextDragPanel, &info_text_en);
-    laImageWidget_SetHAlignment(InfoTextDragPanel, LA_HALIGN_LEFT);
-    laImageWidget_SetVAlignment(InfoTextDragPanel, LA_VALIGN_TOP);
-    laWidget_AddChild((laWidget*)layer1, (laWidget*)InfoTextDragPanel);
+    laWidget_AddChild((laWidget*)layer1, InfoTextDragPanel);
+
+    InfoText = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)InfoText, 0, 49);
+    laWidget_SetSize((laWidget*)InfoText, 480, 384);
+    laWidget_SetScheme((laWidget*)InfoText, &ClearScheme);
+    laWidget_SetBackgroundType((laWidget*)InfoText, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)InfoText, LA_WIDGET_BORDER_NONE);
+    laWidget_SetAlphaEnable((laWidget*)InfoText, GFX_TRUE);
+    laWidget_SetAlphaAmount((laWidget*)InfoText, 255);
+    laImageWidget_SetImage(InfoText, &info_text_en);
+    laImageWidget_SetHAlignment(InfoText, LA_HALIGN_LEFT);
+    laImageWidget_SetVAlignment(InfoText, LA_VALIGN_TOP);
+    laWidget_AddChild((laWidget*)InfoTextDragPanel, (laWidget*)InfoText);
 
     PanelWidget1 = laWidget_New();
     laWidget_SetSize((laWidget*)PanelWidget1, 480, 50);
@@ -1787,7 +1820,8 @@ static void ScreenCreate_InfoScreen(laScreen* screen)
     ReturnToMainButton = laButtonWidget_New();
     laWidget_SetPosition((laWidget*)ReturnToMainButton, 400, 191);
     laWidget_SetSize((laWidget*)ReturnToMainButton, 80, 80);
-    laWidget_SetBackgroundType((laWidget*)ReturnToMainButton, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetScheme((laWidget*)ReturnToMainButton, &ClearScheme);
+    laWidget_SetBackgroundType((laWidget*)ReturnToMainButton, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)ReturnToMainButton, LA_WIDGET_BORDER_NONE);
     laButtonWidget_SetPressedImage(ReturnToMainButton, &HomeButton);
     laButtonWidget_SetReleasedImage(ReturnToMainButton, &HomeButton);
@@ -1798,7 +1832,8 @@ static void ScreenCreate_InfoScreen(laScreen* screen)
     ButtonSplashScreen = laButtonWidget_New();
     laWidget_SetPosition((laWidget*)ButtonSplashScreen, 401, 0);
     laWidget_SetSize((laWidget*)ButtonSplashScreen, 80, 80);
-    laWidget_SetBackgroundType((laWidget*)ButtonSplashScreen, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetScheme((laWidget*)ButtonSplashScreen, &ClearScheme);
+    laWidget_SetBackgroundType((laWidget*)ButtonSplashScreen, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)ButtonSplashScreen, LA_WIDGET_BORDER_NONE);
     laButtonWidget_SetPressedImage(ButtonSplashScreen, &microchip_button);
     laButtonWidget_SetReleasedImage(ButtonSplashScreen, &microchip_button);
@@ -1814,74 +1849,73 @@ int32_t libaria_preprocess_assets(void)
 {
 
     // process images configured for preprocessing
-    laUtils_PreprocessImage(&Bar,0xA82FD000,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&MicrochipLogo,0xA841B780,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&PIC32Logo,0xA8420F40,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&Bluetooth,0xA87B37C0,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&Chargers,0xA87CC7C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&Fan,0xA880C7C0,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&Music,0xA88257C0,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&Phone,0xA883E7C0,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&CellSignal01,0xA88577C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&CellSignal02,0xA88587C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&CellSignal03,0xA88597C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&CellSignal04,0xA885A7C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&CellSignal05,0xA885B7C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&BatteryExtremelyLow,0xA885C7C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&BatteryFull,0xA885D7C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&BatteryHalf,0xA885E7C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&BatteryLow,0xA885F7C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&BatteryOneQuarter,0xA88607C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&BatteryThreeQuarter,0xA88617C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&BatteryCharging,0xA88627C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&WifiGood,0xA88637C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&WifiMedium,0xA88647C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&WifiStrong,0xA88657C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&WifiWeak,0xA88667C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&chevron_down,0xA88677C0,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&chevron_up,0xA886B000,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&AC_Both,0xA886E840,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&AC_Face,0xA8872080,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&AC_Feet,0xA88758C0,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&AC_Intake,0xA8879100,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&AC_Loop,0xA887C940,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&Defrost,0xA8880180,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&TrayLeft,0xA88839C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&LidArrowLeft,0xA88939C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&LidArrowRight,0xA8893DC0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&TrayLeftPress,0xA88941C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&TrayRight,0xA88A41C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&TrayRightPress,0xA88B41C0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&PlainButton,0xA88C41C0,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&Trunk,0xA88C7BE0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&mchp_logo,0xA88CBBE0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&OvalButton,0xA88CFBE0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&OvalButtonPress,0xA88D3BE0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&PhoneIcon,0xA88D7BE0,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover1,0xA88D8220,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover10,0xA88E8220,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover2,0xA88F8220,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover3,0xA8908220,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover4,0xA8918220,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover5,0xA8928220,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover6,0xA8938220,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover7,0xA8948220,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover8,0xA8958220,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover9,0xA8968220,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&NextTrack,0xA8978220,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&PlayPause,0xA897B2E0,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&Shuffle,0xA897DE00,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&Minus,0xA8980470,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&Plus,0xA8983CB0,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&VolumeIcon,0xA89874F0,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&PhoneSmall,0xA8987C70,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&BluetoothLogoSmall,0xA8989C70,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&ChevronSmall,0xA898BC70,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&PlusSmall,0xA898DC70,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&HomeButton,0xA898EC70,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&microchip_button,0xA899EC70,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&info_text_en,0xA831B780,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&ChargerMap,0xA842F7C0,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&Bar,0xA8AFD000,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&MicrochipLogo,0xA8B1B780,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&Bluetooth,0xA8B20F40,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&Chargers,0xA8B39F40,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&Fan,0xA8B79F40,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&Music,0xA8B92F40,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&Phone,0xA8BABF40,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&CellSignal01,0xA8BC4F40,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&CellSignal02,0xA8BC5F40,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&CellSignal03,0xA8BC6F40,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&CellSignal04,0xA8BC7F40,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&CellSignal05,0xA8BC8F40,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&BatteryExtremelyLow,0xA8BC9F40,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&BatteryFull,0xA8BCAF40,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&BatteryHalf,0xA8BCBF40,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&BatteryLow,0xA8BCCF40,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&BatteryOneQuarter,0xA8BCDF40,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&BatteryThreeQuarter,0xA8BCEF40,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&BatteryCharging,0xA8BCFF40,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&WifiGood,0xA8BD0F40,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&WifiMedium,0xA8BD1F40,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&WifiStrong,0xA8BD2F40,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&WifiWeak,0xA8BD3F40,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&chevron_down,0xA8BD4F40,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&chevron_up,0xA8BD8780,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&AC_Both,0xA8BDBFC0,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&AC_Face,0xA8BDF800,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&AC_Feet,0xA8BE3040,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&AC_Intake,0xA8BE6880,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&AC_Loop,0xA8BEA0C0,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&Defrost,0xA8BED900,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&TrayLeft,0xA8BF1140,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&LidArrowLeft,0xA8C01140,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&LidArrowRight,0xA8C01540,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&TrayLeftPress,0xA8C01940,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&TrayRight,0xA8C11940,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&TrayRightPress,0xA8C21940,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&PlainButton,0xA8C31940,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&Trunk,0xA8C35360,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&mchp_logo,0xA8C39360,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&OvalButton,0xA8C3D360,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&OvalButtonPress,0xA8C41360,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&PhoneIcon,0xA8C45360,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover1,0xA8C459A0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover10,0xA8C559A0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover2,0xA8C659A0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover3,0xA8C759A0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover4,0xA8C859A0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover5,0xA8C959A0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover6,0xA8CA59A0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover7,0xA8CB59A0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover8,0xA8CC59A0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover9,0xA8CD59A0,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&NextTrack,0xA8CE59A0,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&PlayPause,0xA8CE8A60,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&Shuffle,0xA8CEB580,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&Minus,0xA8CEDBF0,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&Plus,0xA8CF1430,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&VolumeIcon,0xA8CF4C70,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&PhoneSmall,0xA8CF5470,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&BluetoothLogoSmall,0xA8CF7470,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&ChevronSmall,0xA8CF9470,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&PlusSmall,0xA8CFB470,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&HomeButton,0xA8CFC470,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&microchip_button,0xA8D0C470,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&info_text_en,0xA8D10470,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&ChargerMap,0xA82FD000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
 
     return 0;
 }

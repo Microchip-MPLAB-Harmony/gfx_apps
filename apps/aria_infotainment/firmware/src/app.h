@@ -147,11 +147,19 @@ typedef struct
     
     uint32_t leftTemp;
     
-    int32_t aspectRatio;
+    int32_t aspectRatioX;
+
+    int32_t aspectRatioY;
     
     bool touchDown0;
     
     bool touchDown1;
+    
+    bool userTrayMoveRequested;
+    
+    uint32_t iconCount;
+    
+    bool bufferFill;
     
 } APP_DATA;
 
@@ -193,6 +201,8 @@ void APP_ModeUp(void);
 void APP_ModeDown(void);
 
 void APP_HandleTray(int32_t value);
+
+void APP_CycleIconPanelImages(void);
 
 // *****************************************************************************
 // *****************************************************************************

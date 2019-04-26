@@ -433,7 +433,7 @@ extern GFXU_ImageAsset Trunk;
  * GFX Image Asset
  * Name:   mchp_logo
  * Size:   120x28 pixels
- * Mode:   INDEX_8
+ * Mode:   RGB_888
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset mchp_logo;
@@ -649,7 +649,7 @@ extern GFXU_ImageAsset PlusSmall;
  * GFX Image Asset
  * Name:   HomeButton
  * Size:   65x67 pixels
- * Mode:   INDEX_8
+ * Mode:   RGB_565
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset HomeButton;
@@ -658,7 +658,7 @@ extern GFXU_ImageAsset HomeButton;
  * GFX Image Asset
  * Name:   microchip_button
  * Size:   60x62 pixels
- * Mode:   INDEX_8
+ * Mode:   RGB_565
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset microchip_button;
@@ -667,7 +667,7 @@ extern GFXU_ImageAsset microchip_button;
  * GFX Image Asset
  * Name:   info_text_en
  * Size:   480x384 pixels
- * Mode:   RGB_888
+ * Mode:   INDEX_8
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset info_text_en;
@@ -675,7 +675,7 @@ extern GFXU_ImageAsset info_text_en;
 /*********************************
  * GFX Image Asset
  * Name:   ChargerMap
- * Size:   1280x720 pixels
+ * Size:   1820x1024 pixels
  * Mode:   RGB_888
  * Format: JPEG
  ***********************************/
@@ -958,14 +958,6 @@ extern GFXU_PaletteAsset Trunk_palette;
 	
 /*********************************
  * GFX Palette Asset
- * Name:   mchp_logo_palette
- * Colors: 178
- * Format: RGB_565
- ***********************************/
-extern GFXU_PaletteAsset mchp_logo_palette;
-	
-/*********************************
- * GFX Palette Asset
  * Name:   OvalButton_palette
  * Colors: 28
  * Format: RGB_565
@@ -1070,19 +1062,11 @@ extern GFXU_PaletteAsset PlusSmall_palette;
 	
 /*********************************
  * GFX Palette Asset
- * Name:   HomeButton_palette
- * Colors: 115
- * Format: RGB_565
+ * Name:   info_text_en_palette
+ * Colors: 49
+ * Format: RGBA_8888
  ***********************************/
-extern GFXU_PaletteAsset HomeButton_palette;
-	
-/*********************************
- * GFX Palette Asset
- * Name:   microchip_button_palette
- * Colors: 107
- * Format: RGB_565
- ***********************************/
-extern GFXU_PaletteAsset microchip_button_palette;
+extern GFXU_PaletteAsset info_text_en_palette;
 	
 /*****************************************************************************
  * MPLAB Harmony Graphics Font Assets
