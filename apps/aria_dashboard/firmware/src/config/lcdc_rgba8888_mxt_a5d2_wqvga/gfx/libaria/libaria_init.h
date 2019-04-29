@@ -113,6 +113,9 @@ extern laButtonWidget* CenterButtonWidget;
 extern laButtonWidget* EngineOnButton;
 
 
+
+
+
 int32_t libaria_initialize(void);
 
 //DOM-IGNORE-BEGIN

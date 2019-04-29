@@ -51,13 +51,13 @@
 // TachoDrawSurface - DrawNotificationEvent
 laBool TachoDrawSurface_DrawNotificationEvent(laDrawSurfaceWidget* sfc, GFX_Rect* rect)
 {
-//CUSTOM CODE - DO NOT MODIFY OR REMOVE!!
+    // Custom Action
     static GFX_Point start = {.x = 240, .y = 136}, end = {.x = 240, .y = 50};
     static GFX_Point startExt[6];
-    
+        
     GFX_Point newEnd;
     int value = GET_ANGLE_FROM_VALUE(appData.value);
-    
+        
     GFX_Set(GFXF_DRAW_MODE, GFX_DRAW_LINE);
     GFX_Set(GFXF_DRAW_COLOR, 0x00000000);
     GFX_DrawLine(start.x, start.y, end.x, end.y);
@@ -72,7 +72,7 @@ laBool TachoDrawSurface_DrawNotificationEvent(laDrawSurfaceWidget* sfc, GFX_Rect
     end.y = sfc->widget.rect.y + sfc->widget.rect.height/2 - newEnd.y;
     GFX_Set(GFXF_DRAW_COLOR, 0xff0000ff);
     GFX_DrawLine(start.x, start.y, end.x, end.y);
-    
+        
     if (value > 90 && value < 180)
     {
         startExt[0].x = start.x + 3;
@@ -103,7 +103,7 @@ laBool TachoDrawSurface_DrawNotificationEvent(laDrawSurfaceWidget* sfc, GFX_Rect
         startExt[5].x = start.x - 3;
         startExt[5].y = start.y - 3;      
     }
-
+    
     GFX_DrawLine(startExt[1].x, startExt[1].y, end.x, end.y);
     GFX_DrawLine(startExt[2].x, startExt[2].y, end.x, end.y);
     GFX_DrawLine(startExt[3].x, startExt[3].y, end.x, end.y);    
@@ -111,9 +111,8 @@ laBool TachoDrawSurface_DrawNotificationEvent(laDrawSurfaceWidget* sfc, GFX_Rect
     GFX_Set(GFXF_DRAW_COLOR, 0xffffffff);
     GFX_DrawLine(startExt[0].x, startExt[0].y, end.x, end.y);
     GFX_DrawLine(startExt[5].x, startExt[5].y, end.x, end.y);
-    
+        
     return GFX_TRUE;
-//END OF CUSTOM CODE  
 }
 
 // EngineOnButton - PressedEvent

@@ -40,6 +40,7 @@
 // DOM-IGNORE-END
 
 #include "gfx/libaria/libaria_init.h"
+#include "gfx/libaria/inc/libaria_utils.h"
 
 laScheme defaultScheme;
 laScheme GreenScheme;
@@ -685,6 +686,7 @@ static void ScreenCreate_Main(laScreen* screen)
     laWidget_AddChild((laWidget*)layer2, (laWidget*)EngineOnButton);
 
 }
+
 
 
 

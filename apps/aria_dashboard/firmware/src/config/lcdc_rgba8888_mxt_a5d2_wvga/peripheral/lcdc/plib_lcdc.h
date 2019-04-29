@@ -1418,6 +1418,30 @@ void LCDC_SetWindowSize(LCDC_LAYER_ID layer, uint16_t width, uint16_t height);
 
 // *****************************************************************************
 /* Function:
+    void LCDC_SetHorizStride(LCDC_LAYER_ID layer, uint32_t xstride)
+
+   Summary:
+    Sets the line striding of the specified layer
+
+   Description:
+    None
+
+   Precondition:
+    None.
+
+   Parameters:
+    layer - the target layer
+    xstride - the line striding in bytes
+
+   Returns:
+    None
+
+   Remarks:
+*/
+void LCDC_SetHorizStride(LCDC_LAYER_ID layer, uint32_t xstride);
+
+// *****************************************************************************
+/* Function:
     void LCDC_SetUseDMAPathEnable(LCDC_LAYER_ID layer, bool enable)
 
    Summary:

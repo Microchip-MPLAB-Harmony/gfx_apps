@@ -588,7 +588,7 @@ struct DEVICE_OBJECT sMAXTOUCHDriverInstances[DRV_MAXTOUCH_INDEX_COUNT];
 
 static SYS_TIME_HANDLE resetTimer;
 
-void _DelayMS(int ms)
+static void _DelayMS(int ms)
 {
 	SYS_TIME_HANDLE timer = SYS_TIME_HANDLE_INVALID;
 
