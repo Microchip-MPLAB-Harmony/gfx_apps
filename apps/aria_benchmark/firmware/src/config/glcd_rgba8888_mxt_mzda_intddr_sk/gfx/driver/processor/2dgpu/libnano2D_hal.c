@@ -324,7 +324,8 @@ static GFX_Result drawBlit(const GFX_PixelBuffer* source,
                        0xC);        
     }    
 
-    if (state->alphaEnable == GFX_TRUE )
+    if ((state->alphaEnable == GFX_TRUE) && 
+        ((state->blendMode & GFX_BLEND_CHANNEL) == 0))
     {
         n2d_set_global_alpha(N2D_GLOBAL_ALPHA_ON, N2D_GLOBAL_ALPHA_OFF, state->globalAlphaValue, 0xff);
         blend = N2D_BLEND_SRC_OVER;
@@ -341,7 +342,8 @@ static GFX_Result drawBlit(const GFX_PixelBuffer* source,
         n2d_draw_state(N2D_TRANSPARENCY_NONE, 0, 0xC, 0xC);
     }
 
-    if (state->alphaEnable == GFX_TRUE )
+    if ((state->alphaEnable == GFX_TRUE) && 
+        ((state->blendMode & GFX_BLEND_CHANNEL) == 0))
     {
         n2d_set_global_alpha(N2D_GLOBAL_ALPHA_OFF, N2D_GLOBAL_ALPHA_OFF, 0xff, 0xff);
         blend = N2D_BLEND_NONE;
@@ -424,7 +426,8 @@ static GFX_Result drawStretchBlit(const GFX_PixelBuffer* source,
                        0xC);        
     }    
 
-    if (state->alphaEnable == GFX_TRUE )
+    if ((state->alphaEnable == GFX_TRUE) && 
+        ((state->blendMode & GFX_BLEND_CHANNEL) == 0))
     {
         n2d_set_global_alpha(N2D_GLOBAL_ALPHA_ON, N2D_GLOBAL_ALPHA_OFF, state->globalAlphaValue, 0xff);
         blend = N2D_BLEND_SRC_OVER;
@@ -441,7 +444,8 @@ static GFX_Result drawStretchBlit(const GFX_PixelBuffer* source,
         n2d_draw_state(N2D_TRANSPARENCY_NONE, 0, 0xC, 0xC);
     }
 
-    if (state->alphaEnable == GFX_TRUE )
+    if ((state->alphaEnable == GFX_TRUE) && 
+        ((state->blendMode & GFX_BLEND_CHANNEL) == 0))
     {
         n2d_set_global_alpha(N2D_GLOBAL_ALPHA_OFF, N2D_GLOBAL_ALPHA_OFF, 0xff, 0xff);
         blend = N2D_BLEND_NONE;

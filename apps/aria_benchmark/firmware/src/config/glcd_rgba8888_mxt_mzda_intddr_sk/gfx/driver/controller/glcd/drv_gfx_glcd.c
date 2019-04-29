@@ -434,28 +434,11 @@ static uint32_t layerAlphaAmountGet(void)
 
 void layerSwapped(GFX_Layer* layer)
 {
-    if(layer->id == GFX_ActiveContext()->layer.layers[0].id)
-    {
         if (layer->buffer_count > BUFFER_PER_LAYER)
         return;
 
-        PLIB_GLCD_LayerBaseAddressSet(0, (uint32_t)drvLayer[0].baseaddr[layer->buffer_read_idx]);
+    PLIB_GLCD_LayerBaseAddressSet(layer->id, (uint32_t)drvLayer[layer->id].baseaddr[layer->buffer_read_idx]);
     }
-    if(layer->id == GFX_ActiveContext()->layer.layers[1].id)
-    {
-        if (layer->buffer_count > BUFFER_PER_LAYER)
-        return;
-
-        PLIB_GLCD_LayerBaseAddressSet(0, (uint32_t)drvLayer[0].baseaddr[layer->buffer_read_idx]);
-    }
-    if(layer->id == GFX_ActiveContext()->layer.layers[2].id)
-    {
-        if (layer->buffer_count > BUFFER_PER_LAYER)
-        return;
-
-        PLIB_GLCD_LayerBaseAddressSet(0, (uint32_t)drvLayer[0].baseaddr[layer->buffer_read_idx]);
-    }
-}
 
 static GFX_Result layerEnabledSet(GFX_Bool val)
 {
@@ -602,10 +585,10 @@ static void layerSwapPending(GFX_Layer* layer)
     }
     }
 
+    waitingForVSync = GFX_TRUE;
+
     PLIB_GLCD_VSyncInterruptEnable(); // enable vsync interrupt
 
-    waitingForVSync = GFX_TRUE;
-    
     // need to spin until vsync happens to ensure content does not get
     // drawn to the wrong frame buffer
     while(waitingForVSync == GFX_TRUE ||

@@ -63,7 +63,7 @@ typedef enum
 {
     LIBARIA_STATE_INIT = 0,
     LIBARIA_STATE_RUNNING,
-	LIBARIA_STATE_ERROR
+    LIBARIA_STATE_ERROR
 } LIBARIA_STATES;
 
 // *****************************************************************************

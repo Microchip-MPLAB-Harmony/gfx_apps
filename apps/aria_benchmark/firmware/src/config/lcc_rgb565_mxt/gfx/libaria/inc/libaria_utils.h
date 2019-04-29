@@ -495,6 +495,56 @@ GFX_Point laUtils_ScreenToOrientedSpace(const GFX_Point* pnt,
 */                                        
 GFX_Point laUtils_ScreenToMirroredSpace(const GFX_Point* pnt,
                                         const GFX_Rect* rect,
-                                        GFX_Orientation ori);                                       
+                                        GFX_Orientation ori);          
+
+// *****************************************************************************
+/* Function:
+    laResult laUtils_PreprocessImage(GFXU_ImageAsset* img,
+                                uint32_t destAddress,
+                                GFX_ColorMode destMode,
+                                GFX_Bool padBuffer, 
+                                GFXU_MemoryIntf * memIntf);
+
+  Summary:
+    Preprocesses an image to a specified memory address.
+     
+  Description:
+    This function preprocesses an image asset through the HAL pipeline
+    and renders it to a given address, in a given color mode, and can pad
+    the image buffer dimensions to be powers of 2 as required by some 
+    graphics accelerators.
+    
+    This function is also useful for pre-staging images into run-time memory
+    locations.
+    
+    The caller is required to ensure that the destination address is capable of 
+    containing the result.  The size can be calculated by using the method:
+    
+    GFX_ColorInfo[destMode].size * img->width * img->height
+    
+    This function only works with images that are located in a core accessible
+    memory location like SRAM or DDR.  If the image is located in an external
+    source then GFXU_DrawImage should be called directly.  The caller will then
+    need to service the media streaing state machine.  Once finished the
+    image asset descriptor must be changed manually.  This function can be used
+    as a reference on how to accomplish this.
+     
+  Parameters:
+    GFXU_ImageAsset* img - pointer to the image asset to draw
+    uint32_t destAddress - the address to render the image to
+    GFX_ColorMode destMode - the desired output mode of the image
+    GFX_Bool padBuffer - indicates that the image buffer dimensions should be
+                         padded to equal powers of 2 (required by some GPUs)
+    GFXU_MemoryIntf* memtIntf - a pointer to a memory interface to use for
+                               memory operations, not needed for internal
+                               assets
+  Returns:
+    laResult - the result of the operation
+*/
+laResult laUtils_PreprocessImage(GFXU_ImageAsset* img,
+                                uint32_t destAddress,
+                                GFX_ColorMode destMode,
+                                GFX_Bool padBuffer, 
+                                GFXU_MemoryIntf * memIntf);
 
 #endif // LIBARIA_UTILS_H

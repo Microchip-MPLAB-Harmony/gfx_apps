@@ -186,6 +186,7 @@ static GFX_Result drawImageData(GFXU_ImageAssetReader* imgReader)
             GFX_BlendMode blendMode;
             GFX_Get(GFXF_DRAW_BLEND_MODE, &blendMode);
             GFX_Set(GFXF_DRAW_BLEND_MODE, blendMode | GFX_BLEND_CHANNEL);
+            GFX_Set(GFXF_DRAW_ALPHA_ENABLE, GFX_TRUE);
             break;
         }
         default:

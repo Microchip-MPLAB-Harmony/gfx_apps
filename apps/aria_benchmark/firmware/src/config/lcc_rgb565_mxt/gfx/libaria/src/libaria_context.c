@@ -105,6 +105,8 @@ laContext* laContext_Create(GFX_Driver driver,
     laArray_Create(&context->screenList);
     
     context->colorMode = mode;
+    
+    context->preprocessStateChangedCB = NULL;
 
     if(_activeContext == NULL)
         _activeContext = context;
@@ -812,4 +814,14 @@ laBool laContext_IsLayerDrawing(uint32_t idx)
         return LA_FALSE;
         
     return laLayer_IsDrawing(_activeContext->activeScreen->layers[idx]);
+}
+
+laResult laContext_SetPreprocessAssetStateChangedCallback(laContext_PreprocessAssetsStateChangedCallback_FnPtr cb)
+{
+    if(_activeContext == NULL || cb == NULL)
+        return LA_FAILURE;
+    
+    _activeContext->preprocessStateChangedCB = cb;
+    
+    return LA_SUCCESS;
 }

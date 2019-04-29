@@ -149,6 +149,9 @@ extern laButtonWidget* ImageTypeNextButtonWidget;
 extern laButtonWidget* FPSButtonImages;
 
 
+
+
+
 int32_t libaria_initialize(void);
 
 //DOM-IGNORE-BEGIN

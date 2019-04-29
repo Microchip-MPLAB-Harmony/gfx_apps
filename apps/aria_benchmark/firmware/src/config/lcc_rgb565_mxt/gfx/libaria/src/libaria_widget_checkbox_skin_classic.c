@@ -279,7 +279,8 @@ static void drawImage(laCheckBoxWidget* cbox)
 	GFXU_ImageAsset* img = NULL;
 	GFX_Rect imgRect, imgSrcRect, clipRect;
     laLayer* layer = laUtils_GetLayer((laWidget*)cbox);
-    
+	GFX_Bool alphaEnable;
+
 	_laCheckBoxWidget_GetImageRect(cbox, &imgRect, &imgSrcRect);
 	
 	if(cbox->checked == LA_FALSE)
@@ -302,7 +303,10 @@ static void drawImage(laCheckBoxWidget* cbox)
         }
         else
         {
-            GFXU_DrawImage(img,
+			GFX_Get(GFXF_DRAW_ALPHA_ENABLE, &alphaEnable);
+			GFX_Set(GFXF_DRAW_ALPHA_ENABLE, cbox->widget.alphaEnabled);
+
+			GFXU_DrawImage(img,
                            imgSrcRect.x,
                            imgSrcRect.y,
                            imgSrcRect.width,
@@ -312,7 +316,9 @@ static void drawImage(laCheckBoxWidget* cbox)
                            &laContext_GetActive()->memIntf,
                            &cbox->reader);
                            
-            if(cbox->reader != NULL)
+			GFX_Set(GFXF_DRAW_ALPHA_ENABLE, alphaEnable);
+
+			if (cbox->reader != NULL)
             {  
                 cbox->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&waitImage;
                 cbox->widget.drawState = WAIT_IMAGE;

@@ -495,6 +495,30 @@ void LCDC_SetWindowSize(LCDC_LAYER_ID layer, uint16_t width, uint16_t height)
     }
 }
 
+void LCDC_SetHorizStride(LCDC_LAYER_ID layer, uint32_t xstride)
+{
+    switch(layer)
+    {
+        case LCDC_LAYER_OVR1:
+            LCDC_REGS->LCDC_OVR1CFG4 = LCDC_OVR1CFG4_XSTRIDE(xstride);
+            break;
+        case LCDC_LAYER_OVR2:
+            LCDC_REGS->LCDC_OVR2CFG4 = LCDC_OVR2CFG4_XSTRIDE(xstride);
+            break;
+        case LCDC_LAYER_BASE:
+            LCDC_REGS->LCDC_BASECFG2 = LCDC_BASECFG2_XSTRIDE(xstride);
+            break;
+        case LCDC_LAYER_HEO:
+            LCDC_REGS->LCDC_HEOCFG5 = LCDC_HEOCFG5_XSTRIDE(xstride);
+            break;
+        case LCDC_LAYER_PP:
+            LCDC_REGS->LCDC_PPCFG2 = LCDC_PPCFG2_XSTRIDE(xstride);
+            break;
+        default:
+          break;
+    }
+}
+
 void LCDC_SetUseDMAPathEnable(LCDC_LAYER_ID layer, bool enable)
 {
     switch(layer)

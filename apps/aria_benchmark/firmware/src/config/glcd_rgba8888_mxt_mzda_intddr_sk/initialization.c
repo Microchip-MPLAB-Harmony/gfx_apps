@@ -106,7 +106,6 @@
 
 /*** DEVCFG3 ***/
 #pragma config USERID =     0xffff
-#pragma config EXTDDRSIZE = DDR_SIZE_128MB
 #pragma config FMIIEN =     ON
 #pragma config FETHIO =     ON
 #pragma config PGL1WAY =    ON
@@ -275,9 +274,9 @@ void SYS_Initialize ( void* data )
     CFGCONbits.ECCCON = 3;
 
 
+    CORETIMER_Initialize();
     I2C1_Initialize();
 
-    CORETIMER_Initialize();
 	BSP_Initialize();
 	DDR_Initialize();
 
