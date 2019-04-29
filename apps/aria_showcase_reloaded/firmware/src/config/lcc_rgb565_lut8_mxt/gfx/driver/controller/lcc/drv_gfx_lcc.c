@@ -54,11 +54,14 @@
 
 
 #define FRAMEBUFFER_COLOR_MODE GFX_COLOR_MODE_GS_8
+#define FRAMEBUFFER_TYPE uint8_t
+#define FRAMEBUFFER_PIXEL_BYTES 2
 
 const char* DRIVER_NAME = "LCC SMC";
-static uint32_t supported_color_formats = GFX_COLOR_MASK_RGB_565;
+static uint32_t supported_color_formats = (GFX_COLOR_MASK_RGB_565 | GFX_COLOR_MASK_RGB_332);
 
-uint8_t frameBuffer[BUFFER_COUNT][DISPLAY_WIDTH * DISPLAY_HEIGHT];
+FRAMEBUFFER_TYPE frameBuffer[BUFFER_COUNT][DISPLAY_WIDTH * DISPLAY_HEIGHT];
+
 uint16_t __attribute__((aligned(16))) frameLine[DISPLAY_WIDTH];
 
 #define DRV_GFX_LCC_DMA_CHANNEL_INDEX XDMAC_CHANNEL_0
@@ -304,7 +307,7 @@ GFX_Result driverLCCContextInitialize(GFX_Context* context)
 static void lccDMAStartTransfer(const void *srcAddr, size_t srcSize,
                                        const void *destAddr)
 {
-    XDMAC_ChannelBlockLengthSet(DRV_GFX_LCC_DMA_CHANNEL_INDEX, (srcSize >> 1) - 1);
+    XDMAC_ChannelBlockLengthSet(DRV_GFX_LCC_DMA_CHANNEL_INDEX, (srcSize / FRAMEBUFFER_PIXEL_BYTES) - 1);
 
     SCB_CleanInvalidateDCache_by_Addr(
                     (uint32_t *)((uint32_t ) srcAddr & ~0x1F),
@@ -477,7 +480,7 @@ static void DRV_GFX_LCC_DisplayRefresh(void)
     }
 
     lccDMAStartTransfer(frameLine,
-                        (pixels << 1), //2 bytes per pixel
+                        (pixels * 2), //2 bytes per pixel
                         (uint32_t*) EBI_BASE_ADDR);
 }
 

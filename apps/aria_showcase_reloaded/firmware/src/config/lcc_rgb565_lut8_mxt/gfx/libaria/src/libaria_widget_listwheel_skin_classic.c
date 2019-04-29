@@ -732,7 +732,8 @@ static void waitString(laListWheelWidget* whl)
 static void drawIcon(laListWheelWidget* whl)
 {
     GFX_Rect widgetRect, imgRect, imgSrcRect, clipRect;
-    //int32_t y;
+	GFX_Bool alphaEnable;
+	//int32_t y;
     laLayer* layer = laUtils_GetLayer((laWidget*)whl);
     laListWheelItem* item = whl->items.values[whl->paintState.nextItem];
     
@@ -783,7 +784,10 @@ static void drawIcon(laListWheelWidget* whl)
             
             if (GFX_RectIntersects(&itemRect, &midLineRect) == GFX_TRUE)
             {
-                GFXU_DrawImage(item->icon,
+				GFX_Get(GFXF_DRAW_ALPHA_ENABLE, &alphaEnable);
+				GFX_Set(GFXF_DRAW_ALPHA_ENABLE, whl->widget.alphaEnabled);
+
+				GFXU_DrawImage(item->icon,
                                imgSrcRect.x,
                                imgSrcRect.y,
                                imgSrcRect.width,
@@ -793,7 +797,9 @@ static void drawIcon(laListWheelWidget* whl)
                                &laContext_GetActive()->memIntf,
                                &whl->reader);
 
-                if(whl->reader != NULL)
+				GFX_Set(GFXF_DRAW_ALPHA_ENABLE, alphaEnable);
+
+				if (whl->reader != NULL)
                 {
                     whl->widget.drawState = WAIT_ICON;
                     whl->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&waitIcon;
@@ -805,7 +811,10 @@ static void drawIcon(laListWheelWidget* whl)
             {
                 if (whl->zoomEffects == LA_LISTWHEEL_ZOOM_EFFECT_NONE)
                 {
-                    GFXU_DrawImage(item->icon,
+					GFX_Get(GFXF_DRAW_ALPHA_ENABLE, &alphaEnable);
+					GFX_Set(GFXF_DRAW_ALPHA_ENABLE, whl->widget.alphaEnabled);
+
+					GFXU_DrawImage(item->icon,
                                    imgSrcRect.x,
                                    imgSrcRect.y,
                                    imgSrcRect.width,
@@ -815,7 +824,9 @@ static void drawIcon(laListWheelWidget* whl)
                                    &laContext_GetActive()->memIntf,
                                    &whl->reader);
 
-                    if(whl->reader != NULL)
+					GFX_Set(GFXF_DRAW_ALPHA_ENABLE, alphaEnable);
+					
+					if (whl->reader != NULL)
                     {
                         whl->widget.drawState = WAIT_ICON;
                         whl->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&waitIcon;
@@ -851,7 +862,10 @@ static void drawIcon(laListWheelWidget* whl)
 
                         GFX_Set(GFXF_DRAW_TARGET, &pixelBuff);
 
-                        GFXU_DrawImage(item->icon,
+						GFX_Get(GFXF_DRAW_ALPHA_ENABLE, &alphaEnable);
+						GFX_Set(GFXF_DRAW_ALPHA_ENABLE, whl->widget.alphaEnabled);
+
+						GFXU_DrawImage(item->icon,
                                        0,
                                        0,
                                        imgSrcRect.width,
@@ -861,7 +875,9 @@ static void drawIcon(laListWheelWidget* whl)
                                        &laContext_GetActive()->memIntf,
                                        &whl->reader);
 
-                        if(whl->reader != NULL)
+						GFX_Set(GFXF_DRAW_ALPHA_ENABLE, alphaEnable);
+						
+						if (whl->reader != NULL)
                         {
                             whl->widget.drawState = WAIT_ICON;
                             whl->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&waitIcon;

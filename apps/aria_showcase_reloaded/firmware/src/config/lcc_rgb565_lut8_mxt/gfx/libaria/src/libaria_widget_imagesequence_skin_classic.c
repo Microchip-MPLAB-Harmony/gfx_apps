@@ -143,14 +143,18 @@ static void drawImage(laImageSequenceWidget* img)
 {
     GFX_Rect imgRect, imgSrcRect, clipRect;
     laLayer* layer = laUtils_GetLayer((laWidget*)img);
-    
+	GFX_Bool alphaEnable;
+
     _laImageSequenceWidget_GetImageRect(img, &imgRect, &imgSrcRect);
 
     if(GFX_RectIntersects(&layer->clippedDrawingRect, &imgRect) == GFX_TRUE)
     {       
         clipRect = GFX_RectClipAdj(&imgRect, &layer->clippedDrawingRect, &imgSrcRect);
         
-        GFXU_DrawImage(img->images[img->activeIdx].image,
+		GFX_Get(GFXF_DRAW_ALPHA_ENABLE, &alphaEnable);
+		GFX_Set(GFXF_DRAW_ALPHA_ENABLE, img->widget.alphaEnabled);
+
+		GFXU_DrawImage(img->images[img->activeIdx].image,
                        imgSrcRect.x,
                        imgSrcRect.y,
                        imgSrcRect.width,
@@ -159,8 +163,10 @@ static void drawImage(laImageSequenceWidget* img)
                        clipRect.y,
                        &laContext_GetActive()->memIntf,
                        &img->reader);
-                   
-        if(img->reader != NULL)
+
+		GFX_Set(GFXF_DRAW_ALPHA_ENABLE, alphaEnable);
+
+		if (img->reader != NULL)
         {  
             img->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&waitImage;
             img->widget.drawState = WAIT_IMAGE;
