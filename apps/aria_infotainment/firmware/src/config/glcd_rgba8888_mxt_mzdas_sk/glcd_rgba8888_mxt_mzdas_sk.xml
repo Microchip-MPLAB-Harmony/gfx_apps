@@ -3190,32 +3190,32 @@
         </Boolean>
         <String dnOrder="7" id="Layer0Buffer0">
           <Values dnOrder="0">
-            <User dnOrder="0" value="0xA871C000"/>
+            <User dnOrder="0" value="0xA8820000"/>
           </Values>
         </String>
         <String dnOrder="8" id="Layer0Buffer1">
           <Values dnOrder="0">
-            <User dnOrder="0" value="0xA879B800"/>
+            <User dnOrder="0" value="0xA889F800"/>
           </Values>
         </String>
         <String dnOrder="9" id="Layer1Buffer0">
           <Values dnOrder="0">
-            <User dnOrder="0" value="0xA881B000"/>
+            <User dnOrder="0" value="0xA891F000"/>
           </Values>
         </String>
         <String dnOrder="10" id="Layer1Buffer1">
           <Values dnOrder="0">
-            <User dnOrder="0" value="0xA889A800"/>
+            <User dnOrder="0" value="0xA899E800"/>
           </Values>
         </String>
         <String dnOrder="11" id="Layer2Buffer0">
           <Values dnOrder="0">
-            <User dnOrder="0" value="0xA891A000"/>
+            <User dnOrder="0" value="0xA8A1E000"/>
           </Values>
         </String>
         <String dnOrder="12" id="Layer2Buffer1">
           <Values dnOrder="0">
-            <User dnOrder="0" value="0xA8999800"/>
+            <User dnOrder="0" value="0xA8A9D800"/>
           </Values>
         </String>
         <Boolean dnOrder="13" id="PaletteMode">
@@ -3227,13 +3227,13 @@
         </Boolean>
         <Integer dnOrder="14" id="PixelClock">
           <Values dnOrder="0">
-            <Dynamic dnOrder="0" id="gfx_driver_glcd" value="10000000"/>
+            <Dynamic dnOrder="0" id="gfx_driver_glcd" value="8333333"/>
           </Values>
         </Integer>
         <Integer dnOrder="15" id="PixelClockDivider">
           <Values dnOrder="0">
             <Dynamic dnOrder="0" id="aria_gfx_pda_tm4301b" value="6"/>
-            <User dnOrder="1" value="20"/>
+            <User dnOrder="1" value="24"/>
           </Values>
         </Integer>
         <Integer dnOrder="16" id="TotalNumLayers">
@@ -3780,7 +3780,12 @@
     </UniqueComponent>
     <UniqueComponent dnOrder="16" id="sys_time">
       <Symbols dnOrder="0">
-        <String dnOrder="0" id="SYS_TIME_PLIB">
+        <Integer dnOrder="0" id="SYS_TIME_MAX_TIMERS">
+          <Values dnOrder="0">
+            <User dnOrder="0" value="7"/>
+          </Values>
+        </Integer>
+        <String dnOrder="1" id="SYS_TIME_PLIB">
           <Values dnOrder="0">
             <Dynamic dnOrder="0" id="sys_time" value="CORE_TIMER"/>
           </Values>
@@ -3801,8 +3806,7 @@
     </UniqueComponent>
   </Components>
   <UserData>
-    <GraphSettings canvasHeight="400" canvasWidth="400" dnOrder="0"/>
-    <ComponentGraph dnOrder="1" id="__ROOTVIEW">
+    <ComponentGraph dnOrder="0" id="__ROOTVIEW">
       <ElementPositions dnOrder="0">
         <ElementPosition dnOrder="0" id="BSP_PIC32MZ_DA_Starter_Kit" x="324" y="22"/>
         <ElementPosition dnOrder="1" id="HarmonyCore" x="5" y="67"/>
@@ -3823,5 +3827,6 @@
         <ElementPosition dnOrder="16" id="sys_time" x="347" y="439"/>
       </ElementPositions>
     </ComponentGraph>
+    <GraphSettings canvasHeight="400" canvasWidth="400" dnOrder="1"/>
   </UserData>
 </Configuration>

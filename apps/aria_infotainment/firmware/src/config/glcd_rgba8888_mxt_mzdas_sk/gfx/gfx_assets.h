@@ -667,19 +667,28 @@ extern GFXU_ImageAsset microchip_button;
  * GFX Image Asset
  * Name:   info_text_en
  * Size:   480x384 pixels
- * Mode:   INDEX_8
- * Format: RAW
+ * Mode:   RGB_888
+ * Format: JPEG
  ***********************************/
 extern GFXU_ImageAsset info_text_en;
 	
 /*********************************
  * GFX Image Asset
- * Name:   ChargerMap
+ * Name:   Background
+ * Size:   128x188 pixels
+ * Mode:   INDEX_4
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Background;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   ChargeMap
  * Size:   1820x1024 pixels
  * Mode:   RGB_888
  * Format: JPEG
  ***********************************/
-extern GFXU_ImageAsset ChargerMap;
+extern GFXU_ImageAsset ChargeMap;
 	
 /*****************************************************************************
  * MPLAB Harmony Graphics Palette Assets
@@ -1062,11 +1071,11 @@ extern GFXU_PaletteAsset PlusSmall_palette;
 	
 /*********************************
  * GFX Palette Asset
- * Name:   info_text_en_palette
- * Colors: 49
- * Format: RGBA_8888
+ * Name:   Background_palette
+ * Colors: 8
+ * Format: RGB_888
  ***********************************/
-extern GFXU_PaletteAsset info_text_en_palette;
+extern GFXU_PaletteAsset Background_palette;
 	
 /*****************************************************************************
  * MPLAB Harmony Graphics Font Assets

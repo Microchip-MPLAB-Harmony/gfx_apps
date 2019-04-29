@@ -153,6 +153,9 @@ void ButtonPhone0_ReleasedEvent(laButtonWidget* btn);
 // Generated Event Handler - Origin: ButtonPhonePound, Event: ReleasedEvent
 void ButtonPhonePound_ReleasedEvent(laButtonWidget* btn);
 
+// Generated Event Handler - Origin: ListContacts, Event: SelectionChangedEvent
+void ListContacts_SelectionChangedEvent(laListWidget* img, uint32_t idx, laBool selected);
+
 // Generated Event Handler - Origin: ButtonBluetoothPhone1, Event: PressedEvent
 void ButtonBluetoothPhone1_PressedEvent(laButtonWidget* btn);
 

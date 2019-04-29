@@ -32,6 +32,8 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "configuration.h"
+#include "system/time/sys_time.h"
+#include "gfx/libaria/inc/libaria_utils.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -58,6 +60,14 @@ extern "C" {
     determine the behavior of the application at various times.
 */
 
+typedef enum
+{
+    APP_DOUBLE_CLICK_NONE,
+    APP_DOUBLE_CLICK_FIRST_PRESS,
+    APP_DOUBLE_CLICK_FIRST_RELEASE
+            
+} APP_DOUBLE_CLICK_STATES;
+    
 typedef enum
 {
     /* Application's state machine's initial state. */
@@ -161,6 +171,16 @@ typedef struct
     
     bool bufferFill;
     
+    SYS_TIME_HANDLE clickTimerHandle;
+    
+    APP_DOUBLE_CLICK_STATES clickState;
+    
+    GFX_Rect zoomRect;
+
+    bool zoomMap;
+    
+    SYS_TIME_HANDLE zoomTimerHandle;
+    
 } APP_DATA;
 
 
@@ -203,6 +223,12 @@ void APP_ModeDown(void);
 void APP_HandleTray(int32_t value);
 
 void APP_CycleIconPanelImages(void);
+
+void APP_ResetNavMap(bool instant);
+
+void APP_ZoomNavMap(void);
+
+void APP_ApplyPhoneEntry(uint32_t idx);
 
 // *****************************************************************************
 // *****************************************************************************

@@ -30,6 +30,7 @@
 #include <stdio.h>
 #include "app.h"
 #include "app_splash.h"
+#include "system/time/sys_time.h"
 #include "gfx/hal/inc/gfx_util.h"
 #include "gfx/hal/inc/gfx_math.h"
 #include "gfx/hal/inc/gfx_context.h"
@@ -41,6 +42,10 @@
 // Section: Global Data Definitions
 // *****************************************************************************
 // *****************************************************************************
+
+#define APP_ZOOM_DELTA_MS   20
+#define APP_DOUBLE_CLICK_TIME_MS    500
+
 
 // *****************************************************************************
 /* Application Data
@@ -76,6 +81,17 @@ void APP_SetChevronVisibility(bool);
 // *****************************************************************************
 // *****************************************************************************
 
+static void timerCallback(uintptr_t context)
+{
+    if (appData.clickTimerHandle != SYS_TIME_HANDLE_INVALID)
+    {
+        SYS_TIME_TimerDestroy(appData.clickTimerHandle);        
+        appData.clickTimerHandle = SYS_TIME_HANDLE_INVALID;
+    }
+    
+    appData.clickState = APP_DOUBLE_CLICK_NONE;
+}
+
 static void touchDownNav(laWidget* widget, laInput_TouchDownEvent* evt)
 {
     APP_MoveTrayIn();
@@ -85,6 +101,45 @@ static void touchDownNav(laWidget* widget, laInput_TouchDownEvent* evt)
         case 0:
         {
             appData.touchDown0 = true;
+
+            if (appData.mode == MODE_NAV && appData.touchDown1 == false)
+            {
+                switch (appData.clickState)
+                {
+                    case APP_DOUBLE_CLICK_NONE:
+                    {
+                        if (appData.clickTimerHandle == SYS_TIME_HANDLE_INVALID)
+                        {
+                            appData.clickTimerHandle = SYS_TIME_CallbackRegisterMS(timerCallback, APP_DOUBLE_CLICK_FIRST_PRESS, APP_DOUBLE_CLICK_TIME_MS, SYS_TIME_SINGLE);
+                            appData.clickState = APP_DOUBLE_CLICK_FIRST_PRESS;
+                        }
+                        break;
+                    }
+                    case APP_DOUBLE_CLICK_FIRST_RELEASE:
+                    {
+                        if (appData.clickTimerHandle != SYS_TIME_HANDLE_INVALID)
+                        {
+                            SYS_TIME_TimerDestroy(appData.clickTimerHandle);
+                            appData.clickTimerHandle = SYS_TIME_HANDLE_INVALID;
+
+                            appData.clickState = APP_DOUBLE_CLICK_NONE;
+
+                            if (GFX_AbsoluteValue(NavMap->transformWidth) < (int32_t)NavMap->image->width / 2)
+                            {
+                                APP_ResetNavMap(false);
+                            }
+                            else
+                            {
+                                APP_ZoomNavMap();
+                            }
+                        }
+                        break;
+                    }
+                    default:
+                        break;
+                }
+            }
+
             break;
         }
         case 1:
@@ -93,6 +148,7 @@ static void touchDownNav(laWidget* widget, laInput_TouchDownEvent* evt)
             break;
         }
     }
+    
 
     evt->event.accepted = LA_TRUE;
 }
@@ -106,6 +162,21 @@ static void touchUpNav(laWidget* widget, laInput_TouchUpEvent* evt)
         case 0:
         {
             appData.touchDown0 = false;
+            
+            if (appData.mode == MODE_NAV && appData.touchDown1 == false)
+            {
+                if (appData.clickState == APP_DOUBLE_CLICK_FIRST_PRESS)
+                {
+                    if (appData.clickTimerHandle != SYS_TIME_HANDLE_INVALID)
+                    {
+                        SYS_TIME_TimerDestroy(appData.clickTimerHandle);
+                        
+                        appData.clickTimerHandle = SYS_TIME_CallbackRegisterMS(timerCallback, APP_DOUBLE_CLICK_FIRST_RELEASE, APP_DOUBLE_CLICK_TIME_MS, SYS_TIME_SINGLE);
+                        appData.clickState = APP_DOUBLE_CLICK_FIRST_RELEASE;
+                    }
+                }
+            }
+
             break;
         }
         case 1:
@@ -133,7 +204,22 @@ static void touchMoveNav(laWidget* widget, laInput_TouchMovedEvent* evt)
     imgBounds.height = NavMap->image->height + NavMap->transformHeight;
     imgBounds.x = bounds.width / 2 - imgBounds.width / 2 + NavMap->transformX;
     imgBounds.y = bounds.height / 2 - imgBounds.height / 2 + NavMap->transformY;
+
+    appData.zoomMap = false;
+    appData.clickState = APP_DOUBLE_CLICK_NONE;
+
+    if (appData.zoomTimerHandle != SYS_TIME_HANDLE_INVALID)
+    {
+        SYS_TIME_TimerDestroy(appData.zoomTimerHandle);        
+        appData.zoomTimerHandle = SYS_TIME_HANDLE_INVALID;
+    }
     
+    if (appData.clickTimerHandle != SYS_TIME_HANDLE_INVALID)
+    {
+        SYS_TIME_TimerDestroy(appData.clickTimerHandle);        
+        appData.clickTimerHandle = SYS_TIME_HANDLE_INVALID;
+    }
+
     switch(evt->touchID)
     {
         case 0:
@@ -475,6 +561,54 @@ laResult APP_IsReadyForPreprocess(laContextPreprocessAssetsState state)
     return LA_SUCCESS;
 }
 
+void APP_ApplyPhoneEntry(uint32_t idx)
+{
+    static char charBuff[11];
+    laString str;
+    
+    switch(idx)
+    {
+        case 0:
+        {
+            sprintf(charBuff, "4807927200 ");
+            str = laString_CreateFromCharBuffer(charBuff, &NotoSans_Regular_Large);
+            TextFieldPhone->editWidget.clear((void*)TextFieldPhone);
+            TextFieldPhone->editWidget.append((void*)TextFieldPhone, str);
+            laString_Destroy(&str);
+            break;
+        }
+        case 1:
+        {
+            sprintf(charBuff, "4807924002 ");
+            str = laString_CreateFromCharBuffer(charBuff, &NotoSans_Regular_Large);
+            TextFieldPhone->editWidget.clear((void*)TextFieldPhone);
+            TextFieldPhone->editWidget.append((void*)TextFieldPhone, str);
+            laString_Destroy(&str);
+            break;
+        }
+        case 2:
+        {
+            sprintf(charBuff, "4807924722 ");
+            str = laString_CreateFromCharBuffer(charBuff, &NotoSans_Regular_Large);
+            TextFieldPhone->editWidget.clear((void*)TextFieldPhone);
+            TextFieldPhone->editWidget.append((void*)TextFieldPhone, str);
+            laString_Destroy(&str);
+            break;
+        }
+        case 3:
+        {
+            sprintf(charBuff, "4807927070 ");
+            str = laString_CreateFromCharBuffer(charBuff, &NotoSans_Regular_Large);
+            TextFieldPhone->editWidget.clear((void*)TextFieldPhone);
+            TextFieldPhone->editWidget.append((void*)TextFieldPhone, str);
+            laString_Destroy(&str);
+            break;
+        }
+        default:
+            break;
+    }    
+}
+
 void APP_CycleIconPanelImages( void )
 {
     appData.iconCount++;
@@ -525,16 +659,40 @@ void APP_ModeDown( void )
     laRadialMenuWidget_SetProminentIndex(ModeSelector, ModeSelector->prominentIndex--);
 }
 
-void APP_ResetNavMap( void )
+void APP_ResetNavMap(bool instant)
 {
-    laImagePlusWidget_SetTransformX(NavMap, 0);
-    laImagePlusWidget_SetTransformY(NavMap, 0);
+    appData.zoomRect.x = 0;
+    appData.zoomRect.y = 0;
+    
+    appData.zoomRect.width = NavMap->widget.rect.width - NavMap->image->width;
+    appData.zoomRect.height = ((appData.zoomRect.width * 100) * (int32_t)appData.aspectRatioX) / 10000;
 
-    int x = NavMap->widget.rect.width - NavMap->image->width;
-    int y = ((x * 100) * (int32_t)appData.aspectRatioX) / 10000;
+    if (instant == true)
+    {
+        appData.zoomMap = false;
+        appData.zoomTimerHandle = SYS_TIME_HANDLE_INVALID;
+        
+        laImagePlusWidget_SetTransformX(NavMap, appData.zoomRect.x);
+        laImagePlusWidget_SetTransformY(NavMap, appData.zoomRect.y);
 
-    laImagePlusWidget_SetTransformWidth(NavMap, x);
-    laImagePlusWidget_SetTransformHeight(NavMap, y);
+        laImagePlusWidget_SetTransformWidth(NavMap, appData.zoomRect.width);
+        laImagePlusWidget_SetTransformHeight(NavMap, appData.zoomRect.height);
+    }
+    else
+    {
+        appData.zoomMap = SYS_TIME_DelayMS(APP_ZOOM_DELTA_MS, &appData.zoomTimerHandle) == SYS_TIME_SUCCESS;
+    }
+}
+
+void APP_ZoomNavMap( void )
+{
+    appData.zoomRect.x = (int32_t)NavMap->image->width / -5;
+    appData.zoomRect.y = (int32_t)NavMap->image->height / -6;
+    
+    appData.zoomRect.width = (int32_t)NavMap->image->width * - 4/ 13;
+    appData.zoomRect.height = ((appData.zoomRect.width * 100) * (int32_t)appData.aspectRatioX) / 10000;
+
+    appData.zoomMap = SYS_TIME_DelayMS(APP_ZOOM_DELTA_MS, &appData.zoomTimerHandle) == SYS_TIME_SUCCESS;
 }
 
 void APP_SelectItem(int32_t value)
@@ -542,6 +700,12 @@ void APP_SelectItem(int32_t value)
     if (value == appData.mode)
         return;
     
+    if (appData.clickTimerHandle != SYS_TIME_HANDLE_INVALID)
+    {
+        SYS_TIME_TimerDestroy(appData.clickTimerHandle);        
+        appData.clickTimerHandle = SYS_TIME_HANDLE_INVALID;
+    }
+
     switch(value)
     {
         case MODE_AC:
@@ -566,7 +730,9 @@ void APP_SelectItem(int32_t value)
         }
         case MODE_NAV:
         {
-            APP_ResetNavMap();
+            APP_ResetNavMap(true);
+            
+            appData.clickState = APP_DOUBLE_CLICK_NONE;
             
             laWidget_SetEnabled((laWidget*)NavPanel, LA_TRUE);
             laWidget_SetVisible((laWidget*)NavPanel, LA_TRUE);
@@ -919,6 +1085,9 @@ void APP_Initialize ( void )
     appData.intakeMode = MODE_INTAKE;
     appData.iconCount = 0;
     appData.bufferFill = false;
+    appData.clickTimerHandle = SYS_TIME_HANDLE_INVALID;
+    appData.zoomTimerHandle = SYS_TIME_HANDLE_INVALID;
+    appData.zoomMap = false;
 }
 
 
@@ -996,10 +1165,9 @@ void APP_Tasks ( void )
             appData.aspectRatioX = GFX_PercentWholeRounded(NavMap->image->height, NavMap->image->width);
             appData.aspectRatioY = GFX_PercentWholeRounded(NavMap->image->width, NavMap->image->height);
 
-            APP_ResetNavMap();
+            APP_ResetNavMap(true);
 
             appData.state = APP_STATE_MAIN_TRANSITION;
-            
             break;            
         }
         
@@ -1079,7 +1247,7 @@ void APP_Tasks ( void )
             if (laContext_GetActive()->activeScreen->id != MainScreen_ID)
                 break;
 
-            if (!laContext_IsDrawing() && appData.bufferFill == true)
+            if (appData.bufferFill == true)
             {
                 //Request redraw of base layer to make sure both buffers are drawn correctly
                 laWidget_Invalidate(&laContext_GetActiveScreen()->layers[0]->widget);
@@ -1090,6 +1258,39 @@ void APP_Tasks ( void )
                     && MusicSelector->state == LA_RADIAL_MENU_HANDLE_USER_MOVE_REQUEST)
             {
                 APP_MoveTrayIn();
+            }
+            
+            if (appData.mode == MODE_NAV && appData.zoomMap == true)
+            {
+                if (SYS_TIME_DelayIsComplete(appData.zoomTimerHandle) == true)
+                {
+                    int x = GFX_Lerp(NavMap->transformX, appData.zoomRect.x, 50);
+                    int y = GFX_Lerp(NavMap->transformY, appData.zoomRect.y, 50);
+                    laImagePlusWidget_SetTransformX(NavMap, x);
+                    laImagePlusWidget_SetTransformY(NavMap, y);
+
+                    int width = GFX_Lerp(NavMap->transformWidth, appData.zoomRect.width, 50);       
+                    int height = GFX_Lerp(NavMap->transformHeight, appData.zoomRect.height, 50);       
+                    laImagePlusWidget_SetTransformWidth(NavMap, width);
+                    laImagePlusWidget_SetTransformHeight(NavMap, height);
+                    
+                    if (GFX_AbsoluteValue(GFX_AbsoluteValue(NavMap->transformWidth) - GFX_AbsoluteValue(appData.zoomRect.width)) < 5)
+                    {
+                        if (appData.clickTimerHandle != SYS_TIME_HANDLE_INVALID)
+                        {
+                            SYS_TIME_TimerDestroy(appData.clickTimerHandle);        
+                            appData.clickTimerHandle = SYS_TIME_HANDLE_INVALID;
+                        }
+
+                        appData.clickState = APP_DOUBLE_CLICK_NONE;
+
+                        appData.zoomMap = false;
+                    }
+                    else
+                    {
+                        appData.zoomMap = SYS_TIME_DelayMS(APP_ZOOM_DELTA_MS, &appData.zoomTimerHandle) == SYS_TIME_SUCCESS;
+                    }
+                }
             }
             
             if (LeftTrayPanel != NULL && LeftTrayLid != NULL

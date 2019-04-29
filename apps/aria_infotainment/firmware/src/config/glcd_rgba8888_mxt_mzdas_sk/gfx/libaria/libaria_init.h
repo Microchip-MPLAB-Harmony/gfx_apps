@@ -85,6 +85,7 @@ extern laImageWidget* ImageWidget3;
 extern laImageWidget* ImageWidget2;
 extern laImageWidget* ImageWidget4;
 extern laWidget* ClimateControlPanel;
+extern laImageWidget* BackgroundImage;
 extern laButtonWidget* ButtonACFace;
 extern laButtonWidget* ButtonACBoth;
 extern laButtonWidget* ButtonACFeet;

@@ -42,7 +42,6 @@
 // CUSTOM CODE - DO NOT REMOVE 
 #include "app.h"
 // CUSTOM CODE END
-
 #include "gfx/libaria/libaria_events.h"
 
 // ButtonACFace - PressedEvent
@@ -274,6 +273,16 @@ void ButtonPhonePound_ReleasedEvent(laButtonWidget* btn)
 {
     // Custom Action
     TextFieldPhone->editWidget.append((void*)TextFieldPhone, laString_CreateFromID(string_String_Pound));
+}
+
+// ListContacts - SelectionChangedEvent
+void ListContacts_SelectionChangedEvent(laListWidget* img, uint32_t idx, laBool selected)
+{
+    // Custom Action
+    if (selected == LA_TRUE)
+    {
+        APP_ApplyPhoneEntry(idx);
+    }
 }
 
 // ButtonBluetoothPhone1 - PressedEvent

@@ -67,17 +67,17 @@ SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
 #define GFX_GLCD_LAYERS 3
 #define GFX_GLCD_BACKGROUND_COLOR 0xFFFFFF00
 #define GFX_GLCD_CONFIG_CONTROL 0x80000000
-#define GFX_GLCD_CONFIG_CLK_DIVIDER 20
+#define GFX_GLCD_CONFIG_CLK_DIVIDER 24
 
 /*** GLCD Layer 0 Configuration ***/
-#define  GFX_GLCD_LAYER0_BASEADDR                      0xA8000000
-#define  GFX_GLCD_LAYER0_DBL_BASEADDR                  0xA807F800
+#define  GFX_GLCD_LAYER0_BASEADDR                      0xA8820000
+#define  GFX_GLCD_LAYER0_DBL_BASEADDR                  0xA889F800
 /*** GLCD Layer 1 Configuration ***/
-#define  GFX_GLCD_LAYER1_BASEADDR                      0xA80FF000
-#define  GFX_GLCD_LAYER1_DBL_BASEADDR                  0xA817E800
+#define  GFX_GLCD_LAYER1_BASEADDR                      0xA891F000
+#define  GFX_GLCD_LAYER1_DBL_BASEADDR                  0xA899E800
 /*** GLCD Layer 2 Configuration ***/
-#define  GFX_GLCD_LAYER2_BASEADDR                      0xA81FE000
-#define  GFX_GLCD_LAYER2_DBL_BASEADDR                  0xA827D800
+#define  GFX_GLCD_LAYER2_BASEADDR                      0xA8A1E000
+#define  GFX_GLCD_LAYER2_DBL_BASEADDR                  0xA8A9D800
 
 #define LCDC_DEFAULT_GFX_COLOR_MODE GFX_COLOR_MODE_RGBA_8888
 #define FRAMEBUFFER_PTR_TYPE    uint32_t*
