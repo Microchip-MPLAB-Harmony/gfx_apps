@@ -200,8 +200,8 @@ static void TWIHS0_InitiateTransfer(uint16_t address, bool type)
                 TWIHS0_Module->TWIHS_THR = TWIHS_THR_TXDATA(twihs0Obj.writeBuffer[twihs0Obj.writeCount++]);
 
                 // Wait for control byte to be transferred before initiating repeat start for read
-                while((TWIHS0_Module->TWIHS_SR & (TWIHS_SR_TXCOMP_Msk | TWIHS_SR_TXRDY_Msk)) != 0); 
-                while((TWIHS0_Module->TWIHS_SR & (TWIHS_SR_TXRDY_Msk)) ==0); 
+                while((TWIHS0_Module->TWIHS_SR & (TWIHS_SR_TXCOMP_Msk | TWIHS_SR_TXRDY_Msk)) != 0);
+                while((TWIHS0_Module->TWIHS_SR & (TWIHS_SR_TXRDY_Msk)) ==0);
                 type=true;
             }
         }
@@ -482,9 +482,9 @@ void TWIHS0_InterruptHandler(void)
     if( status & TWIHS_SR_TXCOMP_Msk )
     {
         /* Disable and Enable I2C Master */
-        TWIHS0_Module->TWIHS_CR = TWIHS_CR_MSDIS_Msk; 
+        TWIHS0_Module->TWIHS_CR = TWIHS_CR_MSDIS_Msk;
         TWIHS0_Module->TWIHS_CR = TWIHS_CR_MSEN_Msk;
-    
+
         /* Disable Interrupt */
         TWIHS0_Module->TWIHS_IDR = TWIHS_IDR_TXCOMP_Msk |
                                  TWIHS_IDR_TXRDY_Msk  |
@@ -500,7 +500,7 @@ void TWIHS0_InterruptHandler(void)
         twihs0Obj.state = TWIHS_STATE_ADDR_SEND;
     }
 
-    
+
     if( twihs0Obj.error == TWIHS_ERROR_NONE)
     {
         switch( twihs0Obj.state )
@@ -616,32 +616,22 @@ void TWIHS0_InterruptHandler(void)
                 break;
             }
         }
-    } else {
-        // NACK is received, generate STOP condition
-        if (twihs0Obj.state == TWIHS_STATE_WAIT_FOR_STOP)
+    }
+    if (twihs0Obj.state == TWIHS_STATE_ERROR)
+    {
+        // NACK is received,
+        twihs0Obj.state = TWIHS_STATE_IDLE;
+        TWIHS0_Module->TWIHS_IDR = TWIHS_IDR_TXCOMP_Msk | TWIHS_IDR_TXRDY_Msk | TWIHS_IDR_RXRDY_Msk;
+
+        // Disable and Enable I2C Master
+        TWIHS0_Module->TWIHS_CR = TWIHS_CR_MSDIS_Msk;
+        TWIHS0_Module->TWIHS_CR = TWIHS_CR_MSEN_Msk;
+
+        if ( twihs0Obj.callback != NULL )
         {
-            twihs0Obj.state = TWIHS_STATE_IDLE;
-            TWIHS0_Module->TWIHS_IDR = TWIHS_IDR_TXCOMP_Msk;
-            
-            // Disable and Enable I2C Master
-            TWIHS0_Module->TWIHS_CR = TWIHS_CR_MSDIS_Msk; 
-            TWIHS0_Module->TWIHS_CR = TWIHS_CR_MSEN_Msk;
-        
-            
-            if ( twihs0Obj.callback != NULL )
-            {
-                twihs0Obj.callback( twihs0Obj.context );
-            }
-            
-        } else
-        {            
-            twihs0Obj.state = TWIHS_STATE_WAIT_FOR_STOP; 
-            TWIHS0_Module->TWIHS_IDR = TWIHS_IDR_TXRDY_Msk | TWIHS_IDR_RXRDY_Msk;
-            TWIHS0_Module->TWIHS_CR = TWIHS_CR_STOP_Msk;
+            twihs0Obj.callback( twihs0Obj.context );
         }
     }
-    
-
     // check for completion of transfer
     if( twihs0Obj.state == TWIHS_STATE_TRANSFER_DONE )
     {
@@ -653,11 +643,11 @@ void TWIHS0_InterruptHandler(void)
         TWIHS0_Module->TWIHS_IDR = TWIHS_IDR_TXCOMP_Msk |
                                  TWIHS_IDR_TXRDY_Msk  |
                                  TWIHS_IDR_RXRDY_Msk;
-                                 
+
         // Disable and Enable I2C Master
-        TWIHS0_Module->TWIHS_CR = TWIHS_CR_MSDIS_Msk; 
+        TWIHS0_Module->TWIHS_CR = TWIHS_CR_MSDIS_Msk;
         TWIHS0_Module->TWIHS_CR = TWIHS_CR_MSEN_Msk;
-        
+
         if ( twihs0Obj.callback != NULL )
         {
             twihs0Obj.callback( twihs0Obj.context );
