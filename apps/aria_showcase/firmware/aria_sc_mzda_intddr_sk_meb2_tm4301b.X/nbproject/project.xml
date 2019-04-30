@@ -14,7 +14,6 @@
             <make-dep-projects/>
             <sourceRootList>
                 <sourceRootElem>../src</sourceRootElem>
-                <sourceRootElem>../../../aria_benchmark/firmware/src</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

@@ -271,11 +271,11 @@ void FifthScreen_HideEvent(laScreen* scr)
 {
     // Custom Action
     if (handleTimerPlay != SYS_TIME_HANDLE_INVALID)
-        SYS_TIME_TimerDestroy(handleTimerPlay);
-        
+    	SYS_TIME_TimerDestroy(handleTimerPlay);
+            
     if (handleTimerFF != SYS_TIME_HANDLE_INVALID)
-        SYS_TIME_TimerDestroy(handleTimerFF);
-    
+    	SYS_TIME_TimerDestroy(handleTimerFF);
+        
     handleTimerPlay = SYS_TIME_HANDLE_INVALID;
     handleTimerFF = SYS_TIME_HANDLE_INVALID;
 }
@@ -300,19 +300,19 @@ void ButtonWidget21_PressedEvent(laButtonWidget* btn)
     // FastForwardShow
     //Release Normal SS button
     laButtonWidget_SetPressed((laButtonWidget*)ButtonWidget22, LA_FALSE);
-        
+            
     //Start Fast Forward show
     if (handleTimerPlay != SYS_TIME_HANDLE_INVALID)
-        SYS_TIME_TimerDestroy(handleTimerPlay);
-        
+    	SYS_TIME_TimerDestroy(handleTimerPlay);
+            
     if (handleTimerFF != SYS_TIME_HANDLE_INVALID)
-        SYS_TIME_TimerDestroy(handleTimerFF);
-    
+    	SYS_TIME_TimerDestroy(handleTimerFF);
+        
     handleTimerPlay = SYS_TIME_HANDLE_INVALID;
     handleTimerFF = SYS_TIME_HANDLE_INVALID;
-    
+        
     handleTimerFF = SYS_TIME_CallbackRegisterMS(Timer_Callback, 1, 500, SYS_TIME_PERIODIC);
-    
+        
     laImageWidget_SetImage(SSStatusImageWidget, &GFX_FF_Green_20x20);
 }
 
@@ -321,10 +321,10 @@ void ButtonWidget21_ReleasedEvent(laButtonWidget* btn)
 {
     // Custom Action
     if (handleTimerFF != SYS_TIME_HANDLE_INVALID)
-        SYS_TIME_TimerDestroy(handleTimerFF);
-        
+    	SYS_TIME_TimerDestroy(handleTimerFF);
+            
     handleTimerFF = SYS_TIME_HANDLE_INVALID;
-    
+        
     laImageWidget_SetImage(SSStatusImageWidget, &GFX_Pause_Pink_20x20);
 }
 
@@ -334,18 +334,18 @@ void ButtonWidget22_PressedEvent(laButtonWidget* btn)
     // Custom Action
     //Release the FF button
     laButtonWidget_SetPressed((laButtonWidget*)ButtonWidget21, LA_FALSE);
-    
+        
     //Start normal slideshow
     if (handleTimerPlay != SYS_TIME_HANDLE_INVALID)
         SYS_TIME_TimerDestroy(handleTimerPlay);
     if (handleTimerFF != SYS_TIME_HANDLE_INVALID)
-        SYS_TIME_TimerDestroy(handleTimerFF);
-        
+    	SYS_TIME_TimerDestroy(handleTimerFF);
+            
     handleTimerPlay = SYS_TIME_HANDLE_INVALID;
     handleTimerFF = SYS_TIME_HANDLE_INVALID;
-    
+        
     handleTimerPlay = SYS_TIME_CallbackRegisterMS(Timer_Callback, 1, 2000, SYS_TIME_PERIODIC);
-    
+        
     laImageWidget_SetImage(SSStatusImageWidget, &GFX_Play_Green_20x20);
 }
 
@@ -354,10 +354,10 @@ void ButtonWidget22_ReleasedEvent(laButtonWidget* btn)
 {
     // Custom Action
     if (handleTimerPlay != SYS_TIME_HANDLE_INVALID)
-        SYS_TIME_TimerDestroy(handleTimerPlay);
-        
+    	SYS_TIME_TimerDestroy(handleTimerPlay);
+            
     handleTimerPlay = SYS_TIME_HANDLE_INVALID;
-    
+        
     laImageWidget_SetImage(SSStatusImageWidget, &GFX_Pause_Pink_20x20);
 }
 
@@ -419,11 +419,15 @@ void RadioButtonChinese_CheckedEvent(laRadioButtonWidget* cbox)
 // ButtonWidgetChinese - PressedEvent
 void ButtonWidgetChinese_PressedEvent(laButtonWidget* btn)
 {
+    // Custom Action
+    laRadioButtonWidget_SetSelected(RadioButtonChinese);
 }
 
 // ButtonWidgetEnglish - PressedEvent
 void ButtonWidgetEnglish_PressedEvent(laButtonWidget* btn)
 {
+    // Custom Action
+    laRadioButtonWidget_SetSelected(RadioButtonEnglish);
 }
 
 // ButtonWidget23 - ReleasedEvent
