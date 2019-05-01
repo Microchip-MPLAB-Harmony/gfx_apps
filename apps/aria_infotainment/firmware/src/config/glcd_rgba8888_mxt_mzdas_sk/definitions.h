@@ -54,13 +54,13 @@
 #include "peripheral/evic/plib_evic.h"
 #include "driver/i2c/drv_i2c.h"
 #include "system/time/sys_time.h"
+#include "system/debug/sys_debug.h"
 #include "peripheral/coretimer/plib_coretimer.h"
 #include "peripheral/i2c/plib_i2c1.h"
 #include "system/input/sys_input.h"
 #include "peripheral/uart/plib_uart2.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
-#include "system/console/sys_debug.h"
 #include "bsp/bsp.h"
 #include "peripheral/ddr/plib_ddr.h"
 #include "gfx/libaria/libaria_harmony.h"
@@ -193,8 +193,9 @@ typedef struct
     SYS_MODULE_OBJ drvI2C0;
 
     SYS_MODULE_OBJ  sysTime;
-    SYS_MODULE_OBJ  sysConsole0;
     SYS_MODULE_OBJ  sysDebug;
+
+    SYS_MODULE_OBJ  sysConsole0;
 
     SYS_MODULE_OBJ  drvMAXTOUCH;
 

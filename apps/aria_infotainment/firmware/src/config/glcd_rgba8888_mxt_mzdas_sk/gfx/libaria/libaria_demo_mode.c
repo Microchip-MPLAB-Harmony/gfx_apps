@@ -127,7 +127,9 @@ void LibAria_DemoModeAddInputEvent(uint32_t dt_ms,
         demoModeEvents.demoEvents[demoModeEvents.numEvents].y = y;
         demoModeEvents.numEvents++;
                 
+		// CUSTOM CODE - DO NOT REMOVE
         //SYS_DEBUG_Print("\nLibAria_DemoModeAddInputEvent(%u, %u, %d, %d, %d);\r", dt_ms, te, index, x, y);
+		// CUSTOM CODE END
     }
 }
 
