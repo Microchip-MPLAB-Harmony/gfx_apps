@@ -70,14 +70,14 @@ SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
 #define GFX_GLCD_CONFIG_CLK_DIVIDER 24
 
 /*** GLCD Layer 0 Configuration ***/
-#define  GFX_GLCD_LAYER0_BASEADDR                      0xA8820000
-#define  GFX_GLCD_LAYER0_DBL_BASEADDR                  0xA889F800
+#define  GFX_GLCD_LAYER0_BASEADDR                      0xA8800000
+#define  GFX_GLCD_LAYER0_DBL_BASEADDR                  0xA887F800
 /*** GLCD Layer 1 Configuration ***/
-#define  GFX_GLCD_LAYER1_BASEADDR                      0xA891F000
-#define  GFX_GLCD_LAYER1_DBL_BASEADDR                  0xA899E800
+#define  GFX_GLCD_LAYER1_BASEADDR                      0xA88FF000
+#define  GFX_GLCD_LAYER1_DBL_BASEADDR                  0xA897E800
 /*** GLCD Layer 2 Configuration ***/
-#define  GFX_GLCD_LAYER2_BASEADDR                      0xA8A1E000
-#define  GFX_GLCD_LAYER2_DBL_BASEADDR                  0xA8A9D800
+#define  GFX_GLCD_LAYER2_BASEADDR                      0xA89FE000
+#define  GFX_GLCD_LAYER2_DBL_BASEADDR                  0xA8A7D800
 
 #define LCDC_DEFAULT_GFX_COLOR_MODE GFX_COLOR_MODE_RGBA_8888
 #define FRAMEBUFFER_PTR_TYPE    uint32_t*

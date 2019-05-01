@@ -424,7 +424,7 @@ void ButtonSplashScreen_ReleasedEvent(laButtonWidget* btn)
     laContext_SetActiveScreen(SplashScreen_ID);
 
     // UpdateAppToSplash
-    APP_GoToSplashState();
+    APP_GoToSplashState(false);
 }
 
 

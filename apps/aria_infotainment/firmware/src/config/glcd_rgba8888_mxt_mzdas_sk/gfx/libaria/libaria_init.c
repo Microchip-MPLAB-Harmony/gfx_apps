@@ -489,7 +489,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_AddChild((laWidget*)ClimateControlPanel, (laWidget*)BackgroundImage);
 
     ButtonACFace = laButtonWidget_New();
-    laWidget_SetPosition((laWidget*)ButtonACFace, 4, 4);
+    laWidget_SetPosition((laWidget*)ButtonACFace, 4, 3);
     laWidget_SetSize((laWidget*)ButtonACFace, 60, 60);
     laWidget_SetScheme((laWidget*)ButtonACFace, &ButtonScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonACFace, LA_WIDGET_BACKGROUND_FILL);
@@ -502,7 +502,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_AddChild((laWidget*)BackgroundImage, (laWidget*)ButtonACFace);
 
     ButtonACBoth = laButtonWidget_New();
-    laWidget_SetPosition((laWidget*)ButtonACBoth, 4, 64);
+    laWidget_SetPosition((laWidget*)ButtonACBoth, 4, 63);
     laWidget_SetSize((laWidget*)ButtonACBoth, 60, 60);
     laWidget_SetScheme((laWidget*)ButtonACBoth, &ButtonScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonACBoth, LA_WIDGET_BACKGROUND_FILL);
@@ -515,7 +515,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_AddChild((laWidget*)BackgroundImage, (laWidget*)ButtonACBoth);
 
     ButtonACFeet = laButtonWidget_New();
-    laWidget_SetPosition((laWidget*)ButtonACFeet, 64, 64);
+    laWidget_SetPosition((laWidget*)ButtonACFeet, 64, 63);
     laWidget_SetSize((laWidget*)ButtonACFeet, 60, 60);
     laWidget_SetScheme((laWidget*)ButtonACFeet, &ButtonScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonACFeet, LA_WIDGET_BACKGROUND_FILL);
@@ -528,7 +528,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_AddChild((laWidget*)BackgroundImage, (laWidget*)ButtonACFeet);
 
     ButtonDefrost = laButtonWidget_New();
-    laWidget_SetPosition((laWidget*)ButtonDefrost, 64, 4);
+    laWidget_SetPosition((laWidget*)ButtonDefrost, 64, 3);
     laWidget_SetSize((laWidget*)ButtonDefrost, 60, 60);
     laWidget_SetScheme((laWidget*)ButtonDefrost, &ButtonScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonDefrost, LA_WIDGET_BACKGROUND_FILL);
@@ -541,7 +541,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_AddChild((laWidget*)BackgroundImage, (laWidget*)ButtonDefrost);
 
     ButtonACIntake = laButtonWidget_New();
-    laWidget_SetPosition((laWidget*)ButtonACIntake, 4, 124);
+    laWidget_SetPosition((laWidget*)ButtonACIntake, 4, 123);
     laWidget_SetSize((laWidget*)ButtonACIntake, 60, 60);
     laWidget_SetScheme((laWidget*)ButtonACIntake, &ButtonScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonACIntake, LA_WIDGET_BACKGROUND_FILL);
@@ -554,7 +554,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_AddChild((laWidget*)BackgroundImage, (laWidget*)ButtonACIntake);
 
     ButtonACLoop = laButtonWidget_New();
-    laWidget_SetPosition((laWidget*)ButtonACLoop, 64, 124);
+    laWidget_SetPosition((laWidget*)ButtonACLoop, 64, 123);
     laWidget_SetSize((laWidget*)ButtonACLoop, 60, 60);
     laWidget_SetScheme((laWidget*)ButtonACLoop, &ButtonScheme);
     laWidget_SetBackgroundType((laWidget*)ButtonACLoop, LA_WIDGET_BACKGROUND_FILL);

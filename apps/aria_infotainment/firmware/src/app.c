@@ -903,8 +903,10 @@ void APP_ToggleGPU( void )
     }
 }
 
-void APP_GoToSplashState ( void )
+void APP_GoToSplashState ( bool demoMode )
 {
+    appData.demoMode = demoMode;
+    
     appData.state = APP_STATE_SPLASH;    
 }
 
@@ -1121,7 +1123,7 @@ void APP_Tasks ( void )
            
             if (APP_IsSplashScreenComplete())
             {
-                if (!appData.launched)
+                if (!appData.launched || appData.demoMode == true)
                 {
                     appData.launched = true;
                     
@@ -1304,7 +1306,7 @@ void APP_Tasks ( void )
                         {
                             laLabelWidget_SetText(LabelGPU, laString_CreateFromID(string_String_GPUOff));
                             laWidget_Invalidate((laWidget*)ButtonGPU);
-                        }        
+                        }
                     }
                     else
                     {
@@ -1312,7 +1314,7 @@ void APP_Tasks ( void )
                         {
                             laLabelWidget_SetText(LabelGPU, laString_CreateFromID(string_String_GPUOn));            
                             laWidget_Invalidate((laWidget*)ButtonGPU);
-                        }        
+                        }
                     }
                     
 #ifdef APP_USES_ARIA_GFX_RTOS

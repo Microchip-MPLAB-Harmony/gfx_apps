@@ -62,6 +62,9 @@
 void CORE_TIMER_InterruptHandler( void );
 void I2C1_BUS_InterruptHandler( void );
 void I2C1_MASTER_InterruptHandler( void );
+void UART2_FAULT_InterruptHandler( void );
+void UART2_RX_InterruptHandler( void );
+void UART2_TX_InterruptHandler( void );
 void GLCD_Interrupt_Handler( void );
 
 
@@ -80,6 +83,21 @@ void __ISR(_I2C1_BUS_VECTOR, ipl1AUTO) I2C1_BUS_Handler (void)
 void __ISR(_I2C1_MASTER_VECTOR, ipl1AUTO) I2C1_MASTER_Handler (void)
 {
     I2C1_MASTER_InterruptHandler();
+}
+
+void __ISR(_UART2_FAULT_VECTOR, ipl1AUTO) UART2_FAULT_Handler (void)
+{
+    UART2_FAULT_InterruptHandler();
+}
+
+void __ISR(_UART2_RX_VECTOR, ipl1AUTO) UART2_RX_Handler (void)
+{
+    UART2_RX_InterruptHandler();
+}
+
+void __ISR(_UART2_TX_VECTOR, ipl1AUTO) UART2_TX_Handler (void)
+{
+    UART2_TX_InterruptHandler();
 }
 
 void __ISR(_GLCD_VECTOR, ipl1AUTO) GLCD_Handler (void)

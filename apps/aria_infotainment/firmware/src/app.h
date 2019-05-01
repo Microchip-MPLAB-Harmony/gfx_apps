@@ -181,6 +181,8 @@ typedef struct
     
     SYS_TIME_HANDLE zoomTimerHandle;
     
+    bool demoMode;
+    
 } APP_DATA;
 
 
@@ -192,7 +194,7 @@ typedef struct
 
 void APP_GoToMainState(void);
 
-void APP_GoToSplashState(void);
+void APP_GoToSplashState ( bool demoMode );
 
 void APP_GoToInfoState(void);
 
