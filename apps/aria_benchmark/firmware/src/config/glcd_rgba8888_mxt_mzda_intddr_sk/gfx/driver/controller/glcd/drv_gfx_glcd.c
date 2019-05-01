@@ -434,11 +434,11 @@ static uint32_t layerAlphaAmountGet(void)
 
 void layerSwapped(GFX_Layer* layer)
 {
-        if (layer->buffer_count > BUFFER_PER_LAYER)
+    if (layer->buffer_count > BUFFER_PER_LAYER)
         return;
 
     PLIB_GLCD_LayerBaseAddressSet(layer->id, (uint32_t)drvLayer[layer->id].baseaddr[layer->buffer_read_idx]);
-    }
+}
 
 static GFX_Result layerEnabledSet(GFX_Bool val)
 {
