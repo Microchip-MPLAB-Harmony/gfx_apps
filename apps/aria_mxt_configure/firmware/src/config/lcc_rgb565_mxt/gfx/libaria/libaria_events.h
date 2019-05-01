@@ -60,27 +60,6 @@ void mainLoadButton_ReleasedEvent(laButtonWidget* btn);
 // Generated Event Handler - Origin: mainTestButton, Event: ReleasedEvent
 void mainTestButton_ReleasedEvent(laButtonWidget* btn);
 
-// Generated Event Handler - Origin: ButtonWidget19, Event: ReleasedEvent
-void ButtonWidget19_ReleasedEvent(laButtonWidget* btn);
-
-// Generated Event Handler - Origin: stageButton, Event: ReleasedEvent
-void stageButton_ReleasedEvent(laButtonWidget* btn);
-
-// Generated Event Handler - Origin: stageSDCardButton, Event: ReleasedEvent
-void stageSDCardButton_ReleasedEvent(laButtonWidget* btn);
-
-// Generated Event Handler - Origin: stagePCButton, Event: ReleasedEvent
-void stagePCButton_ReleasedEvent(laButtonWidget* btn);
-
-// Generated Event Handler - Origin: stageProgramButton, Event: ReleasedEvent
-void stageProgramButton_ReleasedEvent(laButtonWidget* btn);
-
-// Generated Event Handler - Origin: stageUsbButton, Event: ReleasedEvent
-void stageUsbButton_ReleasedEvent(laButtonWidget* btn);
-
-// Generated Event Handler - Origin: stageNextButton, Event: ReleasedEvent
-void stageNextButton_ReleasedEvent(laButtonWidget* btn);
-
 // Generated Event Handler - Origin: load_screen, Event: ShowEvent
 void load_screen_ShowEvent(laScreen* scr);
 
@@ -89,9 +68,6 @@ void loadButton_ReleasedEvent(laButtonWidget* btn);
 
 // Generated Event Handler - Origin: ButtonWidget14, Event: ReleasedEvent
 void ButtonWidget14_ReleasedEvent(laButtonWidget* btn);
-
-// Generated Event Handler - Origin: loadProgramRadioButton, Event: CheckedEvent
-void loadProgramRadioButton_CheckedEvent(laRadioButtonWidget* cbox);
 
 // Generated Event Handler - Origin: loadProgramButton, Event: ReleasedEvent
 void loadProgramButton_ReleasedEvent(laButtonWidget* btn);

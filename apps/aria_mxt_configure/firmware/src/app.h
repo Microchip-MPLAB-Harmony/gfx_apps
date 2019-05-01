@@ -121,6 +121,9 @@ typedef enum
     /* The app closes the file*/
     APP_STATE_SDHC_CLOSE_CONFIG_FILE,
             
+    /* The app read from program flash*/
+    APP_STATE_READ_PROGRAM_FLASH,
+            
     /* The app closes the file and idles */
     APP_STATE_IDLE,
             

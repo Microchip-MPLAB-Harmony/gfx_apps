@@ -259,7 +259,8 @@ static void drawTitleBar(laWindowWidget* win)
 static void drawIcon(laWindowWidget* win)
 {
     GFX_Rect iconRect, imgSrcRect, clipRect;
-    
+	GFX_Bool alphaEnable;
+
     laLayer* layer = laUtils_GetLayer((laWidget*)win);
     
     laWindowWidget_GetIconRect(win, &iconRect, &imgSrcRect);
@@ -268,7 +269,10 @@ static void drawIcon(laWindowWidget* win)
     {
         clipRect = GFX_RectClipAdj(&iconRect, &layer->clippedDrawingRect, &imgSrcRect);
         
-        GFXU_DrawImage(win->icon,
+		GFX_Get(GFXF_DRAW_ALPHA_ENABLE, &alphaEnable);
+		GFX_Set(GFXF_DRAW_ALPHA_ENABLE, win->widget.alphaEnabled);
+
+		GFXU_DrawImage(win->icon,
                        imgSrcRect.x,
                        imgSrcRect.y,
                        imgSrcRect.width,
@@ -278,7 +282,9 @@ static void drawIcon(laWindowWidget* win)
                        &laContext_GetActive()->memIntf,
                        &win->reader);
                        
-        if(win->reader != NULL)
+		GFX_Set(GFXF_DRAW_ALPHA_ENABLE, alphaEnable);
+
+		if (win->reader != NULL)
         {
             win->widget.drawState = WAIT_ICON;
             win->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&waitIcon;
