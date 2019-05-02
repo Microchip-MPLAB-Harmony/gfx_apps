@@ -121,13 +121,8 @@ static laBool touch1_down;
 static GFX_Point center;
 static float scaleFactor;
 static float curDist, lastDist;
-static float curSlope, lastSlope;
 static n2d_orientation_t orientation=N2D_0;
-static uint32_t startTickCount;
-//static float speed;
-static uint32_t curTickCount, deltaTime;
 static int32_t scaleIndex, lastScaleIndex;  
-static uint32_t lastTickCount=0;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -373,45 +368,9 @@ static void App_GestureAreaDown(laWidget* widget, laInput_TouchDownEvent* evt)
             last0.x = curr0.x = evt->x;
             last0.y = curr0.y = evt->y;
             touch0_down = true;
-            startTickCount = SYS_TIME_CounterGet ();
-            deltaTime = startTickCount - lastTickCount;
-            lastTickCount = startTickCount;
-            
-            // check for double tap zoom
-            if ( deltaTime < 400 )
-            {
-                if ( scaleIndex == 0 )
-                {
-                    scaleIndex=60;
-                }
-                else
-                {
-                    scaleIndex=0;
-                }
-                lastScaleIndex = scaleIndex;
-                scaleFactor = 1 - (float)scaleIndex/100;
-
-                width = IMAGE_WIDTH*scaleFactor;
-                height = IMAGE_HEIGHT*scaleFactor;
-                left = IMAGE_WIDTH/2 - width/2;
-                top = IMAGE_HEIGHT/2 - height/2;
-
-                center.x = IMAGE_WIDTH/2;
-                center.y = IMAGE_HEIGHT/2;
-
-                /* shrink image to size of native display resolution */
-                rect0.x = left; rect0.y = top; rect0.width = width; rect0.height = height;
-                n2d_blit(&layer0, N2D_NULL, src, &rect0, N2D_BLEND_NONE);
-
-                evt->event.accepted = LA_TRUE;
-                
-                lastTickCount = 0;
-
-                /* bail out - no need to do anything else*/
-                return;
-            }
             break;
         }
+    
         case 1:
         {
             last1.x = curr1.x = evt->x;
@@ -427,8 +386,6 @@ static void App_GestureAreaDown(laWidget* widget, laInput_TouchDownEvent* evt)
         lastDist = (float)sqrt( (last0.x - last1.x)*(last0.x - last1.x) + 
                             (last0.y - last1.y)*(evt->y - last1.y) );
         
-        lastSlope = (float)(last0.y - last1.y)/(last0.x - last1.x);
-
     }
     
     evt->event.accepted = LA_TRUE;
@@ -436,7 +393,6 @@ static void App_GestureAreaDown(laWidget* widget, laInput_TouchDownEvent* evt)
 
 static void App_GestureAreaUp(laWidget* widget, laInput_TouchUpEvent* evt)
 {        
-//    float curYDist;//, speedY;
     
     /* retain last position */
     switch(evt->touchID)
@@ -445,10 +401,7 @@ static void App_GestureAreaUp(laWidget* widget, laInput_TouchUpEvent* evt)
         {            
             /* if single touch up with no second touch down - look for swipe or drag */
             if ( ! touch1_down )
-            {
-                curTickCount = SYS_TIME_CounterGet();
-
-                deltaTime = curTickCount - startTickCount;                
+            {              
 
                 curDist = (float)abs(evt->x - last0.x) ; // (float)sqrt( (evt->x - last0.x)*(evt->x - last0.x) + 
                 
@@ -561,8 +514,6 @@ static void App_GestureAreaMoved(laWidget* widget, laInput_TouchMovedEvent* evt)
             curDist = (float)sqrt( (evt->x - curr1.x)*(evt->x - curr1.x) + 
                 (evt->y - curr1.y)*(evt->y - curr1.y) );
             
-            curSlope = (float)(evt->y - curr1.y)/(evt->x - curr1.x);
-
             break;
         }
         case 1:
@@ -574,9 +525,7 @@ static void App_GestureAreaMoved(laWidget* widget, laInput_TouchMovedEvent* evt)
             
             curDist = (float)sqrt( (evt->x - curr0.x)*(evt->x - curr0.x) + 
                 (evt->y - curr0.y)*(evt->y - curr0.y) );
-            
-            curSlope = (float)(evt->y - curr0.y)/(evt->x - curr0.x);
-            
+                        
             break;
         }
     }
@@ -666,7 +615,6 @@ void APP_OrientButtonRelease( void )
     layer0.orientation = orientation;
     rect0.x = left; rect0.y = top; rect0.width = width; rect0.height = height;
     n2d_blit(&layer0, N2D_NULL, src, &rect0, N2D_BLEND_NONE);
-//    n2d_blit(&layer0, N2D_NULL, &stage, N2D_NULL, N2D_BLEND_NONE);
             
 }
 
