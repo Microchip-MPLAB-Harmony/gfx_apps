@@ -40,6 +40,7 @@
 // DOM-IGNORE-END
 
 #include "gfx/libaria/libaria_init.h"
+#include "gfx/libaria/inc/libaria_utils.h"
 
 laScheme controllerTitle;
 laScheme RedScheme;
@@ -769,6 +770,7 @@ static void ScreenCreate_assetLayout(laScreen* screen)
     laScreen_SetLayer(screen, 0, layer0);
 
 }
+
 
 
 

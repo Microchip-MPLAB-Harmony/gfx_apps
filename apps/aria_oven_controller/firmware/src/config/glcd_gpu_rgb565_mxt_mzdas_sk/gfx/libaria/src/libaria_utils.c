@@ -864,3 +864,135 @@ GFX_Point laUtils_ScreenToMirroredSpace(const GFX_Point* pnt,
 {
     return mirror_ptrs[ori](pnt, rect);    
 }
+
+laResult laUtils_PreprocessImage(GFXU_ImageAsset* img,
+                                uint32_t destAddress,
+                                GFX_ColorMode destMode,
+                                GFX_Bool padBuffer, 
+                                GFXU_MemoryIntf * memIntf)
+{
+    GFX_PixelBuffer buf;
+    uint32_t width = img->width;
+    uint32_t height = img->height;
+    uint32_t p;
+    GFX_Rect rect;
+    GFX_Bool alphaEnable;
+    
+    if(padBuffer == GFX_TRUE)
+    {
+        if(width && !(width & (width - 1)) == 0)
+        {
+            p = 1;
+            
+            while(width >= p)
+                p <<= 1;
+            
+            width = p;
+        }
+        
+        if(height && !(height & (height - 1)) == 0)
+        {
+            p = 1;
+            
+            while(height >= p)
+                p <<= 1;
+            
+            height = p;
+        }
+    }   
+    
+    GFX_PixelBufferCreate(width,
+                          height,
+                          destMode,
+                          (void*)destAddress,
+                          &buf);
+    
+    if((img->flags & GFXU_IMAGE_USE_MASK) > 0)
+    {
+        rect.x = 0;
+        rect.y = 0;
+        rect.width = buf.size.width;
+        rect.height = buf.size.height;
+        
+        GFX_PixelBufferAreaFill(&buf, &rect, GFX_ColorConvert(img->colorMode, destMode, img->mask));
+    }
+    else
+    {
+        memset(buf.pixels, 0, buf.buffer_length);
+    }
+    
+    GFX_Get(GFXF_DRAW_ALPHA_ENABLE, &alphaEnable);
+    GFX_Set(GFXF_DRAW_ALPHA_ENABLE, GFX_FALSE);
+    GFX_Set(GFXF_DRAW_TARGET, &buf);
+    
+    GFX_Begin();
+    
+    if (img->header.dataLocation == GFXU_ASSET_LOCATION_INTERNAL)
+    {
+        GFXU_DrawImage(img,
+                       0,
+                       0,
+                       img->width,
+                       img->height,
+                       0,
+                       0,
+                       NULL,
+                       NULL);        
+    }
+    else
+    {
+        GFXU_ExternalAssetReader* reader = NULL;
+        GFX_Result drawResult = GFX_SUCCESS;
+        
+        do
+        {
+            drawResult = GFXU_DrawImage(img,
+                                        0,
+                                        0,
+                                        img->width,
+                                        img->height,
+                                        0,
+                                        0,
+                                        memIntf,
+                                        &reader);
+            
+            if(reader != NULL)
+            {
+                while (reader->status != GFXU_READER_STATUS_FINISHED)
+                {
+                    reader->run(reader);
+                }
+                
+                if (reader != NULL)
+                {
+                    memIntf->heap.free(reader);
+                    reader = NULL;
+                }
+
+            }
+        } while (drawResult == GFX_SUCCESS && reader != NULL);
+    }
+    
+    GFX_End();
+    
+    GFX_Set(GFXF_DRAW_TARGET, NULL);
+    GFX_Set(GFXF_DRAW_ALPHA_ENABLE, alphaEnable);
+    
+    img->header.dataAddress = (void*)destAddress;
+    img->header.dataLocation = 0;
+    img->header.dataSize = buf.buffer_length;
+    img->bufferWidth = buf.size.width;
+    img->bufferHeight = buf.size.height;
+    img->format = GFXU_IMAGE_FORMAT_RAW;
+    img->compType = GFXU_IMAGE_COMPRESSION_NONE;
+    
+    if((img->flags & GFXU_IMAGE_USE_MASK) > 0)
+        img->mask = GFX_ColorConvert(img->colorMode, destMode, img->mask);
+    else
+        img->mask = 0;
+    
+    img->palette = NULL;
+    img->colorMode = destMode;
+    
+    return LA_SUCCESS;
+}

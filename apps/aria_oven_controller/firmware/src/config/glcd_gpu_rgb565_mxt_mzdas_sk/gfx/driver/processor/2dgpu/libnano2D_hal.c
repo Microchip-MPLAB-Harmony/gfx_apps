@@ -253,7 +253,8 @@ static GFX_Result drawBlit(const GFX_PixelBuffer* source,
     GFX_Rect dest_rect;
     n2d_orientation_t orientation = N2D_0;
     GFX_Context* context = GFX_ActiveContext();
-    
+    n2d_blend_t blend = N2D_BLEND_NONE;
+
     // the source address must reside in KSEG1 (cache coherent) memory
     // and the source buffer must be raw pixels as the the GPU doesn't
     // understand palettized blits
@@ -322,15 +323,30 @@ static GFX_Result drawBlit(const GFX_PixelBuffer* source,
                        0xA,
                        0xC);        
     }    
+
+    if ((state->alphaEnable == GFX_TRUE) && 
+        ((state->blendMode & GFX_BLEND_CHANNEL) == 0))
+    {
+        n2d_set_global_alpha(N2D_GLOBAL_ALPHA_ON, N2D_GLOBAL_ALPHA_OFF, state->globalAlphaValue, 0xff);
+        blend = N2D_BLEND_SRC_OVER;
+    }
+
     n2d_blit(&dest_buffer,
              (n2d_rectangle_t*)&dest_rect,
              &src_buffer,
              (n2d_rectangle_t*)srcRect,
-             N2D_BLEND_NONE);
-    
+             blend);
+
     if(state->maskEnable == GFX_TRUE)
     {
         n2d_draw_state(N2D_TRANSPARENCY_NONE, 0, 0xC, 0xC);
+    }
+
+    if ((state->alphaEnable == GFX_TRUE) && 
+        ((state->blendMode & GFX_BLEND_CHANNEL) == 0))
+    {
+        n2d_set_global_alpha(N2D_GLOBAL_ALPHA_OFF, N2D_GLOBAL_ALPHA_OFF, 0xff, 0xff);
+        blend = N2D_BLEND_NONE;
     }
     
     return GFX_SUCCESS;
@@ -344,6 +360,7 @@ static GFX_Result drawStretchBlit(const GFX_PixelBuffer* source,
     n2d_buffer_t src_buffer, dest_buffer;
     n2d_orientation_t orientation = N2D_0;
     GFX_Context* context = GFX_ActiveContext();
+    n2d_blend_t blend = N2D_BLEND_NONE;
 
     // the source address must reside in KSEG1 (cache coherent) memory
     // and the source buffer must be raw pixels as the the GPU doesn't
@@ -409,15 +426,29 @@ static GFX_Result drawStretchBlit(const GFX_PixelBuffer* source,
                        0xC);        
     }    
 
+    if ((state->alphaEnable == GFX_TRUE) && 
+        ((state->blendMode & GFX_BLEND_CHANNEL) == 0))
+    {
+        n2d_set_global_alpha(N2D_GLOBAL_ALPHA_ON, N2D_GLOBAL_ALPHA_OFF, state->globalAlphaValue, 0xff);
+        blend = N2D_BLEND_SRC_OVER;
+    }
+
     n2d_blit(&dest_buffer,
              (n2d_rectangle_t*)destRect,
              &src_buffer,
              (n2d_rectangle_t*)srcRect,
-             N2D_BLEND_NONE);
+             blend);
 
     if(state->maskEnable == GFX_TRUE)
     {
         n2d_draw_state(N2D_TRANSPARENCY_NONE, 0, 0xC, 0xC);
+    }
+
+    if ((state->alphaEnable == GFX_TRUE) && 
+        ((state->blendMode & GFX_BLEND_CHANNEL) == 0))
+    {
+        n2d_set_global_alpha(N2D_GLOBAL_ALPHA_OFF, N2D_GLOBAL_ALPHA_OFF, 0xff, 0xff);
+        blend = N2D_BLEND_NONE;
     }
     
     return GFX_SUCCESS;

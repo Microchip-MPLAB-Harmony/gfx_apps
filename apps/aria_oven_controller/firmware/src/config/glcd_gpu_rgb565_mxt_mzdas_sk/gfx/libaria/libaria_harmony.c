@@ -119,9 +119,11 @@ void LibAria_Tasks(void)
     {
         case LIBARIA_STATE_INIT:
         {
+            LIBARIA_STATES nextState = LIBARIA_STATE_RUNNING;
+
             SYS_INP_AddListener(&inputListener);
 
-            libariaState = LIBARIA_STATE_RUNNING;
+            libariaState = nextState;
 
             break;
         }
