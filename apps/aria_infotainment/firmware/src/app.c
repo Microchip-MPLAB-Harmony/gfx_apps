@@ -34,10 +34,9 @@
 #include "gfx/hal/inc/gfx_util.h"
 #include "gfx/hal/inc/gfx_math.h"
 #include "gfx/hal/inc/gfx_context.h"
-#include "gfx/libaria/libaria_init.h"
 #include "gfx/libaria/inc/libaria_utils.h"
 #include "gfx/libaria/inc/libaria_editwidget.h"
-
+#include "config/glcd_rgba8888_mxt_mzdas_sk/gfx/libaria/libaria_init.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -100,6 +99,7 @@ extern laImageWidget* RightLidArrow;
 extern laWidget* PanelUpChevron;
 extern laButtonWidget* ButtonChevronUp;
 extern laWidget* PanelDownChevron;
+extern laButtonWidget* ButtonChevronDown;
 extern laButtonWidget* ButtonACFace;
 extern laButtonWidget* ButtonACBoth;
 extern laButtonWidget* ButtonACFeet;
@@ -116,6 +116,8 @@ extern laWidget* IconPanel;
 extern laButtonWidget* ButtonNavRead;
 extern laLabelWidget* LabelGPU;
 extern laButtonWidget* ButtonGPU;
+extern laWidget* NavPanel;
+
 
 void APP_SetChevronVisibility(bool);
 
