@@ -36,6 +36,8 @@
 #include "gfx/hal/inc/gfx_context.h"
 #include "gfx/libaria/libaria_init.h"
 #include "gfx/libaria/inc/libaria_utils.h"
+#include "gfx/libaria/inc/libaria_editwidget.h"
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -72,6 +74,48 @@ int32_t maxx_Right = 0;
 
 int32_t miny = 0;
 int32_t maxy = 0;
+
+extern GFXU_FontAsset NotoSans_Regular;
+extern GFXU_FontAsset NotoSans_Regular_Large;
+
+extern laImagePlusWidget* NavMap;
+extern laWidget* LeftTrayPanel;
+extern laButtonWidget* LeftTrayLid;
+extern laWidget* RightTrayPanel;
+extern laButtonWidget* RightTrayLid;
+extern laWidget* InfoTextDragPanel;
+extern laTextFieldWidget* TextFieldPhone;
+extern laImageSequenceWidget* CellSignal;
+extern laImageSequenceWidget* BatteryPower;
+extern laImageSequenceWidget* WifiSignal;
+extern laRadialMenuWidget* ModeSelector;
+extern laWidget* ClimateControlPanel;
+extern laLabelWidget* LabelACTempLeft;
+extern laLabelWidget* LabelACTempRight;
+extern laWidget* PhonePanel;
+extern laWidget* BluetoothPanel;
+extern laWidget* MusicPanel;
+extern laListWidget* ListContacts;
+extern laImageWidget* RightLidArrow;
+extern laWidget* PanelUpChevron;
+extern laButtonWidget* ButtonChevronUp;
+extern laWidget* PanelDownChevron;
+extern laButtonWidget* ButtonACFace;
+extern laButtonWidget* ButtonACBoth;
+extern laButtonWidget* ButtonACFeet;
+extern laButtonWidget* ButtonDefrost;
+extern laButtonWidget* ButtonACIntake;
+extern laButtonWidget* ButtonACLoop;
+extern laButtonWidget* ButtonACSync;
+extern laCircularSliderWidget* CircularSliderACRight;
+extern laCircularSliderWidget* CircularSliderACLeft;
+extern laLabelWidget* LabelACTempLeft;
+extern laLabelWidget* LabelACTempRight;
+extern laRadialMenuWidget* MusicSelector;
+extern laWidget* IconPanel;
+extern laButtonWidget* ButtonNavRead;
+extern laLabelWidget* LabelGPU;
+extern laButtonWidget* ButtonGPU;
 
 void APP_SetChevronVisibility(bool);
 
@@ -199,6 +243,11 @@ static void touchMoveNav(laWidget* widget, laInput_TouchMovedEvent* evt)
     
     GFX_Rect bounds = laUtils_WidgetLocalRect((laWidget*)NavMap);
     GFX_Rect imgBounds;
+    
+    imgBounds.width = 0;
+    imgBounds.height = 0;
+    imgBounds.x = 0;
+    imgBounds.y = 0;
     
     imgBounds.width = NavMap->image->width + NavMap->transformWidth;
     imgBounds.height = NavMap->image->height + NavMap->transformHeight;
