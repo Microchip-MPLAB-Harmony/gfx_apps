@@ -416,6 +416,8 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetScheme((laWidget*)LabelWidget3, &titleLabelScheme);
     laWidget_SetBackgroundType((laWidget*)LabelWidget3, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)LabelWidget3, LA_WIDGET_BORDER_NONE);
+    laWidget_SetAlphaEnable((laWidget*)LabelWidget3, GFX_TRUE);
+    laWidget_SetAlphaAmount((laWidget*)LabelWidget3, 200);
     laLabelWidget_SetText(LabelWidget3, laString_CreateFromID(string_Title));
     laLabelWidget_SetHAlignment(LabelWidget3, LA_HALIGN_LEFT);
     laWidget_AddChild((laWidget*)layer0, (laWidget*)LabelWidget3);
@@ -435,10 +437,12 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetScheme((laWidget*)RadialMenuWidget_Main, &clearScheme);
     laWidget_SetBackgroundType((laWidget*)RadialMenuWidget_Main, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)RadialMenuWidget_Main, LA_WIDGET_BORDER_NONE);
+    laWidget_SetAlphaEnable((laWidget*)RadialMenuWidget_Main, GFX_TRUE);
+    laWidget_SetAlphaAmount((laWidget*)RadialMenuWidget_Main, 255);
     laRadialMenuWidget_SetSizeScaling(RadialMenuWidget_Main, LA_RADIAL_MENU_SCALE_GRADUAL);
     laRadialMenuWidget_SetAlphaScaling(RadialMenuWidget_Main, LA_RADIAL_MENU_SCALE_GRADUAL);
     laRadialMenuWidget_SetSizeScaleMinMax(RadialMenuWidget_Main, 30, 100);
-    laRadialMenuWidget_SetAlphaScaleMinMax(RadialMenuWidget_Main, 128, 255);
+    laRadialMenuWidget_SetAlphaScaleMinMax(RadialMenuWidget_Main, 0, 255);
     laRadialMenuWidget_SetTheta(RadialMenuWidget_Main, 0);
     laRadialMenuWidget_SetTouchArea(RadialMenuWidget_Main, 0, 81, 420, 99);
 
@@ -1212,10 +1216,10 @@ int32_t libaria_preprocess_assets(void)
     laUtils_PreprocessImage(&Bar,0xA83FD000,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
     laUtils_PreprocessImage(&question_button,0xA8416C80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
     laUtils_PreprocessImage(&HomeButton,0xA8426C80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&audio_icons_01,0xA842AC80,GFX_COLOR_MODE_ARGB_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&audio_icons_05,0xA842EC80,GFX_COLOR_MODE_ARGB_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&audio_icons_06,0xA8432C80,GFX_COLOR_MODE_ARGB_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&audio_icons_07,0xA8436C80,GFX_COLOR_MODE_ARGB_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&audio_icons_01,0xA842AC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&audio_icons_05,0xA842EC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&audio_icons_06,0xA8432C80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&audio_icons_07,0xA8436C80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
     laUtils_PreprocessImage(&portrait01,0xA843AC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
     laUtils_PreprocessImage(&portrait02,0xA845AC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
     laUtils_PreprocessImage(&portrait03,0xA847AC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
@@ -1235,13 +1239,13 @@ int32_t libaria_preprocess_assets(void)
     laUtils_PreprocessImage(&cover6,0xA86CFC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
     laUtils_PreprocessImage(&cover7,0xA86DFC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
     laUtils_PreprocessImage(&cover8,0xA86EFC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover9,0xA87BFC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&card1,0xA86FFC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&card2,0xA871FC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&card3,0xA873FC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&card4,0xA875FC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&card5,0xA877FC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&card6,0xA879FC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover9,0xA86FFC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&card1,0xA870FC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&card2,0xA872FC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&card3,0xA874FC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&card4,0xA876FC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&card5,0xA878FC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&card6,0xA87AFC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
     laUtils_PreprocessImage(&info_text,0xA82FD000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
 
     return 0;

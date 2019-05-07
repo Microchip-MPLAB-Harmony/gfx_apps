@@ -145,7 +145,7 @@ extern GFXU_ImageAsset vertical_touch;
  * GFX Image Asset
  * Name:   audio_icons_01
  * Size:   64x64 pixels
- * Mode:   RGB_888
+ * Mode:   RGB_565
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset audio_icons_01;
@@ -154,7 +154,7 @@ extern GFXU_ImageAsset audio_icons_01;
  * GFX Image Asset
  * Name:   audio_icons_05
  * Size:   64x64 pixels
- * Mode:   RGB_888
+ * Mode:   RGB_565
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset audio_icons_05;
@@ -163,7 +163,7 @@ extern GFXU_ImageAsset audio_icons_05;
  * GFX Image Asset
  * Name:   audio_icons_06
  * Size:   64x64 pixels
- * Mode:   RGB_888
+ * Mode:   RGB_565
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset audio_icons_06;
@@ -172,7 +172,7 @@ extern GFXU_ImageAsset audio_icons_06;
  * GFX Image Asset
  * Name:   audio_icons_07
  * Size:   64x64 pixels
- * Mode:   RGB_888
+ * Mode:   RGB_565
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset audio_icons_07;

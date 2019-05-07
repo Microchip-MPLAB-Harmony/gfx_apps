@@ -58,78 +58,9 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "app_splash.h"
 #include "gfx/hal/inc/gfx_math.h"
 #include "gfx/hal/inc/gfx_context.h"
+#include "gfx/libaria/libaria_init.h"
 #include "gfx/libaria/inc/libaria_context.h"
 #include "gfx/gfx_assets.h"
-#include "config/glcd_rgba8888_mxt_mzdas_sk/gfx/libaria/libaria_init.h"
-
-extern laScheme defaultScheme;
-extern laScheme clearScheme;
-extern laScheme labelModeScheme1;
-extern laScheme titleLabelScheme;
-extern laScheme labelModeScheme0;
-extern laScheme labelModeScheme3;
-extern laScheme GradientScheme;
-extern laScheme labelModeScheme2;
-extern laScheme blackScheme;
-extern laImageWidget* ImageWidget1;
-extern laImageWidget* ImageWidget3;
-extern laImageWidget* ImageWidget2;
-extern laImageWidget* ImageWidget4;
-extern laImageWidget* ImageWidget;
-extern laLabelWidget* LabelWidget3;
-extern laRadialMenuWidget* RadialMenuWidget_Main;
-extern laImagePlusWidget* RadialMenuWidget_Main_Item0;
-extern laImagePlusWidget* RadialMenuWidget_Main_Item1;
-extern laImagePlusWidget* RadialMenuWidget_Main_Item2;
-extern laImagePlusWidget* RadialMenuWidget_Main_Item3;
-extern laButtonWidget* InfoButton;
-extern laLabelWidget* ModeLabel;
-extern laImageWidget* InfoPageHarmonyLogo;
-extern laImageWidget* ImageWidget7;
-extern laImageWidget* ImageWidget;
-extern laWidget* InfoTextDragPanel;
-extern laImageWidget* InfoTextImage;
-extern laWidget* PanelWidget1;
-extern laLabelWidget* TextTitle;
-extern laButtonWidget* ReturnToMainButton;
-extern laButtonWidget* ButtonWidget;
-extern laImageWidget* ImageWidget;
-extern laLabelWidget* LabelWidget;
-extern laButtonWidget* ButtonWidget4;
-extern laRadialMenuWidget* RadialMenuWidget_Album;
-extern laImagePlusWidget* RadialMenuWidget_Album_Item0;
-extern laImagePlusWidget* RadialMenuWidget_Album_Item1;
-extern laImagePlusWidget* RadialMenuWidget_Album_Item2;
-extern laImagePlusWidget* RadialMenuWidget_Album_Item3;
-extern laImagePlusWidget* RadialMenuWidget_Album_Item4;
-extern laImagePlusWidget* RadialMenuWidget_Album_Item5;
-extern laImagePlusWidget* RadialMenuWidget_Album_Item6;
-extern laImagePlusWidget* RadialMenuWidget_Album_Item7;
-extern laImagePlusWidget* RadialMenuWidget_Album_Item8;
-extern laImagePlusWidget* RadialMenuWidget_Album_Item9;
-extern laButtonWidget* ButtonWidget2;
-extern laImageWidget* ImageWidget;
-extern laLabelWidget* LabelWidget7;
-extern laRadialMenuWidget* RadialMenuWidget_Business;
-extern laImagePlusWidget* RadialMenuWidget_Business_Item0;
-extern laImagePlusWidget* RadialMenuWidget_Business_Item1;
-extern laImagePlusWidget* RadialMenuWidget_Business_Item2;
-extern laImagePlusWidget* RadialMenuWidget_Business_Item3;
-extern laImagePlusWidget* RadialMenuWidget_Business_Item4;
-extern laImagePlusWidget* RadialMenuWidget_Business_Item5;
-extern laButtonWidget* ButtonWidget8;
-extern laButtonWidget* ButtonWidget6;
-extern laLabelWidget* LabelWidget2;
-extern laRadialMenuWidget* RadialMenuWidget4;
-extern laImagePlusWidget* RadialMenuWidget4_Item0;
-extern laImagePlusWidget* RadialMenuWidget4_Item1;
-extern laImagePlusWidget* RadialMenuWidget4_Item2;
-extern laImagePlusWidget* RadialMenuWidget4_Item3;
-extern laImagePlusWidget* RadialMenuWidget4_Item4;
-extern laImagePlusWidget* RadialMenuWidget4_Item5;
-extern laImagePlusWidget* RadialMenuWidget4_Item6;
-extern laButtonWidget* ButtonWidget3;
-extern laButtonWidget* ButtonWidget1;
 
 // *****************************************************************************
 // *****************************************************************************

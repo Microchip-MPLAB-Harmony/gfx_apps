@@ -61,11 +61,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #define DELAY_IN_TICKS       2000000
 #define GET_TICKS() __builtin_mfc0(9, 0)
 
-extern laImageWidget* ImageWidget1;
-extern laImageWidget* ImageWidget3;
-extern laImageWidget* ImageWidget2;
-extern laImageWidget* ImageWidget4;
-
 // *****************************************************************************
 /* Application Splash Data
 
