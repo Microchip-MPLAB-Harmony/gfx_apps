@@ -168,6 +168,8 @@ typedef struct
     
     bool rotateDone;
     
+    bool demoMode;
+    
     int32_t touchMenuItemX;
 
     int32_t touchMenuItemY;
@@ -184,7 +186,7 @@ typedef struct
 // *****************************************************************************
 /* These routines are called by drivers when certain events occur.
 */
-void APP_GoToSplashState(void);
+void APP_GoToSplashState ( bool demoMode );
 
 void APP_GoToInfoState(void);
 

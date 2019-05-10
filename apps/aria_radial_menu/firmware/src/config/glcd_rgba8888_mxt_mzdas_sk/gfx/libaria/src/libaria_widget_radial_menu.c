@@ -465,7 +465,10 @@ laWidgetUpdateState _laRadialMenuWidget_Update(laRadialMenuWidget* mn)
                         mn->prominentIndex = laRadialMenuWidget_GetProminentIndex(mn);
                         prominentItem = laList_Get(&mn->widgetList, mn->prominentIndex);
                         
-                        diffAngle = (PROMINENT_ANGLE - prominentItem->t) * -1;
+                        if (prominentItem != NULL)
+                        {
+                            diffAngle = (PROMINENT_ANGLE - prominentItem->t) * -1;
+                        }
 
                         //if the item is past the prominent, roll to the next one
                         if (abs(diffAngle) >= 5

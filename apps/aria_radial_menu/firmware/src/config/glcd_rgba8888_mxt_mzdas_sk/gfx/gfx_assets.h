@@ -415,8 +415,8 @@ extern GFXU_ImageAsset card6;
  * GFX Image Asset
  * Name:   info_text
  * Size:   480x384 pixels
- * Mode:   GS_8
- * Format: RAW
+ * Mode:   RGB_888
+ * Format: JPEG
  ***********************************/
 extern GFXU_ImageAsset info_text;
 	

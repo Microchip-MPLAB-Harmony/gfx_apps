@@ -216,10 +216,10 @@ bool UART2_SerialSetup( UART_SERIAL_SETUP *setup, uint32_t srcClkFreq )
     return status;
 }
 
-bool UART2_Read( void *buffer, const size_t size )
+bool UART2_Read(void* buffer, const size_t size )
 {
     bool status = false;
-    uint8_t * lBuffer = (uint8_t *)buffer;
+    uint8_t* lBuffer = (uint8_t* )buffer;
 
     if(lBuffer != NULL)
     {
@@ -235,22 +235,22 @@ bool UART2_Read( void *buffer, const size_t size )
             uart2Obj.rxProcessedSize = 0;
             uart2Obj.rxBusyStatus = true;
             status = true;
+
+            /* Enable UART2_FAULT Interrupt */
+            IEC4SET = _IEC4_U2EIE_MASK;
+
+            /* Enable UART2_RX Interrupt */
+            IEC4SET = _IEC4_U2RXIE_MASK;
         }
-
-        /* Enable UART2_FAULT Interrupt */
-        IEC4SET = _IEC4_U2EIE_MASK;
-
-        /* Enable UART2_RX Interrupt */
-        IEC4SET = _IEC4_U2RXIE_MASK;
     }
 
     return status;
 }
 
-bool UART2_Write( void *buffer, const size_t size )
+bool UART2_Write( void* buffer, const size_t size )
 {
     bool status = false;
-    uint8_t * lBuffer = (uint8_t *)buffer;
+    uint8_t* lBuffer = (uint8_t*)buffer;
 
     if(lBuffer != NULL)
     {
@@ -293,7 +293,6 @@ UART_ERROR UART2_ErrorGet( void )
     return errors;
 }
 
-
 void UART2_ReadCallbackRegister( UART_CALLBACK callback, uintptr_t context )
 {
     uart2Obj.rxCallback = callback;
@@ -330,21 +329,19 @@ size_t UART2_WriteCountGet( void )
 
 void UART2_FAULT_InterruptHandler (void)
 {
+    /* Clear size and rx status */
+    uart2Obj.rxBusyStatus = false;
+
+    /* Disable the fault interrupt */
+    IEC4CLR = _IEC4_U2EIE_MASK;
+    /* Disable the receive interrupt */
+    IEC4CLR = _IEC4_U2RXIE_MASK;
+
     /* Client must call UARTx_ErrorGet() function to clear the errors */
     if( uart2Obj.rxCallback != NULL )
     {
         uart2Obj.rxCallback(uart2Obj.rxContext);
     }
-
-    /* Clear size and rx status */
-    uart2Obj.rxBusyStatus = false;
-    uart2Obj.rxSize = 0;
-    uart2Obj.rxProcessedSize = 0;
-
-    UART2_ErrorClear();
-
-    /* Disable the fault interrupt */
-    IEC4CLR = _IEC4_U2EIE_MASK;
 }
 
 void UART2_RX_InterruptHandler (void)
@@ -363,8 +360,6 @@ void UART2_RX_InterruptHandler (void)
         if(uart2Obj.rxProcessedSize >= uart2Obj.rxSize)
         {
             uart2Obj.rxBusyStatus = false;
-            uart2Obj.rxSize = 0;
-            uart2Obj.rxProcessedSize = 0;
 
             /* Disable the receive interrupt */
             IEC4CLR = _IEC4_U2RXIE_MASK;
@@ -398,8 +393,6 @@ void UART2_TX_InterruptHandler (void)
         if(uart2Obj.txProcessedSize >= uart2Obj.txSize)
         {
             uart2Obj.txBusyStatus = false;
-            uart2Obj.txSize = 0;
-            uart2Obj.txProcessedSize = 0;
 
             /* Disable the transmit interrupt, to avoid calling ISR continuously */
             IEC4CLR = _IEC4_U2TXIE_MASK;
@@ -416,4 +409,5 @@ void UART2_TX_InterruptHandler (void)
         ;
     }
 }
+
 

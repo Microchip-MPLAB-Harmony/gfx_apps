@@ -423,7 +423,7 @@ static GFX_Result drawStretchBlit(const GFX_PixelBuffer* source,
         n2d_draw_state(N2D_TRANSPARENCY_SOURCE,
                        color,
                        0xA,
-                       0xC);
+                       0xC);        
     }    
 
     if ((state->alphaEnable == GFX_TRUE) && 

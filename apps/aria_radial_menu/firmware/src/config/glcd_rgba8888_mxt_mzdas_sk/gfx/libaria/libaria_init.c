@@ -65,7 +65,6 @@ laImagePlusWidget* RadialMenuWidget_Main_Item3;
 laButtonWidget* InfoButton;
 laLabelWidget* ModeLabel;
 laImageWidget* InfoPageHarmonyLogo;
-laImageWidget* ImageWidget7;
 laImageWidget* ImageWidget;
 laWidget* InfoTextDragPanel;
 laImageWidget* InfoTextImage;
@@ -73,6 +72,7 @@ laWidget* PanelWidget1;
 laLabelWidget* TextTitle;
 laButtonWidget* ReturnToMainButton;
 laButtonWidget* ButtonWidget;
+laImageWidget* ImageWidget7;
 laImageWidget* ImageWidget;
 laLabelWidget* LabelWidget;
 laButtonWidget* ButtonWidget4;
@@ -437,10 +437,8 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetScheme((laWidget*)RadialMenuWidget_Main, &clearScheme);
     laWidget_SetBackgroundType((laWidget*)RadialMenuWidget_Main, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)RadialMenuWidget_Main, LA_WIDGET_BORDER_NONE);
-    laWidget_SetAlphaEnable((laWidget*)RadialMenuWidget_Main, GFX_TRUE);
-    laWidget_SetAlphaAmount((laWidget*)RadialMenuWidget_Main, 255);
     laRadialMenuWidget_SetSizeScaling(RadialMenuWidget_Main, LA_RADIAL_MENU_SCALE_GRADUAL);
-    laRadialMenuWidget_SetAlphaScaling(RadialMenuWidget_Main, LA_RADIAL_MENU_SCALE_GRADUAL);
+    laRadialMenuWidget_SetAlphaScaling(RadialMenuWidget_Main, LA_RADIAL_MENU_SCALE_OFF);
     laRadialMenuWidget_SetSizeScaleMinMax(RadialMenuWidget_Main, 30, 100);
     laRadialMenuWidget_SetAlphaScaleMinMax(RadialMenuWidget_Main, 0, 255);
     laRadialMenuWidget_SetTheta(RadialMenuWidget_Main, 0);
@@ -558,16 +556,6 @@ static void ScreenCreate_InfoScreen(laScreen* screen)
     laImageWidget_SetImage(InfoPageHarmonyLogo, &HarmonyLogo);
     laWidget_AddChild((laWidget*)layer0, (laWidget*)InfoPageHarmonyLogo);
 
-    ImageWidget7 = laImageWidget_New();
-    laWidget_SetPosition((laWidget*)ImageWidget7, 431, 117);
-    laWidget_SetSize((laWidget*)ImageWidget7, 30, 34);
-    laWidget_SetBackgroundType((laWidget*)ImageWidget7, LA_WIDGET_BACKGROUND_NONE);
-    laWidget_SetBorderType((laWidget*)ImageWidget7, LA_WIDGET_BORDER_NONE);
-    laWidget_SetAlphaEnable((laWidget*)ImageWidget7, GFX_TRUE);
-    laWidget_SetAlphaAmount((laWidget*)ImageWidget7, 128);
-    laImageWidget_SetImage(ImageWidget7, &vertical_touch);
-    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget7);
-
     ImageWidget = laImageWidget_New();
     laWidget_SetPosition((laWidget*)ImageWidget, 21, 62);
     laWidget_SetSize((laWidget*)ImageWidget, 100, 100);
@@ -581,6 +569,8 @@ static void ScreenCreate_InfoScreen(laScreen* screen)
     laWidget_SetBackgroundType((laWidget*)layer1, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetScheme((laWidget*)layer1, &clearScheme);
     laLayer_SetBufferCount(layer1, 2);
+    laLayer_SetAlphaEnable(layer1, LA_TRUE);
+    laLayer_SetAlphaAmount(layer1, 0xD2);
 
     laScreen_SetLayer(screen, 1, layer1);
 
@@ -648,6 +638,16 @@ static void ScreenCreate_InfoScreen(laScreen* screen)
     laButtonWidget_SetReleasedEventCallback(ButtonWidget, &ButtonWidget_ReleasedEvent);
 
     laWidget_AddChild((laWidget*)layer2, (laWidget*)ButtonWidget);
+
+    ImageWidget7 = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageWidget7, 431, 117);
+    laWidget_SetSize((laWidget*)ImageWidget7, 30, 34);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget7, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget7, LA_WIDGET_BORDER_NONE);
+    laWidget_SetAlphaEnable((laWidget*)ImageWidget7, GFX_TRUE);
+    laWidget_SetAlphaAmount((laWidget*)ImageWidget7, 128);
+    laImageWidget_SetImage(ImageWidget7, &vertical_touch);
+    laWidget_AddChild((laWidget*)layer2, (laWidget*)ImageWidget7);
 
 }
 

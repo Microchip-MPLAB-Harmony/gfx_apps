@@ -138,8 +138,10 @@ static void touchMovedUpDown(laWidget* widget, laInput_TouchMovedEvent* evt)
 	evt->event.accepted = LA_TRUE;
 }
 
-void APP_GoToSplashState(void)
+void APP_GoToSplashState( bool demoMode )
 {
+    appData.demoMode = demoMode;
+    
 	appData.state = APP_STATE_SPLASH;
 }
 
@@ -281,20 +283,20 @@ void APP_Tasks ( void )
 			
 			if (APP_IsSplashScreenComplete())
             {
-				if (!appData.launched)
+				if (!appData.launched || appData.demoMode == true)
 				{
 					appData.state = APP_STATE_MAIN;
 
 					appData.launched = true;
 					appData.gpuButtonNeedsUpdate = true;
 
-					laContext_SetActiveScreen(1);
+					laContext_SetActiveScreen(MainScreen_ID);
 				}
 				else
 				{
 					appData.state = APP_STATE_INFO;
 
-					laContext_SetActiveScreen(2);
+					laContext_SetActiveScreen(InfoScreen_ID);
 				}
             }
             break;
