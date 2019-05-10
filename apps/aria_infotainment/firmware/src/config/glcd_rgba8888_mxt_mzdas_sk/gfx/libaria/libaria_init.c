@@ -1930,7 +1930,7 @@ int32_t libaria_preprocess_assets(void)
     laUtils_PreprocessImage(&microchip_button,0xA8D0C470,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
     laUtils_PreprocessImage(&info_text_en,0xA8D10470,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
     laUtils_PreprocessImage(&Background,0xA8E10470,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&ChargeMap,0xA8000000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&ChargeMap,0xA82FD000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
 
     return 0;
 }

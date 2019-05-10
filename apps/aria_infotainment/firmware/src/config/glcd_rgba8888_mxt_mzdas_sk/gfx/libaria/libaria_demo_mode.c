@@ -78,7 +78,6 @@ typedef struct
     uint32_t prevEventTick;
     volatile uint32_t recordTicks;
     volatile uint32_t demoEventFlags;
-    uint32_t idleTimeOutMSECS;
     uint32_t numEvents;
     uint32_t maxEvents;
     int32_t pendingEvent;
@@ -89,6 +88,7 @@ typedef struct
 } LIBARIA_DEMO_EVENTS_t;
 
 static LIBARIA_DEMO_EVENTS_t demoModeEvents;
+static unsigned int demoModeTimeElapsedSecs = 0;
 static SYS_INP_InputListener inputListener;
 
 static void LibAria_RestartDemoModeTimerCallback(uintptr_t context)
@@ -102,7 +102,13 @@ static void LibAria_DemoModeRunTimerCallback(uintptr_t context)
 
 static void LibAria_DemoModeStartTimerCallback (uintptr_t context)
 {
-    LibAria_DemoModeSendEvent(DEMO_EVENT_START);
+    demoModeTimeElapsedSecs++;
+    
+    if (demoModeTimeElapsedSecs > DEMO_IDLE_TIMEOUT_S)
+    {
+        LibAria_DemoModeSendEvent(DEMO_EVENT_START);
+        demoModeTimeElapsedSecs = 0;
+    }
 }
 
 
@@ -698,7 +704,6 @@ void LibAria_DemoModeProcessEvents(void)
         case DEMO_INIT:
         {
             demoModeEvents.numEvents = 0; 
-            demoModeEvents.idleTimeOutMSECS = DEMO_IDLE_TIMEOUT_S*1000;
             demoModeEvents.maxEvents = MAX_DEMO_EVENTS;
             demoModeEvents.pendingEvent = 0;
             demoModeEvents.demoEventFlags = 0;
@@ -706,14 +711,14 @@ void LibAria_DemoModeProcessEvents(void)
             demoModeEvents.demoTimeoutTimer = SYS_TIME_HANDLE_INVALID;
             demoModeEvents.recordTickTimer = SYS_TIME_HANDLE_INVALID;
 
-                demoModeEvents.state = DEMO_IDLE;
+            demoModeEvents.state = DEMO_IDLE;
             
             //Start timeout timer
             demoModeEvents.demoTimeoutTimer = SYS_TIME_CallbackRegisterMS
                                               (LibAria_DemoModeStartTimerCallback,
                                               (uintptr_t) & demoModeEvents,
-                                              demoModeEvents.idleTimeOutMSECS,
-                                              SYS_TIME_SINGLE);
+                                              1000,
+                                              SYS_TIME_PERIODIC);
             break;
         }
         case DEMO_IDLE:
@@ -729,15 +734,8 @@ void LibAria_DemoModeProcessEvents(void)
             {
                 demoModeEvents.demoEventFlags &= ~DEMO_EVENT_INPUT;
                 
-                //Restart the idle timeout timer
-                if (demoModeEvents.demoTimeoutTimer != SYS_TIME_HANDLE_INVALID)
-                    SYS_TIME_TimerDestroy(demoModeEvents.demoTimeoutTimer);
-                
-                demoModeEvents.demoTimeoutTimer = SYS_TIME_CallbackRegisterMS
-                                                (LibAria_DemoModeStartTimerCallback,
-                                                (uintptr_t) & demoModeEvents,
-                                                demoModeEvents.idleTimeOutMSECS,
-                                                SYS_TIME_SINGLE);  
+                //Reset the idle timeout counter
+                demoModeTimeElapsedSecs = 0;
                 
                 demoModeEvents.state = DEMO_IDLE;
             }
@@ -824,20 +822,8 @@ void LibAria_DemoModeProcessEvents(void)
                 // Clear all events
                 demoModeEvents.demoEventFlags = 0;
                 
-                //Restart the idle timeout timer
-                if (demoModeEvents.demoRunTimer != SYS_TIME_HANDLE_INVALID)
-                    SYS_TIME_TimerDestroy(demoModeEvents.demoRunTimer);
-
-                demoModeEvents.demoRunTimer = SYS_TIME_HANDLE_INVALID;
-
-                if (demoModeEvents.demoTimeoutTimer != SYS_TIME_HANDLE_INVALID)
-                    SYS_TIME_TimerDestroy(demoModeEvents.demoTimeoutTimer);
-                
-                demoModeEvents.demoTimeoutTimer = SYS_TIME_CallbackRegisterMS
-                                                (LibAria_DemoModeStartTimerCallback,
-                                                (uintptr_t) & demoModeEvents,
-                                                demoModeEvents.idleTimeOutMSECS,
-                                                SYS_TIME_SINGLE); 
+                //Reset the timeout counter
+                demoModeTimeElapsedSecs = 0;
                 
                 demoModeEvents.state = DEMO_IDLE;
             }
@@ -925,14 +911,8 @@ void LibAria_DemoModeProcessEvents(void)
 
                 demoModeEvents.demoRunTimer = SYS_TIME_HANDLE_INVALID;
 
-                if (demoModeEvents.demoTimeoutTimer != SYS_TIME_HANDLE_INVALID)
-                    SYS_TIME_TimerDestroy(demoModeEvents.demoTimeoutTimer);
-
-                demoModeEvents.demoTimeoutTimer = SYS_TIME_CallbackRegisterMS
-                                                (LibAria_DemoModeStartTimerCallback,
-                                                (uintptr_t) & demoModeEvents,
-                                                demoModeEvents.idleTimeOutMSECS,
-                                                SYS_TIME_SINGLE);      
+                //Reset the timeout counter
+                demoModeTimeElapsedSecs = 0;    
 
                 demoModeEvents.state = DEMO_IDLE;
             }

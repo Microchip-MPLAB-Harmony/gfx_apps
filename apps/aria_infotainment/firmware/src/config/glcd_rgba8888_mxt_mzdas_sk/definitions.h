@@ -53,8 +53,8 @@
 #include "peripheral/gpio/plib_gpio.h"
 #include "peripheral/evic/plib_evic.h"
 #include "driver/i2c/drv_i2c.h"
-#include "system/time/sys_time.h"
 #include "system/debug/sys_debug.h"
+#include "system/time/sys_time.h"
 #include "peripheral/coretimer/plib_coretimer.h"
 #include "peripheral/i2c/plib_i2c1.h"
 #include "system/input/sys_input.h"
@@ -192,9 +192,9 @@ typedef struct
     /* I2C0 Driver Object */
     SYS_MODULE_OBJ drvI2C0;
 
-    SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ  sysDebug;
 
+    SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ  sysConsole0;
 
     SYS_MODULE_OBJ  drvMAXTOUCH;

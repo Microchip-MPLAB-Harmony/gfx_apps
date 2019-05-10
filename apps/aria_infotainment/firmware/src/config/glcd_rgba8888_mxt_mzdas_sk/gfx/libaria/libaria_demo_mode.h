@@ -73,8 +73,8 @@ typedef enum
 #define DEMO_EVENT_RESTART      (1 << 4)
     
 #define MAX_DEMO_EVENTS 1500
-#define DEMO_IDLE_TIMEOUT_S 30
-#define DEMO_REPEAT_TIMEOUT_S 10
+#define DEMO_IDLE_TIMEOUT_S 20
+#define DEMO_REPEAT_TIMEOUT_S 5
 
 /** 
   @Function

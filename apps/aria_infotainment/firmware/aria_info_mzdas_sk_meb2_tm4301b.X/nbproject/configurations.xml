@@ -167,7 +167,7 @@
             <logicalFolder name="f4" displayName="console" projectFiles="true">
               <itemPath>../src/config/glcd_rgba8888_mxt_mzdas_sk/system/console/sys_console.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="debug" projectFiles="true">
+            <logicalFolder name="f1" displayName="debug" projectFiles="true">
               <itemPath>../src/config/glcd_rgba8888_mxt_mzdas_sk/system/debug/sys_debug.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f3" displayName="input" projectFiles="true">
@@ -182,7 +182,7 @@
               <itemPath>../src/config/glcd_rgba8888_mxt_mzdas_sk/system/int/sys_int.h</itemPath>
               <itemPath>../src/config/glcd_rgba8888_mxt_mzdas_sk/system/int/sys_int_mapping.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f1" displayName="time" projectFiles="true">
+            <logicalFolder name="f2" displayName="time" projectFiles="true">
               <itemPath>../src/config/glcd_rgba8888_mxt_mzdas_sk/system/time/sys_time.h</itemPath>
               <itemPath>../src/config/glcd_rgba8888_mxt_mzdas_sk/system/time/sys_time_definitions.h</itemPath>
               <itemPath>../src/config/glcd_rgba8888_mxt_mzdas_sk/system/time/src/sys_time_local.h</itemPath>
@@ -425,7 +425,7 @@
               <itemPath>../src/config/glcd_rgba8888_mxt_mzdas_sk/system/console/src/sys_console_uart_definitions.h</itemPath>
               <itemPath>../src/config/glcd_rgba8888_mxt_mzdas_sk/system/console/src/sys_console_uart.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f2" displayName="debug" projectFiles="true">
+            <logicalFolder name="f1" displayName="debug" projectFiles="true">
               <itemPath>../src/config/glcd_rgba8888_mxt_mzdas_sk/system/debug/src/sys_debug_local.h</itemPath>
               <itemPath>../src/config/glcd_rgba8888_mxt_mzdas_sk/system/debug/src/sys_debug.c</itemPath>
             </logicalFolder>
@@ -436,7 +436,7 @@
             <logicalFolder name="f5" displayName="int" projectFiles="true">
               <itemPath>../src/config/glcd_rgba8888_mxt_mzdas_sk/system/int/src/sys_int.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f1" displayName="time" projectFiles="true">
+            <logicalFolder name="f2" displayName="time" projectFiles="true">
               <itemPath>../src/config/glcd_rgba8888_mxt_mzdas_sk/system/time/src/sys_time.c</itemPath>
             </logicalFolder>
           </logicalFolder>
@@ -469,7 +469,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>RealICEPlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.15</languageToolchainVersion>
+        <languageToolchainVersion>2.20</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
