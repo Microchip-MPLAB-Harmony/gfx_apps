@@ -947,7 +947,10 @@ void DRV_MAXTOUCH_ConfigLoad ( SYS_MODULE_OBJ object, DRV_MAXTOUCH_Firmware * fi
     pDrvObject->reader = firmware->reader;
     pDrvObject->eof = firmware->eof;
 
-//    mxt_configure_objects(pDrvObject, firmware);
+    mxt_configure_objects(pDrvObject, firmware);
+    firmware->mem = &pDrvObject->data.config_mem;
+    firmware->mem_size = pDrvObject->data.config_mem_size;
+
     SYS_TIME_TimerDestroy(resetTimer);
 
     resetTimer = SYS_TIME_CallbackRegisterMS(resetTimer_Callback, 

@@ -241,6 +241,9 @@ static void drawImage(laImagePlusWidget* img)
 	GFX_Get(GFXF_DRAW_ALPHA_ENABLE, &alphaEnable);
 	GFX_Set(GFXF_DRAW_ALPHA_ENABLE, img->widget.alphaEnabled);
 
+	GFX_Set(GFXF_DRAW_MASK_ENABLE, (img->image->flags & GFXU_IMAGE_USE_MASK) > 0);
+	GFX_Set(GFXF_DRAW_MASK_VALUE, img->image->mask);
+
 	GFX_DrawStretchBlit(&img->buffer,
                         imgSrcRect.x,
                         imgSrcRect.y,
@@ -251,6 +254,7 @@ static void drawImage(laImagePlusWidget* img)
                         imgRect.width,
                         imgRect.height);
     
+	GFX_Set(GFXF_DRAW_MASK_ENABLE, GFX_FALSE);
 	GFX_Set(GFXF_DRAW_ALPHA_ENABLE, alphaEnable);
 
 	nextState(img);
