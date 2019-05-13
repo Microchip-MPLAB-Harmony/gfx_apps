@@ -47,7 +47,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 const char* driverName = "Nano 2D";
 
-#define CMD_BUFFER_SIZE  32768
+#define CMD_BUFFER_SIZE  8192
 uint32_t __attribute__((coherent, aligned(32))) commandBuffer[CMD_BUFFER_SIZE];
 
 // GPU command buffer seems to work better when placed in DDR
