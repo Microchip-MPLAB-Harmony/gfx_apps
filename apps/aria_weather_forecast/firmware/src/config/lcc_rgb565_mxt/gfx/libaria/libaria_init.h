@@ -133,6 +133,9 @@ extern laLabelWidget* LabelWidget_Friday;
 extern laLabelWidget* LabelWidget_Saturday;
 
 
+
+
+
 int32_t libaria_initialize(void);
 
 //DOM-IGNORE-BEGIN

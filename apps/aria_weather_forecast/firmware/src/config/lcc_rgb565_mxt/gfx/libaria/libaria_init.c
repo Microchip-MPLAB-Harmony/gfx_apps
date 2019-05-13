@@ -40,6 +40,7 @@
 // DOM-IGNORE-END
 
 #include "gfx/libaria/libaria_init.h"
+#include "gfx/libaria/inc/libaria_utils.h"
 
 laScheme TextOrange;
 laScheme MyScheme;
@@ -969,6 +970,7 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_AddChild((laWidget*)PanelWidget_Daily, (laWidget*)LabelWidget_Saturday);
 
 }
+
 
 
 
