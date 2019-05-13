@@ -36,7 +36,7 @@
 #include "gfx/hal/inc/gfx_context.h"
 #include "gfx/libaria/inc/libaria_utils.h"
 #include "gfx/libaria/inc/libaria_editwidget.h"
-#include "config/glcd_rgba8888_mxt_mzdas_sk/gfx/libaria/libaria_init.h"
+#include "gfx/libaria/libaria_init.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -74,51 +74,6 @@ int32_t maxx_Right = 0;
 int32_t miny = 0;
 int32_t maxy = 0;
 
-extern GFXU_FontAsset NotoSans_Regular;
-extern GFXU_FontAsset NotoSans_Regular_Large;
-
-extern laImagePlusWidget* NavMap;
-extern laWidget* LeftTrayPanel;
-extern laButtonWidget* LeftTrayLid;
-extern laWidget* RightTrayPanel;
-extern laButtonWidget* RightTrayLid;
-extern laWidget* InfoTextDragPanel;
-extern laTextFieldWidget* TextFieldPhone;
-extern laImageSequenceWidget* CellSignal;
-extern laImageSequenceWidget* BatteryPower;
-extern laImageSequenceWidget* WifiSignal;
-extern laRadialMenuWidget* ModeSelector;
-extern laWidget* ClimateControlPanel;
-extern laLabelWidget* LabelACTempLeft;
-extern laLabelWidget* LabelACTempRight;
-extern laWidget* PhonePanel;
-extern laWidget* BluetoothPanel;
-extern laWidget* MusicPanel;
-extern laListWidget* ListContacts;
-extern laImageWidget* RightLidArrow;
-extern laWidget* PanelUpChevron;
-extern laButtonWidget* ButtonChevronUp;
-extern laWidget* PanelDownChevron;
-extern laButtonWidget* ButtonChevronDown;
-extern laButtonWidget* ButtonACFace;
-extern laButtonWidget* ButtonACBoth;
-extern laButtonWidget* ButtonACFeet;
-extern laButtonWidget* ButtonDefrost;
-extern laButtonWidget* ButtonACIntake;
-extern laButtonWidget* ButtonACLoop;
-extern laButtonWidget* ButtonACSync;
-extern laCircularSliderWidget* CircularSliderACRight;
-extern laCircularSliderWidget* CircularSliderACLeft;
-extern laLabelWidget* LabelACTempLeft;
-extern laLabelWidget* LabelACTempRight;
-extern laRadialMenuWidget* MusicSelector;
-extern laWidget* IconPanel;
-extern laButtonWidget* ButtonNavRead;
-extern laLabelWidget* LabelGPU;
-extern laButtonWidget* ButtonGPU;
-extern laWidget* NavPanel;
-
-
 void APP_SetChevronVisibility(bool);
 
 // *****************************************************************************
@@ -136,6 +91,53 @@ static void timerCallback(uintptr_t context)
     }
     
     appData.clickState = APP_DOUBLE_CLICK_NONE;
+}
+
+static void touchMusicUp(laWidget* widget, laInput_TouchUpEvent* evt)
+{
+    if (appData.mode != MODE_MUSIC)
+        return;
+
+    APP_MoveTrayIn();
+
+    //Override the radial menu to receive consistent touch event
+    MusicSelector->widget.touchUp((laWidget*)MusicSelector, evt);
+}
+
+static void touchMusicDown(laWidget* widget, laInput_TouchDownEvent* evt)
+{
+    if (appData.mode != MODE_MUSIC)
+        return;
+
+    APP_MoveTrayIn();
+
+    //Override the radial menu to receive consistent touch event
+    MusicSelector->widget.touchDown((laWidget*)MusicSelector, evt);
+}
+
+static void touchMoveMusicSelector(laWidget* widget, laInput_TouchMovedEvent* evt)
+{
+    if (appData.mode != MODE_MUSIC)
+        return;
+
+    //Amplify the touch event in the X direction
+    int32_t dx = (evt->x - evt->prevX) * 3;
+    if (dx > MusicSelector->widget.rect.width - evt->prevX )
+        dx = MusicSelector->widget.rect.width - evt->prevX;
+    if (dx < evt->prevX * -1)
+        dx = evt->prevX * -1;
+    
+    evt->x = dx + evt->x;
+    
+    if (evt->x > MusicSelector->widget.rect.width)
+        evt->x = MusicSelector->widget.rect.width - 1;
+    if (evt->x < 0)
+        evt->x = 1;
+    
+    APP_MoveTrayIn();
+
+    //Override the radial menu to receive consistent touch event
+    MusicSelector->widget.touchMoved((laWidget*)MusicSelector, evt);
 }
 
 static void touchDownNav(laWidget* widget, laInput_TouchDownEvent* evt)
@@ -1283,6 +1285,10 @@ void APP_Tasks ( void )
                 laWidget_OverrideTouchMovedEvent((laWidget*)ButtonNavRead, &touchMoveNav);
                 laWidget_OverrideTouchUpEvent((laWidget*)ButtonNavRead, &touchUpNav);                
                 laWidget_OverrideTouchDownEvent((laWidget*)ButtonNavRead, &touchDownNav);
+
+                laWidget_OverrideTouchMovedEvent((laWidget*)ButtonMusicReceiver, &touchMoveMusicSelector);
+                laWidget_OverrideTouchUpEvent((laWidget*)ButtonMusicReceiver, &touchMusicUp);                
+                laWidget_OverrideTouchDownEvent((laWidget*)ButtonMusicReceiver, &touchMusicDown);
                 
                 APP_SelectItem(MODE_AC);
                 
