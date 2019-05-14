@@ -353,25 +353,6 @@ static void _laRadialMenuWidget_Resized(laWidget* wgt)
     mn->ellipseChanged = LA_TRUE;
 }
 
-static int32_t _laRadialMenuWidget_NormalizeIndex(laRadialMenuWidget* mn, int32_t index)
-{
-    int32_t newIndex = 0;
-    
-    if (index >= 0 && index < mn->widgetList.size)
-        return index;
-    
-    if (index < 0)
-    {
-        newIndex = mn->widgetList.size + index; 
-        return newIndex;
-    }
-    
-    //if we get here, the index is larger than the total amount of items
-    newIndex = index - mn->widgetList.size;    
-    
-    return newIndex;
-}
-
 static laBool _laRadialMenuWidget_UpdateEllipse(laRadialMenuWidget* mn)
 {
     if (mn == NULL || mn->widestWidgetItem == NULL || mn->tallestWidgetItem == NULL || mn->ellipseChanged == LA_FALSE)
@@ -429,7 +410,6 @@ static laBool _laRadialMenuWidget_UpdateEllipse(laRadialMenuWidget* mn)
 laWidgetUpdateState _laRadialMenuWidget_Update(laRadialMenuWidget* mn)
 {
     laRadialMenuItemNode* prominentItem = NULL;
-    int32_t diffAngle = 0;
 
     if (mn != NULL)
     {
@@ -464,17 +444,6 @@ laWidgetUpdateState _laRadialMenuWidget_Update(laRadialMenuWidget* mn)
                     {
                         mn->prominentIndex = laRadialMenuWidget_GetProminentIndex(mn);
                         prominentItem = laList_Get(&mn->widgetList, mn->prominentIndex);
-                        
-                        diffAngle = (PROMINENT_ANGLE - prominentItem->t) * -1;
-
-                        //if the item is past the prominent, roll to the next one
-                        if (abs(diffAngle) >= 5
-                                && diffAngle * mn->userRequestedDirection < 0 
-                                && mn->shownList.size > 3
-                                && mn->ellipseType != LA_RADIAL_MENU_ELLIPSE_TYPE_ROLLODEX)
-                        {
-                            mn->prominentIndex = _laRadialMenuWidget_NormalizeIndex(mn, mn->prominentIndex + mn->userRequestedDirection);
-                        }
                         
                         mn->state = LA_RADIAL_MENU_RESET_TO_INPUT_POS;                        
                     }
