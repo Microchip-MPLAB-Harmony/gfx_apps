@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="66">
+<configurationDescriptor version="65">
   <logicalFolder name="root" displayName="root" projectFiles="true">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -9,197 +9,197 @@
                        displayName="glcd_rgba8888_mxt_mzda_intddr_sk"
                        projectFiles="true">
           <logicalFolder name="f5" displayName="bsp" projectFiles="true">
-            <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/bsp/bsp.h</itemPath>
+            <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/bsp/bsp.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f3" displayName="driver" projectFiles="true">
             <logicalFolder name="f1" displayName="i2c" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/driver/i2c/drv_i2c.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/driver/i2c/drv_i2c_definitions.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/driver/i2c/drv_i2c.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/driver/i2c/drv_i2c_definitions.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f2" displayName="input" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/driver/input/drv_maxtouch.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/driver/input/drv_maxtouch.h</itemPath>
             </logicalFolder>
-            <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/driver/driver.h</itemPath>
-            <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/driver/driver_common.h</itemPath>
+            <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/driver/driver.h</itemPath>
+            <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/driver/driver_common.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f1" displayName="gfx" projectFiles="true">
             <logicalFolder name="f2" displayName="driver" projectFiles="true">
               <logicalFolder name="f2" displayName="2dgpu" projectFiles="true">
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/driver/processor/2dgpu/libnano2D.h</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/driver/processor/2dgpu/libnano2D.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f1" displayName="glcd" projectFiles="true">
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/driver/controller/glcd/drv_gfx_glcd.h</itemPath>
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/driver/controller/glcd/plib_glcd.h</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/driver/controller/glcd/drv_gfx_glcd.h</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/driver/controller/glcd/plib_glcd.h</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="f1" displayName="hal" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/gfx.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_color.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_common.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_context.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_default_impl.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_display.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_driver_interface.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_hal.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_interface.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_layer.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_pixel_buffer.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_processor_interface.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_rect.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_util.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_draw.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_draw_arc.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_draw_blit.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_draw_circle.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_draw_ellipse.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_draw_line.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_draw_pixel.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_draw_rect.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_draw_stretchblit.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_math.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/gfx_config.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/gfx.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_color.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_common.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_context.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_default_impl.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_display.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_driver_interface.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_hal.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_interface.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_layer.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_pixel_buffer.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_processor_interface.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_rect.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_util.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_draw.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_draw_arc.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_draw_blit.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_draw_circle.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_draw_ellipse.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_draw_line.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_draw_pixel.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_draw_rect.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_draw_stretchblit.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/inc/gfx_math.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/gfx_config.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f5" displayName="libaria" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_harmony.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_config.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_init.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_array.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_common.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_context.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_draw.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_editwidget.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_event.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_global.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_input.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_layer.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_math.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_list.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_rectarray.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_scheme.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_screen.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_string.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_utils.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_skin_classic_common.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_arc.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_bar_graph.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_button.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_checkbox.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_circle.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_circular_gauge.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_circular_slider.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_drawsurface.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_gradient.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_groupbox.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_image.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_imageplus.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_imagesequence.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_keypad.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_label.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_line.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_line_graph.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_list.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_listwheel.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_pie_chart.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_progressbar.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_radial_menu.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_radiobutton.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_radiobutton_group.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_rectangle.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_scrollbar.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_slider.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_textfield.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_touchtest.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_window.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_events.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_macros.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_harmony.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_config.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_init.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_array.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_common.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_context.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_draw.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_editwidget.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_event.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_global.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_input.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_layer.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_math.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_list.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_rectarray.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_scheme.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_screen.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_string.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_utils.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_skin_classic_common.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_arc.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_bar_graph.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_button.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_checkbox.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_circle.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_circular_gauge.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_circular_slider.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_drawsurface.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_gradient.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_groupbox.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_image.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_imageplus.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_imagesequence.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_keypad.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_label.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_line.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_line_graph.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_list.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_listwheel.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_pie_chart.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_progressbar.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_radial_menu.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_radiobutton.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_radiobutton_group.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_rectangle.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_scrollbar.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_slider.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_textfield.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_touchtest.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/inc/libaria_widget_window.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_events.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_macros.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f4" displayName="third_party" projectFiles="true">
               <logicalFolder name="f1" displayName="lodepng" projectFiles="true">
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/third_party/lodepng/lodepng.h</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/third_party/lodepng/lodepng.h</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="f3" displayName="utils" projectFiles="true">
               <logicalFolder name="f1" displayName="inc" projectFiles="true">
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/inc/gfxu_binary.h</itemPath>
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/inc/gfxu_font.h</itemPath>
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/inc/gfxu_global.h</itemPath>
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/inc/gfxu_image.h</itemPath>
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/inc/gfxu_image_utils.h</itemPath>
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/inc/gfxu_palette.h</itemPath>
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/inc/gfxu_string.h</itemPath>
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/inc/gfxu_string_utils.h</itemPath>
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/inc/gfxu_image_jpg_common.h</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/inc/gfxu_binary.h</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/inc/gfxu_font.h</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/inc/gfxu_global.h</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/inc/gfxu_image.h</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/inc/gfxu_image_utils.h</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/inc/gfxu_palette.h</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/inc/gfxu_string.h</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/inc/gfxu_string_utils.h</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/inc/gfxu_image_jpg_common.h</itemPath>
               </logicalFolder>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/gfx_utils.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/gfxu_config.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/gfx_utils.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/gfxu_config.h</itemPath>
             </logicalFolder>
-            <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/gfx_assets.h</itemPath>
+            <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/gfx_assets.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="peripheral" projectFiles="true">
             <logicalFolder name="f1" displayName="clk" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/clk/plib_clk.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/clk/plib_clk.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f4" displayName="coretimer" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/coretimer/plib_coretimer.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/coretimer/plib_coretimer.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f6" displayName="ddr" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/ddr/plib_ddr.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/ddr/plib_ddr.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f3" displayName="evic" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/evic/plib_evic.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/evic/plib_evic.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f2" displayName="gpio" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/gpio/plib_gpio.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/gpio/plib_gpio.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f5" displayName="i2c" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/i2c/plib_i2c1.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/i2c/plib_i2c_master.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/i2c/plib_i2c1.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/i2c/plib_i2c_master.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f4" displayName="system" projectFiles="true">
             <logicalFolder name="f2" displayName="input" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/input/sys_input.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/input/sys_input_gesture.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/input/sys_input_keyboard.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/input/sys_input_listener.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/input/sys_input_mouse.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/input/sys_input_touch.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/input/sys_input.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/input/sys_input_gesture.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/input/sys_input_keyboard.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/input/sys_input_listener.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/input/sys_input_mouse.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/input/sys_input_touch.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f3" displayName="int" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/int/sys_int.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/int/sys_int_mapping.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/int/sys_int.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/int/sys_int_mapping.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f1" displayName="time" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/time/sys_time.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/time/sys_time_definitions.h</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/time/src/sys_time_local.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/time/sys_time.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/time/sys_time_definitions.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/time/src/sys_time_local.h</itemPath>
             </logicalFolder>
-            <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/system.h</itemPath>
-            <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/system_common.h</itemPath>
-            <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/system_module.h</itemPath>
+            <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/system.h</itemPath>
+            <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/system_common.h</itemPath>
+            <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/system_module.h</itemPath>
           </logicalFolder>
-          <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/toolchain_specifics.h</itemPath>
-          <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/definitions.h</itemPath>
-          <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/user.h</itemPath>
-          <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/configuration.h</itemPath>
+          <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/toolchain_specifics.h</itemPath>
+          <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/definitions.h</itemPath>
+          <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/user.h</itemPath>
+          <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/configuration.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f3" displayName="osal" projectFiles="true">
-        <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/osal/osal.h</itemPath>
-        <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/osal/osal_definitions.h</itemPath>
-        <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/osal/osal_impl_basic.h</itemPath>
+        <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/osal/osal.h</itemPath>
+        <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/osal/osal_definitions.h</itemPath>
+        <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/osal/osal_impl_basic.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="packs" projectFiles="true">
         <logicalFolder name="f1"
                        displayName="PIC32MZ2064DAR169_DFP"
                        projectFiles="true">
-          <itemPath ex="false">../src/packs/PIC32MZ2064DAR169_DFP/device.h</itemPath>
+          <itemPath>../src/packs/PIC32MZ2064DAR169_DFP/device.h</itemPath>
         </logicalFolder>
       </logicalFolder>
-      <itemPath ex="false">../src/app_splash.h</itemPath>
-      <itemPath ex="false">../src/app.h</itemPath>
+      <itemPath>../src/app_splash.h</itemPath>
+      <itemPath>../src/app.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -213,221 +213,221 @@
                        displayName="glcd_rgba8888_mxt_mzda_intddr_sk"
                        projectFiles="true">
           <logicalFolder name="f6" displayName="bsp" projectFiles="true">
-            <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/bsp/bsp.c</itemPath>
+            <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/bsp/bsp.c</itemPath>
           </logicalFolder>
           <logicalFolder name="f4" displayName="driver" projectFiles="true">
             <logicalFolder name="f1" displayName="i2c" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/driver/i2c/src/drv_i2c.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/driver/i2c/src/drv_i2c_local.h</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/driver/i2c/src/drv_i2c.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/driver/i2c/src/drv_i2c_local.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f2" displayName="input" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/driver/input/drv_maxtouch.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/driver/input/drv_maxtouch.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f1" displayName="gfx" projectFiles="true">
             <logicalFolder name="f2" displayName="driver" projectFiles="true">
               <logicalFolder name="f2" displayName="2dgpu" projectFiles="true">
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/driver/processor/2dgpu/libnano2D_hal.c</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/driver/processor/2dgpu/libnano2D_hal.c</itemPath>
               </logicalFolder>
               <logicalFolder name="f1" displayName="glcd" projectFiles="true">
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/driver/controller/glcd/drv_gfx_glcd.c</itemPath>
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/driver/controller/glcd/plib_glcd.c</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/driver/controller/glcd/drv_gfx_glcd.c</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/driver/controller/glcd/plib_glcd.c</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="f1" displayName="hal" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_color.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_context.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_default_impl.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_display.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_display_def.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_driver_interface.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_driver_def.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_processor_def.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_get.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_interface.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_layer.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_pixel_buffer.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_processor_interface.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_rect.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_util.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_set.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_color_blend.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_color_convert.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_color_lerp.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_color_value.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_draw_arc.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_draw_blit.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_draw_circle.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_draw_ellipse.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_draw_line.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_draw_pixel.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_draw_rect.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_draw_stretchblit.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_math.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_color.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_context.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_default_impl.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_display.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_display_def.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_driver_interface.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_driver_def.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_processor_def.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_get.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_interface.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_layer.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_pixel_buffer.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_processor_interface.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_rect.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_util.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_set.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_color_blend.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_color_convert.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_color_lerp.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_color_value.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_draw_arc.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_draw_blit.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_draw_circle.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_draw_ellipse.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_draw_line.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_draw_pixel.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_draw_rect.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_draw_stretchblit.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_math.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f5" displayName="libaria" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_harmony.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_init.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_array.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_context.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_context_paint.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_draw.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_editwidget.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_event.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_input.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_layer.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_list.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_rectarray.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_scheme.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_screen.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_string.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_utils.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_skin_classic_common.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_arc.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_arc_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_bar_graph.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_bar_graph_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_button.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_button_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_checkbox.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_checkbox_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_circle.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_circle_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_circular_gauge.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_circular_gauge_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_circular_slider.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_circular_slider_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_drawsurface.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_drawsurface_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_gradient.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_gradient_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_groupbox.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_groupbox_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_image.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_image_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_imageplus.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_imageplus_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_imagesequence.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_imagesequence_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_keypad.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_keypad_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_label.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_label_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_line.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_line_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_line_graph.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_line_graph_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_list.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_list_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_listwheel.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_listwheel_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_pie_chart.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_pie_chart_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_progressbar.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_progressbar_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_radial_menu.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_radial_menu_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_radiobutton.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_radiobutton_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_radiobutton_group.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_rectangle.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_rectangle_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_scrollbar.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_scrollbar_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_slider.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_slider_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_textfield.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_textfield_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_touchtest.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_touchtest_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_window.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_window_skin_classic.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_events.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_macros.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_harmony.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_init.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_array.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_context.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_context_paint.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_draw.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_editwidget.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_event.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_input.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_layer.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_list.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_rectarray.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_scheme.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_screen.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_string.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_utils.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_skin_classic_common.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_arc.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_arc_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_bar_graph.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_bar_graph_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_button.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_button_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_checkbox.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_checkbox_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_circle.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_circle_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_circular_gauge.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_circular_gauge_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_circular_slider.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_circular_slider_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_drawsurface.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_drawsurface_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_gradient.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_gradient_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_groupbox.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_groupbox_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_image.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_image_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_imageplus.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_imageplus_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_imagesequence.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_imagesequence_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_keypad.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_keypad_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_label.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_label_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_line.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_line_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_line_graph.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_line_graph_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_list.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_list_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_listwheel.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_listwheel_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_pie_chart.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_pie_chart_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_progressbar.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_progressbar_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_radial_menu.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_radial_menu_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_radiobutton.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_radiobutton_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_radiobutton_group.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_rectangle.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_rectangle_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_scrollbar.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_scrollbar_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_slider.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_slider_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_textfield.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_textfield_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_touchtest.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_touchtest_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_window.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria_widget_window_skin_classic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_events.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_macros.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f4" displayName="third_party" projectFiles="true">
               <logicalFolder name="f1" displayName="lodepng" projectFiles="true">
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/third_party/src/lodepng/lodepng.c</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/third_party/src/lodepng/lodepng.c</itemPath>
               </logicalFolder>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/third_party/decoder/src/jidctint.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/third_party/decoder/src/jidctint.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f3" displayName="utils" projectFiles="true">
               <logicalFolder name="f1" displayName="src" projectFiles="true">
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image_jpg_common.c</itemPath>
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image_jpg_internal.c</itemPath>
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image_jpg_external.c</itemPath>
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image_png_external.c</itemPath>
-                <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image_png_internal.c</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image_jpg_common.c</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image_jpg_internal.c</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image_jpg_external.c</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image_png_external.c</itemPath>
+                <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image_png_internal.c</itemPath>
               </logicalFolder>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image_raw_external.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image_raw_internal.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image_rle_external.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image_rle_internal.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image_utils.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_palette.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_string.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_string_external.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_stringbuffer_external.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_string_internal.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_string_query.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_string_utils.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image_raw_external.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image_raw_internal.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image_rle_external.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image_rle_internal.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_image_utils.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_palette.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_string.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_string_external.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_stringbuffer_external.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_string_internal.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_string_query.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/utils/src/gfxu_string_utils.c</itemPath>
             </logicalFolder>
-            <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/gfx_assets.c</itemPath>
+            <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/gfx_assets.c</itemPath>
           </logicalFolder>
           <logicalFolder name="f3" displayName="peripheral" projectFiles="true">
             <logicalFolder name="f1" displayName="clk" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/clk/plib_clk.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/clk/plib_clk.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f4" displayName="coretimer" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/coretimer/plib_coretimer.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/coretimer/plib_coretimer.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f6" displayName="ddr" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/ddr/plib_ddr.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/ddr/plib_ddr.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f3" displayName="evic" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/evic/plib_evic.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/evic/plib_evic.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f2" displayName="gpio" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/gpio/plib_gpio.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/gpio/plib_gpio.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f5" displayName="i2c" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/i2c/plib_i2c1.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/peripheral/i2c/plib_i2c1.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f2" displayName="stdio" projectFiles="true">
-            <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/stdio/xc32_monitor.c</itemPath>
+            <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/stdio/xc32_monitor.c</itemPath>
           </logicalFolder>
           <logicalFolder name="f5" displayName="system" projectFiles="true">
             <logicalFolder name="f2" displayName="input" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/input/sys_input.c</itemPath>
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/input/sys_input_listener.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/input/sys_input.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/input/sys_input_listener.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f3" displayName="int" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/int/src/sys_int.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/int/src/sys_int.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f1" displayName="time" projectFiles="true">
-              <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/time/src/sys_time.c</itemPath>
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/system/time/src/sys_time.c</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/initialization.c</itemPath>
-          <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/interrupts.c</itemPath>
-          <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/exceptions.c</itemPath>
-          <itemPath ex="false">../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/tasks.c</itemPath>
+          <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/initialization.c</itemPath>
+          <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/interrupts.c</itemPath>
+          <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/exceptions.c</itemPath>
+          <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/tasks.c</itemPath>
         </logicalFolder>
       </logicalFolder>
-      <itemPath ex="false">../src/app_splash_multi_layer.c</itemPath>
-      <itemPath ex="false">../src/main.c</itemPath>
-      <itemPath ex="false">../src/app.c</itemPath>
+      <itemPath>../src/app_splash_multi_layer.c</itemPath>
+      <itemPath>../src/main.c</itemPath>
+      <itemPath>../src/app.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="false">
-      <itemPath ex="false">Makefile</itemPath>
+      <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -447,7 +447,7 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32MZ-DA_DFP" vendor="Microchip" version="1.0.59"/>
+        <pack name="PIC32MZ-DA_DFP" vendor="Microchip" version="1.0.42"/>
       </packs>
       <compileType>
         <linkerTool>
