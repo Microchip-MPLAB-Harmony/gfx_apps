@@ -1730,6 +1730,7 @@ static void handleMessage(struct DEVICE_OBJECT* pDrvObject)
         return;
     }   
     
+
     // multitouch message?
     if(pDrvObject->mxtMsg.reportID >= pDrvObject->data.T100_reportid_min &&
        pDrvObject->mxtMsg.reportID <= pDrvObject->data.T100_reportid_max)

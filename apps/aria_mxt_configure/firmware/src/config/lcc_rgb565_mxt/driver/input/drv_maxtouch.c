@@ -915,7 +915,7 @@ void DRV_MAXTOUCH_Close (DRV_HANDLE handle)
     OSAL_Free(pDrvObject->data.object_table);
 }
 
-void DRV_MAXTOUCH_ConfigLoad ( SYS_MODULE_OBJ object, DRV_MAXTOUCH_Firmware * firmware )
+void DRV_MAXTOUCH_ConfigParse ( SYS_MODULE_OBJ object, DRV_MAXTOUCH_Firmware * firmware )
 {
     struct DEVICE_OBJECT* pDrvObject = (struct DEVICE_OBJECT *)object;
 
@@ -927,6 +927,30 @@ void DRV_MAXTOUCH_ConfigLoad ( SYS_MODULE_OBJ object, DRV_MAXTOUCH_Firmware * fi
     firmware->mem = &pDrvObject->data.config_mem;
     firmware->mem_size = pDrvObject->data.config_mem_size;
     
+    SYS_TIME_TimerDestroy(resetTimer);
+
+    resetTimer = SYS_TIME_CallbackRegisterMS(resetTimer_Callback, 
+                        (uintptr_t)pDrvObject,
+                        DRV_MAXTOUCH_RESET_TIMER_PERIOD_MS,
+                        SYS_TIME_SINGLE);
+    
+    pDrvObject->deviceState = DEVICE_STATE_WAIT;
+    pDrvObject->apiEvent = APP_DRV_MAXTOUCH_ConfigParse;
+
+}
+
+void DRV_MAXTOUCH_ConfigLoad ( SYS_MODULE_OBJ object, DRV_MAXTOUCH_Firmware * firmware )
+{
+    struct DEVICE_OBJECT* pDrvObject = (struct DEVICE_OBJECT *)object;
+
+    pDrvObject->callback = firmware->progress;
+    pDrvObject->reader = firmware->reader;
+    pDrvObject->eof = firmware->eof;
+
+    mxt_configure_objects(pDrvObject, firmware);
+    firmware->mem = &pDrvObject->data.config_mem;
+    firmware->mem_size = pDrvObject->data.config_mem_size;
+
     SYS_TIME_TimerDestroy(resetTimer);
 
     resetTimer = SYS_TIME_CallbackRegisterMS(resetTimer_Callback, 

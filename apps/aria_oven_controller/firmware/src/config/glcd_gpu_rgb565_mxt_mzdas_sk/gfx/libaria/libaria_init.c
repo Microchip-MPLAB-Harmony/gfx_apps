@@ -281,7 +281,7 @@ int32_t libaria_initialize(void)
     screen = laScreen_New(LA_FALSE, LA_FALSE, &ScreenCreate_assetLayout);
     laContext_AddScreen(screen);
 
-    laContext_SetActiveScreen(0);
+    laContext_SetActiveScreen(3);
 
 	return 0;
 }
@@ -311,7 +311,7 @@ static void ScreenCreate_SplashScreen(laScreen* screen)
     laWidget_SetSize((laWidget*)HarmonyLogoWidget, 240, 139);
     laWidget_SetVisible((laWidget*)HarmonyLogoWidget, LA_FALSE);
     laWidget_SetScheme((laWidget*)HarmonyLogoWidget, &helpScheme);
-    laWidget_SetBackgroundType((laWidget*)HarmonyLogoWidget, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBackgroundType((laWidget*)HarmonyLogoWidget, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)HarmonyLogoWidget, LA_WIDGET_BORDER_NONE);
     laImageWidget_SetImage(HarmonyLogoWidget, &HarmonyLogo);
     laWidget_AddChild((laWidget*)layer0, (laWidget*)HarmonyLogoWidget);

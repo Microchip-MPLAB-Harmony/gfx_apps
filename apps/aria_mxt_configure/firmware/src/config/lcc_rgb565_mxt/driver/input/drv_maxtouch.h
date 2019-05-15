@@ -371,6 +371,45 @@ SYS_STATUS DRV_MAXTOUCH_Status(SYS_MODULE_OBJ object);
 
 // *****************************************************************************
 /* Function:
+    void DRV_MAXTOUCH_ConfigParse ( SYS_MODULE_OBJ object, DRV_MAXTOUCH_Firmware * firmware );
+
+  Summary:
+    Implements the loading of maxTouch configuration to MXT Device RAM.
+	<p><b>Implementation:</b> Dynamic</p>
+
+  Description:
+	This routine is used to update mxt device ram with a configuration specific 
+    by config_data and from a location named source. 
+
+  Precondition:
+    The DRV_MAXTOUCH_Initialize routine must have been called for the 
+    specified MAXTOUCH driver instance.
+
+  Parameters:
+    config - pointer to configuration data structure
+
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    DRV_MAXTOUCH_Firmware config;
+  
+    config.data = Default_RAW_FLASH;
+    config.type = DRV_MAXTOUCH_RAW_FLASH;
+
+    DRV_MAXTOUCH_ConfigLoad ( &config );
+    </code>
+
+  Remarks:
+
+*/
+
+void DRV_MAXTOUCH_ConfigParse ( SYS_MODULE_OBJ object, DRV_MAXTOUCH_Firmware * firmware );
+
+// *****************************************************************************
+/* Function:
     void DRV_MAXTOUCH_ConfigLoad ( uint8_t* config_data, DRV_MAXTOUCH_CONFIG_SOURCE source );
 
   Summary:
