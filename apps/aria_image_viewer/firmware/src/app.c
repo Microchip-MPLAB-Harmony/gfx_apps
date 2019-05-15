@@ -67,8 +67,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 // *****************************************************************************
 /* This application makes use of 4 Hi-Res images defined by the following size */
-#define IMAGE_WIDTH 1600
-#define IMAGE_HEIGHT 1066
+#define IMAGE_WIDTH 480
+#define IMAGE_HEIGHT 272
 
 /*** GLCD Layer 0 Configuration ***/
 #define  GFX_GLCD_LAYER0_BASEADDR                      0xA827D800
@@ -256,10 +256,10 @@ void APP_Tasks ( void )
             layer0.stride = layer0.width * 32 / 8;
 
             src0.format = N2D_RGBA8888;
-            src0.gpu = KVA_TO_PA(0xA9000400);
-            src0.memory = (void*)0xA9000400;
+            src0.gpu = KVA_TO_PA(0xA837C800);
+            src0.memory = (void*)0xA837C800;
             src0.width = IMAGE_WIDTH;
-            src0.height = IMAGE_WIDTH;
+            src0.height = IMAGE_HEIGHT;
             src0.orientation = orientation;
             src0.stride = src0.width * 32 / 8;
 
@@ -267,13 +267,13 @@ void APP_Tasks ( void )
             src1.gpu = KVA_TO_PA(0xA82FD000);
             src1.memory = (void*)0xA82FD000;
             src1.width = IMAGE_WIDTH;
-            src1.height = IMAGE_WIDTH;
+            src1.height = IMAGE_HEIGHT;
             src1.orientation = orientation;
             src1.stride = src1.width * 32 / 8;
       
             src2.format = N2D_RGBA8888;
-            src2.gpu = KVA_TO_PA(0xA897EA00);
-            src2.memory = (void*)0xA897EA00;
+            src2.gpu = KVA_TO_PA(0xA83FC000);
+            src2.memory = (void*)0xA83FC000;
             src2.width = IMAGE_WIDTH;
             src2.height = IMAGE_HEIGHT;
             src2.orientation = orientation;
