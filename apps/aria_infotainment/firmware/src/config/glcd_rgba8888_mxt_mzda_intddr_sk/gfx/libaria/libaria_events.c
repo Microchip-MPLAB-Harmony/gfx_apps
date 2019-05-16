@@ -39,10 +39,8 @@
 *******************************************************************************/
 // DOM-IGNORE-END
 
-// CUSTOM CODE - DO NOT REMOVE 
-#include "app.h"
-// CUSTOM CODE END
 #include "gfx/libaria/libaria_events.h"
+#include "app.h"
 
 // ButtonACFace - PressedEvent
 void ButtonACFace_PressedEvent(laButtonWidget* btn)

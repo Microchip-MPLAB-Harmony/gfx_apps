@@ -445,10 +445,7 @@ laWidgetUpdateState _laRadialMenuWidget_Update(laRadialMenuWidget* mn)
                         mn->prominentIndex = laRadialMenuWidget_GetProminentIndex(mn);
                         prominentItem = laList_Get(&mn->widgetList, mn->prominentIndex);
                         
-                        if (prominentItem != NULL)
-                        {
-                            mn->state = LA_RADIAL_MENU_RESET_TO_INPUT_POS;                        
-                        }
+                        mn->state = LA_RADIAL_MENU_RESET_TO_INPUT_POS;                        
                     }
                     else
                     {
