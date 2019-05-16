@@ -61,7 +61,7 @@ void GPIO_Initialize ( void )
 
     /* PORTB Initialization */
     ANSELBCLR = 0x7003; /* Digital Mode Enable */
-    CNPUBSET = 0x7000; /* Pull-Up Enable */
+    CNPUBSET = 0x7002; /* Pull-Up Enable */
 
     /* PORTC Initialization */
 

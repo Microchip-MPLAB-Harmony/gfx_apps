@@ -39,11 +39,8 @@
 *******************************************************************************/
 // DOM-IGNORE-END
 
-// CUSTOM CODE - DO NOT REMOVE
-#include "app.h"
-// CUSTOM CODE END
-
 #include "gfx/libaria/libaria_events.h"
+#include "app.h"
 
 // RadialMenuWidget_Main - ItemSelectedEvent
 void RadialMenuWidget_Main_ItemSelectedEvent(laRadialMenuWidget * mn, laWidget * selectedWidget, int32_t value)
