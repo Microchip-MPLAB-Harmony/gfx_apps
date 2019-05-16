@@ -39,11 +39,8 @@
 *******************************************************************************/
 // DOM-IGNORE-END
 
-//CUSTOM CODE - DO NOT MODIFY OR REMOVE!!
-#include "app.h"
-//END OF CUSTOM CODE
-
 #include "gfx/libaria/libaria_events.h"
+#include "app.h"
 
 // ArcWidgetButton - ReleasedEvent
 void ArcWidgetButton_ReleasedEvent(laButtonWidget* btn)
