@@ -40,25 +40,7 @@
 // DOM-IGNORE-END
 
 #include "gfx/libaria/libaria_events.h"
-
-// START OF CUSTOM CODE - DO NOT MODIFY OR REMOVE!!!
-#include <stdio.h>
 #include "app.h"
-#include "system/time/sys_time.h"
-
-#define BASE_LAYER_ID   0
-#define IMAGE1_LAYER_ID 1
-#define IMAGE2_LAYER_ID 20
-
-static laString sliderValueLabelString;
-static SYS_TIME_HANDLE handleTimerFF = SYS_TIME_HANDLE_INVALID;
-static SYS_TIME_HANDLE handleTimerPlay = SYS_TIME_HANDLE_INVALID;
-
-static void Timer_Callback ( uintptr_t context)
-{
-    laImageSequenceWidget_ShowNextImage(ImageSequenceWidget1);
-}
-// END OF CUSTOM CODE 
 
 // ButtonWidget18 - ReleasedEvent
 void ButtonWidget18_ReleasedEvent(laButtonWidget* btn)

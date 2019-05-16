@@ -33,6 +33,10 @@
 #include <stdlib.h>
 #include "configuration.h"
 
+#include <stdio.h>
+#include "system/time/sys_time.h"
+#include "gfx/libaria/inc/libaria_string.h"
+
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
 
@@ -46,6 +50,9 @@ extern "C" {
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
+#define BASE_LAYER_ID   0
+#define IMAGE1_LAYER_ID 1
+#define IMAGE2_LAYER_ID 2
 
 // *****************************************************************************
 /* Application states
@@ -104,14 +111,17 @@ typedef struct
 
 } APP_DATA;
 
+extern laString sliderValueLabelString;
+extern SYS_TIME_HANDLE handleTimerFF;
+extern SYS_TIME_HANDLE handleTimerPlay;
 
-// *****************************************************************************
 // *****************************************************************************
 // Section: Application Callback Routines
 // *****************************************************************************
 // *****************************************************************************
 /* These routines are called by drivers when certain events occur.
 */
+void Timer_Callback ( uintptr_t context);
 
 // *****************************************************************************
 // *****************************************************************************
