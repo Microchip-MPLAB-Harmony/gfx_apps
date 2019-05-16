@@ -100,12 +100,6 @@ void CLK_Initialize( void )
 
 
     /* Set up Reference Clock 5 */
-    /* REFO5CON register */
-    /* ROSEL =  SYSCLK */
-    /* DIVSWEN = 1 */
-    /* RODIV = 1 */
-    REFO5CON = 0x10200;
-
     /* Enable oscillator (ON bit) */
     REFO5CONSET = 0x00008000;
 
@@ -113,7 +107,7 @@ void CLK_Initialize( void )
     /* MPLLVREGDIS = ENABLED */
     /* INTVREFCON = EXTERNAL_DDRV */
     /* MPLLIDIV = DIV_1 */
-    /* MPLLMULT = MUL_55 */
+    /* MPLLMULT = MUL_50 */
     /* MPLLODIV2 = DIV_1 */
     /* MPLLODIV1 = DIV_6 */
     /* MPLLDIS = ENABLED */
@@ -122,7 +116,7 @@ void CLK_Initialize( void )
 
     while(!(CFGMPLLbits.MPLLVREGRDY));
 
-    CFGMPLL = 0xe003701;
+    CFGMPLL = 0xe003201;
 
     while(!(CFGMPLLbits.MPLLRDY));
   

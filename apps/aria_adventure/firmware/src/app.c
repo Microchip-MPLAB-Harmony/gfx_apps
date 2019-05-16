@@ -67,7 +67,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 // *****************************************************************************
 
-#define APP_SPRITE_TIMER_DELAY 1
+#define APP_SPRITE_TIMER_DELAY 2
 #define APP_RUN_SPRITE_DELAY 5  //This has to be greater than APP_SPEED_FACTOR_LIMIT 
 #define APP_BLAZE_SPRITE_DELAY 5 //This has to be greater than APP_SPEED_FACTOR_LIMIT 
 #define APP_IDLE_SPRITE_DELAY 480 
@@ -79,7 +79,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #define APP_UI_LAYER_MAX_ALPHA 155
 #define APP_LAMB_STAMINA 1000
 #define APP_LAMB_BLAZE_ZONE 300
-#define APP_LAMB_FATIGUE_LIMIT 10
+#define APP_LAMB_FATIGUE_LIMIT 100
 #define APP_SCORE_MAX_COUNT 999999
 #define APP_SCORE_RUN_INCREMENT 1
 #define APP_SCORE_BLAZE_INCREMENT 2
@@ -805,10 +805,7 @@ void APP_SpriteSequence_CallBack( uintptr_t context )
                 break;            
         }
         
-        if (!laContext_IsLayerDrawing(1))
-        {
-            laImageSequenceWidget_ShowNextImage(appData.currentSequence);
-        }
+        laImageSequenceWidget_ShowNextImage(appData.currentSequence);
     }
 
     if (appData.spriteState != SPRITE_HURT
@@ -838,7 +835,7 @@ void APP_SpriteSequence_CallBack( uintptr_t context )
         {
             if (appData.spriteState == SPRITE_RUN)
             {
-                appData.spriteStamina -= 1;
+                appData.spriteStamina -= 2;
                 appData.currentScore += APP_SCORE_RUN_INCREMENT; 
 
                 if (appData.spriteStamina < APP_LAMB_BLAZE_ZONE)
@@ -848,7 +845,7 @@ void APP_SpriteSequence_CallBack( uintptr_t context )
             }
             else if (appData.spriteState == SPRITE_BLAZE)
             {
-                appData.spriteStamina -= 2;       
+                appData.spriteStamina -= 3;       
                 appData.currentScore += APP_SCORE_BLAZE_INCREMENT;                
             }        
 
@@ -1318,13 +1315,10 @@ void APP_Tasks ( void )
 
             APP_PrepareLayers();
             
-            if (!laContext_IsDrawing())
-            {
-                laWidget_SetPosition(SpriteAnchor, appData.spriteAnchorX, SpriteAnchor->rect.y);
-                laWidget_SetPosition(BackPanel, appData.layerX0, BackPanel->rect.y);
-                laWidget_SetPosition(MiddlePanel, appData.layerX1, MiddlePanel->rect.y);
-                laWidget_SetPosition(FrontPanel, appData.layerX2, FrontPanel->rect.y);
-            }
+            laWidget_SetPosition(SpriteAnchor, appData.spriteAnchorX, SpriteAnchor->rect.y);
+            laWidget_SetPosition(BackPanel, appData.layerX0, BackPanel->rect.y);
+            laWidget_SetPosition(MiddlePanel, appData.layerX1, MiddlePanel->rect.y);
+            laWidget_SetPosition(FrontPanel, appData.layerX2, FrontPanel->rect.y);
 
             if (appData.delayCounter++ > 200)
             {
@@ -1372,13 +1366,10 @@ void APP_Tasks ( void )
 
             APP_PrepareLayers();
             
-            if (!laContext_IsLayerDrawing(0))
-            {
-                laWidget_SetPosition(SpriteAnchor, appData.spriteAnchorX, SpriteAnchor->rect.y);
-                laWidget_SetPosition(BackPanel, appData.layerX0, BackPanel->rect.y);
-                laWidget_SetPosition(MiddlePanel, appData.layerX1, MiddlePanel->rect.y);
-                laWidget_SetPosition(FrontPanel, appData.layerX2, FrontPanel->rect.y);
-            }
+            laWidget_SetPosition(SpriteAnchor, appData.spriteAnchorX, SpriteAnchor->rect.y);
+            laWidget_SetPosition(BackPanel, appData.layerX0, BackPanel->rect.y);
+            laWidget_SetPosition(MiddlePanel, appData.layerX1, MiddlePanel->rect.y);
+            laWidget_SetPosition(FrontPanel, appData.layerX2, FrontPanel->rect.y);
 
             if (appData.requestedDirection != USER_REQUESTED_STOP)
             {
