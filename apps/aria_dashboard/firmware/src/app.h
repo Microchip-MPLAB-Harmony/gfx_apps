@@ -33,6 +33,10 @@
 #include <stdlib.h>
 #include "configuration.h"
 
+#include "gfx/libaria/inc/libaria_utils.h"
+#include "gfx/hal/inc/gfx_common.h"
+#include "gfx/hal/inc/gfx_math.h"
+
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
 

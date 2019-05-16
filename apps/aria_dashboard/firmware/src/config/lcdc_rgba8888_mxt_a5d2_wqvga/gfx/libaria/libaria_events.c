@@ -40,13 +40,7 @@
 // DOM-IGNORE-END
 
 #include "gfx/libaria/libaria_events.h"
-//CUSTOM CODE - DO NOT MODIFY OR REMOVE!!
-#include "gfx/libaria/inc/libaria_utils.h"
-#include "gfx/hal/inc/gfx_common.h"
-#include "gfx/hal/inc/gfx_math.h"
-
 #include "app.h"
-//END OF CUSTOM CODE
 
 // TachoDrawSurface - DrawNotificationEvent
 laBool TachoDrawSurface_DrawNotificationEvent(laDrawSurfaceWidget* sfc, GFX_Rect* rect)
