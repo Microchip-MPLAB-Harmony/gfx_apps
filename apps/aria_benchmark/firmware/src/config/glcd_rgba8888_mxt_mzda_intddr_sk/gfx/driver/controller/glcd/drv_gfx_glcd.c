@@ -93,7 +93,7 @@ uint32_t state;
 volatile int32_t waitForAlphaSetting[GFX_GLCD_LAYERS] = {0};
 
 //CUSTOM CODE - DO NOT MODIFY OR REMOVE
-unsigned int vsyncCount = 35;
+extern unsigned int vsyncCount;
 //END OF CUSTOM CODE
 
 //Layer Parameters
@@ -467,6 +467,10 @@ static GFX_Result glcdInitialize(GFX_Context* context)
     uint32_t      i,j;
 
     cntxt = context;
+
+//CUSTOM CODE - DO NOT REMOVE/MODIFY
+    vsyncCount = 35;
+//END OF CUSTOM CODE
 
     // general default initialization
     if(defInitialize(context) == GFX_FAILURE)

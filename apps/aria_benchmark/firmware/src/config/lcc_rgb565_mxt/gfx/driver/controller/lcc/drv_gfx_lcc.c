@@ -125,7 +125,7 @@ uint32_t vsyncPulseUp = 0;
 uint32_t vsyncEnd = 0;
 
 //CUSTOM CODE - DO NOT REMOVE OR MODIFY
-unsigned int vsyncCount = 0;
+extern unsigned int vsyncCount;
 //END OF CUSTOM CODE
 
 // function that returns the information for this driver
