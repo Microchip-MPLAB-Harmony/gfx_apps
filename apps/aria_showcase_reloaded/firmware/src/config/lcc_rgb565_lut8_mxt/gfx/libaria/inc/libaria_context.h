@@ -109,6 +109,26 @@ typedef enum laContextUpdateState_t
     LA_CONTEXT_UPDATE_PENDING
 } laContextUpdateState;
 
+/*
+Enumeration:
+        laContextPreprocessAssetState
+
+    Summary:
+        Possible values for asset preprocess state.
+
+    Description:
+        Possible values for asset preprocess state.
+
+    Remarks:
+        None.
+ */
+typedef enum laContextPreprocessAssetsState_t
+{
+    LA_CONTEXT_PREPROCESS_ASSETS_DONE = 0,
+    LA_CONTEXT_PREPROCESS_ASSETS_IN_PROGRESS,            
+    LA_CONTEXT_PREPROCESS_ASSETS_PENDING,
+} laContextPreprocessAssetsState;
+
 // *****************************************************************************
 /* Type:
     laContext_ActiveScreenChangedCallback_FnPtr
@@ -138,6 +158,25 @@ typedef void (*laContext_ActiveScreenChangedCallback_FnPtr)(int32_t, int32_t);
 
 */
 typedef void (*laContext_LanguageChangedCallback_FnPtr)(uint32_t);
+
+// *****************************************************************************
+/* Type:
+    laContext_PreprocessAssetsStateChangedCallback_FnPtr
+
+  Summary:
+    Callback pointer for when asset pre-processing is about to changes state
+
+  Description:
+    Callback pointer for when asset pre-processing is about to change state. 
+    Returning LA_FAILURE in the callback function during LA_CONTEXT_PREPROCESS_ASSETS_PENDING
+    will suspend the preprocessing. Preprocess will not start until the function 
+    returns LA_SUCCESS.
+
+  Remarks:
+
+*/
+typedef laResult (*laContext_PreprocessAssetsStateChangedCallback_FnPtr) (laContextPreprocessAssetsState);
+
 
 // *****************************************************************************
 /* Structure:
@@ -188,7 +227,7 @@ typedef struct laContext_t
     
     laContext_ActiveScreenChangedCallback_FnPtr screenChangedCB; // screen changed callback
     laContext_LanguageChangedCallback_FnPtr languageChangedCB; // language changed callback
-    
+    laContext_PreprocessAssetsStateChangedCallback_FnPtr preprocessStateChangedCB; // asset preprocess state changed callback
 } laContext;
 
 
@@ -724,6 +763,28 @@ LIB_EXPORT laEditWidget* laContext_GetEditWidget();
 */
 LIB_EXPORT laResult laContext_SetEditWidget(laWidget* widget);
 
+// *****************************************************************************
+/* Function:
+    laResult laContext_SetPreprocessAssetStateChangedCallback(laContext_PreprocessAssetsStateChangedCallback_FnPtr cb)
+
+   Summary:
+    Set the callback function pointer when the preprocess state change event occurs  
+
+   Description:
+    Set the callback function pointer when the preprocess state change event occurs  
+
+   Precondition:
+
+   Parameters:
+    laContext_AssetsPreProcessStateChangedCallback_FnPtr
+
+  Returns:
+    laResult
+
+  Remarks:    
+    
+*/
+LIB_EXPORT laResult laContext_SetPreprocessAssetStateChangedCallback(laContext_PreprocessAssetsStateChangedCallback_FnPtr cb);
 
 // *****************************************************************************
 /* Function:

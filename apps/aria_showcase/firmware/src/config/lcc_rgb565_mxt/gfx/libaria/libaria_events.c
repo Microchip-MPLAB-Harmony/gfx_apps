@@ -40,20 +40,7 @@
 // DOM-IGNORE-END
 
 #include "gfx/libaria/libaria_events.h"
-
-// START OF CUSTOM CODE - DO NOT MODIFY OR REMOVE!!!
-#include <stdio.h>
-#include "system/time/sys_time.h"
-
-static laString sliderValueLabelString;
-static SYS_TIME_HANDLE handleTimerFF = SYS_TIME_HANDLE_INVALID;
-static SYS_TIME_HANDLE handleTimerPlay = SYS_TIME_HANDLE_INVALID;
-
-static void Timer_Callback ( uintptr_t context)
-{
-    laImageSequenceWidget_ShowNextImage(ImageSequenceWidget1);
-}
-// END OF CUSTOM CODE 
+#include "app.h"
 
 // ButtonWidget13 - ReleasedEvent
 void ButtonWidget13_ReleasedEvent(laButtonWidget* btn)
@@ -202,9 +189,9 @@ void FourthScreen_ShowEvent(laScreen* scr)
     // OnShow
     char value[4] = {0};
     uint32_t sliderPercentage = laSliderWidget_GetSliderPercentage(SliderWidget1);
-        
+            
     snprintf(value, 4, "%ld", sliderPercentage);
-        
+            
     sliderValueLabelString = laString_CreateFromCharBuffer(value, &ArialUnicodeMS);
     laLabelWidget_SetText(SliderValueLabelWidget, sliderValueLabelString);
 }
@@ -222,13 +209,13 @@ void SliderWidget1_ValueChangedEvent(laSliderWidget* sld)
     // ChangeValue
     char value[4] = {0};
     uint32_t sliderPercentage = laSliderWidget_GetSliderPercentage(sld);
-    
+        
     snprintf(value, 4, "%ld", sliderPercentage);
-    
+        
     laString_Destroy(&sliderValueLabelString);
     sliderValueLabelString = laString_CreateFromCharBuffer(value, &ArialUnicodeMS);
     laLabelWidget_SetText(SliderValueLabelWidget, sliderValueLabelString);
-
+    
     // ChangeValue
     laWidget_SetAlphaAmount((laWidget*)ImageWidget2, 255 - laSliderWidget_GetSliderValue(sld));
     laWidget_SetAlphaAmount((laWidget*)ImageWidget1, laSliderWidget_GetSliderValue(sld));
@@ -260,10 +247,10 @@ void SliderUpButtonWidget_ReleasedEvent(laButtonWidget* btn)
 {
     // SliderUp
     uint32_t sliderPercentage = laSliderWidget_GetSliderPercentage(SliderWidget1);
-    
+        
     if (sliderPercentage < 100)
-        sliderPercentage = sliderPercentage + 1;
-
+    	sliderPercentage = sliderPercentage + 1;
+        
     laSliderWidget_SetSliderPercentage(SliderWidget1, sliderPercentage);
 }
 
@@ -272,10 +259,10 @@ void SliderDownButtonWidget_ReleasedEvent(laButtonWidget* btn)
 {
     // SliderDown
     uint32_t sliderPercentage = laSliderWidget_GetSliderPercentage(SliderWidget1);
-    
+        
     if (sliderPercentage > 0)
-        sliderPercentage = sliderPercentage - 1;
-    
+    	sliderPercentage = sliderPercentage - 1;
+        
     laSliderWidget_SetSliderPercentage(SliderWidget1, sliderPercentage);
 }
 
@@ -285,10 +272,10 @@ void FifthScreen_HideEvent(laScreen* scr)
     // Custom Action
     if (handleTimerPlay != SYS_TIME_HANDLE_INVALID)
         SYS_TIME_TimerDestroy(handleTimerPlay);
-        
+            
     if (handleTimerFF != SYS_TIME_HANDLE_INVALID)
         SYS_TIME_TimerDestroy(handleTimerFF);
-    
+        
     handleTimerPlay = SYS_TIME_HANDLE_INVALID;
     handleTimerFF = SYS_TIME_HANDLE_INVALID;
 }
@@ -327,19 +314,19 @@ void ButtonWidget21_PressedEvent(laButtonWidget* btn)
     // FastForwardShow
     //Release Normal SS button
     laButtonWidget_SetPressed((laButtonWidget*)ButtonWidget22, LA_FALSE);
-    
+        
     //Start Fast Forward show
     if (handleTimerPlay != SYS_TIME_HANDLE_INVALID)
         SYS_TIME_TimerDestroy(handleTimerPlay);
-        
+            
     if (handleTimerFF != SYS_TIME_HANDLE_INVALID)
         SYS_TIME_TimerDestroy(handleTimerFF);
-    
+        
     handleTimerPlay = SYS_TIME_HANDLE_INVALID;
     handleTimerFF = SYS_TIME_HANDLE_INVALID;
-    
+        
     handleTimerFF = SYS_TIME_CallbackRegisterMS(Timer_Callback, 1, 500, SYS_TIME_PERIODIC);
-    
+        
     laImageWidget_SetImage(SSStatusImageWidget, &GFX_FF_Green_20x20);
 }
 
@@ -349,9 +336,9 @@ void ButtonWidget21_ReleasedEvent(laButtonWidget* btn)
     // Custom Action
     if (handleTimerFF != SYS_TIME_HANDLE_INVALID)
         SYS_TIME_TimerDestroy(handleTimerFF);
-    
+        
     handleTimerFF = SYS_TIME_HANDLE_INVALID;
-    
+        
     laImageWidget_SetImage(SSStatusImageWidget, &GFX_Pause_Pink_20x20);
 }
 
@@ -361,18 +348,18 @@ void ButtonWidget22_PressedEvent(laButtonWidget* btn)
     // Custom Action
     //Release the FF button
     laButtonWidget_SetPressed((laButtonWidget*)ButtonWidget21, LA_FALSE);
-
+    
     //Start normal slideshow
     if (handleTimerPlay != SYS_TIME_HANDLE_INVALID)
         SYS_TIME_TimerDestroy(handleTimerPlay);
     if (handleTimerFF != SYS_TIME_HANDLE_INVALID)
         SYS_TIME_TimerDestroy(handleTimerFF);
-    
+        
     handleTimerPlay = SYS_TIME_HANDLE_INVALID;
     handleTimerFF = SYS_TIME_HANDLE_INVALID;
-    
+        
     handleTimerPlay = SYS_TIME_CallbackRegisterMS(Timer_Callback, 1, 2000, SYS_TIME_PERIODIC);
-    
+        
     laImageWidget_SetImage(SSStatusImageWidget, &GFX_Play_Green_20x20);
 }
 
@@ -382,9 +369,9 @@ void ButtonWidget22_ReleasedEvent(laButtonWidget* btn)
     // Custom Action
     if (handleTimerPlay != SYS_TIME_HANDLE_INVALID)
         SYS_TIME_TimerDestroy(handleTimerPlay);
-    
+        
     handleTimerPlay = SYS_TIME_HANDLE_INVALID;
-    
+        
     laImageWidget_SetImage(SSStatusImageWidget, &GFX_Pause_Pink_20x20);
 }
 

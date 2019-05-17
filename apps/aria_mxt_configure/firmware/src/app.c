@@ -115,12 +115,6 @@ static void App_FileReader(char * ptr);
 static bool App_FileEof(void);
 static bool App_FileXCFG(char * cfg);
 
-static void App_StageProgramProgressHandler(uint32_t progress);
-static void App_StageSDCardProgressHandler(uint32_t progress);
-static void App_StageUSBProgressHandler(uint32_t progress);
-static void App_StagePCProgressHandler(uint32_t progress);
-            
-
 /*******************************************************
  * USB CDC Device Events - Application Event Handler
  *******************************************************/
@@ -473,7 +467,7 @@ void APP_Initialize ( void )
     config.data = RAW_FILENAME;
     config.reader = &App_FileReader;
     config.eof = &App_FileEof;
-    config.progress = &App_StageProgramProgressHandler;
+//    config.progress = &App_StageProgramProgressHandler;
     appData.epDataReadPending = false;
 
 }
@@ -580,9 +574,10 @@ void APP_Tasks ( void )
                     config.type = DRV_MAXTOUCH_XCFG_FILE;
                 }
                 config.data = &configFile[0];
-                config.progress = &App_StageSDCardProgressHandler;
-                progressBar = stageProgressBar;   
-                DRV_MAXTOUCH_ConfigParse ( sysObj.drvMAXTOUCH, &config );
+                progressBar = loadProgressBar;   
+                config.progress = &App_LoadPCProgressHandler;
+                DRV_MAXTOUCH_ConfigLoad ( sysObj.drvMAXTOUCH, &config );
+                
                 appData.state = APP_STATE_IDLE;
             }
 
@@ -596,6 +591,7 @@ void APP_Tasks ( void )
                 strcpy((char*)d, (const char*)appData.readBuffer);
                 d += appData.readLength;
 //                *d = EOF;
+                    laProgressBarWidget_SetValue(loadProgressBar,  50);
                 USB_DEVICE_CDC_Read (appData.cdcInstance, &appData.readTransferHandle,
                     appData.readBuffer, APP_READ_BUFFER_SIZE);
                 
@@ -603,7 +599,7 @@ void APP_Tasks ( void )
                 if ( appData.tick++ > 8000 )
                 {
                     if ( value++ < 100 )
-                        laProgressBarWidget_SetValue(stageProgressBar,  value);
+                        laProgressBarWidget_SetValue(loadProgressBar,  value);
                     appData.tick=0;
                 }
 
@@ -643,7 +639,12 @@ void APP_Tasks ( void )
             }
             else
             {
-                /* */
+                /* load configuration data */
+                progressBar = loadProgressBar;   
+                config.type = DRV_MAXTOUCH_UNKNOWN_FILE;
+                config.data = XCFG_FILENAME;
+                config.progress = &App_LoadSDCardProgressHandler;
+                DRV_MAXTOUCH_ConfigLoad ( sysObj.drvMAXTOUCH, &config );
                 appData.state = APP_STATE_IDLE;
                 appData.epDataReadPending = true;
             }
@@ -654,6 +655,17 @@ void APP_Tasks ( void )
             SYS_FS_FileClose(appData.fileHandle);
 
             /* The test was successful. Lets idle. */
+            appData.state = APP_STATE_IDLE;
+            break;
+            
+            
+        case APP_STATE_READ_PROGRAM_FLASH:
+            /* load configuration data */
+            config.type = DRV_MAXTOUCH_RAW_FLASH;
+            config.data = &mxt336T_config[0];
+            config.progress = &App_LoadFlashProgressHandler;
+            progressBar = loadProgressBar;   
+            DRV_MAXTOUCH_ConfigLoad ( sysObj.drvMAXTOUCH, &config );
             appData.state = APP_STATE_IDLE;
             break;
             
@@ -700,34 +712,8 @@ void APP_Button_Tasks()
 /* load screen */
 void APP_OnLoadScreenShow()
 {
-        /* show state load source selection */
-        switch ( appData.stageSource )
-        {
-            case APP_STAGE_SOURCE_PROGRAMFLASH:
-                laRadioButtonWidget_SetSelected(loadProgramRadioButton);
-                break;
-
-            case APP_STAGE_SOURCE_SDCARD:
-                laRadioButtonWidget_SetSelected(loadSDCardRadioButton);
-                break;
-
-            case APP_STAGE_SOURCE_USBDRIVE:
-                laRadioButtonWidget_SetSelected(loadUSBRadioButton);
-                break;
-                
-            case APP_STAGE_SOURCE_PC:
-                laRadioButtonWidget_SetSelected(loadPCRadioButton);
-                break;
-        }
-        /* disable selection of radio buttons - use to show selection only */
-        laWidget_SetEnabled((laWidget*)loadProgramRadioButton, false);
-        laWidget_SetEnabled((laWidget*)loadSDCardRadioButton, false);
-        laWidget_SetEnabled((laWidget*)loadUSBRadioButton, false);
-        laWidget_SetEnabled((laWidget*)loadPCRadioButton, false);
-        laWidget_SetEnabled((laWidget*)loadProgramButton, false);
-        laWidget_SetEnabled((laWidget*)loadSDCardButton, false);
-        laWidget_SetEnabled((laWidget*)loadPCButton, false);
-        laWidget_SetEnabled((laWidget*)loadUSBBUtton, false);
+    /* ensure that program radio button is not selected */
+    laRadioButtonWidget_SetSelected(loadUSBRadioButton);
 }
 
 void APP_OnLoadButtonReleased()
@@ -738,32 +724,24 @@ void APP_OnLoadButtonReleased()
         switch ( appData.loadSource )
         {
             case APP_LOAD_SOURCE_PROGRAMFLASH:
-                config.type = DRV_MAXTOUCH_RAW_FLASH;
-                config.data = mxt336T_config;
-                config.progress = &App_LoadFlashProgressHandler;
+                appData.state = APP_STATE_READ_PROGRAM_FLASH;
                 break;
 
             case APP_LOAD_SOURCE_SDCARD:
-                config.type = DRV_MAXTOUCH_UNKNOWN_FILE;
-                config.data = XCFG_FILENAME;
-                config.progress = &App_LoadSDCardProgressHandler;
+                appData.state = APP_STATE_SDHC_MOUNT_CONFIG_DISK;
                 break;
 
             case APP_LOAD_SOURCE_USBDRIVE:
-                config.type = DRV_MAXTOUCH_UNKNOWN_FILE;
-                config.data = XCFG_FILENAME;
                 config.progress = &App_LoadUSBDriveProgressHandler;
                 break;
                 
             case APP_LOAD_SOURCE_PC:
                 config.type = DRV_MAXTOUCH_UNKNOWN_FILE;
                 config.data = XCFG_FILENAME;
+                appData.state = APP_STATE_OPENUSB;
                 config.progress = &App_LoadPCProgressHandler;
         }
     
-        /* load configuration data */
-        progressBar = loadProgressBar;   
-        DRV_MAXTOUCH_ConfigLoad ( sysObj.drvMAXTOUCH, &config );
     }
 }
 
@@ -780,21 +758,33 @@ void APP_OnSaveButtonReleased()
 void APP_OnLoadProgramButtonReleased()
 {
     appData.loadSource = APP_LOAD_SOURCE_PROGRAMFLASH;
+    laRadioButtonWidget_SetSelected(loadProgramRadioButton);
+    laWidget_SetVisible((laWidget*)loadButton, true);
+    laWidget_SetVisible((laWidget*)ImageWidget10, true);
 }
 
 void APP_OnLoadSDCardButtonReleased()
 {
     appData.loadSource = APP_LOAD_SOURCE_SDCARD;
+    laRadioButtonWidget_SetSelected(loadSDCardRadioButton);
+    laWidget_SetVisible((laWidget*)loadButton, true);
+    laWidget_SetVisible((laWidget*)ImageWidget10, true);
 }
 
 void APP_OnLoadUSBButtonReleased()
 {
     appData.loadSource = APP_LOAD_SOURCE_USBDRIVE;
+    laRadioButtonWidget_SetSelected(loadUSBRadioButton);
+    laWidget_SetVisible((laWidget*)loadButton, true);
+    laWidget_SetVisible((laWidget*)ImageWidget10, true);
 }
 
 void APP_OnLoadPCButtonReleased()
 {
     appData.loadSource = APP_LOAD_SOURCE_PC;
+    laRadioButtonWidget_SetSelected(loadPCRadioButton);
+    laWidget_SetVisible((laWidget*)loadButton, true);
+    laWidget_SetVisible((laWidget*)ImageWidget10, true);
 }
 
 void App_LoadFlashProgressHandler(uint32_t progress)
@@ -859,131 +849,6 @@ void App_SaveProgressHandler(uint32_t progress)
         laWidget_SetVisible((laWidget*)storeSaveButton, false);
         laWidget_SetVisible((laWidget*)ImageWidget10, false);
         laWidget_SetVisible((laWidget*)storeDoneButton, true);
-    }
-}
-
-/* stage screen */
-void APP_OnStageButtonReleased()
-{                       
-    if ( DRV_MAXTOUCH_Status(sysObj.drvMAXTOUCH) == SYS_STATUS_READY )
-    {                        
-        switch ( appData.stageSource )
-        {
-            case APP_STAGE_SOURCE_PROGRAMFLASH:
-                config.type = DRV_MAXTOUCH_RAW_FLASH;
-                config.data = &mxt336T_config[0];
-                config.progress = &App_StageProgramProgressHandler;
-                /* load configuration data */
-                progressBar = stageProgressBar;   
-                DRV_MAXTOUCH_ConfigParse ( sysObj.drvMAXTOUCH, &config );
-                break;
-
-            case APP_STAGE_SOURCE_SDCARD:
-                config.type = DRV_MAXTOUCH_UNKNOWN_FILE;
-                config.data = XCFG_FILENAME;
-                config.progress = &App_StageSDCardProgressHandler;
-                progressBar = stageProgressBar;   
-                DRV_MAXTOUCH_ConfigParse ( sysObj.drvMAXTOUCH, &config );
-                break;
-
-            case APP_STAGE_SOURCE_USBDRIVE:
-                config.type = DRV_MAXTOUCH_UNKNOWN_FILE;
-                config.data = XCFG_FILENAME;
-                config.progress = &App_StageUSBProgressHandler;
-                break;
-                
-            case APP_STAGE_SOURCE_PC:
-                config.type = DRV_MAXTOUCH_UNKNOWN_FILE;
-                config.data = XCFG_FILENAME;
-                config.progress = &App_StagePCProgressHandler;
-                appData.state = APP_STATE_OPENUSB;
-
-        }
-        
-        laWidget_SetVisible((laWidget*)stageButton, false);
-        laWidget_SetVisible((laWidget*)ImageWidget35, false);       
-    }
-}
-    
-void APP_OnStageSDCardButtonReleased()
-{
-    appData.stageSource = APP_STAGE_SOURCE_SDCARD;
-    laRadioButtonWidget_SetSelected(stageSDCardRadioButton);
-    laProgressBarWidget_SetValue(stageProgressBar,  0);    
-    if ( ! appData.epDataReadPending )
-        appData.state = APP_STATE_SDHC_MOUNT_CONFIG_DISK;
-}
-
-void APP_OnStagePCButtonReleased(void)
-{
-    appData.stageSource = APP_STAGE_SOURCE_PC;
-    laRadioButtonWidget_SetSelected(stagePCRadioButton);
-    laProgressBarWidget_SetValue(stageProgressBar,  0);    
-}
-
-void APP_OnStageProgramButtonReleased(void)
-{
-    appData.stageSource = APP_STAGE_SOURCE_PROGRAMFLASH;
-    laRadioButtonWidget_SetSelected(stageProgramRadioButton);
-    laProgressBarWidget_SetValue(stageProgressBar,  0);    
-}
-
-void APP_OnStageUSBCardButtonReleased(void)
-{
-    appData.stageSource = APP_STAGE_SOURCE_USBDRIVE;
-    laRadioButtonWidget_SetSelected(stageUSBRadioButton);
-    laProgressBarWidget_SetValue(stageProgressBar,  0);    
-}
-
-void App_StageProgramProgressHandler(uint32_t progress)
-{
-    if ( progress > 0 && progress <= PROGRESS_COMPLETE) 
-        laProgressBarWidget_SetValue(progressBar,  progress); 
-    
-    if ( progress == PROGRESS_COMPLETE )
-    {
-        laWidget_SetVisible((laWidget*)stageButton, false);
-        laWidget_SetVisible((laWidget*)ImageWidget35, false);
-        laWidget_SetVisible((laWidget*)stageNextButton, true);
-    }
-}
-
-void App_StageSDCardProgressHandler(uint32_t progress)
-{
-    if ( progress > 0 && progress <= PROGRESS_COMPLETE) 
-        laProgressBarWidget_SetValue(progressBar,  progress);    
-    
-    if ( progress == PROGRESS_COMPLETE )
-    {
-        laWidget_SetVisible((laWidget*)stageButton, false);
-        laWidget_SetVisible((laWidget*)ImageWidget35, false);
-        laWidget_SetVisible((laWidget*)stageNextButton, true);
-    }
-}
-
-void App_StageUSBProgressHandler(uint32_t progress)
-{
-    if ( progress > 0 && progress <= PROGRESS_COMPLETE) 
-        laProgressBarWidget_SetValue(progressBar,  progress); 
-    
-    if ( progress == PROGRESS_COMPLETE )
-    {
-        laWidget_SetVisible((laWidget*)stageButton, false);
-        laWidget_SetVisible((laWidget*)ImageWidget35, false);
-        laWidget_SetVisible((laWidget*)stageNextButton, true);
-    }
-}
-
-void App_StagePCProgressHandler(uint32_t progress)
-{
-    if ( progress > 0 && progress <= PROGRESS_COMPLETE) 
-        laProgressBarWidget_SetValue(progressBar,  progress);   
-    
-    if ( progress == PROGRESS_COMPLETE )
-    {
-        laWidget_SetVisible((laWidget*)stageButton, false);
-        laWidget_SetVisible((laWidget*)ImageWidget35, false);
-        laWidget_SetVisible((laWidget*)stageNextButton, true);
     }
 }
 

@@ -331,7 +331,8 @@ static void drawImage(laButtonWidget* btn)
     GFX_Rect imgRect, imgSrcRect, clipRect;
     GFXU_ImageAsset* img = NULL;
     laLayer* layer = laUtils_GetLayer((laWidget*)btn);
-    
+	GFX_Bool alphaEnable;
+
     if(btn->state != LA_BUTTON_STATE_UP)
     {
         if(btn->pressedImage != NULL)
@@ -349,7 +350,10 @@ static void drawImage(laButtonWidget* btn)
     {        
         clipRect = GFX_RectClipAdj(&imgRect, &layer->clippedDrawingRect, &imgSrcRect);
         
-        GFXU_DrawImage(img,
+		GFX_Get(GFXF_DRAW_ALPHA_ENABLE, &alphaEnable);
+		GFX_Set(GFXF_DRAW_ALPHA_ENABLE, btn->widget.alphaEnabled);
+
+		GFXU_DrawImage(img,
                        imgSrcRect.x,
                        imgSrcRect.y,
                        imgSrcRect.width,
@@ -359,7 +363,9 @@ static void drawImage(laButtonWidget* btn)
                        &laContext_GetActive()->memIntf,
                        &btn->reader);
                 
-        if(btn->reader != NULL)
+		GFX_Set(GFXF_DRAW_ALPHA_ENABLE, alphaEnable);
+
+		if (btn->reader != NULL)
         {  
             btn->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&waitImage;
             btn->widget.drawState = WAIT_IMAGE;

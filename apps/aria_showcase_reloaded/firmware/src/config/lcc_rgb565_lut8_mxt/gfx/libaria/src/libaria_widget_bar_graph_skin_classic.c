@@ -120,7 +120,7 @@ static void drawTickLabelWithValue(laBarGraphWidget* graph, GFX_Point tickPoint,
     //Protect from overflow
     if (value < MAX_TICK_LABEL_VALUE)
     {
-        sprintf(strbuff, "%ld", value);
+        sprintf(strbuff, "%d", (int) value);
     }
     else
     {

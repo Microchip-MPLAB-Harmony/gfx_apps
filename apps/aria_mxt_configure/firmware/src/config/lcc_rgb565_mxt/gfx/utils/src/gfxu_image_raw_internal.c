@@ -146,6 +146,7 @@ GFX_Result GFXU_DrawImageRawInternal(GFXU_ImageAsset* img,
             GFX_BlendMode blendMode;
             GFX_Get(GFXF_DRAW_BLEND_MODE, &blendMode);
             GFX_Set(GFXF_DRAW_BLEND_MODE, blendMode | GFX_BLEND_CHANNEL);
+            GFX_Set(GFXF_DRAW_ALPHA_ENABLE, GFX_TRUE);
             //No break, fall through
         }
         case GFX_COLOR_MODE_GS_8:

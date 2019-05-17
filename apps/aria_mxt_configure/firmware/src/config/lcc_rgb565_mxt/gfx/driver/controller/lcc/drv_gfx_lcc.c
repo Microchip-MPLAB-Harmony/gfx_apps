@@ -54,13 +54,19 @@
 
 
 #define FRAMEBUFFER_COLOR_MODE GFX_COLOR_MODE_RGB_565
+#define FRAMEBUFFER_TYPE uint16_t
+#define FRAMEBUFFER_PIXEL_BYTES 2
 
 const char* DRIVER_NAME = "LCC SMC";
-static uint32_t supported_color_formats = GFX_COLOR_MASK_RGB_565;
+static uint32_t supported_color_formats = (GFX_COLOR_MASK_RGB_565 | GFX_COLOR_MASK_RGB_332);
 
-uint16_t __attribute__((aligned(16))) frameBuffer[BUFFER_COUNT][DISPLAY_WIDTH * DISPLAY_HEIGHT];
+#define FRAMEBUFFER_ATTRIBUTE __attribute__((aligned(FRAMEBUFFER_PIXEL_BYTES*8)))
+
+FRAMEBUFFER_TYPE FRAMEBUFFER_ATTRIBUTE frameBuffer[BUFFER_COUNT][DISPLAY_WIDTH * DISPLAY_HEIGHT];
+
 
 #define DRV_GFX_LCC_DMA_CHANNEL_INDEX XDMAC_CHANNEL_1
+#define DRV_GFX_DMA_EVENT_TYPE XDMAC_TRANSFER_EVENT
 
 #ifndef GFX_DISP_INTF_PIN_RESET_Set
 #error "GFX_DISP_INTF_PIN_RESET GPIO must be defined in the Pin Settings"
@@ -93,7 +99,7 @@ enum
 
 static int DRV_GFX_LCC_Start();
 static void DRV_GFX_LCC_DisplayRefresh(void);
-void dmaIntHandler (XDMAC_TRANSFER_EVENT status,
+void dmaIntHandler (DRV_GFX_DMA_EVENT_TYPE status,
                     uintptr_t contextHandle);
 
 GFX_Context* cntxt;
@@ -287,7 +293,7 @@ GFX_Result driverLCCContextInitialize(GFX_Context* context)
 static void lccDMAStartTransfer(const void *srcAddr, size_t srcSize,
                                        const void *destAddr)
 {
-    XDMAC_ChannelBlockLengthSet(DRV_GFX_LCC_DMA_CHANNEL_INDEX, (srcSize >> 1) - 1);
+    XDMAC_ChannelBlockLengthSet(DRV_GFX_LCC_DMA_CHANNEL_INDEX, (srcSize / FRAMEBUFFER_PIXEL_BYTES) - 1);
 
     SCB_CleanInvalidateDCache_by_Addr(
                     (uint32_t *)((uint32_t ) srcAddr & ~0x1F),
@@ -301,9 +307,9 @@ static int DRV_GFX_LCC_Start()
     XDMAC_ChannelCallbackRegister(DRV_GFX_LCC_DMA_CHANNEL_INDEX, dmaIntHandler, 0);
 
     lccDMAStartTransfer(frameBuffer, 
-                        2,
+                        FRAMEBUFFER_PIXEL_BYTES,
                         (const void *) EBI_BASE_ADDR);
-    
+
     return 0;
 }
 
@@ -451,11 +457,11 @@ static void DRV_GFX_LCC_DisplayRefresh(void)
     }
 
     lccDMAStartTransfer(buffer_to_tx,
-                        (pixels << 1), //2 bytes per pixel
+                        (pixels * FRAMEBUFFER_PIXEL_BYTES), //2 bytes per pixel
                         (uint32_t*) EBI_BASE_ADDR);
 }
 
-void dmaIntHandler (XDMAC_TRANSFER_EVENT status,
+void dmaIntHandler (DRV_GFX_DMA_EVENT_TYPE status,
                     uintptr_t contextHandle)
 {
     DRV_GFX_LCC_DisplayRefresh();

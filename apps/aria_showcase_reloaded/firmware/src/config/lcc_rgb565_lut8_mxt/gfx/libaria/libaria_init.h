@@ -255,6 +255,9 @@ extern laButtonWidget* CheckBoxPhantomButton;
 extern laCheckBoxWidget* CheckBoxWidget17;
 
 
+
+
+
 int32_t libaria_initialize(void);
 
 //DOM-IGNORE-BEGIN

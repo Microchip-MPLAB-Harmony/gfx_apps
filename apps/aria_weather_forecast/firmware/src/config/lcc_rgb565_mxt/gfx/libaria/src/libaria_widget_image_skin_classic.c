@@ -146,6 +146,7 @@ static void drawBackground(laImageWidget* img)
 static void drawImage(laImageWidget* img)
 {
     GFX_Rect imgRect, imgSrcRect, clipRect;
+	GFX_Bool alphaEnable;
 
     laLayer* layer = laUtils_GetLayer((laWidget*)img);
 
@@ -162,7 +163,10 @@ static void drawImage(laImageWidget* img)
     {
         clipRect = GFX_RectClipAdj(&imgRect, &layer->clippedDrawingRect, &imgSrcRect);
 
-        GFXU_DrawImage(img->image,
+		GFX_Get(GFXF_DRAW_ALPHA_ENABLE, &alphaEnable);
+		GFX_Set(GFXF_DRAW_ALPHA_ENABLE, img->widget.alphaEnabled);
+
+		GFXU_DrawImage(img->image,
                        imgSrcRect.x,
                        imgSrcRect.y,
                        imgSrcRect.width,
@@ -172,7 +176,9 @@ static void drawImage(laImageWidget* img)
                        &laContext_GetActive()->memIntf,
                        &img->reader);
 
-        if(img->reader != NULL)
+		GFX_Set(GFXF_DRAW_ALPHA_ENABLE, alphaEnable);
+		
+		if (img->reader != NULL)
         {
             img->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&waitImage;
             img->widget.drawState = WAIT_IMAGE;

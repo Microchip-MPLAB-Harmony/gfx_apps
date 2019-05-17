@@ -143,6 +143,7 @@ extern unsigned int vsyncCount;
 static uint32_t prevSwapCountAve[AVE_FPS_COUNT] = {0};
 static volatile bool aveFPSValid = false;
 static int aveCounter = 0;
+unsigned int vsyncCount = 0;
 
 MOTION_WIDGET_T motionWidgets[MOTION_WIDGETS_NUM] = 
 {

@@ -53,6 +53,14 @@
 */
 
 APP_DATA appData;
+laString sliderValueLabelString;
+SYS_TIME_HANDLE handleTimerFF = SYS_TIME_HANDLE_INVALID;
+SYS_TIME_HANDLE handleTimerPlay = SYS_TIME_HANDLE_INVALID;
+
+void Timer_Callback ( uintptr_t context)
+{
+    laImageSequenceWidget_ShowNextImage(ImageSequenceWidget1);
+}
 
 // *****************************************************************************
 // *****************************************************************************
@@ -97,6 +105,11 @@ void APP_Initialize ( void )
     /* TODO: Initialize your application's state machine and other
      * parameters.
      */
+}
+
+void APP_SendEvent(APP_EVENTS event )
+{
+    appData.event = event;
 }
 
 /******************************************************************************

@@ -39,11 +39,8 @@
 *******************************************************************************/
 // DOM-IGNORE-END
 
-//CUSTOM CODE - DO NOT REMOVE OR MODIFY!!
-#include "app.h"
-//END OF CUSTOM CODE
-
 #include "gfx/libaria/libaria_events.h"
+#include "app.h"
 
 // ButtonWidget_SwitchCity - ReleasedEvent
 void ButtonWidget_SwitchCity_ReleasedEvent(laButtonWidget* btn)

@@ -1,5 +1,5 @@
 # Microchip MPLAB Harmony 3 Release Notes
-## GFX Apps Release v3.2.0
+## GFX Apps Release v3.3.0
 ### NEW FEATURES
 
 
@@ -8,29 +8,33 @@
 | Category | Component | Description | Release Type | 
 | --- | --- | ---- |---- |
 | apps | aria_benchmark | Metrics on Aria Graphics Library | Beta |
+|      | aria_dashboard | Example automobile dashboard demo| Beta |
 |      | aria_mxt_configure | Example maXTouch configuration | Beta |
+|      | aria_oven_controller | Example SRAM-only GPU demo| Beta |
 |      | aria_showcase | Example of Aria Graphics Library Widgets| Beta |
 |      | aria_showcase_reloaded | Example of Aria Graphics Library Widgets| Beta |Beta | 
 |      | aria_weather_forecast | Example weather UI | Beta |
-|  doc    | | Harmony Graphics Application Documentation| Beta |
-
+|  doc | API | Harmony Graphics Application API Documentation| Beta |
+|  docs| Help | Harmony Graphics Application Help Documentation| Beta |
 
 - **New Applications** - The following table provides the list of new applications.
 
 | Application | Description | 
 | --- | --- |
-| aria_mxt_configure | maXTouch configuration | 
-| aria_flash |  Widgets and advance capabilities|
-| aria_flash (redisign) | Circular and graphing widgets| 
-| aria_benchmark | Metrics on graphics operations | 
+| aria_dashboard | Example automobile dashboard demo | 
+| aria_oven_controller |  Example SRAM-only GPU demo |
 
-| Applications | [SAM C21N Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/PartNO/ATSAMC21-XPRO) | [SAM E54 Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/PartNO/ATSAME54-XPRO) | [SAM E70 Xplained Ultra Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/PartNO/ATSAME70-XPLD) | [SAM A5D2 Xplained Ultra Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/atsama5d2c-xult) |
-| --- | --- | --- | --- | --- |
-| aria_benchmark          |  |   | x | x |
-| aria_mxt_configure      |  |   | x |   |
-| aria_showcase           |  |   | x |   |
-| aria_showcase_reloaded  |  |   | x |   |
-| aria_weather_forecast   |  |   | x |   |
+- **Development kit and demo application support** - The following table provides the list of applications for different development kits.
+
+| Applications | [SAM C21N Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/PartNO/ATSAMC21-XPRO) | [SAM E54 Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/PartNO/ATSAME54-XPRO) | [SAM E70 Xplained Ultra Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/PartNO/ATSAME70-XPLD) | [SAM A5D2 Xplained Ultra Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/atsama5d2c-xult) |[Multimedia Expansion Board II](https://www.microchip.com/DevelopmentTools/ProductDetails/PartNO/DM320005-5) |
+| --- | --- | --- | --- | --- | --- |
+| aria_dashboard          |  |   | x |   |   |
+| aria_benchmark          |  |   | x | x | x |
+| aria_mxt_configure      |  |   | x |   |   |
+| aria_oven_controller    |  |   | x |   | x |
+| aria_showcase           |  |   | x |   |   |
+| aria_showcase_reloaded  |  |   | x |   |   |
+| aria_weather_forecast   |  |   | x |   |   |
 
 ### KNOWN ISSUES
 
@@ -56,9 +60,9 @@ The current known issues are as follows:
 | [MPLAB XC32 C/C++ Compiler](https://www.microchip.com/mplab/compilers)      | v2.15 | 
 | MPLAB X IDE plug-ins          |  |
 | MPLAB Harmony Configurator (MHC) plug-in   | v3.2.0 | 
-| Harmony 3 BSP (https://github.com/Microchip-MPLAB-Harmony/bsp)   | v3.2.0 |
-| Harmony 3 CSP (https://github.com/Microchip-MPLAB-Harmony/csp)  | v3.2.0 |
-| Harmony 3 Core (https://github.com/Microchip-MPLAB-Harmony/core)  | v3.2.0 |
-| Harmony 3 GFX (https://github.com/Microchip-MPLAB-Harmony/gfx)   | v3.2.0 |
-| Harmony 3 Dev_Packs (https://github.com/Microchip-MPLAB-Harmony/dev_packs)   | v3.2.0 |
-| Harmony 3 USB (https://github.com/Microchip-MPLAB-Harmony/usb)   | v3.1.0 |
+| [Harmony 3 BSP](https://github.com/Microchip-MPLAB-Harmony/bsp)   | v3.2.1 |
+| [Harmony 3 CSP](https://github.com/Microchip-MPLAB-Harmony/csp)  | v3.2.1 |
+| [Harmony 3 Core](https://github.com/Microchip-MPLAB-Harmony/core)  | v3.2.1 |
+| [Harmony 3 GFX](https://github.com/Microchip-MPLAB-Harmony/gfx)   | v3.2.0 |
+| [Harmony 3 Dev_Packs](https://github.com/Microchip-MPLAB-Harmony/dev_packs)   | v3.2.1 |
+| [Harmony 3 USB](https://github.com/Microchip-MPLAB-Harmony/usb)   | v3.2.0 |

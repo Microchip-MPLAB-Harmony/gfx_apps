@@ -56,11 +56,11 @@ extern "C" {
 #endif
 // DOM-IGNORE-END 
 
-#define LIBARIA_SCREEN_COUNT   7
+#define LIBARIA_SCREEN_COUNT   6
 
 // reference IDs for generated libaria screens
 // screen "load_screen"
-#define load_screen_ID    3
+#define load_screen_ID    2
 
 // screen "main_screen"
 #define main_screen_ID    1
@@ -68,17 +68,14 @@ extern "C" {
 // screen "splash_screen"
 #define splash_screen_ID    0
 
-// screen "stage_screen"
-#define stage_screen_ID    2
-
 // screen "store_screen"
-#define store_screen_ID    6
+#define store_screen_ID    5
 
 // screen "test_screen"
-#define test_screen_ID    5
+#define test_screen_ID    4
 
 // screen "test_screen_buttons"
-#define test_screen_buttons_ID    4
+#define test_screen_buttons_ID    3
 
 
 
@@ -97,22 +94,6 @@ extern laImageWidget* ImageWidget;
 extern laImageWidget* ImageWidget;
 extern laImageWidget* ImageWidget5;
 extern laImageWidget* ImageWidget6;
-extern laProgressBarWidget* stageProgressBar;
-extern laLabelWidget* LabelWidget10;
-extern laButtonWidget* ButtonWidget19;
-extern laLabelWidget* LabelWidget26;
-extern laImageWidget* ImageWidget28;
-extern laImageWidget* ImageWidget35;
-extern laButtonWidget* stageButton;
-extern laRadioButtonWidget* stageProgramRadioButton;
-extern laRadioButtonWidget* stageSDCardRadioButton;
-extern laRadioButtonWidget* stageUSBRadioButton;
-extern laRadioButtonWidget* stagePCRadioButton;
-extern laButtonWidget* stageSDCardButton;
-extern laButtonWidget* stagePCButton;
-extern laButtonWidget* stageProgramButton;
-extern laButtonWidget* stageUsbButton;
-extern laButtonWidget* stageNextButton;
 extern laImageWidget* ImageWidget8;
 extern laImageWidget* ImageWidget10;
 extern laButtonWidget* loadButton;
@@ -145,6 +126,9 @@ extern laImageWidget* ImageWidget29;
 extern laLabelWidget* LabelWidget30;
 extern laImageWidget* ImageWidget34;
 extern laButtonWidget* storeDoneButton;
+
+
+
 
 
 int32_t libaria_initialize(void);

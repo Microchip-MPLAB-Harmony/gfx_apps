@@ -531,7 +531,8 @@ static void drawIcon(laListWidget* lst)
 {
     GFX_Rect widgetRect, imgRect, imgSrcRect, clipRect;
     laLayer* layer = laUtils_GetLayer((laWidget*)lst);
-    
+	GFX_Bool alphaEnable;
+
     if(lst->paintState.nextItem == lst->items.size)
     {
         nextState(lst);
@@ -568,7 +569,10 @@ static void drawIcon(laListWidget* lst)
             
             clipRect = GFX_RectClipAdj(&imgRect, &widgetRect, &imgSrcRect);
             
-            GFXU_DrawImage(lst->paintState.item->icon,
+			GFX_Get(GFXF_DRAW_ALPHA_ENABLE, &alphaEnable);
+			GFX_Set(GFXF_DRAW_ALPHA_ENABLE, lst->widget.alphaEnabled);
+
+			GFXU_DrawImage(lst->paintState.item->icon,
                            imgSrcRect.x,
                            imgSrcRect.y,
                            imgSrcRect.width,
@@ -578,7 +582,9 @@ static void drawIcon(laListWidget* lst)
                            &laContext_GetActive()->memIntf,
                            &lst->reader);
                            
-            if(lst->reader != NULL)
+			GFX_Set(GFXF_DRAW_ALPHA_ENABLE, alphaEnable);
+
+			if (lst->reader != NULL)
             {
                 lst->widget.drawState = WAIT_ICON;
                 lst->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&waitIcon;

@@ -199,6 +199,8 @@ void APP_Initialize ( void );
 
 void APP_Tasks( void );
 
+void resetFPS(void);
+
 
 
 #endif /* _APP_H */

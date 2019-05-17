@@ -47,8 +47,8 @@
 // mainLoadButton - ReleasedEvent
 void mainLoadButton_ReleasedEvent(laButtonWidget* btn)
 {
-    // onLoadButtonReleased - Show Screen - stage_screen
-    laContext_SetActiveScreen(stage_screen_ID);
+    // onLoadButtonReleased - Show Screen - load_screen
+    laContext_SetActiveScreen(load_screen_ID);
 }
 
 // mainTestButton - ReleasedEvent
@@ -56,55 +56,6 @@ void mainTestButton_ReleasedEvent(laButtonWidget* btn)
 {
     // onTestButtonReleased - Show Screen - test_screen_buttons
     laContext_SetActiveScreen(test_screen_buttons_ID);
-}
-
-// ButtonWidget19 - ReleasedEvent
-void ButtonWidget19_ReleasedEvent(laButtonWidget* btn)
-{
-    // onLoadExitButtonReleased - Show Screen - main_screen
-    laContext_SetActiveScreen(main_screen_ID);
-}
-
-// stageButton - ReleasedEvent
-void stageButton_ReleasedEvent(laButtonWidget* btn)
-{
-    // onStageButtonReleased
-    APP_OnStageButtonReleased();
-}
-
-// stageSDCardButton - ReleasedEvent
-void stageSDCardButton_ReleasedEvent(laButtonWidget* btn)
-{
-    // onStageSDCardButtonReleased
-    APP_OnStageSDCardButtonReleased();
-}
-
-// stagePCButton - ReleasedEvent
-void stagePCButton_ReleasedEvent(laButtonWidget* btn)
-{
-    // onStagePCButtonReleased
-    APP_OnStagePCButtonReleased();
-}
-
-// stageProgramButton - ReleasedEvent
-void stageProgramButton_ReleasedEvent(laButtonWidget* btn)
-{
-    // onStageProgramButtonReleased
-    APP_OnStageProgramButtonReleased();
-}
-
-// stageUsbButton - ReleasedEvent
-void stageUsbButton_ReleasedEvent(laButtonWidget* btn)
-{
-    // onStageUSBCardButtonReleased
-    APP_OnStageUSBCardButtonReleased();
-}
-
-// stageNextButton - ReleasedEvent
-void stageNextButton_ReleasedEvent(laButtonWidget* btn)
-{
-    // onStageNextButtonReleased - Show Screen - load_screen
-    laContext_SetActiveScreen(load_screen_ID);
 }
 
 // load_screen - ShowEvent
@@ -124,13 +75,8 @@ void loadButton_ReleasedEvent(laButtonWidget* btn)
 // ButtonWidget14 - ReleasedEvent
 void ButtonWidget14_ReleasedEvent(laButtonWidget* btn)
 {
-    // onLoadBackButtonReleased - Show Screen - stage_screen
-    laContext_SetActiveScreen(stage_screen_ID);
-}
-
-// loadProgramRadioButton - CheckedEvent
-void loadProgramRadioButton_CheckedEvent(laRadioButtonWidget* cbox)
-{
+    // onLoadBackButtonReleased - Show Screen - main_screen
+    laContext_SetActiveScreen(main_screen_ID);
 }
 
 // loadProgramButton - ReleasedEvent
@@ -171,8 +117,8 @@ void loadNextButton_ReleasedEvent(laButtonWidget* btn)
 // ButtonWidget3 - ReleasedEvent
 void ButtonWidget3_ReleasedEvent(laButtonWidget* btn)
 {
-    // onTestScreenButtonBack - Show Screen - stage_screen
-    laContext_SetActiveScreen(stage_screen_ID);
+    // onTestScreenButtonBack - Show Screen - load_screen
+    laContext_SetActiveScreen(load_screen_ID);
 }
 
 // ButtonWidget4 - ReleasedEvent

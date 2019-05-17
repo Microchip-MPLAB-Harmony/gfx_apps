@@ -214,7 +214,7 @@ static void drawPieChart(laPieChartWidget* chart)
                     //Protect from overflow
                     if (value < MAX_TICK_LABEL_VALUE)
                     {
-                        sprintf(strbuff, "%ld", value);
+                        sprintf(strbuff, "%d", (int) value);
                     }
                     else
                     {

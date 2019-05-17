@@ -40,6 +40,7 @@
 // DOM-IGNORE-END
 
 #include "gfx/libaria/libaria_init.h"
+#include "gfx/libaria/inc/libaria_utils.h"
 
 laScheme DarkBlueBaseScheme;
 laScheme MainMenuScheme;
@@ -2527,6 +2528,7 @@ static void ScreenCreate_LineGraphScreen(laScreen* screen)
     laWidget_AddChild((laWidget*)CheckBoxPhantomButton, (laWidget*)CheckBoxWidget17);
 
 }
+
 
 
 

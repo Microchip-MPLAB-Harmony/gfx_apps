@@ -132,7 +132,7 @@ static void getValueLabelMaxDrawRect(laBarGraphWidget* graph, GFX_Rect * rect)
             //Protect from overflow
             if (graph->minValue > -MAX_TICK_LABEL_VALUE)
             {
-                sprintf(strbuff, "%ld", graph->minValue);
+                sprintf(strbuff, "%d", (int) graph->minValue);
             }
             else
             {
@@ -149,7 +149,7 @@ static void getValueLabelMaxDrawRect(laBarGraphWidget* graph, GFX_Rect * rect)
         //Protect from overflow
         if (graph->maxValue < MAX_TICK_LABEL_VALUE) 
         {
-            sprintf(strbuff, "%ld", graph->maxValue);
+            sprintf(strbuff, "%d", (int) graph->maxValue);
         } else 
         {
             sprintf(strbuff, "---");
