@@ -40,8 +40,6 @@
 // DOM-IGNORE-END
 
 #include "gfx/libaria/libaria_events.h"
-#include "gfx/libaria/libaria_events.h"
-//CUSTOM CODE - DO NOT MODIFY OR REMOVE
 #include "app.h"
 
 // ButtonWidget1 - ReleasedEvent

@@ -40,9 +40,7 @@
 // DOM-IGNORE-END
 
 #include "gfx/libaria/libaria_events.h"
-//CUSTOM CODE - DO NOT MODIFY OR REMOVE!!
 #include "app.h"
-//END OF CUSTOM CODE
 
 // mainLoadButton - ReleasedEvent
 void mainLoadButton_ReleasedEvent(laButtonWidget* btn)

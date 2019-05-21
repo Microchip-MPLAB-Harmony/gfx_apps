@@ -204,7 +204,7 @@ static void arrangeItems(laRadialMenuWidget* mn)
         
         percent = 100 - _weighAngle(item->t);
 
-		item->widget->alphaEnabled = LA_TRUE;
+		item->widget->alphaEnabled = mn->scaleItemAlpha == LA_RADIAL_MENU_SCALE_OFF ? LA_FALSE : LA_TRUE;
 
 		switch (mn->scaleItemAlpha)
         {
