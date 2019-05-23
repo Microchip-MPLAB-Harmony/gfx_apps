@@ -116,20 +116,20 @@ void CLK_Initialize( void )
 
     while(!(CFGMPLLbits.MPLLVREGRDY));
 
-    //CUSTOM CODE - DO NOT MODIFY OR REMOVE
-    CFGMPLL = 0x0B001901;
-    //END OF CUSTOM CODE
+    CFGMPLL = 0xb001901;
 
-    //CUSTOM CODE - DO NOT MODIFY OR REMOVE
+    while(!(CFGMPLLbits.MPLLRDY));
+
     /* Peripheral Module Disable Configuration */
-//    PMD1 = 0xffffffff;
-//    PMD2 = 0xffffffff;
-//    PMD3 = 0xffffffff;
-//    PMD4 = 0xffffffff;
-//    PMD5 = 0xfffeffff;
-//    PMD6 = 0xffe9e0ff;
-//    PMD7 = 0xefffffef;
+    //CUSTOM CODE - DO NOT MODIFY OR REMOVE
+    PMD1 = 0xefffffff;
     //END OF CUSTOM CODE
+    PMD2 = 0xffffffff;
+    PMD3 = 0xffffffff;
+    PMD4 = 0xffffffff;
+    PMD5 = 0xfefeffff;
+    PMD6 = 0xffe9e0ff;
+    PMD7 = 0xefffffef;
 
     /* Lock system since done with clock configuration */
     int_flag = (bool)__builtin_disable_interrupts();
