@@ -44,6 +44,8 @@ The current known issues are as follows:
 
 * Applications are compliant to MISRA C 2012 Mandatory guidelines, except for Rules R.9.1 and R.17.3
 
+* Applications for PIC32MZ DA using external DDR are only supported on Rev B0 silicon.
+
 | Project Name | Development Kit |
 | --- | --- |
 | supc\_wakeup\_rtc | SAM V71 Xplained Ultra Evaluation Kit  |

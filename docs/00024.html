@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
 <head>
-<title>Demonstrations</title>
+<title>aria_oven_controller</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="generator" content="Doc-O-Matic" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
@@ -18,7 +18,7 @@
 <!-- Begin Page Header -->
 <div class="Element710" id="areafixed">
 <div class="Element94">
-<a href="00026.html" target="topic">Graphics Demonstrations</a> &gt; <a href="00024.html" target="topic">Demonstrations</a></div>
+<a href="00046.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00044.html" target="topic">Demonstrations</a> &gt; <a href="00024.html" target="topic">aria_oven_controller</a></div>
 <div class="Element92">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="25%">
@@ -26,15 +26,15 @@
 Graphics Demonstrations</div>
 </td><td width="25%">
 <div class="Element2">
-<a href="contents.html" target="tocidx">Contents</a> | <a href="00026.html" target="topic">Home</a></div>
+<a href="contents.html" target="tocidx">Contents</a> | <a href="00046.html" target="topic">Home</a></div>
 </td><td width="25%">
 <div class="Element90">
-<a href="00025.html" target="topic">Previous</a> | <a href="00026.html" target="topic">Up</a> | <a href="00000.html" target="topic">Next</a></div>
+<a href="00023.html" target="topic">Previous</a> | <a href="00044.html" target="topic">Up</a> | <a href="00025.html" target="topic">Next</a></div>
 </td><td width="25%">
 <div class="Element96">
-<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX Demonstrations Topic Title: Demonstrations)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
+<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_oven_controller Topic Title: aria_oven_controller)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
 </td></tr></table><div class="Element5">
-Demonstrations</div>
+aria_oven_controller</div>
 </div>
 </div>
 
@@ -46,6 +46,67 @@ Demonstrations</div>
 
 <!-- Begin Page Content -->
 <a name="PageContent"></a><div class="Element58">
+<a name="4465736372697074696F6E"></a><div class="Element11">
+<div class="Element10">
+<p class="Element10">
+This application demonstrates the Graphics Processing Unit (GPU) features on the <span class="Element145">PIC32MZ Embedded Graphics with Disabled DRAM (DA) Starter Kit</span> hardware package. This SRAM version has 640K of accessible graphics memory. The application shows dynamic movement of image assets and basic motion control. The application performs time-based motion menu controls and User-Interface (UI) indicators. This demonstration displays the use of 640K SRAM by allocating 480x272x2 (16-bit) frame buffer, and a 480x272x2 asset staging area for fast run-time access to pre-rendered images. The demonstration shows that the GPU can be used in a low memory environment using 522k of internal frame buffer memory, and can produce appealing, low memory use GPU based applications. These are the key points:</p>
+<ul class="Element630">
+<li class="Element600">Internal SRAM package: a DDR is not required for graphics</li>
+<li class="Element600">Multiple image staging with the use of sprites</li>
+<li class="Element600">High color contrast images with drop shadow shading</li>
+<li class="Element600">Modern UI</li>
+<li class="Element600">Use of motion to show double buffering</li>
+<li class="Element600">13% of SRAM remains for non-graphics use, this is about 83K</li>
+<li class="Element600">Use of MHGC screens for image asset. Managing image locations efficiently in memory can be an easy process</li>
+</ul><div class="Element15">
+Architecture</div>
+<p class="Element10">
+The following figure shows the various software and hardware components used by this application. </p><p class="Element10" style="text-align: center;">
+&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+<img src="APPS GFX aria_oven_controller block diagramwithinput touch service.png" border="0" alt="" title=""></p><p class="Element10">
+The aria_oven_controller application uses the <span class="Element145">MPLAB Harmony Graphics Library</span> to render graphics to the display in a RGB565 color mode. The Graphics library draws the widgets and images to a 16-bit frame buffer which is stored in the internal SRAM of the PIC32MZ DA device. Using the <span class="Element145">Graphics Display Controller</span> (GLCD), the PIC32MZ DA Display Driver continuously transfers frame data to the LCD display. During display refresh, the application will use the GPU to update the frame buffer using the nano2D software driver, which retrieves data from the staging area (source) for all image assets.&nbsp;</p>
+<p class="Element10">
+The demonstration contains five UI screens:</p>
+<ul class="Element630">
+<li class="Element600">Splash Screen: initial boot display</li>
+<li class="Element600">Home Screen: controller demo idle state display</li>
+<li class="Element600">Controller Screen: brick oven roasting control UI</li>
+<li class="Element600">Info Screen: information and help</li>
+<li class="Element600">Asset Layout Screen: image asset memory location and usage</li>
+</ul><p class="Element10">
+Image assets are pre-rendered from internal Flash memory to SRAM on application start. Each image is accessed during runtime to create dynamic sprite affects and motion. The layout and location of images were positioned using the <span class="Element145">GFXLIB Graphics Composer Suite</span> (MHGC) to produce accurate coordinate location and efficient memory use. Note that there exists space for additional images. The layout is shown in the following figure: </p><p class="Element10" style="text-align: center;">
+<img src="APPS GFX aria_oven_controller brick oven controller.png" border="0" alt="" title="">&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+&nbsp;</p>
+<p class="Element10">
+During run-time, the GPU is used to clear, colorize, blit and draw. The application uses <span class="Element146">n2d_blit()</span> to block copy images from the SRAM staging area onto the refreshing frame buffer. The application uses <span class="Element146">n2d_line()</span> to create the timer affect, and uses <span class="Element146">n2d_fill</span> to clear the orange active menu button bar.&nbsp;</p>
+<p class="Element10">
+All motion effects make use of the <span class="Element146">n2d_blit</span> (stretch/shrink) feature by setting the destination rectangle smaller or larger that the source rectangle (image). Image transparency is established by setting the background of the image to the display background. In addition, the application uses the Timer System Service and core timer clock ticks for image motion control.&nbsp;</p>
+<p class="Element10">
+The application is touch enabled. It features user touch input through the integrated touch screen on the display panel. Touch input from the touch controller goes through the I2C port, and the Input System Service acquires the touch input information from the Touch and I2C Drivers. The Input System Service sends touch events to the Graphics library, which processes these events and updates the frame data accordingly.&nbsp;</p>
+<p class="Element10">
+Demonstration Features:</p>
+<ul class="Element630">
+<li class="Element600">16-Bit RGB 565 Frame buffer</li>
+<li class="Element600">Image manipulation</li>
+<li class="Element600">480x272x2 Image staging memory space</li>
+<li class="Element600">Modern drop-shadow, gradient image assets</li>
+<li class="Element600">Internal memory: low memory frame buffer footprint 262K</li>
+</ul><p class="Element10">
+Tools Setup:</p>
+<ul class="Element630">
+<li class="Element600">Enable Graphics Stack</li>
+<li class="Element600">Enable Graphics Controller
+<ul class="Element631">
+<li class="Element601">GLCD</li>
+</ul></li>
+<li class="Element600">Enable Graphics Processor
+<ul class="Element631">
+<li class="Element601">Nano2D</li>
+</ul></li>
+</ul></div>
+</div>
 <a name="546F70696373"></a><div class="Element14">
 Topics</div>
 <div class="Element11">
@@ -61,34 +122,19 @@ Name&nbsp;</div></td><td class="Element204" valign="top" width="65%">
 Description&nbsp;</div></td></tr><tr>
 <td class="Element202" valign="top" width="35%">
 <div class="Element203">
-<a href="00000.html" target="topic">aria_benchmark</a>&nbsp;</div></td><td class="Element206" valign="top" width="65%">
+<a href="00025.html" target="topic">Building the Application</a>&nbsp;</div></td><td class="Element206" valign="top" width="65%">
 <div class="Element207">
-This application presents frame update rate metrics on the various rendering operations in the Harmony graphics library.&nbsp;</div></td></tr><tr>
+This section identifies the MPLAB X IDE project name and location and lists and describes the available configurations for the aria_oven_controller demonstration.&nbsp;</div></td></tr><tr>
 <td class="Element202" valign="top" width="35%">
 <div class="Element203">
-<a href="00004.html" target="topic">aria_dashboard</a>&nbsp;</div></td><td class="Element206" valign="top" width="65%">
+<a href="00026.html" target="topic">Configuring the Hardware</a>&nbsp;</div></td><td class="Element206" valign="top" width="65%">
 <div class="Element207">
-This application demonstrates the graphics capabilities of the SAM A5D2 MPU with the Harmony Graphics Suite using a simulated vehicle dashboard. *This application is for graphics demonstration purposes only and is not designed to work with safety-critical systems.*&nbsp;</div></td></tr><tr>
+This section describes how to configure the supported hardware.&nbsp;</div></td></tr><tr>
 <td class="Element202" valign="top" width="35%">
 <div class="Element203">
-<a href="00008.html" target="topic">aria_mxt_configure</a>&nbsp;</div></td><td class="Element206" valign="top" width="65%">
+<a href="00027.html" target="topic">Running the Demonstration</a>&nbsp;</div></td><td class="Element206" valign="top" width="65%">
 <div class="Element207">
-This demonstration provides a Harmony configuration starting point for the maXTouch Controller.&nbsp;</div></td></tr><tr>
-<td class="Element202" valign="top" width="35%">
-<div class="Element203">
-<a href="00012.html" target="topic">aria_showcase</a>&nbsp;</div></td><td class="Element206" valign="top" width="65%">
-<div class="Element207">
-This demonstration provides a subset of capabilities offered by the Aria Graphics Library using Low-Cost Controllerless features with touch screen capabilities.&nbsp;</div></td></tr><tr>
-<td class="Element202" valign="top" width="35%">
-<div class="Element203">
-<a href="00015.html" target="topic">aria_showcase_reloaded</a>&nbsp;</div></td><td class="Element206" valign="top" width="65%">
-<div class="Element207">
-This application showcases the circular and graphing widgets – arc, circular slider, circular gauge, pie chart, bar graph, line graph. These widgets are available and ready-to-use using the Harmony Graphics Composer suite.&nbsp;</div></td></tr><tr>
-<td class="Element202" valign="top" width="35%">
-<div class="Element203">
-<a href="00020.html" target="topic">aria_weather_forecast</a>&nbsp;</div></td><td class="Element206" valign="top" width="65%">
-<div class="Element207">
-This demonstration provides a practical single-layered single-buffered application using the Aria User Interface Library.&nbsp;</div></td></tr></table></div></div>
+This section provides information on how to run the demonstration.&nbsp;</div></td></tr></table></div></div>
 </div>
 </div>
 </div>
@@ -96,7 +142,7 @@ This demonstration provides a practical single-layered single-buffered applicati
 
 <!-- Begin Page Footer -->
 <div class="Element95">
-<a href="00026.html" target="topic">Graphics Demonstrations</a> &gt; <a href="00024.html" target="topic">Demonstrations</a></div>
+<a href="00046.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00044.html" target="topic">Demonstrations</a> &gt; <a href="00024.html" target="topic">aria_oven_controller</a></div>
 <div class="Element93">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="25%">
@@ -104,13 +150,13 @@ This demonstration provides a practical single-layered single-buffered applicati
 Graphics Demonstrations</div>
 </td><td width="25%">
 <div class="Element4">
-<a href="contents.html" target="tocidx">Contents</a> | <a href="00026.html" target="topic">Home</a></div>
+<a href="contents.html" target="tocidx">Contents</a> | <a href="00046.html" target="topic">Home</a></div>
 </td><td width="25%">
 <div class="Element91">
-<a href="00025.html" target="topic">Previous</a> | <a href="00026.html" target="topic">Up</a> | <a href="00000.html" target="topic">Next</a></div>
+<a href="00023.html" target="topic">Previous</a> | <a href="00044.html" target="topic">Up</a> | <a href="00025.html" target="topic">Next</a></div>
 </td><td width="25%">
 <div class="Element97">
-<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX Demonstrations Topic Title: Demonstrations)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
+<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_oven_controller Topic Title: aria_oven_controller)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
 </td></tr></table></div>
 
 <!-- End Page Footer -->

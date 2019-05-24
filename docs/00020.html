@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
 <head>
-<title>aria_weather_forecast</title>
+<title>aria_mxt_configure</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="generator" content="Doc-O-Matic" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
@@ -18,7 +18,7 @@
 <!-- Begin Page Header -->
 <div class="Element710" id="areafixed">
 <div class="Element94">
-<a href="00026.html" target="topic">Graphics Demonstrations</a> &gt; <a href="00024.html" target="topic">Demonstrations</a> &gt; <a href="00020.html" target="topic">aria_weather_forecast</a></div>
+<a href="00046.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00044.html" target="topic">Demonstrations</a> &gt; <a href="00020.html" target="topic">aria_mxt_configure</a></div>
 <div class="Element92">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="25%">
@@ -26,15 +26,15 @@
 Graphics Demonstrations</div>
 </td><td width="25%">
 <div class="Element2">
-<a href="contents.html" target="tocidx">Contents</a> | <a href="00026.html" target="topic">Home</a></div>
+<a href="contents.html" target="tocidx">Contents</a> | <a href="00046.html" target="topic">Home</a></div>
 </td><td width="25%">
 <div class="Element90">
-<a href="00018.html" target="topic">Previous</a> | <a href="00024.html" target="topic">Up</a> | <a href="00021.html" target="topic">Next</a></div>
+<a href="00019.html" target="topic">Previous</a> | <a href="00044.html" target="topic">Up</a> | <a href="00021.html" target="topic">Next</a></div>
 </td><td width="25%">
 <div class="Element96">
-<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_weather_forecast Topic Title: aria_weather_forecast)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
+<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_mxt_configure Topic Title: aria_mxt_configure)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
 </td></tr></table><div class="Element5">
-aria_weather_forecast</div>
+aria_mxt_configure</div>
 </div>
 </div>
 
@@ -49,33 +49,49 @@ aria_weather_forecast</div>
 <a name="4465736372697074696F6E"></a><div class="Element11">
 <div class="Element10">
 <p class="Element10">
-This application showcases an example of how a graphics controller with single graphical layer support can be achieved using the Aria Graphics Library. It also highlights how tightly integrated the MPLAB Harmony Graphics Composer Suite can be in supporting a rich feature set in an application.&nbsp;</p>
+ &nbsp;</p>
 <p class="Element10">
-Various Aria Graphics Library features such as multi-language localization support and tree-based architecture are highlighted in this demonstration, which is disguised as a user-interface for weather forecast application.&nbsp;</p>
+This application demonstrates a method of updating the maXTouch runtime configuration register set. It uses capabilities of the Graphics Suite’s UI components and Harmony maxTouch driver API. It offers an easy to use menu interface to demonstrate the staging, loading, testing, and saving of configuration content. It accepts two file formats: maXTouch XCFG and RAW. The application employs USB/CDC serial, ProgramFlash, and SDCard source input. If offers a screen to select the load source, screen for touch testing, and capability to store configration to NVM non-volatile memory.&nbsp;</p>
 <p class="Element10">
-The demonstration launches with a splash screen highlighting basic motion capability supported by Aria Graphics Library. When running the application, the user can interface with it via capacitive single-fingered touch.</p><div class="Element15">
-Architecture</div>
+&nbsp;</p>
 <p class="Element10">
-The following diagrams show the various software and hardware components for each configuration.&nbsp;</p>
+This demonstration contains sample maXTouch.raw and maXTouch.xcfg files. Use <a href="#" onclick="openExternalLink('https://www.microchip.com/design-centers/capacitive-touch-sensing/touch-pads-touch-screens/maxtouch');">maXTouch Studio</a> and support kits to create whole product configuration solutions which includes developing and debugging for all maXTouch devices.&nbsp;</p>
 <p class="Element10">
-<strong>aria_wf_e70_xu_tm4301b</strong>&nbsp;</p>
+&nbsp;</p>
 <p class="Element10">
-In this configuration, a 16-bit RGB565 frame buffer is stored in internal SRAM. Due to the limited size of the internal SRAM, only a single frame buffer can be used which can cause tearing to be visible as the GFX library draws on the screen. These configurations use the Low-Cost Controller-less (LCC) display driver to manage the DMA that transfers the framebuffer contents to the display. </p><p class="Element10" style="text-align: center;">
-<img src="APPS GFX aria_benchmark sam_e70_xplained_ultra plus wqvga.png" border="0" alt="" title=""></p><p class="Element10">
+The key points are:</p>
+<ul class="Element630">
+<li class="Element600">Capable of sourcing from PC USb serial streaming</li>
+<li class="Element600">Capable of sourcing SDCard retrieval</li>
+<li class="Element600">Capable of sourcing from ProgramFlash</li>
+<li class="Element600">Non-volatile storage</li>
+<li class="Element600">Supports XCFG and Raw file format</li>
+</ul><p class="Element10">
 &nbsp;</p>
 <div class="Element15">
+Architecture</div>
+<p class="Element10">
+The aria_mxt_configuration application uses the MPLAB Harmony Graphics Library to render graphics to the display. The graphics library draws the widgets and images to a frame buffer. The contents of the frame buffer are continuously transferred to refresh the contents of the LCD display. The application also features user touch input through the integrated touch screen on the display panel. Touch input from the touch controller goes through the I2C port, and the Input System Service acquires the touch input information from the Touch and I2C Drivers. Touch configuration uses the same I2C port as Touch input. Touch is disabled during configuration and re-enabled after completion. The Input System Service sends touch events to the Graphics Library, which processes these events and updates the frame data accordingly.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+The block diagram(s) below show the various software and hardware blocks used in this application.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+<strong>sam_e70_xult</strong>&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="APPS GFX aria_benchmark sam_e70_xplained_ultra plus wqvga.png" border="0" alt="" title="">&nbsp;</p><div class="Element15">
 Demonstration Features</div>
+<p class="Element10">
+&nbsp;</p>
 
 <ul class="Element630">
 <li class="Element600">Low-Cost Controllerless (LCC) Graphics driver on the SAM E70 device</li>
-<li class="Element600">Language localization in English, Chinese Simplified, and Spanish[add link to (see <i>MPLAB Harmony Graphics Library Help&gt; MPLAB Harmony Graphics Composer User’s Guide &gt; Graphics Composer Window User Interface &gt; <span class="Element145">Widget Tool Box Panel</span></i>)</li>
-<li class="Element600">Image compression techniques using Run-Length Encoding and JPEG (see <span class="Element145">Enabling Demo Mode in a MPLAB Harmony Graphics Application</span></li>
-<li class="Element600">Run-time JPEG decoding</li>
-<li class="Element600">UTF-8 character font support (see <i>MPLAB Harmony Graphics Library Help&gt; MPLAB Harmony Graphics Composer User’s Guide &gt; Graphics Composer Window User Interface &gt; <span class="Element145">Font Assets</span></i>)</li>
-<li class="Element600">Button Widget</li>
-<li class="Element600">Image Widget</li>
-<li class="Element600">Bar Graph Widget</li>
-<li class="Element600">Line Graph Widget</li>
+<li class="Element600">maXTouch file parsing, loading, and saving.</li>
+<li class="Element600">USB/CDC serial, SYS_FS, Uart</li>
+<li class="Element600">Button and Image Widgets</li>
 </ul><p class="Element10">
 &nbsp;</p>
 <div class="Element15">
@@ -83,8 +99,15 @@ MPLAB Harmony Configurator Setup</div>
 <p class="Element10">
 The Project Graph diagram below shows the Harmony components that are included in this application. Lines between components are drawn to satisfy components that depend on a capability that another component provides.&nbsp;</p>
 <p class="Element10">
-Adding the “SAM E70 XPlained Ultra BSP”and the “Aria Graphics w/ PDA TMA4301B Display” Graphics Template components into the project graph will automatically add the components needed for a graphics project and resolve their dependencies. It will also configure the pins needed to drive the external peripherals like the display and the touch controller. </p><p class="Element10" style="text-align: center;">
-<img src="APPS GFX aria_benchmark Final Project Graph.png" border="0" alt="" title=""></p></div>
+&nbsp;</p>
+<p class="Element10">
+Adding the “SAM E70 XPlained Ultra BSP”and the “Aria Graphics w/ PDA TMA4301B Display” components into the project graph will automatically add the components needed for a graphics project and resolve their dependencies. It will also configure the pins needed to drive the external peripherals like the display and the touch controller.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="APP GFX aria_mxt_configure sam_e70_xult.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+In this configuration, a 16-bit RGB565 frame buffer is stored in internal SRAM. Due to the limited size of the internal SRAM, only a single frame buffer can be used which can cause tearing to be visible as the GFX library draws on the screen. These configurations use the Low-Cost Controller-less (LCC) display driver to manage the DMA that transfers the framebuffer contents to the display.</p></div>
 </div>
 <a name="546F70696373"></a><div class="Element14">
 Topics</div>
@@ -103,7 +126,7 @@ Description&nbsp;</div></td></tr><tr>
 <div class="Element203">
 <a href="00021.html" target="topic">Building the Application</a>&nbsp;</div></td><td class="Element206" valign="top" width="65%">
 <div class="Element207">
-This section identifies the MPLAB X IDE project name and location and lists and describes the available configurations for the Aria Showcase Reloaded demonstration.&nbsp;</div></td></tr><tr>
+This section identifies the MPLAB X IDE project name and location and lists and describes the available configurations for the Aria MXT Configure demonstration.&nbsp;</div></td></tr><tr>
 <td class="Element202" valign="top" width="35%">
 <div class="Element203">
 <a href="00022.html" target="topic">Configuring the Hardware</a>&nbsp;</div></td><td class="Element206" valign="top" width="65%">
@@ -113,7 +136,7 @@ This section describes how to configure the supported hardware.&nbsp;</div></td>
 <div class="Element203">
 <a href="00023.html" target="topic">Running the Demonstration</a>&nbsp;</div></td><td class="Element206" valign="top" width="65%">
 <div class="Element207">
-This section provides instructions about how to build and run the Aria Weather Forecast demonstration.&nbsp;</div></td></tr></table></div></div>
+This section provides instructions about how to build and run the Aria MXT Configure demonstration.&nbsp;</div></td></tr></table></div></div>
 </div>
 </div>
 </div>
@@ -121,7 +144,7 @@ This section provides instructions about how to build and run the Aria Weather F
 
 <!-- Begin Page Footer -->
 <div class="Element95">
-<a href="00026.html" target="topic">Graphics Demonstrations</a> &gt; <a href="00024.html" target="topic">Demonstrations</a> &gt; <a href="00020.html" target="topic">aria_weather_forecast</a></div>
+<a href="00046.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00044.html" target="topic">Demonstrations</a> &gt; <a href="00020.html" target="topic">aria_mxt_configure</a></div>
 <div class="Element93">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="25%">
@@ -129,13 +152,13 @@ This section provides instructions about how to build and run the Aria Weather F
 Graphics Demonstrations</div>
 </td><td width="25%">
 <div class="Element4">
-<a href="contents.html" target="tocidx">Contents</a> | <a href="00026.html" target="topic">Home</a></div>
+<a href="contents.html" target="tocidx">Contents</a> | <a href="00046.html" target="topic">Home</a></div>
 </td><td width="25%">
 <div class="Element91">
-<a href="00018.html" target="topic">Previous</a> | <a href="00024.html" target="topic">Up</a> | <a href="00021.html" target="topic">Next</a></div>
+<a href="00019.html" target="topic">Previous</a> | <a href="00044.html" target="topic">Up</a> | <a href="00021.html" target="topic">Next</a></div>
 </td><td width="25%">
 <div class="Element97">
-<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_weather_forecast Topic Title: aria_weather_forecast)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
+<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_mxt_configure Topic Title: aria_mxt_configure)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
 </td></tr></table></div>
 
 <!-- End Page Footer -->

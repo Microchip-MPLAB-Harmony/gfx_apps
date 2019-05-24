@@ -14,9 +14,9 @@ the following links for release notes, home page, training materials, framework 
 For more information on the tools, libraries and basic development with the MPLAB Harmony Graphics Suite, please see the GFX repo also on github.
  - [Release Notes](./release_notes.md)
  - [MPLAB Harmony 3 GFX Wiki](https://github.com/Microchip-MPLAB-Harmony/gfx/wiki)
- - [MPLAB Harmony 3 GFX Training](https://www.youtube.com/playlist?list=PL9B4edd-p2ag5xsIIHhja-caKYY7AKPxe)
- - [MPLAB Harmony 3 GFX Help](https://microchip-mplab-harmony.github.io/gfx)
- - [MPLAB Harmony 3 GFX Apps Help](https://microchip-mplab-harmony.github.io/gfx_apps)
+ - [MPLAB Harmony 3 GFX Videos](https://www.youtube.com/playlist?list=PL9B4edd-p2ag5xsIIHhja-caKYY7AKPxe)
+ - [MPLAB Harmony 3 GFX User Guide](https://microchip-mplab-harmony.github.io/gfx)
+ - [MPLAB Harmony 3 GFX Applications User Guide](https://microchip-mplab-harmony.github.io/gfx_apps)
 
 # Contents Summary
 
