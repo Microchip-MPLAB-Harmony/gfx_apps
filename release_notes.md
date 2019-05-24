@@ -9,6 +9,8 @@
 | --- | --- | ---- |---- |
 | apps | aria_benchmark | Metrics on Aria Graphics Library | Beta |
 |      | aria_dashboard | Example automobile dashboard demo| Beta |
+|      | aria_image_viewer| Image viewing and gesture movements| Beta |
+|      | aria_infotainment| Example vehicle infotainment system| Beta |
 |      | aria_mxt_configure | Example maXTouch configuration | Beta |
 |      | aria_oven_controller | Example SRAM-only GPU demo| Beta |
 |      | aria_showcase | Example of Aria Graphics Library Widgets| Beta |
@@ -22,6 +24,8 @@
 | Application | Description | 
 | --- | --- |
 | aria_dashboard | Example automobile dashboard demo | 
+| aria_image_viewer|  Example viewing and gesture movement demo|
+| aria_infotainment|  Example infotainment system demo|
 | aria_oven_controller |  Example SRAM-only GPU demo |
 
 - **Development kit and demo application support** - The following table provides the list of applications for different development kits.
@@ -29,6 +33,9 @@
 | Applications | [SAM C21N Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/PartNO/ATSAMC21-XPRO) | [SAM E54 Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/PartNO/ATSAME54-XPRO) | [SAM E70 Xplained Ultra Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/PartNO/ATSAME70-XPLD) | [SAM A5D2 Xplained Ultra Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/atsama5d2c-xult) |[Multimedia Expansion Board II](https://www.microchip.com/DevelopmentTools/ProductDetails/PartNO/DM320005-5) |
 | --- | --- | --- | --- | --- | --- |
 | aria_dashboard          |  |   | x |   |   |
+| aria_benchmark          |  |   | x | x | x |
+| aria_image_viewer       |  |   |   |   | x |
+| aria_infotainment       |  |   |   |   | x |
 | aria_benchmark          |  |   | x | x | x |
 | aria_mxt_configure      |  |   | x |   |   |
 | aria_oven_controller    |  |   | x |   | x |
