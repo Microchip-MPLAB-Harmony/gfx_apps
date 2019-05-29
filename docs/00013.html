@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
 <head>
-<title>Building the Application</title>
+<title>aria_image_viewer</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="generator" content="Doc-O-Matic" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
@@ -18,23 +18,23 @@
 <!-- Begin Page Header -->
 <div class="Element710" id="areafixed">
 <div class="Element94">
-<a href="00046.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00044.html" target="topic">Demonstrations</a> &gt; <a href="00012.html" target="topic">aria_image_viewer</a> &gt; <a href="00013.html" target="topic">Building the Application</a></div>
+<a href="00000.html" target="topic">MPLAB® Harmony Graphics Suite Applications</a> &gt; <a href="00045.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00013.html" target="topic">aria_image_viewer</a></div>
 <div class="Element92">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="25%">
 <div class="Element1">
-Graphics Demonstrations</div>
+MPLAB® Harmony Graphics Suite Applications</div>
 </td><td width="25%">
 <div class="Element2">
-<a href="contents.html" target="tocidx">Contents</a> | <a href="00046.html" target="topic">Home</a></div>
+<a href="contents.html" target="tocidx">Contents</a> | <a href="00000.html" target="topic">Home</a></div>
 </td><td width="25%">
 <div class="Element90">
-<a href="00012.html" target="topic">Previous</a> | <a href="00012.html" target="topic">Up</a> | <a href="00014.html" target="topic">Next</a></div>
+<a href="00012.html" target="topic">Previous</a> | <a href="00045.html" target="topic">Up</a> | <a href="00014.html" target="topic">Next</a></div>
 </td><td width="25%">
 <div class="Element96">
-<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_image_viewer_build Topic Title: Building the Application)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
+<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_image_viewer Topic Title: aria_image_viewer)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
 </td></tr></table><div class="Element5">
-Building the Application</div>
+aria_image_viewer</div>
 </div>
 </div>
 
@@ -49,59 +49,89 @@ Building the Application</div>
 <a name="4465736372697074696F6E"></a><div class="Element11">
 <div class="Element10">
 <p class="Element10">
-To build this project, the user must open the<span class="Element146"> aria_image_viewer.X</span> project in MPLAB X IDE, and then select the desired configuration. The following tables list and describe the project and supported configurations. The parent folder for these files is<i> &lt;install-dir&gt;/apps/gfx/ aria_image_viewer</i>.</p><div class="Element15">
-MPLAB X IDE Project</div>
+This application demonstrates high-resolution image viewing using single and multi-touch gestures using the capabilities of the GPU Bit Block (Blit) rendering engine. It displays a 2716x1810 high resolution image onto the native MEBII display size using Blit stretch, shrink, and copy features. It also demonstrates image resizing and panning through Input System Services, user gesture touch controls, and image orientation using the User Interface (UI) button event. The application uses three layers of the GLCD, Aria Graphics Library, and low-level GPU APIs for the Nano2D Library to realize image viewing features. The demonstration communicates fast block copying of 4.9 million 32bpp pixels, smooth real-time motion, layer composition and blending. The key points are:</p>
+<ul class="Element630">
+<li class="Element600">Using GPU Blit copy to show motion</li>
+<li class="Element600">Using DDR memory to stage a 2716x1810 high-resolution image</li>
+<li class="Element600">Using Aria Graphics Library to for all image decoding and staging</li>
+<li class="Element600">Using GLCD layer composition</li>
+<li class="Element600">Input System Services (multi-touch)</li>
+</ul><p class="Element10">
+<strong>Architecture</strong>&nbsp;</p>
 <p class="Element10">
-This table lists the name and location of the MPLAB X IDE project folder for the demonstration.&nbsp;</p>
-<p class="Element10">
-&nbsp;</p><div class="Element63">
-<div class="TableDiv">
-<table cellspacing="0" class="Table2">
-<tr>
-<td class="Element65" valign="top" width="27%">
-<div class="Element66">
-Project Name&nbsp;</div></td><td class="Element65" valign="top" width="73%">
-<div class="Element66">
-Project Location&nbsp;</div></td></tr><tr>
-<td class="Element67" valign="top" width="27%">
-<div class="Element68">
-aria_image_viewer&nbsp;</div></td><td class="Element67" valign="top" width="73%">
-<div class="Element68">
-<i>&lt;install-dir&gt;/apps/gfx/ aria_image_viewer /firmware</i>&nbsp;</div></td></tr></table></div></div>
-<p class="Element10">
+The following figure shows the various software and hardware components used by this application. </p><p class="Element10" style="text-align: center;">
 &nbsp;</p>
-<div class="Element15">
-MPLAB X IDE Project Configuration</div>
+<p class="Element10" style="text-align: center;">
+<img src="APPS GFX aria_image_viewer pic32mz_da_sk_extddr_meb2, Single Layer, Double Buffer, with GPU.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
+The aria_image_viewer application uses the MPLAB Harmony Graphics Library to render graphics to the display. It uses the 2-D GPU and the GLCD internal hardware peripherals. The Graphics Suite’s Graphics Composer Tool is used to establish the UI design. All images are staged to the external DDR during initialization.&nbsp;</p>
 <p class="Element10">
-This table lists and describes the supported configurations of the demonstration, which are located within<i> ./firmware/src/system_config</i>. </p><div class="Element63">
-<div class="TableDiv">
-<table cellspacing="0" class="Table2">
-<tr>
-<td class="Element65" valign="top" width="21%">
-<div class="Element66">
-Project Configuration Name&nbsp;</div></td><td class="Element65" valign="top" width="28%">
-<div class="Element66">
-BSP Used&nbsp;</div></td><td class="Element65" valign="top" width="51%">
-<div class="Element66">
-Description&nbsp;</div></td></tr><tr>
-<td class="Element67" valign="top" width="21%">
-<div class="Element68">
-pic32mz_da_sk_extddr_meb2&nbsp;</div></td><td class="Element67" valign="top" width="28%">
-<div class="Element68">
-<span class="Element145">pic32mz_da_sk_extddr+meb2</span>&nbsp;</div></td><td class="Element67" valign="top" width="51%">
-<div class="Element68">
-Demonstration for the PIC32MZ DA Starter Kit with the Multimedia Expansion Board II (MEB II) (blue board).<br>&nbsp;</div></td></tr></table></div></div>
+The first layer (0) is the image destination layer. At initialization, the Graphics Library decodes and stages four full 2716x1810 high-res images to the external DDR. The staged images are used as a source for subsequent user control requests, such as shrink, stretch, and pan. A version of the image is displayed to the destination layer 0 based on the user control request.&nbsp;</p>
 <p class="Element10">
+The second layer (1) is the UI layer. The Graphics Composer Tool is used to establish all user controls. An Orientation Button Widget is used to set image orientation at 0, 90, 180, and 270. The UI layer also contains non-visible touch areas for multi-touch gestures. User supported gestures are swipe to next image, two-finger pinch-zoom, and single finger pan. Lastly, the UI layer contains a touch area to display a help guide.&nbsp;</p>
+<p class="Element10">
+The third layer (2) is the help layer. The Graphics Composter Tool is used to establish helpful UI Text Labels. This layer maintains an alpha-channel which is set to blend over the UI and image layers. It is only available at initialization and upon user request. Its alpha value gradually transitions from opaque to fully transparent, so the panel becomes invisible after a few seconds.&nbsp;</p>
+<p class="Element10">
+The application is touch enabled. It features user touch input through the integrated touch screen on the display panel. Touch input from the touch controller goes through the I2C port, and the Input System Service acquires the touch input information from the Touch and the I2C Drivers. The Input System Service sends touch events to the Graphics Library, which processes these events and updates the frame data accordingly.&nbsp;</p>
+<p class="Element10">
+In addition, the application uses the core timer clock ticks for some automatic image motion control.</p><div class="Element15">
+Demonstration Features</div>
+
+<ul class="Element630">
+<li class="Element600">32bit true-color with alpha-channel</li>
+<li class="Element600">GPU Blit copy, shrink, stretch</li>
+<li class="Element600">Three GLCD layers</li>
+<li class="Element600">2716x1810 high-resolution image</li>
+<li class="Element600">External memory DDR2</li>
+<li class="Element600">Graphics User controls</li>
+<li class="Element600">Simple real-time motion</li>
+</ul><div class="Element15">
+Tools Setup</div>
+
+<ul class="Element630">
+<li class="Element600">Enable Graphics Stack</li>
+<li class="Element600">Enable Graphics Controller
+<ul class="Element631">
+<li class="Element601">GLCD</li>
+<li class="Element601">Enable all 2 layers</li>
+</ul></li>
+<li class="Element600">Enable Graphics Processor
+<ul class="Element631">
+<li class="Element601">Use Nano2D</li>
+</ul></li>
+</ul><p class="Element10">
 &nbsp;</p>
-<div class="Element63">
+<p class="Element10" style="text-align: center;">
+&nbsp;</p>
+</div>
+</div>
+<a name="546F70696373"></a><div class="Element14">
+Topics</div>
+<div class="Element11">
+<div class="Element10">
+<div class="Element212">
 <div class="TableDiv">
 <table cellspacing="0" class="Table1">
 <tr>
-<td class="Element67" valign="top" width="10%" style="border:none;">
-<div class="Element68">
-<img src="Note Icon.png" border="0" alt="" title=""> <strong>Note:</strong>&nbsp;</div></td><td class="Element67" valign="top" width="90%" style="border:none;">
-<div class="Element68">
-This application may contain custom code that is marked by the comments &quot;// START OF CUSTOM CODE ...&quot; and &quot;// END OF CUSTOM CODE&quot;. When using the MPLAB Harmony Configurator to regenerate the application code, use the &quot;Prompt Merge For All Differences&quot; merging strategy and do not remove or replace the custom code.&nbsp;</div></td></tr></table></div></div>
+<td class="Element200" valign="top" width="35%">
+<div class="Element201">
+Name&nbsp;</div></td><td class="Element204" valign="top" width="65%">
+<div class="Element205">
+Description&nbsp;</div></td></tr><tr>
+<td class="Element202" valign="top" width="35%">
+<div class="Element203">
+<a href="00014.html" target="topic">Building the Application</a>&nbsp;</div></td><td class="Element206" valign="top" width="65%">
+<div class="Element207">
+This section identifies the MPLAB X IDE project name and location and lists and describes the available configurations for the Aria Image Viewer demonstration.&nbsp;</div></td></tr><tr>
+<td class="Element202" valign="top" width="35%">
+<div class="Element203">
+<a href="00015.html" target="topic">Configuring the Hardware</a>&nbsp;</div></td><td class="Element206" valign="top" width="65%">
+<div class="Element207">
+This section describes how to configure the supported hardware.&nbsp;</div></td></tr><tr>
+<td class="Element202" valign="top" width="35%">
+<div class="Element203">
+<a href="00016.html" target="topic">Running the Demonstration</a>&nbsp;</div></td><td class="Element206" valign="top" width="65%">
+<div class="Element207">
+This section provides instructions on how to use the Aria Image Viewer demonstration.&nbsp;</div></td></tr></table></div></div>
 </div>
 </div>
 </div>
@@ -109,21 +139,21 @@ This application may contain custom code that is marked by the comments &quot;//
 
 <!-- Begin Page Footer -->
 <div class="Element95">
-<a href="00046.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00044.html" target="topic">Demonstrations</a> &gt; <a href="00012.html" target="topic">aria_image_viewer</a> &gt; <a href="00013.html" target="topic">Building the Application</a></div>
+<a href="00000.html" target="topic">MPLAB® Harmony Graphics Suite Applications</a> &gt; <a href="00045.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00013.html" target="topic">aria_image_viewer</a></div>
 <div class="Element93">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="25%">
 <div class="Element3">
-Graphics Demonstrations</div>
+MPLAB® Harmony Graphics Suite Applications</div>
 </td><td width="25%">
 <div class="Element4">
-<a href="contents.html" target="tocidx">Contents</a> | <a href="00046.html" target="topic">Home</a></div>
+<a href="contents.html" target="tocidx">Contents</a> | <a href="00000.html" target="topic">Home</a></div>
 </td><td width="25%">
 <div class="Element91">
-<a href="00012.html" target="topic">Previous</a> | <a href="00012.html" target="topic">Up</a> | <a href="00014.html" target="topic">Next</a></div>
+<a href="00012.html" target="topic">Previous</a> | <a href="00045.html" target="topic">Up</a> | <a href="00014.html" target="topic">Next</a></div>
 </td><td width="25%">
 <div class="Element97">
-<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_image_viewer_build Topic Title: Building the Application)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
+<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_image_viewer Topic Title: aria_image_viewer)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
 </td></tr></table></div>
 
 <!-- End Page Footer -->

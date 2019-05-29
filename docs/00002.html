@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
 <head>
-<title>Configuring the Hardware</title>
+<title>Building the Application</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="generator" content="Doc-O-Matic" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
@@ -18,23 +18,23 @@
 <!-- Begin Page Header -->
 <div class="Element710" id="areafixed">
 <div class="Element94">
-<a href="00046.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00044.html" target="topic">Demonstrations</a> &gt; <a href="00000.html" target="topic">aria_adventure</a> &gt; <a href="00002.html" target="topic">Configuring the Hardware</a></div>
+<a href="00000.html" target="topic">MPLAB® Harmony Graphics Suite Applications</a> &gt; <a href="00045.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00001.html" target="topic">aria_adventure</a> &gt; <a href="00002.html" target="topic">Building the Application</a></div>
 <div class="Element92">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="25%">
 <div class="Element1">
-Graphics Demonstrations</div>
+MPLAB® Harmony Graphics Suite Applications</div>
 </td><td width="25%">
 <div class="Element2">
-<a href="contents.html" target="tocidx">Contents</a> | <a href="00046.html" target="topic">Home</a></div>
+<a href="contents.html" target="tocidx">Contents</a> | <a href="00000.html" target="topic">Home</a></div>
 </td><td width="25%">
 <div class="Element90">
-<a href="00001.html" target="topic">Previous</a> | <a href="00000.html" target="topic">Up</a> | <a href="00003.html" target="topic">Next</a></div>
+<a href="00001.html" target="topic">Previous</a> | <a href="00001.html" target="topic">Up</a> | <a href="00003.html" target="topic">Next</a></div>
 </td><td width="25%">
 <div class="Element96">
-<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_adventure_config Topic Title: Configuring the Hardware)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
+<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_adventure_build Topic Title: Building the Application)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
 </td></tr></table><div class="Element5">
-Configuring the Hardware</div>
+Building the Application</div>
 </div>
 </div>
 
@@ -49,49 +49,71 @@ Configuring the Hardware</div>
 <a name="4465736372697074696F6E"></a><div class="Element11">
 <div class="Element10">
 <p class="Element10">
-<strong>PIC32MZ DA Starter Kit with MEBII and 4.3” WQVGA PCAP Touch Display</strong>&nbsp;</p>
+To build this project, the user must open the aria_adventuret.X project in MPLAB X IDE, and then select the desired configuration.&nbsp;</p>
+<p class="Element10">
+The following tables list and describe the project and supported configurations. The parent folder for these files is &lt;install-dir&gt;/apps/gfx/aria_adventure.&nbsp;</p>
 <p class="Element10">
 &nbsp;</p>
 <p class="Element10">
-On the MEB II, the EBIOE and LCD_PCLK (J9) must be jumpered. A connection establishes the GLCD's pixel clock output timing. The external SRAM memory on the board is disabled. The J9 jumper is located on the bottom of the MEB II board, beneath where the starter kit is plugged into the board. Refer to the following figure for the exact location.&nbsp;</p>
+<strong>MPLAB X IDE Project</strong>&nbsp;</p>
 <p class="Element10">
-&nbsp;</p><p class="Element10" style="text-align: center;">
-<img src="APPS GFX aria_quickstart MEB II J9 Pixel Clock.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
-&nbsp;</p>
+This table lists the name and location of the MPLAB X IDE project folder for the demonstration. </p><div class="Element63">
+<div class="TableDiv">
+<table cellspacing="0" class="Table2">
+<tr>
+<td class="Element65" valign="top" width="33%">
+<div class="Element66">
+Project Name&nbsp;</div></td><td class="Element65" valign="top" width="67%">
+<div class="Element66">
+Location&nbsp;</div></td></tr><tr>
+<td class="Element67" valign="top" width="33%">
+<div class="Element68">
+aria_adventure.X&nbsp;</div></td><td class="Element67" valign="top" width="67%">
+<div class="Element68">
+&lt;install-dir&gt;/apps/gfx/aria_adventure/firmware&nbsp;</div></td></tr></table></div></div>
 <p class="Element10">
-Connect the PIC32MZ DA Starter Kit to the MEB II board&nbsp;</p>
+<strong>MPLAB X IDE Project Configurations</strong>&nbsp;</p>
 <p class="Element10">
-&nbsp;</p><p class="Element10" style="text-align: center;">
-<img src="mzda_intddr_hardware.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
-&nbsp;</p>
-<p class="Element10">
-Power up the board by connecting the power adapter to J3 power connector on the MEB II board or a powered USB cable to the USB DEBUG port on the Starter Kit board </p><p class="Element10" style="text-align: center;">
-&nbsp;</p>
-<p class="Element10" style="text-align: center;">
-&nbsp;</p>
-<p class="Element10" style="text-align: center;">
-&nbsp;</p></div>
+This table lists and describes the supported configurations of the demonstration, which are located within ./firmware/src/system_config. </p><div class="Element63">
+<div class="TableDiv">
+<table cellspacing="0" class="Table2">
+<tr>
+<td class="Element65" valign="top" width="44%">
+<div class="Element66">
+Project Configuration Name&nbsp;</div></td><td class="Element65" valign="top" width="22%">
+<div class="Element66">
+BSP Used&nbsp;</div></td><td class="Element65" valign="top" width="34%">
+<div class="Element66">
+Description&nbsp;</div></td></tr><tr>
+<td class="Element67" valign="top" width="44%">
+<div class="Element68">
+aria_adv_mzda_intddr_sk_meb2_tm4301b.X&nbsp;</div></td><td class="Element67" valign="top" width="22%">
+<div class="Element68">
+PIC32MZ DA Starter Kit&nbsp;</div></td><td class="Element67" valign="top" width="34%">
+<div class="Element68">
+Aria Graphics w/ PDA TM4301b Display&nbsp;</div></td></tr></table></div></div>
+</div>
 </div>
 </div>
 <!-- End Page Content -->
 
 <!-- Begin Page Footer -->
 <div class="Element95">
-<a href="00046.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00044.html" target="topic">Demonstrations</a> &gt; <a href="00000.html" target="topic">aria_adventure</a> &gt; <a href="00002.html" target="topic">Configuring the Hardware</a></div>
+<a href="00000.html" target="topic">MPLAB® Harmony Graphics Suite Applications</a> &gt; <a href="00045.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00001.html" target="topic">aria_adventure</a> &gt; <a href="00002.html" target="topic">Building the Application</a></div>
 <div class="Element93">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="25%">
 <div class="Element3">
-Graphics Demonstrations</div>
+MPLAB® Harmony Graphics Suite Applications</div>
 </td><td width="25%">
 <div class="Element4">
-<a href="contents.html" target="tocidx">Contents</a> | <a href="00046.html" target="topic">Home</a></div>
+<a href="contents.html" target="tocidx">Contents</a> | <a href="00000.html" target="topic">Home</a></div>
 </td><td width="25%">
 <div class="Element91">
-<a href="00001.html" target="topic">Previous</a> | <a href="00000.html" target="topic">Up</a> | <a href="00003.html" target="topic">Next</a></div>
+<a href="00001.html" target="topic">Previous</a> | <a href="00001.html" target="topic">Up</a> | <a href="00003.html" target="topic">Next</a></div>
 </td><td width="25%">
 <div class="Element97">
-<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_adventure_config Topic Title: Configuring the Hardware)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
+<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_adventure_build Topic Title: Building the Application)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
 </td></tr></table></div>
 
 <!-- End Page Footer -->

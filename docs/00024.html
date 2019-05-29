@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
 <head>
-<title>aria_oven_controller</title>
+<title>Running the Demonstration</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="generator" content="Doc-O-Matic" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
@@ -18,23 +18,23 @@
 <!-- Begin Page Header -->
 <div class="Element710" id="areafixed">
 <div class="Element94">
-<a href="00046.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00044.html" target="topic">Demonstrations</a> &gt; <a href="00024.html" target="topic">aria_oven_controller</a></div>
+<a href="00000.html" target="topic">MPLAB® Harmony Graphics Suite Applications</a> &gt; <a href="00045.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00021.html" target="topic">aria_mxt_configure</a> &gt; <a href="00024.html" target="topic">Running the Demonstration</a></div>
 <div class="Element92">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="25%">
 <div class="Element1">
-Graphics Demonstrations</div>
+MPLAB® Harmony Graphics Suite Applications</div>
 </td><td width="25%">
 <div class="Element2">
-<a href="contents.html" target="tocidx">Contents</a> | <a href="00046.html" target="topic">Home</a></div>
+<a href="contents.html" target="tocidx">Contents</a> | <a href="00000.html" target="topic">Home</a></div>
 </td><td width="25%">
 <div class="Element90">
-<a href="00023.html" target="topic">Previous</a> | <a href="00044.html" target="topic">Up</a> | <a href="00025.html" target="topic">Next</a></div>
+<a href="00023.html" target="topic">Previous</a> | <a href="00021.html" target="topic">Up</a> | <a href="00025.html" target="topic">Next</a></div>
 </td><td width="25%">
 <div class="Element96">
-<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_oven_controller Topic Title: aria_oven_controller)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
+<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_mxt_configure_run Topic Title: Running the Demonstration)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
 </td></tr></table><div class="Element5">
-aria_oven_controller</div>
+Running the Demonstration</div>
 </div>
 </div>
 
@@ -49,114 +49,201 @@ aria_oven_controller</div>
 <a name="4465736372697074696F6E"></a><div class="Element11">
 <div class="Element10">
 <p class="Element10">
-This application demonstrates the Graphics Processing Unit (GPU) features on the <span class="Element145">PIC32MZ Embedded Graphics with Disabled DRAM (DA) Starter Kit</span> hardware package. This SRAM version has 640K of accessible graphics memory. The application shows dynamic movement of image assets and basic motion control. The application performs time-based motion menu controls and User-Interface (UI) indicators. This demonstration displays the use of 640K SRAM by allocating 480x272x2 (16-bit) frame buffer, and a 480x272x2 asset staging area for fast run-time access to pre-rendered images. The demonstration shows that the GPU can be used in a low memory environment using 522k of internal frame buffer memory, and can produce appealing, low memory use GPU based applications. These are the key points:</p>
-<ul class="Element630">
-<li class="Element600">Internal SRAM package: a DDR is not required for graphics</li>
-<li class="Element600">Multiple image staging with the use of sprites</li>
-<li class="Element600">High color contrast images with drop shadow shading</li>
-<li class="Element600">Modern UI</li>
-<li class="Element600">Use of motion to show double buffering</li>
-<li class="Element600">13% of SRAM remains for non-graphics use, this is about 83K</li>
-<li class="Element600">Use of MHGC screens for image asset. Managing image locations efficiently in memory can be an easy process</li>
-</ul><div class="Element15">
-Architecture</div>
+ &nbsp;</p>
 <p class="Element10">
-The following figure shows the various software and hardware components used by this application. </p><p class="Element10" style="text-align: center;">
-&nbsp;</p>
-<p class="Element10" style="text-align: center;">
-<img src="APPS GFX aria_oven_controller block diagramwithinput touch service.png" border="0" alt="" title=""></p><p class="Element10">
-The aria_oven_controller application uses the <span class="Element145">MPLAB Harmony Graphics Library</span> to render graphics to the display in a RGB565 color mode. The Graphics library draws the widgets and images to a 16-bit frame buffer which is stored in the internal SRAM of the PIC32MZ DA device. Using the <span class="Element145">Graphics Display Controller</span> (GLCD), the PIC32MZ DA Display Driver continuously transfers frame data to the LCD display. During display refresh, the application will use the GPU to update the frame buffer using the nano2D software driver, which retrieves data from the staging area (source) for all image assets.&nbsp;</p>
+Upon boot-up, the application displays the animation Splash Screen, which shows an animated splash bar while blending in the MPLAB Harmony and Microchip PIC32 logos, as shown in the following figure.&nbsp;</p>
 <p class="Element10">
-The demonstration contains five UI screens:</p>
-<ul class="Element630">
-<li class="Element600">Splash Screen: initial boot display</li>
-<li class="Element600">Home Screen: controller demo idle state display</li>
-<li class="Element600">Controller Screen: brick oven roasting control UI</li>
-<li class="Element600">Info Screen: information and help</li>
-<li class="Element600">Asset Layout Screen: image asset memory location and usage</li>
-</ul><p class="Element10">
-Image assets are pre-rendered from internal Flash memory to SRAM on application start. Each image is accessed during runtime to create dynamic sprite affects and motion. The layout and location of images were positioned using the <span class="Element145">GFXLIB Graphics Composer Suite</span> (MHGC) to produce accurate coordinate location and efficient memory use. Note that there exists space for additional images. The layout is shown in the following figure: </p><p class="Element10" style="text-align: center;">
-<img src="APPS GFX aria_oven_controller brick oven controller.png" border="0" alt="" title="">&nbsp;</p>
-<p class="Element10" style="text-align: center;">
 &nbsp;</p>
 <p class="Element10">
-During run-time, the GPU is used to clear, colorize, blit and draw. The application uses <span class="Element146">n2d_blit()</span> to block copy images from the SRAM staging area onto the refreshing frame buffer. The application uses <span class="Element146">n2d_line()</span> to create the timer affect, and uses <span class="Element146">n2d_fill</span> to clear the orange active menu button bar.&nbsp;</p>
+When Splash Screen animation is successful, the demonstration will display a similar menu to that shown in the following figure.&nbsp;</p>
 <p class="Element10">
-All motion effects make use of the <span class="Element146">n2d_blit</span> (stretch/shrink) feature by setting the destination rectangle smaller or larger that the source rectangle (image). Image transparency is established by setting the background of the image to the display background. In addition, the application uses the Timer System Service and core timer clock ticks for image motion control.&nbsp;</p>
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="APPS GFX aria_showcase_splash_screen_blend.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
+&nbsp;</p>
 <p class="Element10">
-The application is touch enabled. It features user touch input through the integrated touch screen on the display panel. Touch input from the touch controller goes through the I2C port, and the Input System Service acquires the touch input information from the Touch and I2C Drivers. The Input System Service sends touch events to the Graphics library, which processes these events and updates the frame data accordingly.&nbsp;</p>
+When power-on is successful, the application Home Screen will be displayed&nbsp;</p>
 <p class="Element10">
-Demonstration Features:</p>
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="APP GFX aria_mxt_configure home.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+The demonstration supports three input options for reading the configuration file:</p>
 <ul class="Element630">
-<li class="Element600">16-Bit RGB 565 Frame buffer</li>
-<li class="Element600">Image manipulation</li>
-<li class="Element600">480x272x2 Image staging memory space</li>
-<li class="Element600">Modern drop-shadow, gradient image assets</li>
-<li class="Element600">Internal memory: low memory frame buffer footprint 262K</li>
+<li class="Element600">Program Flash - ProgramFlash is the default option and requires no manual source file interaction. The maxtouch config data is save in program flash as an array.</li>
+<li class="Element600">SDCard - requires a microSDHC flash memory card. Copy <strong>maxtouch.raw</strong> onto root directory of memory card. Install memory card into micro SD card slot.</li>
+<li class="Element600">Host PC - requires a micro-usb cable connection from PC to Target USB port. For this option install <span class="Element145">RealTerm</span>: Serial/TCP Terminal program.</li>
 </ul><p class="Element10">
-Tools Setup:</p>
-<ul class="Element630">
-<li class="Element600">Enable Graphics Stack</li>
-<li class="Element600">Enable Graphics Controller
-<ul class="Element631">
-<li class="Element601">GLCD</li>
-</ul></li>
-<li class="Element600">Enable Graphics Processor
-<ul class="Element631">
-<li class="Element601">Nano2D</li>
-</ul></li>
-</ul></div>
-</div>
-<a name="546F70696373"></a><div class="Element14">
-Topics</div>
-<div class="Element11">
-<div class="Element10">
-<div class="Element212">
-<div class="TableDiv">
-<table cellspacing="0" class="Table0">
-<tr>
-<td class="Element200" valign="top" width="35%">
-<div class="Element201">
-Name&nbsp;</div></td><td class="Element204" valign="top" width="65%">
-<div class="Element205">
-Description&nbsp;</div></td></tr><tr>
-<td class="Element202" valign="top" width="35%">
-<div class="Element203">
-<a href="00025.html" target="topic">Building the Application</a>&nbsp;</div></td><td class="Element206" valign="top" width="65%">
-<div class="Element207">
-This section identifies the MPLAB X IDE project name and location and lists and describes the available configurations for the aria_oven_controller demonstration.&nbsp;</div></td></tr><tr>
-<td class="Element202" valign="top" width="35%">
-<div class="Element203">
-<a href="00026.html" target="topic">Configuring the Hardware</a>&nbsp;</div></td><td class="Element206" valign="top" width="65%">
-<div class="Element207">
-This section describes how to configure the supported hardware.&nbsp;</div></td></tr><tr>
-<td class="Element202" valign="top" width="35%">
-<div class="Element203">
-<a href="00027.html" target="topic">Running the Demonstration</a>&nbsp;</div></td><td class="Element206" valign="top" width="65%">
-<div class="Element207">
-This section provides information on how to run the demonstration.&nbsp;</div></td></tr></table></div></div>
-</div>
+&nbsp;</p>
+<p class="Element10">
+<strong>Note</strong>: This demonstration does not communicate error conditions related to inability to read from SDCARD or PC.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+Following instructions below for each specific option of choice:&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="APP_MXT_home_screen.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
+&nbsp;</p>
+<div class="Element15">
+Program Flash</div>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+This is the default option. The config content is embedded in program flash of the firmware. This option requires no external file preparation.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+To run this option.:&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<ol class="Element630">
+<li value="1" class="Element600">On the Main Menu, press the <strong>Configure </strong>button<strong>. </strong>The application will transition to the Load Configuration (RAM) screen.</li>
+</ol><p class="Element10" style="text-align: center;">
+<img src="APP_MXT_load_screen.png" border="0" alt="" title=""></p>
+<ol class="Element630">
+<li value="2" class="Element600">On the Load Configuration Screen, select <strong>Program</strong> radio button. This will enable configuration reading from Program Flash.</li>
+<li value="3" class="Element600">Press the Load<strong> </strong>button. The step will read, parse, and load the configuration information located in Program Flash.</li>
+<li value="4" class="Element600">Observe the target board UI progress bar.</li>
+<li value="5" class="Element600">When complete, the Load button will be removed, and the Next<img src="APP_MXT_next_button.png" border="0" alt="" title=""><strong>)</strong> screen button image will be displayed.</li>
+</ol><p class="Element10" style="text-align: center;">
+&nbsp;</p>
+
+<ol class="Element630">
+<li value="6" class="Element600">Go to Step &quot;<strong>All Options</strong>&quot; below.</li>
+</ol><p class="Element10">
+&nbsp;</p>
+<div class="Element15">
+SD Card</div>
+<p class="Element10">
+This option requires a SDCARD. The SDCARD should be loaded with maxtouch.xcfg or maxtouch.raw file in the root folder. Only 1 file can be store on the SDCARD for this release. An example maxtouch.xcfg file can be found at the following location: &lt;installdir&gt;/apps/gfx_apps/aria_mxt_configure /firmware/src/config_files&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+To run this option.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<ol class="Element630">
+<li value="1" class="Element600">On the Main Menu Press the <strong>Configure</strong> Button. The application will transition to the Load Configuration screen.</li>
+</ol><p class="Element10" style="text-align: center;">
+<img src="APP_MXT_load_screen.png" border="0" alt="" title=""></p>
+<ol class="Element630">
+<li value="2" class="Element600">On the Load Configuration Screen, select <strong>SD Card</strong> radio button. This will enable the reading from the microSD card inserted in the SD Card slot.</li>
+<li value="3" class="Element600">Press the <strong>Load </strong> button. The step will read, parse, and load the configuration information located in the maxtouch.xcfg or maxtouch.raw file.</li>
+<li value="4" class="Element600">Observe the target board UI progress bar. When complete, the Load button will be removed, and the Next (<img src="APP_MXT_next_button.png" border="0" alt="" title="">) screen button image will be displayed.</li>
+<li value="5" class="Element600">Go to Step &quot;<strong>All Options</strong>&quot; below.</li>
+</ol><p class="Element10">
+&nbsp;</p>
+<div class="Element15">
+Host PC</div>
+<p class="Element10">
+This option requires a HOST PC connected to the Target board. The configuration file will be streamed from the Host PC to the Target board. For the purpose of this option, the user should establish a host PC connected to the Target board via a USB cable. A USB cable needs to be connected to the micro-B USB connector on the bottom of the starter kit in use. When the demonstration runs, it will create a USB CDC device on the USB bus. The demonstration can be executed once you have connected to this device through RealTerm terminal program. See the following download link: <a href="#" onclick="openExternalLink('https://sourceforge.net/projects/realterm');">RealTerm</a>&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+Please refer to the connection diagram shown below.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+To run this option.:</p>
+<ol class="Element630">
+<li value="1" class="Element600">On the Main Menu Press the <strong>Configure</strong> Button. The application will transition to the Load Configuration screen.</li>
+</ol><p class="Element10">
+&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+<img src="APP_MXT_load_screen.png" border="0" alt="" title=""></p>
+<ol class="Element630">
+<li value="2" class="Element600">On the Load Configuration Screen, select PC radio button. This will enable the reading from Host PC.</li>
+<li value="3" class="Element600">Press the <strong>Load</strong> button. The step will create the USB CDC device on the USB bus, establish connection, and wait for PC to initiate the transfer.</li>
+<li value="4" class="Element600">On the PC, invoke <strong>RealTerm</strong> application .</li>
+<li value="5" class="Element600">Using the <strong>Port</strong> Tab, connect to the new Serial comm port.</li>
+<li value="6" class="Element600">Using the <strong>Send</strong> Tab, select the <strong>Dump File to Port</strong> drop down. Select the <strong>maxtouch.raw</strong> file.</li>
+</ol><p class="Element10" style="text-align: center;">
+<img src="GFX APPS mc_realterm_file.png" border="0" alt="" title=""></p>
+<ol class="Element630">
+<li value="7" class="Element600">Set <strong>Delays</strong> to 1 and 5</li>
+</ol><p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+See image below for Realterm Send setup:&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="GFX APPS mc_realterm_setup.png" border="0" alt="" title="">&nbsp;</p>
+<ol class="Element630">
+<li value="8" class="Element600">Finally, select the <strong>Send</strong> <strong>File</strong> button</li>
+<li value="9" class="Element600"> When complete, the <strong>Progress</strong> bar on the RealTerm interface will display “Done”</li>
+</ol><p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+See image below for Realterm Done display:&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="GFX APPS mc_realterm_done.png" border="0" alt="" title="">&nbsp;</p>
+<ol class="Element630">
+<li value="10" class="Element600"> Observe the Target board UI , when complete, the Load button will be removed, and the Next (<img src="APP_MXT_next_button.png" border="0" alt="" title="">) screen button image will be displayed.</li>
+<li value="11" class="Element600"> Go to Step &quot;All Options&quot; below.</li>
+</ol><p class="Element10">
+&nbsp;</p>
+<div class="Element15">
+All Options</div>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+To complete the demonstration for all options.</p>
+<ol class="Element630">
+<li value="1" class="Element600">Use the <strong>Next {<img src="APP_MXT_next_button.png" border="0" alt="" title="">}</strong> button to transition to the Key Pad Touch Accuracy test screen.</li>
+</ol><p class="Element10">
+&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+<img src="APP_MXT_keypad_screen.png" border="0" alt="" title=""></p>
+<ol class="Element630">
+<li value="4" class="Element600">Press key pad buttons to test touch button accuracy.</li>
+</ol><p class="Element10">
+&nbsp;</p>
+
+<ol class="Element630">
+<li value="5" class="Element600">Use <strong>Next </strong> to transition to the Multi Touch Test Screen</li>
+</ol><p class="Element10">
+&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+<img src="APP_MXT_test_screen.png" border="0" alt="" title="">&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+&nbsp;</p>
+
+<ol class="Element630">
+<li value="6" class="Element600">Drag finger across display, to test gesture accuracy.</li>
+</ol><p class="Element10">
+&nbsp;</p>
+
+<ol class="Element630">
+<li value="7" class="Element600">Use <strong>Next</strong> button Button to transition to the Store Configuration (Flash) Screen</li>
+</ol><p class="Element10">
+&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+<img src="APP_MXT_store_screen.png" border="0" alt="" title=""></p>
+<ol class="Element630">
+<li value="8" class="Element600">Press <strong>Save </strong>button to copy config information from maXTouch RAM to maXTouch non-volatile memory for persistent storage.</li>
+</ol></div>
 </div>
 </div>
 <!-- End Page Content -->
 
 <!-- Begin Page Footer -->
 <div class="Element95">
-<a href="00046.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00044.html" target="topic">Demonstrations</a> &gt; <a href="00024.html" target="topic">aria_oven_controller</a></div>
+<a href="00000.html" target="topic">MPLAB® Harmony Graphics Suite Applications</a> &gt; <a href="00045.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00021.html" target="topic">aria_mxt_configure</a> &gt; <a href="00024.html" target="topic">Running the Demonstration</a></div>
 <div class="Element93">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="25%">
 <div class="Element3">
-Graphics Demonstrations</div>
+MPLAB® Harmony Graphics Suite Applications</div>
 </td><td width="25%">
 <div class="Element4">
-<a href="contents.html" target="tocidx">Contents</a> | <a href="00046.html" target="topic">Home</a></div>
+<a href="contents.html" target="tocidx">Contents</a> | <a href="00000.html" target="topic">Home</a></div>
 </td><td width="25%">
 <div class="Element91">
-<a href="00023.html" target="topic">Previous</a> | <a href="00044.html" target="topic">Up</a> | <a href="00025.html" target="topic">Next</a></div>
+<a href="00023.html" target="topic">Previous</a> | <a href="00021.html" target="topic">Up</a> | <a href="00025.html" target="topic">Next</a></div>
 </td><td width="25%">
 <div class="Element97">
-<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_oven_controller Topic Title: aria_oven_controller)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
+<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_mxt_configure_run Topic Title: Running the Demonstration)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
 </td></tr></table></div>
 
 <!-- End Page Footer -->

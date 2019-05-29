@@ -32,24 +32,26 @@
 
 | Applications | [SAM C21N Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/PartNO/ATSAMC21-XPRO) | [SAM E54 Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/PartNO/ATSAME54-XPRO) | [SAM E70 Xplained Ultra Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/PartNO/ATSAME70-XPLD) | [SAM A5D2 Xplained Ultra Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/atsama5d2c-xult) |[Multimedia Expansion Board II](https://www.microchip.com/DevelopmentTools/ProductDetails/PartNO/DM320005-5) |
 | --- | --- | --- | --- | --- | --- |
-| aria_dashboard          |  |   |   | x |   |
+| aria_adventure          |  |   |   |   | x |
 | aria_benchmark          |  |   | x | x | x |
+| aria_dashboard          |  |   |   | x |   |
 | aria_image_viewer       |  |   |   |   | x |
 | aria_infotainment       |  |   |   |   | x |
-| aria_benchmark          |  |   | x | x | x |
 | aria_mxt_configure      |  |   | x |   |   |
 | aria_oven_controller    |  |   | x |   | x |
-| aria_showcase           |  |   | x |   |   |
-| aria_showcase_reloaded  |  |   | x |   |   |
+| aria_radial_menu        |  |   |   |   | x |
+| aria_showcase           |  |   | x |   | x |
+| aria_showcase_reloaded  |  |   | x |   | x |
 | aria_weather_forecast   |  |   | x |   |   |
 
 ### KNOWN ISSUES
 
 The current known issues are as follows:
 
-* Applications are compliant to MISRA C 2012 Mandatory guidelines, except for Rules R.9.1 and R.17.3
+* Code is compliant to MISRA C 2012 Mandatory guidelines, with the exception of Rule 9.1 (Code 530). 
+In gfx.c, the variable args is falsely detected in violation of Code 530: &quot;Symbol not initialized&quot; at line 358.  In fact, va_start at line 358 is exactly where args is initialized.
 
-* Applications for PIC32MZ DA using external DDR are only supported on Rev B0 silicon.
+* Applications for PIC32MZ DA using external DDR are only supported on Rev A1 silicon.
 
 ### DEVELOPMENT TOOLS
 
@@ -64,4 +66,4 @@ The current known issues are as follows:
 | [Harmony 3 Core](https://github.com/Microchip-MPLAB-Harmony/core)  | v3.3.0 |
 | [Harmony 3 Graphics ](https://github.com/Microchip-MPLAB-Harmony/gfx)   | v3.3.0 |
 | [Harmony 3 Dev_Packs](https://github.com/Microchip-MPLAB-Harmony/dev_packs)   | v3.3.0 |
-| [Harmony 3 USB](https://github.com/Microchip-MPLAB-Harmony/usb)   | v3.2.0 |
+| [Harmony 3 USB](https://github.com/Microchip-MPLAB-Harmony/usb)   | v3.2.1 |
