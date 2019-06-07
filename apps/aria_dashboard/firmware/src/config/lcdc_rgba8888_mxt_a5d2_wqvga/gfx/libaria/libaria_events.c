@@ -50,7 +50,7 @@ laBool TachoDrawSurface_DrawNotificationEvent(laDrawSurfaceWidget* sfc, GFX_Rect
     static GFX_Point startExt[6];
         
     GFX_Point newEnd;
-    int value = GET_ANGLE_FROM_VALUE(appData.value);
+    int value = APP_GetValueAngle();
         
     GFX_Set(GFXF_DRAW_MODE, GFX_DRAW_LINE);
     GFX_Set(GFXF_DRAW_COLOR, 0x00000000);
@@ -113,14 +113,14 @@ laBool TachoDrawSurface_DrawNotificationEvent(laDrawSurfaceWidget* sfc, GFX_Rect
 void EngineOnButton_PressedEvent(laButtonWidget* btn)
 {
     // Custom Action
-    appData.event = APP_EVENT_ENGINE_ON;
+    APP_Send_Event(APP_EVENT_ENGINE_ON);
 }
 
 // EngineOnButton - ReleasedEvent
 void EngineOnButton_ReleasedEvent(laButtonWidget* btn)
 {
     // Custom Action
-    appData.event = APP_EVENT_ENGINE_OFF;
+    APP_Send_Event(APP_EVENT_ENGINE_OFF);
 }
 
 

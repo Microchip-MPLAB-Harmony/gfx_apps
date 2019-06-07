@@ -50,113 +50,6 @@ extern "C" {
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
-#define START_VALUE_ANGLE 240
-#define END_VALUE_ANGLE 0
-#define MIN_VALUE 0
-#define IDLE_VALUE 22
-#define MAX_VALUE 240
-#define VALUE_PER_1K_RPM 30
-#define MAX_RPMx100_FIRST_GEAR 15
-#define MAX_RPMx100_SECOND_GEAR 21
-#define MAX_RPMx100_THIRD_GEAR 28
-#define MAX_RPMx100_FOURTH_GEAR 35
-#define MAX_RPMx100_FIFTH_GEAR 45
-#define VALUE_RPM_FACTOR 3
-#define MAX_VALUE_FIRST_GEAR (MAX_RPMx100_FIRST_GEAR * VALUE_RPM_FACTOR)
-#define MAX_VALUE_SECOND_GEAR (MAX_RPMx100_SECOND_GEAR * VALUE_RPM_FACTOR)
-#define MAX_VALUE_THIRD_GEAR (MAX_RPMx100_THIRD_GEAR * VALUE_RPM_FACTOR)
-#define MAX_VALUE_FOURTH_GEAR (MAX_RPMx100_FOURTH_GEAR * VALUE_RPM_FACTOR)
-#define MAX_VALUE_FIFTH_GEAR (MAX_RPMx100_FIFTH_GEAR * VALUE_RPM_FACTOR)
-#define MAX_VALUE_SIXTH_GEAR MAX_VALUE
-  
-#define TIRE_CIRC_FT 6
-
-#define RATIO_FIRST_GEAR_DIV100     378
-#define RATIO_SECOND_GEAR_DIV100    206
-#define RATIO_THIRD_GEAR_DIV100     123
-#define RATIO_FOURTH_GEAR_DIV100    83
-#define RATIO_FIFTH_GEAR_DIV100     79
-#define RATIO_SIXTH_GEAR_DIV100     79
-#define RATIO_FINAL_DRIVE_DIV     4
-  
-#define MAX_FUEL_VALUE  100000
-#define FUEL_DEC_VALUE  200
-#define FUEL_DEC_OFF_VALUE  2000
-#define FUEL_INC_VALUE  1
-
-#define GET_VALUE_FROM_RPMx100(rpm)             (rpm * VALUE_RPM_FACTOR)
-#define GET_RPMx100_FROM_VALUE(value)           (value / VALUE_RPM_FACTOR)
-#define GET_RPM_FROM_VALUE(value)               (value * 1000 / VALUE_RPM_FACTOR)
-#define GET_SPEED_FROM_RPMx100(rpm_x100, gear_ratio_d100)  \
-                              ((rpm_x100 * 100 * 100 * TIRE_CIRC_FT) / \
-                             (RATIO_FINAL_DRIVE_DIV * gear_ratio_d100 * 88))
-#define GET_ANGLE_FROM_VALUE(value)             (START_VALUE_ANGLE - value)
-  
-#define SPEED_VALUE_DEC_OFF 2
-#define SPEED_VALUE_INC_RUN 1
-#define SPEED_VALUE_INC_STARTUP 2 
-#define SPEED_VALUE_DEC_GEAR_CHANGE 5
-  
-#define SPEED_VALUE_INC_ANGLE_STARTUP 30
-#define SPEED_VALUE_DEC_ANGLE_STARTUP 30
-                                
-#define BLINKER_PERIOD_MS 300
-                                
-#define BACKLIGHT_PWM_DELTA 0x1
-#define BACKLIGHT_DELTA_DELAY_MS 2
-                                
-#define BACKLIGHT_PWM_VALUE_ENGINE_OFF 33
-#define BACKLIGHT_PWM_VALUE_ENGINE_ON 100
-                                
-// *****************************************************************************
-/* Application states
-
-  Summary:
-    Application states enumeration
-
-  Description:
-    This enumeration defines the valid application states.  These states
-    determine the behavior of the application at various times.
-*/
-
-typedef enum
-{
-    /* Application's state machine's initial state. */
-    APP_STATE_INIT=0,
-    APP_STATE_SPLASH_BRIGHTEN,
-    APP_STATE_SPLASH,
-    APP_STATE_SPLASH_DIM,
-    APP_STATE_SCREEN_INIT,
-    APP_STATE_SCREEN_ON,
-    APP_STATE_TACHO_REV_UP,
-    APP_STATE_TACHO_REV_DOWN, 
-    APP_STATE_INDICATORS_LIGHTS_INIT,
-    APP_STATE_INDICATOR_TEXTS_INIT,
-    APP_STATE_STARTUP_FUEL,
-    APP_STATE_STARTUP,
-    APP_STATE_REFUEL,    
-    APP_STATE_IDLE,
-    APP_STATE_RUN,
-    APP_STATE_COAST,
-    APP_STATE_ENGINE_OFF,
-    APP_STATE_ENGINE_TURNING_ON,
-    APP_STATE_ENGINE_TURNING_OFF_ENGINE,
-    APP_STATE_ENGINE_TURNING_OFF_FUEL,
-    APP_STATE_ENGINE_TURNING_OFF_INDICATORS,
-    APP_STATE_ENGINE_TURNING_OFF_DIM,
-} APP_STATES;
-
-typedef enum
-{
-    APP_GEAR_IDLE,  
-    APP_GEAR_FIRST,
-    APP_GEAR_SECOND,
-    APP_GEAR_THIRD,
-    APP_GEAR_FOURTH,
-    APP_GEAR_FIFTH,
-    APP_GEAR_SIXTH,
-} APP_GEAR;
-
 typedef enum
 {
     APP_EVENT_ENGINE_ON,
@@ -168,35 +61,6 @@ typedef enum
     APP_EVENT_NONE,
 } APP_EVENTS;
 
-
-// *****************************************************************************
-/* Application Data
-
-  Summary:
-    Holds application data
-
-  Description:
-    This structure holds the application's data.
-
-  Remarks:
-    Application strings and buffers are be defined outside this structure.
- */
-
-typedef struct
-{
-    /* The application's current state */
-    APP_STATES state;
-    int value;
-    APP_EVENTS event;
-    APP_GEAR gear;
-    int speed;
-    int fuel;
-
-    /* TODO: Define any additional data used by the application. */
-
-} APP_DATA;
-
-extern APP_DATA appData;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -277,6 +141,11 @@ void APP_Initialize ( void );
  */
 
 void APP_Tasks( void );
+void APP_Task(void);
+void APP_Send_Event(APP_EVENTS event);
+uint32_t APP_GetValueAngle(void);
+uint32_t APP_GetSpeedAngle(void);
+void APP_StateInit(void);
 
 
 

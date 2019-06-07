@@ -3441,6 +3441,9 @@
         </group>
     </group>
     <file>
+        <name>$PROJ_DIR$\..\src\app_single_gauge.c</name>
+    </file>
+    <file>
         <name>$PROJ_DIR$\..\src\app_splash.c</name>
     </file>
     <file>
