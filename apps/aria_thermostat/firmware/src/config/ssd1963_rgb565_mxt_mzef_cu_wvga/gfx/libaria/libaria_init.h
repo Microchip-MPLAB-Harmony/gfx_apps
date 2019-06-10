@@ -73,7 +73,17 @@ extern laImageWidget* Pic32Logo;
 extern laImageWidget* HarmonyLogoWidget;
 extern laImageWidget* SplashBar;
 extern laImageWidget* SplashBarLogo;
-extern laImageWidget* ImageWidget;
+extern laImageWidget* ImageWidget_Backplate;
+extern laImageWidget* ImageWidget_FrontTopLeft;
+extern laImageWidget* ImageWidget_FrontTopMiddle;
+extern laImageWidget* ImageWidget_FrontTopRight;
+extern laImageWidget* ImageWidget_FrontMiddleLeft;
+extern laImageWidget* ImageWidget_FrontMiddle;
+extern laImageWidget* ImageWidget_FrontMiddleRight;
+extern laImageWidget* ImageWidget_FrontBottomLeft;
+extern laImageWidget* ImageWidget_BottomMiddle;
+extern laImageWidget* ImageWidget_BottomRight;
+extern laArcWidget* ArcWidget_Indicator;
 
 
 

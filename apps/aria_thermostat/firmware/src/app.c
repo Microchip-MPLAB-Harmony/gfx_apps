@@ -32,6 +32,7 @@
 #include "app.h"
 #include "app_splash.h"
 #include "gfx/libaria/libaria_init.h"
+#include "gfx/libaria/inc/libaria_context.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -123,11 +124,6 @@ void APP_Tasks ( void )
 
         case APP_STATE_SPLASH:
         {
-            if (delayCount++ < 500)
-                break;
-            
-            delayCount = 0;
-            
             if (APP_IsSplashScreenComplete())
             {
                 appData.state = APP_STATE_MAIN;
@@ -137,6 +133,12 @@ void APP_Tasks ( void )
 
         case APP_STATE_MAIN:
         {
+            if (delayCount++ < 500000)
+                break;
+
+            delayCount = 0;
+            
+            laContext_SetActiveScreen(MainScreen_ID);
 
             break;
         }

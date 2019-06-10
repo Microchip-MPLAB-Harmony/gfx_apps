@@ -49,7 +49,17 @@ laImageWidget* Pic32Logo;
 laImageWidget* HarmonyLogoWidget;
 laImageWidget* SplashBar;
 laImageWidget* SplashBarLogo;
-laImageWidget* ImageWidget;
+laImageWidget* ImageWidget_Backplate;
+laImageWidget* ImageWidget_FrontTopLeft;
+laImageWidget* ImageWidget_FrontTopMiddle;
+laImageWidget* ImageWidget_FrontTopRight;
+laImageWidget* ImageWidget_FrontMiddleLeft;
+laImageWidget* ImageWidget_FrontMiddle;
+laImageWidget* ImageWidget_FrontMiddleRight;
+laImageWidget* ImageWidget_FrontBottomLeft;
+laImageWidget* ImageWidget_BottomMiddle;
+laImageWidget* ImageWidget_BottomRight;
+laArcWidget* ArcWidget_Indicator;
 
 
 static void ScreenCreate_SplashScreen(laScreen* screen);
@@ -84,7 +94,7 @@ int32_t libaria_initialize(void)
     whiteScheme.highlightLight = 0xFFFF;
     whiteScheme.shadow = 0x8410;
     whiteScheme.shadowDark = 0x4208;
-    whiteScheme.foreground = 0x0;
+    whiteScheme.foreground = 0xFFFF;
     whiteScheme.foregroundInactive = 0xD71C;
     whiteScheme.foregroundDisabled = 0x8410;
     whiteScheme.background = 0xFFFF;
@@ -97,13 +107,13 @@ int32_t libaria_initialize(void)
     whiteScheme.textDisabled = 0x8C92;
 
     laScheme_Initialize(&mainScheme, GFX_COLOR_MODE_RGB_565);
-    mainScheme.base = 0x2967;
+    mainScheme.base = 0x1F;
     mainScheme.highlight = 0xC67A;
     mainScheme.highlightLight = 0xFFFF;
     mainScheme.shadow = 0x8410;
     mainScheme.shadowDark = 0x4208;
     mainScheme.foreground = 0x0;
-    mainScheme.foregroundInactive = 0xD71C;
+    mainScheme.foregroundInactive = 0x1F;
     mainScheme.foregroundDisabled = 0x8410;
     mainScheme.background = 0xFFFF;
     mainScheme.backgroundInactive = 0xD71C;
@@ -193,12 +203,107 @@ static void ScreenCreate_MainScreen(laScreen* screen)
 
     laScreen_SetLayer(screen, 0, layer0);
 
-    ImageWidget = laImageWidget_New();
-    laWidget_SetSize((laWidget*)ImageWidget, 800, 480);
-    laWidget_SetScheme((laWidget*)ImageWidget, &mainScheme);
-    laWidget_SetBackgroundType((laWidget*)ImageWidget, LA_WIDGET_BACKGROUND_FILL);
-    laWidget_SetBorderType((laWidget*)ImageWidget, LA_WIDGET_BORDER_NONE);
-    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget);
+    ImageWidget_Backplate = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageWidget_Backplate, 160, 0);
+    laWidget_SetSize((laWidget*)ImageWidget_Backplate, 480, 480);
+    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_Backplate, LA_WIDGET_OPT_DRAW_ONCE | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget_Backplate, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget_Backplate, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget_Backplate, &Backplate);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_Backplate);
+
+    ImageWidget_FrontTopLeft = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageWidget_FrontTopLeft, 251, 90);
+    laWidget_SetSize((laWidget*)ImageWidget_FrontTopLeft, 100, 100);
+    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_FrontTopLeft, LA_WIDGET_OPT_LOCAL_REDRAW | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget_FrontTopLeft, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget_FrontTopLeft, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget_FrontTopLeft, &Front_TopLeft);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_FrontTopLeft);
+
+    ImageWidget_FrontTopMiddle = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageWidget_FrontTopMiddle, 351, 90);
+    laWidget_SetSize((laWidget*)ImageWidget_FrontTopMiddle, 100, 100);
+    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_FrontTopMiddle, LA_WIDGET_OPT_LOCAL_REDRAW | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget_FrontTopMiddle, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget_FrontTopMiddle, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget_FrontTopMiddle, &Front_TopMiddle);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_FrontTopMiddle);
+
+    ImageWidget_FrontTopRight = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageWidget_FrontTopRight, 451, 90);
+    laWidget_SetSize((laWidget*)ImageWidget_FrontTopRight, 100, 100);
+    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_FrontTopRight, LA_WIDGET_OPT_LOCAL_REDRAW | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget_FrontTopRight, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget_FrontTopRight, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget_FrontTopRight, &Front_TopRight);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_FrontTopRight);
+
+    ImageWidget_FrontMiddleLeft = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageWidget_FrontMiddleLeft, 251, 190);
+    laWidget_SetSize((laWidget*)ImageWidget_FrontMiddleLeft, 100, 100);
+    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_FrontMiddleLeft, LA_WIDGET_OPT_LOCAL_REDRAW | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget_FrontMiddleLeft, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget_FrontMiddleLeft, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget_FrontMiddleLeft, &Front_MiddleLeft);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_FrontMiddleLeft);
+
+    ImageWidget_FrontMiddle = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageWidget_FrontMiddle, 351, 190);
+    laWidget_SetSize((laWidget*)ImageWidget_FrontMiddle, 100, 100);
+    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_FrontMiddle, LA_WIDGET_OPT_LOCAL_REDRAW | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget_FrontMiddle, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget_FrontMiddle, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget_FrontMiddle, &Front_Middle);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_FrontMiddle);
+
+    ImageWidget_FrontMiddleRight = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageWidget_FrontMiddleRight, 451, 190);
+    laWidget_SetSize((laWidget*)ImageWidget_FrontMiddleRight, 100, 100);
+    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_FrontMiddleRight, LA_WIDGET_OPT_LOCAL_REDRAW | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget_FrontMiddleRight, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget_FrontMiddleRight, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget_FrontMiddleRight, &Front_MiddleRight);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_FrontMiddleRight);
+
+    ImageWidget_FrontBottomLeft = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageWidget_FrontBottomLeft, 251, 290);
+    laWidget_SetSize((laWidget*)ImageWidget_FrontBottomLeft, 100, 100);
+    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_FrontBottomLeft, LA_WIDGET_OPT_LOCAL_REDRAW | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget_FrontBottomLeft, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget_FrontBottomLeft, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget_FrontBottomLeft, &Front_BottomLeft);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_FrontBottomLeft);
+
+    ImageWidget_BottomMiddle = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageWidget_BottomMiddle, 351, 290);
+    laWidget_SetSize((laWidget*)ImageWidget_BottomMiddle, 100, 100);
+    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_BottomMiddle, LA_WIDGET_OPT_LOCAL_REDRAW | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget_BottomMiddle, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget_BottomMiddle, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget_BottomMiddle, &Front_BottomMiddle);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_BottomMiddle);
+
+    ImageWidget_BottomRight = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageWidget_BottomRight, 451, 290);
+    laWidget_SetSize((laWidget*)ImageWidget_BottomRight, 100, 100);
+    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_BottomRight, LA_WIDGET_OPT_LOCAL_REDRAW | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget_BottomRight, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget_BottomRight, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget_BottomRight, &Front_BottomRight);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_BottomRight);
+
+    ArcWidget_Indicator = laArcWidget_New();
+    laWidget_SetPosition((laWidget*)ArcWidget_Indicator, 260, 114);
+    laWidget_SetSize((laWidget*)ArcWidget_Indicator, 282, 282);
+    laWidget_SetScheme((laWidget*)ArcWidget_Indicator, &whiteScheme);
+    laWidget_SetBackgroundType((laWidget*)ArcWidget_Indicator, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ArcWidget_Indicator, LA_WIDGET_BORDER_NONE);
+    laArcWidget_SetRadius(ArcWidget_Indicator, 140);
+    laArcWidget_SetStartAngle(ArcWidget_Indicator, 88);
+    laArcWidget_SetCenterAngle(ArcWidget_Indicator, 3);
+    laArcWidget_SetThickness(ArcWidget_Indicator, 45);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ArcWidget_Indicator);
 
 }
 
