@@ -155,7 +155,7 @@ static void ScreenCreate_SplashScreen(laScreen* screen)
     laWidget_SetVisible((laWidget*)HarmonyLogoWidget, LA_FALSE);
     laWidget_SetOptimizationFlags((laWidget*)HarmonyLogoWidget, LA_WIDGET_OPT_OPAQUE);
     laWidget_SetScheme((laWidget*)HarmonyLogoWidget, &whiteScheme);
-    laWidget_SetBackgroundType((laWidget*)HarmonyLogoWidget, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBackgroundType((laWidget*)HarmonyLogoWidget, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)HarmonyLogoWidget, LA_WIDGET_BORDER_NONE);
     laImageWidget_SetImage(HarmonyLogoWidget, &MHGSLogo);
     laWidget_AddChild((laWidget*)layer0, (laWidget*)HarmonyLogoWidget);

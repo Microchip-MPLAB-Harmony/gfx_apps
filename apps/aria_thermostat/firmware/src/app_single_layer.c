@@ -58,7 +58,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "gfx/libaria/libaria.h"
 #include "gfx/libaria/libaria_init.h"
 
-#define DELAY_IN_TICKS 1
+#define DELAY_IN_TICKS 20
 
 // *****************************************************************************
 /* Application Splash Data

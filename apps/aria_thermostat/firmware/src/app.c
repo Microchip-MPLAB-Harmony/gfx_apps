@@ -56,6 +56,8 @@
 
 APP_DATA appData;
 
+uint32_t delayCount;
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Callback Functions
@@ -86,6 +88,8 @@ void APP_Initialize ( void )
 {
     /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_INIT;
+    
+    delayCount = 0;
 }
 
 
@@ -119,6 +123,11 @@ void APP_Tasks ( void )
 
         case APP_STATE_SPLASH:
         {
+            if (delayCount++ < 500)
+                break;
+            
+            delayCount = 0;
+            
             if (APP_IsSplashScreenComplete())
             {
                 appData.state = APP_STATE_MAIN;
