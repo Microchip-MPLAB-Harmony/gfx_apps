@@ -29,10 +29,17 @@
 
 #include <stdio.h>
 
+#include "gfx/libaria/inc/libaria_utils.h"
+#include "gfx/libaria/inc/libaria_context.h"
+#include "gfx/libaria/libaria_init.h"
+#include "gfx/hal/inc/gfx_common.h"
+#include "gfx/hal/inc/gfx_interface.h"
+#include "gfx/hal/inc/gfx_math.h"
+#include "gfx/hal/inc/gfx_context.h"
+#include "system/time/sys_time.h"
+
 #include "app.h"
 #include "app_splash.h"
-#include "gfx/libaria/libaria_init.h"
-#include "gfx/libaria/inc/libaria_context.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -58,12 +65,58 @@
 APP_DATA appData;
 
 uint32_t delayCount;
+static SYS_TIME_HANDLE handleTimer = SYS_TIME_HANDLE_INVALID;
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Application Local Functions
+// *****************************************************************************
+// *****************************************************************************
+
+void APP_UpdateTempLabel(int32_t value)
+{
+    char charBuff[10] = {0};
+    laString str;
+    
+    sprintf(charBuff, "%d", value);
+    
+    str = laString_CreateFromCharBuffer(charBuff, 
+            GFXU_StringFontIndexLookup(&stringTable, string_String_Numbers_Large, 0));
+
+    laLabelWidget_SetText(LabelWidget_Temp, str);
+
+    laString_Destroy(&str);
+}
+
+void APP_UpdateTargetTemp(int32_t value)
+{
+    if(value > 0 && value <= 228)
+    {
+        appData.targetTemp = 85 - value / 9;
+    }
+    else
+    {
+        appData.targetTemp = 85 + (360 - value) / 9;
+    }
+    
+    APP_UpdateTempLabel(appData.targetTemp);
+}
+
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Callback Functions
 // *****************************************************************************
 // *****************************************************************************
+
+static void APP_TimerCallback (uintptr_t context)
+{
+    static laBool indicatorOn = LA_FALSE;
+    
+    indicatorOn = (indicatorOn == LA_FALSE) ? LA_TRUE : LA_FALSE;
+    
+    laWidget_SetVisible((laWidget*)ImageSequenceWidget_TimeDot, indicatorOn);
+}
 
 void APP_ValueChanged(int32_t value)
 {
@@ -83,13 +136,9 @@ void APP_ValueChanged(int32_t value)
     }
 
     laArcWidget_SetStartAngle(ArcWidget_Indicator, value);
+    
+    APP_UpdateTargetTemp(value);
 }
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Local Functions
-// *****************************************************************************
-// *****************************************************************************
 
 // *****************************************************************************
 // *****************************************************************************
@@ -160,6 +209,8 @@ void APP_Tasks ( void )
             
             laContext_SetActiveScreen(MainScreen_ID);
 
+            handleTimer = SYS_TIME_CallbackRegisterMS(APP_TimerCallback, 1, 1000, SYS_TIME_PERIODIC);
+            
             appData.state = APP_STATE_MAIN;
             
             break;
