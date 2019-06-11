@@ -206,15 +206,6 @@ extern GFXU_ImageAsset Front_TopRight;
 	
 /*********************************
  * GFX Image Asset
- * Name:   Backplate
- * Size:   480x480 pixels
- * Mode:   RGB_565
- * Format: RAW
- ***********************************/
-extern GFXU_ImageAsset Backplate;
-	
-/*********************************
- * GFX Image Asset
  * Name:   Front_BottomMiddle
  * Size:   100x100 pixels
  * Mode:   RGB_565
@@ -240,6 +231,66 @@ extern GFXU_ImageAsset GreenDot;
  ***********************************/
 extern GFXU_ImageAsset RedDot;
 	
+/*********************************
+ * GFX Image Asset
+ * Name:   Backplate
+ * Size:   480x480 pixels
+ * Mode:   RGB_565
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Backplate;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Stucco_Left
+ * Size:   160x480 pixels
+ * Mode:   RGB_565
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Stucco_Left;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   Stucco_Right
+ * Size:   160x480 pixels
+ * Mode:   RGB_565
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset Stucco_Right;
+	
+/*****************************************************************************
+ * MPLAB Harmony Graphics Font Assets
+ *****************************************************************************/
+/*********************************
+ * GFX Font Asset
+ * Name:         Verdana
+ * Height:       89
+ * Style:        Antialias
+ * Glyph Count:  10
+ * Range Count:  1
+ * Glyph Ranges: 0x30-0x39
+ ***********************************/
+extern GFXU_FontAsset Verdana;
+	
+/*****************************************************************************
+ * MPLAB Harmony Graphics String Table
+ *****************************************************************************/
+/*********************************
+ * GFX String Table
+ * Name:         stringTable
+ * Encoding:     ASCII
+ * Languages:    default
+ * String Count: 2
+ ***********************************/
+// language IDs
+#define language_default    0
+
+// string IDs
+#define string_String_Numbers_Large    0
+#define string_String_Temp    1
+ 
+extern GFXU_StringTableAsset stringTable;
+
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }

@@ -49,6 +49,8 @@ laImageWidget* Pic32Logo;
 laImageWidget* HarmonyLogoWidget;
 laImageWidget* SplashBar;
 laImageWidget* SplashBarLogo;
+laImageWidget* ImageWidget_StuccoRight;
+laImageWidget* ImageWidget_StuccoLeft;
 laImageWidget* ImageWidget_Backplate;
 laImageWidget* ImageWidget_FrontTopLeft;
 laImageWidget* ImageWidget_FrontTopMiddle;
@@ -60,6 +62,7 @@ laImageWidget* ImageWidget_FrontBottomLeft;
 laImageWidget* ImageWidget_FrontBottomMiddle;
 laImageWidget* ImageWidget_FrontBottomRight;
 laImageSequenceWidget* ImageSequenceWidget_TimeDot;
+laLabelWidget* LabelWidget_Temp;
 laArcWidget* ArcWidget_Indicator;
 laCircularSliderWidget* CircularSlider_TouchTrack;
 
@@ -102,7 +105,7 @@ int32_t libaria_initialize(void)
     whiteScheme.background = 0xFFFF;
     whiteScheme.backgroundInactive = 0xD71C;
     whiteScheme.backgroundDisabled = 0xC67A;
-    whiteScheme.text = 0x0;
+    whiteScheme.text = 0xFFFF;
     whiteScheme.textHighlight = 0x1F;
     whiteScheme.textHighlightText = 0xFFFF;
     whiteScheme.textInactive = 0xD71C;
@@ -127,6 +130,8 @@ int32_t libaria_initialize(void)
     mainScheme.textDisabled = 0x8C92;
 
     GFX_Set(GFXF_DRAW_PIPELINE_MODE, GFX_PIPELINE_GCUGPU);
+    laContext_SetStringTable(&stringTable);
+
     screen = laScreen_New(LA_FALSE, LA_FALSE, &ScreenCreate_SplashScreen);
     laContext_AddScreen(screen);
 
@@ -200,10 +205,28 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     layer0 = laLayer_New();
     laWidget_SetPosition((laWidget*)layer0, 0, 0);
     laWidget_SetSize((laWidget*)layer0, 800, 480);
-    laWidget_SetBackgroundType((laWidget*)layer0, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBackgroundType((laWidget*)layer0, LA_WIDGET_BACKGROUND_NONE);
     laLayer_SetBufferCount(layer0, 1);
+    laWidget_SetOptimizationFlags((laWidget*)layer0, LA_WIDGET_OPT_DRAW_ONCE);
 
     laScreen_SetLayer(screen, 0, layer0);
+
+    ImageWidget_StuccoRight = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageWidget_StuccoRight, 640, 0);
+    laWidget_SetSize((laWidget*)ImageWidget_StuccoRight, 160, 480);
+    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_StuccoRight, LA_WIDGET_OPT_DRAW_ONCE | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget_StuccoRight, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget_StuccoRight, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget_StuccoRight, &Stucco_Right);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_StuccoRight);
+
+    ImageWidget_StuccoLeft = laImageWidget_New();
+    laWidget_SetSize((laWidget*)ImageWidget_StuccoLeft, 160, 480);
+    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_StuccoLeft, LA_WIDGET_OPT_DRAW_ONCE | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget_StuccoLeft, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget_StuccoLeft, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget_StuccoLeft, &Stucco_Left);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_StuccoLeft);
 
     ImageWidget_Backplate = laImageWidget_New();
     laWidget_SetPosition((laWidget*)ImageWidget_Backplate, 160, 0);
@@ -305,6 +328,16 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laImageSequenceWidget_SetImage(ImageSequenceWidget_TimeDot, 0, &GreenDot);
     laImageSequenceWidget_SetImage(ImageSequenceWidget_TimeDot, 1, &RedDot);
     laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageSequenceWidget_TimeDot);
+
+    LabelWidget_Temp = laLabelWidget_New();
+    laWidget_SetPosition((laWidget*)LabelWidget_Temp, 350, 190);
+    laWidget_SetSize((laWidget*)LabelWidget_Temp, 100, 100);
+    laWidget_SetScheme((laWidget*)LabelWidget_Temp, &whiteScheme);
+    laWidget_SetBackgroundType((laWidget*)LabelWidget_Temp, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)LabelWidget_Temp, LA_WIDGET_BORDER_NONE);
+    laLabelWidget_SetText(LabelWidget_Temp, laString_CreateFromID(string_String_Temp));
+    laLabelWidget_SetHAlignment(LabelWidget_Temp, LA_HALIGN_LEFT);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)LabelWidget_Temp);
 
     ArcWidget_Indicator = laArcWidget_New();
     laWidget_SetPosition((laWidget*)ArcWidget_Indicator, 260, 114);

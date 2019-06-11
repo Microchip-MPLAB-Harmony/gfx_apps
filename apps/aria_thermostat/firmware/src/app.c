@@ -67,10 +67,22 @@ uint32_t delayCount;
 
 void APP_ValueChanged(int32_t value)
 {
-    if (value <= 228 || value >= 310)
+    if (laContext_IsDrawing())
+        return;
+    
+    if (value > 228 && value < 310)
     {
-        laArcWidget_SetStartAngle(ArcWidget_Indicator, value);
+        if (value <= 269)
+        {
+            value = 228;
+        }
+        else
+        {
+            value = 310;
+        }
     }
+
+    laArcWidget_SetStartAngle(ArcWidget_Indicator, value);
 }
 
 // *****************************************************************************
