@@ -134,48 +134,12 @@ extern GFXU_ImageAsset CrossFade3;
 	
 /*********************************
  * GFX Image Asset
- * Name:   BlueDot
- * Size:   13x12 pixels
- * Mode:   INDEX_1
- * Format: RAW
- ***********************************/
-extern GFXU_ImageAsset BlueDot;
-	
-/*********************************
- * GFX Image Asset
- * Name:   GreenDot
- * Size:   13x12 pixels
- * Mode:   INDEX_4
- * Format: RAW
- ***********************************/
-extern GFXU_ImageAsset GreenDot;
-	
-/*********************************
- * GFX Image Asset
- * Name:   RedDot
- * Size:   13x12 pixels
- * Mode:   INDEX_1
- * Format: RAW
- ***********************************/
-extern GFXU_ImageAsset RedDot;
-	
-/*********************************
- * GFX Image Asset
  * Name:   Front_BottomLeft
  * Size:   100x100 pixels
  * Mode:   RGB_565
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset Front_BottomLeft;
-	
-/*********************************
- * GFX Image Asset
- * Name:   Front_BottomMiddle
- * Size:   100x100 pixels
- * Mode:   RGB_565
- * Format: RAW
- ***********************************/
-extern GFXU_ImageAsset Front_BottomMiddle;
 	
 /*********************************
  * GFX Image Asset
@@ -249,32 +213,32 @@ extern GFXU_ImageAsset Front_TopRight;
  ***********************************/
 extern GFXU_ImageAsset Backplate;
 	
-/*****************************************************************************
- * MPLAB Harmony Graphics Palette Assets
- *****************************************************************************/
 /*********************************
- * GFX Palette Asset
- * Name:   BlueDot_palette
- * Colors: 2
- * Format: RGB_565
+ * GFX Image Asset
+ * Name:   Front_BottomMiddle
+ * Size:   100x100 pixels
+ * Mode:   RGB_565
+ * Format: RAW
  ***********************************/
-extern GFXU_PaletteAsset BlueDot_palette;
+extern GFXU_ImageAsset Front_BottomMiddle;
 	
 /*********************************
- * GFX Palette Asset
- * Name:   GreenDot_palette
- * Colors: 13
- * Format: RGB_565
+ * GFX Image Asset
+ * Name:   GreenDot
+ * Size:   13x13 pixels
+ * Mode:   RGB_565
+ * Format: RAW
  ***********************************/
-extern GFXU_PaletteAsset GreenDot_palette;
+extern GFXU_ImageAsset GreenDot;
 	
 /*********************************
- * GFX Palette Asset
- * Name:   RedDot_palette
- * Colors: 2
- * Format: RGB_565
+ * GFX Image Asset
+ * Name:   RedDot
+ * Size:   13x13 pixels
+ * Mode:   RGB_565
+ * Format: RAW
  ***********************************/
-extern GFXU_PaletteAsset RedDot_palette;
+extern GFXU_ImageAsset RedDot;
 	
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

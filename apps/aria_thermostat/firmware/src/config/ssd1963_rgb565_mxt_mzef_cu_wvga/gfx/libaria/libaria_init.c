@@ -57,8 +57,9 @@ laImageWidget* ImageWidget_FrontMiddleLeft;
 laImageWidget* ImageWidget_FrontMiddle;
 laImageWidget* ImageWidget_FrontMiddleRight;
 laImageWidget* ImageWidget_FrontBottomLeft;
-laImageWidget* ImageWidget_BottomMiddle;
-laImageWidget* ImageWidget_BottomRight;
+laImageWidget* ImageWidget_FrontBottomMiddle;
+laImageWidget* ImageWidget_FrontBottomRight;
+laImageSequenceWidget* ImageSequenceWidget_TimeDot;
 laArcWidget* ArcWidget_Indicator;
 laCircularSliderWidget* CircularSlider_TouchTrack;
 
@@ -276,23 +277,34 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laImageWidget_SetImage(ImageWidget_FrontBottomLeft, &Front_BottomLeft);
     laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_FrontBottomLeft);
 
-    ImageWidget_BottomMiddle = laImageWidget_New();
-    laWidget_SetPosition((laWidget*)ImageWidget_BottomMiddle, 351, 290);
-    laWidget_SetSize((laWidget*)ImageWidget_BottomMiddle, 100, 100);
-    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_BottomMiddle, LA_WIDGET_OPT_LOCAL_REDRAW | LA_WIDGET_OPT_OPAQUE);
-    laWidget_SetBackgroundType((laWidget*)ImageWidget_BottomMiddle, LA_WIDGET_BACKGROUND_NONE);
-    laWidget_SetBorderType((laWidget*)ImageWidget_BottomMiddle, LA_WIDGET_BORDER_NONE);
-    laImageWidget_SetImage(ImageWidget_BottomMiddle, &Front_BottomMiddle);
-    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_BottomMiddle);
+    ImageWidget_FrontBottomMiddle = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageWidget_FrontBottomMiddle, 351, 290);
+    laWidget_SetSize((laWidget*)ImageWidget_FrontBottomMiddle, 100, 100);
+    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_FrontBottomMiddle, LA_WIDGET_OPT_LOCAL_REDRAW | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget_FrontBottomMiddle, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget_FrontBottomMiddle, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget_FrontBottomMiddle, &Front_BottomMiddle);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_FrontBottomMiddle);
 
-    ImageWidget_BottomRight = laImageWidget_New();
-    laWidget_SetPosition((laWidget*)ImageWidget_BottomRight, 451, 290);
-    laWidget_SetSize((laWidget*)ImageWidget_BottomRight, 100, 100);
-    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_BottomRight, LA_WIDGET_OPT_LOCAL_REDRAW | LA_WIDGET_OPT_OPAQUE);
-    laWidget_SetBackgroundType((laWidget*)ImageWidget_BottomRight, LA_WIDGET_BACKGROUND_NONE);
-    laWidget_SetBorderType((laWidget*)ImageWidget_BottomRight, LA_WIDGET_BORDER_NONE);
-    laImageWidget_SetImage(ImageWidget_BottomRight, &Front_BottomRight);
-    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_BottomRight);
+    ImageWidget_FrontBottomRight = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageWidget_FrontBottomRight, 451, 290);
+    laWidget_SetSize((laWidget*)ImageWidget_FrontBottomRight, 100, 100);
+    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_FrontBottomRight, LA_WIDGET_OPT_LOCAL_REDRAW | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget_FrontBottomRight, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget_FrontBottomRight, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget_FrontBottomRight, &Front_BottomRight);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_FrontBottomRight);
+
+    ImageSequenceWidget_TimeDot = laImageSequenceWidget_New();
+    laWidget_SetPosition((laWidget*)ImageSequenceWidget_TimeDot, 394, 352);
+    laWidget_SetSize((laWidget*)ImageSequenceWidget_TimeDot, 13, 13);
+    laWidget_SetOptimizationFlags((laWidget*)ImageSequenceWidget_TimeDot, LA_WIDGET_OPT_LOCAL_REDRAW | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetBackgroundType((laWidget*)ImageSequenceWidget_TimeDot, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageSequenceWidget_TimeDot, LA_WIDGET_BORDER_NONE);
+    laImageSequenceWidget_SetImageCount(ImageSequenceWidget_TimeDot, 2);
+    laImageSequenceWidget_SetImage(ImageSequenceWidget_TimeDot, 0, &GreenDot);
+    laImageSequenceWidget_SetImage(ImageSequenceWidget_TimeDot, 1, &RedDot);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageSequenceWidget_TimeDot);
 
     ArcWidget_Indicator = laArcWidget_New();
     laWidget_SetPosition((laWidget*)ArcWidget_Indicator, 260, 114);

@@ -82,8 +82,9 @@ extern laImageWidget* ImageWidget_FrontMiddleLeft;
 extern laImageWidget* ImageWidget_FrontMiddle;
 extern laImageWidget* ImageWidget_FrontMiddleRight;
 extern laImageWidget* ImageWidget_FrontBottomLeft;
-extern laImageWidget* ImageWidget_BottomMiddle;
-extern laImageWidget* ImageWidget_BottomRight;
+extern laImageWidget* ImageWidget_FrontBottomMiddle;
+extern laImageWidget* ImageWidget_FrontBottomRight;
+extern laImageSequenceWidget* ImageSequenceWidget_TimeDot;
 extern laArcWidget* ArcWidget_Indicator;
 extern laCircularSliderWidget* CircularSlider_TouchTrack;
 
