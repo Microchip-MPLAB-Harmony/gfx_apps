@@ -42,5 +42,28 @@
 #include "gfx/libaria/libaria_events.h"
 #include "app.h"
 
+// CircularSlider_TouchTrack - ValueChangedEvent
+void CircularSlider_TouchTrack_ValueChangedEvent(laCircularSliderWidget * slider, int32_t value)
+{
+    // Custom Action
+    APP_ValueChanged(value);
+}
+
+// CircularSlider_TouchTrack - PressedEvent
+void CircularSlider_TouchTrack_PressedEvent(laCircularSliderWidget * slider, int32_t value)
+{
+    // Custom Action
+    APP_ValueChanged(value);
+}
+
+// CircularSlider_TouchTrack - ReleasedEvent
+void CircularSlider_TouchTrack_ReleasedEvent(laCircularSliderWidget * slider, int32_t value)
+{
+    // Custom Action
+    APP_ValueChanged(value);
+}
+
+
+
 
 

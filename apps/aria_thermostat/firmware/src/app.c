@@ -65,6 +65,14 @@ uint32_t delayCount;
 // *****************************************************************************
 // *****************************************************************************
 
+void APP_ValueChanged(int32_t value)
+{
+    if (value <= 228 || value >= 310)
+    {
+        laArcWidget_SetStartAngle(ArcWidget_Indicator, value);
+    }
+}
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Local Functions
@@ -126,12 +134,12 @@ void APP_Tasks ( void )
         {
             if (APP_IsSplashScreenComplete())
             {
-                appData.state = APP_STATE_MAIN;
+                appData.state = APP_STATE_MAIN_TRANSITION;
             }
             break;
         }
 
-        case APP_STATE_MAIN:
+        case APP_STATE_MAIN_TRANSITION:
         {
             if (delayCount++ < 500000)
                 break;
@@ -140,9 +148,16 @@ void APP_Tasks ( void )
             
             laContext_SetActiveScreen(MainScreen_ID);
 
+            appData.state = APP_STATE_MAIN;
+            
             break;
         }
 
+        case APP_STATE_MAIN:
+        {
+            break;
+        }
+        
         /* The default state should never be executed. */
         default:
         {

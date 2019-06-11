@@ -60,6 +60,7 @@ laImageWidget* ImageWidget_FrontBottomLeft;
 laImageWidget* ImageWidget_BottomMiddle;
 laImageWidget* ImageWidget_BottomRight;
 laArcWidget* ArcWidget_Indicator;
+laCircularSliderWidget* CircularSlider_TouchTrack;
 
 
 static void ScreenCreate_SplashScreen(laScreen* screen);
@@ -296,14 +297,41 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     ArcWidget_Indicator = laArcWidget_New();
     laWidget_SetPosition((laWidget*)ArcWidget_Indicator, 260, 114);
     laWidget_SetSize((laWidget*)ArcWidget_Indicator, 282, 282);
+    laWidget_SetOptimizationFlags((laWidget*)ArcWidget_Indicator, LA_WIDGET_OPT_LOCAL_REDRAW);
     laWidget_SetScheme((laWidget*)ArcWidget_Indicator, &whiteScheme);
     laWidget_SetBackgroundType((laWidget*)ArcWidget_Indicator, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)ArcWidget_Indicator, LA_WIDGET_BORDER_NONE);
-    laArcWidget_SetRadius(ArcWidget_Indicator, 140);
+    laArcWidget_SetRadius(ArcWidget_Indicator, 138);
     laArcWidget_SetStartAngle(ArcWidget_Indicator, 88);
     laArcWidget_SetCenterAngle(ArcWidget_Indicator, 3);
-    laArcWidget_SetThickness(ArcWidget_Indicator, 45);
+    laArcWidget_SetThickness(ArcWidget_Indicator, 50);
     laWidget_AddChild((laWidget*)layer0, (laWidget*)ArcWidget_Indicator);
+
+    CircularSlider_TouchTrack = laCircularSliderWidget_New();
+    laWidget_SetSize((laWidget*)CircularSlider_TouchTrack, 282, 282);
+    laWidget_SetOptimizationFlags((laWidget*)CircularSlider_TouchTrack, LA_WIDGET_OPT_LOCAL_REDRAW | LA_WIDGET_OPT_DRAW_ONCE);
+    laWidget_SetBackgroundType((laWidget*)CircularSlider_TouchTrack, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)CircularSlider_TouchTrack, LA_WIDGET_BORDER_NONE);
+    laCircularSliderWidget_SetRadius(CircularSlider_TouchTrack, 140);
+    laCircularSliderWidget_SetValue(CircularSlider_TouchTrack, 88);
+    laCircularSliderWidget_SetEndValue(CircularSlider_TouchTrack, 360);
+    laCircularSliderWidget_SetRoundEdges(CircularSlider_TouchTrack, LA_FALSE);
+    laCircularSliderWidget_SetStickyButton(CircularSlider_TouchTrack, LA_FALSE);
+    laCircularSliderWidget_SetTouchOnButtonOnly(CircularSlider_TouchTrack, LA_FALSE);
+    laCircularSliderWidget_SetArcVisible(CircularSlider_TouchTrack, OUTSIDE_CIRCLE_BORDER, LA_FALSE);
+    laCircularSliderWidget_SetArcThickness(CircularSlider_TouchTrack, OUTSIDE_CIRCLE_BORDER, 0);
+    laCircularSliderWidget_SetArcVisible(CircularSlider_TouchTrack, INSIDE_CIRCLE_BORDER, LA_FALSE);
+    laCircularSliderWidget_SetArcThickness(CircularSlider_TouchTrack, INSIDE_CIRCLE_BORDER, 0);
+    laCircularSliderWidget_SetArcVisible(CircularSlider_TouchTrack, ACTIVE_AREA, LA_FALSE);
+    laCircularSliderWidget_SetArcThickness(CircularSlider_TouchTrack, ACTIVE_AREA, 45);
+    laCircularSliderWidget_SetArcVisible(CircularSlider_TouchTrack, INACTIVE_AREA, LA_FALSE);
+    laCircularSliderWidget_SetArcVisible(CircularSlider_TouchTrack, CIRCLE_BUTTON, LA_FALSE);
+    laCircularSliderWidget_SetArcRadius(CircularSlider_TouchTrack, CIRCLE_BUTTON, 25);
+    laCircularSliderWidget_SetArcThickness(CircularSlider_TouchTrack, CIRCLE_BUTTON, 0);
+    laCircularSliderWidget_SetValueChangedEventCallback(CircularSlider_TouchTrack, &CircularSlider_TouchTrack_ValueChangedEvent);
+    laCircularSliderWidget_SetPressedEventCallback(CircularSlider_TouchTrack, &CircularSlider_TouchTrack_PressedEvent);
+    laCircularSliderWidget_SetReleasedEventCallback(CircularSlider_TouchTrack, &CircularSlider_TouchTrack_ReleasedEvent);
+    laWidget_AddChild((laWidget*)ArcWidget_Indicator, (laWidget*)CircularSlider_TouchTrack);
 
 }
 

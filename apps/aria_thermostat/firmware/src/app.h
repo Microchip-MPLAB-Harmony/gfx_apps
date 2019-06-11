@@ -63,6 +63,7 @@ typedef enum
     /* Application's state machine's initial state. */
     APP_STATE_INIT=0,
     APP_STATE_SPLASH,
+    APP_STATE_MAIN_TRANSITION,
     APP_STATE_MAIN,
 
 } APP_STATES;
@@ -97,6 +98,8 @@ typedef struct
 // *****************************************************************************
 /* These routines are called by drivers when certain events occur.
 */
+
+void APP_ValueChanged(int32_t value);
 
 // *****************************************************************************
 // *****************************************************************************

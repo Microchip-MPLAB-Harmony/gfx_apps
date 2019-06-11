@@ -340,11 +340,13 @@
         <String dnOrder="42" id="BSP_PIN_12_FUNCTION_NAME">
           <Values dnOrder="0">
             <Dynamic dnOrder="0" id="aria_gfx_pda_tm4301b" value="GFX_DISP_INTF_PIN_WR"/>
+            <User dnOrder="1" value="GFX_DISP_INTF_PIN_WR"/>
           </Values>
         </String>
         <String dnOrder="43" id="BSP_PIN_12_FUNCTION_TYPE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0" id="aria_gfx_pda_tm4301b" value="GPIO"/>
+            <User dnOrder="1" value="GPIO"/>
           </Values>
         </String>
         <String dnOrder="44" id="BSP_PIN_12_LAT">
@@ -1795,9 +1797,14 @@
             </Boolean>
           </Attributes>
         </Combo>
-        <String dnOrder="6" id="PixelClockPreScaler">
+        <Integer dnOrder="6" id="PixelClock">
           <Values dnOrder="0">
-            <Dynamic dnOrder="0" id="gfx_driver_ssd1963" value="6.6667"/>
+            <User dnOrder="0" value="25000000"/>
+          </Values>
+        </Integer>
+        <String dnOrder="7" id="PixelClockPreScaler">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0" id="gfx_driver_ssd1963" value="4.0"/>
           </Values>
         </String>
       </Symbols>
@@ -2377,7 +2384,7 @@
         <ElementPosition dnOrder="5" id="core_timer" x="522" y="395"/>
         <ElementPosition dnOrder="6" id="dfp" x="20" y="20"/>
         <ElementPosition dnOrder="7" id="drv_i2c" x="682" y="172"/>
-        <ElementPosition dnOrder="8" id="ebi" x="75" y="75"/>
+        <ElementPosition dnOrder="8" id="ebi" x="74" y="75"/>
         <ElementPosition dnOrder="9" id="gfx_disp_pdatm5000_800x480" x="370" y="256"/>
         <ElementPosition dnOrder="10" id="gfx_driver_ssd1963" x="389" y="52"/>
         <ElementPosition dnOrder="11" id="gfx_hal" x="575" y="30"/>

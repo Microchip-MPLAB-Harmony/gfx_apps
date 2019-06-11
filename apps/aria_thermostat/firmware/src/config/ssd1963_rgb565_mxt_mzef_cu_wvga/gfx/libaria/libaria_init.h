@@ -44,6 +44,7 @@
 #define _LIBARIA_INIT_H
 
 #include "gfx/libaria/libaria.h"
+#include "gfx/libaria/libaria_events.h"
 
 #include "gfx/gfx_assets.h"
 
@@ -84,6 +85,7 @@ extern laImageWidget* ImageWidget_FrontBottomLeft;
 extern laImageWidget* ImageWidget_BottomMiddle;
 extern laImageWidget* ImageWidget_BottomRight;
 extern laArcWidget* ArcWidget_Indicator;
+extern laCircularSliderWidget* CircularSlider_TouchTrack;
 
 
 

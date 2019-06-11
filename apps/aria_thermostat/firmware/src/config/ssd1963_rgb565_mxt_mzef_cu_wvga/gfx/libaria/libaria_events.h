@@ -54,6 +54,16 @@ extern "C" {
 #endif
 // DOM-IGNORE-END 
 
+// Generated Event Handler - Origin: CircularSlider_TouchTrack, Event: ValueChangedEvent
+void CircularSlider_TouchTrack_ValueChangedEvent(laCircularSliderWidget * slider, int32_t value);
+
+// Generated Event Handler - Origin: CircularSlider_TouchTrack, Event: PressedEvent
+void CircularSlider_TouchTrack_PressedEvent(laCircularSliderWidget * slider, int32_t value);
+
+// Generated Event Handler - Origin: CircularSlider_TouchTrack, Event: ReleasedEvent
+void CircularSlider_TouchTrack_ReleasedEvent(laCircularSliderWidget * slider, int32_t value);
+
+
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
