@@ -242,21 +242,21 @@ extern GFXU_ImageAsset Backplate;
 	
 /*********************************
  * GFX Image Asset
- * Name:   Stucco_Left
+ * Name:   Stone_Left
  * Size:   160x480 pixels
  * Mode:   RGB_565
  * Format: RAW
  ***********************************/
-extern GFXU_ImageAsset Stucco_Left;
+extern GFXU_ImageAsset Stone_Left;
 	
 /*********************************
  * GFX Image Asset
- * Name:   Stucco_Right
+ * Name:   Stone_Right
  * Size:   160x480 pixels
  * Mode:   RGB_565
  * Format: RAW
  ***********************************/
-extern GFXU_ImageAsset Stucco_Right;
+extern GFXU_ImageAsset Stone_Right;
 	
 /*****************************************************************************
  * MPLAB Harmony Graphics Font Assets
@@ -277,13 +277,20 @@ extern GFXU_FontAsset Verdana;
  * Name:         Verdana_Med
  * Height:       40
  * Style:        Plain
- * Glyph Count:  15
- * Range Count:  5
- * Glyph Ranges: 0x30-0x3A
-			     0x45
-			     0x49
+ * Glyph Count:  31
+ * Range Count:  12
+ * Glyph Ranges: 0x20
+			     0x30-0x3A
+			     0x44-0x46
+			     0x48-0x49
 			     0x4D
+			     0x50
+			     0x52
 			     0x54
+			     0x61
+			     0x64-0x65
+			     0x6D-0x6F
+			     0x72-0x75
  ***********************************/
 extern GFXU_FontAsset Verdana_Med;
 	
@@ -301,6 +308,32 @@ extern GFXU_FontAsset Verdana_Med;
  ***********************************/
 extern GFXU_FontAsset Verdana_Small;
 	
+/*********************************
+ * GFX Font Asset
+ * Name:         Verdana_Text
+ * Height:       33
+ * Style:        Plain
+ * Glyph Count:  53
+ * Range Count:  16
+ * Glyph Ranges: 0x20
+			     0x2C-0x2E
+			     0x30-0x36
+			     0x38-0x3A
+			     0x41-0x47
+			     0x49
+			     0x4B-0x4D
+			     0x50
+			     0x52-0x53
+			     0x56-0x57
+			     0x5A
+			     0x5C
+			     0x61-0x65
+			     0x67-0x69
+			     0x6C-0x76
+			     0x78-0x79
+ ***********************************/
+extern GFXU_FontAsset Verdana_Text;
+	
 /*****************************************************************************
  * MPLAB Harmony Graphics String Table
  *****************************************************************************/
@@ -309,7 +342,7 @@ extern GFXU_FontAsset Verdana_Small;
  * Name:         stringTable
  * Encoding:     ASCII
  * Languages:    default
- * String Count: 7
+ * String Count: 10
  ***********************************/
 // language IDs
 #define language_default    0
@@ -317,11 +350,14 @@ extern GFXU_FontAsset Verdana_Small;
 // string IDs
 #define string_String_Clock    0
 #define string_String_Current    1
-#define string_String_Numbers_Large    2
-#define string_String_Numbers_Medium    3
-#define string_String_Set    4
-#define string_String_Temp    5
-#define string_String_Time    6
+#define string_String_InfoContent    2
+#define string_String_InfoTitle    3
+#define string_String_Numbers_Large    4
+#define string_String_Numbers_Medium    5
+#define string_String_PressHere    6
+#define string_String_Set    7
+#define string_String_Temp    8
+#define string_String_Time    9
  
 extern GFXU_StringTableAsset stringTable;
 

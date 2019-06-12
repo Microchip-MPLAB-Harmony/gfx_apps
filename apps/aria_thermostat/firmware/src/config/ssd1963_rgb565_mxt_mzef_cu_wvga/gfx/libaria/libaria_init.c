@@ -52,9 +52,10 @@ laImageWidget* Pic32Logo;
 laImageWidget* HarmonyLogoWidget;
 laImageWidget* SplashBar;
 laImageWidget* SplashBarLogo;
-laImageWidget* ImageWidget_StuccoRight;
-laImageWidget* ImageWidget_StuccoLeft;
+laImageWidget* ImageWidget_BackgroundRight;
+laImageWidget* ImageWidget_BackgroundLeft;
 laImageWidget* ImageWidget_Backplate;
+laButtonWidget* ButtonWidget_TouchCatcher;
 laImageWidget* ImageWidget_FrontTopLeft;
 laImageWidget* ImageWidget_FrontTopMiddle;
 laImageWidget* ImageWidget_FrontTopRight;
@@ -65,15 +66,23 @@ laImageWidget* ImageWidget_FrontBottomLeft;
 laImageWidget* ImageWidget_FrontBottomMiddle;
 laImageWidget* ImageWidget_FrontBottomRight;
 laImageSequenceWidget* ImageSequenceWidget_TimeDot;
+laButtonWidget* ButtonWidget_Microchip;
+laButtonWidget* ButtonWidget_MHGS;
 laLabelWidget* LabelWidget_Temp;
 laLabelWidget* LabelWidget_Action;
 laArcWidget* ArcWidget_CurrentTemp;
 laArcWidget* ArcWidget_Indicator;
 laCircularSliderWidget* CircularSlider_TouchTrack;
+laWidget* PanelWidget_InfoBackground;
+laImageWidget* ImageWidget_InfoBackground;
+laLabelWidget* LabelWidget_InfoTitle;
+laLabelWidget* LabelWidget_InfoContent;
+laButtonWidget* ButtonWidget_BackToMain;
 
 
 static void ScreenCreate_SplashScreen(laScreen* screen);
 static void ScreenCreate_MainScreen(laScreen* screen);
+static void ScreenCreate_InfoScreen(laScreen* screen);
 
 
 int32_t libaria_initialize(void)
@@ -197,6 +206,9 @@ int32_t libaria_initialize(void)
     screen = laScreen_New(LA_FALSE, LA_FALSE, &ScreenCreate_MainScreen);
     laContext_AddScreen(screen);
 
+    screen = laScreen_New(LA_FALSE, LA_FALSE, &ScreenCreate_InfoScreen);
+    laContext_AddScreen(screen);
+
     laContext_SetActiveScreen(0);
 
 	return 0;
@@ -270,22 +282,22 @@ static void ScreenCreate_MainScreen(laScreen* screen)
 
     laScreen_SetLayer(screen, 0, layer0);
 
-    ImageWidget_StuccoRight = laImageWidget_New();
-    laWidget_SetPosition((laWidget*)ImageWidget_StuccoRight, 640, 0);
-    laWidget_SetSize((laWidget*)ImageWidget_StuccoRight, 160, 480);
-    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_StuccoRight, LA_WIDGET_OPT_DRAW_ONCE | LA_WIDGET_OPT_OPAQUE);
-    laWidget_SetBackgroundType((laWidget*)ImageWidget_StuccoRight, LA_WIDGET_BACKGROUND_NONE);
-    laWidget_SetBorderType((laWidget*)ImageWidget_StuccoRight, LA_WIDGET_BORDER_NONE);
-    laImageWidget_SetImage(ImageWidget_StuccoRight, &Stucco_Right);
-    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_StuccoRight);
+    ImageWidget_BackgroundRight = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageWidget_BackgroundRight, 640, 0);
+    laWidget_SetSize((laWidget*)ImageWidget_BackgroundRight, 160, 480);
+    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_BackgroundRight, LA_WIDGET_OPT_DRAW_ONCE | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget_BackgroundRight, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget_BackgroundRight, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget_BackgroundRight, &Stone_Right);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_BackgroundRight);
 
-    ImageWidget_StuccoLeft = laImageWidget_New();
-    laWidget_SetSize((laWidget*)ImageWidget_StuccoLeft, 160, 480);
-    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_StuccoLeft, LA_WIDGET_OPT_DRAW_ONCE | LA_WIDGET_OPT_OPAQUE);
-    laWidget_SetBackgroundType((laWidget*)ImageWidget_StuccoLeft, LA_WIDGET_BACKGROUND_NONE);
-    laWidget_SetBorderType((laWidget*)ImageWidget_StuccoLeft, LA_WIDGET_BORDER_NONE);
-    laImageWidget_SetImage(ImageWidget_StuccoLeft, &Stucco_Left);
-    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_StuccoLeft);
+    ImageWidget_BackgroundLeft = laImageWidget_New();
+    laWidget_SetSize((laWidget*)ImageWidget_BackgroundLeft, 160, 480);
+    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_BackgroundLeft, LA_WIDGET_OPT_DRAW_ONCE | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget_BackgroundLeft, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget_BackgroundLeft, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget_BackgroundLeft, &Stone_Left);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_BackgroundLeft);
 
     ImageWidget_Backplate = laImageWidget_New();
     laWidget_SetPosition((laWidget*)ImageWidget_Backplate, 160, 0);
@@ -295,6 +307,14 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_SetBorderType((laWidget*)ImageWidget_Backplate, LA_WIDGET_BORDER_NONE);
     laImageWidget_SetImage(ImageWidget_Backplate, &Backplate);
     laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_Backplate);
+
+    ButtonWidget_TouchCatcher = laButtonWidget_New();
+    laWidget_SetSize((laWidget*)ButtonWidget_TouchCatcher, 800, 480);
+    laWidget_SetBackgroundType((laWidget*)ButtonWidget_TouchCatcher, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ButtonWidget_TouchCatcher, LA_WIDGET_BORDER_NONE);
+    laButtonWidget_SetReleasedEventCallback(ButtonWidget_TouchCatcher, &ButtonWidget_TouchCatcher_ReleasedEvent);
+
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ButtonWidget_TouchCatcher);
 
     ImageWidget_FrontTopLeft = laImageWidget_New();
     laWidget_SetPosition((laWidget*)ImageWidget_FrontTopLeft, 251, 90);
@@ -388,6 +408,23 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laImageSequenceWidget_SetImage(ImageSequenceWidget_TimeDot, 1, &RedDot);
     laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageSequenceWidget_TimeDot);
 
+    ButtonWidget_Microchip = laButtonWidget_New();
+    laWidget_SetSize((laWidget*)ButtonWidget_Microchip, 180, 50);
+    laWidget_SetBackgroundType((laWidget*)ButtonWidget_Microchip, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ButtonWidget_Microchip, LA_WIDGET_BORDER_NONE);
+    laButtonWidget_SetReleasedEventCallback(ButtonWidget_Microchip, &ButtonWidget_Microchip_ReleasedEvent);
+
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ButtonWidget_Microchip);
+
+    ButtonWidget_MHGS = laButtonWidget_New();
+    laWidget_SetPosition((laWidget*)ButtonWidget_MHGS, 650, 60);
+    laWidget_SetSize((laWidget*)ButtonWidget_MHGS, 150, 150);
+    laWidget_SetBackgroundType((laWidget*)ButtonWidget_MHGS, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ButtonWidget_MHGS, LA_WIDGET_BORDER_NONE);
+    laButtonWidget_SetReleasedEventCallback(ButtonWidget_MHGS, &ButtonWidget_MHGS_ReleasedEvent);
+
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ButtonWidget_MHGS);
+
     LabelWidget_Temp = laLabelWidget_New();
     laWidget_SetPosition((laWidget*)LabelWidget_Temp, 310, 200);
     laWidget_SetSize((laWidget*)LabelWidget_Temp, 180, 100);
@@ -458,6 +495,72 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laCircularSliderWidget_SetPressedEventCallback(CircularSlider_TouchTrack, &CircularSlider_TouchTrack_PressedEvent);
     laCircularSliderWidget_SetReleasedEventCallback(CircularSlider_TouchTrack, &CircularSlider_TouchTrack_ReleasedEvent);
     laWidget_AddChild((laWidget*)ArcWidget_Indicator, (laWidget*)CircularSlider_TouchTrack);
+
+}
+
+static void ScreenCreate_InfoScreen(laScreen* screen)
+{
+    laLayer* layer0;
+
+    layer0 = laLayer_New();
+    laWidget_SetPosition((laWidget*)layer0, 0, 0);
+    laWidget_SetSize((laWidget*)layer0, 800, 480);
+    laWidget_SetBackgroundType((laWidget*)layer0, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetScheme((laWidget*)layer0, &whiteScheme);
+    laLayer_SetBufferCount(layer0, 1);
+
+    laScreen_SetLayer(screen, 0, layer0);
+
+    PanelWidget_InfoBackground = laWidget_New();
+    laWidget_SetSize((laWidget*)PanelWidget_InfoBackground, 800, 480);
+    laWidget_SetScheme((laWidget*)PanelWidget_InfoBackground, &whiteScheme);
+    laWidget_SetBackgroundType((laWidget*)PanelWidget_InfoBackground, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)PanelWidget_InfoBackground, LA_WIDGET_BORDER_NONE);
+    laWidget_AddChild((laWidget*)layer0, PanelWidget_InfoBackground);
+
+    ImageWidget_InfoBackground = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageWidget_InfoBackground, 580, 0);
+    laWidget_SetSize((laWidget*)ImageWidget_InfoBackground, 224, 210);
+    laWidget_SetOptimizationFlags((laWidget*)ImageWidget_InfoBackground, LA_WIDGET_OPT_DRAW_ONCE | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetScheme((laWidget*)ImageWidget_InfoBackground, &whiteScheme);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget_InfoBackground, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBorderType((laWidget*)ImageWidget_InfoBackground, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget_InfoBackground, &MHGSLogo);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget_InfoBackground);
+
+    LabelWidget_InfoTitle = laLabelWidget_New();
+    laWidget_SetSize((laWidget*)LabelWidget_InfoTitle, 500, 50);
+    laWidget_SetOptimizationFlags((laWidget*)LabelWidget_InfoTitle, LA_WIDGET_OPT_DRAW_ONCE | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetScheme((laWidget*)LabelWidget_InfoTitle, &defaultScheme);
+    laWidget_SetBackgroundType((laWidget*)LabelWidget_InfoTitle, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)LabelWidget_InfoTitle, LA_WIDGET_BORDER_NONE);
+    laLabelWidget_SetText(LabelWidget_InfoTitle, laString_CreateFromID(string_String_InfoTitle));
+    laLabelWidget_SetHAlignment(LabelWidget_InfoTitle, LA_HALIGN_LEFT);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)LabelWidget_InfoTitle);
+
+    LabelWidget_InfoContent = laLabelWidget_New();
+    laWidget_SetPosition((laWidget*)LabelWidget_InfoContent, 0, 50);
+    laWidget_SetSize((laWidget*)LabelWidget_InfoContent, 800, 430);
+    laWidget_SetOptimizationFlags((laWidget*)LabelWidget_InfoContent, LA_WIDGET_OPT_DRAW_ONCE | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetScheme((laWidget*)LabelWidget_InfoContent, &defaultScheme);
+    laWidget_SetBackgroundType((laWidget*)LabelWidget_InfoContent, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)LabelWidget_InfoContent, LA_WIDGET_BORDER_NONE);
+    laLabelWidget_SetText(LabelWidget_InfoContent, laString_CreateFromID(string_String_InfoContent));
+    laLabelWidget_SetHAlignment(LabelWidget_InfoContent, LA_HALIGN_LEFT);
+    laLabelWidget_SetVAlignment(LabelWidget_InfoContent, LA_VALIGN_TOP);
+    laLabelWidget_SetTextLineSpace(LabelWidget_InfoContent, 45);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)LabelWidget_InfoContent);
+
+    ButtonWidget_BackToMain = laButtonWidget_New();
+    laWidget_SetPosition((laWidget*)ButtonWidget_BackToMain, 430, 410);
+    laWidget_SetSize((laWidget*)ButtonWidget_BackToMain, 360, 60);
+    laWidget_SetOptimizationFlags((laWidget*)ButtonWidget_BackToMain, LA_WIDGET_OPT_DRAW_ONCE | LA_WIDGET_OPT_OPAQUE);
+    laWidget_SetBackgroundType((laWidget*)ButtonWidget_BackToMain, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ButtonWidget_BackToMain, LA_WIDGET_BORDER_LINE);
+    laButtonWidget_SetText(ButtonWidget_BackToMain, laString_CreateFromID(string_String_PressHere));
+    laButtonWidget_SetReleasedEventCallback(ButtonWidget_BackToMain, &ButtonWidget_BackToMain_ReleasedEvent);
+
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ButtonWidget_BackToMain);
 
 }
 

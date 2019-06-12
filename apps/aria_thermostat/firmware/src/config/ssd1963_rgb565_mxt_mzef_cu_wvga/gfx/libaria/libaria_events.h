@@ -54,6 +54,15 @@ extern "C" {
 #endif
 // DOM-IGNORE-END 
 
+// Generated Event Handler - Origin: ButtonWidget_TouchCatcher, Event: ReleasedEvent
+void ButtonWidget_TouchCatcher_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonWidget_Microchip, Event: ReleasedEvent
+void ButtonWidget_Microchip_ReleasedEvent(laButtonWidget* btn);
+
+// Generated Event Handler - Origin: ButtonWidget_MHGS, Event: ReleasedEvent
+void ButtonWidget_MHGS_ReleasedEvent(laButtonWidget* btn);
+
 // Generated Event Handler - Origin: CircularSlider_TouchTrack, Event: ValueChangedEvent
 void CircularSlider_TouchTrack_ValueChangedEvent(laCircularSliderWidget * slider, int32_t value);
 
@@ -62,6 +71,9 @@ void CircularSlider_TouchTrack_PressedEvent(laCircularSliderWidget * slider, int
 
 // Generated Event Handler - Origin: CircularSlider_TouchTrack, Event: ReleasedEvent
 void CircularSlider_TouchTrack_ReleasedEvent(laCircularSliderWidget * slider, int32_t value);
+
+// Generated Event Handler - Origin: ButtonWidget_BackToMain, Event: ReleasedEvent
+void ButtonWidget_BackToMain_ReleasedEvent(laButtonWidget* btn);
 
 
 

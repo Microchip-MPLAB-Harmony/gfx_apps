@@ -186,6 +186,26 @@ void APP_UpdateCurrentTempArc()
     laArcWidget_SetStartAngle(ArcWidget_CurrentTemp, startAngle);
 }
 
+void APP_UpdateMainDisplay(void)
+{
+    if (laContext_GetActiveScreenIndex() != MainScreen_ID)
+        return;
+    
+    APP_UpdateCurrentTempArc();
+
+    if (appData.showClock == true)
+    {
+        laLabelWidget_SetText(LabelWidget_Action, laString_CreateFromID(string_String_Clock));
+        APP_UpdateClockLabel();
+
+    }
+    else
+    {
+        laLabelWidget_SetText(LabelWidget_Action, laString_CreateFromID(string_String_Current));
+        APP_UpdateTempLabel(appData.currentTemp);
+    }
+}
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Callback Functions
@@ -219,8 +239,6 @@ static void APP_OneSecondCallback (uintptr_t context)
     
     indicatorOn = (indicatorOn == LA_FALSE) ? LA_TRUE : LA_FALSE;
     
-    laWidget_SetVisible((laWidget*)ImageSequenceWidget_TimeDot, indicatorOn);
-    
     appData.currentSec++;
     if (appData.currentSec >= 60)
     {
@@ -252,26 +270,22 @@ static void APP_OneSecondCallback (uintptr_t context)
         }
     }
     
-    APP_UpdateCurrentTempArc();
+    if (laContext_GetActiveScreenIndex() == MainScreen_ID)
+    {
+        laWidget_SetVisible((laWidget*)ImageSequenceWidget_TimeDot, indicatorOn);
 
-    if (appData.state != APP_STATE_IDLE)
-        return;
-    
-    if (appData.showClock == true)
-    {
-        laLabelWidget_SetText(LabelWidget_Action, laString_CreateFromID(string_String_Clock));
-        APP_UpdateClockLabel();
-        
-    }
-    else
-    {
-        laLabelWidget_SetText(LabelWidget_Action, laString_CreateFromID(string_String_Current));
-        APP_UpdateTempLabel(appData.currentTemp);
+        APP_UpdateMainDisplay();
     }
 }
 
 void APP_ValueChanged(int32_t value)
 {
+    if (idleTimer != SYS_TIME_HANDLE_INVALID)
+    {
+        SYS_TIME_TimerDestroy(idleTimer);        
+        idleTimer = SYS_TIME_HANDLE_INVALID;
+    }
+
     if (laContext_IsDrawing())
         return;
     
@@ -329,6 +343,46 @@ void APP_OnTouchRelease(void)
     appData.showClock = false;
     
     appData.tempChangeCount = SECONDS_TO_TEMP_CHANGE;
+}
+
+void APP_GoToMain(void)
+{
+    appData.targetTemp = 75;
+    appData.displayBrightnessPct = 0;
+    
+    laContext_SetActiveScreen(MainScreen_ID);
+
+    appData.state = APP_STATE_MAIN_TRANSITION;
+
+    APP_SetDisplayBrightness(appData.displayBrightnessPct);
+}
+
+void APP_GoToInfo(void)
+{
+    if (idleTimer != SYS_TIME_HANDLE_INVALID)
+    {
+        SYS_TIME_TimerDestroy(idleTimer);        
+        idleTimer = SYS_TIME_HANDLE_INVALID;
+    }
+    
+    appData.displayBrightnessPct = 0;
+    
+    laContext_SetActiveScreen(InfoScreen_ID);
+
+    appData.state = APP_STATE_INFO;
+
+    APP_SetDisplayBrightness(appData.displayBrightnessPct);
+}
+
+void APP_ExitIdle(void)
+{
+    if (idleTimer != SYS_TIME_HANDLE_INVALID)
+    {
+        SYS_TIME_TimerDestroy(idleTimer);        
+        idleTimer = SYS_TIME_HANDLE_INVALID;
+    }
+    
+    appData.state = APP_STATE_MAIN_TRANSITION;
 }
 
 // *****************************************************************************
@@ -407,8 +461,13 @@ void APP_Tasks ( void )
 
         case APP_STATE_MAIN_TRANSITION:
         {
+            if (laContext_IsDrawing())
+                break;
+            
             if (appData.displayBrightnessPct < 100)
             {
+                APP_UpdateMainDisplay();
+
                 APP_SetDisplayBrightness(appData.displayBrightnessPct);
                 appData.displayBrightnessPct += BACKLIGHT_PWM_DELTA;
                 APP_DelayMS(BACKLIGHT_DELTA_DELAY_MS);
@@ -444,6 +503,20 @@ void APP_Tasks ( void )
             break;
         }
         
+        case APP_STATE_INFO:
+        {
+            if (laContext_IsDrawing())
+                break;
+            
+            if (appData.displayBrightnessPct < 100)
+            {
+                APP_SetDisplayBrightness(appData.displayBrightnessPct);
+                appData.displayBrightnessPct += BACKLIGHT_PWM_DELTA;
+                APP_DelayMS(BACKLIGHT_DELTA_DELAY_MS);
+            }
+            break;
+        }
+
         case APP_STATE_IDLE:
         {
             if (appData.displayBrightnessPct >= 10)

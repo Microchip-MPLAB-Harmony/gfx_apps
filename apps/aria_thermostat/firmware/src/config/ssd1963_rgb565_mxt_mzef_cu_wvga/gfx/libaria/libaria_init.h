@@ -56,9 +56,12 @@ extern "C" {
 #endif
 // DOM-IGNORE-END 
 
-#define LIBARIA_SCREEN_COUNT   2
+#define LIBARIA_SCREEN_COUNT   3
 
 // reference IDs for generated libaria screens
+// screen "InfoScreen"
+#define InfoScreen_ID    2
+
 // screen "MainScreen"
 #define MainScreen_ID    1
 
@@ -77,9 +80,10 @@ extern laImageWidget* Pic32Logo;
 extern laImageWidget* HarmonyLogoWidget;
 extern laImageWidget* SplashBar;
 extern laImageWidget* SplashBarLogo;
-extern laImageWidget* ImageWidget_StuccoRight;
-extern laImageWidget* ImageWidget_StuccoLeft;
+extern laImageWidget* ImageWidget_BackgroundRight;
+extern laImageWidget* ImageWidget_BackgroundLeft;
 extern laImageWidget* ImageWidget_Backplate;
+extern laButtonWidget* ButtonWidget_TouchCatcher;
 extern laImageWidget* ImageWidget_FrontTopLeft;
 extern laImageWidget* ImageWidget_FrontTopMiddle;
 extern laImageWidget* ImageWidget_FrontTopRight;
@@ -90,11 +94,18 @@ extern laImageWidget* ImageWidget_FrontBottomLeft;
 extern laImageWidget* ImageWidget_FrontBottomMiddle;
 extern laImageWidget* ImageWidget_FrontBottomRight;
 extern laImageSequenceWidget* ImageSequenceWidget_TimeDot;
+extern laButtonWidget* ButtonWidget_Microchip;
+extern laButtonWidget* ButtonWidget_MHGS;
 extern laLabelWidget* LabelWidget_Temp;
 extern laLabelWidget* LabelWidget_Action;
 extern laArcWidget* ArcWidget_CurrentTemp;
 extern laArcWidget* ArcWidget_Indicator;
 extern laCircularSliderWidget* CircularSlider_TouchTrack;
+extern laWidget* PanelWidget_InfoBackground;
+extern laImageWidget* ImageWidget_InfoBackground;
+extern laLabelWidget* LabelWidget_InfoTitle;
+extern laLabelWidget* LabelWidget_InfoContent;
+extern laButtonWidget* ButtonWidget_BackToMain;
 
 
 

@@ -1609,13 +1609,14 @@
         <Setting dnOrder="280" id="XC32_HEAP">
           <Attributes dnOrder="0">
             <String dnOrder="0" id="value">
-              <Value dnOrder="0">16384</Value>
+              <Value dnOrder="0">32768</Value>
             </String>
           </Attributes>
         </Setting>
         <Integer dnOrder="281" id="XC32_HEAP_SIZE">
           <Values dnOrder="0">
             <Dynamic dnOrder="0" id="aria_gfx_library" value="16384"/>
+            <User dnOrder="1" value="32768"/>
           </Values>
         </Integer>
         <KeyValueSet dnOrder="282" id="clkSvcMode">

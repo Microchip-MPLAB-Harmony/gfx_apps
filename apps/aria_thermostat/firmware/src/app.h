@@ -66,6 +66,7 @@ typedef enum
     APP_STATE_MAIN_TRANSITION,
     APP_STATE_MAIN,
     APP_STATE_IDLE,
+    APP_STATE_INFO
 
 } APP_STATES;
 
@@ -116,6 +117,12 @@ typedef struct
 void APP_ValueChanged(int32_t value);
 
 void APP_OnTouchRelease(void);
+
+void APP_GoToMain(void);
+
+void APP_GoToInfo(void);
+
+void APP_ExitIdle(void);
 
 // *****************************************************************************
 // *****************************************************************************

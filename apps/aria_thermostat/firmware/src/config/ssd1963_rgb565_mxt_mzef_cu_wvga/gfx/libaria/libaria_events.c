@@ -42,6 +42,27 @@
 #include "gfx/libaria/libaria_events.h"
 #include "app.h"
 
+// ButtonWidget_TouchCatcher - ReleasedEvent
+void ButtonWidget_TouchCatcher_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_ExitIdle();
+}
+
+// ButtonWidget_Microchip - ReleasedEvent
+void ButtonWidget_Microchip_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_GoToInfo();
+}
+
+// ButtonWidget_MHGS - ReleasedEvent
+void ButtonWidget_MHGS_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_GoToInfo();
+}
+
 // CircularSlider_TouchTrack - ValueChangedEvent
 void CircularSlider_TouchTrack_ValueChangedEvent(laCircularSliderWidget * slider, int32_t value)
 {
@@ -62,6 +83,13 @@ void CircularSlider_TouchTrack_ReleasedEvent(laCircularSliderWidget * slider, in
     // Custom Action
     APP_ValueChanged(value);
     APP_OnTouchRelease();
+}
+
+// ButtonWidget_BackToMain - ReleasedEvent
+void ButtonWidget_BackToMain_ReleasedEvent(laButtonWidget* btn)
+{
+    // Custom Action
+    APP_GoToMain();
 }
 
 
