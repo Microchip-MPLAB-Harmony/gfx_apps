@@ -61,6 +61,7 @@ void CircularSlider_TouchTrack_ReleasedEvent(laCircularSliderWidget * slider, in
 {
     // Custom Action
     APP_ValueChanged(value);
+    APP_OnTouchRelease();
 }
 
 

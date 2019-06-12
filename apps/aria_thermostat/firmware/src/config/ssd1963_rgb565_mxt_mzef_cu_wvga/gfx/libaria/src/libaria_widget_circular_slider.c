@@ -969,7 +969,9 @@ static void touchDown(laCircularSliderWidget* slider, laInput_TouchDownEvent* ev
     pnt.y = evt->y;
 
     //If circular button is visible, set button state touch is within circle
+	// CUSTOM CODE - DO NOT REMOVE
     //if (slider->circleButtonArc.visible == LA_TRUE)
+	// CUSTOM CODE - END
     {
         laUtils_PointScreenToLocalSpace((laWidget*)slider, &pnt);
         
@@ -1074,8 +1076,10 @@ static void touchMoved(laCircularSliderWidget* slider, laInput_TouchMovedEvent* 
                      (slider->endValue - slider->startValue)/4 : 
                      (slider->startValue - slider->endValue)/4;
     
+	// CUSTOM CODE - DO NOT REMOVE
     //if (slider->circleButtonArc.visible == LA_TRUE && 
     if (slider->btnState == LA_CIRCULAR_SLIDER_STATE_DOWN)
+	// CUSTOM CODE - END
     {
         evt->event.accepted = LA_TRUE;
     

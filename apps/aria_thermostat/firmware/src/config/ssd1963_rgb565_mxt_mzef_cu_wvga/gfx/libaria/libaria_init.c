@@ -43,8 +43,11 @@
 #include "gfx/libaria/inc/libaria_utils.h"
 
 laScheme defaultScheme;
+laScheme redScheme;
 laScheme whiteScheme;
-laScheme mainScheme;
+laScheme coolingScheme;
+laScheme warmingScheme;
+laScheme blueScheme;
 laImageWidget* Pic32Logo;
 laImageWidget* HarmonyLogoWidget;
 laImageWidget* SplashBar;
@@ -63,6 +66,8 @@ laImageWidget* ImageWidget_FrontBottomMiddle;
 laImageWidget* ImageWidget_FrontBottomRight;
 laImageSequenceWidget* ImageSequenceWidget_TimeDot;
 laLabelWidget* LabelWidget_Temp;
+laLabelWidget* LabelWidget_Action;
+laArcWidget* ArcWidget_CurrentTemp;
 laArcWidget* ArcWidget_Indicator;
 laCircularSliderWidget* CircularSlider_TouchTrack;
 
@@ -93,6 +98,24 @@ int32_t libaria_initialize(void)
     defaultScheme.textInactive = 0xD71C;
     defaultScheme.textDisabled = 0x8C92;
 
+    laScheme_Initialize(&redScheme, GFX_COLOR_MODE_RGB_565);
+    redScheme.base = 0xF800;
+    redScheme.highlight = 0xC67A;
+    redScheme.highlightLight = 0xFFFF;
+    redScheme.shadow = 0x8410;
+    redScheme.shadowDark = 0x4208;
+    redScheme.foreground = 0xF800;
+    redScheme.foregroundInactive = 0x1F;
+    redScheme.foregroundDisabled = 0x8410;
+    redScheme.background = 0x1F;
+    redScheme.backgroundInactive = 0xD71C;
+    redScheme.backgroundDisabled = 0xC67A;
+    redScheme.text = 0x0;
+    redScheme.textHighlight = 0x1F;
+    redScheme.textHighlightText = 0xFFFF;
+    redScheme.textInactive = 0xD71C;
+    redScheme.textDisabled = 0x8C92;
+
     laScheme_Initialize(&whiteScheme, GFX_COLOR_MODE_RGB_565);
     whiteScheme.base = 0xFFFF;
     whiteScheme.highlight = 0xC67A;
@@ -111,23 +134,59 @@ int32_t libaria_initialize(void)
     whiteScheme.textInactive = 0xD71C;
     whiteScheme.textDisabled = 0x8C92;
 
-    laScheme_Initialize(&mainScheme, GFX_COLOR_MODE_RGB_565);
-    mainScheme.base = 0x1F;
-    mainScheme.highlight = 0xC67A;
-    mainScheme.highlightLight = 0xFFFF;
-    mainScheme.shadow = 0x8410;
-    mainScheme.shadowDark = 0x4208;
-    mainScheme.foreground = 0x0;
-    mainScheme.foregroundInactive = 0x1F;
-    mainScheme.foregroundDisabled = 0x8410;
-    mainScheme.background = 0xFFFF;
-    mainScheme.backgroundInactive = 0xD71C;
-    mainScheme.backgroundDisabled = 0xC67A;
-    mainScheme.text = 0x0;
-    mainScheme.textHighlight = 0x1F;
-    mainScheme.textHighlightText = 0xFFFF;
-    mainScheme.textInactive = 0xD71C;
-    mainScheme.textDisabled = 0x8C92;
+    laScheme_Initialize(&coolingScheme, GFX_COLOR_MODE_RGB_565);
+    coolingScheme.base = 0x5F7;
+    coolingScheme.highlight = 0xC67A;
+    coolingScheme.highlightLight = 0xFFFF;
+    coolingScheme.shadow = 0x8410;
+    coolingScheme.shadowDark = 0x4208;
+    coolingScheme.foreground = 0x5F7;
+    coolingScheme.foregroundInactive = 0x1F;
+    coolingScheme.foregroundDisabled = 0x8410;
+    coolingScheme.background = 0x1F;
+    coolingScheme.backgroundInactive = 0xD71C;
+    coolingScheme.backgroundDisabled = 0x5F7;
+    coolingScheme.text = 0x5F7;
+    coolingScheme.textHighlight = 0x5F7;
+    coolingScheme.textHighlightText = 0xFFFF;
+    coolingScheme.textInactive = 0xD71C;
+    coolingScheme.textDisabled = 0x8C92;
+
+    laScheme_Initialize(&warmingScheme, GFX_COLOR_MODE_RGB_565);
+    warmingScheme.base = 0xFC10;
+    warmingScheme.highlight = 0xC67A;
+    warmingScheme.highlightLight = 0xFFFF;
+    warmingScheme.shadow = 0x8410;
+    warmingScheme.shadowDark = 0x4208;
+    warmingScheme.foreground = 0xFC10;
+    warmingScheme.foregroundInactive = 0x1F;
+    warmingScheme.foregroundDisabled = 0x8410;
+    warmingScheme.background = 0x1F;
+    warmingScheme.backgroundInactive = 0xD71C;
+    warmingScheme.backgroundDisabled = 0xC67A;
+    warmingScheme.text = 0xFC10;
+    warmingScheme.textHighlight = 0x1F;
+    warmingScheme.textHighlightText = 0xFFFF;
+    warmingScheme.textInactive = 0xD71C;
+    warmingScheme.textDisabled = 0x8C92;
+
+    laScheme_Initialize(&blueScheme, GFX_COLOR_MODE_RGB_565);
+    blueScheme.base = 0x7FF;
+    blueScheme.highlight = 0xC67A;
+    blueScheme.highlightLight = 0xFFFF;
+    blueScheme.shadow = 0x8410;
+    blueScheme.shadowDark = 0x4208;
+    blueScheme.foreground = 0x7FF;
+    blueScheme.foregroundInactive = 0x1F;
+    blueScheme.foregroundDisabled = 0x8410;
+    blueScheme.background = 0x1F;
+    blueScheme.backgroundInactive = 0xD71C;
+    blueScheme.backgroundDisabled = 0xC67A;
+    blueScheme.text = 0x0;
+    blueScheme.textHighlight = 0x1F;
+    blueScheme.textHighlightText = 0xFFFF;
+    blueScheme.textInactive = 0xD71C;
+    blueScheme.textDisabled = 0x8C92;
 
     GFX_Set(GFXF_DRAW_PIPELINE_MODE, GFX_PIPELINE_GCUGPU);
     laContext_SetStringTable(&stringTable);
@@ -330,14 +389,36 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageSequenceWidget_TimeDot);
 
     LabelWidget_Temp = laLabelWidget_New();
-    laWidget_SetPosition((laWidget*)LabelWidget_Temp, 350, 190);
-    laWidget_SetSize((laWidget*)LabelWidget_Temp, 100, 100);
+    laWidget_SetPosition((laWidget*)LabelWidget_Temp, 310, 200);
+    laWidget_SetSize((laWidget*)LabelWidget_Temp, 180, 100);
     laWidget_SetScheme((laWidget*)LabelWidget_Temp, &whiteScheme);
     laWidget_SetBackgroundType((laWidget*)LabelWidget_Temp, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)LabelWidget_Temp, LA_WIDGET_BORDER_NONE);
     laLabelWidget_SetText(LabelWidget_Temp, laString_CreateFromID(string_String_Temp));
-    laLabelWidget_SetHAlignment(LabelWidget_Temp, LA_HALIGN_LEFT);
     laWidget_AddChild((laWidget*)layer0, (laWidget*)LabelWidget_Temp);
+
+    LabelWidget_Action = laLabelWidget_New();
+    laWidget_SetPosition((laWidget*)LabelWidget_Action, 351, 190);
+    laWidget_SetSize((laWidget*)LabelWidget_Action, 100, 40);
+    laWidget_SetScheme((laWidget*)LabelWidget_Action, &whiteScheme);
+    laWidget_SetBackgroundType((laWidget*)LabelWidget_Action, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)LabelWidget_Action, LA_WIDGET_BORDER_NONE);
+    laLabelWidget_SetText(LabelWidget_Action, laString_CreateFromID(string_String_Current));
+    laLabelWidget_SetVAlignment(LabelWidget_Action, LA_VALIGN_TOP);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)LabelWidget_Action);
+
+    ArcWidget_CurrentTemp = laArcWidget_New();
+    laWidget_SetPosition((laWidget*)ArcWidget_CurrentTemp, 260, 114);
+    laWidget_SetSize((laWidget*)ArcWidget_CurrentTemp, 282, 282);
+    laWidget_SetOptimizationFlags((laWidget*)ArcWidget_CurrentTemp, LA_WIDGET_OPT_LOCAL_REDRAW);
+    laWidget_SetScheme((laWidget*)ArcWidget_CurrentTemp, &coolingScheme);
+    laWidget_SetBackgroundType((laWidget*)ArcWidget_CurrentTemp, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ArcWidget_CurrentTemp, LA_WIDGET_BORDER_NONE);
+    laArcWidget_SetRadius(ArcWidget_CurrentTemp, 138);
+    laArcWidget_SetStartAngle(ArcWidget_CurrentTemp, 60);
+    laArcWidget_SetCenterAngle(ArcWidget_CurrentTemp, 3);
+    laArcWidget_SetThickness(ArcWidget_CurrentTemp, 40);
+    laWidget_AddChild((laWidget*)layer0, (laWidget*)ArcWidget_CurrentTemp);
 
     ArcWidget_Indicator = laArcWidget_New();
     laWidget_SetPosition((laWidget*)ArcWidget_Indicator, 260, 114);

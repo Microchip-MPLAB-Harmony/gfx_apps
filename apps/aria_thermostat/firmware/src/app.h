@@ -65,6 +65,7 @@ typedef enum
     APP_STATE_SPLASH,
     APP_STATE_MAIN_TRANSITION,
     APP_STATE_MAIN,
+    APP_STATE_IDLE,
 
 } APP_STATES;
 
@@ -87,8 +88,21 @@ typedef struct
     /* The application's current state */
     APP_STATES state;
 
+    bool showClock;
+    
     int32_t targetTemp;
 
+    int32_t currentTemp;
+
+    uint32_t displayBrightnessPct;
+    
+    uint32_t currentSec;
+    
+    uint32_t currentMin;
+
+    uint32_t currentHour;
+    
+    int32_t tempChangeCount;
 } APP_DATA;
 
 // *****************************************************************************
@@ -100,6 +114,8 @@ typedef struct
 */
 
 void APP_ValueChanged(int32_t value);
+
+void APP_OnTouchRelease(void);
 
 // *****************************************************************************
 // *****************************************************************************

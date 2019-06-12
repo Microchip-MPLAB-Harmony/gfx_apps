@@ -68,8 +68,11 @@ extern "C" {
 
 
 extern laScheme defaultScheme;
+extern laScheme redScheme;
 extern laScheme whiteScheme;
-extern laScheme mainScheme;
+extern laScheme coolingScheme;
+extern laScheme warmingScheme;
+extern laScheme blueScheme;
 extern laImageWidget* Pic32Logo;
 extern laImageWidget* HarmonyLogoWidget;
 extern laImageWidget* SplashBar;
@@ -88,6 +91,8 @@ extern laImageWidget* ImageWidget_FrontBottomMiddle;
 extern laImageWidget* ImageWidget_FrontBottomRight;
 extern laImageSequenceWidget* ImageSequenceWidget_TimeDot;
 extern laLabelWidget* LabelWidget_Temp;
+extern laLabelWidget* LabelWidget_Action;
+extern laArcWidget* ArcWidget_CurrentTemp;
 extern laArcWidget* ArcWidget_Indicator;
 extern laCircularSliderWidget* CircularSlider_TouchTrack;
 
