@@ -195,6 +195,24 @@ extern GFXU_ImageAsset enginestartstop120;
  ***********************************/
 extern GFXU_ImageAsset enginestartstop120on;
 	
+/*********************************
+ * GFX Image Asset
+ * Name:   singleneedle
+ * Size:   320x320 pixels
+ * Mode:   RGBA_8888
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset singleneedle;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   centercircle2
+ * Size:   40x40 pixels
+ * Mode:   RGBA_8888
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset centercircle2;
+	
 /*****************************************************************************
  * MPLAB Harmony Graphics Font Assets
  *****************************************************************************/
@@ -202,7 +220,7 @@ extern GFXU_ImageAsset enginestartstop120on;
  * GFX Font Asset
  * Name:         ArialBlack_GearLabelFont
  * Height:       80
- * Style:        Plain
+ * Style:        Antialias
  * Glyph Count:  9
  * Range Count:  4
  * Glyph Ranges: 0x31-0x36
@@ -216,7 +234,7 @@ extern GFXU_FontAsset ArialBlack_GearLabelFont;
  * GFX Font Asset
  * Name:         ArialBlack_SpeedoLabelFont
  * Height:       99
- * Style:        Plain
+ * Style:        Antialias
  * Glyph Count:  10
  * Range Count:  1
  * Glyph Ranges: 0x30-0x39
@@ -227,7 +245,7 @@ extern GFXU_FontAsset ArialBlack_SpeedoLabelFont;
  * GFX Font Asset
  * Name:         Arial_18_BI_Font
  * Height:       22
- * Style:        Bold, Italic
+ * Style:        Bold, Italic, Antialias
  * Glyph Count:  15
  * Range Count:  6
  * Glyph Ranges: 0x2E
@@ -243,7 +261,7 @@ extern GFXU_FontAsset Arial_18_BI_Font;
  * GFX Font Asset
  * Name:         Arial_12_BI_Font
  * Height:       15
- * Style:        Bold, Italic
+ * Style:        Bold, Italic, Antialias
  * Glyph Count:  14
  * Range Count:  5
  * Glyph Ranges: 0x30-0x39
@@ -258,7 +276,7 @@ extern GFXU_FontAsset Arial_12_BI_Font;
  * GFX Font Asset
  * Name:         Arial
  * Height:       56
- * Style:        Bold, Italic
+ * Style:        Bold, Italic, Antialias
  * Glyph Count:  2
  * Range Count:  2
  * Glyph Ranges: 0x32

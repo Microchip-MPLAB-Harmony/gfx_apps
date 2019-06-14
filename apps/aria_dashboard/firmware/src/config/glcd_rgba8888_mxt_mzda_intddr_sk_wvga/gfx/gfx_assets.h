@@ -217,8 +217,8 @@ extern GFXU_ImageAsset view3;
  * GFX Image Asset
  * Name:   Background_Image_Dashboard2
  * Size:   800x288 pixels
- * Mode:   RGB_565
- * Format: RAW
+ * Mode:   RGB_888
+ * Format: JPEG
  ***********************************/
 extern GFXU_ImageAsset Background_Image_Dashboard2;
 	
@@ -230,6 +230,33 @@ extern GFXU_ImageAsset Background_Image_Dashboard2;
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset mapPoint;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   needle
+ * Size:   250x250 pixels
+ * Mode:   RGBA_8888
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset needle;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   needle2
+ * Size:   250x250 pixels
+ * Mode:   RGBA_8888
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset needle2;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   centercircle2
+ * Size:   40x40 pixels
+ * Mode:   RGBA_8888
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset centercircle2;
 	
 /*****************************************************************************
  * MPLAB Harmony Graphics Font Assets

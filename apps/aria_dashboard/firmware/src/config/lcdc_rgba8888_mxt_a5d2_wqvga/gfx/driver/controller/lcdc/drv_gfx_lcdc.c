@@ -479,7 +479,6 @@ static GFX_Result LCDCInitialize(GFX_Context* context)
     /* LCDC initialization */
     //1. Configure the LCD timing parameters
     LCDC_WaitForSyncInProgress();
-    LCDC_SetClockSourceSelection(LCDC_CLOCK_SOURCE_SYSTEM); //Use 1x MCK
     LCDC_SetPWMClockSourceSelection(LCDC_PWM_CLOCK_SOURCE);
     LCDC_SetClockDivider(MCLK_FREQ_HZ / PIXEL_CLOCK_FREQ_HZ - 2);
 

@@ -296,30 +296,6 @@ void LCDC_SetPixelClockPolarity(LCDC_SIGNAL_POLARITY polarity);
 
 // *****************************************************************************
 /* Function:
-    void LCDC_SetClockSourceSelection(LCDC_CLOCK_SOURCE source)
-
-   Summary:
-    Sets the LCDC clock source
-
-   Description:
-    None
-
-   Precondition:
-    None.
-
-   Parameters:
-    source - the source clock
-
-   Returns:
-    None
-
-   Remarks:
-    None
-*/
-void LCDC_SetClockSourceSelection(LCDC_CLOCK_SOURCE source);
-
-// *****************************************************************************
-/* Function:
     void LCDC_SetPWMClockSourceSelection(LCDC_PWM_CLOCK_SOURCE source)
 
    Summary:
@@ -778,30 +754,6 @@ void LCDC_SetDisplaySignalSynchronization(bool synchronous);
     None
 */
 void LCDC_SetOutputMode(LCDC_OUTPUT_COLOR_MODE mode);
-
-// *****************************************************************************
-/* Function:
-    void LCDC_SetPostPocessingEnable(bool enable)
-
-   Summary:
-    Enables/disables post processing
-
-   Description:
-    None
-
-   Precondition:
-    None.
-
-   Parameters:
-    enable - if true, post processing is enabled. Disabled if false.
-
-   Returns:
-    None
-
-   Remarks:
-    None
-*/
-void LCDC_SetPostPocessingEnable(bool enable);
 
 // *****************************************************************************
 /* Function:

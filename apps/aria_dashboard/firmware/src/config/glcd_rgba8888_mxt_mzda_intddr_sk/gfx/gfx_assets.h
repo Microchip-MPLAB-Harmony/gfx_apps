@@ -231,6 +231,33 @@ extern GFXU_ImageAsset TurnLeft;
  ***********************************/
 extern GFXU_ImageAsset TurnRight;
 	
+/*********************************
+ * GFX Image Asset
+ * Name:   needle
+ * Size:   150x150 pixels
+ * Mode:   RGBA_8888
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset needle;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   needle2
+ * Size:   150x150 pixels
+ * Mode:   RGBA_8888
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset needle2;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   centercircle2
+ * Size:   30x30 pixels
+ * Mode:   RGBA_8888
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset centercircle2;
+	
 /*****************************************************************************
  * MPLAB Harmony Graphics Font Assets
  *****************************************************************************/

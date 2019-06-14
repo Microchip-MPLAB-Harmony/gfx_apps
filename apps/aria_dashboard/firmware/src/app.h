@@ -36,6 +36,10 @@
 #include "gfx/libaria/inc/libaria_utils.h"
 #include "gfx/hal/inc/gfx_common.h"
 #include "gfx/hal/inc/gfx_math.h"
+#include "gfx/libaria/inc/libaria_utils.h"
+#include "gfx/hal/inc/gfx_math.h"
+#include "gfx/hal/inc/gfx_context.h"
+#include "gfx/hal/inc/gfx_rect.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -146,6 +150,10 @@ void APP_Send_Event(APP_EVENTS event);
 uint32_t APP_GetValueAngle(void);
 uint32_t APP_GetSpeedAngle(void);
 void APP_StateInit(void);
+uint32_t getImagePixelGaussianBlur3x3(uint32_t * image,
+                                        uint32_t width,
+                                        uint32_t height,
+                                        GFX_Point pt);
 
 
 

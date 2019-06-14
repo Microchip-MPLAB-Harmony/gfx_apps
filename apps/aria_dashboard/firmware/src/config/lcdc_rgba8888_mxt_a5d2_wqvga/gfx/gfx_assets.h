@@ -195,6 +195,24 @@ extern GFXU_ImageAsset DriveModeSport;
  ***********************************/
 extern GFXU_ImageAsset IndicatorLights;
 	
+/*********************************
+ * GFX Image Asset
+ * Name:   singleneedle
+ * Size:   200x200 pixels
+ * Mode:   RGBA_8888
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset singleneedle;
+	
+/*********************************
+ * GFX Image Asset
+ * Name:   centercircle2
+ * Size:   30x30 pixels
+ * Mode:   RGBA_8888
+ * Format: RAW
+ ***********************************/
+extern GFXU_ImageAsset centercircle2;
+	
 /*****************************************************************************
  * MPLAB Harmony Graphics Font Assets
  *****************************************************************************/

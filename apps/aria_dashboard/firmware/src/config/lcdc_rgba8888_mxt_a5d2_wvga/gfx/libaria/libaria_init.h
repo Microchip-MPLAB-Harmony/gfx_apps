@@ -108,9 +108,9 @@ extern laImageWidget* GPSBaseImageWidget;
 extern laImageWidget* IndicatorLightsOnImageWidget;
 extern laImageWidget* DriveModeImageWidget;
 extern laLabelWidget* GearLabelWidget;
-extern laCircleWidget* NeedleCenter;
 extern laButtonWidget* CenterButtonWidget;
 extern laButtonWidget* EngineOnButton;
+extern laImageWidget* CenterCircleImage;
 
 
 

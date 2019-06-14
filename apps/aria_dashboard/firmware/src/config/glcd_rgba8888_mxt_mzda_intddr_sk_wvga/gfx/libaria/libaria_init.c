@@ -44,8 +44,8 @@
 
 laScheme BlackBaseScheme;
 laScheme SemiTransScheme;
-laScheme ClearScheme;
 laScheme RedColorScheme;
+laScheme ClearScheme;
 laScheme BaseScheme;
 laImageWidget* ImageWidget1;
 laImageWidget* ImageWidget4;
@@ -57,14 +57,14 @@ laDrawSurfaceWidget* RPMDrawSurfaceWidget;
 laDrawSurfaceWidget* SpeedDrawSurfaceWidget;
 laImageWidget* MapPointImage;
 laRectangleWidget* WindshieldBlockPanel;
-laArcWidget* ArcWidget1;
-laArcWidget* ArcWidget2;
 laButtonWidget* CenterButtonWidget;
 laButtonWidget* EngineOnButton;
 laImageWidget* WindshieldImage;
 laImageWidget* MHGCLogoImage;
 laImageWidget* TurnLeftImageWidget;
 laImageWidget* TurnRightImageWidget;
+laImageWidget* CenterCircle1;
+laImageWidget* CenterCircle2;
 
 
 static void ScreenCreate_Splash(laScreen* screen);
@@ -111,24 +111,6 @@ int32_t libaria_initialize(void)
     SemiTransScheme.textInactive = 0xD6E3E7FF;
     SemiTransScheme.textDisabled = 0x8C9294FF;
 
-    laScheme_Initialize(&ClearScheme, GFX_COLOR_MODE_RGBA_8888);
-    ClearScheme.base = 0xC8D0D4FF;
-    ClearScheme.highlight = 0xC8D0D4FF;
-    ClearScheme.highlightLight = 0xFFFFFFFF;
-    ClearScheme.shadow = 0x808080FF;
-    ClearScheme.shadowDark = 0x404040FF;
-    ClearScheme.foreground = 0xFF;
-    ClearScheme.foregroundInactive = 0xD6E3E7FF;
-    ClearScheme.foregroundDisabled = 0x808080FF;
-    ClearScheme.background = 0x0;
-    ClearScheme.backgroundInactive = 0xD6E3E7FF;
-    ClearScheme.backgroundDisabled = 0xC8D0D4FF;
-    ClearScheme.text = 0xFF;
-    ClearScheme.textHighlight = 0xFFFF;
-    ClearScheme.textHighlightText = 0xFFFFFFFF;
-    ClearScheme.textInactive = 0xD6E3E7FF;
-    ClearScheme.textDisabled = 0x8C9294FF;
-
     laScheme_Initialize(&RedColorScheme, GFX_COLOR_MODE_RGBA_8888);
     RedColorScheme.base = 0x0;
     RedColorScheme.highlight = 0xC8D0D4FF;
@@ -146,6 +128,24 @@ int32_t libaria_initialize(void)
     RedColorScheme.textHighlightText = 0xFFFFFFFF;
     RedColorScheme.textInactive = 0xD6E3E7FF;
     RedColorScheme.textDisabled = 0x8C9294FF;
+
+    laScheme_Initialize(&ClearScheme, GFX_COLOR_MODE_RGBA_8888);
+    ClearScheme.base = 0x0;
+    ClearScheme.highlight = 0xC8D0D4FF;
+    ClearScheme.highlightLight = 0xFFFFFFFF;
+    ClearScheme.shadow = 0x808080FF;
+    ClearScheme.shadowDark = 0x404040FF;
+    ClearScheme.foreground = 0xFF;
+    ClearScheme.foregroundInactive = 0xD6E3E7FF;
+    ClearScheme.foregroundDisabled = 0x808080FF;
+    ClearScheme.background = 0x0;
+    ClearScheme.backgroundInactive = 0xD6E3E7FF;
+    ClearScheme.backgroundDisabled = 0xC8D0D4FF;
+    ClearScheme.text = 0xFF;
+    ClearScheme.textHighlight = 0xFFFF;
+    ClearScheme.textHighlightText = 0xFFFFFFFF;
+    ClearScheme.textInactive = 0xD6E3E7FF;
+    ClearScheme.textDisabled = 0x8C9294FF;
 
     laScheme_Initialize(&BaseScheme, GFX_COLOR_MODE_RGBA_8888);
     BaseScheme.base = 0xFF;
@@ -275,7 +275,6 @@ static void ScreenCreate_Main(laScreen* screen)
     IndicatorBlockPanel = laRectangleWidget_New();
     laWidget_SetPosition((laWidget*)IndicatorBlockPanel, 291, 240);
     laWidget_SetSize((laWidget*)IndicatorBlockPanel, 219, 159);
-    laWidget_SetVisible((laWidget*)IndicatorBlockPanel, LA_FALSE);
     laWidget_SetScheme((laWidget*)IndicatorBlockPanel, &BlackBaseScheme);
     laWidget_SetBackgroundType((laWidget*)IndicatorBlockPanel, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)IndicatorBlockPanel, LA_WIDGET_BORDER_NONE);
@@ -294,6 +293,7 @@ static void ScreenCreate_Main(laScreen* screen)
     RPMDrawSurfaceWidget = laDrawSurfaceWidget_New();
     laWidget_SetPosition((laWidget*)RPMDrawSurfaceWidget, 20, 187);
     laWidget_SetSize((laWidget*)RPMDrawSurfaceWidget, 250, 250);
+    laWidget_SetScheme((laWidget*)RPMDrawSurfaceWidget, &ClearScheme);
     laWidget_SetBackgroundType((laWidget*)RPMDrawSurfaceWidget, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)RPMDrawSurfaceWidget, LA_WIDGET_BORDER_NONE);
     laDrawSurfaceWidget_SetDrawCallback(RPMDrawSurfaceWidget, &RPMDrawSurfaceWidget_DrawNotificationEvent);
@@ -312,6 +312,7 @@ static void ScreenCreate_Main(laScreen* screen)
     MapPointImage = laImageWidget_New();
     laWidget_SetPosition((laWidget*)MapPointImage, 497, 375);
     laWidget_SetSize((laWidget*)MapPointImage, 10, 10);
+    laWidget_SetVisible((laWidget*)MapPointImage, LA_FALSE);
     laWidget_SetBackgroundType((laWidget*)MapPointImage, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)MapPointImage, LA_WIDGET_BORDER_NONE);
     laImageWidget_SetImage(MapPointImage, &mapPoint);
@@ -333,26 +334,6 @@ static void ScreenCreate_Main(laScreen* screen)
     laLayer_SetBufferCount(layer2, 2);
 
     laScreen_SetLayer(screen, 2, layer2);
-
-    ArcWidget1 = laArcWidget_New();
-    laWidget_SetPosition((laWidget*)ArcWidget1, 647, 301);
-    laWidget_SetSize((laWidget*)ArcWidget1, 20, 20);
-    laWidget_SetScheme((laWidget*)ArcWidget1, &RedColorScheme);
-    laWidget_SetBackgroundType((laWidget*)ArcWidget1, LA_WIDGET_BACKGROUND_NONE);
-    laWidget_SetBorderType((laWidget*)ArcWidget1, LA_WIDGET_BORDER_NONE);
-    laArcWidget_SetRadius(ArcWidget1, 10);
-    laArcWidget_SetCenterAngle(ArcWidget1, 360);
-    laWidget_AddChild((laWidget*)layer2, (laWidget*)ArcWidget1);
-
-    ArcWidget2 = laArcWidget_New();
-    laWidget_SetPosition((laWidget*)ArcWidget2, 20, 187);
-    laWidget_SetSize((laWidget*)ArcWidget2, 250, 250);
-    laWidget_SetScheme((laWidget*)ArcWidget2, &RedColorScheme);
-    laWidget_SetBackgroundType((laWidget*)ArcWidget2, LA_WIDGET_BACKGROUND_NONE);
-    laWidget_SetBorderType((laWidget*)ArcWidget2, LA_WIDGET_BORDER_NONE);
-    laArcWidget_SetRadius(ArcWidget2, 10);
-    laArcWidget_SetCenterAngle(ArcWidget2, 360);
-    laWidget_AddChild((laWidget*)layer2, (laWidget*)ArcWidget2);
 
     CenterButtonWidget = laButtonWidget_New();
     laWidget_SetSize((laWidget*)CenterButtonWidget, 800, 480);
@@ -396,6 +377,7 @@ static void ScreenCreate_Main(laScreen* screen)
     TurnLeftImageWidget = laImageWidget_New();
     laWidget_SetPosition((laWidget*)TurnLeftImageWidget, 130, 128);
     laWidget_SetSize((laWidget*)TurnLeftImageWidget, 32, 32);
+    laWidget_SetVisible((laWidget*)TurnLeftImageWidget, LA_FALSE);
     laWidget_SetBackgroundType((laWidget*)TurnLeftImageWidget, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)TurnLeftImageWidget, LA_WIDGET_BORDER_NONE);
     laImageWidget_SetImage(TurnLeftImageWidget, &TurnLeft);
@@ -404,10 +386,27 @@ static void ScreenCreate_Main(laScreen* screen)
     TurnRightImageWidget = laImageWidget_New();
     laWidget_SetPosition((laWidget*)TurnRightImageWidget, 639, 128);
     laWidget_SetSize((laWidget*)TurnRightImageWidget, 32, 32);
+    laWidget_SetVisible((laWidget*)TurnRightImageWidget, LA_FALSE);
     laWidget_SetBackgroundType((laWidget*)TurnRightImageWidget, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)TurnRightImageWidget, LA_WIDGET_BORDER_NONE);
     laImageWidget_SetImage(TurnRightImageWidget, &TurnRight);
     laWidget_AddChild((laWidget*)layer2, (laWidget*)TurnRightImageWidget);
+
+    CenterCircle1 = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)CenterCircle1, 126, 291);
+    laWidget_SetSize((laWidget*)CenterCircle1, 40, 40);
+    laWidget_SetBackgroundType((laWidget*)CenterCircle1, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)CenterCircle1, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(CenterCircle1, &centercircle2);
+    laWidget_AddChild((laWidget*)layer2, (laWidget*)CenterCircle1);
+
+    CenterCircle2 = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)CenterCircle2, 638, 291);
+    laWidget_SetSize((laWidget*)CenterCircle2, 40, 40);
+    laWidget_SetBackgroundType((laWidget*)CenterCircle2, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)CenterCircle2, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(CenterCircle2, &centercircle2);
+    laWidget_AddChild((laWidget*)layer2, (laWidget*)CenterCircle2);
 
 }
 

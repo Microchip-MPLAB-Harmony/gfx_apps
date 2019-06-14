@@ -2980,6 +2980,9 @@
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2_wqvga\exceptions.c</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2_wqvga\fault_handlers.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2_wqvga\gfx\hal\src\gfx.c</name>
             </file>
             <file>
@@ -3429,9 +3432,6 @@
             <file>
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2_wqvga\tasks.c</name>
             </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2_wqvga\vectortrap.s</name>
-            </file>
         </group>
     </group>
     <file>
@@ -3442,6 +3442,9 @@
     </file>
     <file>
         <name>$PROJ_DIR$\..\src\app_splash.h</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\..\src\app_utils.c</name>
     </file>
     <file>
         <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2_wqvga\lcdc_rgba8888_mxt_a5d2_wqvga.ipcf</name>

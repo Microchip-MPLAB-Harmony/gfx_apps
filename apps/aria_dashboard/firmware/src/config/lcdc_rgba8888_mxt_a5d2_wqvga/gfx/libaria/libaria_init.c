@@ -83,9 +83,9 @@ laImageWidget* GPSBaseImageWidget;
 laImageWidget* IndicatorLightsOnImageWidget;
 laImageWidget* DriveModeImageWidget;
 laLabelWidget* GearLabelWidget;
-laCircleWidget* NeedleCenter;
 laButtonWidget* CenterButtonWidget;
 laButtonWidget* EngineOnButton;
+laImageWidget* CenterCircle;
 
 
 static void ScreenCreate_Splash(laScreen* screen);
@@ -398,6 +398,7 @@ static void ScreenCreate_Main(laScreen* screen)
     TachoDrawSurface = laDrawSurfaceWidget_New();
     laWidget_SetPosition((laWidget*)TachoDrawSurface, 140, 37);
     laWidget_SetSize((laWidget*)TachoDrawSurface, 200, 200);
+    laWidget_SetOptimizationFlags((laWidget*)TachoDrawSurface, LA_WIDGET_OPT_OPAQUE);
     laWidget_SetBackgroundType((laWidget*)TachoDrawSurface, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)TachoDrawSurface, LA_WIDGET_BORDER_NONE);
     laDrawSurfaceWidget_SetDrawCallback(TachoDrawSurface, &TachoDrawSurface_DrawNotificationEvent);
@@ -652,18 +653,6 @@ static void ScreenCreate_Main(laScreen* screen)
     laLabelWidget_SetText(GearLabelWidget, laString_CreateFromID(string_GearLabelStringDefault));
     laWidget_AddChild((laWidget*)layer2, (laWidget*)GearLabelWidget);
 
-    NeedleCenter = laCircleWidget_New();
-    laWidget_SetPosition((laWidget*)NeedleCenter, 234, 130);
-    laWidget_SetSize((laWidget*)NeedleCenter, 12, 12);
-    laWidget_SetScheme((laWidget*)NeedleCenter, &WhiteFillScheme);
-    laWidget_SetBackgroundType((laWidget*)NeedleCenter, LA_WIDGET_BACKGROUND_NONE);
-    laWidget_SetBorderType((laWidget*)NeedleCenter, LA_WIDGET_BORDER_NONE);
-    laCircleWidget_SetOrigin(NeedleCenter, 6, 6);
-    laCircleWidget_SetRadius(NeedleCenter, 6);
-    laCircleWidget_SetThickness(NeedleCenter, 1);
-    laCircleWidget_SetFilled(NeedleCenter, true);
-    laWidget_AddChild((laWidget*)layer2, (laWidget*)NeedleCenter);
-
     CenterButtonWidget = laButtonWidget_New();
     laWidget_SetSize((laWidget*)CenterButtonWidget, 480, 272);
     laWidget_SetBackgroundType((laWidget*)CenterButtonWidget, LA_WIDGET_BACKGROUND_NONE);
@@ -683,6 +672,14 @@ static void ScreenCreate_Main(laScreen* screen)
     laButtonWidget_SetReleasedEventCallback(EngineOnButton, &EngineOnButton_ReleasedEvent);
 
     laWidget_AddChild((laWidget*)layer2, (laWidget*)EngineOnButton);
+
+    CenterCircle = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)CenterCircle, 225, 122);
+    laWidget_SetSize((laWidget*)CenterCircle, 30, 30);
+    laWidget_SetBackgroundType((laWidget*)CenterCircle, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)CenterCircle, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(CenterCircle, &centercircle2);
+    laWidget_AddChild((laWidget*)layer2, (laWidget*)CenterCircle);
 
 }
 

@@ -46,71 +46,118 @@
 laBool RPMDrawSurfaceWidget_DrawNotificationEvent(laDrawSurfaceWidget* sfc, GFX_Rect* rect)
 {
     // Custom Action
-    static GFX_Point start, end;
-    static GFX_Point startExt[6];
+    #define IMAGE_WIDTH 150
+    #define IMAGE_HEIGHT 150
+    #define SCREEN_WIDTH 480
+    #define SCREEN_HEIGHT 272
+    #define POINTER_LENGTH 104
     
-    GFX_Point newEnd;
-    int value = APP_GetValueAngle();
+    extern const uint8_t needle_data[90000];
     
-    start.x = sfc->widget.rect.x + sfc->widget.rect.width/2;
-    start.y = sfc->widget.rect.y + sfc->widget.rect.height/2;
+    GFX_Rect oldRect, newRect;
+    uint32_t * writeBuffer;
+    
+    GFX_Point ptSource, ptDest, ptDest2;
+    GFX_Color color = 0;
+    int16_t sin256, cos256;
+    GFX_Point ptPointerTip;
+    GFX_Context* context = GFX_ActiveContext();
+    
+    GFX_Point ptCenter = {.x = 75, .y = 75};
+    
+    GFX_Rect sourceRect = {.x = 0, 
+                           .y = 0,
+                           .height = IMAGE_HEIGHT,
+                           .width = IMAGE_WIDTH};
+    
+    GFX_Rect centerRect = {.x = 65, 
+                           .y = 65,
+                           .height = 40,
+                           .width = 40};
+    
+    GFX_Rect widgetRect = {.x = 0,
+                           .y = 0,
+                           .height = sfc->widget.rect.height,
+                           .width = sfc->widget.rect.width};    
+    
+    static int oldAngle = 0;
+    int newAngle = APP_GetValueAngle();
+    
+    GFX_Set(GFXF_LAYER_ACTIVE, context->layer.active->id);
+    GFX_Get(GFXF_LAYER_BUFFER_ADDRESS,
+            context->layer.active->buffer_write_idx,
+            (GFX_Buffer *) &writeBuffer);
+    
+    GFX_PolarToXY(POINTER_LENGTH , oldAngle, &ptPointerTip);
+    ptPointerTip.x += ptCenter.x;
+    ptPointerTip.y = ptCenter.y - ptPointerTip.y;
+    oldRect = GFX_RectFromPoints(&ptPointerTip, &ptCenter);
+    oldRect = GFX_RectCombine(&oldRect, &centerRect);
+    
+    GFX_PolarToXY(POINTER_LENGTH, newAngle, &ptPointerTip);
+    ptPointerTip.x += ptCenter.x;
+    ptPointerTip.y = ptCenter.y - ptPointerTip.y;
+    newRect = GFX_RectFromPoints(&ptPointerTip, &ptCenter);
+    newRect = GFX_RectCombine(&newRect, &centerRect);
+    
+    oldAngle = newAngle;
+    
+    sin256 =  GFX_SineCosineGet(-newAngle, GFX_TRIG_SINE_TYPE);
+    cos256 =  GFX_SineCosineGet(-newAngle, GFX_TRIG_COSINE_TYPE);
     
     GFX_Set(GFXF_DRAW_CLIP_RECT, rect);
     GFX_Set(GFXF_DRAW_CLIP_ENABLE, GFX_TRUE);
-    GFX_Set(GFXF_DRAW_COLOR, 0x00000000);
-    GFX_Set(GFXF_DRAW_MODE, GFX_DRAW_LINE);
-    GFX_DrawLine(start.x, start.y, end.x, end.y);
-    GFX_DrawLine(startExt[0].x, startExt[0].y, end.x, end.y);
-    GFX_DrawLine(startExt[1].x, startExt[1].y, end.x, end.y);
-    GFX_DrawLine(startExt[2].x, startExt[2].y, end.x, end.y);
-    GFX_DrawLine(startExt[3].x, startExt[3].y, end.x, end.y);
-    GFX_DrawLine(startExt[4].x, startExt[2].y, end.x, end.y);
-    GFX_DrawLine(startExt[5].x, startExt[3].y, end.x, end.y);       
-    GFX_PolarToXY(63, value, &newEnd);
-    end.x = newEnd.x + sfc->widget.rect.x + sfc->widget.rect.width/2;
-    end.y = sfc->widget.rect.y + sfc->widget.rect.height/2 - newEnd.y;
-    GFX_Set(GFXF_DRAW_COLOR, 0xff0000ff);
-    GFX_Set(GFXF_DRAW_MODE, GFX_DRAW_LINE);
-    GFX_DrawLine(start.x, start.y, end.x, end.y);
     
-    if (value > 90 && value < 180)
+    GFX_RectClip(&widgetRect,
+                 &oldRect,
+                 &oldRect);
+    
+    GFX_RectClip(&widgetRect, 
+                 &newRect,
+                 &newRect);
+    
+    //Clear the old rect
+    if (GFX_RectCompare(&oldRect, &newRect) == 0)
     {
-        startExt[0].x = start.x + 3;
-        startExt[0].y = start.y - 3;
-        startExt[1].x = start.x + 2;
-        startExt[1].y = start.y - 2;
-        startExt[2].x = start.x + 1;
-        startExt[2].y = start.y - 1;
-        startExt[3].x = start.x - 1;
-        startExt[3].y = start.y + 1;
-        startExt[4].x = start.x - 2;
-        startExt[4].y = start.y + 2;
-        startExt[5].x = start.x - 3;
-        startExt[5].y = start.y + 3;      
-    }
-    else
-    {
-        startExt[0].x = start.x + 3;
-        startExt[0].y = start.y + 3;      
-        startExt[1].x = start.x + 2;
-        startExt[1].y = start.y + 2;
-        startExt[2].x = start.x + 1;
-        startExt[2].y = start.y + 1;
-        startExt[3].x = start.x - 1;
-        startExt[3].y = start.y - 1;
-        startExt[4].x = start.x - 2;
-        startExt[4].y = start.y - 2;
-        startExt[5].x = start.x - 3;
-        startExt[5].y = start.y - 3;      
+        GFX_Set(GFXF_DRAW_COLOR, 0x0);
+        GFX_Set(GFXF_DRAW_MODE, GFX_DRAW_FILL);
+        laUtils_RectToLayerSpace((laWidget *) sfc, &oldRect);
+        GFX_DrawRect(oldRect.x, oldRect.y, oldRect.width, oldRect.height);
+    
     }
     
-    GFX_DrawLine(startExt[1].x, startExt[1].y, end.x, end.y);
-    GFX_DrawLine(startExt[2].x, startExt[2].y, end.x, end.y);
-    GFX_DrawLine(startExt[3].x, startExt[3].y, end.x, end.y);    
-    GFX_DrawLine(startExt[4].x, startExt[4].y, end.x, end.y);    
-    GFX_Set(GFXF_DRAW_COLOR, 0xffffffff);
-    GFX_DrawLine(startExt[0].x, startExt[0].y, end.x, end.y);
-    GFX_DrawLine(startExt[5].x, startExt[5].y, end.x, end.y);
+    //Scan thru the pixels to right, bottom and find the source pixel in original image
+    for (ptDest.y = newRect.y;
+         ptDest.y < newRect.y + newRect.height;
+         ptDest.y++)
+    {
+        for (ptDest.x = newRect.x;
+             ptDest.x < newRect.x + newRect.width;
+             ptDest.x++)
+        {
+            ptSource.x = ((ptDest.x - ptCenter.x) * cos256 + 
+                          (ptDest.y - ptCenter.y) * sin256) / 256 + 
+                          ptCenter.x;
+            ptSource.y = (-(ptDest.x - ptCenter.x) * sin256 + 
+                           (ptDest.y - ptCenter.y)* cos256) / 256 +
+                          ptCenter.y;
+    
+            if (GFX_RectContainsPoint(&sourceRect, &ptSource))
+            {
+                color = getImagePixelGaussianBlur3x3((uint32_t *) needle_data,
+                                             IMAGE_WIDTH,
+                                             IMAGE_HEIGHT,
+                                             ptSource);
+            }
+    
+            GFX_Set(GFXF_DRAW_COLOR, color);
+    
+            ptDest2 = ptDest;
+    
+            laUtils_PointToLayerSpace((laWidget *) sfc, &ptDest2);
+            writeBuffer[SCREEN_WIDTH * ptDest2.y + ptDest2.x] = color;
+        }
+    }
     
     return LA_TRUE;
 }
@@ -119,71 +166,118 @@ laBool RPMDrawSurfaceWidget_DrawNotificationEvent(laDrawSurfaceWidget* sfc, GFX_
 laBool SpeedDrawSurfaceWidget_DrawNotificationEvent(laDrawSurfaceWidget* sfc, GFX_Rect* rect)
 {
     // Custom Action
-    static GFX_Point start, end;
-    static GFX_Point startExt[6];
-    
-    GFX_Point newEnd;
-    int value = APP_GetSpeedAngle();
-    
-    start.x = sfc->widget.rect.x + sfc->widget.rect.width/2;
-    start.y = sfc->widget.rect.y + sfc->widget.rect.height/2;
-    
+    #define IMAGE_WIDTH 150
+    #define IMAGE_HEIGHT 150
+    #define SCREEN_WIDTH 480
+    #define SCREEN_HEIGHT 272
+    #define POINTER_LENGTH 104
+
+    extern const uint8_t needle2_data[90000];
+
+    GFX_Rect oldRect, newRect;
+    uint32_t * writeBuffer;
+
+    GFX_Point ptSource, ptDest, ptDest2;
+    GFX_Color color = 0;
+    int16_t sin256, cos256;
+    GFX_Point ptPointerTip;
+    GFX_Context* context = GFX_ActiveContext();
+
+    GFX_Point ptCenter = {.x = 75, .y = 75};
+
+    GFX_Rect sourceRect = {.x = 0, 
+                           .y = 0,
+                           .height = IMAGE_HEIGHT,
+                           .width = IMAGE_WIDTH};
+
+    GFX_Rect centerRect = {.x = 65, 
+                           .y = 65,
+                           .height = 40,
+                           .width = 40};
+
+    GFX_Rect widgetRect = {.x = 0,
+                           .y = 0,
+                           .height = sfc->widget.rect.height,
+                           .width = sfc->widget.rect.width};
+
+    static int oldAngle = 0;
+    int newAngle = APP_GetSpeedAngle();
+
+    GFX_Set(GFXF_LAYER_ACTIVE, context->layer.active->id);
+    GFX_Get(GFXF_LAYER_BUFFER_ADDRESS,
+            context->layer.active->buffer_write_idx,
+            (GFX_Buffer *) &writeBuffer);
+
+    GFX_PolarToXY(POINTER_LENGTH , oldAngle, &ptPointerTip);
+    ptPointerTip.x += ptCenter.x;
+    ptPointerTip.y = ptCenter.y - ptPointerTip.y;
+    oldRect = GFX_RectFromPoints(&ptPointerTip, &ptCenter);
+    oldRect = GFX_RectCombine(&oldRect, &centerRect);
+
+    GFX_PolarToXY(POINTER_LENGTH, newAngle, &ptPointerTip);
+    ptPointerTip.x += ptCenter.x;
+    ptPointerTip.y = ptCenter.y - ptPointerTip.y;
+    newRect = GFX_RectFromPoints(&ptPointerTip, &ptCenter);
+    newRect = GFX_RectCombine(&newRect, &centerRect);
+
+    oldAngle = newAngle;
+
+    sin256 =  GFX_SineCosineGet(-newAngle, GFX_TRIG_SINE_TYPE);
+    cos256 =  GFX_SineCosineGet(-newAngle, GFX_TRIG_COSINE_TYPE);
+
     GFX_Set(GFXF_DRAW_CLIP_RECT, rect);
     GFX_Set(GFXF_DRAW_CLIP_ENABLE, GFX_TRUE);
-    GFX_Set(GFXF_DRAW_COLOR, 0x00000000);
-    GFX_Set(GFXF_DRAW_MODE, GFX_DRAW_LINE);
-    GFX_DrawLine(start.x, start.y, end.x, end.y);
-    GFX_DrawLine(startExt[0].x, startExt[0].y, end.x, end.y);
-    GFX_DrawLine(startExt[1].x, startExt[1].y, end.x, end.y);
-    GFX_DrawLine(startExt[2].x, startExt[2].y, end.x, end.y);
-    GFX_DrawLine(startExt[3].x, startExt[3].y, end.x, end.y);
-    GFX_DrawLine(startExt[4].x, startExt[2].y, end.x, end.y);
-    GFX_DrawLine(startExt[5].x, startExt[3].y, end.x, end.y);     
-    GFX_PolarToXY(63, value, &newEnd);
-    end.x = newEnd.x + sfc->widget.rect.x + sfc->widget.rect.width/2;
-    end.y = sfc->widget.rect.y + sfc->widget.rect.height/2 - newEnd.y;
-    GFX_Set(GFXF_DRAW_COLOR, 0xff0000ff);
-    GFX_DrawLine(start.x, start.y, end.x, end.y);
-    
-    if (value > 90 && value < 180)
+
+    GFX_RectClip(&widgetRect,
+                 &oldRect,
+                 &oldRect);
+
+    GFX_RectClip(&widgetRect, 
+                 &newRect,
+                 &newRect);
+
+    //Clear the old rect
+    if (GFX_RectCompare(&oldRect, &newRect) == 0)
     {
-        startExt[0].x = start.x + 3;
-        startExt[0].y = start.y - 3;
-        startExt[1].x = start.x + 2;
-        startExt[1].y = start.y - 2;
-        startExt[2].x = start.x + 1;
-        startExt[2].y = start.y - 1;
-        startExt[3].x = start.x - 1;
-        startExt[3].y = start.y + 1;
-        startExt[4].x = start.x - 2;
-        startExt[4].y = start.y + 2;
-        startExt[5].x = start.x - 3;
-        startExt[5].y = start.y + 3;      
+        GFX_Set(GFXF_DRAW_COLOR, 0x0);
+        GFX_Set(GFXF_DRAW_MODE, GFX_DRAW_FILL);
+        laUtils_RectToLayerSpace((laWidget *) sfc, &oldRect);
+        GFX_DrawRect(oldRect.x, oldRect.y, oldRect.width, oldRect.height);
     }
-    else
+
+    //Scan thru the pixels to right, bottom and find the source pixel in original image
+    for (ptDest.y = newRect.y;
+         ptDest.y < newRect.y + newRect.height;
+         ptDest.y++)
     {
-        startExt[0].x = start.x + 3;
-        startExt[0].y = start.y + 3;      
-        startExt[1].x = start.x + 2;
-        startExt[1].y = start.y + 2;
-        startExt[2].x = start.x + 1;
-        startExt[2].y = start.y + 1;
-        startExt[3].x = start.x - 1;
-        startExt[3].y = start.y - 1;
-        startExt[4].x = start.x - 2;
-        startExt[4].y = start.y - 2;
-        startExt[5].x = start.x - 3;
-        startExt[5].y = start.y - 3;      
+        for (ptDest.x = newRect.x;
+             ptDest.x < newRect.x + newRect.width;
+             ptDest.x++)
+        {
+            ptSource.x = ((ptDest.x - ptCenter.x) * cos256 + 
+                          (ptDest.y - ptCenter.y) * sin256) / 256 + 
+                          ptCenter.x;
+            ptSource.y = (-(ptDest.x - ptCenter.x) * sin256 + 
+                           (ptDest.y - ptCenter.y)* cos256) / 256 +
+                          ptCenter.y;
+
+            if (GFX_RectContainsPoint(&sourceRect, &ptSource))
+            {
+                color = getImagePixelGaussianBlur3x3((uint32_t *) needle2_data,
+                                             IMAGE_WIDTH,
+                                             IMAGE_HEIGHT,
+                                             ptSource);
+            }
+
+            GFX_Set(GFXF_DRAW_COLOR, color);
+
+            ptDest2 = ptDest;
+
+            laUtils_PointToLayerSpace((laWidget *) sfc, &ptDest2);
+            writeBuffer[SCREEN_WIDTH * ptDest2.y + ptDest2.x] = color;
+        }
     }
-    
-    GFX_DrawLine(startExt[1].x, startExt[1].y, end.x, end.y);
-    GFX_DrawLine(startExt[2].x, startExt[2].y, end.x, end.y);
-    GFX_DrawLine(startExt[3].x, startExt[3].y, end.x, end.y);    
-    GFX_DrawLine(startExt[4].x, startExt[4].y, end.x, end.y);    
-    GFX_Set(GFXF_DRAW_COLOR, 0xffffffff);
-    GFX_DrawLine(startExt[0].x, startExt[0].y, end.x, end.y);
-    GFX_DrawLine(startExt[5].x, startExt[5].y, end.x, end.y);
-    
+
     return LA_TRUE;
 }
 

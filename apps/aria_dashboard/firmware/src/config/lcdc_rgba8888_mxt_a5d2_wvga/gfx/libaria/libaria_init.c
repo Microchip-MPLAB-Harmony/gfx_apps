@@ -83,9 +83,9 @@ laImageWidget* GPSBaseImageWidget;
 laImageWidget* IndicatorLightsOnImageWidget;
 laImageWidget* DriveModeImageWidget;
 laLabelWidget* GearLabelWidget;
-laCircleWidget* NeedleCenter;
 laButtonWidget* CenterButtonWidget;
 laButtonWidget* EngineOnButton;
+laImageWidget* CenterCircleImage;
 
 
 static void ScreenCreate_Splash(laScreen* screen);
@@ -290,8 +290,9 @@ static void ScreenCreate_Splash(laScreen* screen)
     ImageWidget1 = laImageWidget_New();
     laWidget_SetPosition((laWidget*)ImageWidget1, 214, 92);
     laWidget_SetSize((laWidget*)ImageWidget1, 372, 214);
+    laWidget_SetOptimizationFlags((laWidget*)ImageWidget1, LA_WIDGET_OPT_OPAQUE);
     laWidget_SetScheme((laWidget*)ImageWidget1, &WhiteScheme);
-    laWidget_SetBackgroundType((laWidget*)ImageWidget1, LA_WIDGET_BACKGROUND_FILL);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget1, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)ImageWidget1, LA_WIDGET_BORDER_NONE);
     laImageWidget_SetImage(ImageWidget1, &PIC100MPLAB0);
     laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget1);
@@ -326,6 +327,7 @@ static void ScreenCreate_Splash(laScreen* screen)
     ImageWidget3 = laImageWidget_New();
     laWidget_SetPosition((laWidget*)ImageWidget3, 801, 389);
     laWidget_SetSize((laWidget*)ImageWidget3, 800, 91);
+    laWidget_SetOptimizationFlags((laWidget*)ImageWidget3, LA_WIDGET_OPT_LOCAL_REDRAW | LA_WIDGET_OPT_OPAQUE);
     laWidget_SetBackgroundType((laWidget*)ImageWidget3, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)ImageWidget3, LA_WIDGET_BORDER_NONE);
     laImageWidget_SetImage(ImageWidget3, &Bar);
@@ -398,6 +400,7 @@ static void ScreenCreate_Main(laScreen* screen)
     TachoDrawSurface = laDrawSurfaceWidget_New();
     laWidget_SetPosition((laWidget*)TachoDrawSurface, 240, 80);
     laWidget_SetSize((laWidget*)TachoDrawSurface, 320, 320);
+    laWidget_SetOptimizationFlags((laWidget*)TachoDrawSurface, LA_WIDGET_OPT_OPAQUE);
     laWidget_SetBackgroundType((laWidget*)TachoDrawSurface, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)TachoDrawSurface, LA_WIDGET_BORDER_NONE);
     laDrawSurfaceWidget_SetDrawCallback(TachoDrawSurface, &TachoDrawSurface_DrawNotificationEvent);
@@ -652,18 +655,6 @@ static void ScreenCreate_Main(laScreen* screen)
     laLabelWidget_SetText(GearLabelWidget, laString_CreateFromID(string_GearLabelStringDefault));
     laWidget_AddChild((laWidget*)layer2, (laWidget*)GearLabelWidget);
 
-    NeedleCenter = laCircleWidget_New();
-    laWidget_SetPosition((laWidget*)NeedleCenter, 390, 230);
-    laWidget_SetSize((laWidget*)NeedleCenter, 20, 20);
-    laWidget_SetScheme((laWidget*)NeedleCenter, &WhiteFillScheme);
-    laWidget_SetBackgroundType((laWidget*)NeedleCenter, LA_WIDGET_BACKGROUND_NONE);
-    laWidget_SetBorderType((laWidget*)NeedleCenter, LA_WIDGET_BORDER_NONE);
-    laCircleWidget_SetOrigin(NeedleCenter, 10, 10);
-    laCircleWidget_SetRadius(NeedleCenter, 10);
-    laCircleWidget_SetThickness(NeedleCenter, 1);
-    laCircleWidget_SetFilled(NeedleCenter, true);
-    laWidget_AddChild((laWidget*)layer2, (laWidget*)NeedleCenter);
-
     CenterButtonWidget = laButtonWidget_New();
     laWidget_SetSize((laWidget*)CenterButtonWidget, 799, 480);
     laWidget_SetBackgroundType((laWidget*)CenterButtonWidget, LA_WIDGET_BACKGROUND_NONE);
@@ -684,6 +675,14 @@ static void ScreenCreate_Main(laScreen* screen)
     laButtonWidget_SetReleasedEventCallback(EngineOnButton, &EngineOnButton_ReleasedEvent);
 
     laWidget_AddChild((laWidget*)layer2, (laWidget*)EngineOnButton);
+
+    CenterCircleImage = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)CenterCircleImage, 380, 220);
+    laWidget_SetSize((laWidget*)CenterCircleImage, 40, 40);
+    laWidget_SetBackgroundType((laWidget*)CenterCircleImage, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)CenterCircleImage, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(CenterCircleImage, &centercircle2);
+    laWidget_AddChild((laWidget*)layer2, (laWidget*)CenterCircleImage);
 
 }
 

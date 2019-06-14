@@ -69,8 +69,8 @@ extern "C" {
 
 extern laScheme BlackBaseScheme;
 extern laScheme SemiTransScheme;
-extern laScheme ClearScheme;
 extern laScheme RedColorScheme;
+extern laScheme ClearScheme;
 extern laScheme BaseScheme;
 extern laImageWidget* ImageWidget1;
 extern laImageWidget* ImageWidget4;
@@ -82,14 +82,14 @@ extern laDrawSurfaceWidget* RPMDrawSurfaceWidget;
 extern laDrawSurfaceWidget* SpeedDrawSurfaceWidget;
 extern laImageWidget* MapPointImage;
 extern laRectangleWidget* WindshieldBlockPanel;
-extern laArcWidget* ArcWidget1;
-extern laArcWidget* ArcWidget2;
 extern laButtonWidget* CenterButtonWidget;
 extern laButtonWidget* EngineOnButton;
 extern laImageWidget* WindshieldImage;
 extern laImageWidget* MHGCLogoImage;
 extern laImageWidget* TurnLeftImageWidget;
 extern laImageWidget* TurnRightImageWidget;
+extern laImageWidget* CenterCircle1;
+extern laImageWidget* CenterCircle2;
 
 
 

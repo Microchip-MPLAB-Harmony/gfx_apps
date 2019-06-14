@@ -47,7 +47,7 @@
 #define DISPLAY_HEIGHT 480
 
 #define MCLK_FREQ_HZ 166000000
-#define PIXEL_CLOCK_FREQ_HZ 30000000
+#define PIXEL_CLOCK_FREQ_HZ 20000000
 #define LCDC_OUTPUT_COLOR_MODE LCDC_LCDCFG5_MODE_OUTPUT_24BPP
 #define LCDC_DISPLAY_GUARD_NUM_FRAMES 30
 #define LCDC_SYNC_EDGE LCDC_SYNC_EDGE_FIRST
@@ -479,7 +479,6 @@ static GFX_Result LCDCInitialize(GFX_Context* context)
     /* LCDC initialization */
     //1. Configure the LCD timing parameters
     LCDC_WaitForSyncInProgress();
-    LCDC_SetClockSourceSelection(LCDC_CLOCK_SOURCE_SYSTEM); //Use 1x MCK
     LCDC_SetPWMClockSourceSelection(LCDC_PWM_CLOCK_SOURCE);
     LCDC_SetClockDivider(MCLK_FREQ_HZ / PIXEL_CLOCK_FREQ_HZ - 2);
 

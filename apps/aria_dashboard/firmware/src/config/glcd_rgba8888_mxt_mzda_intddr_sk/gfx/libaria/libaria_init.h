@@ -81,14 +81,14 @@ extern laDrawSurfaceWidget* RPMDrawSurfaceWidget;
 extern laDrawSurfaceWidget* SpeedDrawSurfaceWidget;
 extern laImageWidget* MapPointImage;
 extern laRectangleWidget* WindshieldBlockPanel;
-extern laArcWidget* ArcWidget1;
-extern laArcWidget* ArcWidget2;
 extern laButtonWidget* CenterButtonWidget;
 extern laButtonWidget* EngineOnButton;
 extern laImageWidget* WindshieldImage;
 extern laImageWidget* MHGCLogoImage;
 extern laImageWidget* TurnLeftImageWidget;
 extern laImageWidget* TurnRightImageWidget;
+extern laImageWidget* ImageWidget;
+extern laImageWidget* ImageWidget2;
 
 
 

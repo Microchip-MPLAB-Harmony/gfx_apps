@@ -56,14 +56,14 @@ laDrawSurfaceWidget* RPMDrawSurfaceWidget;
 laDrawSurfaceWidget* SpeedDrawSurfaceWidget;
 laImageWidget* MapPointImage;
 laRectangleWidget* WindshieldBlockPanel;
-laArcWidget* ArcWidget1;
-laArcWidget* ArcWidget2;
 laButtonWidget* CenterButtonWidget;
 laButtonWidget* EngineOnButton;
 laImageWidget* WindshieldImage;
 laImageWidget* MHGCLogoImage;
 laImageWidget* TurnLeftImageWidget;
 laImageWidget* TurnRightImageWidget;
+laImageWidget* ImageWidget;
+laImageWidget* ImageWidget2;
 
 
 static void ScreenCreate_Splash(laScreen* screen);
@@ -253,9 +253,8 @@ static void ScreenCreate_Main(laScreen* screen)
     laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageSequenceWidget5);
 
     IndicatorBlockPanel = laRectangleWidget_New();
-    laWidget_SetPosition((laWidget*)IndicatorBlockPanel, 175, 131);
+    laWidget_SetPosition((laWidget*)IndicatorBlockPanel, 175, 140);
     laWidget_SetSize((laWidget*)IndicatorBlockPanel, 130, 99);
-    laWidget_SetVisible((laWidget*)IndicatorBlockPanel, LA_FALSE);
     laWidget_SetScheme((laWidget*)IndicatorBlockPanel, &BlackBaseScheme);
     laWidget_SetBackgroundType((laWidget*)IndicatorBlockPanel, LA_WIDGET_BACKGROUND_FILL);
     laWidget_SetBorderType((laWidget*)IndicatorBlockPanel, LA_WIDGET_BORDER_NONE);
@@ -292,6 +291,7 @@ static void ScreenCreate_Main(laScreen* screen)
     MapPointImage = laImageWidget_New();
     laWidget_SetPosition((laWidget*)MapPointImage, 276, 150);
     laWidget_SetSize((laWidget*)MapPointImage, 6, 6);
+    laWidget_SetVisible((laWidget*)MapPointImage, LA_FALSE);
     laWidget_SetBackgroundType((laWidget*)MapPointImage, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)MapPointImage, LA_WIDGET_BORDER_NONE);
     laImageWidget_SetImage(MapPointImage, &mapPoint);
@@ -314,26 +314,6 @@ static void ScreenCreate_Main(laScreen* screen)
 
     laScreen_SetLayer(screen, 2, layer2);
 
-    ArcWidget1 = laArcWidget_New();
-    laWidget_SetPosition((laWidget*)ArcWidget1, 81, 181);
-    laWidget_SetSize((laWidget*)ArcWidget1, 12, 12);
-    laWidget_SetScheme((laWidget*)ArcWidget1, &RedColorScheme);
-    laWidget_SetBackgroundType((laWidget*)ArcWidget1, LA_WIDGET_BACKGROUND_NONE);
-    laWidget_SetBorderType((laWidget*)ArcWidget1, LA_WIDGET_BORDER_NONE);
-    laArcWidget_SetRadius(ArcWidget1, 6);
-    laArcWidget_SetCenterAngle(ArcWidget1, 360);
-    laWidget_AddChild((laWidget*)layer2, (laWidget*)ArcWidget1);
-
-    ArcWidget2 = laArcWidget_New();
-    laWidget_SetPosition((laWidget*)ArcWidget2, 388, 181);
-    laWidget_SetSize((laWidget*)ArcWidget2, 12, 12);
-    laWidget_SetScheme((laWidget*)ArcWidget2, &RedColorScheme);
-    laWidget_SetBackgroundType((laWidget*)ArcWidget2, LA_WIDGET_BACKGROUND_NONE);
-    laWidget_SetBorderType((laWidget*)ArcWidget2, LA_WIDGET_BORDER_NONE);
-    laArcWidget_SetRadius(ArcWidget2, 6);
-    laArcWidget_SetCenterAngle(ArcWidget2, 360);
-    laWidget_AddChild((laWidget*)layer2, (laWidget*)ArcWidget2);
-
     CenterButtonWidget = laButtonWidget_New();
     laWidget_SetSize((laWidget*)CenterButtonWidget, 480, 272);
     laWidget_SetBackgroundType((laWidget*)CenterButtonWidget, LA_WIDGET_BACKGROUND_NONE);
@@ -348,6 +328,7 @@ static void ScreenCreate_Main(laScreen* screen)
     laWidget_SetSize((laWidget*)EngineOnButton, 54, 54);
     laWidget_SetBackgroundType((laWidget*)EngineOnButton, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)EngineOnButton, LA_WIDGET_BORDER_NONE);
+    laButtonWidget_SetToggleable(EngineOnButton, LA_TRUE);
     laButtonWidget_SetPressedImage(EngineOnButton, &enginestartstop120on);
     laButtonWidget_SetReleasedImage(EngineOnButton, &enginestartstop120);
     laButtonWidget_SetPressedOffset(EngineOnButton, 0);
@@ -374,6 +355,7 @@ static void ScreenCreate_Main(laScreen* screen)
     TurnLeftImageWidget = laImageWidget_New();
     laWidget_SetPosition((laWidget*)TurnLeftImageWidget, 76, 77);
     laWidget_SetSize((laWidget*)TurnLeftImageWidget, 20, 20);
+    laWidget_SetVisible((laWidget*)TurnLeftImageWidget, LA_FALSE);
     laWidget_SetBackgroundType((laWidget*)TurnLeftImageWidget, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)TurnLeftImageWidget, LA_WIDGET_BORDER_NONE);
     laImageWidget_SetImage(TurnLeftImageWidget, &TurnLeft);
@@ -382,10 +364,27 @@ static void ScreenCreate_Main(laScreen* screen)
     TurnRightImageWidget = laImageWidget_New();
     laWidget_SetPosition((laWidget*)TurnRightImageWidget, 387, 77);
     laWidget_SetSize((laWidget*)TurnRightImageWidget, 20, 20);
+    laWidget_SetVisible((laWidget*)TurnRightImageWidget, LA_FALSE);
     laWidget_SetBackgroundType((laWidget*)TurnRightImageWidget, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)TurnRightImageWidget, LA_WIDGET_BORDER_NONE);
     laImageWidget_SetImage(TurnRightImageWidget, &TurnRight);
     laWidget_AddChild((laWidget*)layer2, (laWidget*)TurnRightImageWidget);
+
+    ImageWidget = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageWidget, 72, 173);
+    laWidget_SetSize((laWidget*)ImageWidget, 30, 30);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget, &centercircle2);
+    laWidget_AddChild((laWidget*)layer2, (laWidget*)ImageWidget);
+
+    ImageWidget2 = laImageWidget_New();
+    laWidget_SetPosition((laWidget*)ImageWidget2, 379, 173);
+    laWidget_SetSize((laWidget*)ImageWidget2, 30, 30);
+    laWidget_SetBackgroundType((laWidget*)ImageWidget2, LA_WIDGET_BACKGROUND_NONE);
+    laWidget_SetBorderType((laWidget*)ImageWidget2, LA_WIDGET_BORDER_NONE);
+    laImageWidget_SetImage(ImageWidget2, &centercircle2);
+    laWidget_AddChild((laWidget*)layer2, (laWidget*)ImageWidget2);
 
 }
 
