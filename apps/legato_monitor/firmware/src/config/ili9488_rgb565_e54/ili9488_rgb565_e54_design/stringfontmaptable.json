@@ -1,0 +1,57 @@
+[
+    {
+        "name": "SysDiaValueNums",
+        "language": 0,
+        "font": "CourierNew"
+    },
+    {
+        "name": "Sys",
+        "language": 0,
+        "font": "Arial48"
+    },
+    {
+        "name": "PULSE",
+        "language": 0,
+        "font": "Arial30"
+    },
+    {
+        "name": "mmhg",
+        "language": 0,
+        "font": "Arial14"
+    },
+    {
+        "name": "Dia",
+        "language": 0,
+        "font": "Arial48"
+    },
+    {
+        "name": "permin",
+        "language": 0,
+        "font": "Arial14"
+    },
+    {
+        "name": "PulseDefaultValue",
+        "language": 0,
+        "font": "Calibri"
+    },
+    {
+        "name": "SysDefaultValue",
+        "language": 0,
+        "font": "CourierNew"
+    },
+    {
+        "name": "DiaDefaultValue",
+        "language": 0,
+        "font": "Calibri98"
+    },
+    {
+        "name": "Date",
+        "language": 0,
+        "font": "Arial14"
+    },
+    {
+        "name": "PulseValueNums",
+        "language": 0,
+        "font": "Calibri"
+    }
+]

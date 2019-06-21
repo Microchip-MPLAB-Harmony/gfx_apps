@@ -1,0 +1,850 @@
+{
+    "hidden": false,
+    "children": [{
+        "hidden": false,
+        "children": [
+            {
+                "hidden": false,
+                "locked": false,
+                "type": "PanelWidget",
+                "properties": {
+                    "HAlignment": "Center",
+                    "Scheme": "defaultScheme",
+                    "AlphaAmount": 255,
+                    "Position": {
+                        "X": 0,
+                        "Y": 0
+                    },
+                    "Size": {
+                        "Height": 480,
+                        "Width": 320
+                    },
+                    "MarginRight": 4,
+                    "Enabled": true,
+                    "MarginTop": 4,
+                    "Name": "PanelWidget0",
+                    "AlphaEnable": false,
+                    "VAlignment": "Middle",
+                    "BackgroundType": "Fill",
+                    "MarginBottom": 4,
+                    "Visible": true,
+                    "BorderType": "None",
+                    "MarginLeft": 4
+                }
+            },
+            {
+                "hidden": false,
+                "children": [
+                    {
+                        "hidden": false,
+                        "locked": false,
+                        "type": "LabelWidget",
+                        "properties": {
+                            "HAlignment": "Center",
+                            "Scheme": "",
+                            "AlphaAmount": 255,
+                            "Position": {
+                                "X": 111,
+                                "Y": 9
+                            },
+                            "Size": {
+                                "Height": 86,
+                                "Width": 45
+                            },
+                            "MarginRight": 4,
+                            "Enabled": true,
+                            "MarginTop": 4,
+                            "Name": "SysValue1",
+                            "AlphaEnable": false,
+                            "VAlignment": "Middle",
+                            "BackgroundType": "None",
+                            "StringID": "SysDefaultValue",
+                            "MarginBottom": 4,
+                            "Visible": true,
+                            "BorderType": "None",
+                            "MarginLeft": 4
+                        }
+                    },
+                    {
+                        "hidden": false,
+                        "locked": false,
+                        "type": "LabelWidget",
+                        "properties": {
+                            "HAlignment": "Center",
+                            "Scheme": "",
+                            "AlphaAmount": 255,
+                            "Position": {
+                                "X": 61,
+                                "Y": 9
+                            },
+                            "Size": {
+                                "Height": 87,
+                                "Width": 46
+                            },
+                            "MarginRight": 4,
+                            "Enabled": true,
+                            "MarginTop": 4,
+                            "Name": "SysValue10",
+                            "AlphaEnable": false,
+                            "VAlignment": "Middle",
+                            "BackgroundType": "None",
+                            "StringID": "SysDefaultValue",
+                            "MarginBottom": 4,
+                            "Visible": true,
+                            "BorderType": "None",
+                            "MarginLeft": 4
+                        }
+                    },
+                    {
+                        "hidden": false,
+                        "locked": false,
+                        "type": "LabelWidget",
+                        "properties": {
+                            "HAlignment": "Center",
+                            "Scheme": "",
+                            "AlphaAmount": 255,
+                            "Position": {
+                                "X": 13,
+                                "Y": 9
+                            },
+                            "Size": {
+                                "Height": 87,
+                                "Width": 45
+                            },
+                            "MarginRight": 4,
+                            "Enabled": true,
+                            "MarginTop": 4,
+                            "Name": "SysValue100",
+                            "AlphaEnable": false,
+                            "VAlignment": "Middle",
+                            "BackgroundType": "None",
+                            "StringID": "SysDefaultValue",
+                            "MarginBottom": 4,
+                            "Visible": true,
+                            "BorderType": "None",
+                            "MarginLeft": 4
+                        }
+                    }
+                ],
+                "locked": false,
+                "type": "PanelWidget",
+                "properties": {
+                    "HAlignment": "Center",
+                    "Scheme": "",
+                    "AlphaAmount": 255,
+                    "Position": {
+                        "X": 140,
+                        "Y": 45
+                    },
+                    "Size": {
+                        "Height": 95,
+                        "Width": 160
+                    },
+                    "MarginRight": 4,
+                    "Enabled": true,
+                    "MarginTop": 4,
+                    "Name": "SysValue",
+                    "AlphaEnable": false,
+                    "VAlignment": "Middle",
+                    "BackgroundType": "None",
+                    "MarginBottom": 4,
+                    "Visible": true,
+                    "BorderType": "None",
+                    "MarginLeft": 4
+                }
+            },
+            {
+                "hidden": false,
+                "children": [
+                    {
+                        "hidden": false,
+                        "locked": false,
+                        "type": "LabelWidget",
+                        "properties": {
+                            "HAlignment": "Center",
+                            "Scheme": "",
+                            "AlphaAmount": 255,
+                            "Position": {
+                                "X": 111,
+                                "Y": 9
+                            },
+                            "Size": {
+                                "Height": 86,
+                                "Width": 45
+                            },
+                            "MarginRight": 4,
+                            "Enabled": true,
+                            "MarginTop": 4,
+                            "Name": "DiaValue1",
+                            "AlphaEnable": false,
+                            "VAlignment": "Middle",
+                            "BackgroundType": "None",
+                            "StringID": "SysDefaultValue",
+                            "MarginBottom": 4,
+                            "Visible": true,
+                            "BorderType": "None",
+                            "MarginLeft": 4
+                        }
+                    },
+                    {
+                        "hidden": false,
+                        "locked": false,
+                        "type": "LabelWidget",
+                        "properties": {
+                            "HAlignment": "Center",
+                            "Scheme": "",
+                            "AlphaAmount": 255,
+                            "Position": {
+                                "X": 61,
+                                "Y": 9
+                            },
+                            "Size": {
+                                "Height": 87,
+                                "Width": 46
+                            },
+                            "MarginRight": 4,
+                            "Enabled": true,
+                            "MarginTop": 4,
+                            "Name": "DiaValue10",
+                            "AlphaEnable": false,
+                            "VAlignment": "Middle",
+                            "BackgroundType": "None",
+                            "StringID": "SysDefaultValue",
+                            "MarginBottom": 4,
+                            "Visible": true,
+                            "BorderType": "None",
+                            "MarginLeft": 4
+                        }
+                    },
+                    {
+                        "hidden": false,
+                        "locked": false,
+                        "type": "LabelWidget",
+                        "properties": {
+                            "HAlignment": "Center",
+                            "Scheme": "",
+                            "AlphaAmount": 255,
+                            "Position": {
+                                "X": 13,
+                                "Y": 9
+                            },
+                            "Size": {
+                                "Height": 87,
+                                "Width": 45
+                            },
+                            "MarginRight": 4,
+                            "Enabled": true,
+                            "MarginTop": 4,
+                            "Name": "DiaValue100",
+                            "AlphaEnable": false,
+                            "VAlignment": "Middle",
+                            "BackgroundType": "None",
+                            "StringID": "SysDefaultValue",
+                            "MarginBottom": 4,
+                            "Visible": true,
+                            "BorderType": "None",
+                            "MarginLeft": 4
+                        }
+                    }
+                ],
+                "locked": false,
+                "type": "PanelWidget",
+                "properties": {
+                    "HAlignment": "Center",
+                    "Scheme": "",
+                    "AlphaAmount": 255,
+                    "Position": {
+                        "X": 144,
+                        "Y": 180
+                    },
+                    "Size": {
+                        "Height": 95,
+                        "Width": 160
+                    },
+                    "MarginRight": 4,
+                    "Enabled": true,
+                    "MarginTop": 4,
+                    "Name": "DiaValue",
+                    "AlphaEnable": false,
+                    "VAlignment": "Middle",
+                    "BackgroundType": "None",
+                    "MarginBottom": 4,
+                    "Visible": true,
+                    "BorderType": "None",
+                    "MarginLeft": 4
+                }
+            },
+            {
+                "hidden": false,
+                "children": [
+                    {
+                        "hidden": false,
+                        "locked": false,
+                        "type": "LabelWidget",
+                        "properties": {
+                            "HAlignment": "Center",
+                            "Scheme": "",
+                            "AlphaAmount": 255,
+                            "Position": {
+                                "X": 111,
+                                "Y": 9
+                            },
+                            "Size": {
+                                "Height": 86,
+                                "Width": 45
+                            },
+                            "MarginRight": 4,
+                            "Enabled": true,
+                            "MarginTop": 4,
+                            "Name": "PulseValue1",
+                            "AlphaEnable": false,
+                            "VAlignment": "Middle",
+                            "BackgroundType": "None",
+                            "StringID": "SysDefaultValue",
+                            "MarginBottom": 4,
+                            "Visible": true,
+                            "BorderType": "None",
+                            "MarginLeft": 4
+                        }
+                    },
+                    {
+                        "hidden": false,
+                        "locked": false,
+                        "type": "LabelWidget",
+                        "properties": {
+                            "HAlignment": "Center",
+                            "Scheme": "",
+                            "AlphaAmount": 255,
+                            "Position": {
+                                "X": 61,
+                                "Y": 9
+                            },
+                            "Size": {
+                                "Height": 87,
+                                "Width": 46
+                            },
+                            "MarginRight": 4,
+                            "Enabled": true,
+                            "MarginTop": 4,
+                            "Name": "PulseValue10",
+                            "AlphaEnable": false,
+                            "VAlignment": "Middle",
+                            "BackgroundType": "None",
+                            "StringID": "SysDefaultValue",
+                            "MarginBottom": 4,
+                            "Visible": true,
+                            "BorderType": "None",
+                            "MarginLeft": 4
+                        }
+                    },
+                    {
+                        "hidden": false,
+                        "locked": false,
+                        "type": "LabelWidget",
+                        "properties": {
+                            "HAlignment": "Center",
+                            "Scheme": "",
+                            "AlphaAmount": 255,
+                            "Position": {
+                                "X": 13,
+                                "Y": 9
+                            },
+                            "Size": {
+                                "Height": 87,
+                                "Width": 45
+                            },
+                            "MarginRight": 4,
+                            "Enabled": true,
+                            "MarginTop": 4,
+                            "Name": "PulseValue100",
+                            "AlphaEnable": false,
+                            "VAlignment": "Middle",
+                            "BackgroundType": "None",
+                            "StringID": "SysDefaultValue",
+                            "MarginBottom": 4,
+                            "Visible": true,
+                            "BorderType": "None",
+                            "MarginLeft": 4
+                        }
+                    }
+                ],
+                "locked": false,
+                "type": "PanelWidget",
+                "properties": {
+                    "HAlignment": "Center",
+                    "Scheme": "",
+                    "AlphaAmount": 255,
+                    "Position": {
+                        "X": 147,
+                        "Y": 307
+                    },
+                    "Size": {
+                        "Height": 95,
+                        "Width": 160
+                    },
+                    "MarginRight": 4,
+                    "Enabled": true,
+                    "MarginTop": 4,
+                    "Name": "PulseValue",
+                    "AlphaEnable": false,
+                    "VAlignment": "Middle",
+                    "BackgroundType": "None",
+                    "MarginBottom": 4,
+                    "Visible": true,
+                    "BorderType": "None",
+                    "MarginLeft": 4
+                }
+            },
+            {
+                "hidden": false,
+                "locked": false,
+                "type": "LabelWidget",
+                "properties": {
+                    "HAlignment": "Left",
+                    "Scheme": "",
+                    "AlphaAmount": 255,
+                    "Position": {
+                        "X": 180,
+                        "Y": 8
+                    },
+                    "Size": {
+                        "Height": 25,
+                        "Width": 132
+                    },
+                    "MarginRight": 4,
+                    "Enabled": true,
+                    "MarginTop": 4,
+                    "Name": "LabelWidget16",
+                    "AlphaEnable": false,
+                    "VAlignment": "Middle",
+                    "BackgroundType": "None",
+                    "StringID": "Date",
+                    "MarginBottom": 4,
+                    "Visible": true,
+                    "BorderType": "None",
+                    "MarginLeft": 4
+                }
+            },
+            {
+                "hidden": false,
+                "locked": false,
+                "type": "ImageWidget",
+                "properties": {
+                    "HAlignment": "Center",
+                    "Scheme": "",
+                    "AlphaAmount": 255,
+                    "Position": {
+                        "X": 279,
+                        "Y": 441
+                    },
+                    "Size": {
+                        "Height": 25,
+                        "Width": 29
+                    },
+                    "MarginRight": 4,
+                    "Enabled": true,
+                    "MarginTop": 4,
+                    "Image": "_1200px_Heart_coraz_n",
+                    "Name": "HeartImage",
+                    "AlphaEnable": false,
+                    "VAlignment": "Middle",
+                    "BackgroundType": "None",
+                    "MarginBottom": 4,
+                    "Visible": true,
+                    "BorderType": "None",
+                    "MarginLeft": 4
+                }
+            },
+            {
+                "hidden": false,
+                "locked": false,
+                "type": "LineWidget",
+                "properties": {
+                    "HAlignment": "Center",
+                    "Scheme": "",
+                    "AlphaAmount": 255,
+                    "Position": {
+                        "X": 111,
+                        "Y": 41
+                    },
+                    "Size": {
+                        "Height": 400,
+                        "Width": 10
+                    },
+                    "MarginRight": 4,
+                    "Enabled": true,
+                    "MarginTop": 4,
+                    "Name": "LineWidget18",
+                    "AlphaEnable": false,
+                    "VAlignment": "Middle",
+                    "BackgroundType": "None",
+                    "P1X": 5,
+                    "P2Y": 400,
+                    "MarginBottom": 4,
+                    "P2X": 5,
+                    "Visible": true,
+                    "P1Y": 0,
+                    "BorderType": "None",
+                    "MarginLeft": 4
+                }
+            },
+            {
+                "hidden": false,
+                "locked": false,
+                "type": "ImageWidget",
+                "properties": {
+                    "HAlignment": "Center",
+                    "Scheme": "",
+                    "AlphaAmount": 255,
+                    "Position": {
+                        "X": 28,
+                        "Y": 445
+                    },
+                    "Size": {
+                        "Height": 26,
+                        "Width": 63
+                    },
+                    "MarginRight": 4,
+                    "Enabled": true,
+                    "MarginTop": 4,
+                    "Image": "Battery",
+                    "Name": "ImageWidget21",
+                    "AlphaEnable": false,
+                    "VAlignment": "Middle",
+                    "BackgroundType": "None",
+                    "MarginBottom": 4,
+                    "Visible": true,
+                    "BorderType": "None",
+                    "MarginLeft": 4
+                }
+            },
+            {
+                "hidden": false,
+                "locked": false,
+                "type": "LineWidget",
+                "properties": {
+                    "HAlignment": "Center",
+                    "Scheme": "",
+                    "AlphaAmount": 255,
+                    "Position": {
+                        "X": 50,
+                        "Y": 150
+                    },
+                    "Size": {
+                        "Height": 10,
+                        "Width": 270
+                    },
+                    "MarginRight": 4,
+                    "Enabled": true,
+                    "MarginTop": 4,
+                    "Name": "LineWidget22",
+                    "AlphaEnable": false,
+                    "VAlignment": "Middle",
+                    "BackgroundType": "None",
+                    "P1X": 0,
+                    "P2Y": 5,
+                    "MarginBottom": 4,
+                    "P2X": 270,
+                    "Visible": true,
+                    "P1Y": 5,
+                    "BorderType": "None",
+                    "MarginLeft": 4
+                }
+            },
+            {
+                "hidden": false,
+                "locked": false,
+                "type": "LineWidget",
+                "properties": {
+                    "HAlignment": "Center",
+                    "Scheme": "",
+                    "AlphaAmount": 255,
+                    "Position": {
+                        "X": 80,
+                        "Y": 280
+                    },
+                    "Size": {
+                        "Height": 10,
+                        "Width": 240
+                    },
+                    "MarginRight": 4,
+                    "Enabled": true,
+                    "MarginTop": 4,
+                    "Name": "LineWidget23",
+                    "AlphaEnable": false,
+                    "VAlignment": "Middle",
+                    "BackgroundType": "None",
+                    "P1X": 0,
+                    "P2Y": 5,
+                    "MarginBottom": 4,
+                    "P2X": 240,
+                    "Visible": true,
+                    "P1Y": 5,
+                    "BorderType": "None",
+                    "MarginLeft": 4
+                }
+            },
+            {
+                "hidden": false,
+                "locked": false,
+                "type": "LineWidget",
+                "properties": {
+                    "HAlignment": "Center",
+                    "Scheme": "",
+                    "AlphaAmount": 255,
+                    "Position": {
+                        "X": 110,
+                        "Y": 410
+                    },
+                    "Size": {
+                        "Height": 10,
+                        "Width": 210
+                    },
+                    "MarginRight": 4,
+                    "Enabled": true,
+                    "MarginTop": 4,
+                    "Name": "LineWidget24",
+                    "AlphaEnable": false,
+                    "VAlignment": "Middle",
+                    "BackgroundType": "None",
+                    "P1X": 0,
+                    "P2Y": 5,
+                    "MarginBottom": 4,
+                    "P2X": 210,
+                    "Visible": true,
+                    "P1Y": 5,
+                    "BorderType": "None",
+                    "MarginLeft": 4
+                }
+            },
+            {
+                "hidden": false,
+                "locked": false,
+                "type": "LineWidget",
+                "properties": {
+                    "HAlignment": "Center",
+                    "Scheme": "",
+                    "AlphaAmount": 255,
+                    "Position": {
+                        "X": 0,
+                        "Y": 36
+                    },
+                    "Size": {
+                        "Height": 10,
+                        "Width": 320
+                    },
+                    "MarginRight": 4,
+                    "Enabled": true,
+                    "MarginTop": 4,
+                    "Name": "LineWidget25",
+                    "AlphaEnable": false,
+                    "VAlignment": "Middle",
+                    "BackgroundType": "None",
+                    "P1X": 0,
+                    "P2Y": 5,
+                    "MarginBottom": 4,
+                    "P2X": 320,
+                    "Visible": true,
+                    "P1Y": 5,
+                    "BorderType": "None",
+                    "MarginLeft": 4
+                }
+            },
+            {
+                "hidden": false,
+                "locked": false,
+                "type": "LineWidget",
+                "properties": {
+                    "HAlignment": "Center",
+                    "Scheme": "",
+                    "AlphaAmount": 255,
+                    "Position": {
+                        "X": 0,
+                        "Y": -2
+                    },
+                    "Size": {
+                        "Height": 10,
+                        "Width": 320
+                    },
+                    "MarginRight": 4,
+                    "Enabled": true,
+                    "MarginTop": 4,
+                    "Name": "LineWidget26",
+                    "AlphaEnable": false,
+                    "VAlignment": "Middle",
+                    "BackgroundType": "None",
+                    "P1X": 0,
+                    "P2Y": 5,
+                    "MarginBottom": 4,
+                    "P2X": 320,
+                    "Visible": true,
+                    "P1Y": 5,
+                    "BorderType": "None",
+                    "MarginLeft": 4
+                }
+            },
+            {
+                "hidden": false,
+                "locked": false,
+                "type": "ImageWidget",
+                "properties": {
+                    "HAlignment": "Center",
+                    "Scheme": "",
+                    "AlphaAmount": 255,
+                    "Position": {
+                        "X": 10,
+                        "Y": 12
+                    },
+                    "Size": {
+                        "Height": 24,
+                        "Width": 110
+                    },
+                    "MarginRight": 4,
+                    "Enabled": true,
+                    "MarginTop": 4,
+                    "Image": "Microchip_logo",
+                    "Name": "ImageWidget27",
+                    "AlphaEnable": false,
+                    "VAlignment": "Middle",
+                    "BackgroundType": "None",
+                    "MarginBottom": 4,
+                    "Visible": true,
+                    "BorderType": "None",
+                    "MarginLeft": 4
+                }
+            },
+            {
+                "hidden": false,
+                "locked": false,
+                "type": "ImageWidget",
+                "properties": {
+                    "HAlignment": "Center",
+                    "Scheme": "",
+                    "AlphaAmount": 255,
+                    "Position": {
+                        "X": 11,
+                        "Y": 42
+                    },
+                    "Size": {
+                        "Height": 397,
+                        "Width": 105
+                    },
+                    "MarginRight": 4,
+                    "Enabled": true,
+                    "MarginTop": 4,
+                    "Image": "BannerLeft",
+                    "Name": "ImageWidget1",
+                    "AlphaEnable": false,
+                    "VAlignment": "Middle",
+                    "BackgroundType": "None",
+                    "MarginBottom": 4,
+                    "Visible": true,
+                    "BorderType": "None",
+                    "MarginLeft": 4
+                }
+            },
+            {
+                "seriesList": [
+                    {
+                        "scheme": "defaultScheme",
+                        "dataItems": [
+                            {"value": 51},
+                            {"value": 5}
+                        ],
+                        "index": 0
+                    },
+                    {
+                        "scheme": "BoldLabelScheme",
+                        "dataItems": [
+                            {"value": 52},
+                            {"value": 4}
+                        ],
+                        "index": 0
+                    }
+                ],
+                "hidden": false,
+                "categories": [
+                    {"stringid": "Date"},
+                    {"stringid": "PULSE"}
+                ],
+                "locked": false,
+                "type": "BarGraphWidget",
+                "properties": {
+                    "HAlignment": "Center",
+                    "Scheme": "",
+                    "ValueAxisLabelsVisible": false,
+                    "FillGraphArea": false,
+                    "Size": {
+                        "Height": 249,
+                        "Width": 230
+                    },
+                    "ValueAxisTicksVisible": true,
+                    "MarginTop": 4,
+                    "Name": "BarGraphWidget0",
+                    "AlphaEnable": false,
+                    "VAlignment": "Middle",
+                    "TickInterval": 11,
+                    "ValueAxisTicksPosition": "Inside",
+                    "MarginBottom": 4,
+                    "ValueAxisSubticksVisible": false,
+                    "Visible": true,
+                    "MinValue": 1,
+                    "CategAxisTicksPosition": "Outside",
+                    "Stacked": true,
+                    "LabelsStringID": "Dia",
+                    "ValueAxisSubticksPosition": "Outside",
+                    "CategAxisTicksVisible": false,
+                    "AlphaAmount": 255,
+                    "Position": {
+                        "X": 356,
+                        "Y": -103
+                    },
+                    "MarginRight": 4,
+                    "Enabled": true,
+                    "MaxValue": 101,
+                    "TickLength": 6,
+                    "SubtickInterval": 6,
+                    "BackgroundType": "None",
+                    "CategAxisLabelsVisible": false,
+                    "ValueGridlinesVisible": false,
+                    "BorderType": "None",
+                    "MarginLeft": 4
+                }
+            }
+        ],
+        "locked": false,
+        "type": "Layer",
+        "properties": {
+            "AlphaAmount": 255,
+            "Visible": true,
+            "Name": "Layer0",
+            "AlphaEnable": false
+        }
+    }],
+    "locked": false,
+    "properties": {
+        "Active": true,
+        "CreateAtStartup": false,
+        "Primary": true,
+        "Visible": true,
+        "Export": true,
+        "Persistent": false,
+        "HideEvent": false,
+        "Name": "default",
+        "ShowEvent": false
+    },
+    "events": {
+        "HideEvent": {
+            "mode": "GENERATE",
+            "pretty_name": "On Hide",
+            "name": "HideEvent",
+            "enabled": "false"
+        },
+        "ShowEvent": {
+            "mode": "GENERATE",
+            "pretty_name": "On Show",
+            "name": "ShowEvent",
+            "enabled": "false"
+        }
+    }
+}

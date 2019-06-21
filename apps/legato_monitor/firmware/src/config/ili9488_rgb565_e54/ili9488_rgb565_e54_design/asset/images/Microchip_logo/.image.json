@@ -1,0 +1,36 @@
+{
+    "sourceFileName": "Microchip_logo.png",
+    "sourceFileFormat": "Raw",
+    "folder": "/",
+    "sourceFileWidth": 100,
+    "sourceFileHeight": 20,
+    "imageType": "Raw",
+    "properties": {
+        "OutputSize": {
+            "Height": 20,
+            "Width": 100
+        },
+        "OutputMode": "RGB_565",
+        "OutputFormat": "Raw",
+        "UniquePalette": false,
+        "MaskEnable": false,
+        "Name": "Microchip_logo",
+        "ImportSize": {
+            "Height": 20,
+            "Width": 100
+        },
+        "MaskColor": {
+            "Red": 0,
+            "Gray": 0,
+            "OutputMode": "RGB_565",
+            "Blue": 0,
+            "Alpha": 1,
+            "Green": 0
+        },
+        "GeneratePalette": true,
+        "BitsPerPixel": 2,
+        "UniquePixelCount": 161,
+        "MemoryLocation": "Internal Flash",
+        "SizeBytes": 4000
+    }
+}

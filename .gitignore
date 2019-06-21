@@ -22,3 +22,7 @@
 /apps/aria_image_viewer/firmware/src/config/glcd_gpu_rgba8888_mxt_mzda_sk/peripheral/ddr/plib_ddr - Copy.h
 /apps/aria_image_viewer/firmware/src/config/glcd_gpu_rgba8888_mxt_mzda_sk/peripheral/gpio/plib_gpio.c.bak
 /apps/aria_image_viewer/firmware/src/config/glcd_gpu_rgba8888_mxt_mzda_sk/peripheral/gpio/plib_gpio.h.bak
+/apps/legato_benchmark/firmware/legato_bm_e70_xu_tm4301b.X/build/
+/apps/legato_benchmark/firmware/legato_bm_e70_xu_tm4301b.X/dist/
+/apps/legato_monitor/firmware/aria_monitor_e54_xpld_xpro.X/build/
+/apps/legato_monitor/firmware/aria_monitor_e54_xpld_xpro.X/dist/

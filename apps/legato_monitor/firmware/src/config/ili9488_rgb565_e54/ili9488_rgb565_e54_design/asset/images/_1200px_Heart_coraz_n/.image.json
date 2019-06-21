@@ -1,0 +1,36 @@
+{
+    "sourceFileName": "1200px-Heart_corazón.bmp",
+    "sourceFileFormat": "Raw",
+    "folder": "/",
+    "sourceFileWidth": 50,
+    "sourceFileHeight": 50,
+    "imageType": "Raw",
+    "properties": {
+        "OutputSize": {
+            "Height": 50,
+            "Width": 50
+        },
+        "OutputMode": "RGB_565",
+        "OutputFormat": "Raw",
+        "UniquePalette": false,
+        "MaskEnable": false,
+        "Name": "_1200px_Heart_coraz_n",
+        "ImportSize": {
+            "Height": 50,
+            "Width": 50
+        },
+        "MaskColor": {
+            "Red": 0,
+            "Gray": 0,
+            "OutputMode": "RGB_565",
+            "Blue": 0,
+            "Alpha": 1,
+            "Green": 0
+        },
+        "GeneratePalette": false,
+        "BitsPerPixel": 2,
+        "UniquePixelCount": 42,
+        "MemoryLocation": "Internal Flash",
+        "SizeBytes": 5000
+    }
+}

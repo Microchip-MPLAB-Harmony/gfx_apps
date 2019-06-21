@@ -1,0 +1,10 @@
+{
+    "name": "Arial48",
+    "properties": {
+        "Antialias": false,
+        "Size": 48,
+        "SourceName": "arial.ttf",
+        "MemoryLocation": "Internal Flash",
+        "Name": "Arial48"
+    }
+}

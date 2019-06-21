@@ -1,0 +1,10 @@
+{
+    "name": "Calibri98",
+    "properties": {
+        "Antialias": false,
+        "Size": 98,
+        "SourceName": "calibri.ttf",
+        "MemoryLocation": "Internal Flash",
+        "Name": "Calibri98"
+    }
+}

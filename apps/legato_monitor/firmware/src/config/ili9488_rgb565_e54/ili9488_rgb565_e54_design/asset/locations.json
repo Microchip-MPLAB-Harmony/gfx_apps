@@ -1,0 +1,16 @@
+[
+    {
+        "fileName": "gfx_assets",
+        "offset": 0,
+        "name": "Internal Flash",
+        "format": "INTERNAL",
+        "maxSize": 512000
+    },
+    {
+        "fileName": "gfx_assets",
+        "offset": 0,
+        "name": "Internal SRAM",
+        "format": "INTERNAL",
+        "maxSize": 512000
+    }
+]

@@ -1,0 +1,36 @@
+{
+    "sourceFileName": "BannerLeft.png",
+    "sourceFileFormat": "Raw",
+    "folder": "/",
+    "sourceFileWidth": 105,
+    "sourceFileHeight": 397,
+    "imageType": "Raw",
+    "properties": {
+        "OutputSize": {
+            "Height": 397,
+            "Width": 105
+        },
+        "OutputMode": "RGB_565",
+        "OutputFormat": "Raw",
+        "UniquePalette": false,
+        "MaskEnable": false,
+        "Name": "BannerLeft",
+        "ImportSize": {
+            "Height": 397,
+            "Width": 105
+        },
+        "MaskColor": {
+            "Red": 0,
+            "Gray": 0,
+            "OutputMode": "RGB_565",
+            "Blue": 0,
+            "Alpha": 1,
+            "Green": 0
+        },
+        "GeneratePalette": true,
+        "BitsPerPixel": 2,
+        "UniquePixelCount": 3,
+        "MemoryLocation": "Internal Flash",
+        "SizeBytes": 83370
+    }
+}

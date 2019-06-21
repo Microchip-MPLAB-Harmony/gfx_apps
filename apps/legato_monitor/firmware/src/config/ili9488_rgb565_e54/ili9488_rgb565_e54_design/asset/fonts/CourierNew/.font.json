@@ -1,0 +1,10 @@
+{
+    "name": "CourierNew",
+    "properties": {
+        "Antialias": false,
+        "Size": 98,
+        "SourceName": "courbd.ttf",
+        "MemoryLocation": "Internal Flash",
+        "Name": "CourierNew"
+    }
+}

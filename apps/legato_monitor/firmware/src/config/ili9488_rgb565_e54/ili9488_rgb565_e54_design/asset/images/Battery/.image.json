@@ -1,0 +1,36 @@
+{
+    "sourceFileName": "Battery.png",
+    "sourceFileFormat": "Raw",
+    "folder": "/",
+    "sourceFileWidth": 80,
+    "sourceFileHeight": 30,
+    "imageType": "Raw",
+    "properties": {
+        "OutputSize": {
+            "Height": 30,
+            "Width": 80
+        },
+        "OutputMode": "RGB_565",
+        "OutputFormat": "Raw",
+        "UniquePalette": false,
+        "MaskEnable": false,
+        "Name": "Battery",
+        "ImportSize": {
+            "Height": 30,
+            "Width": 80
+        },
+        "MaskColor": {
+            "Red": 0,
+            "Gray": 0,
+            "OutputMode": "RGB_565",
+            "Blue": 0,
+            "Alpha": 1,
+            "Green": 0
+        },
+        "GeneratePalette": true,
+        "BitsPerPixel": 2,
+        "UniquePixelCount": 2,
+        "MemoryLocation": "Internal Flash",
+        "SizeBytes": 4800
+    }
+}
