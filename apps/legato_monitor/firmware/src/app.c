@@ -27,13 +27,7 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#include <stdio.h>
 #include "app.h"
-
-#include "gfx/legato/legato.h"
-#include "gfx/legato/generated/le_gen_init.h"
-
-#include "system/time/sys_time.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -56,7 +50,7 @@
     Application strings and buffers are be defined outside this structure.
 */
 
-
+APP_DATA appData;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -93,7 +87,17 @@
  */
 
 void APP_Initialize ( void )
-{ }
+{
+    /* Place the App state machine in its initial state. */
+    appData.state = APP_STATE_INIT;
+
+
+
+    /* TODO: Initialize your application's state machine and other
+     * parameters.
+     */
+}
+
 
 /******************************************************************************
   Function:
@@ -103,10 +107,43 @@ void APP_Initialize ( void )
     See prototype in app.h.
  */
 
-
-
 void APP_Tasks ( void )
-{ }
+{
+
+    /* Check the application's current state. */
+    switch ( appData.state )
+    {
+        /* Application's initial state. */
+        case APP_STATE_INIT:
+        {
+            bool appInitialized = true;
+
+
+            if (appInitialized)
+            {
+
+                appData.state = APP_STATE_SERVICE_TASKS;
+            }
+            break;
+        }
+
+        case APP_STATE_SERVICE_TASKS:
+        {
+
+            break;
+        }
+
+        /* TODO: implement your application state machine.*/
+
+
+        /* The default state should never be executed. */
+        default:
+        {
+            /* TODO: Handle error in application's state machine. */
+            break;
+        }
+    }
+}
 
 
 /*******************************************************************************
