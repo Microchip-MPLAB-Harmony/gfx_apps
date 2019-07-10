@@ -63,6 +63,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #define AVE_FPS_COUNT 10
 #define FPS_UPDATE_TIMER_PERIOD_MS 1000
 #define MAX_NUM_IMAGES 2
+//#define ENABLE_FULL_SCREEN_IMAGE_TEST  1
 
 static volatile leBool aveFPSValid = LE_FALSE;
 static int aveCounter = 0;
@@ -89,7 +90,9 @@ typedef enum
     IMG_40x40,
     IMG_100x100,
     IMG_200x200,
+#ifdef ENABLE_FULL_SCREEN_IMAGE_TEST            
     IMG_480x270,
+#endif            
     IMG_MAX_SIZE,
 } IMAGE_SIZE_T;
 
@@ -115,7 +118,9 @@ char * imageSizeNames[IMG_MAX_SIZE] =
     "40x40",
     "100x100",
     "200x200",
+#ifdef ENABLE_FULL_SCREEN_IMAGE_TEST    
     "480x270",    
+#endif    
 };
 
 unsigned int imageTypeNames[IMG_MAX_TYPE] = 
@@ -145,10 +150,12 @@ unsigned int imageTypeNames[IMG_MAX_TYPE] =
         {NULL,
         NULL},
     },
+ #ifdef ENABLE_FULL_SCREEN_IMAGE_TEST
     [IMG_480x270] = {
         {NULL,
         NULL},
-    },    
+    },
+ #endif
 };*/
 
 /*IMAGE_LIST_T imagesJPG[] =
@@ -165,10 +172,12 @@ unsigned int imageTypeNames[IMG_MAX_TYPE] =
         {&JPG_GFX_mchp_200x200,
         &JPG_GFX_mplab_200x200},
     },
+ #ifdef ENABLE_FULL_SCREEN_IMAGE_TEST
     [IMG_480x270] = {
         {&JPG_GFX_mchp_480x270,
         &JPG_GFX_mplab_480x270},
-    },    
+    },
+ #endif
 };*/
 
 IMAGE_LIST_T imagesRAW[] =
@@ -191,12 +200,14 @@ IMAGE_LIST_T imagesRAW[] =
             &RAW_GFX_mplab_200x200
         },
     },
+#ifdef ENABLE_FULL_SCREEN_IMAGE_TEST    
     { /* IMG_480x270 */
         {
             &RAW_GFX_mchp_480x270,
             &RAW_GFX_mplab_480x270
         },
-    },    
+    },
+#endif
 };
 
 IMAGE_LIST_T imagesRAWRLE[] =
@@ -219,12 +230,14 @@ IMAGE_LIST_T imagesRAWRLE[] =
             &RAWRLE_GFX_mplab_200x200
         },
     },
+#ifdef ENABLE_FULL_SCREEN_IMAGE_TEST    
     { /* IMG_480x270 */
         {
             &RAWRLE_GFX_mchp_480x270,
             &RAWRLE_GFX_mplab_480x270
         },
-    },    
+    },
+#endif    
 };
 
 #if defined(PRE_PROCESSED_IMAGES_SUPPORTED)
@@ -242,10 +255,12 @@ IMAGE_LIST_T imagesRAWBLIT[] =
         {&BLIT_GFX_mchp_200x200,
         &BLIT_GFX_mplab_200x200},
     },
+#ifdef ENABLE_FULL_SCREEN_IMAGE_TEST    
     [IMG_480x270] = {
         {&BLIT_GFX_mchp_480x270,
         &BLIT_GFX_mplab_480x270},
-    },    
+    },
+#endif    
 };
 #endif
 
@@ -618,7 +633,7 @@ void FPSImages_OnUpdate()
         }
         case SCREEN_MOVE_TO_NEXT:
         {
-            legato_showScreen(screenID_FPSImages);
+            legato_showScreen(screenID_FPSCounters);
 
             screenState = SCREEN_DONE;
 

@@ -281,8 +281,8 @@ static void moveRectangles()
         motionWidgets[0].widget->fn->setPosition(motionWidgets[0].widget, 0, 0);                
         motionWidgets[0].widget->fn->setScheme(motionWidgets[0].widget, FillSchemes[fillSchemeIndex]);
 
-        fillSchemeIndex = (fillSchemeIndex == MAX_FILL_SCHEMES_CYCLE) ?
-            0 : fillSchemeIndex + 1;
+        fillSchemeIndex = (fillSchemeIndex < MAX_FILL_SCHEMES_CYCLE - 1) ?
+            fillSchemeIndex + 1 : 0;
     }
     else
     {

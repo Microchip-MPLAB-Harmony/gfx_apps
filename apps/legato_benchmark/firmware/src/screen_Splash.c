@@ -87,7 +87,7 @@ static void setup()
     SplashHarmonyLogo->fn->setVisible(SplashHarmonyLogo, LE_TRUE);
     SplashHarmonyLogo->fn->setAlphaAmount(SplashHarmonyLogo, 255 - splashAlpha);
 
-    SplashMicrochipLogo->fn->setVisible(SplashMicrochipLogo, LE_TRUE);
+    SplashMicrochipLogo->fn->setVisible(SplashMicrochipLogo, LE_FALSE);
     SplashMicrochipLogo->fn->setAlphaEnabled(SplashMicrochipLogo, LE_TRUE);
     SplashMicrochipLogo->fn->setAlphaAmount(SplashMicrochipLogo, 0);
 
