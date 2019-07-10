@@ -56,6 +56,7 @@
 #define AVE_FPS_COUNT 10
 
 #define MAX_FILL_SCHEMES_CYCLE 5
+//#define ENABLE_FULL_SCREEN_IMAGE_TEST  1
 
 typedef enum
 {
@@ -77,7 +78,9 @@ typedef enum
     APP_IMG_40x40,
     APP_IMG_100x100,
     APP_IMG_200x200,
+#ifdef ENABLE_FULL_SCREEN_IMAGE_TEST            
     APP_IMG_480x270,
+#endif            
     APP_IMG_MAX_SIZE,
 } APP_IMAGE_SIZE_T;
 
@@ -199,10 +202,12 @@ IMAGE_LIST_T imagesPNG[] =
         {NULL,
         NULL},
     },
+#ifdef ENABLE_FULL_SCREEN_IMAGE_TEST                
     [APP_IMG_480x270] = {
         {NULL,
         NULL},
-    },    
+    },
+#endif    
 };
 
 IMAGE_LIST_T imagesJPG[] =
@@ -219,10 +224,13 @@ IMAGE_LIST_T imagesJPG[] =
         {&JPG_GFX_mchp_200x200,
         &JPG_GFX_mplab_200x200},
     },
+#ifdef ENABLE_FULL_SCREEN_IMAGE_TEST    
     [APP_IMG_480x270] = {
         {&JPG_GFX_mchp_480x270,
         &JPG_GFX_mplab_480x270},
-    },    
+    },
+#endif    
+    
 };
 
 IMAGE_LIST_T imagesRAW[] =
@@ -239,10 +247,12 @@ IMAGE_LIST_T imagesRAW[] =
         {&RAW_GFX_mchp_200x200,
         &RAW_GFX_mplab_200x200},
     },
+#ifdef ENABLE_FULL_SCREEN_IMAGE_TEST    
     [APP_IMG_480x270] = {
         {&RAW_GFX_mchp_480x270,
         &RAW_GFX_mplab_480x270},
-    },    
+    },
+#endif    
 };
 
 IMAGE_LIST_T imagesRAWRLE[] =
@@ -259,10 +269,12 @@ IMAGE_LIST_T imagesRAWRLE[] =
         {&RAWRLE_GFX_mchp_200x200,
         &RAWRLE_GFX_mplab_200x200},
     },
+#ifdef ENABLE_FULL_SCREEN_IMAGE_TEST    
     [APP_IMG_480x270] = {
         {&RAWRLE_GFX_mchp_480x270,
         &RAWRLE_GFX_mplab_480x270},
-    },    
+    },
+#endif    
 };
 
 #if defined(PRE_PROCESSED_IMAGES_SUPPORTED)
@@ -280,10 +292,12 @@ IMAGE_LIST_T imagesRAWBLIT[] =
         {&BLIT_GFX_mchp_200x200,
         &BLIT_GFX_mplab_200x200},
     },
+#ifdef ENABLE_FULL_SCREEN_IMAGE_TEST    
     [APP_IMG_480x270] = {
         {&BLIT_GFX_mchp_480x270,
         &BLIT_GFX_mplab_480x270},
-    },    
+    },
+#endif    
 };
 #endif
 
@@ -292,7 +306,9 @@ char * imageSizeNames[APP_IMG_MAX_SIZE] =
     [APP_IMG_40x40] = "40x40",
     [APP_IMG_100x100] = "100x100",
     [APP_IMG_200x200] = "200x200",
-    [APP_IMG_480x270] = "480x270",    
+#ifdef ENABLE_FULL_SCREEN_IMAGE_TEST    
+    [APP_IMG_480x270] = "480x270",
+#endif
 };
 
 unsigned int imageTypeNames[APP_IMG_MAX_TYPE] = 
