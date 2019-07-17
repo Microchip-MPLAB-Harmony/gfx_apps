@@ -174,28 +174,28 @@ static leColor getArcSoftEdgeColor(uint32_t oRadSqd,
         color = leColorLerp(gradient->c0,
                             gradient->c1,
                             20,
-                            _rendererState.colorMode);
+                            LE_GLOBAL_COLOR_MODE);
     }
     else if ((oRadSqd - ptRadSqd) < 32)
     {
         color = leColorLerp(gradient->c0,
                             gradient->c1,
                             40,
-                            _rendererState.colorMode);
+                            LE_GLOBAL_COLOR_MODE);
     }
     else if ((oRadSqd - ptRadSqd) < 50)
     {
         color = leColorLerp(gradient->c0,
                             gradient->c1,
                             60,
-                            _rendererState.colorMode);
+                            LE_GLOBAL_COLOR_MODE);
     }    
     else if ((oRadSqd - ptRadSqd) < 72)
     {
         color = leColorLerp(gradient->c0,
                             gradient->c1,
                             80,
-                            _rendererState.colorMode);
+                            LE_GLOBAL_COLOR_MODE);
     }
     //Do not test inner edge if full circle
     else if (thicknessSqd == oRadSqd)
@@ -207,28 +207,28 @@ static leColor getArcSoftEdgeColor(uint32_t oRadSqd,
         color = leColorLerp(gradient->c0,
                             gradient->c1,
                             20,
-                            _rendererState.colorMode);
+                            LE_GLOBAL_COLOR_MODE);
     }
     else if ((ptRadSqd - iRadSqd) < 32)
     {
         color = leColorLerp(gradient->c0,
                             gradient->c1,
                             40,
-                            _rendererState.colorMode);
+                            LE_GLOBAL_COLOR_MODE);
     }
     else if ((ptRadSqd - iRadSqd) < 50)
     {
         color = leColorLerp(gradient->c0,
                             gradient->c1,
                             60,
-                            _rendererState.colorMode);
+                            LE_GLOBAL_COLOR_MODE);
     }    
     else if ((ptRadSqd - iRadSqd) < 72)
     {
         color = leColorLerp(gradient->c0,
                             gradient->c1,
                             80,
-                            _rendererState.colorMode);
+                            LE_GLOBAL_COLOR_MODE);
     }
     else
     {

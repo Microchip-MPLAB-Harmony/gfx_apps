@@ -170,7 +170,8 @@ static void drawBackground(leProgressBarWidget* bar)
 {
     if(bar->widget.backgroundType == LE_WIDGET_BACKGROUND_FILL)
     {
-        leWidget_SkinClassic_DrawBackground((leWidget*)bar, bar->widget.scheme->base);
+        leWidget_SkinClassic_DrawBackground((leWidget*)bar, bar->widget.scheme->base,
+                                            paintState.alpha);
     }
     
     nextState(bar);
@@ -193,11 +194,13 @@ static void drawBorder(leProgressBarWidget* bar)
 {
     if(bar->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)bar);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)bar,
+                                                    paintState.alpha);
     }
     else if(bar->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardLoweredBorder((leWidget*)bar);
+        leWidget_SkinClassic_DrawStandardLoweredBorder((leWidget*)bar,
+                                                       paintState.alpha);
     }
     
     nextState(bar);

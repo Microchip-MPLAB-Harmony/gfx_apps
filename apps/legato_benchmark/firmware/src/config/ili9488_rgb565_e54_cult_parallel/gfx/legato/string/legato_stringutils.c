@@ -66,6 +66,7 @@ leResult leStringUtils_GetRect(const leChar* str,
     uint32_t idx;
     uint32_t lines;
     leRect lineRect;
+    leRasterFont* rasFnt = (leRasterFont*)font;
 
     *rect = leRect_Zero;
 
@@ -83,7 +84,7 @@ leResult leStringUtils_GetRect(const leChar* str,
 
         if(idx < lines - 1)
         {
-            rect->height += font->height;
+            rect->height += rasFnt->height;
         }
         else
         {
@@ -107,6 +108,7 @@ leResult leStringUtils_GetRectCStr(const char* str,
     uint32_t lines;
     leRect lineRect = leRect_Zero;
     uint32_t size;
+    leRasterFont* rasFnt = (leRasterFont*)font;
 
     *rect = leRect_Zero;
 
@@ -126,7 +128,7 @@ leResult leStringUtils_GetRectCStr(const char* str,
 
         if(idx < lines - 1)
         {
-            rect->height += font->height;
+            rect->height += rasFnt->height;
         }
         else
         {
@@ -285,11 +287,12 @@ leResult leStringUtils_GetLineRect(const leChar* str,
     leFontGlyph glyph;
     uint32_t startIdx = 0;
     uint32_t endIdx = 0;
+    leRasterFont* rasFnt = (leRasterFont*)font;
 
     if(str == NULL ||
         size == 0 ||
         font == NULL ||
-        font->glyphTable == NULL ||
+        rasFnt->glyphTable == NULL ||
         rect == NULL)
     {
         return LE_FAILURE;
@@ -311,7 +314,7 @@ leResult leStringUtils_GetLineRect(const leChar* str,
         rect->width += glyph.advance;
     }
 
-    rect->height = font->height;
+    rect->height = rasFnt->height;
 
     return LE_SUCCESS;
 }
@@ -326,10 +329,11 @@ leResult leStringUtils_GetLineRectCStr(const char* str,
     uint32_t startIdx = 0;
     uint32_t endIdx = 0;
     uint32_t size;
+    leRasterFont* rasFnt = (leRasterFont*)font;
 
     if(str == NULL ||
         font == NULL ||
-        font->glyphTable == NULL ||
+        rasFnt->glyphTable == NULL ||
         rect == NULL)
     {
         return LE_FAILURE;
@@ -356,7 +360,7 @@ leResult leStringUtils_GetLineRectCStr(const char* str,
         rect->width += glyph.advance;
     }
 
-    rect->height = font->height;
+    rect->height = rasFnt->height;
 
     return LE_SUCCESS;
 }
@@ -369,12 +373,13 @@ leResult leStringUtils_GetCharRect(const leChar* str,
 {
     uint32_t idx;
     leFontGlyph glyph;
+    leRasterFont* rasFnt = (leRasterFont*)font;
 
     if(str == NULL ||
        size == 0 ||
        charIdx >= size ||
        font == NULL ||
-       font->glyphTable == NULL ||
+       rasFnt->glyphTable == NULL ||
        rect == NULL)
     {
         return LE_FAILURE;
@@ -391,7 +396,7 @@ leResult leStringUtils_GetCharRect(const leChar* str,
             leFont_GetGlyphInfo(font, str[idx], &glyph);
 
             rect->width = glyph.advance;
-            rect->height = font->height;
+            rect->height = rasFnt->height;
 
             return LE_SUCCESS;
         }
@@ -414,10 +419,11 @@ leResult leStringUtils_GetCharRectCStr(const char* str,
     uint32_t idx;
     leFontGlyph glyph;
     uint32_t size;
+    leRasterFont* rasFnt = (leRasterFont*)font;
 
     if(str == NULL ||
         font == NULL ||
-        font->glyphTable == NULL ||
+        rasFnt->glyphTable == NULL ||
         rect == NULL)
     {
         return LE_FAILURE;
@@ -439,7 +445,7 @@ leResult leStringUtils_GetCharRectCStr(const char* str,
             leFont_GetGlyphInfo(font, str[idx], &glyph);
 
             rect->width = glyph.advance;
-            rect->height = font->height;
+            rect->height = rasFnt->height;
 
             return LE_SUCCESS;
         }
@@ -463,6 +469,7 @@ leResult leStringUtils_GetCharIndexAtPoint(const leChar* str,
     uint32_t idx;
     leFontGlyph glyph;
     leRect rect;
+    leRasterFont* rasFnt = (leRasterFont*)font;
 
     rect.x = 0;
     rect.y = 0;
@@ -470,7 +477,7 @@ leResult leStringUtils_GetCharIndexAtPoint(const leChar* str,
     if(str == NULL ||
        size == 0 ||
        font == NULL ||
-       font->glyphTable == NULL ||
+       rasFnt->glyphTable == NULL ||
        charIdx == NULL)
     {
         return LE_FAILURE;
@@ -481,7 +488,7 @@ leResult leStringUtils_GetCharIndexAtPoint(const leChar* str,
         if(str[idx] == LINE_BREAK)
         {
             rect.x = 0;
-            rect.y += font->height;
+            rect.y += rasFnt->height;
         }
         else
         {
@@ -513,13 +520,14 @@ leResult leStringUtils_GetCharIndexAtPointCStr(const char* str,
     leFontGlyph glyph;
     leRect rect;
     uint32_t size;
+    leRasterFont* rasFnt = (leRasterFont*)font;
 
     rect.x = 0;
     rect.y = 0;
 
     if(str == NULL ||
         font == NULL ||
-        font->glyphTable == NULL ||
+        rasFnt->glyphTable == NULL ||
         charIdx == NULL)
     {
         return LE_FAILURE;
@@ -535,7 +543,7 @@ leResult leStringUtils_GetCharIndexAtPointCStr(const char* str,
         if(str[idx] == LINE_BREAK)
         {
             rect.x = 0;
-            rect.y += font->height;
+            rect.y += rasFnt->height;
         }
         else
         {
@@ -558,155 +566,161 @@ leResult leStringUtils_GetCharIndexAtPointCStr(const char* str,
     return LE_FAILURE;
 }
 
-void leStringUtils_DrawString(const leChar* str,
-                              uint32_t size,
-                              const leFont* font,
-                              int32_t x,
-                              int32_t y,
-                              leHAlignment align,
-                              leColor clr,
-                              uint32_t a)
+static leResult decodeASCII(uint8_t* val,
+                            uint32_t max,
+                            uint32_t* codePoint,
+                            uint32_t* size)
 {
-    uint32_t charItr, lines, lineItr;
-    leFontGlyph glyphInfo;
-    leChar codePoint = 0;
-    int32_t stringY, lineX;
-    leRect stringRect;
-    leRect lineRect = leRect_Zero;
-    uint32_t startIdx = 0;
-    uint32_t endIdx = 0;
+    (void)max;
 
-    if(str == NULL ||
-        size == 0 ||
-        font == NULL ||
-        font->glyphTable == NULL)
-    {
-        return;
-    }
+    *codePoint = val[0];
+    *size = 1;
 
-    stringY = y;
-
-    lines = leStringUtils_GetLineCount(str, size);
-
-    leStringUtils_GetRect(str, size, font, &stringRect);
-
-    for(lineItr = 0; lineItr < lines; lineItr++)
-    {
-        leStringUtils_GetLineIndices(str, size, lineItr, &startIdx, &endIdx);
-        leStringUtils_GetLineRect(str, size, font, lineItr, &lineRect);
-
-        if(align == LE_HALIGN_CENTER)
-        {
-            lineX = stringRect.x + (stringRect.width / 2) - (lineRect.width / 2);
-        }
-        else if(align == LE_HALIGN_RIGHT)
-        {
-            lineX = stringRect.x + stringRect.width - lineRect.width;
-        }
-        else
-        {
-            lineX = stringRect.x;
-        }
-
-        for(charItr = startIdx; charItr < endIdx; charItr++)
-        {
-            leFont_GetGlyphInfo(font, str[charItr], &glyphInfo);
-
-            if(codePoint == ASCII_SPACE)
-            {
-
-            }
-            else
-            {
-                leFont_DrawGlyph(font,
-                                 &glyphInfo,
-                                 x + lineX + glyphInfo.bearingX,
-                                 stringY + (font->baseline - glyphInfo.bearingY),
-                                 clr,
-                                 a);
-            }
-
-            lineX += glyphInfo.advance;
-        }
-
-        stringY += font->height;
-    }
+    return LE_SUCCESS;
 }
 
-void leStringUtils_DrawCString(const char* str,
-                               const leFont* font,
-                               int32_t x,
-                               int32_t y,
-                               leHAlignment align,
-                               leColor clr,
-                               uint32_t a)
+static leResult decodeUTF8(uint8_t* val,
+                           uint32_t max,
+                           uint32_t* codePoint,
+                           uint32_t* size)
 {
-    uint32_t charItr, lines, lineItr;
-    uint32_t size;
-    leFontGlyph glyphInfo;
-    leChar codePoint = 0;
-    int32_t stringY, lineX;
-    leRect stringRect, lineRect;
-    uint32_t startIdx = 0;
-    uint32_t endIdx = 0;
+    uint32_t point = 0;
+    uint32_t length = 0;
 
-    if(str == NULL ||
-        font == NULL ||
-        font->glyphTable == NULL)
+    if((val[0] & 0x80) == 0x0)
     {
-        return;
+        length = 1;
+        point = val[0] & 0x7F;
     }
-
-    size = strlen(str);
-
-    if(size == 0)
-        return;
-
-    stringY = y;
-
-    lines = leStringUtils_GetLineCountCStr(str);
-
-    leStringUtils_GetRectCStr(str, font, &stringRect);
-
-    for(lineItr = 0; lineItr < lines; lineItr++)
+    else if((val[0] & 0xE0) == 0xC0)
     {
-        leStringUtils_GetLineIndicesCStr(str, lineItr, &startIdx, &endIdx);
-        leStringUtils_GetLineRectCStr(str, font, lineItr, &lineRect);
+        length = 2;
 
-        if(align == LE_HALIGN_CENTER)
-        {
-            lineX = stringRect.x + (stringRect.width / 2) - (lineRect.width / 2);
-        }
-        else if(align == LE_HALIGN_RIGHT)
-        {
-            lineX = stringRect.x + stringRect.width - lineRect.width;
-        }
-        else
-        {
-            lineX = stringRect.x;
-        }
+        if(max < 2)
+            return LE_FAILURE;
 
-        for(charItr = startIdx; charItr < endIdx; charItr++)
-        {
-            leFont_GetGlyphInfo(font, str[charItr], &glyphInfo);
-
-            if(codePoint == ASCII_SPACE)
-            {
-
-            }
-            else
-            {
-                leFont_DrawGlyph(font,
-                                 &glyphInfo,
-                                 x + lineX + glyphInfo.bearingX,
-                                 stringY + (font->baseline - glyphInfo.bearingY),
-                                 clr,
-                                 a);
-            }
-
-            lineX += glyphInfo.advance;
-        }
-
-        stringY += font->height;
+        point |= (val[0] & 0x1F) << 6;
+        point |= (val[1] & 0x3F);
     }
+    else if((val[0] & 0xF0) == 0xE0)
+    {
+        length = 3;
+
+        if(max < 3)
+            return LE_FAILURE;
+
+        point |= (val[0] & 0xF) << 12;
+        point |= (val[1] & 0x3F) << 6;
+        point |= (val[2] & 0x3F);
+    }
+    else if((val[0] & 0xF8) == 0xF0)
+    {
+        length = 4;
+
+        if(max < 4)
+            return LE_FAILURE;
+
+        point |= (val[0] & 0x7) << 18;
+        point |= (val[1] & 0x3F) << 12;
+        point |= (val[2] & 0x3F) << 6;
+        point |= (val[3] & 0x3F);
+    }
+    else if((val[0] & 0xFC) == 0xF8)
+    {
+        length = 5;
+
+        if(max < 5)
+            return LE_FAILURE;
+
+        point |= (val[0] & 0x3) << 24;
+        point |= (val[1] & 0x3F) << 18;
+        point |= (val[2] & 0x3F) << 12;
+        point |= (val[3] & 0x3F) << 6;
+        point |= (val[4] & 0x3F);
+    }
+    else if((val[0] & 0xFE) == 0xFC)
+    {
+        length = 6;
+
+        if(max < 6)
+            return LE_FAILURE;
+
+        point |= (val[0] & 0x1) << 30;
+        point |= (val[1] & 0x3F) << 24;
+        point |= (val[2] & 0x3F) << 18;
+        point |= (val[3] & 0x3F) << 12;
+        point |= (val[4] & 0x3F) << 6;
+        point |= (val[5] & 0x3F);
+    }
+    else
+        return LE_FAILURE;
+
+    *size = length;
+    *codePoint = point;
+
+    return LE_SUCCESS;
 }
+
+static leResult decodeUTF16(uint8_t* val,
+                            uint32_t max,
+                            uint32_t* codePoint,
+                            uint32_t* size)
+{
+    uint32_t point = 0;
+    uint32_t high, low;
+
+    if((val[1] & 0xFC) == 0xDC)
+    {
+        if(max < 4)
+            return LE_FAILURE;
+
+        *size = 4;
+
+        high = val[0] << 8;
+        high |= val[1];
+        high -= 0xD800;
+
+        low = val[2] << 8;
+        low |= val[3];
+        low -= 0xDC00;
+
+        point = ((high << 10) + low) + 0x10000;
+    }
+    else
+    {
+        if(max < 2)
+            return LE_FAILURE;
+
+        *size = 2;
+
+        point += val[0];
+        point += (val[1] << 8);
+    }
+
+    *codePoint = point;
+
+    return LE_SUCCESS;
+}
+
+typedef leResult (*decodeGlyph_FnPtr)(uint8_t*,
+                                      uint32_t,
+                                      uint32_t*,
+                                      uint32_t*);
+
+decodeGlyph_FnPtr decodeGlyph[] =
+    {
+        &decodeASCII,
+        &decodeUTF8,
+        &decodeUTF16
+    };
+
+leResult leDecodeCodePoint(uint32_t encoding,
+                           uint8_t* data,
+                           uint32_t max,
+                           uint32_t* codePoint,
+                           uint32_t* offset)
+{
+    return decodeGlyph[encoding](data, max, codePoint, offset);
+}
+
+

@@ -36,6 +36,7 @@
 #include "gfx/legato/common/legato_utils.h"
 #include "gfx/legato/renderer/legato_renderer.h"
 #include "gfx/legato/string/legato_string.h"
+#include "gfx/legato/string/legato_string_renderer.h"
 #include "gfx/legato/string/legato_stringutils.h"
 #include "gfx/legato/widget/legato_widget.h"
 
@@ -66,7 +67,6 @@ static void drawBackground(leBarGraphWidget* graph);
 static void drawBarGraph(leBarGraphWidget* graph);
 static void drawString(leBarGraphWidget* graph);
 static void drawBorder(leBarGraphWidget* graph);
-//static void waitString(leBarGraphWidget* btn);
 
 static void nextState(leBarGraphWidget* graph)
 {
@@ -126,7 +126,8 @@ static void nextState(leBarGraphWidget* graph)
 
 static void drawBackground(leBarGraphWidget* graph)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)graph);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)graph,
+                                                paintState.alpha);
     
     nextState(graph);
 }
@@ -138,6 +139,7 @@ static void drawTickLabelWithValue(leBarGraphWidget* graph,
                                    uint32_t a)
 {
     leRect textRect;
+    leCStringRenderRequest req;
 
     //Protect from overflow
     if (value < MAX_TICK_LABEL_VALUE)
@@ -168,13 +170,15 @@ static void drawTickLabelWithValue(leBarGraphWidget* graph,
         textRect.y = tickPoint.y;
     }
 
-    leStringUtils_DrawCString(paintState.asciibuff,
-                              graph->ticksLabelFont,
-                              textRect.x,
-                              textRect.y,
-                              LE_HALIGN_CENTER,
-                              graph->widget.scheme->text,
-                              a);
+    req.str = paintState.asciibuff;
+    req.font = graph->ticksLabelFont;
+    req.x = textRect.x;
+    req.y = textRect.y;
+    req.align = LE_HALIGN_CENTER;
+    req.color = graph->widget.scheme->text;
+    req.alpha = a;
+
+    leStringRenderer_DrawCString(&req);
 }
 
 static void determineOriginPoint(leBarGraphWidget* bar)
@@ -937,6 +941,17 @@ static void _leBarGraphWidget_GetCategoryTextRect(leBarGraphWidget* graph,
     drawRect->y = textRect->y;
 }
 
+#if LE_STREAMING_ENABLED == 1
+static void onStringStreamFinished(leStreamManager* strm)
+{
+    leBarGraphWidget* grph = (leBarGraphWidget*)strm->userData;
+
+    grph->widget.drawState = DRAW_STRING;
+
+    nextState(grph);
+}
+#endif
+
 static void drawString(leBarGraphWidget* graph)
 {
     leRect textRect, drawRect, graphRect;
@@ -968,11 +983,13 @@ static void drawString(leBarGraphWidget* graph)
                                 LE_HALIGN_LEFT,
                                 graph->widget.scheme->text,
                                 paintState.alpha);
-         
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-            if(graph->reader != NULL)
+
+#if LE_STREAMING_ENABLED == 1
+            if(leGetActiveStream() != NULL)
             {
-                graph->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitString;
+                leGetActiveStream()->onDone = onStringStreamFinished;
+                leGetActiveStream()->userData = graph;
+
                 graph->widget.drawState = WAIT_STRING;
 
                 return;
@@ -984,35 +1001,15 @@ static void drawString(leBarGraphWidget* graph)
     nextState(graph);
 }
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-static void waitString(leBarGraphWidget* graph)
-{
-    if(graph->reader->status != leREADER_STATUS_FINISHED)
-    {
-        graph->reader->run(graph->reader);
-        
-        return;
-    }
-    
-    // free the reader
-    graph->reader->memIntf->heap.free(graph->reader);
-    graph->reader = NULL;
-    
-    graph->widget.drawState = DRAW_STRING;
-    
-    nextState(graph);
-}
-#endif
-
 static void drawBorder(leBarGraphWidget* graph)
 {    
     if(graph->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)graph);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)graph, paintState.alpha);
     }
     else if(graph->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)graph);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)graph, paintState.alpha);
     }
     
     nextState(graph);

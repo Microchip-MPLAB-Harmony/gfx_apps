@@ -115,7 +115,8 @@ static void nextState(lePieChartWidget* chart)
 
 static void drawBackground(lePieChartWidget* chart)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)chart);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)chart,
+                                                paintState.alpha);
     
     nextState(chart);
 }
@@ -134,7 +135,7 @@ static void drawSliceLabel(lePieChartWidget* chart,
     //Protect from overflow
     if (value < MAX_TICK_LABEL_VALUE)
     {
-        sprintf(strbuff, "%d", value);
+        sprintf(strbuff, "%d", (int)value);
     }
     else
     {
@@ -369,11 +370,13 @@ static void drawBorder(lePieChartWidget* chart)
 {    
     if(chart->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)chart);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)chart,
+                                                    paintState.alpha);
     }
     else if(chart->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)chart);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)chart,
+                                                      paintState.alpha);
     }
     
     nextState(chart);

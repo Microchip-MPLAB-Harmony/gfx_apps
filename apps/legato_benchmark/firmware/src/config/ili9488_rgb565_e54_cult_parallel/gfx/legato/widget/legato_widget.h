@@ -360,7 +360,7 @@ typedef struct leWidgetEvent_TouchMove
 {
     leWidgetEvent event;
 
-    int32_t touchID;
+    uint32_t touchID;
     int32_t prevX;
     int32_t prevY;
     int32_t x;

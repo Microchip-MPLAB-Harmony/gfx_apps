@@ -63,6 +63,7 @@ typedef enum leEventID
     LE_EVENT_TOUCH_DOWN,
     LE_EVENT_TOUCH_UP,
     LE_EVENT_TOUCH_MOVE,
+    LE_EVENT_LANGUAGE_CHANGED,
     
     // widget events
     LE_WIDGET_EVENT_PAINT = 100,
@@ -70,7 +71,6 @@ typedef enum leEventID
     LE_WIDGET_EVENT_RESIZED,
     LE_WIDGET_EVENT_FOCUS_GAINED,
     LE_WIDGET_EVENT_FOCUS_LOST,
-    LE_WIDGET_EVENT_LANGUAGE_CHANGED,
 } leEventID;
 
 typedef struct leWidget leWidget;

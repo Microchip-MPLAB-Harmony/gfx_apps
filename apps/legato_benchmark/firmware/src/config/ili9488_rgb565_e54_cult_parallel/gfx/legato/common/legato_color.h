@@ -101,6 +101,7 @@ typedef uint32_t               leColor;
 typedef enum leColorMask
 {
     LE_COLOR_MASK_GS_8      = 0x1,
+    LE_COLOR_MASK_PALETTE   = 0x1,
     LE_COLOR_MASK_RGB_332   = 0x4,
     LE_COLOR_MASK_RGB_565   = 0x8,
     LE_COLOR_MASK_RGBA_5551 = 0x10,
@@ -126,15 +127,16 @@ typedef enum leColorMask
 typedef enum leColorMode
 {
     LE_COLOR_MODE_GS_8       = 0x0,
-    LE_COLOR_MODE_RGB_332,
-    LE_COLOR_MODE_RGB_565,
-    LE_COLOR_MODE_RGBA_5551,
-    LE_COLOR_MODE_RGB_888,
-    LE_COLOR_MODE_RGBA_8888,
-    LE_COLOR_MODE_ARGB_8888,
-    LE_COLOR_MODE_INDEX_1,
-    LE_COLOR_MODE_INDEX_4,
-    LE_COLOR_MODE_INDEX_8,
+    LE_COLOR_MODE_PALETTE    = LE_COLOR_MODE_GS_8,
+    LE_COLOR_MODE_RGB_332    = 0x1,
+    LE_COLOR_MODE_RGB_565    = 0x2,
+    LE_COLOR_MODE_RGBA_5551  = 0x3,
+    LE_COLOR_MODE_RGB_888    = 0x4,
+    LE_COLOR_MODE_RGBA_8888  = 0x5,
+    LE_COLOR_MODE_ARGB_8888  = 0x6,
+    LE_COLOR_MODE_INDEX_1    = 0x7,
+    LE_COLOR_MODE_INDEX_4    = 0x8,
+    LE_COLOR_MODE_INDEX_8    = 0x9,
     LE_COLOR_MODE_LAST = LE_COLOR_MODE_INDEX_8
 } leColorMode;
 
@@ -203,7 +205,7 @@ typedef struct leColorModeInfo
     
 } leColorModeInfo;
 
-LIB_EXPORT leColorModeInfo leColorInfo[LE_COLOR_MODE_COUNT];
+extern const leColorModeInfo leColorInfoTable[];
 
 // *****************************************************************************
 /* Structure:
@@ -240,8 +242,6 @@ typedef enum leColorName
 // Section: Routines
 // *****************************************************************************
 // *****************************************************************************
-
-LIB_EXPORT leColorModeInfo leColorModeInfoGet(leColorMode mode);
 
 // *****************************************************************************
 /* Function:

@@ -60,20 +60,6 @@ uint32_t leEvent_GetCount()
     return _state.events.size;
 }
 
-/*leResult leEvent_GetEvent(uint32_t index, leEvent* evt)
-{
-    leContext* context = leContext_GetActive();
-    
-    if(context == NULL || index >= _state.events.size)
-        return LE_FAILURE;
-
-    leList_GetAtIndex(
-
-    *evt = *_state.events.elements[index];
-
-    return LE_SUCCESS;
-}*/
-
 leResult leEvent_SetFilter(leEvent_FilterEvent cb)
 {
     _state.filter = cb;

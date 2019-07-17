@@ -101,7 +101,7 @@ static void nextState(leArcWidget* arc)
 
 static void drawBackground(leArcWidget* arc)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)arc);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)arc, paintState.alpha);
     
     nextState(arc);
 }
@@ -201,11 +201,13 @@ static void drawBorder(leArcWidget* arc)
 {    
     if(arc->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget *) arc);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget *) arc,
+                                                    paintState.alpha);
     }
     else if(arc->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget *) arc);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget *) arc,
+                                                      paintState.alpha);
     }
 
     nextState(arc);

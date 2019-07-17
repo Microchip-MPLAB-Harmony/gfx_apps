@@ -30,37 +30,30 @@ static struct WriteStage
     leRawDecodeStage base;
 } writeStage;
 
-static void stage_WriteNonAlpha(leRawDecodeStage* stage)
-{
-    // write color
-    leRenderer_PutPixel(stage->state->drawX,
-                        stage->state->drawY,
-                        stage->state->sourceColor);
-}
-
-static void stage_WriteRGBA5551(leRawDecodeStage* stage)
-{
-    // mask out based on alpha binary value
-    if(leColorChannelAlpha(stage->state->sourceColor,
-                           stage->state->source->buffer.mode) == 0)
-    {
-        return;
-    }
-
-    // write color
-    leRenderer_PutPixel(stage->state->drawX,
-                        stage->state->drawY,
-                        stage->state->sourceColor);
-}
-
-static void stage_WriteAlpha(leRawDecodeStage* stage)
+#if LE_ALPHA_BLENDING_ENABLED == 1
+static leResult stage_Write(leRawDecodeStage* stage)
 {
     // write color
     leRenderer_BlendPixel(stage->state->drawX,
                           stage->state->drawY,
                           stage->state->sourceColor,
                           stage->state->globalAlpha);
+
+    stage->state->currentStage = stage->state->readStage;
+
+    return LE_SUCCESS;
 }
+#else
+static void stage_Write(leRawDecodeStage* stage)
+{
+    // write color
+    leRenderer_PutPixel(stage->state->drawX,
+                        stage->state->drawY,
+                        stage->state->sourceColor);
+
+    stage->state->currentStage = stage->state->readStage;
+}
+#endif
 
 void _leRawImageDecoder_WriteInit(leRawDecodeState* state,
                                   leBool ignoreAlpha)
@@ -69,12 +62,12 @@ void _leRawImageDecoder_WriteInit(leRawDecodeState* state,
 
     writeStage.base.state = state;
 
-    if(ignoreAlpha == LE_FALSE &&
+    /*if(ignoreAlpha == LE_FALSE &&
        LE_COLOR_MODE_IS_ALPHA(state->source->buffer.mode) == LE_TRUE)
     {
         if(state->source->buffer.mode == LE_COLOR_MODE_RGBA_5551)
         {
-            writeStage.base.exec = (void*)stage_WriteRGBA5551;
+            writeStage.base.exec = (void*)stage_WriteNonAlpha;
         }
         else
         {
@@ -84,7 +77,9 @@ void _leRawImageDecoder_WriteInit(leRawDecodeState* state,
     else
     {
         writeStage.base.exec = (void*)stage_WriteNonAlpha;
-    }
+    }*/
+
+    writeStage.base.exec = (void*)stage_Write;
 
     state->writeStage = (void*)&writeStage;
 

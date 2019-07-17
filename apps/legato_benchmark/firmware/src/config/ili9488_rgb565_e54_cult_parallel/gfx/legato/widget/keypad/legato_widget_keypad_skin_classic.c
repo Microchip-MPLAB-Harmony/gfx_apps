@@ -96,7 +96,8 @@ static void nextState(leKeyPadWidget* pad)
 
 static void drawBackground(leKeyPadWidget* pad)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)pad);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)pad,
+                                                paintState.alpha);
     
     nextState(pad);
 }
@@ -105,11 +106,13 @@ static void drawBorder(leKeyPadWidget* pad)
 {
     if(pad->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)pad);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)pad,
+                                                    paintState.alpha);
     }
     else if(pad->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)pad);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)pad,
+                                                      paintState.alpha);
     }
     
     nextState(pad);

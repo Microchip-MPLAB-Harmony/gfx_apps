@@ -23,7 +23,7 @@
 
 #include "gfx/legato/image/raw/legato_imagedecoder_raw.h"
 
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
 
 #include "gfx/legato/renderer/legato_renderer.h"
 #include "gfx/legato/image/legato_image_utils.h"
@@ -32,261 +32,365 @@
 #define cache leRawImageDecoderScratchBuffer
 #endif
 
+#define RLE_HEADER_SIZE 2
+#define RLE_BLOCK_SIZE_MAX 8
+
 static struct StreamReadStage
 {
     leRawDecodeStage base;
 
-#if LE_ASSET_DECODER_USE_PIXEL_CACHE == 1
-    uint32_t cacheSize;
-    uint32_t cacheIndexStart;
-    uint32_t cacheIndexEnd;
-#else
-    uint32_t sourceColor;
-#endif
     void (*decode)(void);
 
     uint32_t mod;
+    uint32_t dataSize;
+    uint32_t imgBPP;
+    uint32_t imgOffs;
 
     lePixelBuffer readBuffer;
 
-    leBool mediaOpen;
+    uint32_t rleLengthSize;
+    uint32_t rleDataSize;
+    uint32_t rleLength;
+    uint32_t rleData;
+    uint32_t rleIndexOffset;
+    uint32_t rleBlockOffset;
+    uint32_t rleDecodeCount;
 
-    leAssetStreamReader reader;
+    uint8_t rleBlock[RLE_BLOCK_SIZE_MAX];
+
+    leBool stalled;
+
+    leStream stream;
 } streamReadStage;
 
-#if LE_ASSET_DECODER_USE_PIXEL_CACHE == 1
-static leResult requestImageData(leRawDecodeState* state)
+static leResult decode(struct StreamReadStage* stage);
+
+static void colorDataReady(leStream* strm)
 {
-    uint32_t index;
-    uint32_t offs;
-    void* address;
-    uint32_t modeSize;
-    uint32_t remaining;
+    streamReadStage.stalled = LE_FALSE;
 
-    streamReadStage.cacheIndexStart = state->sourceRect.x + state->imageCol +
-                      ((state->sourceRect.y + state->imageRow) * state->source->buffer.size.width);
-
-    offs = leGetOffsetFromIndexAndBPP(streamReadStage.cacheIndexStart,
-                                      leColorModeInfoGet(state->source->buffer.mode).bppOrdinal);
-
-    address = state->source->header.dataAddress;
-    address = (void*)(((uint8_t*)address) + offs);
-
-    modeSize = leColorModeInfoGet(state->source->buffer.mode).size;
-
-    // calculate how much data is left in the image
-    remaining = state->source->header.dataSize - offs;
-
-    // make sure we stay within the width of the cache, aligned to the mode pixel size in bytes
-    streamReadStage.cacheSize = (LE_ASSET_DECODER_CACHE_SIZE / modeSize);
-    streamReadStage.cacheSize *= modeSize;
-
-    // prevent buffer overrun
-    if(streamReadStage.cacheSize >= remaining)
-    {
-        streamReadStage.cacheSize = remaining / modeSize;
-        streamReadStage.cacheSize *= modeSize;
-    }
-
-    streamReadStage.cacheIndexEnd = streamReadStage.cacheIndexStart + (streamReadStage.cacheSize / modeSize) - 1;
-
-    streamReadStage.reader.state = LE_STREAM_WAITING;
-
-    return leApplication_MediaReadRequest(&streamReadStage.reader,
-                                          address,
-                                          streamReadStage.cacheSize,
-                                          cache);
+    // advance to the next stage
+    streamReadStage.base.state->currentStage = streamReadStage.base.state->maskStage;
 }
-#endif
 
-#if LE_ASSET_DECODER_USE_PIXEL_CACHE == 1
 static void colorDecode()
 {
-    if(streamReadStage.cacheIndexStart == streamReadStage.cacheIndexEnd ||
-       (streamReadStage.base.state->bufferIdx < streamReadStage.cacheIndexStart ||
-       streamReadStage.base.state->bufferIdx > streamReadStage.cacheIndexEnd))
-    {
-        requestImageData(streamReadStage.base.state);
+    uint32_t addr;
 
-        if(streamReadStage.reader.state == LE_STREAM_WAITING)
-        {
-            return;
-        }
+    // get the address of the desired pixel
+    addr = (uint32_t)streamReadStage.base.state->source->header.address +
+           streamReadStage.base.state->bufferIdx *
+               leColorInfoTable[streamReadStage.base.state->source->buffer.mode].size;
+
+    // read the pixel
+    leStream_Read(&streamReadStage.stream,
+                  addr,
+                  leColorInfoTable[streamReadStage.base.state->source->buffer.mode].size,
+                  (uint8_t*)&streamReadStage.base.state->sourceColor,
+                  colorDataReady);
+
+    // only stall out of the read is still pending
+    streamReadStage.stalled = !leStream_IsDataReady(&streamReadStage.stream);
+}
+
+static void rleHeaderDataReady(leStream* strm)
+{
+    // get the header values
+    streamReadStage.rleDataSize = (streamReadStage.rleLengthSize & 0xFF00) >> 8;
+    streamReadStage.rleLengthSize = (streamReadStage.rleLengthSize & 0xFF);
+
+    streamReadStage.base.exec = (void*)decode;
+
+    // resume processing
+    streamReadStage.stalled = LE_FALSE;
+}
+
+static void rleHeaderDecode(struct StreamReadStage* stage)
+{
+    // read the header data
+    leStream_Read(&streamReadStage.stream,
+                  (uint32_t)streamReadStage.base.state->source->header.address,
+                  RLE_HEADER_SIZE,
+                  (void*)&streamReadStage.rleLengthSize,
+                  rleHeaderDataReady);
+
+    // only stall out of the request wasn't handled immediately
+    streamReadStage.stalled = !leStream_IsDataReady(&streamReadStage.stream);
+}
+
+static void rleDataReady(leStream* strm)
+{
+    uint32_t i;
+
+    // calculate the RLE block values
+    streamReadStage.rleLength = 0;
+    streamReadStage.rleData = 0;
+
+    for(i = 0; i < streamReadStage.rleLengthSize; i++)
+    {
+        streamReadStage.rleLength |= streamReadStage.rleBlock[i] << (i * 8);
     }
 
-    // get a pixel from the cache
-    streamReadStage.base.state->sourceColor = lePixelBufferGet_Unsafe(&streamReadStage.readBuffer,
-                                                                      streamReadStage.base.state->bufferIdx - streamReadStage.cacheIndexStart,
-                                                                      0);
-}
-#else
-static void colorDecode()
-{
-    streamReadStage.base.state->sourceColor = 0;
+    for(i = 0; i < streamReadStage.rleDataSize; i++)
+    {
+        streamReadStage.rleData |= streamReadStage.rleBlock[i+streamReadStage.rleLengthSize] << (i * 8);
+    }
 
-    leApplication_MediaReadRequest(&streamReadStage.reader,
-                                   (void*)((uint32_t)streamReadStage.base.state->source->header.dataAddress +
-                                   streamReadStage.base.state->bufferIdx * leColorModeInfoGet(streamReadStage.base.state->source->buffer.mode).size),
-                                   leColorModeInfoGet(streamReadStage.base.state->source->buffer.mode).size,
-                                   (uint8_t*)&streamReadStage.base.state->sourceColor);
+    // get the color data
+    streamReadStage.base.state->sourceColor = streamReadStage.rleData;
 }
-#endif
+
+static void readRLEData()
+{
+    // don't increment on the first read
+    if(streamReadStage.rleDecodeCount > 0)
+    {
+        streamReadStage.rleIndexOffset += streamReadStage.rleLength;
+        streamReadStage.rleBlockOffset += 1;
+    }
+
+    // read the next RLE block
+    leStream_Read(&streamReadStage.stream,
+                 (uint32_t)(((uint8_t*)streamReadStage.stream.desc->address) +
+                     RLE_HEADER_SIZE +
+                     (streamReadStage.rleBlockOffset * (streamReadStage.rleLengthSize + streamReadStage.rleDataSize))),
+                 streamReadStage.rleLengthSize + streamReadStage.rleDataSize,
+                 (void*)&streamReadStage.rleBlock,
+                 rleDataReady);
+
+    streamReadStage.rleDecodeCount += 1;
+
+    // no need to stall out if the request was handled immediately
+    if(leStream_IsDataReady(&streamReadStage.stream) == LE_TRUE)
+    {
+        streamReadStage.stalled = LE_FALSE;
+    }
+}
 
 static void rleDecode()
 {
-}
-
-#if LE_ASSET_DECODER_USE_PIXEL_CACHE == 1
-static void indexDecode()
-{
-    if(streamReadStage.cacheIndexStart == streamReadStage.cacheIndexEnd ||
-        (streamReadStage.base.state->bufferIdx < streamReadStage.cacheIndexStart ||
-         streamReadStage.base.state->bufferIdx > streamReadStage.cacheIndexEnd))
+    // if the offset is contained in the current cache then just return the value
+    if(streamReadStage.rleDecodeCount > 0 &&
+        streamReadStage.base.state->bufferIdx >= streamReadStage.rleIndexOffset &&
+        streamReadStage.base.state->bufferIdx <= streamReadStage.rleIndexOffset + streamReadStage.rleLength)
     {
-        requestImageData(streamReadStage.base.state);
+        streamReadStage.stalled = LE_FALSE;
+    }
+    // request more data
+    else
+    {
+        streamReadStage.stalled = LE_TRUE;
 
-        if(streamReadStage.reader.state == LE_STREAM_WAITING)
+        while(streamReadStage.stalled == LE_TRUE)
         {
-            return;
+            readRLEData();
+
+            // waiting for data
+            if(streamReadStage.stalled == LE_TRUE)
+                break;
+
+            // found the appropriate RLE entry
+            if(streamReadStage.base.state->bufferIdx >= streamReadStage.rleIndexOffset &&
+               streamReadStage.base.state->bufferIdx <= streamReadStage.rleIndexOffset + streamReadStage.rleLength)
+            {
+                streamReadStage.stalled = LE_FALSE;
+            }
+            else
+            {
+                streamReadStage.stalled = LE_TRUE;
+            }
         }
     }
-
-    // get a pixel from the cache
-    streamReadStage.base.state->sourceColor = lePixelBufferGetIndex_Unsafe(&streamReadStage.readBuffer,
-                                                                           streamReadStage.base.state->bufferIdx -
-                                                                           streamReadStage.cacheIndexStart);
 }
-#else
+
+static void indexDataReady(leStream* strm)
+{
+    // get a pixel from the buffer
+    streamReadStage.base.state->sourceColor = lePixelBufferGetIndex_Unsafe(&streamReadStage.readBuffer,
+                                                                           streamReadStage.base.state->bufferIdx % streamReadStage.mod);
+
+    // resume processing
+    streamReadStage.stalled = LE_FALSE;
+}
+
 static void indexDecode()
 {
     uint32_t offs;
 
+    // calculate the offset of the desired pixel in bytes
     offs = leGetOffsetFromIndexAndBPP(streamReadStage.base.state->bufferIdx,
-                                      leColorModeInfoGet(streamReadStage.base.state->source->buffer.mode).bppOrdinal);
+                                      leColorInfoTable[streamReadStage.base.state->source->buffer.mode].bppOrdinal);
 
-    leApplication_MediaReadRequest((leAssetStreamReader*)&streamReadStage.reader,
-                                   (void*)((uint32_t)streamReadStage.base.state->source->header.dataAddress + offs),
-                                   leColorModeInfoGet(streamReadStage.base.state->source->buffer.mode).size,
-                                   (uint8_t*)&streamReadStage.sourceColor);
+    // read an index value
+    leStream_Read(&streamReadStage.stream,
+                  (uint32_t)streamReadStage.base.state->source->header.address + offs,
+                  leColorInfoTable[streamReadStage.base.state->source->buffer.mode].size,
+                  (uint8_t*)&streamReadStage.base.state->sourceColor,
+                  indexDataReady);
 
-    // get a pixel from the buffer
-    streamReadStage.base.state->sourceColor = lePixelBufferGetIndex_Unsafe(&streamReadStage.readBuffer,
-                                                                           streamReadStage.base.state->bufferIdx % streamReadStage.mod);
+    // stall out if the data read is still pending
+    streamReadStage.stalled = !leStream_IsDataReady(&streamReadStage.stream);
 }
-#endif
 
-static void indexRLEDecode()
+static void irleDataReady(leStream* strm)
 {
+    uint32_t i;
+
+    // calculate rle block length and get the data
+    streamReadStage.rleLength = 0;
+    streamReadStage.rleData = 0;
+
+    for(i = 0; i < streamReadStage.rleLengthSize; i++)
+    {
+        streamReadStage.rleLength |= streamReadStage.rleBlock[i] << (i * 8);
+    }
+
+    for(i = 0; i < streamReadStage.rleDataSize; i++)
+    {
+        streamReadStage.rleData |= streamReadStage.rleBlock[i+streamReadStage.rleLengthSize] << (i * 8);
+    }
+
+    // grab the index value
+    streamReadStage.base.state->sourceColor = leGetDiscreteValueAtIndex(streamReadStage.base.state->bufferIdx,
+                                                                        streamReadStage.rleData,
+                                                                        streamReadStage.base.state->source->buffer.mode);
 }
 
-static void decode(struct StreamReadStage* stage)
+static void readIRLEData()
+{
+    // only increment after the first read
+    if(streamReadStage.rleDecodeCount > 0)
+    {
+        streamReadStage.rleIndexOffset += streamReadStage.rleLength;
+        streamReadStage.rleBlockOffset += 1;
+    }
+
+    // get some RLE data
+    leStream_Read(&streamReadStage.stream,
+                  (uint32_t)(((uint8_t*)streamReadStage.stream.desc->address) +
+                      RLE_HEADER_SIZE +
+                      (streamReadStage.rleBlockOffset * (streamReadStage.rleLengthSize + streamReadStage.rleDataSize))),
+                  streamReadStage.rleLengthSize + streamReadStage.rleDataSize,
+                  (void*)&streamReadStage.rleBlock,
+                  irleDataReady);
+
+    streamReadStage.rleDecodeCount += 1;
+
+    // no need to stall out if the request was handled immediately
+    if(leStream_IsDataReady(&streamReadStage.stream) == LE_TRUE)
+    {
+        streamReadStage.stalled = LE_FALSE;
+    }
+}
+
+static void irleDecode()
+{
+    uint32_t offs;
+
+    // calculate byte offset of desired index
+    offs = leGetOffsetFromIndexAndBPP(streamReadStage.base.state->bufferIdx,
+                                      streamReadStage.imgBPP);
+
+    // if the offset is contained in the current cache then just return the value
+    if(streamReadStage.rleDecodeCount > 0 &&
+        offs >= streamReadStage.rleIndexOffset &&
+        offs < streamReadStage.rleIndexOffset + streamReadStage.rleLength)
+    {
+        streamReadStage.base.state->sourceColor = leGetDiscreteValueAtIndex(streamReadStage.base.state->bufferIdx,
+                                                                            streamReadStage.rleData,
+                                                                            streamReadStage.base.state->source->buffer.mode);
+
+        streamReadStage.stalled = LE_FALSE;
+    }
+    // request more data
+    else
+    {
+        streamReadStage.stalled = LE_TRUE;
+
+        while(streamReadStage.stalled == LE_TRUE)
+        {
+            readIRLEData();
+
+            // waiting for data
+            if(streamReadStage.stalled == LE_TRUE)
+                break;
+
+            // found the appropriate RLE entry
+            if(offs >= streamReadStage.rleIndexOffset &&
+                offs < streamReadStage.rleIndexOffset + streamReadStage.rleLength)
+            {
+                streamReadStage.stalled = LE_FALSE;
+            }
+            // get the next RLE block
+            else
+            {
+                streamReadStage.stalled = LE_TRUE;
+            }
+        }
+    }
+}
+
+static leResult decode(struct StreamReadStage* stage)
 {
     leRawDecodeState* state = stage->base.state;
 
-    if(streamReadStage.reader.state == LE_STREAM_WAITING)
-        return;
+    // no need to do anything if a data read is still pending
+    if(streamReadStage.stalled == LE_TRUE)
+        return LE_SUCCESS;
 
-    for(state->imageRow = 0; state->imageRow < state->sourceRect.height; state->imageRow++)
+    // determine if the image is finished
+    if(state->imageRow >= (uint32_t)state->sourceRect.height)
     {
-        state->drawY = state->renderY + state->imageRow;
-        state->sourceY = state->sourceRect.y + state->imageRow;
+        state->currentStage = NULL;
 
-        for(state->imageCol = 0; state->imageCol < state->sourceRect.width; state->imageCol++)
-        {
-            // calculate dest offset
-            state->drawX = state->renderX + state->imageCol;
-            state->sourceX = state->sourceRect.x + state->imageCol;
-
-            streamReadStage.base.state->bufferIdx = state->sourceX +
-                                                    (state->sourceY *
-                                                     state->source->buffer.size.width);
-
-            streamReadStage.decode();
-
-            state->maskStage->exec(state->maskStage);
-        }
-    }
-}
-
-static void exec(struct StreamReadStage* stage)
-{
-    if(leApplication_MediaOpenRequest((leAssetStreamReader*)stage->base.state) == LE_FAILURE)
-        return;
-
-    streamReadStage.mediaOpen = LE_TRUE;
-
-    if(LE_COLOR_MODE_IS_INDEX(streamReadStage.base.state->source->buffer.mode) == LE_TRUE)
-    {
-        stage->base.exec = (void*)indexDecode;
-    }
-    else
-    {
-
+        return LE_SUCCESS;
     }
 
-    stage->base.exec = (void*)decode;
+    // calculate read metrics
+    state->drawY = state->renderY + state->imageRow;
+    state->sourceY = state->sourceRect.y + state->imageRow;
 
-    if(LE_COLOR_MODE_IS_INDEX(streamReadStage.base.state->source->buffer.mode) == LE_TRUE)
+    state->drawX = state->renderX + state->imageCol;
+    state->sourceX = state->sourceRect.x + state->imageCol;
+
+    streamReadStage.base.state->bufferIdx = state->sourceX +
+                                            (state->sourceY *
+                                             state->source->buffer.size.width);
+
+    // attempt to decode a pixel value
+    streamReadStage.decode();
+
+    // stall out if a data read is pending
+    if(streamReadStage.stalled == LE_TRUE)
+        return LE_SUCCESS;
+
+    // draw the pixel and increment
+    state->currentStage = state->maskStage;
+
+    if(state->imageCol < (uint32_t)state->sourceRect.width - 1)
     {
-        if(streamReadStage.base.state->source->format == LE_IMAGE_FORMAT_RAW)
-        {
-            streamReadStage.decode = indexDecode;
-        }
-        else
-        {
-            streamReadStage.decode = indexRLEDecode;
-        }
+        state->imageCol += 1;
     }
     else
     {
-        if(streamReadStage.base.state->source->format == LE_IMAGE_FORMAT_RAW)
-        {
-            streamReadStage.decode = colorDecode;
-        }
-        else
-        {
-            streamReadStage.decode = rleDecode;
-        }
+        state->imageCol = 0;
+        state->imageRow += 1;
     }
 
-    stage->base.exec((void*)stage);
+    return LE_SUCCESS;
 }
 
 static void cleanup(struct StreamReadStage* stage)
 {
-    if(streamReadStage.mediaOpen == LE_TRUE)
-    {
-        leApplication_MediaCloseRequest((leAssetStreamReader *) stage->base.state);
-    }
+    leStream_Close(&streamReadStage.stream);
 }
 
-#if LE_ASSET_STREAMING_ENABLED == 1
-static void readerExec(leAssetStreamReader* reader)
-{
-    if(streamReadStage.reader.state == LE_STREAM_READY ||
-        streamReadStage.reader.state == LE_STREAM_WAITING)
-    {
-        streamReadStage.base.exec((void*)&streamReadStage);
-    }
-}
-
-static void readerDataReady(leAssetStreamReader* reader)
-{
-    if(streamReadStage.reader.state == LE_STREAM_WAITING)
-    {
-        streamReadStage.reader.state = LE_STREAM_DATAREADY;
-    }
-}
-
-static void readerAbort(leAssetStreamReader* reader)
-{
-    streamReadStage.reader.state = LE_STREAM_ABORT;
-}
-#endif
-
-void _leRawImageDecoder_ReadStreamInit(leRawDecodeState* state)
+leResult _leRawImageDecoder_ReadStreamInit(leRawDecodeState* state)
 {
     memset(&streamReadStage, 0, sizeof(streamReadStage));
+
+    state->imageRow = 0;
+    state->imageCol = 0;
 
 #if LE_ASSET_DECODER_USE_PIXEL_CACHE == 0
     if(state->source->buffer.mode == LE_COLOR_MODE_INDEX_1)
@@ -301,37 +405,66 @@ void _leRawImageDecoder_ReadStreamInit(leRawDecodeState* state)
     {
         streamReadStage.mod = 1;
     }
+
+    leStream_Init(&streamReadStage.stream,
+                  (leStreamDescriptor*)state->source,
+                  0,
+                  NULL,
+                  NULL);
+#else
+    leStream_Init(&streamReadStage.stream,
+                  (struct leStreamDescriptor*)state->source,
+                  LE_ASSET_DECODER_CACHE_SIZE,
+                  leRawImageDecoderScratchBuffer,
+                  NULL);
 #endif
 
-    streamReadStage.reader.asset = (leAssetHeader*)state->source;
-    streamReadStage.reader.exec = (void*)readerExec;
-    streamReadStage.reader.dataReady = (void*)readerDataReady;
-    streamReadStage.reader.abort = (void*)readerAbort;
-    streamReadStage.reader.status = LE_READER_STATUS_READY;
-    streamReadStage.reader.state = LE_STREAM_READY;
-    streamReadStage.reader.result = 0;
-    streamReadStage.reader.userData = NULL;
-    streamReadStage.reader.onFinished = NULL;
+    if(leStream_Open(&streamReadStage.stream) == LE_FAILURE)
+    {
+        return LE_FAILURE;
+    }
 
     streamReadStage.base.state = state;
-    streamReadStage.base.exec = (void*)exec;
     streamReadStage.base.cleanup = (void*)cleanup;
+    streamReadStage.base.exec = (void*)decode;
 
-#if LE_ASSET_DECODER_USE_PIXEL_CACHE == 1
-    lePixelBufferCreate(LE_ASSET_DECODER_CACHE_SIZE / leColorModeInfoGet(state->source->buffer.mode).size,
-                        1,
-                        state->source->buffer.mode,
-                        cache,
-                        &streamReadStage.readBuffer);
-#else
-    lePixelBufferCreate(leColorModeInfoGet(state->source->buffer.mode).size,
-                        1,
-                        state->source->buffer.mode,
-                        &streamReadStage.sourceColor,
-                        &streamReadStage.readBuffer);
-#endif
+    streamReadStage.dataSize = leColorInfoTable[state->source->buffer.mode].size;
+    streamReadStage.imgBPP = leColorInfoTable[state->source->buffer.mode].bppOrdinal;
+
+    if(LE_COLOR_MODE_IS_INDEX(streamReadStage.base.state->source->buffer.mode) == LE_TRUE)
+    {
+        if(streamReadStage.base.state->source->format == LE_IMAGE_FORMAT_RAW)
+        {
+            lePixelBufferCreate(leColorInfoTable[state->source->buffer.mode].size,
+                                1,
+                                state->source->buffer.mode,
+                                &streamReadStage.base.state->sourceColor,
+                                &streamReadStage.readBuffer);
+
+            streamReadStage.decode = (void*)indexDecode;
+        }
+        else
+        {
+            streamReadStage.decode = (void*)irleDecode;
+            streamReadStage.base.exec = (void*)rleHeaderDecode;
+        }
+    }
+    else
+    {
+        if(streamReadStage.base.state->source->format == LE_IMAGE_FORMAT_RAW)
+        {
+            streamReadStage.decode = (void*)colorDecode;
+        }
+        else
+        {
+            streamReadStage.decode = (void*)rleDecode;
+            streamReadStage.base.exec = (void*)rleHeaderDecode;
+        }
+    }
 
     state->readStage = (void*)&streamReadStage;
+
+    return LE_SUCCESS;
 }
 
 #endif

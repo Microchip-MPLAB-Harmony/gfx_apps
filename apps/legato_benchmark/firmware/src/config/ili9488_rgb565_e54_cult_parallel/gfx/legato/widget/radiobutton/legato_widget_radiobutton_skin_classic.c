@@ -43,11 +43,11 @@ enum
     DONE = LE_WIDGET_DRAW_STATE_DONE,
     DRAW_BACKGROUND,
     DRAW_IMAGE,
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
     WAIT_IMAGE,
 #endif
     DRAW_STRING,
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
     WAIT_STRING,
 #endif
     DRAW_BORDER,
@@ -68,9 +68,9 @@ void _leRadioButtonWidget_GetImageRect(const leRadioButtonWidget* btn,
     imgRect->x = 0;
     imgRect->y = 0;
     
-    if(btn->text != NULL)
+    if(btn->string != NULL)
     {
-        btn->text->fn->getRect(btn->text, &textRect);
+        btn->string->fn->getRect(btn->string, &textRect);
     }
     else
     {
@@ -135,9 +135,9 @@ void _leRadioButtonWidget_GetTextRect(leRadioButtonWidget* btn,
     
     bounds = btn->fn->localRect(btn);
     
-    if(btn->text != NULL)
+    if(btn->string != NULL)
     {
-        btn->text->fn->getRect(btn->text, textRect);
+        btn->string->fn->getRect(btn->string, textRect);
     }
     else
     {
@@ -229,7 +229,7 @@ static void nextState(leRadioButtonWidget* btn)
         }
         case DRAW_IMAGE:
         {            
-            if(btn->text != NULL)
+            if(btn->string != NULL)
             {
                 btn->widget.drawState = DRAW_STRING;
                 btn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawString;
@@ -468,15 +468,16 @@ static void drawCircleArcs(leRadioButtonWidget* btn,
 
 static void drawBackground(leRadioButtonWidget* btn)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)btn);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)btn,
+                                                paintState.alpha);
 
     nextState(btn);
 }
 
-#if LE_ASSET_STREAMING_ENABLED == 1
-static void onImageStreamFinished(leAssetStreamReader* rdr)
+#if LE_STREAMING_ENABLED == 1
+static void onImageStreamFinished(leStreamManager* dec)
 {
-    leRadioButtonWidget* btn = (leRadioButtonWidget*)rdr->userData;
+    leRadioButtonWidget* btn = (leRadioButtonWidget*)dec->userData;
 
     btn->widget.drawState = DRAW_IMAGE;
 
@@ -519,11 +520,11 @@ static void drawImage(leRadioButtonWidget* btn)
                      imgRect.y,
                      paintState.alpha);
 
-#if LE_ASSET_STREAMING_ENABLED == 1
-        if(leGetReader() != NULL)
+#if LE_STREAMING_ENABLED == 1
+        if(leGetActiveStream() != NULL)
         {
-            leGetReader()->onFinished = onImageStreamFinished;
-            leGetReader()->userData = btn;
+            leGetActiveStream()->onDone = onImageStreamFinished;
+            leGetActiveStream()->userData = btn;
 
             btn->widget.drawState = WAIT_IMAGE;
 
@@ -535,24 +536,13 @@ static void drawImage(leRadioButtonWidget* btn)
     nextState(btn);
 }
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-static void waitImage(leRadioButtonWidget* btn)
+#if LE_STREAMING_ENABLED == 1
+static void onStringStreamFinished(leStreamManager* strm)
 {
-    if(btn->reader->status != GFXU_READER_STATUS_FINISHED)
-    {
-        btn->reader->run(btn->reader);
+    leRadioButtonWidget* btn = (leRadioButtonWidget*)strm->userData;
 
-        return;
-    }
-    else
-    {
-        // free the reader
-        btn->reader->memIntf->heap.free(btn->reader);
-        btn->reader = NULL;
-    }
-            
-    btn->widget.drawState = DRAW_IMAGE;
-    
+    btn->widget.drawState = DRAW_STRING;
+
     nextState(btn);
 }
 #endif
@@ -563,55 +553,39 @@ static void drawString(leRadioButtonWidget* btn)
     
     _leRadioButtonWidget_GetTextRect(btn, &textRect, &drawRect);
         
-    btn->text->fn->_draw(btn->text,
+    btn->string->fn->_draw(btn->string,
                          textRect.x,
                          textRect.y,
                          LE_HALIGN_CENTER,
                          btn->widget.scheme->text,
                          paintState.alpha);
-        
-#if LE_EXTERNAL_STREAMING_ENABLED == 1                       
-    if(btn->reader != NULL)
-    {
-        btn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitString;
-        btn->widget.drawState = WAIT_STRING;
-    
-        return;
-    }
-#endif
-    
-    nextState(btn);
-}
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-static void waitString(leRadioButtonWidget* btn)
-{
-    if(btn->reader->status != GFXU_READER_STATUS_FINISHED)
+#if LE_STREAMING_ENABLED == 1
+    if(leGetActiveStream() != NULL)
     {
-        btn->reader->run(btn->reader);
-        
+        leGetActiveStream()->onDone = onStringStreamFinished;
+        leGetActiveStream()->userData = btn;
+
+        btn->widget.drawState = WAIT_STRING;
+
         return;
     }
-    
-    // free the reader
-    btn->reader->memIntf->heap.free(btn->reader);
-    btn->reader = NULL;
-    
-    btn->widget.drawState = DRAW_STRING;
+#endif
     
     nextState(btn);
 }
-#endif
 
 static void drawBorder(leRadioButtonWidget* btn)
 {
     if(btn->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)btn);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)btn,
+                                                    paintState.alpha);
     }
     else if(btn->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)btn);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)btn,
+                                                      paintState.alpha);
     }
     
     nextState(btn);
@@ -631,7 +605,7 @@ void _leRadioButtonWidget_Paint(leRadioButtonWidget* btn)
         nextState(btn);
     }
 
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
     if(btn->widget.drawState == WAIT_STRING ||
        btn->widget.drawState == WAIT_IMAGE)
     {
@@ -647,7 +621,7 @@ void _leRadioButtonWidget_Paint(leRadioButtonWidget* btn)
         break;
 #endif
         
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
         if(btn->widget.drawState == WAIT_STRING ||
            btn->widget.drawState == WAIT_IMAGE)
             break;

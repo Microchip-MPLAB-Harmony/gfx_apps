@@ -39,17 +39,18 @@ const uint8_t ArialTinyAve_data[6] =
     0x34,0x4C,0x44,0x48,0x48,0x68,
 };
 
-leFont ArialTinyAve =
+leRasterFont ArialTinyAve =
 {
     {
-        LE_ASSET_TYPE_FONT, // asset type
-        LE_ASSET_LOCATION_ID_INTERNAL, // data location id
-        (void*)ArialTinyAve_data, // data address pointer
-        6, // data size
+        {
+            LE_STREAM_LOCATION_ID_INTERNAL, // data location id
+            (void*)ArialTinyAve_data, // data address pointer
+            6, // data size
+        },
+        LE_RASTER_FONT,
     },
     7,
     6,
     LE_FONT_BPP_1, // bits per pixel
     ArialTinyAve_glyphs, // glyph table
-    ArialTinyAve_data, // font data
 };

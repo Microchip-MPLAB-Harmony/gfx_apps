@@ -1,11 +1,11 @@
 #include "gfx/legato/image/raw/legato_imagedecoder_raw.h"
 
-#include "gfx/legato/asset/legato_palette.h"
 #include "gfx/legato/core/legato_state.h"
+#include "gfx/legato/image/legato_palette.h"
 #include "gfx/legato/memory/legato_memory.h"
 #include "gfx/legato/renderer/legato_renderer.h"
 
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
 
 #if LE_ASSET_DECODER_USE_PIXEL_CACHE == 1
 uint8_t leRawImageDecoderScratchBuffer[LE_ASSET_DECODER_CACHE_SIZE];
@@ -28,12 +28,12 @@ uint8_t leRawImageDecoderBlendBuffer[LE_ASSET_DECODER_CACHE_SIZE];
 static leImageDecoder decoder;
 static leRawDecodeState state;
 
-void _leRawImageDecoder_ReadInternalInit(leRawDecodeState* state);
-void _leRawImageDecoder_MaskInternalInit(leRawDecodeState* state);
-void _leRawImageDecoder_PaletteInternalInit(leRawDecodeState* state);
-void _leRawImageDecoder_ConvertInit(leRawDecodeState* state);
-void _leRawImageDecoder_BlendInternalInit(leRawDecodeState* state);
-void _leRawImageDecoder_WriteInit(leRawDecodeState* state, leBool ignoreAlpha);
+leResult _leRawImageDecoder_ReadInternalInit(leRawDecodeState* state);
+leResult _leRawImageDecoder_MaskInternalInit(leRawDecodeState* state);
+leResult _leRawImageDecoder_PaletteInternalInit(leRawDecodeState* state);
+leResult _leRawImageDecoder_ConvertInit(leRawDecodeState* state);
+leResult _leRawImageDecoder_BlendInternalInit(leRawDecodeState* state);
+leResult _leRawImageDecoder_WriteInit(leRawDecodeState* state, leBool ignoreAlpha);
 
 static leBool _supportsImage(const leImage* img)
 {
@@ -49,16 +49,14 @@ static leResult _draw(const leImage* img,
 {
     lePixelBuffer paletteBuffer;
 
-#if LE_ASSET_STREAMING_ENABLED == 1
-    if(state.mode != LE_RAW_MODE_NONE || leGetReader() != NULL)
+#if LE_STREAMING_ENABLED == 1
+    if(state.mode != LE_RAW_MODE_NONE)
         return LE_FAILURE;
 #endif
 
     memset(&state, 0, sizeof(leRawDecodeState));
 
     state.mode = LE_RAW_MODE_DRAW;
-
-
 
     state.source = img;
     state.sourceRect = *srcRect;
@@ -69,25 +67,26 @@ static leResult _draw(const leImage* img,
     // init the palette buffer
     if(LE_COLOR_MODE_IS_INDEX(state.source->buffer.mode) == LE_TRUE &&
        state.source->palette != NULL &&
-       state.source->palette->header.dataAddress != NULL)
+       state.source->palette->header.address != NULL)
     {
         lePixelBufferCreate(state.source->palette->colorCount,
                             1,
                             state.source->palette->colorMode,
-                            state.source->palette->header.dataAddress,
+                            state.source->palette->header.address,
                             &paletteBuffer);
     }
 
-    _leRawImageDecoder_ReadInternalInit(&state);
-    _leRawImageDecoder_MaskInternalInit(&state);
-    _leRawImageDecoder_PaletteInternalInit(&state);
-    _leRawImageDecoder_BlendInternalInit(&state);
-    _leRawImageDecoder_ConvertInit(&state);
-    _leRawImageDecoder_WriteInit(&state, LE_FALSE);
+    if(_leRawImageDecoder_ReadInternalInit(&state) == LE_FAILURE ||
+       _leRawImageDecoder_MaskInternalInit(&state) == LE_FAILURE ||
+       _leRawImageDecoder_PaletteInternalInit(&state) == LE_FAILURE ||
+       _leRawImageDecoder_BlendInternalInit(&state) == LE_FAILURE ||
+       _leRawImageDecoder_ConvertInit(&state) == LE_FAILURE ||
+       _leRawImageDecoder_WriteInit(&state, LE_FALSE) == LE_FAILURE)
+    {
+        return LE_FAILURE;
+    }
 
-#if LE_ASSET_STREAMING_ENABLED == 1
-    state.currentStage = 0;
-#endif
+    state.currentStage = state.readStage;
 
     return LE_SUCCESS;
 }
@@ -148,22 +147,77 @@ static leResult _resize(const leImage* src,
 }
 #endif
 
+static void _free(void)
+{
+    if(state.mode != LE_RAW_MODE_NONE)
+    {
+        state.mode = LE_RAW_MODE_NONE;
+
+        if(state.readStage->cleanup != NULL)
+        {
+            state.readStage->cleanup(state.readStage);
+        }
+
+        if(state.maskStage->cleanup != NULL)
+        {
+            state.readStage->cleanup(state.maskStage);
+        }
+
+        if(state.paletteStage->cleanup != NULL)
+        {
+            state.readStage->cleanup(state.paletteStage);
+        }
+
+        if(state.blendStage->cleanup != NULL)
+        {
+            state.readStage->cleanup(state.blendStage);
+        }
+
+        if(state.convertStage->cleanup != NULL)
+        {
+            state.readStage->cleanup(state.convertStage);
+        }
+
+        if(state.writeStage->cleanup != NULL)
+        {
+            state.readStage->cleanup(state.writeStage);
+        }
+
+#if LE_STREAMING_ENABLED == 1
+        if(leGetState()->activeStream == (leStreamManager*)&state)
+        {
+            leGetState()->activeStream = NULL;
+        }
+#endif
+    }
+}
+
 static void _exec(void)
 {
     if(state.mode == LE_RAW_MODE_NONE)
         return;
 
-    state.readStage->exec(state.readStage);
+#if LE_STREAMING_ENABLED == 1
+    if(leGetActiveStream() != NULL)
+        return;
+
+    leGetState()->activeStream = (leStreamManager*)&state;
+#endif
+
+    while(state.currentStage != NULL)
+    {
+        if(state.currentStage->exec(state.currentStage) == LE_FAILURE)
+        {
+            return;
+        }
+    }
+
+    _free();
 }
 
 static leBool _isDone(void)
 {
-    return LE_TRUE;
-}
-
-static void _free(void)
-{
-    state.mode = LE_RAW_MODE_NONE;
+    return state.currentStage == NULL;
 }
 
 leImageDecoder* _leRawImageDecoder_Init(void)

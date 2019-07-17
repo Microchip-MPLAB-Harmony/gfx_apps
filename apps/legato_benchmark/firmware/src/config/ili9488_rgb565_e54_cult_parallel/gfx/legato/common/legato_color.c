@@ -23,7 +23,7 @@
 
 #include "gfx/legato/common/legato_color.h"
 
-LIB_EXPORT leColorModeInfo leColorInfo[] =
+const leColorModeInfo leColorInfoTable[] =
 {
     
     {1,8,  LE_BPP8,  {0x0,0x0,0x0,0x0},{0x0,0x0,0x0,0x0}},                        // LE_COLOR_MODE_GS_8
@@ -38,24 +38,19 @@ LIB_EXPORT leColorModeInfo leColorInfo[] =
     {1,8,  LE_BPP8,  {0x0,0x0,0x0,0x0},{0x0,0x0,0x0,0x0}},                        // LE_COLOR_MODE_INDEX_8
 };
 
-leColorModeInfo leColorModeInfoGet(leColorMode mode)
-{
-    return leColorInfo[mode];
-}
-
 uint32_t leColorChannelRed(leColor clr, leColorMode mode)
 {
-    return (clr & leColorInfo[mode].mask.red) >> leColorInfo[mode].shift.red;
+    return (clr & leColorInfoTable[mode].mask.red) >> leColorInfoTable[mode].shift.red;
 }
 
 uint32_t leColorChannelGreen(leColor clr, leColorMode mode)
 {
-    return (clr & leColorInfo[mode].mask.green) >> leColorInfo[mode].shift.green;
+    return (clr & leColorInfoTable[mode].mask.green) >> leColorInfoTable[mode].shift.green;
 }
 
 uint32_t leColorChannelBlue(leColor clr, leColorMode mode)
 {
-    return (clr & leColorInfo[mode].mask.blue) >> leColorInfo[mode].shift.blue;
+    return (clr & leColorInfoTable[mode].mask.blue) >> leColorInfoTable[mode].shift.blue;
 }
 
 uint32_t leColorChannelAlpha(leColor clr, leColorMode mode)
@@ -63,7 +58,7 @@ uint32_t leColorChannelAlpha(leColor clr, leColorMode mode)
     if(mode == LE_COLOR_MODE_RGBA_5551 ||
        mode == LE_COLOR_MODE_RGBA_8888 ||
        mode == LE_COLOR_MODE_ARGB_8888)
-        return (clr & leColorInfo[mode].mask.alpha) >> leColorInfo[mode].shift.alpha;
+        return (clr & leColorInfoTable[mode].mask.alpha) >> leColorInfoTable[mode].shift.alpha;
     
     return 0xFF;
 }

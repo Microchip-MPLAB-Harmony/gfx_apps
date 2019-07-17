@@ -125,7 +125,7 @@ static void nextState(leTouchTestWidget* tch)
 
 static void drawBackground(leTouchTestWidget* tch)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)tch);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)tch, paintState.alpha);
     
     nextState(tch);
 }
@@ -158,7 +158,7 @@ static void drawLines(leTouchTestWidget* tch)
         clr = leColorLerp(c1,
                           c2,
                           per,
-                          leGetRenderState()->colorMode);
+                          LE_GLOBAL_COLOR_MODE);
 
         touchPnt = tch->pnts[j];
 
@@ -176,7 +176,7 @@ static void drawLines(leTouchTestWidget* tch)
         clr = leColorLerp(c1,
                           c2,
                           per,
-                          leGetRenderState()->colorMode);
+                          LE_GLOBAL_COLOR_MODE);
 
         leRenderer_VertLine(widgetRect.x + touchPnt.x,
                             widgetRect.y,
@@ -194,11 +194,11 @@ static void drawBorder(leTouchTestWidget* tch)
 {
     if(tch->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)tch);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)tch, paintState.alpha);
     }
     else if(tch->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)tch);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)tch, paintState.alpha);
     }
     
     nextState(tch);

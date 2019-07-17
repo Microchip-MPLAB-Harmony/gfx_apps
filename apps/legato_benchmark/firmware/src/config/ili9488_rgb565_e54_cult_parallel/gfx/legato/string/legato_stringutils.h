@@ -39,8 +39,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef LEGATO_STRINGUTILS_H
-#define LEGATO_STRINGUTILS_H
+#ifndef LE_STRINGUTILS_H
+#define LE_STRINGUTILS_H
 
 #include "gfx/legato/string/legato_string.h"
 
@@ -111,21 +111,10 @@ leResult leStringUtils_GetCharIndexAtPointCStr(const char* str,
                                                lePoint pt,
                                                uint32_t* charIdx);
 
-void leStringUtils_DrawString(const const leChar* str,
-                              uint32_t size,
-                              const leFont* fnt,
-                              int32_t x,
-                              int32_t y,
-                              leHAlignment align,
-                              leColor clr,
-                              uint32_t a);
+leResult leDecodeCodePoint(uint32_t encoding,
+                           uint8_t* data,
+                           uint32_t max,
+                           uint32_t* codePoint,
+                           uint32_t* offset);
 
-void leStringUtils_DrawCString(const char* str,
-                               const leFont* fnt,
-                               int32_t x,
-                               int32_t y,
-                               leHAlignment align,
-                               leColor clr,
-                               uint32_t a);
-
-#endif /* LEGATO_STRINGUTILS_H */
+#endif /* LE_STRINGUTILS_H */

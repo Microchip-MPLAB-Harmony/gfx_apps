@@ -23,15 +23,15 @@
 
 #include "gfx/legato/image/raw/legato_imagedecoder_raw.h"
 
-#include "gfx/legato/asset/legato_palette.h"
 #include "gfx/legato/common/legato_pixelbuffer.h"
 #include "gfx/legato/image/legato_image.h"
 #include "gfx/legato/image/legato_image_utils.h"
+#include "gfx/legato/image/legato_palette.h"
 #include "gfx/legato/memory/legato_memory.h"
 #include "gfx/legato/renderer/legato_renderer.h"
 
 
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
 
 #if LE_ASSET_DECODER_USE_PALETTE_CACHE == 1
 #define cache leRawImageDecoderPaletteScratchBuffer
@@ -52,7 +52,7 @@ static struct StreamPaletteStage
 
     leBool mediaOpen;
 
-    leAssetStreamReader reader;
+    leStream stream;
 } streamPaletteStage;
 
 #if LE_ASSET_DECODER_USE_PALETTE_CACHE == 1
@@ -101,7 +101,18 @@ static leResult requestImageData(leRawDecodeState* state)
 
 static void stage_lookup(struct StreamPaletteStage* stage)
 {
-    if(streamPaletteStage.reader.state == LE_STREAM_WAITING)
+}
+
+static void indexDataReady(leStream* strm)
+{
+    streamPaletteStage.base.state->currentStage = streamPaletteStage.base.state->convertStage;
+}
+
+static leResult exec(struct StreamPaletteStage* stage)
+{
+    uint32_t addr;
+
+    if(streamPaletteStage.stream.state == LE_STREAM_WAITING)
         return;
 
 #if LE_ASSET_DECODER_USE_PALETTE_CACHE == 1
@@ -113,7 +124,7 @@ static void stage_lookup(struct StreamPaletteStage* stage)
 
         if(streamPaletteStage.reader.state == LE_STREAM_WAITING)
         {
-            return;
+            return LE_FAILURE;
         }
     }
 
@@ -122,71 +133,37 @@ static void stage_lookup(struct StreamPaletteStage* stage)
                                                              streamPaletteStage.base.state->sourceColor - streamPaletteStage.cacheIndexStart,
                                                              0);
 #else
-    leApplication_MediaReadRequest((leAssetStreamReader*)&streamPaletteStage.reader,
+    /*leApplication_MediaReadRequest((leAssetStreamReader*)&streamPaletteStage.reader,
                                    (void*)((uint32_t)streamPaletteStage.base.state->source->palette->header.dataAddress +
                                        streamPaletteStage.base.state->sourceColor * stage->paletteSize),
                                    stage->paletteSize,
-                                   (uint8_t*)&streamPaletteStage.base.state->sourceColor);
+                                   (uint8_t*)&streamPaletteStage.base.state->sourceColor);*/
+
+    addr = (uint32_t)streamPaletteStage.base.state->source->palette->header.address +
+            streamPaletteStage.base.state->sourceColor *
+            stage->paletteSize;
+
+    leStream_Read(&streamPaletteStage.stream,
+                  addr,
+                  stage->paletteSize,
+                  (uint8_t*)&streamPaletteStage.base.state->sourceColor,
+                  indexDataReady);
+
 #endif
 
-    stage->base.state->blendStage->exec(stage->base.state->blendStage);
-}
-
-static void exec(struct StreamPaletteStage* stage)
-{
-    if(leApplication_MediaOpenRequest((leAssetStreamReader*)stage->base.state) == LE_FAILURE)
-        return;
-
-    streamPaletteStage.mediaOpen = LE_TRUE;
-
-    stage->base.exec = (void*)stage_lookup;
-
-    stage_lookup(stage);
+    return LE_SUCCESS;
 }
 
 static void cleanup(struct StreamPaletteStage* stage)
 {
-    if(streamPaletteStage.mediaOpen == LE_TRUE)
-    {
-        leApplication_MediaCloseRequest((leAssetStreamReader *) stage->base.state);
-    }
+    (void)stage;
+
+    leStream_Close(&streamPaletteStage.stream);
 }
 
-static void readerExec(leAssetStreamReader* reader)
-{
-    if(streamPaletteStage.reader.state == LE_STREAM_READY ||
-        streamPaletteStage.reader.state == LE_STREAM_WAITING)
-    {
-        streamPaletteStage.base.exec((void*)&streamPaletteStage);
-    }
-}
-
-static void readerDataReady(leAssetStreamReader* reader)
-{
-    if(streamPaletteStage.reader.state == LE_STREAM_WAITING)
-    {
-        streamPaletteStage.reader.state = LE_STREAM_DATAREADY;
-    }
-}
-
-static void readerAbort(leAssetStreamReader* reader)
-{
-    streamPaletteStage.reader.state = LE_STREAM_ABORT;
-}
-
-void _leRawImageDecoder_PaletteStreamInit(leRawDecodeState* state)
+leResult _leRawImageDecoder_PaletteStreamInit(leRawDecodeState* state)
 {
     memset(&streamPaletteStage, 0, sizeof(streamPaletteStage));
-
-    streamPaletteStage.reader.asset = (leAssetHeader*)state->source->palette;
-    streamPaletteStage.reader.exec = (void*)readerExec;
-    streamPaletteStage.reader.dataReady = (void*)readerDataReady;
-    streamPaletteStage.reader.abort = (void*)readerAbort;
-    streamPaletteStage.reader.status = LE_READER_STATUS_READY;
-    streamPaletteStage.reader.state = LE_STREAM_READY;
-    streamPaletteStage.reader.result = 0;
-    streamPaletteStage.reader.userData = NULL;
-    streamPaletteStage.reader.onFinished = NULL;
 
     streamPaletteStage.base.state = state;
     streamPaletteStage.base.exec = (void*)exec;
@@ -198,9 +175,21 @@ void _leRawImageDecoder_PaletteStreamInit(leRawDecodeState* state)
                         state->source->palette->colorMode,
                         cache,
                         &streamPaletteStage.cacheBuffer);
+
+    leStream_Init(&streamPaletteStage.stream,
+                  state->source,
+                  LE_ASSET_DECODER_CACHE_SIZE,
+                  leRawImageDecoderPaletteScratchBuffer,
+                  NULL);
+#else
+    leStream_Init(&streamPaletteStage.stream,
+                  (leStreamDescriptor*)state->source,
+                  0,
+                  NULL,
+                  NULL);
 #endif
 
-    streamPaletteStage.paletteSize = leColorModeInfoGet(state->source->palette->colorMode).size;
+    streamPaletteStage.paletteSize = leColorInfoTable[state->source->palette->colorMode].size;
 
     streamPaletteStage.base.exec = (void*)stage_lookup;
 
@@ -210,6 +199,8 @@ void _leRawImageDecoder_PaletteStreamInit(leRawDecodeState* state)
     {
         state->maskStage = state->paletteStage;
     }
+
+    return LE_SUCCESS;
 }
 
 #endif

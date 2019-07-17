@@ -257,10 +257,6 @@ leResult leInitialize(const leDisplayDriver* dispDriver)
                           dispDriver->getDisplayHeight());
     }
     
-    
-
-    //_state.activeScreen = -1;
-
     _initialized = LE_TRUE;
 
     return LE_SUCCESS;
@@ -280,25 +276,6 @@ void leShutdown()
         
         root->fn->_destructor(root);
     }
-        
-    /*for(idx = 0; idx < LE_MAX_SCREENS; idx++)
-    {
-        if(_state.screens[idx].used == LE_TRUE)
-        {
-            if(idx == _state.activeScreen)
-            {
-                _state.screens[idx].intf.hide(&_state.screens[idx].rootWidget);
-            
-                _state.activeScreen = -1;
-            }
-            
-            _state.screens[idx].intf.destroy(&_state.screens[idx].rootWidget);
-            
-            _state.screens[idx].rootWidget.fn->destructor(&_state.screens[idx].rootWidget);
-            
-            _state.screens[idx].used = LE_FALSE;
-        }
-    }*/
     
     leRenderer_Shutdown();
     leInput_Shutdown();
@@ -344,38 +321,32 @@ leResult leUpdate(uint32_t dt)
     
     updateWidgets(dt);
 
-#if LE_ASSET_STREAMING_ENABLED == 1
-    // there is an asset stream in progress, service that to completion
+#if LE_STREAMING_ENABLED == 1
+    // there is an active stream in progress, service that to completion
     // before painting anything else
-    if(_state.assetReader != NULL)
+    if(_state.activeStream != NULL)
     {
-        if(_state.assetReader->status == LE_READER_STATUS_FINISHED ||
-           _state.assetReader->status == LE_READER_STATUS_ABORTED ||
-           _state.assetReader->status == LE_READER_STATUS_FAILED)
+        if(_state.activeStream->isDone(_state.activeStream) == LE_TRUE)
         {
-            _state.assetReader = NULL;
-
-            leRenderer_Paint();
+            _state.activeStream = NULL;
         }
         else
         {
-            _state.assetReader->exec(_state.assetReader);
+            _state.activeStream->exec(_state.activeStream);
+
+            return LE_SUCCESS;
         }
     }
-    else
-    {
-        leRenderer_Paint();
-    }
-#else
-    leRenderer_Paint();
 #endif
+
+    leRenderer_Paint();
 
     return LE_SUCCESS;
 }
 
 leColorMode leGetColorMode()
 {
-    return leGetRenderState()->colorMode;
+    return LE_GLOBAL_COLOR_MODE;
 }
 
 leRect leGetDisplayRect()
@@ -400,103 +371,35 @@ uint32_t leGetStringLanguage()
     return _state.languageID;
 }
 
-/*static void signalLanguageChanging(leWidget* wgt)
+static void updateWidgetLanguage(leWidget* wgt)
 {
     uint32_t i;
     leWidget* child;
-    
-    // signal event
+
     wgt->fn->languageChangeEvent(wgt);
-    
+
     for(i = 0; i < wgt->children.size; i++)
     {
         child = wgt->children.values[i];
 
-        signalLanguageChanging(child);
+        updateWidgetLanguage(child);
     }
-}*/
-
-void leSetStringLanguage(uint32_t id)
-{   
-#if 0
-    leScreen* activeScreen;
-    leRect screenRect;
-    leLayer* layer;
-    uint32_t i;
-    
-    if(_leState.languageID == id)
-        return;
-        
-    activeScreen = leGetActive()->activeScreen;
-    
-    screenRect = leGetScreenRect();
-    
-    if(activeScreen == NULL)
-        return;
-        
-    // iterate over all qualifying layers and signal event
-    for(i = 0; i < LE_MAX_LAYERS; i++)
-    {
-        layer = activeScreen->layers[i];
-
-        if(layer == NULL ||
-           layer->widget.enabled == LE_FALSE ||
-           leRectIntersects(&screenRect, &layer->widget.rect) == LE_FALSE)
-            continue;
-            
-        signalLanguageChanging((leWidget*)layer);
-    }
-    
-    _activeContext->languageID = id;
-
-	// do it again after the change
-    for(i = 0; i < LE_MAX_LAYERS; i++)
-    {
-        layer = activeScreen->layers[i];
-
-        if(layer == NULL ||
-           layer->widget.enabled == LE_FALSE ||
-           leRectIntersects(&screenRect, &layer->widget.rect) == LE_FALSE)
-            continue;
-            
-        signalLanguageChanging((leWidget*)layer);
-    }
-#endif
 }
 
-void leRedrawAll()
+void leSetStringLanguage(uint32_t id)
 {
-#if 0
-    leScreen* activeScreen;
-    leLayer* layer;
-    leRect screenRect;
     uint32_t i;
-    
-    if(_activeContext == NULL)
-        return;
-        
-    activeScreen = leGetActive()->activeScreen;
-    
-    if(activeScreen == NULL)
-        return;
-        
-    screenRect = leGetScreenRect();
-        
-    // iterate over all qualifying layers and invalidate
-    for(i = 0; i < LE_MAX_LAYERS; i++)
-    {
-        layer = activeScreen->layers[i];
 
-        if(layer == NULL ||
-           layer->widget.enabled == LE_FALSE ||
-           leRectIntersects(&screenRect, &layer->widget.rect) == LE_FALSE)
-        {
-            continue;
-        }
-        
-        leWidget_Invalidate((leWidget*)layer);
+    if(_state.languageID == id)
+        return;
+
+    _state.languageID = id;
+
+    // iterate over all existing layers for update
+    for(i = 0; i < LE_LAYER_COUNT; i++)
+    {
+        updateWidgetLanguage(&_state.rootWidget[i]);
     }
-#endif
 }
 
 leScheme* leGetDefaultScheme()
@@ -562,88 +465,23 @@ leResult leSetEditWidget(leEditWidget* widget)
     return LE_SUCCESS;
 }
 
+void leRedrawAll()
+{
+    uint32_t layer;
+    leWidget* root;
+
+    for(layer = 0; layer < LE_LAYER_COUNT; layer++)
+    {
+        root = &_state.rootWidget[layer];
+
+        root->fn->invalidate(root);
+    }
+}
+
 leBool leIsDrawing()
 {
     return leGetRenderState()->frameState > LE_FRAME_PREFRAME;
 }
-
-#if 0
-leResult leSetScreen(leScreenIntf intf, uint32_t idx)
-{
-    if(_state.screens[idx].used == LE_TRUE)
-        return LE_FAILURE;
-    
-    leWidget_Constructor(&_state.screens[idx].rootWidget);
-    
-    _state.screens[idx].intf = intf;
-    _state.screens[idx].used = LE_TRUE;
-    _state.screens[idx].intf.initialize(&_state.screens[idx].rootWidget);
-        
-    return LE_SUCCESS;
-}
-
-leResult leClearScreen(uint32_t idx)
-{
-    if(idx == (uint32_t)_state.activeScreen)
-        return LE_FAILURE;
-        
-    if(_state.screens[idx].used == LE_FALSE)
-        return LE_FAILURE;
-        
-    _state.screens[idx].intf.destroy(&_state.screens[idx].rootWidget);
-    _state.screens[idx].used = LE_FALSE;
-    _state.screens[idx].rootWidget.fn->destructor(&_state.screens[idx].rootWidget);
-    
-    return LE_SUCCESS;
-}
-
-leWidget* leGetActiveScreenRoot()
-{
-    if(_state.activeScreen == -1)
-        return NULL;
-        
-    return &_state.screens[_state.activeScreen].rootWidget;
-}
-
-leWidget* leGetScreenRoot(uint32_t idx)
-{
-    if(_state.screens[idx].used == LE_FALSE)
-        return NULL;
-        
-    return &_state.screens[idx].rootWidget;
-}
-
-leResult leShowScreen(uint32_t idx)
-{
-    if(idx == (uint32_t)_state.activeScreen)
-        return LE_SUCCESS;
-        
-    if(_state.screens[idx].used == LE_FALSE)
-        return LE_FAILURE;
-        
-    if(_state.activeScreen != -1)
-    {
-        _state.screens[_state.activeScreen].intf.hide(&_state.screens[_state.activeScreen].rootWidget);
-        _state.activeScreen = -1;
-    }
-    
-    _state.activeScreen = idx;
-    _state.screens[idx].intf.show(&_state.screens[idx].rootWidget);
-}
-#endif
-/*
-uint32_t leGetRootWidgetCount(uint32_t reserved)
-{
-    return _state.rootWidgets.size;
-}
-
-leWidget* leGetRootWidget(uint32_t idx, uint32_t reserved)
-{
-    if(idx >= _state.rootWidgets.size)
-        return NULL;
-    
-    return _state.rootWidgets.values[idx];
-}*/
 
 leResult leAddRootWidget(leWidget* wgt,
                          uint32_t layer)
@@ -654,15 +492,6 @@ leResult leAddRootWidget(leWidget* wgt,
     leRenderer_DamageArea(&wgt->rect);
         
     return _state.rootWidget[layer].fn->addChild(&_state.rootWidget[layer], wgt);
-        
-    /*leArray_PushBack(&_state.rootWidgets, wgt);
-    
-    if(wgt->visible == LE_TRUE)
-    {
-        leRenderer_DamageArea(&wgt->rect);
-    }*/
-        
-    //return LE_SUCCESS;
 }
 
 leResult leRemoveRootWidget(leWidget* wgt, uint32_t layer)
@@ -682,16 +511,6 @@ leResult leRemoveRootWidget(leWidget* wgt, uint32_t layer)
     }
     
     return LE_FAILURE;
-    
-    /*if(leArray_Remove(&_state.rootWidgets, wgt) == LE_FAILURE)
-        return LE_FAILURE;*/
-        
-    /*if(wgt->visible == LE_TRUE)
-    {
-        leRenderer_DamageArea(&wgt->rect);
-    }*/
-    
-    //return LE_SUCCESS;
 }
 
 leBool leWidgetIsInScene(const leWidget* wgt)
@@ -719,32 +538,29 @@ leBool leWidgetIsInScene(const leWidget* wgt)
     return LE_FALSE;
 }
 
-#if LE_ASSET_STREAMING_ENABLED == 1
-leAssetStreamReader* leGetReader()
+#if LE_STREAMING_ENABLED == 1
+leStreamManager* leGetActiveStream()
 {
-    return _state.assetReader;
+    return _state.activeStream;
 }
 
-leResult leRunReader()
+leResult leRunActiveStream()
 {
-    if(_state.assetReader == NULL)
-        return LE_FAILURE;
-    
-    _state.assetReader->exec(_state.assetReader);
-    
-    return LE_SUCCESS;
-}
-
-void leAbortReader()
-{
-    if(_state.assetReader != NULL)
+    if(_state.activeStream != NULL)
     {
-        if(_state.assetReader->abort != NULL)
-        {
-            _state.assetReader->abort(_state.assetReader);
-        }
+        _state.activeStream->exec(_state.activeStream);
 
-        _state.assetReader = NULL;
+        return LE_SUCCESS;
+    }
+
+    return LE_FAILURE;
+}
+
+void leAbortActiveStream()
+{
+    if(_state.activeStream != NULL)
+    {
+        _state.activeStream->abort(_state.activeStream);
     }
 }
 

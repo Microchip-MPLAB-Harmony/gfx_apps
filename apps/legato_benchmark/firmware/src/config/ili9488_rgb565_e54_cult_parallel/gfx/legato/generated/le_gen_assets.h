@@ -215,7 +215,7 @@ extern leImage PIC32Logo;
  * Range Count:  1
  * Glyph Ranges: 0x30-0x39
 ***********************************/
-extern leFont ArialLarge;
+extern leRasterFont ArialLarge;
 
 /*********************************
  * Legato Font Asset
@@ -227,7 +227,7 @@ extern leFont ArialLarge;
  * Range Count:  1
  * Glyph Ranges: 0x30-0x39
 ***********************************/
-extern leFont ArialMed;
+extern leRasterFont ArialMed;
 
 /*********************************
  * Legato Font Asset
@@ -239,7 +239,7 @@ extern leFont ArialMed;
  * Range Count:  1
  * Glyph Ranges: 0x30-0x39
 ***********************************/
-extern leFont ArialSmall;
+extern leRasterFont ArialSmall;
 
 /*********************************
  * Legato Font Asset
@@ -263,7 +263,7 @@ extern leFont ArialSmall;
                  0x74-0x75
                  0x78-0x7A
 ***********************************/
-extern leFont ArialNarrow;
+extern leRasterFont ArialNarrow;
 
 /*********************************
  * Legato Font Asset
@@ -279,7 +279,7 @@ extern leFont ArialNarrow;
                  0x3C
                  0x3E
 ***********************************/
-extern leFont ArialNarrowMed;
+extern leRasterFont ArialNarrowMed;
 
 /*********************************
  * Legato Font Asset
@@ -306,7 +306,7 @@ extern leFont ArialNarrowMed;
                  0x72-0x75
                  0x77-0x7A
 ***********************************/
-extern leFont ArialTiny;
+extern leRasterFont ArialTiny;
 
 /*********************************
  * Legato Font Asset
@@ -329,7 +329,7 @@ extern leFont ArialTiny;
                  0x6C-0x70
                  0x72-0x74
 ***********************************/
-extern leFont ArialTitle;
+extern leRasterFont ArialTitle;
 
 /*********************************
  * Legato Font Asset
@@ -348,7 +348,7 @@ extern leFont ArialTitle;
                  0x72
                  0x75-0x76
 ***********************************/
-extern leFont ArialLittle;
+extern leRasterFont ArialLittle;
 
 /*********************************
  * Legato Font Asset
@@ -360,7 +360,7 @@ extern leFont ArialLittle;
  * Range Count:  1
  * Glyph Ranges: 0x61
 ***********************************/
-extern leFont ArialTinyAve;
+extern leRasterFont ArialTinyAve;
 
 /*****************************************************************************
  * Legato String Table

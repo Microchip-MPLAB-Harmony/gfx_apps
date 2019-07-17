@@ -21,6 +21,7 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+#include <gfx/legato/legato.h>
 #include "gfx/legato/widget/radiobutton/legato_widget_radiobutton.h"
 
 #if LE_RADIOBUTTON_WIDGET_ENABLED == 1
@@ -71,7 +72,7 @@ static void _invalidateTextRect(const leRadioButtonWidget* _this)
 
 static void _invalidateContents(const leRadioButtonWidget* _this)
 {
-    if(_this->text != NULL)
+    if(_this->string != NULL)
     {
         _invalidateTextRect(_this);
     }
@@ -79,9 +80,21 @@ static void _invalidateContents(const leRadioButtonWidget* _this)
     _invalidateImageRect(_this);
 }
 
-static void languageChanging(leRadioButtonWidget* _this)
+static void stringPreinvalidate(const leString* str,
+                                leRadioButtonWidget* btn)
 {
-    if(_this->text != NULL)
+    _invalidateTextRect(btn);
+}
+
+static void stringInvalidate(const leString* str,
+                             leRadioButtonWidget* btn)
+{
+    _invalidateTextRect(btn);
+}
+
+static void handleLanguageChangeEvent(leRadioButtonWidget* _this)
+{
+    if(_this->string != NULL)
     {
         _invalidateContents(_this);
     }
@@ -103,8 +116,9 @@ void leRadioButtonWidget_Constructor(leRadioButtonWidget* _this)
 
     _this->widget.borderType = LE_WIDGET_BORDER_NONE;
 
-    _this->text = NULL;
-    
+    _this->string = NULL;
+
+    _this->imagePosition = LE_RELATIVE_POSITION_LEFTOF;
     _this->imageMargin = DEFAULT_IMAGE_MARGIN;
 
     _this->widget.halign = LE_HALIGN_LEFT;
@@ -113,6 +127,11 @@ void leRadioButtonWidget_Constructor(leRadioButtonWidget* _this)
     _this->selectedImage = NULL;
     _this->unselectedImage = NULL;
     _this->circleButtonSize = DEFAULT_CIRCLE_SIZE;
+
+    _this->selectedEvent = NULL;
+    _this->deselectedEvent = NULL;
+
+    _this->group = NULL;
 }
 
 void _leWidget_Destructor(leWidget* wgt);
@@ -124,7 +143,7 @@ static void destructor(leRadioButtonWidget* _this)
         leRadioButtonGroup_RemoveButton(_this->group, _this);   
     }
     
-    _this->text = NULL;
+    _this->string = NULL;
     
     _leWidget_Destructor((leWidget*)_this);
 }
@@ -227,19 +246,40 @@ static void deselect(leRadioButtonWidget* _this)
     _invalidateContents(_this);
 }
 
-static leString* getText(const leRadioButtonWidget* _this)
+static leString* getString(const leRadioButtonWidget* _this)
 {
     LE_ASSERT_THIS();
     
-    return (leString*)_this->text;
+    return (leString*)_this->string;
 }
 
-static leResult setText(leRadioButtonWidget* _this,
-                        const leString* str)
+static leResult setString(leRadioButtonWidget* _this,
+                          const leString* str)
 {
     LE_ASSERT_THIS();
-    
-    _this->text = str;    
+
+    if(_this->string != NULL)
+    {
+        _invalidateContents(_this);
+
+        _this->string->fn->setPreInvalidateCallback((leString*)_this->string,
+                                                    NULL,
+                                                    NULL);
+
+        _this->string->fn->setInvalidateCallback((leString*)_this->string,
+                                                 NULL,
+                                                 NULL);
+    }
+
+    _this->string = str;
+
+    _this->string->fn->setPreInvalidateCallback((leString*)_this->string,
+                                                (void*)stringPreinvalidate,
+                                                _this);
+
+    _this->string->fn->setInvalidateCallback((leString*)_this->string,
+                                             (void*)stringInvalidate,
+                                             _this);
     
     _invalidateContents(_this);
     
@@ -483,7 +523,7 @@ void _leRadioButtonWidget_GenerateVTable()
     radioButtonWidgetVTable._destructor = destructor;
     radioButtonWidgetVTable._paint = _leRadioButtonWidget_Paint;
     radioButtonWidgetVTable.invalidateContents = _invalidateContents;
-    radioButtonWidgetVTable.languageChangeEvent = languageChanging;
+    radioButtonWidgetVTable.languageChangeEvent = handleLanguageChangeEvent;
     radioButtonWidgetVTable.touchDownEvent = handleTouchDownEvent;
     radioButtonWidgetVTable.touchUpEvent = handleTouchUpEvent;
     radioButtonWidgetVTable.touchMoveEvent = handleTouchMovedEvent;
@@ -494,8 +534,8 @@ void _leRadioButtonWidget_GenerateVTable()
     radioButtonWidgetVTable.setSelected = setSelected;
     radioButtonWidgetVTable.select = select;
     radioButtonWidgetVTable.deselect = deselect;
-    radioButtonWidgetVTable.getText = getText;
-    radioButtonWidgetVTable.setText = setText;
+    radioButtonWidgetVTable.getString = getString;
+    radioButtonWidgetVTable.setString = setString;
     radioButtonWidgetVTable.getSelectedImage = getSelectedImage;
     radioButtonWidgetVTable.setSelectedImage = setSelectedImage;
     radioButtonWidgetVTable.getUnselectedImage = getUnselectedImage;

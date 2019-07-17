@@ -43,9 +43,9 @@
 
 #include "gfx/legato/common/legato_common.h"
 
-#include "gfx/legato/asset/legato_asset.h"
 #include "gfx/legato/common/legato_color.h"
 #include "gfx/legato/common/legato_pixelbuffer.h"
+#include "gfx/legato/core/legato_stream.h"
 
 typedef struct lePalette lePalette;
 
@@ -89,7 +89,7 @@ typedef enum leImageFilterMode
 
 typedef struct leImageMap
 {
-    leAssetHeader header;
+    leStreamDescriptor header;
     lePixelBuffer buffer;
 } leImageMap;
 
@@ -120,7 +120,7 @@ typedef struct leImageMap
 */
 typedef struct leImage
 {
-    leAssetHeader header;
+    leStreamDescriptor header;
     leImageFormat format;
     lePixelBuffer buffer;
     leImageFlags flags;
@@ -163,6 +163,13 @@ typedef struct leImageDecoder
 
 void leImage_InitDecoders();
 
+#if LE_STREAMING_ENABLED == 1
+typedef struct leImageStreamDecoder
+{
+    leStreamManager base;
+} leImageStreamDecoder;
+#endif
+
 // *****************************************************************************
 /* Function:
     leResult leDrawImage(void);
@@ -202,54 +209,6 @@ LIB_EXPORT leResult leImage_Resize(const leImage* src,
                                    uint32_t width,
                                    uint32_t height,
                                    leImageFilterMode mode);
-#endif
-
-// *****************************************************************************
-/* Function:
-    leResult lePreprocessImage(leImage* img,
-                                    uint32_t destAddress,
-                                    leColorMode destMode,
-                                    leBool padBuffer);
-
-  Summary:
-    Preprocesses an image to a specified memory address.
-     
-  Description:
-    This function preprocesses an image asset through the HAL pipeline
-    and renders it to a given address, in a given color mode, and can pad
-    the image buffer dimensions to be powers of 2 as required by some 
-    graphics accelerators.
-    
-    This function is also useful for pre-staging images into run-time memory
-    locations.
-    
-    The caller is required to ensure that the destination address is capable of 
-    containing the result.  The size can be calculated by using the method:
-    
-    leColorInfo[destMode].size * img->width * img->height
-    
-    This function only works with images that are located in a core accessible
-    memory location like SRAM or DDR.  If the image is located in an external
-    source then leDrawImage should be called directly.  The caller will then
-    need to service the media streaing state machine.  Once finished the
-    image asset descriptor must be changed manually.  This function can be used
-    as a reference on how to accomplish this.
-     
-  Parameters:
-    leImage* img - pointer to the image asset to draw
-    uint32_t destAddress - the address to render the image to
-    leColorMode destMode - the desired output mode of the image
-    leBool padBuffer - indicates that the image buffer dimensions should be
-                         padded to equal powers of 2 (required by some GPUs)
-
-  Returns:
-    leResult - the result of the operation
-*/
-#if 0
-LIB_EXPORT leResult lePreprocessImage(leImage* img,
-                                           uint32_t destAddress,
-                                           leColorMode destMode,
-                                           leBool padBuffer);
 #endif
 
 #endif /* LE_IMAGE_H */

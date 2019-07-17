@@ -35,17 +35,20 @@ extern "C" {
 #endif
 
 
+#define LE_GLOBAL_COLOR_MODE               LE_COLOR_MODE_RGB_565
+
 #define LE_ASSERT_ENABLE                   0
 
 #define LE_PREEMPTION_LEVEL                0
-#define LE_ASSET_STREAMING_ENABLED         0
+#define LE_STREAMING_ENABLED               0
 
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
 #define LE_ASSET_DECODER_CACHE_SIZE        128
 #define LE_ASSET_DECODER_USE_PIXEL_CACHE   0
-#define LE_ASSET_DECODER_USE_MASK_CACHE    0
 #define LE_ASSET_DECODER_USE_PALETTE_CACHE 0
+#define LE_ASSET_DECODER_USE_MASK_CACHE    0
 #define LE_ASSET_DECODER_USE_BLEND_CACHE   0
+#define LE_RASTERFONT_GLYPH_CACHE_SIZE     256
 #endif
 
 // default Font Support
@@ -120,7 +123,7 @@ extern "C" {
 #define LE_WIDGET_MAX_EVENT_FILTERS        2
 
 // renderer config
-#define LE_ALPHA_BLENDING_ENABLED          0
+#define LE_ALPHA_BLENDING_ENABLED          1
 #define LE_SCRATCH_BUFFER_SIZE_KB          16
 #define LE_USE_ARC_SCAN_FILL               1
 #define LE_ARC_SMOOTH_EDGE                 LE_FALSE

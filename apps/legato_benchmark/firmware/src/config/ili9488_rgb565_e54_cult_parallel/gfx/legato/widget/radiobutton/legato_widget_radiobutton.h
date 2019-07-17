@@ -88,8 +88,8 @@ typedef struct leRadioButtonWidget leRadioButtonWidget;
     leResult            (*setSelected)(THIS_TYPE* _this); \
     void                (*select)(THIS_TYPE* _this); \
     void                (*deselect)(THIS_TYPE* _this); \
-    leString*           (*getText)(const THIS_TYPE* _this); \
-    leResult            (*setText)(THIS_TYPE* _this, const leString* str); \
+    leString*           (*getString)(const THIS_TYPE* _this); \
+    leResult            (*setString)(THIS_TYPE* _this, const leString* str); \
     leImage*            (*getSelectedImage)(const THIS_TYPE* _this); \
     leResult            (*setSelectedImage)(THIS_TYPE* _this, const leImage* img); \
     leImage*            (*getUnselectedImage)(const THIS_TYPE* _this); \
@@ -136,7 +136,7 @@ typedef struct leRadioButtonWidget
 
     leBool selected; // indicates if the radio button is selected
 
-    const leString* text; // radio button text
+    const leString* string; // radio button text
 
     const leImage* selectedImage; // button custom selected image
     const leImage* unselectedImage; // buton custom unselected image

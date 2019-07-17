@@ -42,11 +42,11 @@ enum
     DONE = LE_WIDGET_DRAW_STATE_DONE,
     DRAW_BACKGROUND,
     DRAW_IMAGE,
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
     WAIT_IMAGE,
 #endif
     DRAW_STRING,
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
     WAIT_STRING,
 #endif
     DRAW_BORDER,
@@ -264,15 +264,8 @@ void _leButtonWidget_InvalidateBorderAreas(const leButtonWidget* btn)
 
 static void drawBackground(leButtonWidget* btn);
 static void drawString(leButtonWidget* btn);
-
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-static void waitString(leButtonWidget* btn);
-#endif
-
 static void drawImage(leButtonWidget* btn);
-
 static void drawBorder(leButtonWidget* btn);
-
 static void nextState(leButtonWidget* btn)
 {
     switch(btn->widget.drawState)
@@ -341,21 +334,25 @@ static void drawBackground(leButtonWidget* btn)
     {
         if(btn->state != LE_BUTTON_STATE_UP)
         {
-            leWidget_SkinClassic_DrawBackground((leWidget*)btn, btn->widget.scheme->background);
+            leWidget_SkinClassic_DrawBackground((leWidget*)btn,
+                                                btn->widget.scheme->background,
+                                                paintState.alpha);
         }
         else
         {
-            leWidget_SkinClassic_DrawBackground((leWidget*)btn, btn->widget.scheme->base);
+            leWidget_SkinClassic_DrawBackground((leWidget*)btn,
+                                                btn->widget.scheme->base,
+                                                paintState.alpha);
         }
     }
 
     nextState(btn);
 }
 
-#if LE_ASSET_STREAMING_ENABLED == 1
-static void onImageStreamFinished(leAssetStreamReader* rdr)
+#if LE_STREAMING_ENABLED == 1
+static void onImageStreamFinished(leStreamManager* strm)
 {
-    leButtonWidget* btn = (leButtonWidget*)rdr->userData;
+    leButtonWidget* btn = (leButtonWidget*)strm->userData;
 
     btn->widget.drawState = DRAW_IMAGE;
 
@@ -387,11 +384,11 @@ static void drawImage(leButtonWidget* btn)
     
     leImage_Draw(img, &imgSrcRect, imgRect.x, imgRect.y, paintState.alpha);
              
-#if LE_ASSET_STREAMING_ENABLED == 1
-    if(leGetReader() != NULL)
+#if LE_STREAMING_ENABLED == 1
+    if(leGetActiveStream() != NULL)
     {
-        leGetReader()->onFinished = onImageStreamFinished;
-        leGetReader()->userData = btn;
+        leGetActiveStream()->onDone = onImageStreamFinished;
+        leGetActiveStream()->userData = btn;
 
         btn->widget.drawState = WAIT_IMAGE;
         
@@ -401,6 +398,17 @@ static void drawImage(leButtonWidget* btn)
     
     nextState(btn);
 }
+
+#if LE_STREAMING_ENABLED == 1
+static void onStringStreamFinished(leStreamManager* strm)
+{
+    leButtonWidget* btn = (leButtonWidget*)strm->userData;
+
+    btn->widget.drawState = DRAW_STRING;
+
+    nextState(btn);
+}
+#endif
 
 static void drawString(leButtonWidget* btn)
 {
@@ -418,55 +426,40 @@ static void drawString(leButtonWidget* btn)
                            btn->widget.halign,
                            btn->widget.scheme->text,
                            paintState.alpha);
-        
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-    if(leGetReader() != NULL)
-    {
-        btn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitString;
-        btn->widget.drawState = WAIT_STRING;
-        
-        return;
-    }
-#endif
-    
-    nextState(btn);
-}
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-static void waitString(leButtonWidget* btn)
-{
-    if(btn->reader->status != leREADER_STATUS_FINISHED)
+#if LE_STREAMING_ENABLED == 1
+    if(leGetActiveStream() != NULL)
     {
-        btn->reader->run(btn->reader);
-        
+        leGetActiveStream()->onDone = onStringStreamFinished;
+        leGetActiveStream()->userData = btn;
+
+        btn->widget.drawState = WAIT_STRING;
+
         return;
     }
-    
-    // free the reader
-    btn->reader->memIntf->heap.free(btn->reader);
-    btn->reader = NULL;
-    
-    btn->widget.drawState = DRAW_STRING;
+#endif
     
     nextState(btn);
 }
-#endif
 
 static void drawBorder(leButtonWidget* btn)
 {
     if(btn->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)btn);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)btn,
+                                                    paintState.alpha);
     }
     else if(btn->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         if(btn->state != LE_BUTTON_STATE_UP)
         {
-            leWidget_SkinClassic_DrawStandardLoweredBorder((leWidget*)btn);
+            leWidget_SkinClassic_DrawStandardLoweredBorder((leWidget*)btn,
+                                                           paintState.alpha);
         }
         else
         {
-            leWidget_SkinClassic_DrawStandardHybridBorder((leWidget*)btn);
+            leWidget_SkinClassic_DrawStandardHybridBorder((leWidget*)btn,
+                                                          paintState.alpha);
         }
     }
     
@@ -487,7 +480,7 @@ void _leButtonWidget_Paint(leButtonWidget* btn)
         nextState(btn);
     }
 
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
     if(btn->widget.drawState == WAIT_IMAGE ||
         btn->widget.drawState == WAIT_STRING)
     {
@@ -503,7 +496,7 @@ void _leButtonWidget_Paint(leButtonWidget* btn)
         break;
 #endif
         
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
         if(btn->widget.drawState == WAIT_IMAGE ||
            btn->widget.drawState == WAIT_STRING)
             break;

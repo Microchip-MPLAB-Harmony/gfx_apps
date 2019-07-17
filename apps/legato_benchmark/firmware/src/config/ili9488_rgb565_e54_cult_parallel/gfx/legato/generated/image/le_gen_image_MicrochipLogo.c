@@ -452,8 +452,7 @@ const uint8_t MicrochipLogo_data[6990] =
 leImage MicrochipLogo =
 {
     {
-        LE_ASSET_TYPE_IMAGE, // asset type
-        LE_ASSET_LOCATION_ID_INTERNAL, // data location id
+        LE_STREAM_LOCATION_ID_INTERNAL, // data location id
         (void*)MicrochipLogo_data, // data address pointer
         6990, // data size
     },
@@ -470,7 +469,7 @@ leImage MicrochipLogo =
     },
     0, // image flags
     {
-        0x0000, // color mask
+        0x0, // color mask
     },
     NULL, // alpha mask
     NULL, // palette

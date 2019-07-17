@@ -50,10 +50,21 @@ static void invalidateContents(const leLabelWidget* lbl)
     lbl->fn->_damageArea(lbl, &drawRect);
 }
 
-static void languageChanging(leLabelWidget* _this)
+static void stringPreinvalidate(const leString* str,
+                                leLabelWidget* lbl)
 {
-    if(_this->string != NULL &&
-       _this->string->fn->isEmpty(_this->string) == LE_FALSE)
+    invalidateContents(lbl);
+}
+
+static void stringInvalidate(const leString* str,
+                             leLabelWidget* lbl)
+{
+    invalidateContents(lbl);
+}
+
+static void handleLanguageChangeEvent(leLabelWidget* _this)
+{
+    if(_this->string != NULL)
     {
         _this->fn->invalidate(_this);
     }
@@ -118,9 +129,33 @@ static leResult setString(leLabelWidget* _this,
 {
     LE_ASSERT_THIS();
 
+    if(_this->string == str)
+        return LE_SUCCESS;
+
+    if(_this->string != NULL)
+    {
+        invalidateContents(_this);
+
+        _this->string->fn->setPreInvalidateCallback((leString*)_this->string,
+                                                    NULL,
+                                                    NULL);
+
+        _this->string->fn->setInvalidateCallback((leString*)_this->string,
+                                                 NULL,
+                                                 NULL);
+    }
+
     _this->string = str;
-        
-    _this->fn->invalidate(_this);
+
+    _this->string->fn->setPreInvalidateCallback((leString*)_this->string,
+                                                (void*)stringPreinvalidate,
+                                                _this);
+
+    _this->string->fn->setInvalidateCallback((leString*)_this->string,
+                                             (void*)stringInvalidate,
+                                             _this);
+
+    invalidateContents(_this);
         
     return LE_SUCCESS;
 }
@@ -135,7 +170,7 @@ void _leLabelWidget_GenerateVTable()
     /* overrides from base class */
     labelWidgetVTable._destructor = _leLabelWidget_Destructor;
     labelWidgetVTable._paint = _leLabelWidget_Paint;
-    labelWidgetVTable.languageChangeEvent = languageChanging;
+    labelWidgetVTable.languageChangeEvent = handleLanguageChangeEvent;
     
     /* member functions */
     labelWidgetVTable.getString = getString;

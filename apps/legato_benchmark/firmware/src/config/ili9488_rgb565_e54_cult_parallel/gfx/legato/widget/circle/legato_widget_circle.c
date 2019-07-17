@@ -64,6 +64,7 @@ void _leCircleWidget_Constructor(leCircleWidget* _this)
     _this->y = DEFAULT_ORIGIN_Y;
     _this->radius = DEFAULT_RADIUS;
     _this->thickness = DEFAULT_THICKNESS;
+    _this->filled = LE_FALSE;
 }
 
 void _leWidget_Destructor(leWidget* wgt);

@@ -36,8 +36,7 @@ const uint8_t Bar_data[330] =
 leImage Bar =
 {
     {
-        LE_ASSET_TYPE_IMAGE, // asset type
-        LE_ASSET_LOCATION_ID_INTERNAL, // data location id
+        LE_STREAM_LOCATION_ID_INTERNAL, // data location id
         (void*)Bar_data, // data address pointer
         330, // data size
     },
@@ -54,7 +53,7 @@ leImage Bar =
     },
     0, // image flags
     {
-        0x0000, // color mask
+        0x0, // color mask
     },
     NULL, // alpha mask
     NULL, // palette

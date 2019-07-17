@@ -21,6 +21,7 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+#include <gfx/legato/legato.h>
 #include "gfx/legato/widget/piechart/legato_widget_pie_chart.h"
 
 #if LE_PIECHART_WIDGET_ENABLED == 1
@@ -66,6 +67,10 @@ void lePieChartWidget_Constructor(lePieChartWidget* _this)
     _this->labelsOffset = DEFAULT_LABEL_OFFSET;
     
     leArray_Create(&_this->pieArray);
+
+    _this->labelFont = NULL;
+
+    _this->pressedCallback = NULL;
 }
 
 void _leWidget_Destructor(leWidget* _this);

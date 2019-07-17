@@ -748,17 +748,18 @@ const uint8_t ArialLarge_data[11178] =
     0x00,0x03,0xFF,0xFF,0x00,0x00,0x00,0x00,0x00,0x00,
 };
 
-leFont ArialLarge =
+leRasterFont ArialLarge =
 {
     {
-        LE_ASSET_TYPE_FONT, // asset type
-        LE_ASSET_LOCATION_ID_INTERNAL, // data location id
-        (void*)ArialLarge_data, // data address pointer
-        11178, // data size
+        {
+            LE_STREAM_LOCATION_ID_INTERNAL, // data location id
+            (void*)ArialLarge_data, // data address pointer
+            11178, // data size
+        },
+        LE_RASTER_FONT,
     },
-    115,
+    117,
     115,
     LE_FONT_BPP_1, // bits per pixel
     ArialLarge_glyphs, // glyph table
-    ArialLarge_data, // font data
 };

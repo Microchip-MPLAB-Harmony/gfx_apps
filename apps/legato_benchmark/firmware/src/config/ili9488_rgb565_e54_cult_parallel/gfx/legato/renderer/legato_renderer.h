@@ -5,6 +5,7 @@
 #include "gfx/legato/common/legato_pixelbuffer.h"
 #include "gfx/legato/common/legato_rect.h"
 #include "gfx/legato/datastructure/legato_rectarray.h"
+#include "gfx/legato/image/legato_palette.h"
 #include "gfx/legato/renderer/legato_driver.h"
 #include "gfx/legato/widget/legato_widget.h"
 
@@ -61,9 +62,7 @@ typedef struct leRenderState
 
     uint32_t deltaTime;           // stores delta time for updates that happen
                                   // during rendering
-                      
-    leColorMode colorMode;        // the color mode the library uses
-    
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
     leBool alphaEnable;
     uint8_t alpha;
@@ -72,7 +71,7 @@ typedef struct leRenderState
     //leBool maskEnable;
     //uint32_t maskValue;
     
-    //lePixelBuffer* palette;
+    lePalette* globalPalette;
     
     lePixelBuffer* renderBuffer;
 } leRenderState;
@@ -97,6 +96,11 @@ void leRenderer_Paint();
 
 
 LIB_EXPORT leRenderState* leGetRenderState();
+
+lePalette* leRenderer_GetGlobalPalette();
+leResult leRenderer_SetGlobalPalette(lePalette* pal);
+
+leColor leRenderer_GlobalPaletteLookup(uint32_t idx);
 
 leColor leRenderer_ConvertColor(leColor inColor, leColorMode inMode);
 
@@ -132,6 +136,20 @@ leResult leRenderer_BlendPixel_Safe(int32_t x,
                                     int32_t y,
                                     leColor clr,
                                     uint32_t a);
+
+leResult leRenderer_FillArea(int32_t x,
+                             int32_t y,
+                             uint32_t width,
+                             uint32_t height,
+                             leColor clr,
+                             uint32_t a);
+
+leResult leRenderer_FillArea_Safe(int32_t x,
+                                  int32_t y,
+                                  uint32_t width,
+                                  uint32_t height,
+                                  leColor clr,
+                                  uint32_t a);
 
 leResult leRenderer_HorzLine(int32_t x,
                              int32_t y,

@@ -45,12 +45,26 @@ static void drawBackground(leDrawSurfaceWidget* sfc);
 static void drawCallback(leDrawSurfaceWidget* sfc);
 static void drawBorder(leDrawSurfaceWidget* sfc);
 
+static struct
+{
+    uint32_t alpha;
+} paintState;
+
 static void nextState(leDrawSurfaceWidget* sfc)
 {
     switch(sfc->widget.drawState)
     {
         case NOT_STARTED:
         {
+paintState.alpha = 255;
+
+#if LE_ALPHA_BLENDING_ENABLED == 1
+            if(sfc->fn->getCumulativeAlphaEnabled(sfc) == LE_TRUE)
+            {
+                paintState.alpha = sfc->fn->getCumulativeAlphaAmount(sfc);
+            }
+#endif
+
             if(sfc->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
             {
                 sfc->widget.drawState = DRAW_BACKGROUND;
@@ -86,7 +100,8 @@ static void nextState(leDrawSurfaceWidget* sfc)
 
 static void drawBackground(leDrawSurfaceWidget* sfc)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)sfc);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)sfc,
+                                                paintState.alpha);
 
     nextState(sfc);
 }
@@ -111,11 +126,13 @@ static void drawBorder(leDrawSurfaceWidget* sfc)
 {
     if(sfc->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)sfc);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)sfc,
+                                                    paintState.alpha);
     }
     else if(sfc->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)sfc);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)sfc,
+                                                      paintState.alpha);
     }
         
     nextState(sfc);

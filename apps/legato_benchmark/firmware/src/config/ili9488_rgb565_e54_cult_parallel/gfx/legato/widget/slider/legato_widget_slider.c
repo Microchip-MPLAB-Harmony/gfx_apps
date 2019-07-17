@@ -21,6 +21,7 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+#include <gfx/legato/legato.h>
 #include "gfx/legato/widget/slider/legato_widget_slider.h"
 
 #if LE_SLIDER_WIDGET_ENABLED
@@ -160,6 +161,9 @@ void leSliderWidget_Constructor(leSliderWidget* _this)
     _this->max = DEFAULT_MAX;
     _this->value = DEFAULT_VALUE;
     _this->grip = DEFAULT_GRIP;
+
+    _this->valueChangedEvent = NULL;
+    _this->handleDownOffset = lePoint_Zero;
 }
 
 void _leWidget_Destructor(leWidget* wgt);

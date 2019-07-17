@@ -56,6 +56,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "gfx/legato/generated/le_gen_init.h"
 
 #define DELAY_IN_TICKS       2
+#define SPLASH_ALPHA_DELTA  20
 
 static uint32_t splashAlpha;
 static uint32_t barPosX;
@@ -123,7 +124,7 @@ static void swapLogoAlpha()
     
     if (triggerTick < currentTick)
     {
-        splashAlpha -= 5;
+        splashAlpha -= SPLASH_ALPHA_DELTA;
         triggerTick = currentTick + DELAY_IN_TICKS;
 
         SplashPIC32Logo->fn->setAlphaAmount(SplashPIC32Logo, splashAlpha);
@@ -165,7 +166,7 @@ static void swapLogoAlpha()
             break;
     }*/
 
-    if(splashAlpha <= 10)
+    if(splashAlpha <= SPLASH_ALPHA_DELTA)
     {
         SplashPIC32Logo->fn->setVisible(SplashPIC32Logo, LE_FALSE);
         SplashPIC32Logo->fn->setAlphaEnabled(SplashPIC32Logo, LE_FALSE);

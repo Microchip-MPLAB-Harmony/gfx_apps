@@ -105,7 +105,8 @@ static void drawBackground(leCircularSliderWidget* slider)
     if(slider->widget.backgroundType == LE_WIDGET_BACKGROUND_FILL)
     {
         leWidget_SkinClassic_DrawBackground((leWidget*) slider, 
-                                             slider->widget.scheme->background);
+                                             slider->widget.scheme->background,
+                                             paintState.alpha);
     }
     
     nextState(slider);
@@ -148,7 +149,7 @@ static void drawCircularSlider(leCircularSliderWidget* slider)
                 NULL, 
                 NULL);*/
 
-        if (slider->direction == CIRCULAR_SLIDER_DIR_COUNTER_CLOCKWISE)
+        if (slider->direction == LE_COUNTER_CLOCKWISE)
         {
             //GFX_Set(GFXF_DRAW_THICKNESS, slider->inActiveArc.thickness);
             
@@ -194,7 +195,7 @@ static void drawCircularSlider(leCircularSliderWidget* slider)
                 NULL, 
                 NULL);*/
 
-        if (slider->direction == CIRCULAR_SLIDER_DIR_COUNTER_CLOCKWISE)
+        if (slider->direction == LE_COUNTER_CLOCKWISE)
         {
             //GFX_Set(GFXF_DRAW_THICKNESS, slider->activeArc.thickness);
                         
@@ -406,11 +407,13 @@ static void drawBorder(leCircularSliderWidget* slider)
 {    
     if(slider->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)slider);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)slider,
+                                                    paintState.alpha);
     }
     else if(slider->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)slider);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)slider,
+                                                      paintState.alpha);
     }
     
     nextState(slider);

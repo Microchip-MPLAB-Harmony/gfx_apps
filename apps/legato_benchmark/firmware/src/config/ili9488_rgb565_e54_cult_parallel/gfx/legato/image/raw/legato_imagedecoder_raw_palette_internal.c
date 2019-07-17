@@ -23,8 +23,8 @@
 
 #include "gfx/legato/image/raw/legato_imagedecoder_raw.h"
 
-#include "gfx/legato/asset/legato_palette.h"
 #include "gfx/legato/common/legato_pixelbuffer.h"
+#include "gfx/legato/image/legato_palette.h"
 #include "gfx/legato/renderer/legato_renderer.h"
 
 static struct InternalPaletteStage
@@ -34,14 +34,16 @@ static struct InternalPaletteStage
     uint32_t paletteSize;
 } paletteStage;
 
-static void stage_lookup(struct InternalPaletteStage* stage)
+static leResult stage_lookup(struct InternalPaletteStage* stage)
 {
     // look up the actual color from the palette
     memcpy(&stage->base.state->sourceColor,
-           (void*)((uint8_t*)stage->base.state->source->palette->header.dataAddress + (stage->base.state->sourceColor * paletteStage.paletteSize)),
+           (void*)((uint8_t*)stage->base.state->source->palette->header.address + (stage->base.state->sourceColor * paletteStage.paletteSize)),
            paletteStage.paletteSize);
 
-    stage->base.state->blendStage->exec(stage->base.state->blendStage);
+    stage->base.state->currentStage = stage->base.state->convertStage;
+
+    return LE_SUCCESS;
 }
 
 uint32_t _leRawImageDecoder_PaletteStreamInit(leRawDecodeState* state);
@@ -58,8 +60,8 @@ void _leRawImageDecoder_PaletteInternalInit(leRawDecodeState* state)
         return;
     }
 
-#if LE_ASSET_STREAMING_ENABLED == 1
-    if(state->source->palette->header.dataLocation != LE_ASSET_LOCATION_ID_INTERNAL)
+#if LE_STREAMING_ENABLED == 1
+    if(state->source->palette->header.location != LE_STREAM_LOCATION_ID_INTERNAL)
     {
         _leRawImageDecoder_PaletteStreamInit(state);
 
@@ -68,7 +70,7 @@ void _leRawImageDecoder_PaletteInternalInit(leRawDecodeState* state)
 #endif
 
     paletteStage.base.exec = (void*)stage_lookup;
-    paletteStage.paletteSize = leColorModeInfoGet(state->source->palette->colorMode).size;
+    paletteStage.paletteSize = leColorInfoTable[state->source->palette->colorMode].size;
 
     state->paletteStage = (void*)&paletteStage;
 

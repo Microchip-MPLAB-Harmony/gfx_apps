@@ -61,11 +61,6 @@ void _leArcWidget_Constructor(leArcWidget* _this)
     _this->fn = &arcWidgetVTable;
 
     _this->widget.type = LE_WIDGET_ARC;
-    
-    //_this->widget.destructor = (leWidget_Destructor_FnPtr)&_leArcWidget_Destructor;
-
-    // override base class methods
-    //_this->widget.paint = (leWidget_Paint_FnPtr)&_leArcWidget_Paint;
 
     _this->widget.rect.width = DEFAULT_WIDTH;
     _this->widget.rect.height = DEFAULT_HEIGHT;

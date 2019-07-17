@@ -60,24 +60,6 @@
 
 typedef struct leCircularGaugeWidget leCircularGaugeWidget;
 
-// *****************************************************************************
-/* Structure:
-    leCircularGaugeWidgetDir
-
-  Summary:
-    Direction of the gauge
-
-  Description:
-    Direction of the gauge
-
-  Remarks:
-    None.
-*/
-typedef enum leCircularGaugeWidgetDir
-{
-    CIRCULAR_GAUGE_DIR_CLOCKWISE,
-    CIRCULAR_GAUGE_DIR_COUNTER_CLOCKWISE,
-} leCircularGaugeWidgetDir;
 
 // *****************************************************************************
 /* Structure:
@@ -207,7 +189,7 @@ typedef struct leCircularGaugeWidget
     uint32_t radius; // the radius of the circular gauge
     uint32_t startAngle; //the start angle of the outer arc
     int32_t centerAngle; //the center angle of the outer arc
-    leCircularGaugeWidgetDir dir; //the turn direction of the gauge
+    leRotationDirection dir; //the turn direction of the gauge
 
     //Tick properties
     leBool ticksVisible; // are ticks visible

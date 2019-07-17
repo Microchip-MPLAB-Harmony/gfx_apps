@@ -83,31 +83,44 @@ static void indexRLEDecode()
     internalReadStage.base.state->sourceColor = srcClr;
 }
 
-static void stage_decode(struct InternalReadStage* stage)
+static leResult stage_decode(struct InternalReadStage* stage)
 {
     leRawDecodeState* state = stage->base.state;
 
-    for(state->imageRow = 0; state->imageRow < state->sourceRect.height; state->imageRow++)
+    if(state->imageRow >= (uint32_t)state->sourceRect.height)
     {
-        state->drawY = state->renderY + state->imageRow;
-        state->sourceY = state->sourceRect.y + state->imageRow;
+        state->currentStage = NULL;
 
-        for(state->imageCol = 0; state->imageCol < state->sourceRect.width; state->imageCol++)
-        {
-            // calculate dest offset
-            state->drawX = state->renderX + state->imageCol;
-            state->sourceX = state->sourceRect.x + state->imageCol;
-
-            // calculate buffer index
-            internalReadStage.base.state->bufferIdx = internalReadStage.base.state->sourceX +
-                                                      (internalReadStage.base.state->sourceY *
-                                                       internalReadStage.base.state->source->buffer.size.width);
-
-            internalReadStage.decode();
-
-            state->maskStage->exec(state->maskStage);
-        }
+        return LE_SUCCESS;
     }
+
+    // calculate dest offset
+    state->drawY = state->renderY + state->imageRow;
+    state->sourceY = state->sourceRect.y + state->imageRow;
+
+    state->drawX = state->renderX + state->imageCol;
+    state->sourceX = state->sourceRect.x + state->imageCol;
+
+    // calculate buffer index
+    internalReadStage.base.state->bufferIdx = internalReadStage.base.state->sourceX +
+                                              (internalReadStage.base.state->sourceY *
+                                               internalReadStage.base.state->source->buffer.size.width);
+
+    internalReadStage.decode();
+
+    state->currentStage = state->maskStage;
+
+    if(state->imageCol < (uint32_t)state->sourceRect.width - 1)
+    {
+        state->imageCol += 1;
+    }
+    else
+    {
+        state->imageCol = 0;
+        state->imageRow += 1;
+    }
+
+    return LE_SUCCESS;
 }
 
 void _leRawImageDecoder_ReadStreamInit(leRawDecodeState* state);
@@ -115,14 +128,16 @@ void _leRawImageDecoder_PaletteInternalInit(leRawDecodeState* state);
 
 void _leRawImageDecoder_ReadInternalInit(leRawDecodeState* state)
 {
-#if LE_ASSET_STREAMING_ENABLED == 1
-    if(state->source->header.dataLocation == LE_ASSET_LOCATION_ID_INTERNAL)
+#if LE_STREAMING_ENABLED == 1
+    if(state->source->header.location == LE_STREAM_LOCATION_ID_INTERNAL)
     {
 #endif
         memset(&internalReadStage, 0, sizeof(internalReadStage));
 
-        internalReadStage.dataSize = leColorModeInfoGet(state->source->buffer.mode).size;
-        internalReadStage.imgBPP = leColorModeInfoGet(state->source->buffer.mode).bppOrdinal;
+        state->imageRow = 0;
+        state->imageCol = 0;
+        internalReadStage.dataSize = leColorInfoTable[state->source->buffer.mode].size;
+        internalReadStage.imgBPP = leColorInfoTable[state->source->buffer.mode].bppOrdinal;
 
         internalReadStage.base.state = state;
 
@@ -152,7 +167,7 @@ void _leRawImageDecoder_ReadInternalInit(leRawDecodeState* state)
         internalReadStage.base.exec = (void *) stage_decode;
 
         state->readStage = (leRawDecodeStage*)&internalReadStage;
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
     }
     else
     {

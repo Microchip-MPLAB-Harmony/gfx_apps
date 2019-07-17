@@ -28,20 +28,14 @@
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/driver/controller/ili9488/drv_gfx_ili9488.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/driver/controller/ili9488/drv_gfx_ili9488_common.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/driver/controller/ili9488/drv_gfx_ili9488_cmd_defs.h</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/driver/controller/ili9488/drv_gfx_disp_intf.h</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="f2" displayName="interface" projectFiles="true">
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/interface/drv_gfx_disp_intf.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f1" displayName="legato" projectFiles="true">
-              <logicalFolder name="f1" displayName="asset" projectFiles="true">
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/asset/legato_asset.h</itemPath>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/asset/legato_binary.h</itemPath>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/asset/legato_font.h</itemPath>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/asset/legato_palette.h</itemPath>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/asset/legato_stringtable.h</itemPath>
-              </logicalFolder>
-              <logicalFolder name="f2" displayName="common" projectFiles="true">
+              <logicalFolder name="f1" displayName="common" projectFiles="true">
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/common/legato_color.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/common/legato_common.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/common/legato_error.h</itemPath>
@@ -50,16 +44,20 @@
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/common/legato_rect.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/common/legato_utils.h</itemPath>
               </logicalFolder>
-              <logicalFolder name="f3" displayName="core" projectFiles="true">
+              <logicalFolder name="f2" displayName="core" projectFiles="true">
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/core/legato_event.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/core/legato_input.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/core/legato_scheme.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/core/legato_state.h</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/core/legato_stream.h</itemPath>
               </logicalFolder>
-              <logicalFolder name="f4" displayName="datastructure" projectFiles="true">
+              <logicalFolder name="f3" displayName="datastructure" projectFiles="true">
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/datastructure/legato_array.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/datastructure/legato_list.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/datastructure/legato_rectarray.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="f4" displayName="font" projectFiles="true">
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/font/legato_font.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f10" displayName="generated" projectFiles="true">
                 <logicalFolder name="f1" displayName="screen" projectFiles="true">
@@ -78,6 +76,7 @@
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/raw/legato_imagedecoder_raw.h</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/legato_image.h</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/legato_palette.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/legato_image_utils.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f6" displayName="memory" projectFiles="true">
@@ -93,6 +92,8 @@
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/string/legato_dynamicstring.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/string/legato_fixedstring.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/string/legato_string.h</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/string/legato_string_renderer.h</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/string/legato_stringtable.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/string/legato_tablestring.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/string/legato_stringutils.h</itemPath>
               </logicalFolder>
@@ -231,7 +232,6 @@
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/system/input/sys_input.h</itemPath>
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/system/input/sys_input_gesture.h</itemPath>
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/system/input/sys_input_keyboard.h</itemPath>
-              <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/system/input/sys_input_listener.h</itemPath>
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/system/input/sys_input_mouse.h</itemPath>
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/system/input/sys_input_touch.h</itemPath>
             </logicalFolder>
@@ -370,14 +370,7 @@
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="f1" displayName="legato" projectFiles="true">
-              <logicalFolder name="f1" displayName="asset" projectFiles="true">
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/asset/legato_font.c</itemPath>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/asset/legato_font_liberationmono1.c</itemPath>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/asset/legato_font_liberationmono8.c</itemPath>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/asset/legato_palette.c</itemPath>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/asset/legato_stringtable.c</itemPath>
-              </logicalFolder>
-              <logicalFolder name="f2" displayName="common" projectFiles="true">
+              <logicalFolder name="f1" displayName="common" projectFiles="true">
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/common/legato_color.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/common/legato_color_blend.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/common/legato_color_convert.c</itemPath>
@@ -389,16 +382,23 @@
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/common/legato_rect.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/common/legato_utils.c</itemPath>
               </logicalFolder>
-              <logicalFolder name="f3" displayName="core" projectFiles="true">
+              <logicalFolder name="f2" displayName="core" projectFiles="true">
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/core/legato_event.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/core/legato_input.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/core/legato_scheme.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/core/legato_state.c</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/core/legato_stream.c</itemPath>
               </logicalFolder>
-              <logicalFolder name="f4" displayName="datastructure" projectFiles="true">
+              <logicalFolder name="f3" displayName="datastructure" projectFiles="true">
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/datastructure/legato_array.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/datastructure/legato_list.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/datastructure/legato_rectarray.c</itemPath>
+              </logicalFolder>
+              <logicalFolder name="f4" displayName="font" projectFiles="true">
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/font/legato_font.c</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/font/legato_rasterfont_liberationmono1.c</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/font/legato_rasterfont_liberationmono8.c</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/font/legato_rasterfont_stream.c</itemPath>
               </logicalFolder>
               <logicalFolder name="f10" displayName="generated" projectFiles="true">
                 <logicalFolder name="f1" displayName="font" projectFiles="true">
@@ -454,6 +454,7 @@
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/raw/legato_imagedecoder_raw_write.c</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/legato_image.c</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/legato_palette.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/legato_image_utils.c</itemPath>
               </logicalFolder>
               <logicalFolder name="f6" displayName="memory" projectFiles="true">
@@ -472,9 +473,9 @@
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/string/legato_dynamicstring.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/string/legato_fixedstring.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/string/legato_string.c</itemPath>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/string/legato_stringbuffer_external.c</itemPath>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/string/legato_string_external.c</itemPath>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/string/legato_string_query.c</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/string/legato_string_renderer.c</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/string/legato_string_renderer_stream.c</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/string/legato_stringtable.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/string/legato_tablestring.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/string/legato_stringutils.c</itemPath>
               </logicalFolder>
@@ -687,8 +688,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CMSIS" vendor="ARM" version="5.0.1"/>
         <pack name="SAME54_DFP" vendor="Microchip" version="2.0.12"/>
+        <pack name="CMSIS" vendor="ARM" version="5.0.1"/>
       </packs>
       <compileType>
         <linkerTool>
@@ -752,7 +753,7 @@
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
         <property key="make-warnings-into-errors" value="true"/>
-        <property key="optimization-level" value="-O3"/>
+        <property key="optimization-level" value="-O1"/>
         <property key="place-data-into-section" value="true"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>

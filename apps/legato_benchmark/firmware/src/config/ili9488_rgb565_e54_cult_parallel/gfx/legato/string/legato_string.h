@@ -49,11 +49,13 @@
 
 #include "gfx/legato/common/legato_common.h"
 
-#include "gfx/legato/asset/legato_asset.h"
-#include "gfx/legato/asset/legato_font.h"
+#include "gfx/legato/font/legato_font.h"
+#include "gfx/legato/common/legato_error.h"
 
 //DOM-IGNORE-BEGIN
 struct leString;
+
+typedef void (*leString_InvalidateCallback)(const struct leString* str, void* userData);
 
 #define LE_STRING_VTABLE(THIS_TYPE) \
     void        (*destructor)(THIS_TYPE* str); \
@@ -78,7 +80,11 @@ struct leString;
     leResult    (*getCharRect)(const THIS_TYPE* str, uint32_t idx, leRect* rect); \
     leResult    (*getCharIndexAtPoint)(const THIS_TYPE* str, lePoint* pt, uint32_t* idx); \
     leResult    (*_draw)(const THIS_TYPE* str, int32_t x, int32_t y, leHAlignment align, leColor clr, uint32_t a); \
-    
+    void        (*preinvalidate)(THIS_TYPE* str); \
+    void        (*invalidate)(THIS_TYPE* str); \
+    leResult    (*setPreInvalidateCallback)(THIS_TYPE* str, leString_InvalidateCallback, void* userData); \
+    leResult    (*setInvalidateCallback)(THIS_TYPE* str, leString_InvalidateCallback, void* userData);
+
 typedef struct leStringVTable
 {
 	LE_STRING_VTABLE(struct leString)
@@ -98,6 +104,12 @@ typedef struct leStringVTable
 typedef struct leString
 {
     leStringVTable* fn;
+
+    leString_InvalidateCallback preInvCallback;
+    void* preCBUserData;
+
+    leString_InvalidateCallback invCallback;
+    void* invCBUserData;
 } leString;
 
 // *****************************************************************************

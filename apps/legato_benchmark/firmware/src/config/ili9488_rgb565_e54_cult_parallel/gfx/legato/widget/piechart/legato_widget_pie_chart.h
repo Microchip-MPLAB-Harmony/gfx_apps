@@ -46,7 +46,7 @@
 
 #if LE_PIECHART_WIDGET_ENABLED == 1
 
-#include "gfx/legato/asset/legato_font.h"
+#include "gfx/legato/font/legato_font.h"
 #include "gfx/legato/widget/legato_widget.h"
 
 // *****************************************************************************

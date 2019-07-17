@@ -134,11 +134,13 @@ static void drawBorder(leGradientWidget* grad)
 {
     if(grad->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)grad);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)grad,
+                                                    paintState.alpha);
     }
     else if(grad->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)grad);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)grad,
+                                                      paintState.alpha);
     }
         
     nextState(grad);

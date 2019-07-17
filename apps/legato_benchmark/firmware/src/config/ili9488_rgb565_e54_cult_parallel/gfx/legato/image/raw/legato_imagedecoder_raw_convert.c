@@ -23,7 +23,7 @@
 
 #include "gfx/legato/image/raw/legato_imagedecoder_raw.h"
 
-#include "gfx/legato/asset/legato_palette.h"
+#include "gfx/legato/image/legato_palette.h"
 #include "gfx/legato/renderer/legato_renderer.h"
 
 
@@ -34,19 +34,21 @@ static struct ConvertStage
     leColorMode sourceMode;
 } convertStage;
 
-static void stage_convertColor(leRawDecodeStage* stage)
+static leResult stage_convertColor(leRawDecodeStage* stage)
 {
     // convert the pixel to the destination format if necessary
     stage->state->sourceColor = leRenderer_ConvertColor(stage->state->sourceColor,
                                                         convertStage.sourceMode);
 
-    stage->state->blendStage->exec(stage->state->blendStage);
+    stage->state->currentStage = stage->state->writeStage;
+
+    return LE_SUCCESS;
 }
 
 void _leRawImageDecoder_ConvertInit(leRawDecodeState* state)
 {
-    if((state->source->palette != NULL && state->source->palette->colorMode == leGetRenderState()->colorMode) ||
-        (state->source->buffer.mode == leGetRenderState()->colorMode))
+    if((state->source->palette != NULL && state->source->palette->colorMode == LE_GLOBAL_COLOR_MODE) ||
+        (state->source->buffer.mode == LE_GLOBAL_COLOR_MODE))
     {
         return;
     }

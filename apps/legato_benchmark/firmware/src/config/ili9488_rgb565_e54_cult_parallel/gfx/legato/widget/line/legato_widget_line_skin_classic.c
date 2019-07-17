@@ -100,7 +100,8 @@ static void nextState(leLineWidget* line)
 
 static void drawBackground(leLineWidget* line)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)line);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)line,
+                                                paintState.alpha);
 
     nextState(line);
 }
@@ -131,11 +132,13 @@ static void drawBorder(leLineWidget* line)
 {
     if(line->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)line);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)line,
+                                                    paintState.alpha);
     }
     else if(line->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)line);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)line,
+                                                      paintState.alpha);
     }
 
     nextState(line);

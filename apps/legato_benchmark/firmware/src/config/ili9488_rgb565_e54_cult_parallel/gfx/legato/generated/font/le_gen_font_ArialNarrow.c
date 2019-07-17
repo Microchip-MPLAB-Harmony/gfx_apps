@@ -96,17 +96,18 @@ const uint8_t ArialNarrow_data[261] =
     0x10,0x30,0x20,0x40,0x7C,
 };
 
-leFont ArialNarrow =
+leRasterFont ArialNarrow =
 {
     {
-        LE_ASSET_TYPE_FONT, // asset type
-        LE_ASSET_LOCATION_ID_INTERNAL, // data location id
-        (void*)ArialNarrow_data, // data address pointer
-        261, // data size
+        {
+            LE_STREAM_LOCATION_ID_INTERNAL, // data location id
+            (void*)ArialNarrow_data, // data address pointer
+            261, // data size
+        },
+        LE_RASTER_FONT,
     },
-    8,
+    16,
     11,
     LE_FONT_BPP_1, // bits per pixel
     ArialNarrow_glyphs, // glyph table
-    ArialNarrow_data, // font data
 };

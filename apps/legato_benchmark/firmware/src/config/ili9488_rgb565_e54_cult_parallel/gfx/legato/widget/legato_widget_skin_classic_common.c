@@ -304,15 +304,11 @@ void leWidget_SkinClassic_FillRoundCornerRect(const leRect* rect,
                        a);
 }
 
-void leWidget_SkinClassic_DrawBackground(leWidget* wgt, leColor clr)
+void leWidget_SkinClassic_DrawBackground(leWidget* wgt,
+                                         leColor clr,
+                                         uint32_t alpha)
 {
     leRect rect = wgt->fn->rectToScreen(wgt);
-    uint32_t a = 255;
-    
-    if(wgt->fn->getCumulativeAlphaEnabled(wgt) == LE_TRUE)
-    {
-        a = wgt->fn->getCumulativeAlphaAmount(wgt);
-    }
 
     //Only support round corners for no or line borders
     if (wgt->cornerRadius > 0 && 
@@ -322,36 +318,34 @@ void leWidget_SkinClassic_DrawBackground(leWidget* wgt, leColor clr)
         leWidget_SkinClassic_FillRoundCornerRect(&rect, 
                                                  clr,
                                                  wgt->cornerRadius,
-                                                 a); 
+                                                 alpha);
     }    
     else
     {
-        leRenderer_RectFill(&rect, clr, a);
+        leRenderer_RectFill(&rect, clr, alpha);
     }
 }
 
 void leWidget_SkinClassic_DrawRoundCornerBackground(leWidget* wgt, 
-                                                    leColor clr)
+                                                    leColor clr,
+                                                    uint32_t alpha)
 {
     leRect rect = wgt->fn->rectToScreen(wgt);
-    uint32_t a = 255;
-    
-    if(wgt->fn->getCumulativeAlphaEnabled(wgt) == LE_TRUE)
-    {
-        a = wgt->fn->getCumulativeAlphaAmount(wgt);
-    }
     
     leWidget_SkinClassic_FillRoundCornerRect(&rect, 
                                              clr,
                                              wgt->cornerRadius,
-                                             a);
+                                             alpha);
 }
 
-void leWidget_SkinClassic_DrawStandardBackground(leWidget* wgt)
+void leWidget_SkinClassic_DrawStandardBackground(leWidget* wgt,
+                                                 uint32_t alpha)
 {    
     if(wgt->backgroundType == LE_WIDGET_BACKGROUND_FILL)
     {    
-        leWidget_SkinClassic_DrawBackground(wgt, wgt->scheme->base);
+        leWidget_SkinClassic_DrawBackground(wgt,
+                                            wgt->scheme->base,
+                                            alpha);
     }
 }
 
@@ -607,7 +601,8 @@ void leWidget_SkinClassic_Draw1x2BeveledBorder(const leRect* rect,
 }
 
 void leWidget_SkinClassic_DrawBlit(leWidget* wgt,
-                                   lePixelBuffer* buffer)
+                                   lePixelBuffer* buffer,
+                                   uint32_t alpha)
 {
 #if 0
     leRect widgetRect = leUtils_WidgetLayerRect(wgt);
@@ -637,98 +632,73 @@ void leWidget_SkinClassic_DrawBlit(leWidget* wgt,
 #endif
 }
 
-void leWidget_SkinClassic_DrawStandardLineBorder(leWidget* wgt)
+void leWidget_SkinClassic_DrawStandardLineBorder(leWidget* wgt,
+                                                 uint32_t alpha)
 {
     leRect rect = wgt->fn->rectToScreen(wgt);
-    uint32_t a = 255;
-    
-    if(wgt->fn->getCumulativeAlphaEnabled(wgt) == LE_TRUE)
-    {
-        a = wgt->fn->getCumulativeAlphaAmount(wgt);
-    }
-    
+
     if (wgt->cornerRadius == 0)
     {
         leWidget_SkinClassic_DrawLineBorder(&rect,
                                             wgt->scheme->shadowDark,
-                                            a);
+                                            alpha);
     }
     else
     {
         leWidget_SkinClassic_DrawRoundCornerLineBorder(&rect,
                                                        wgt->scheme->shadowDark,
                                                        wgt->cornerRadius,
-                                                       a);        
+                                                       alpha);
     }
 }
 
-void leWidget_SkinClassic_DrawStandardRoundCornerLineBorder(leWidget* wgt)
+void leWidget_SkinClassic_DrawStandardRoundCornerLineBorder(leWidget* wgt,
+                                                            uint32_t alpha)
 {
     leRect rect = wgt->fn->rectToScreen(wgt);
-    uint32_t a = 255;
-    
-    if(wgt->fn->getCumulativeAlphaEnabled(wgt) == LE_TRUE)
-    {
-        a = wgt->fn->getCumulativeAlphaAmount(wgt);
-    }
-    
+
     leWidget_SkinClassic_DrawRoundCornerLineBorder(&rect,
                                                    wgt->scheme->shadowDark,
                                                    wgt->cornerRadius,
-                                                   a);
+                                                   alpha);
 }
 
-void leWidget_SkinClassic_DrawStandardRaisedBorder(leWidget* wgt)
+void leWidget_SkinClassic_DrawStandardRaisedBorder(leWidget* wgt,
+                                                   uint32_t alpha)
 {
     leRect rect = wgt->fn->rectToScreen(wgt);
-    uint32_t a = 255;
-    
-    if(wgt->fn->getCumulativeAlphaEnabled(wgt) == LE_TRUE)
-    {
-        a = wgt->fn->getCumulativeAlphaAmount(wgt);
-    }
-    
+
     leWidget_SkinClassic_Draw2x2BeveledBorder(&rect,
                                               wgt->scheme->highlightLight,
                                               wgt->scheme->highlightLight,
                                               wgt->scheme->shadowDark,
                                               wgt->scheme->shadow,
-                                              a);
+                                              alpha);
 }
 
-void leWidget_SkinClassic_DrawStandardLoweredBorder(leWidget* wgt)
+void leWidget_SkinClassic_DrawStandardLoweredBorder(leWidget* wgt,
+                                                    uint32_t alpha)
 {
     leRect rect = wgt->fn->rectToScreen(wgt);
-    uint32_t a = 255;
-    
-    if(wgt->fn->getCumulativeAlphaEnabled(wgt) == LE_TRUE)
-    {
-        a = wgt->fn->getCumulativeAlphaAmount(wgt);
-    }
-    
+
     leWidget_SkinClassic_Draw2x2BeveledBorder(&rect,
                                               wgt->scheme->shadowDark,
                                               wgt->scheme->shadow,
                                               wgt->scheme->highlightLight,
                                               wgt->scheme->highlightLight,
-                                              a);
+                                              alpha);
 }
 
-void leWidget_SkinClassic_DrawStandardHybridBorder(leWidget* wgt)
+void leWidget_SkinClassic_DrawStandardHybridBorder(leWidget* wgt,
+                                                   uint32_t alpha)
 {
     leRect rect = wgt->fn->rectToScreen(wgt);
-    uint32_t a = 255;
-    
-    if(wgt->fn->getCumulativeAlphaEnabled(wgt) == LE_TRUE)
-    {
-        a = wgt->fn->getCumulativeAlphaAmount(wgt);
-    }
-    
+
     leWidget_SkinClassic_Draw1x2BeveledBorder(&rect,
                                               wgt->scheme->highlightLight,
                                               wgt->scheme->shadowDark,
                                               wgt->scheme->shadow,
-                                              a);
+                                              alpha);
 }
 
 void leWidget_SkinClassic_InvalidateBorderAreas(leWidget* wgt)

@@ -104,8 +104,14 @@ void leWidget_Constructor(leWidget* _this)
         _this->eventFilters[i].data = NULL;
     }
 
+    _this->root = LE_FALSE;
     _this->parent = NULL;
+
     leArray_Create(&_this->children);
+
+    _this->optimizationFlags = 0;
+    _this->drawCount = 0;
+    _this->drawFunc = NULL;
 }
 
 void _leWidget_Destructor(leWidget* _this)
@@ -114,6 +120,16 @@ void _leWidget_Destructor(leWidget* _this)
     uint32_t i;
 
     LE_ASSERT_THIS();
+
+    if(leGetFocusWidget() == (void*)_this)
+    {
+        leSetFocusWidget(NULL);
+    }
+
+    if(leGetEditWidget() == (void*)_this)
+    {
+        leSetEditWidget(NULL);
+    }
     
     for(i = 0; i < _this->children.size; i++)
     {
@@ -1212,7 +1228,7 @@ void _leWidget_ResizeEvent(leWidget* _this,
                            leWidget_ResizeEvent* evt)
 { }
 
-void _leWidget_FocusLostEvent(leWidget* _thiss)
+void _leWidget_FocusLostEvent(leWidget* _this)
 { }
 
 void _leWidget_FocusGainedEvent(leWidget* _this)
@@ -1314,15 +1330,6 @@ void _leWidget_HandleEvent(leWidget* _this,
                 return;
 
             _this->fn->focusLostEvent(_this);
-            
-            break;
-        }
-        case LE_WIDGET_EVENT_LANGUAGE_CHANGED:
-        {
-            if(filterEvent(_this, (leWidgetEvent*)evt) == LE_TRUE)
-                return;
-
-            _this->fn->languageChangeEvent(_this);
             
             break;
         }

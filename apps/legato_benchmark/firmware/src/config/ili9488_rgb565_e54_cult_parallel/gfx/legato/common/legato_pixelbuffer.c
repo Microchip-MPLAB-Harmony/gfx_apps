@@ -74,10 +74,10 @@ static leColor indexGet(const lePixelBuffer* const buffer,
     uint8_t* buf_ptr;
     leColor color = 0;
     uint32_t i;
+
+    buf_ptr = ((uint8_t*)buffer->pixels) + (leColorInfoTable[buffer->mode].bpp >> 3) * idx;
     
-    buf_ptr = ((uint8_t*)buffer->pixels) + (leColorInfo[buffer->mode].bpp >> 3) * idx;
-    
-    for(i = 0; i < leColorInfo[buffer->mode].bpp >> 3; i++)
+    for(i = 0; i < leColorInfoTable[buffer->mode].bpp >> 3; i++)
         ((uint8_t*)&color)[i] = buf_ptr[i];
     
     return color;
@@ -221,7 +221,7 @@ leResult lePixelBufferCreate(const int32_t width,
         }
         default:
         {
-            buffer->buffer_length = width * height * ((leColorInfo[buffer->mode].bpp >> 3));
+            buffer->buffer_length = width * height * ((leColorInfoTable[buffer->mode].bpp >> 3));
         }
     }
 
@@ -245,8 +245,8 @@ leBuffer lePixelBufferOffsetGet(const lePixelBuffer* const buffer,
         return NULL;
     
     return buf_ptr +
-           leColorInfo[buffer->mode].size *
-           (x + (y * buffer->size.width));
+            leColorInfoTable[buffer->mode].size *
+            (x + (y * buffer->size.width));
 }
 
 leBuffer lePixelBufferOffsetGet_Unsafe(const lePixelBuffer* const buffer,
@@ -258,7 +258,7 @@ leBuffer lePixelBufferOffsetGet_Unsafe(const lePixelBuffer* const buffer,
     buf_ptr = (uint8_t*)buffer->pixels;
     
     return buf_ptr +
-           leColorInfo[buffer->mode].size *
+           leColorInfoTable[buffer->mode].size *
            (x + (y * buffer->size.width));
 }
 
@@ -281,7 +281,7 @@ leColor lePixelBufferGet_Unsafe(const lePixelBuffer* const buffer,
     
     offs_ptr = (uint8_t*)lePixelBufferOffsetGet(buffer, x, y);
     
-    color = pixelGet_FnTable[leColorInfo[buffer->mode].size - 1](offs_ptr);
+    color = pixelGet_FnTable[leColorInfoTable[buffer->mode].size - 1](offs_ptr);
             
     return color;
 }
@@ -316,13 +316,13 @@ leColor lePixelBufferGetIndex(const lePixelBuffer* const buffer,
     if(idx >= buffer->pixel_count)
         return 0;
         
-    return indexGet_FnTable[leColorInfo[buffer->mode].bppOrdinal](buffer, idx);
+    return indexGet_FnTable[leColorInfoTable[buffer->mode].bppOrdinal](buffer, idx);
 }
 
 leColor lePixelBufferGetIndex_Unsafe(const lePixelBuffer* const buffer,
                                      const uint32_t idx)
 {       
-    return indexGet_FnTable[leColorInfo[buffer->mode].bppOrdinal](buffer, idx);
+    return indexGet_FnTable[leColorInfoTable[buffer->mode].bppOrdinal](buffer, idx);
 }
 
 leResult lePixelBufferSet(const lePixelBuffer* const buffer,
@@ -352,52 +352,112 @@ leResult lePixelBufferSet_Unsafe(const lePixelBuffer* const buffer,
     // get address of dest pixel
     dest_ptr = (uint8_t*)lePixelBufferOffsetGet_Unsafe(buffer, x, y);
     
-    pixelSet_FnTable[(leColorInfo[buffer->mode].bpp >> 3) - 1](dest_ptr, color);
+    pixelSet_FnTable[(leColorInfoTable[buffer->mode].bpp >> 3) - 1](dest_ptr, color);
 
     return LE_SUCCESS;
 }
 
 leResult lePixelBufferAreaFill(const lePixelBuffer* const buffer,
-                               const leRect* const rect,
-                               const leColor color)
+                               uint32_t x,
+                               uint32_t y,
+                               uint32_t w,
+                               uint32_t h,
+                               leColor color)
 {
-    leRect clip_rect;
+    leRect rect, clip_rect;
 
-    if(buffer == NULL || rect == NULL)
+    rect.x = x;
+    rect.y = y;
+    rect.width = w;
+    rect.height = h;
+
+    if(buffer == NULL)
         return LE_FAILURE;
 
     if(lePixelBufferClipRect(buffer,
-                             rect,
+                             &rect,
                              &clip_rect) == LE_FAILURE)
         return LE_FAILURE;
 
     // fill the buffer
-    return lePixelBufferAreaFill_Unsafe(buffer, &clip_rect, color);
+    return lePixelBufferAreaFill_Unsafe(buffer,
+                                        clip_rect.x,
+                                        clip_rect.y,
+                                        clip_rect.width,
+                                        clip_rect.height,
+                                        color);
 }
 
 leResult lePixelBufferAreaFill_Unsafe(const lePixelBuffer* const buffer,
-                                      const leRect* const rect,
-                                      const leColor color)
+                                      uint32_t x,
+                                      uint32_t y,
+                                      uint32_t w,
+                                      uint32_t h,
+                                      leColor color)
 {
     int32_t row, row_max, col, col_max;
-    uint32_t x, y;
+    uint32_t drawX;
+    uint32_t rowSize;
+    void *srcIdx, *destIdx;
 
     // calculate minimums
-    row_max = rect->height;
-    col_max = rect->width;
+    row_max = h;
+    col_max = w;
+
+    rowSize = col_max * leColorInfoTable[buffer->mode].size;
+
+    // fill the first row
+    for(col = 0; col < col_max; col++)
+    {
+        drawX = x + col;
+
+        // set dest pixel
+        lePixelBufferSet_Unsafe(buffer, drawX, y, color);
+    }
+
+    srcIdx = lePixelBufferOffsetGet_Unsafe(buffer, x, y);
+
+    // copy first row to subsequent rows
+    for(row = 1; row < row_max; row++)
+    {
+        destIdx = lePixelBufferOffsetGet_Unsafe(buffer, x, y + row);
+        //idx = lePixelBufferOffsetGet_Unsafe(buffer, x, y + row);
+
+        //idx = (uint8_t*)(((uint32_t)buffer->pixels) + ((y + row) * rowSize));
+
+        memcpy(destIdx, srcIdx, rowSize);
+    }
+
+    // fill the first row
+    /*for(col = 0; col < col_max; col++)
+    {
+        drawX = x + col;
+
+        // set dest pixel
+        lePixelBufferSet_Unsafe(buffer, drawX, y, color);
+    }
+
+    for(row = 1; row < row_max; row++)
+    {
+        idx = (uint8_t*)buffer->pixels + (rowSize * row);
+
+        memcpy(idx, buffer->pixels, rowSize);
+    }*/
+
+    /*uint32_t drawY;
     
     for(row = 0; row < row_max; row++)
     {
-        y = rect->y + row;
+        drawY = y + row;
         
         for(col = 0; col < col_max; col++)
         {
-            x = rect->x + col;
+            drawX = x + col;
             
             // set dest pixel
-            lePixelBufferSet_Unsafe(buffer, x, y, color);
+            lePixelBufferSet_Unsafe(buffer, drawX, drawY, color);
         }
-    }
+    }*/
 
     return LE_SUCCESS;
 }

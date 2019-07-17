@@ -203,7 +203,7 @@ leResult leArray_RemoveAt(leArray* arr, uint32_t idx)
 
 leResult leArray_Remove(leArray* arr, void* val)
 {
-    uint32_t idx;
+    int32_t idx;
 
     if(arr == NULL || arr->size == 0 || val == NULL)
         return LE_FAILURE;

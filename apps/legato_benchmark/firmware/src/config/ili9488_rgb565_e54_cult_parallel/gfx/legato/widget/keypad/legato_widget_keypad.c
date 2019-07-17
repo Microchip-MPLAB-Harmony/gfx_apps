@@ -21,6 +21,7 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+#include <gfx/legato/legato.h>
 #include "gfx/legato/widget/keypad/legato_widget_keypad.h"
 
 #if LE_KEYPAD_WIDGET_ENABLED && LE_BUTTON_WIDGET_ENABLED
@@ -186,7 +187,9 @@ void leKeyPadWidget_Constructor(leKeyPadWidget* _this,
         
         _this->fn->addChild(_this, (leWidget*)button);
     }
-    
+
+    _this->clickEvt = NULL;
+
     resizeCells(_this, NULL);
 }
 
@@ -327,6 +330,13 @@ static leButtonWidget* getCellButton(const leKeyPadWidget* _this,
     return btn;
 }
 
+static void handleLanguageChangeEvent(leKeyPadWidget* _this)
+{
+    LE_ASSERT_THIS();
+
+    _this->fn->invalidate(_this);
+}
+
 void _leWidget_FillVTable(leWidgetVTable* tbl);
 void _leKeyPadWidget_Paint(leKeyPadWidget* _this);
 
@@ -338,6 +348,7 @@ void _leKeyPadWidget_GenerateVTable()
     keyPadWidgetVTable._destructor = destructor;
     keyPadWidgetVTable.resizeEvent = resizeCells;
     keyPadWidgetVTable._paint = _leKeyPadWidget_Paint;
+    keyPadWidgetVTable.languageChangeEvent = handleLanguageChangeEvent;
     
     /* member functions */
     keyPadWidgetVTable.getKeyPadActionTrigger = getKeyPadActionTrigger;

@@ -25,55 +25,59 @@
 
 #include <string.h>
 
-#include "gfx/legato/asset/legato_font.h"
 #include "gfx/legato/core/legato_state.h"
+#include "gfx/legato/font/legato_font.h"
 #include "gfx/legato/memory/legato_memory.h"
 #include "gfx/legato/renderer/legato_renderer.h"
+#include "gfx/legato/string/legato_string_renderer.h"
 
 static leStringVTable stringVTable;
 
 #define LE_STRING_SPACE     0x20 // ' '
 #define LE_STRING_LINEBREAK 0xA // '\n'
 
-void _leString_Constructor(leString* str)
+void _leString_Constructor(leString* _this)
 {
-    
 }
 
-void _leString_Destructor(leString* str)
+void _leString_Destructor(leString* _this)
 {
-    
+    _this->preCBUserData = NULL;
+    _this->preInvCallback = NULL;
+    _this->invCBUserData = NULL;
+    _this->invCallback = NULL;
 }
 
 
-leResult _leString_GetRect(const leString* str,
+leResult _leString_GetRect(const leString* _this,
                            leRect* rect)
 {
     uint32_t idx;
     uint32_t len, lines;
     leRect lineRect;
+    leRasterFont* rasFnt;
+
+    LE_ASSERT_THIS();
     
     *rect = leRect_Zero;
     
-    if(str == NULL)
-        return LE_FAILURE;
-        
-    len = str->fn->length(str);
+    len = _this->fn->length(_this);
     
     if(len == 0)
     {
         return LE_SUCCESS;
     }
         
-    lines = str->fn->getLineCount(str);
+    lines = _this->fn->getLineCount(_this);
     
     for(idx = 0; idx < lines; idx++)
     {
-        str->fn->getLineRect(str, idx, &lineRect);
+        _this->fn->getLineRect(_this, idx, &lineRect);
         
         if(idx < lines - 1)
         {
-            rect->height += str->fn->getFont(str)->height;
+            rasFnt = (leRasterFont*)_this->fn->getFont(_this);
+            rect->height += rasFnt->height;
         }
         else
         {
@@ -89,14 +93,16 @@ leResult _leString_GetRect(const leString* str,
     return LE_SUCCESS;
 }
 
-uint32_t _leString_GetLineCount(const leString* str)
+uint32_t _leString_GetLineCount(const leString* _this)
 {
     uint32_t len;
     uint32_t idx;
     uint32_t count;
     leChar chr;
-    
-    len = str->fn->length(str);
+
+    LE_ASSERT_THIS();
+
+    len = _this->fn->length(_this);
     
     count = 1;
     
@@ -105,7 +111,7 @@ uint32_t _leString_GetLineCount(const leString* str)
         
     for(idx = 0; idx < len; idx++)
     {
-        chr = str->fn->charAt(str, idx);
+        chr = _this->fn->charAt(_this, idx);
         
         if(chr == LE_STRING_LINEBREAK)
         {
@@ -116,7 +122,7 @@ uint32_t _leString_GetLineCount(const leString* str)
     return count;
 }
 
-leResult _leString_GetLineIndices(const leString* str,
+leResult _leString_GetLineIndices(const leString* _this,
                                   uint32_t line,
                                   uint32_t* start,
                                   uint32_t* end)
@@ -125,13 +131,12 @@ leResult _leString_GetLineIndices(const leString* str,
     uint32_t len;
     uint32_t count;
     leChar chr;
+
+    LE_ASSERT_THIS();
     
-    if(str == NULL)
-        return LE_FAILURE;
-        
-    len = str->fn->length(str);
-    
-    if(len == 0 || line >= str->fn->getLineCount(str))
+    len = _this->fn->length(_this);
+
+    if(len == 0 || line >= _this->fn->getLineCount(_this))
         return LE_FAILURE;
         
     count = 0;
@@ -141,7 +146,7 @@ leResult _leString_GetLineIndices(const leString* str,
         
     for(idx = 0; idx < len; idx++)
     {
-        chr = str->fn->charAt(str, idx);
+        chr = _this->fn->charAt(_this, idx);
         
         if(chr == LE_STRING_LINEBREAK)
         {
@@ -162,38 +167,37 @@ leResult _leString_GetLineIndices(const leString* str,
     return LE_SUCCESS;
 }
 
-leResult _leString_GetLineRect(const leString* str,
+leResult _leString_GetLineRect(const leString* _this,
                                uint32_t line,
                                leRect* rect)
 {
     uint32_t idx;
     uint32_t len;
-    leFont* fnt;
+    leRasterFont* fnt;
     leFontGlyph glyph;
     uint32_t startIdx, endIdx;
     leChar chr;
-    
+
+    LE_ASSERT_THIS();
+
     *rect = leRect_Zero;
     
-    if(str == NULL)
-        return LE_FAILURE;
-        
-    len = str->fn->length(str);
-    fnt = str->fn->getFont(str);
+    len = _this->fn->length(_this);
+    fnt = (leRasterFont*)_this->fn->getFont(_this);
     
-    if(len == 0 || fnt == NULL || line >= str->fn->getLineCount(str))
+    if(len == 0 || fnt == NULL || line >= _this->fn->getLineCount(_this))
         return LE_FAILURE;
         
     if(fnt->glyphTable == NULL)
         return LE_FAILURE;
     
-    str->fn->getLineIndices(str, line, &startIdx, &endIdx);
+    _this->fn->getLineIndices(_this, line, &startIdx, &endIdx);
     
     for(idx = startIdx; idx < endIdx; idx++)
     {
-        chr = str->fn->charAt(str, idx);
+        chr = _this->fn->charAt(_this, idx);
         
-        leFont_GetGlyphInfo(fnt, chr, &glyph);
+        leFont_GetGlyphInfo((leFont*)fnt, chr, &glyph);
             
         rect->width += glyph.advance;
     }
@@ -203,23 +207,22 @@ leResult _leString_GetLineRect(const leString* str,
     return LE_SUCCESS;
 }
 
-leResult _leString_GetCharRect(const leString* str,
+leResult _leString_GetCharRect(const leString* _this,
                                uint32_t charIdx,
                                leRect* rect)
 {
     uint32_t idx;
     uint32_t len;
-    leFont* fnt;
+    leRasterFont* fnt;
     leFontGlyph glyph;
     leChar chr;
+
+    LE_ASSERT_THIS();
     
     *rect = leRect_Zero;
     
-    if(str == NULL)
-        return LE_FAILURE;
-        
-    len = str->fn->length(str);
-    fnt = str->fn->getFont(str);
+    len = _this->fn->length(_this);
+    fnt = (leRasterFont*)_this->fn->getFont(_this);
     
     if(len == 0 || fnt == NULL || charIdx >= len)
         return LE_FAILURE;
@@ -229,16 +232,14 @@ leResult _leString_GetCharRect(const leString* str,
     
     for(idx = 0; idx < len; idx++)
     {
-        chr = str->fn->charAt(str, idx);
+        chr = _this->fn->charAt(_this, idx);
         
         if(chr == LE_STRING_LINEBREAK)
         {
-            //rect->x = 0;
-            //rect->y += fnt->height + linePadding;
         }
         else if(idx == charIdx)
         {
-            leFont_GetGlyphInfo(fnt, chr, &glyph);
+            leFont_GetGlyphInfo((leFont*)fnt, chr, &glyph);
             
             rect->width = glyph.advance;
             rect->height = fnt->height;
@@ -247,7 +248,7 @@ leResult _leString_GetCharRect(const leString* str,
         }
         else
         {
-            leFont_GetGlyphInfo(fnt, chr, &glyph);            
+            leFont_GetGlyphInfo((leFont*)fnt, chr, &glyph);
             
             rect->x += glyph.advance;
         }
@@ -257,34 +258,36 @@ leResult _leString_GetCharRect(const leString* str,
 }
 
 // TODO does not support multiline
-leResult _leString_GetCharIndexAtPoint(const leString* str,
+leResult _leString_GetCharIndexAtPoint(const leString* _this,
                                        lePoint* pt,
                                        uint32_t* charIdx)
 {
     uint32_t idx;
     uint32_t len;
-    leFont* fnt;
+    leRasterFont* fnt;
     leFontGlyph glyph;
     leChar chr;
     leRect rect;
+
+    LE_ASSERT_THIS();
     
     rect.x = 0;
     rect.y = 0;
 
     *charIdx = 0;
     
-    if(str == NULL || pt->x < 0 || pt->y < 0)
+    if(pt->x < 0 || pt->y < 0)
         return LE_FAILURE;
         
-    len = str->fn->length(str);
-    fnt = str->fn->getFont(str);
+    len = _this->fn->length(_this);
+    fnt = (leRasterFont*)_this->fn->getFont(_this);
     
     if(len == 0 || fnt == NULL)
         return LE_SUCCESS;
 
     for(idx = 0; idx < len; idx++)
     {
-        chr = str->fn->charAt(str, idx);
+        chr = _this->fn->charAt(_this, idx);
         
         if(chr == LE_STRING_LINEBREAK)
         {
@@ -293,7 +296,7 @@ leResult _leString_GetCharIndexAtPoint(const leString* str,
         }
         else
         {
-            leFont_GetGlyphInfo(fnt, chr, &glyph);            
+            leFont_GetGlyphInfo((leFont*)fnt, chr, &glyph);
             
             rect.width = glyph.advance;
             rect.height = glyph.height;
@@ -312,123 +315,85 @@ leResult _leString_GetCharIndexAtPoint(const leString* str,
     return LE_FAILURE;
 }
 
-static leResult drawInternalString(const leString* str,
-                                   int32_t x,
-                                   int32_t y,
-                                   leHAlignment align,
-                                   leColor clr,
-                                   uint32_t a)
-{
-    uint32_t charItr, len, lines, lineItr;
-    leFont* fnt = str->fn->getFont(str);
-    leFontGlyph glyphInfo;
-    leChar codePoint;
-    int32_t stringY, lineX;
-    leRect stringRect, lineRect;
-    uint32_t startIdx, endIdx;
-    //leRect drawRect;
-    
-    len = str->fn->length(str);
-    
-    if(len == 0)
-        return 0;
-        
-    stringY = y;
-    
-    lines = str->fn->getLineCount(str);
-    
-    str->fn->getRect(str, &stringRect);
-    
-    //drawRect = stringRect;
-    //drawRect.x += x;
-    //drawRect.y += y;    
-    
-    //leRenderer_RectLine(&drawRect, clr);
-    
-    for(lineItr = 0; lineItr < lines; lineItr++)
-    {
-        str->fn->getLineIndices(str, lineItr, &startIdx, &endIdx);
-        str->fn->getLineRect(str, lineItr, &lineRect);
-        
-        if(align == LE_HALIGN_CENTER)
-        {
-            lineX = stringRect.x + (stringRect.width / 2) - (lineRect.width / 2);
-        }
-        else if(align == LE_HALIGN_RIGHT)
-        {
-            lineX = stringRect.x + stringRect.width - lineRect.width; 
-        }
-        else
-        {
-            lineX = stringRect.x;
-        }
-        
-        for(charItr = startIdx; charItr < endIdx; charItr++)
-        {
-            codePoint = str->fn->charAt(str, charItr);
-            
-            leFont_GetGlyphInfo(fnt, codePoint, &glyphInfo);
-            
-            if(codePoint == LE_STRING_SPACE)
-            {
-                
-            }
-            else
-            {
-                leFont_DrawGlyph(fnt,
-                                 &glyphInfo,
-                                 x + lineX + glyphInfo.bearingX,
-                                 stringY + (fnt->baseline - glyphInfo.bearingY),
-                                 clr,
-                                 a);
-            }
-                             
-            lineX += glyphInfo.advance;
-        }
-        
-        stringY += fnt->height;
-    }
-    
-    return LE_SUCCESS;
-}
-                          
-
-leResult _leString_Draw(const leString* str,
+leResult _leString_Draw(const leString* _this,
                         int32_t x,
                         int32_t y,
                         leHAlignment align,
                         leColor clr,
                         uint32_t a)
 {
-    if(str->fn->getFont(str) == NULL)
-        return LE_FAILURE;
-        
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-    if(str->font->header.dataLocation == LE_ASSET_LOCATION_INTERNAL)
+    leStringRenderRequest req;
+
+    LE_ASSERT_THIS();
+
+    req.str = _this;
+    req.x = x;
+    req.y = y;
+    req.align = align;
+    req.color = clr;
+    req.alpha = a;
+
+    return leStringRenderer_DrawString(&req);
+}
+
+void _leString_PreInvalidate(leString* _this)
+{
+    LE_ASSERT_THIS();
+
+    if(_this->preInvCallback != NULL)
     {
-#endif
-        return drawInternalString(str,
-                                  x,
-                                  y,
-                                  align,
-                                  clr,
-                                  a);
-                                  
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
+        _this->preInvCallback(_this, _this->preCBUserData);
+    }
+}
+
+void _leString_Invalidate(leString* _this)
+{
+    LE_ASSERT_THIS();
+
+    if(_this->invCallback != NULL)
+    {
+        _this->invCallback(_this, _this->preCBUserData);
+    }
+}
+
+leResult _leString_SetPreInvalidateCallback(leString* _this,
+                                            leString_InvalidateCallback cb,
+                                            void* userData)
+{
+    LE_ASSERT_THIS();
+
+    _this->preInvCallback = cb;
+
+    if(cb == NULL)
+    {
+        _this->preCBUserData = NULL;
     }
     else
     {
-        return LE_FAILURE;
-#if 0
-        //TODO: Implement substring draw
-        return leDrawStringBufferExternal(str,
-                                          x,
-                                          y,
-                                          memoryInterface,
-                                          reader);
-#endif
+        _this->preCBUserData = userData;
     }
-#endif
+
+    return LE_SUCCESS;
+}
+
+leResult _leString_SetInvalidateCallback(leString* _this,
+                                         leString_InvalidateCallback cb,
+                                         void* userData)
+{
+    LE_ASSERT_THIS();
+
+    _this->invCallback = cb;
+
+    if(cb == NULL)
+    {
+        _this->invCBUserData = NULL;
+    }
+    else
+    {
+        _this->invCBUserData = userData;
+    }
+
+    return LE_SUCCESS;
 }
 
 void _leString_GenerateVTable()
@@ -440,232 +405,13 @@ void _leString_GenerateVTable()
     stringVTable.getCharRect = _leString_GetCharRect;
     stringVTable.getCharIndexAtPoint = _leString_GetCharIndexAtPoint;
     stringVTable._draw = _leString_Draw;
+    stringVTable.preinvalidate = _leString_PreInvalidate;
+    stringVTable.invalidate = _leString_Invalidate;
+    stringVTable.setPreInvalidateCallback = _leString_SetPreInvalidateCallback;
+    stringVTable.setInvalidateCallback = _leString_SetInvalidateCallback;
 }
 
 void _leString_FillVTable(leStringVTable* vt)
 {
     *vt = stringVTable;
 }
-
-
-#if 0
-void leString_GetRect(leString* str, leRect* rect)
-{
-    if(rect == NULL)
-        return;
-        
-    rect->x = 0;
-    rect->y = 0;
-    rect->width = 0;
-    rect->height = 0;
-    
-    if(str == NULL)
-        return;
-    
-    if(str->table_index != LE_STRING_NULLIDX)
-    {
-        leGetStringRect(leGetState()->stringTable,
-                        str->table_index,
-                        leGetState()->languageID,
-                        rect);
-    }
-    else
-    {
-        if(str->font == NULL)
-            return;
-            
-        rect->x = 0;
-        rect->y = 0;
-        rect->height = str->font->height;
-        rect->width = leCalculateCharStringWidth(str->data, str->font);
-    }
-}
-
-void leString_GetLineRect(leString* str, uint32_t start, leRect* rect, uint32_t * end)
-{
-    if(rect == NULL)
-        return;
-
-    rect->x = 0;
-    rect->y = 0;
-    rect->width = 0;
-    rect->height = 0;
-
-    if(str == NULL)
-        return;
-
-    if(str->table_index != LE_STRING_NULLIDX)
-    {
-		*end = leGetStringLineRect(leGetState()->stringTable, 
-                                      str->table_index,
-                                      leGetState()->languageID,
-                                      start,
-                                      rect);
-    }
-    else
-    {
-        if(str->font == NULL)
-            return;
-
-        *end = leGetCharStringLineRect(str->data,
-                                          str->font,
-                                          start,
-                                          rect);
-    }
-}
-
-void leString_GetMultiLineRect(leString* str, leRect* rect, int32_t lineSpace)
-{
-    uint32_t offset = 0, newoffset = 0;
-    leRect lineRect;
-
-    rect->height = 0;
-    rect->width = 0;
-
-    while (1)
-	{
-		offset = newoffset;
-
-		leString_GetLineRect(str, offset, &lineRect, &newoffset);
-
-        //At end of string
-        if (offset == newoffset)
-        {
-            if (lineSpace >= 0)
-                rect->height += lineSpace;
-            else
-                rect->height += leString_GetHeight(str) - leString_GetAscent(str);                
-            break;
-        }
-
-        if (lineSpace >= 0)
-            rect->height += lineSpace;
-        else
-            rect->height += leString_GetAscent(str);
-        
-
-		if (lineRect.width > rect->width)
-		{
-			rect->width = lineRect.width;
-		}
-	}
-}
-
-uint32_t leString_GetHeight(leString* str)
-{
-    if(str == NULL)
-        return 0;
-    
-    if(str->table_index != LE_STRING_NULLIDX)
-    {
-        return leGetStringHeight(leGetState()->stringTable,
-                                 str->table_index,
-                                 leGetState()->languageID);
-    }
-    else
-    {
-        if(str->font == NULL)
-            return 0;
-            
-        return str->font->height;
-    }
-    
-    return 0;
-}
-
-uint32_t leString_GetAscent(leString* str)
-{
-    if(str == NULL)
-        return 0;
-    
-    if(str->table_index != LE_STRING_NULLIDX)
-    {
-        return leGetStringAscent(leGetState()->stringTable,
-                                    str->table_index,
-                                    leGetState()->languageID);
-    }
-    else
-    {
-        if(str->font == NULL)
-            return 0;
-            
-        return str->font->ascent;
-    }
-    
-    return 0;
-}
-
-uint32_t leString_GetCharOffset(leString* str, uint32_t idx)
-{
-    if(str->table_index != LE_STRING_NULLIDX)
-    {
-        return leCalculatePartialStringWidth(leGetState()->stringTable,
-                                                str->table_index,
-                                                leGetState()->languageID,
-                                                idx);
-    }
-    else
-    {
-        if(str->font == NULL)
-            return 0;
-            
-        return leCalculatePartialCharStringWidth(str->data, str->font, idx);
-    }
-}
-
-uint32_t leString_GetCharIndexAtPoint(leString* str, int32_t x)
-{
-    int32_t last, curr, width, length;
-    int32_t i;
-    
-    length = leString_Length(str);
-    
-    if(x < 0)
-        return 0;
-    
-    last = 0;
-        
-    for(i = 0; i < length; i++)
-    {
-        width = leString_GetCharWidth(str, i);
-        curr = last + width;
-        
-        if(x < curr)
-        {
-            if(x - last < curr - x)
-                return i;
-            else
-                return i + 1;
-        }
-        
-        last = curr;
-    }
-    
-    return length;
-}
-
-uint32_t leString_GetCharWidth(leString* str, uint32_t idx)
-{
-    leChar chr;
-    leFont* ast;
-    
-    if(str->table_index == LE_STRING_NULLIDX)
-    {
-        return leGetCharWidth(str->data[idx], str->font);
-    }
-    else
-    {
-        chr = leGetCharAt(leGetState()->stringTable,
-                             str->table_index,
-                             leGetState()->languageID,
-                             idx);
-                             
-        ast = leStringFontIndexLookup(leGetState()->stringTable,
-                                         str->table_index,
-                                         leGetState()->languageID);
-                             
-        return leGetCharWidth(chr, ast);
-    }
-}
-
-#endif

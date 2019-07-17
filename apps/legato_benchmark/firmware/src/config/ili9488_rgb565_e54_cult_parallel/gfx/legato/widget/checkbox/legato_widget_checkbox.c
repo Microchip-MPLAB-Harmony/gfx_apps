@@ -21,6 +21,7 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+#include <gfx/legato/legato.h>
 #include "gfx/legato/widget/checkbox/legato_widget_checkbox.h"
 
 #if LE_CHECKBOX_WIDGET_ENABLED == 1
@@ -47,7 +48,7 @@ void _leCheckBoxWidget_GetTextRect(const leCheckBoxWidget* cbox,
 								   leRect* textRect,
 								   leRect* drawRect);									
 
-/*static void invalidateImageRect(const leCheckBoxWidget* _this)
+static void invalidateImageRect(const leCheckBoxWidget* _this)
 {
     leRect imgRect, imgSrcRect;
     
@@ -63,16 +64,29 @@ static void invalidateTextRect(const leCheckBoxWidget* _this)
     _leCheckBoxWidget_GetTextRect(_this, &textRect, &drawRect);
     
     _this->fn->_damageArea(_this, &drawRect);
-}*/
+}
 
 static void invalidateContents(const leCheckBoxWidget* _this)
 {
     LE_ASSERT_THIS();
 
-    _this->fn->invalidate(_this);
+    invalidateImageRect(_this);
+    invalidateTextRect(_this);
 }
 
-static void languageChanging(leCheckBoxWidget* _this)
+static void stringPreinvalidate(const leString* str,
+                                leCheckBoxWidget* cbox)
+{
+    invalidateContents(cbox);
+}
+
+static void stringInvalidate(const leString* str,
+                             leCheckBoxWidget* cbox)
+{
+    invalidateContents(cbox);
+}
+
+static void handleLanguageChangeEvent(leCheckBoxWidget* _this)
 {   
     LE_ASSERT_THIS();
     
@@ -103,6 +117,7 @@ void _leCheckBoxWidget_Constructor(leCheckBoxWidget* _this)
 
     _this->string = NULL;
 
+    _this->imagePosition = LE_RELATIVE_POSITION_LEFTOF;
     _this->imageMargin = DEFAULT_IMAGE_MARGIN;
 
     _this->widget.halign = LE_HALIGN_LEFT;
@@ -110,6 +125,9 @@ void _leCheckBoxWidget_Constructor(leCheckBoxWidget* _this)
     
     _this->checkedImage = NULL;
     _this->uncheckedImage = NULL;
+
+    _this->checkedEvent = NULL;
+    _this->uncheckedEvent = NULL;
 }
 
 void _leWidget_Destructor(leWidget* _this);
@@ -180,10 +198,31 @@ static leResult setString(leCheckBoxWidget* _this,
                           const leString* str)
 {
     LE_ASSERT_THIS();
-        
+
+    if(_this->string != NULL)
+    {
+        invalidateTextRect(_this);
+
+        _this->string->fn->setPreInvalidateCallback((leString*)_this->string,
+                                                    NULL,
+                                                    NULL);
+
+        _this->string->fn->setInvalidateCallback((leString*)_this->string,
+                                                 NULL,
+                                                 NULL);
+    }
+
     _this->string = str;
 
-    _this->fn->invalidate(_this);
+    _this->string->fn->setPreInvalidateCallback((leString*)_this->string,
+                                                (void*)stringPreinvalidate,
+                                                _this);
+
+    _this->string->fn->setInvalidateCallback((leString*)_this->string,
+                                             (void*)stringInvalidate,
+                                             _this);
+
+    invalidateTextRect(_this);
         
     return LE_SUCCESS;
 }
@@ -357,7 +396,7 @@ void _leCheckBoxWidget_GenerateVTable()
     
     /* overrides from base class */
     checkBoxWidgetVTable._destructor = _leCheckBoxWidget_Destructor;
-    checkBoxWidgetVTable.languageChangeEvent = languageChanging;
+    checkBoxWidgetVTable.languageChangeEvent = handleLanguageChangeEvent;
     checkBoxWidgetVTable._paint = _leCheckBoxWidget_Paint;
     checkBoxWidgetVTable.invalidateContents = invalidateContents;
     checkBoxWidgetVTable.touchDownEvent = handleTouchDownEvent;

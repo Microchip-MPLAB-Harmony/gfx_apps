@@ -65,8 +65,8 @@ typedef struct leWindowWidget leWindowWidget;
     \
     uint32_t  (*getTitleHeight)(const THIS_TYPE* _this); \
     leResult  (*setTitleHeight)(THIS_TYPE* this, uint32_t ht); \
-    leString* (*getTitle)(const THIS_TYPE* _this); \
-    leResult  (*setTitle)(THIS_TYPE* _this, const leString* str); \
+    leString* (*getString)(const THIS_TYPE* _this); \
+    leResult  (*setString)(THIS_TYPE* _this, const leString* str); \
     leImage*  (*getIcon)(const THIS_TYPE* _this); \
     leResult  (*setIcon)(THIS_TYPE* _this, const leImage* img); \
     uint32_t  (*getIconMargin)(const THIS_TYPE* this); \

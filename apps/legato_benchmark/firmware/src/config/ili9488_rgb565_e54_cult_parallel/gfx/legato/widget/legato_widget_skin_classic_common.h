@@ -54,12 +54,15 @@ void leWidget_SkinClassic_FillRect(const leRect* rect,
                                    uint32_t a);
 
 void leWidget_SkinClassic_DrawBackground(leWidget* wgt,
-                                         leColor clr);
+                                         leColor clr,
+                                         uint32_t a);
 
 void leWidget_SkinClassic_DrawRoundCornerBackground(leWidget* wgt,
-                                                    leColor clr);
+                                                    leColor clr,
+                                                    uint32_t a);
 
-void leWidget_SkinClassic_DrawStandardBackground(leWidget* wgt);
+void leWidget_SkinClassic_DrawStandardBackground(leWidget* wgt,
+                                                 uint32_t a);
 
 void leWidget_SkinClassic_DrawLineBorderLeft(const leRect* rect, 
                                              leColor clr,
@@ -115,17 +118,23 @@ void leWidget_SkinClassic_Draw1x2BeveledBorder(const leRect* rect,
                                               uint32_t a);
 
 void leWidget_SkinClassic_DrawBlit(leWidget* wgt,
-                                   lePixelBuffer* buffer);
+                                   lePixelBuffer* buffer,
+                                   uint32_t a);
 
-void leWidget_SkinClassic_DrawStandardLineBorder(leWidget* wgt);
+void leWidget_SkinClassic_DrawStandardLineBorder(leWidget* wgt,
+                                                 uint32_t a);
 
-void leWidget_SkinClassic_DrawStandardRoundCornerLineBorder(leWidget* wgt);
+void leWidget_SkinClassic_DrawStandardRoundCornerLineBorder(leWidget* wgt,
+                                                            uint32_t a);
 
-void leWidget_SkinClassic_DrawStandardRaisedBorder(leWidget* wgt);
+void leWidget_SkinClassic_DrawStandardRaisedBorder(leWidget* wgt,
+                                                   uint32_t a);
 
-void leWidget_SkinClassic_DrawStandardLoweredBorder(leWidget* wgt);
+void leWidget_SkinClassic_DrawStandardLoweredBorder(leWidget* wgt,
+                                                    uint32_t a);
 
-void leWidget_SkinClassic_DrawStandardHybridBorder(leWidget* wgt);
+void leWidget_SkinClassic_DrawStandardHybridBorder(leWidget* wgt,
+                                                   uint32_t a);
 
 void leWidget_SkinClassic_InvalidateBorderAreas(leWidget*);
 

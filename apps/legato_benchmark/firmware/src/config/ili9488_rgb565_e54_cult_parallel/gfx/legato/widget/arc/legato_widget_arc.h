@@ -101,7 +101,7 @@ typedef struct leArcWidget
 
     uint32_t radius; // the radius of the arc
 
-    uint32_t startAngle; //the start angle of the arc
+    int32_t startAngle; //the start angle of the arc
     int32_t centerAngle; //the center angle of the arc
     uint32_t endAngle; //the end angle of the arc
     uint32_t thickness; //the thickness of the arc

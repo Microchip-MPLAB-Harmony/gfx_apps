@@ -31,63 +31,71 @@ static struct InternalBlendStage
     leRenderState* renderer;
 } blendStage;
 
-static void stage_BlendRGBA5551(leRawDecodeStage* stage)
+static leResult stage_BlendRGBA5551(leRawDecodeStage* stage)
 {
     // completely transparent, discard
     if((blendStage.base.state->sourceColor & RGBA_5551_ALPHA_MASK) == 0)
-        return;
+    {
+        stage->state->currentStage = stage->state->readStage;
+    }
+    else
+    {
+        stage->state->currentStage = stage->state->writeStage;
+    }
 
-    stage->state->writeStage->exec(stage->state->writeStage);
+    return LE_SUCCESS;
 }
 
-static void stage_BlendRGBA8888(leRawDecodeStage* stage)
+static leResult stage_BlendRGBA8888(leRawDecodeStage* stage)
 {
     leColor resultClr;
 
     // completely transparent, discard
     if((blendStage.base.state->sourceColor & RGBA_8888_ALPHA_MASK) == 0)
-        return;
+    {
+        stage->state->currentStage = stage->state->readStage;
+    }
+    else
+    {
+        resultClr = leRenderer_GetPixel(blendStage.base.state->drawX,
+                                        blendStage.base.state->drawY);
 
-    resultClr = leRenderer_GetPixel(blendStage.base.state->drawX,
-                                    blendStage.base.state->drawY);
+        resultClr = leColorConvert(LE_GLOBAL_COLOR_MODE,
+                                   LE_COLOR_MODE_RGBA_8888,
+                                   resultClr);
 
-    resultClr = leColorConvert(blendStage.renderer->colorMode,
-                               LE_COLOR_MODE_RGBA_8888,
-                               resultClr);
+        blendStage.base.state->sourceColor = leColorBlend_RGBA_8888(blendStage.base.state->sourceColor, resultClr);
 
-    resultClr = leColorBlend_RGBA_8888(blendStage.base.state->sourceColor, resultClr);
+        stage->state->currentStage = stage->state->convertStage;
+    }
 
-    // convert to destination format
-    blendStage.base.state->sourceColor = leColorConvert(LE_COLOR_MODE_RGBA_8888,
-                                                        blendStage.renderer->colorMode,
-                                                        resultClr);
-
-    stage->state->writeStage->exec(stage->state->writeStage);
+    return LE_SUCCESS;
 }
 
-static void stage_BlendARGB8888(leRawDecodeStage* stage)
+static leResult stage_BlendARGB8888(leRawDecodeStage* stage)
 {
     leColor resultClr;
 
     // completely transparent, discard
     if((blendStage.base.state->sourceColor & ARGB_8888_ALPHA_MASK) == 0)
-        return;
+    {
+        stage->state->currentStage = stage->state->readStage;
+    }
+    else
+    {
+        resultClr = leRenderer_GetPixel(blendStage.base.state->drawX,
+                                        blendStage.base.state->drawY);
 
-    resultClr = leRenderer_GetPixel(blendStage.base.state->drawX,
-                                    blendStage.base.state->drawY);
+        resultClr = leColorConvert(LE_GLOBAL_COLOR_MODE,
+                                   LE_COLOR_MODE_ARGB_8888,
+                                   resultClr);
 
-    resultClr = leColorConvert(blendStage.renderer->colorMode,
-                               LE_COLOR_MODE_ARGB_8888,
-                               resultClr);
+        blendStage.base.state->sourceColor = leColorBlend_ARGB_8888(blendStage.base.state->sourceColor, resultClr);
 
-    resultClr = leColorBlend_ARGB_8888(blendStage.base.state->sourceColor, resultClr);
+        stage->state->currentStage = stage->state->convertStage;
+    }
 
-    // convert to destination format
-    blendStage.base.state->sourceColor = leColorConvert(LE_COLOR_MODE_ARGB_8888,
-                                                        blendStage.renderer->colorMode,
-                                                        resultClr);
-
-    stage->state->writeStage->exec(stage->state->writeStage);
+    return LE_SUCCESS;
 }
 
 void _leRawImageDecoder_BlendInternalInit(leRawDecodeState* state)
@@ -101,15 +109,15 @@ void _leRawImageDecoder_BlendInternalInit(leRawDecodeState* state)
     }
     else if(state->source->buffer.mode == LE_COLOR_MODE_RGBA_5551)
     {
-        blendStage.base.exec = stage_BlendRGBA5551;
+        blendStage.base.exec = (void*)stage_BlendRGBA5551;
     }
     else if(state->source->buffer.mode == LE_COLOR_MODE_RGBA_8888)
     {
-        blendStage.base.exec = stage_BlendRGBA8888;
+        blendStage.base.exec = (void*)stage_BlendRGBA8888;
     }
     else if(state->source->buffer.mode == LE_COLOR_MODE_ARGB_8888)
     {
-        blendStage.base.exec = stage_BlendARGB8888;
+        blendStage.base.exec = (void*)stage_BlendARGB8888;
     }
     else
     {

@@ -247,7 +247,7 @@ static void decrementCount()
     
     sprintf(charBuff, "%04u", (unsigned int)tickDecCount);
     
-    decStr.fn->setFont(&decStr, leStringTable_FontIndexLookup(leGetState()->stringTable,
+    decStr.fn->setFont(&decStr, leStringTable_GetStringFont(leGetState()->stringTable,
                                                               counterSizeStrings[counterStringSize],
                                                               0));
     
@@ -261,7 +261,7 @@ void FPSCounters_OnShow()
     
     tickDecCount = MAX_COUNTDOWN;
     
-    font = leStringTable_FontIndexLookup(&stringTable, string_NumsLittle, 0);
+    font = leStringTable_GetStringFont(&stringTable, string_NumsLittle, 0);
     
     leDynamicString_Constructor(&fpsBtnText);
     fpsBtnText.fn->setFont(&fpsBtnText, font);
@@ -273,7 +273,7 @@ void FPSCounters_OnShow()
     counterSizeStringText.fn->setFont(&counterSizeStringText, font);    
     
     leDynamicString_Constructor(&decStr);
-    decStr.fn->setFont(&decStr, leStringTable_FontIndexLookup(leGetState()->stringTable,
+    decStr.fn->setFont(&decStr, leStringTable_GetStringFont(leGetState()->stringTable,
                                                               counterSizeStrings[counterStringSize],
                                                               0));
     

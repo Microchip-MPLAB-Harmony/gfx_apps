@@ -47,13 +47,25 @@ static void invalidateTextRect(const leGroupBoxWidget* _this)
     _this->fn->_damageArea(_this, &drawRect);
 }
 
-static void languageChanging(leGroupBoxWidget* _this)
+static void stringPreinvalidate(const leString* str,
+                                leGroupBoxWidget* box)
+{
+    invalidateTextRect(box);
+}
+
+static void stringInvalidate(const leString* str,
+                             leGroupBoxWidget* box)
+{
+    invalidateTextRect(box);
+}
+
+static void onLanguageChanging(leGroupBoxWidget* _this)
 {
     LE_ASSERT_THIS();
     
     if(_this->string != NULL)
     {
-        invalidateTextRect(_this);
+        _this->fn->invalidate(_this);
     }
 }
 
@@ -107,10 +119,31 @@ static leResult setString(leGroupBoxWidget* _this,
                           const leString* str)
 {
     LE_ASSERT_THIS();
-    
+
+    if(_this->string != NULL)
+    {
+        invalidateTextRect(_this);
+
+        _this->string->fn->setPreInvalidateCallback((leString*)_this->string,
+                                                    NULL,
+                                                    NULL);
+
+        _this->string->fn->setInvalidateCallback((leString*)_this->string,
+                                                 NULL,
+                                                 NULL);
+    }
+
     _this->string = str;
-    
-    _this->fn->invalidate(_this);    
+
+    _this->string->fn->setPreInvalidateCallback((leString*)_this->string,
+                                                (void*)stringPreinvalidate,
+                                                _this);
+
+    _this->string->fn->setInvalidateCallback((leString*)_this->string,
+                                             (void*)stringInvalidate,
+                                             _this);
+
+    invalidateTextRect(_this);
     
     return LE_SUCCESS;
 }
@@ -125,7 +158,7 @@ void _leGroupBoxWidget_GenerateVTable()
     /* overrides from base class */
     groupBoxWidgetVTable._destructor = _leGroupBoxWidget_Destructor;
     groupBoxWidgetVTable._paint = _leGroupBoxWidget_Paint;
-    groupBoxWidgetVTable.languageChangeEvent = languageChanging;
+    groupBoxWidgetVTable.languageChangeEvent = onLanguageChanging;
     
     /* member functions */
     groupBoxWidgetVTable.getString = getString;

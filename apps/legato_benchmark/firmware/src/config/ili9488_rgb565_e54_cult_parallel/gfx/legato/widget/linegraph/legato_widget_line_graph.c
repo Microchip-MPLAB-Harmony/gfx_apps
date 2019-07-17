@@ -21,6 +21,7 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+#include <gfx/legato/legato.h>
 #include "gfx/legato/widget/linegraph/legato_widget_line_graph.h"
 
 #if LE_LINEGRAPH_WIDGET_ENABLED == 1
@@ -52,6 +53,18 @@ static lePoint getValuePoint(const leLineGraphWidget* _this,
                              lePoint originPoint);
 
 static leLineGraphWidgetVTable lineGraphWidgetVTable;
+
+static void stringPreinvalidate(const leString* str,
+                                leLineGraphWidget* gph)
+{
+    gph->fn->invalidate(gph);
+}
+
+static void stringInvalidate(const leString* str,
+                             leLineGraphWidget* gph)
+{
+    gph->fn->invalidate(gph);
+}
 
 void leLineGraphWidget_Constructor(leLineGraphWidget* _this)
 {
@@ -88,7 +101,9 @@ void leLineGraphWidget_Constructor(leLineGraphWidget* _this)
     _this->categAxisLabelsVisible = LE_TRUE;
     _this->categAxisTicksVisible = LE_TRUE;
     _this->categAxisTicksPosition = LINE_GRAPH_TICK_CENTER;
-    
+
+    _this->ticksLabelFont = NULL;
+
     leArray_Create(&_this->dataSeries);
     leArray_Create(&_this->categories);
 }
@@ -565,8 +580,27 @@ static leResult setCategoryString(leLineGraphWidget* _this,
     
     if(category == NULL)
         return LE_FAILURE;
-    
+
+    if(category->text != NULL)
+    {
+        category->text->fn->setPreInvalidateCallback((leString*)category->text,
+                                                    NULL,
+                                                    NULL);
+
+        category->text->fn->setInvalidateCallback((leString*)category->text,
+                                                  NULL,
+                                                  NULL);
+    }
+
     category->text = str;
+
+    category->text->fn->setPreInvalidateCallback((leString*)category->text,
+                                                 (void*)stringPreinvalidate,
+                                                 _this);
+
+    category->text->fn->setInvalidateCallback((leString*)category->text,
+                                              (void*)stringInvalidate,
+                                              _this);
     
     _this->fn->invalidate(_this);
     
@@ -1187,6 +1221,13 @@ static lePoint getValuePoint(const leLineGraphWidget* _this,
     return valuePoint;
 }
 
+static void handleLanguageChangeEvent(leLineGraphWidget* _this)
+{
+    LE_ASSERT_THIS();
+
+    _this->fn->invalidate(_this);
+}
+
 void _leWidget_FillVTable(leWidgetVTable* tbl);
 void _leLineGraphWidget_Paint(leLineGraphWidget* _this);
 
@@ -1197,7 +1238,8 @@ void _leLineGraphWidget_GenerateVTable()
     /* overrides from base class */
     lineGraphWidgetVTable._destructor = destructor;
     lineGraphWidgetVTable._paint = _leLineGraphWidget_Paint;
-    
+    lineGraphWidgetVTable.languageChangeEvent = handleLanguageChangeEvent;
+
     /* member functions */
     lineGraphWidgetVTable.getTickLength = getTickLength;
     lineGraphWidgetVTable.setTickLength = setTickLength;

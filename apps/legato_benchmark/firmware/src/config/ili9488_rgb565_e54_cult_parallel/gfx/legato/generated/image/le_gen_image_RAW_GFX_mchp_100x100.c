@@ -1265,8 +1265,7 @@ const uint8_t RAW_GFX_mchp_100x100_data[20000] =
 leImage RAW_GFX_mchp_100x100 =
 {
     {
-        LE_ASSET_TYPE_IMAGE, // asset type
-        LE_ASSET_LOCATION_ID_INTERNAL, // data location id
+        LE_STREAM_LOCATION_ID_INTERNAL, // data location id
         (void*)RAW_GFX_mchp_100x100_data, // data address pointer
         20000, // data size
     },
@@ -1283,7 +1282,7 @@ leImage RAW_GFX_mchp_100x100 =
     },
     LE_IMAGE_USE_MASK_COLOR, // image flags
     {
-        0x0000, // color mask
+        0x0, // color mask
     },
     NULL, // alpha mask
     NULL, // palette

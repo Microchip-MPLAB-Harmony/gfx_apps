@@ -51,14 +51,12 @@
 
 #include "gfx/legato/common/legato_color.h"
 #include "gfx/legato/common/legato_math.h"
-
-#include "gfx/legato/asset/legato_asset.h"
-#include "gfx/legato/asset/legato_palette.h"
-#include "gfx/legato/asset/legato_font.h"
 #include "gfx/legato/core/legato_input.h"
 #include "gfx/legato/core/legato_scheme.h"
 #include "gfx/legato/core/legato_state.h"
+#include "gfx/legato/font/legato_font.h"
 #include "gfx/legato/image/legato_image.h"
+#include "gfx/legato/image/legato_palette.h"
 #include "gfx/legato/memory/legato_memory.h"
 #include "gfx/legato/renderer/legato_driver.h"
 #include "gfx/legato/renderer/legato_renderer.h"

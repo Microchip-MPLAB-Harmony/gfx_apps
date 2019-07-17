@@ -56,25 +56,6 @@
 
 // *****************************************************************************
 /* Structure:
-    leCircularSliderWidgetDir
-
-  Summary:
-    Direction of the slider
-
-  Description:
-    Direction of the slider
-
-  Remarks:
-    None.
-*/
-typedef enum leCircularSliderWidgetDir
-{
-    CIRCULAR_SLIDER_DIR_COUNTER_CLOCKWISE,
-    CIRCULAR_SLIDER_DIR_CLOCKWISE,
-} leCircularSliderWidgetDir;
-
-// *****************************************************************************
-/* Structure:
     leCircularSliderButtonState
 
   Summary:
@@ -195,8 +176,8 @@ typedef void (*leCircularSliderWidget_ReleasedEvent)(leCircularSliderWidget *, i
     leResult                 (*setStickyButton)(THIS_TYPE* _this, leBool stk); \
     leBool                   (*getTouchOnButtonOnly)(const THIS_TYPE* _this); \
     leResult                 (*setTouchOnButtonOnly)(THIS_TYPE* _this, leBool tch); \
-    leCircularSliderWidgetDir (*getDirection)(const THIS_TYPE* _this); \
-    leResult                 (*setDirection)(THIS_TYPE* _this, leCircularSliderWidgetDir dir); \
+    leRotationDirection      (*getDirection)(const THIS_TYPE* _this); \
+    leResult                 (*setDirection)(THIS_TYPE* _this, leRotationDirection dir); \
     leResult                 (*setPressedEventCallback)(THIS_TYPE* _this, leCircularSliderWidget_PressedEvent cb); \
     leResult                 (*setValueChangedEventCallback)(THIS_TYPE* _this, leCircularSliderWidget_ValueChangedEvent cb); \
     leResult                 (*setReleasedEventCallback)(THIS_TYPE* _this, leCircularSliderWidget_ReleasedEvent cb); \
@@ -244,7 +225,7 @@ typedef struct leCircularSliderWidget
     leBool sticky; //snaps to start value before wrapping around
     leBool buttonTouch; //only button is active to touch
 
-    leCircularSliderWidgetDir direction;    //the direction of the slider
+    leRotationDirection direction;    //the direction of the slider
 
     leCircularSliderArc activeArc;            //the arc for the slider value
     leCircularSliderArc inActiveArc;          //the arc for the slider remainder

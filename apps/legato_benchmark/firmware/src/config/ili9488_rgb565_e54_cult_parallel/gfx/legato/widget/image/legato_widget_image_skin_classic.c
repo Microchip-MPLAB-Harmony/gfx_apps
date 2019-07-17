@@ -45,7 +45,7 @@ enum
     DRAW_BACKGROUND,
     DRAW_IMAGE,
 
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
     WAIT_IMAGE,
 #endif
 
@@ -94,7 +94,6 @@ void _leImageWidget_GetImageRect(leImageWidget* img,
 
 static void drawBackground(leImageWidget* img);
 static void drawImage(leImageWidget* img);
-//static void waitImage(leImageWidget* img);
 static void drawBorder(leImageWidget* img);
 
 static void nextState(leImageWidget* img)
@@ -151,15 +150,16 @@ static void nextState(leImageWidget* img)
 
 static void drawBackground(leImageWidget* img)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)img);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)img,
+                                                paintState.alpha);
 
     nextState(img);
 }
 
-#if LE_ASSET_STREAMING_ENABLED == 1
-static void onImageStreamFinished(leAssetStreamReader* rdr)
+#if LE_STREAMING_ENABLED == 1
+static void onImageStreamFinished(leStreamManager* dec)
 {
-    leImageWidget* img = (leImageWidget*)rdr->userData;
+    leImageWidget* img = (leImageWidget*)dec->userData;
 
     img->widget.drawState = DRAW_IMAGE;
 
@@ -197,11 +197,11 @@ static void drawImage(leImageWidget* img)
     
     leImage_Draw(img->image, &imgSrcRect, imgRect.x, imgRect.y, paintState.alpha);
 
-#if LE_ASSET_STREAMING_ENABLED == 1
-    if(leGetReader() != NULL)
+#if LE_STREAMING_ENABLED == 1
+    if(leGetActiveStream() != NULL)
     {
-        leGetReader()->onFinished = onImageStreamFinished;
-        leGetReader()->userData = img;
+        leGetActiveStream()->onDone = onImageStreamFinished;
+        leGetActiveStream()->userData = img;
 
         img->widget.drawState = WAIT_IMAGE;
 
@@ -222,11 +222,13 @@ static void drawBorder(leImageWidget* img)
 {
     if(img->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)img);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)img,
+                                                    paintState.alpha);
     }
     else if(img->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)img);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)img,
+                                                      paintState.alpha);
     }
 
     nextState(img);
@@ -246,7 +248,7 @@ void _leImageWidget_Paint(leImageWidget* img)
         nextState(img);
     }
 
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
     if(img->widget.drawState == WAIT_IMAGE)
         return;
 #endif
@@ -259,7 +261,7 @@ void _leImageWidget_Paint(leImageWidget* img)
         break;
 #endif
 
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
         if(img->widget.drawState == WAIT_IMAGE)
             break;
 #endif

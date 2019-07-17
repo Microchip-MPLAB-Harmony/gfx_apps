@@ -224,6 +224,25 @@ typedef enum leDirection
 } leDirection;
 
 // *****************************************************************************
+/* Structure:
+    leRotationDirection
+
+  Summary:
+    Describes rotational direction
+
+  Description:
+    Describes rotational direction
+
+  Remarks:
+    None.
+*/
+typedef enum leRotationDirection
+{
+    LE_COUNTER_CLOCKWISE,
+    LE_CLOCKWISE,
+} leRotationDirection;
+
+// *****************************************************************************
 /* Enumeration:
     leRelativePosition
 
@@ -314,6 +333,7 @@ typedef void* leBuffer;
 
 /* library configuration flags */
 typedef uint16_t leChar;
+#define LE_UNKNOWN_GLYPH  0xFFFF
 
 // DOM-IGNORE-END
 

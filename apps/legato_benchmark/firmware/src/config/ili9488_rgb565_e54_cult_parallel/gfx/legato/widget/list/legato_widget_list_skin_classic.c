@@ -25,11 +25,11 @@
 
 #if LE_LIST_WIDGET_ENABLED == 1 && LE_SCROLLBAR_WIDGET_ENABLED == 1
 
+#include "gfx/legato/common/legato_utils.h"
+#include "gfx/legato/core/legato_state.h"
 #include "gfx/legato/renderer/legato_renderer.h"
 #include "gfx/legato/string/legato_string.h"
-#include "gfx/legato/common/legato_utils.h"
 #include "gfx/legato/widget/legato_widget.h"
-
 #include "gfx/legato/widget/legato_widget_skin_classic_common.h"
 
 enum
@@ -350,9 +350,7 @@ void _leListWidget_GetLogicalRect(leListWidget* lst, leRect* rect)
 
 static void drawBackground(leListWidget* lst);
 static void drawString(leListWidget* lst);
-//static void waitString(leListWidget* lst);
 static void drawIcon(leListWidget* lst);
-//static void waitIcon(leListWidget* lst);
 static void drawBorder(leListWidget* lst);
 
 static void nextState(leListWidget* lst)
@@ -429,7 +427,9 @@ static void drawBackground(leListWidget* lst)
     // draw widget background
     if(lst->widget.backgroundType == LE_WIDGET_BACKGROUND_FILL)
     {
-        leWidget_SkinClassic_DrawBackground((leWidget*)lst, lst->widget.scheme->background);
+        leWidget_SkinClassic_DrawBackground((leWidget*)lst,
+                                            lst->widget.scheme->background,
+                                            paintState.alpha);
     }
     
     widgetRect = lst->fn->rectToScreen(lst);
@@ -468,6 +468,18 @@ static void drawBackground(leListWidget* lst)
     
     nextState(lst);
 }
+
+#if LE_STREAMING_ENABLED == 1
+static void onStringStreamFinished(leStreamManager* strm)
+{
+    leListWidget* lst = (leListWidget*)strm->userData;
+
+    paintState.nextItem++;
+
+    lst->widget.drawState = DRAW_STRING;
+    lst->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawString;
+}
+#endif
 
 static void drawString(leListWidget* lst)
 {
@@ -516,10 +528,12 @@ static void drawString(leListWidget* lst)
                                            clr,
                                            paintState.alpha);
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-        if(lst->reader != NULL)
+#if LE_STREAMING_ENABLED == 1
+        if(leGetActiveStream() != NULL)
         {
-            lst->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitString;
+            leGetActiveStream()->onDone = onStringStreamFinished;
+            leGetActiveStream()->userData = lst;
+
             lst->widget.drawState = WAIT_STRING;
 
             return;
@@ -529,27 +543,6 @@ static void drawString(leListWidget* lst)
     
     paintState.nextItem++;
 }
-
-#if LE_EXTERNAL_STREAMING_ENABLED == 1    
-static void waitString(leListWidget* lst)
-{
-    if(lst->reader->status != leREADER_STATUS_FINISHED)
-    {
-        lst->reader->run(lst->reader);
-        
-        return;
-    }
-    
-    // free the reader
-    lst->reader->memIntf->heap.free(lst->reader);
-    lst->reader = NULL;
-    
-    paintState.nextItem++;
-    
-    lst->widget.drawState = DRAW_STRING;
-    lst->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawString;
-}
-#endif
 
 static void drawIcon(leListWidget* lst)
 {
@@ -627,11 +620,13 @@ static void drawBorder(leListWidget* lst)
    
     if(lst->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)lst);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)lst,
+                                                    paintState.alpha);
     }
     else if(lst->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardLoweredBorder((leWidget*)lst);
+        leWidget_SkinClassic_DrawStandardLoweredBorder((leWidget*)lst,
+                                                       paintState.alpha);
     }
     
     nextState(lst);
@@ -659,7 +654,7 @@ void _leListWidget_Paint(leListWidget* lst)
         break;
 #endif
    
-#if LE_EXTERNAL_STREAMING_ENABLED == 1     
+#if LE_STREAMING_ENABLED == 1
         if(lst->widget.drawState == WAIT_STRING ||
            lst->widget.drawState == WAIT_ICON)
             break;

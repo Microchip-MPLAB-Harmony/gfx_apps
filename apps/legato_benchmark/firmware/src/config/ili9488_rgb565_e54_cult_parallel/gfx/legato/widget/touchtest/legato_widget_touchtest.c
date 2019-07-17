@@ -61,6 +61,8 @@ void leTouchTestWidget_Constructor(leTouchTestWidget* _this)
     _this->size = 0;
     _this->start = 0;
     _this->next = 0;
+
+    _this->cb = NULL;
 }
 
 void _leWidget_Destructor(leWidget* wgt);

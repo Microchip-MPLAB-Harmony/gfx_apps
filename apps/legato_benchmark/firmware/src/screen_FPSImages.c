@@ -514,7 +514,7 @@ void FPSImages_OnShow()
 {
     leFont* font = NULL;
     
-    font = leStringTable_FontIndexLookup(&stringTable, string_NumsLittle, 0);
+    font = leStringTable_GetStringFont(&stringTable, string_NumsLittle, 0);
     
     leDynamicString_Constructor(&fpsBtnText);
     fpsBtnText.fn->setFont(&fpsBtnText, font);
@@ -522,7 +522,7 @@ void FPSImages_OnShow()
     leDynamicString_Constructor(&refreshRateText);
     refreshRateText.fn->setFont(&refreshRateText, font);
     
-    font = leStringTable_FontIndexLookup(leGetState()->stringTable, string_NumsTiny, 0);
+    font = leStringTable_GetStringFont(leGetState()->stringTable, string_NumsTiny, 0);
     
     leDynamicString_Constructor(&imgSizeText);
     imgSizeText.fn->setFont(&imgSizeText, font);

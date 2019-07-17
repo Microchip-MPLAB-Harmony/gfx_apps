@@ -21,6 +21,7 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+#include <gfx/legato/legato.h>
 #include "gfx/legato/widget/list/legato_widget_list.h"
 
 #if LE_LIST_WIDGET_ENABLED == 1 && LE_SCROLLBAR_WIDGET_ENABLED == 1
@@ -177,21 +178,23 @@ static void _invalidateRow(const leListWidget* _this, int32_t row)
     _this->fn->_damageArea(_this, &rowArea);
 }
 
+static void stringPreinvalidate(const leString* str,
+                                leListWidget* lst)
+{
+    _invalidateListArea(lst);
+}
+
+static void stringInvalidate(const leString* str,
+                             leListWidget* lst)
+{
+    _invalidateListArea(lst);
+}
+
 static void handleLanguageChangeEvent(leListWidget* _this)
 {
-    uint32_t i;
-    
-    for(i = 0; i < _this->items.size; i++)
-    {
-        leListItem* item = _this->items.values[i];
-        
-        if(item->string != NULL)
-        {
-            _invalidateListArea(_this);
-            
-            return;
-        }
-    }
+    LE_ASSERT_THIS();
+
+    _invalidateListArea(_this);
 }
 
 void leListWidget_Constructor(leListWidget* _this)
@@ -211,7 +214,8 @@ void leListWidget_Constructor(leListWidget* _this)
     _this->widget.backgroundType = LE_WIDGET_BACKGROUND_FILL;
     _this->itemDown = -1;
     _this->mode = LE_LIST_WIDGET_SELECTION_MODE_CONTIGUOUS;
-    
+    _this->allowEmpty = LE_TRUE;
+
     leArray_Create(&_this->items);
     
     // create scrollbar
@@ -235,6 +239,9 @@ void leListWidget_Constructor(leListWidget* _this)
     
     _this->widget.halign = LE_HALIGN_CENTER;
     _this->iconMargin = DEFAULT_MARGIN;
+    _this->iconPos = LE_RELATIVE_POSITION_LEFTOF;
+
+    _this->cb = NULL;
 }
 
 void _leWidget_Destructor(leWidget* wgt);
@@ -866,8 +873,29 @@ static leResult setItemString(leListWidget* _this,
         return LE_FAILURE;
        
     item = _this->items.values[idx];
+
+    if(item->string != NULL)
+    {
+        _invalidateListArea(_this);
+
+        item->string->fn->setPreInvalidateCallback((leString*)item->string,
+                                                   NULL,
+                                                   NULL);
+
+        item->string->fn->setInvalidateCallback((leString*)item->string,
+                                                NULL,
+                                                NULL);
+    }
     
     item->string = str;
+
+    item->string->fn->setPreInvalidateCallback((leString*)item->string,
+                                               (void*)stringPreinvalidate,
+                                               _this);
+
+    item->string->fn->setInvalidateCallback((leString*)item->string,
+                                            (void*)stringInvalidate,
+                                            _this);
     
     _leListWidget_RecalculateRowRect(_this, idx);
 

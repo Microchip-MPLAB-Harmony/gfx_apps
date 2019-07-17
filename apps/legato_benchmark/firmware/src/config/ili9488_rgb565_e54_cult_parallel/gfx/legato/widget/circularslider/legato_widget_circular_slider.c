@@ -73,7 +73,7 @@ lePoint _leCircularSliderWidget_GetCircleCenterPointAtValue(leCircularSliderWidg
     
     leUtils_PointToScreenSpace((leWidget*)_this, &sliderPoint);
 
-    if (_this->direction == CIRCULAR_SLIDER_DIR_COUNTER_CLOCKWISE)
+    if (_this->direction == LE_COUNTER_CLOCKWISE)
     {
         valueEndAngle = _this->startAngle + valueCenterAngle;
     }
@@ -120,13 +120,13 @@ void leCircularSliderWidget_Constructor(leCircularSliderWidget* _this)
     _this->endValue = DEFAULT_END_VALUE;
     _this->value = DEFAULT_VALUE;
 
-    _this->direction = CIRCULAR_SLIDER_DIR_COUNTER_CLOCKWISE;
+    _this->direction = LE_COUNTER_CLOCKWISE;
     _this->roundEdges = LE_TRUE;
     _this->sticky = LE_TRUE;
     _this->buttonTouch = LE_TRUE;
+    _this->btnState = LE_CIRCULAR_SLIDER_STATE_UP;
 
     _this->outsideBorderArc.visible = LE_TRUE;
-    _this->radius = DEFAULT_RADIUS;
     _this->outsideBorderArc.thickness = DEFAULT_OUTSIDE_BORDER_THICKNESS;
     _this->outsideBorderArc.startAngle = _this->startAngle;
     _this->outsideBorderArc.centerAngle = 360;
@@ -168,6 +168,10 @@ void leCircularSliderWidget_Constructor(leCircularSliderWidget* _this)
     {
         _this->degPerUnit = 0;
     }
+
+    _this->pressedCallback = NULL;
+    _this->valueChangedCallback = NULL;
+    _this->releasedCallback = NULL;
 }
 
 void _leWidget_Destructor(leWidget* _this);
@@ -328,7 +332,7 @@ static leRect _getDamagedRect(leCircularSliderWidget* _this,
     valueCenterAngleOld = (int32_t) ((_this->value - _this->startValue)* _this->degPerUnit);
     valueCenterAngleNew = (int32_t) ((newValue - _this->startValue)* _this->degPerUnit);
     
-    if (_this->direction == CIRCULAR_SLIDER_DIR_COUNTER_CLOCKWISE)
+    if (_this->direction == LE_COUNTER_CLOCKWISE)
     {
         valueEndAngleOld = _this->startAngle + valueCenterAngleOld;
         valueEndAngleNew = _this->startAngle + valueCenterAngleNew;
@@ -383,7 +387,7 @@ static leRect _getDamagedRect(leCircularSliderWidget* _this,
     rect.width = _this->radius;
     rect.height = _this->radius;
     
-    if (_this->direction == CIRCULAR_SLIDER_DIR_COUNTER_CLOCKWISE)
+    if (_this->direction == LE_COUNTER_CLOCKWISE)
     {
         if (newValue < _this->value)
         {
@@ -816,7 +820,7 @@ static leResult setArcVisible(leCircularSliderWidget* _this,
     return LE_SUCCESS;
 }
 
-static leCircularSliderWidgetDir getDirection(const leCircularSliderWidget* _this)
+static leRotationDirection getDirection(const leCircularSliderWidget* _this)
 {
     LE_ASSERT_THIS();
         
@@ -824,7 +828,7 @@ static leCircularSliderWidgetDir getDirection(const leCircularSliderWidget* _thi
 }
 
 static leResult setDirection(leCircularSliderWidget* _this,
-                             leCircularSliderWidgetDir dir)
+                             leRotationDirection dir)
 {
     LE_ASSERT_THIS();
         
@@ -918,7 +922,7 @@ static uint32_t _getSliderValueAtPoint(leCircularSliderWidget* _this,
         angle = 180;
     }
 
-    if (_this->direction == CIRCULAR_SLIDER_DIR_COUNTER_CLOCKWISE)
+    if (_this->direction == LE_COUNTER_CLOCKWISE)
     {
         if (angle > _this->startAngle)
         {

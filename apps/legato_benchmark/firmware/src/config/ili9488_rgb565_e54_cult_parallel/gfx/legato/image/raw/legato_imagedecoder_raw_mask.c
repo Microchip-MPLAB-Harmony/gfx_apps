@@ -28,13 +28,19 @@ static struct InternalMaskStage
     leRawDecodeStage base;
 } maskStage;
 
-static void stage_rejectMaskedColor(leRawDecodeStage* stage)
+static leResult stage_rejectMaskedColor(leRawDecodeStage* stage)
 {
     // compare color to mask
     if(stage->state->sourceColor == stage->state->source->mask.color)
-        return;
+    {
+        stage->state->currentStage = stage->state->readStage;
+    }
+    else
+    {
+        stage->state->currentStage = stage->state->paletteStage;
+    }
 
-    stage->state->paletteStage->exec(stage->state->paletteStage);
+    return LE_SUCCESS;
 }
 
 void _leRawImageDecoder_MaskInternalInit(leRawDecodeState* state)

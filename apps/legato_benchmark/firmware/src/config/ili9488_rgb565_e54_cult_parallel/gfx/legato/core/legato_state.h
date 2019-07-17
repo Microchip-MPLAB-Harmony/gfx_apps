@@ -5,11 +5,10 @@
 
 #include "gfx/legato/common/legato_common.h"
 
-#include "gfx/legato/asset/legato_stringtable.h"
 #include "gfx/legato/renderer/legato_driver.h"
 #include "gfx/legato/core/legato_input.h"
 #include "gfx/legato/core/legato_scheme.h"
-
+#include "gfx/legato/string/legato_stringtable.h"
 #include "gfx/legato/widget/legato_editwidget.h" 
 
 // *****************************************************************************
@@ -47,8 +46,8 @@ typedef struct leState
     //leScreen screens[LE_MAX_SCREENS];
     //int32_t activeScreen;
     
-#if LE_ASSET_STREAMING_ENABLED == 1
-    leAssetStreamReader* assetReader; // asset stream reader state
+#if LE_STREAMING_ENABLED == 1
+    leStreamManager* activeStream; // active stream state
 #endif
 } leState;
 
@@ -431,10 +430,10 @@ void leEdit_Set(leString* str);
 void leEdit_Append(leString* str);
 void leEdit_Backspace();
 
-#if LE_ASSET_STREAMING_ENABLED == 1
-leAssetStreamReader* leGetReader();
-leResult leRunReader();
-void leAbortAssetStream();
+#if LE_STREAMING_ENABLED == 1
+leStreamManager* leGetActiveStream();
+leResult leRunActiveStream();
+void leAbortActiveStream();
 #endif
 
 #endif /* LEGATO_STATE_H */

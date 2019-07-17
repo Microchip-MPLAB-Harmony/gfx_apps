@@ -56,6 +56,18 @@ static void _invalidateText(const leTextFieldWidget* _this)
     _this->fn->_damageArea(_this, &drawRect);
 }
 
+static void stringPreinvalidate(const leString* str,
+                                leTextFieldWidget* txt)
+{
+    _invalidateText(txt);
+}
+
+static void stringInvalidate(const leString* str,
+                             leTextFieldWidget* txt)
+{
+    _invalidateText(txt);
+}
+
 static void _invalidateCursor(const leTextFieldWidget* _this)
 {
     leRect cursorRect;
@@ -140,9 +152,13 @@ void leTextFieldWidget_Constructor(leTextFieldWidget* _this)
     _this->hintText = NULL;
     
     _this->editWidget.widget.halign = LE_HALIGN_LEFT;
+    _this->cursorPos = 0;
     _this->cursorEnable = LE_TRUE;
     _this->cursorDelay = DEFAULT_CURSOR_TIME;
     _this->clearOnFirstEdit = LE_TRUE;
+
+    _this->textChangedEvent = NULL;
+    _this->focusChangedEvent = NULL;
 }
 
 void _leEditWidget_Destructor(leEditWidget* edit);
@@ -289,6 +305,8 @@ static leResult setFont(leTextFieldWidget* _this,
     _this->text.fn->setFont(&_this->text, fnt);
 
     _this->fn->invalidate(_this);
+
+    return LE_SUCCESS;
 }
 
 static leString* getHintString(const leTextFieldWidget* _this)
@@ -302,10 +320,31 @@ static leResult setHintString(leTextFieldWidget* _this,
                               const leString* str)
 {
     LE_ASSERT_THIS();
-    
+
+    if(_this->hintText != NULL)
+    {
+        _invalidateText(_this);
+
+        _this->hintText->fn->setPreInvalidateCallback((leString*)_this->hintText,
+                                                      NULL,
+                                                      NULL);
+
+        _this->hintText->fn->setInvalidateCallback((leString*)_this->hintText,
+                                                   NULL,
+                                                   NULL);
+    }
+
     _this->hintText = str;
-    
-    _this->fn->invalidate(_this);
+
+    _this->hintText->fn->setPreInvalidateCallback((leString*)_this->hintText,
+                                                  (void*)stringPreinvalidate,
+                                                  _this);
+
+    _this->hintText->fn->setInvalidateCallback((leString*)_this->hintText,
+                                               (void*)stringInvalidate,
+                                               _this);
+
+    _invalidateText(_this);
     
     return LE_SUCCESS;
 }
@@ -559,28 +598,18 @@ static void handleTouchMovedEvent(leTextFieldWidget* _this,
 void _leEditWidget_FillVTable(leEditWidgetVTable* tbl);
 void _leTextFieldWidget_Paint(leTextFieldWidget* _this);
 
+static void handleLanguageChangeEvent(leTextFieldWidget* _this)
+{
+    LE_ASSERT_THIS();
+
+    _this->fn->invalidate(_this);
+}
+
+
 void _leTextFieldWidget_GenerateVTable()
 {
     _leEditWidget_FillVTable((void*)&textFieldWidgetVTable);
 
-    // override base class methods
-    /*_this->editWidget.widget.update = (leWidget_Update_FnPtr)&_leTextFieldWidget_Update;
-    _this->editWidget.widget.paint = (leWidget_Paint_FnPtr)&_leTextFieldWidget_Paint;
-    _this->editWidget.widget.focusGained = (leWidget_Focus_FnPtr)&_leTextFieldWidget_FocusGained;
-    _this->editWidget.widget.focusLost = (leWidget_Focus_FnPtr)&_leTextFieldWidget_FocusLost;
-    _this->editWidget.widget.touchDown = (leWidget_TouchDownEvent_FnPtr)&_leTextFieldWidget_TouchDownEvent;
-    _this->editWidget.widget.touchUp = (leWidget_TouchUpEvent_FnPtr)&_leTextFieldWidget_TouchUpEvent;
-    _this->editWidget.widget.touchMoved = (leWidget_TouchMovedEvent_FnPtr)&_leTextFieldWidget_TouchMovedEvent;*/
-
-    // override edit class methods
-    /*_this->editWidget.startEdit = (leEditWidget_StartEdit_FnPtr)&startEdit;
-    _this->editWidget.endEdit = (leEditWidget_EndEdit_FnPtr)&endEdit;
-    _this->editWidget.clear = (leEditWidget_Clear_FnPtr)&clear;
-    _this->editWidget.accept = (leEditWidget_Accept_FnPtr)&accept;
-    _this->editWidget.append = (leEditWidget_Append_FnPtr)&append;
-    _this->editWidget.set = (leEditWidget_Set_FnPtr)&set;
-    _this->editWidget.backspace = (leEditWidget_Backspace_FnPtr)&backspace;*/
-    
     /* overrides from base class */
     textFieldWidgetVTable._destructor = destructor;
     textFieldWidgetVTable._paint = _leTextFieldWidget_Paint;
@@ -590,6 +619,7 @@ void _leTextFieldWidget_GenerateVTable()
     textFieldWidgetVTable.touchMoveEvent = handleTouchMovedEvent;
     textFieldWidgetVTable.focusLostEvent = handleFocusLostEvent;
     textFieldWidgetVTable.focusGainedEvent = handleFocusGainedEvent;
+    textFieldWidgetVTable.languageChangeEvent = handleLanguageChangeEvent;
     
     /* override from edit widget */
     textFieldWidgetVTable.editStart = editStart;

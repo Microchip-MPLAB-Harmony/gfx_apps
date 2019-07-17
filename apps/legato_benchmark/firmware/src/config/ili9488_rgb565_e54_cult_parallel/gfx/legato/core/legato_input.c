@@ -65,35 +65,13 @@ leResult leInput_SetEnabled(leBool enable)
     return LE_SUCCESS;
 }
 
-static lePoint transformCoordinate(int32_t x, int32_t y)
-{
-    lePoint pnt;
-    
-    /*leRect rect;
-    GFX_Orientation orientation;
-    leBool mirror;*/
-    
-    // reorient touch coordinates if the user interface is rotated
-    pnt.x = x;
-    pnt.y = y;
-    
-    /*rect = leContext_GetScreenRect();
-    
-    GFX_Get(GFXF_ORIENTATION, &orientation);
-    GFX_Get(GFXF_MIRRORED, &mirror);
-    
-    pnt = leUtils_ScreenToOrientedSpace(&pnt, &rect, orientation);
-    
-    if(mirror == LE_TRUE)
-        pnt = leUtils_ScreenToMirroredSpace(&pnt, &rect, orientation);*/
-
-    return pnt;
-}
-
 leResult leInput_InjectTouchDown(uint32_t id, int32_t x, int32_t y)
 {
     leWidgetEvent_TouchDown* evt;
     lePoint pnt;
+#if LE_TOUCH_ORIENTATION != 0
+    leRect displayRect;
+#endif
 
     if(_state.enabled == LE_FALSE ||               // inputs are disabled
        id >= LE_MAX_TOUCH_STATES ||                // don't overrun array
@@ -101,9 +79,25 @@ leResult leInput_InjectTouchDown(uint32_t id, int32_t x, int32_t y)
     {
         return LE_FAILURE;
     }
-    
+
     // reorient touch coordinates if the user interface is rotated
-    pnt = transformCoordinate(x, y);
+#if LE_TOUCH_ORIENTATION != 0
+    displayRect = leGetRenderState()->displayRect;
+#endif
+
+#if LE_TOUCH_ORIENTATION == 0
+    pnt.x = x;
+    pnt.y = y;
+#elif LE_TOUCH_ORIENTATION == 1 // 90 degrees
+    pnt.y = x;
+	pnt.x = displayRect.width - 1 - y;
+#elif LE_TOUCH_ORIENTATION == 2 // 180 degrees
+    pnt.x = displayRect.width - 1 - x;
+    pnt.y = displayRect.height - 1 - y;
+#else // 270 degrees
+    pnt.y = displayRect.height - 1 - x;
+    pnt.x = y;
+#endif
 
     // dispatch the event
     _state.touch[id].valid = LE_TRUE;
@@ -138,6 +132,9 @@ leResult leInput_InjectTouchUp(uint32_t id, int32_t x, int32_t y)
 {
     leWidgetEvent_TouchUp* evt;
     lePoint pnt;
+#if LE_TOUCH_ORIENTATION != 0
+    leRect displayRect;
+#endif
 
     if(id >= LE_MAX_TOUCH_STATES ||         // don't overrun array
        _state.touch[id].valid == LE_FALSE)  // touch id must be valid
@@ -148,7 +145,23 @@ leResult leInput_InjectTouchUp(uint32_t id, int32_t x, int32_t y)
     _state.touch[id].valid = LE_FALSE;
 
     // reorient touch coordinates if the user interface is rotated
-    pnt = transformCoordinate(x, y);
+#if LE_TOUCH_ORIENTATION != 0
+    displayRect = leGetRenderState()->displayRect;
+#endif
+
+#if LE_TOUCH_ORIENTATION == 0
+    pnt.x = x;
+    pnt.y = y;
+#elif LE_TOUCH_ORIENTATION == 1 // 90 degrees
+    pnt.y = x;
+    pnt.x = displayRect.width - 1 - y;
+#elif LE_TOUCH_ORIENTATION == 2 // 180 degrees
+    pnt.x = displayRect.width - 1 - x;
+    pnt.y = displayRect.height - 1 - y;
+#else // 270 degrees
+    pnt.y = displayRect.height - 1 - x;
+    pnt.x = y;
+#endif
 
     // dispatch event
     evt = LE_MALLOC(sizeof(leWidgetEvent_TouchUp));
@@ -181,11 +194,18 @@ leResult leInput_InjectTouchMoved(uint32_t id, int32_t x, int32_t y)
     leEvent* evtPtr;
     lePoint pnt;
     leListNode* node;
+#if LE_TOUCH_ORIENTATION != 0
+    leRect displayRect;
+#endif
 
     if(id >= LE_MAX_TOUCH_STATES ||         // don't overrun array
        _state.touch[id].valid == LE_FALSE)  // touch id must be valid
         return LE_FAILURE;
-        
+
+#if LE_TOUCH_ORIENTATION != 0
+    displayRect = leGetRenderState()->displayRect;
+#endif
+
     // find any existing touch moved event and overwrite
     node = _leGetEventState()->events.head;
     
@@ -202,9 +222,21 @@ leResult leInput_InjectTouchMoved(uint32_t id, int32_t x, int32_t y)
 #ifdef INPUT_EVENT_DEBUG
                 printf("overwriting previous move event\n");
 #endif                
-                
+
                 // reorient touch coordinates if the user interface is rotated
-                pnt = transformCoordinate(x, y);
+#if LE_TOUCH_ORIENTATION == 0
+                pnt.x = x;
+                pnt.y = y;
+#elif LE_TOUCH_ORIENTATION == 1 // 90 degrees
+                pnt.y = x;
+                pnt.x = displayRect.width - 1 - y;
+#elif LE_TOUCH_ORIENTATION == 2 // 180 degrees
+                pnt.x = displayRect.width - 1 - x;
+                pnt.y = displayRect.height - 1 - y;
+#else // 270 degrees
+                pnt.y = displayRect.height - 1 - x;
+                pnt.x = y;
+#endif
                 
                 evt->x = x;
                 evt->y = y;
@@ -228,7 +260,19 @@ leResult leInput_InjectTouchMoved(uint32_t id, int32_t x, int32_t y)
         return LE_FAILURE;
 
     // reorient touch coordinates if the user interface is rotated
-    pnt = transformCoordinate(x, y);
+#if LE_TOUCH_ORIENTATION == 0
+    pnt.x = x;
+                pnt.y = y;
+#elif LE_TOUCH_ORIENTATION == 1 // 90 degrees
+    pnt.y = x;
+    pnt.x = displayRect.width - 1 - y;
+#elif LE_TOUCH_ORIENTATION == 2 // 180 degrees
+    pnt.x = displayRect.width - 1 - x;
+                pnt.y = displayRect.height - 1 - y;
+#else // 270 degrees
+                pnt.y = displayRect.height - 1 - x;
+                pnt.x = y;
+#endif
 
     evt->event.id = LE_EVENT_TOUCH_MOVE;
     evt->touchID = id;

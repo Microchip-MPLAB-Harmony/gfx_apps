@@ -150,7 +150,8 @@ static void nextState(leRectangleWidget* rct)
 
 static void drawBackground(leRectangleWidget* rct)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)rct);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)rct,
+                                                paintState.alpha);
     
     nextState(rct);
 }
@@ -198,11 +199,13 @@ static void drawBorder(leRectangleWidget* rct)
 {
     if(rct->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)rct);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)rct,
+                                                    paintState.alpha);
     }
     else if(rct->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)rct);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)rct,
+                                                      paintState.alpha);
     }
     
     nextState(rct);

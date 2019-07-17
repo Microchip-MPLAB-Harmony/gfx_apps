@@ -30,6 +30,7 @@
 #include <gfx/legato/legato.h>
 
 #include "gfx/legato/renderer/legato_renderer.h"
+#include "gfx/legato/string/legato_string_renderer.h"
 #include "gfx/legato/string/legato_stringutils.h"
 #include "gfx/legato/common/legato_utils.h"
 #include "gfx/legato/widget/legato_widget.h"
@@ -115,7 +116,8 @@ static void nextState(leCircularGaugeWidget* gauge)
 
 static void drawBackground(leCircularGaugeWidget* gauge)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)gauge);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)gauge,
+                                                paintState.alpha);
     
     nextState(gauge);
 }
@@ -129,7 +131,8 @@ void drawTickLabelsAtAngleWithValue(const leCircularGaugeWidget* gauge,
 {
     lePoint labelPoint;
     lePoint p;
-    leRect textRect, /*bounds,*/ drawRect;
+    leRect textRect;
+    leCStringRenderRequest req;
 
     if(gauge->ticksLabelFont == NULL)
         return;
@@ -166,6 +169,7 @@ void drawTickLabelsAtAngleWithValue(const leCircularGaugeWidget* gauge,
     //bounds = gauge->fn->localRect(gauge);
     leStringUtils_GetRectCStr(paintState.strbuff, gauge->ticksLabelFont, &textRect);
 
+#if 0
     //Orient the text rectangle based on the tick quadrant
     if (position == CIRCULAR_GAUGE_LABEL_OUTSIDE)
     {
@@ -263,14 +267,17 @@ void drawTickLabelsAtAngleWithValue(const leCircularGaugeWidget* gauge,
             drawRect.y = p.y - labelPoint.y - textRect.height/2;
         }
     }
+#endif
 
-    leStringUtils_DrawCString(paintState.strbuff,
-                              gauge->ticksLabelFont,
-                              drawRect.x,
-                              drawRect.y,
-                              LE_HALIGN_LEFT,
-                              clr,
-                              paintState.alpha);
+    req.str = paintState.strbuff;
+    req.font = gauge->ticksLabelFont;
+    req.x = textRect.x;
+    req.y = textRect.y;
+    req.align = LE_HALIGN_CENTER;
+    req.color = clr;
+    req.alpha = paintState.alpha;
+
+    leStringRenderer_DrawCString(&req);
 }
 
 static void drawTicksAtAngle(leCircularGaugeWidget* gauge, 
@@ -649,11 +656,13 @@ static void drawBorder(leCircularGaugeWidget* gauge)
 {    
     if(gauge->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)gauge);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)gauge,
+                                                    paintState.alpha);
     }
     else if(gauge->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)gauge);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)gauge,
+                                                      paintState.alpha);
     }
     
     nextState(gauge);

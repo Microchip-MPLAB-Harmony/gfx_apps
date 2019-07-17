@@ -154,7 +154,6 @@ void _leTextFieldWidget_GetCursorRect(const leTextFieldWidget* txt,
 
 static void drawBackground(leTextFieldWidget* txt);
 static void drawString(leTextFieldWidget* txt);
-//static void waitString(leTextFieldWidget* txt);
 static void drawCursor(leTextFieldWidget* txt);
 static void drawBorder(leTextFieldWidget* txt);
 
@@ -225,11 +224,23 @@ static void drawBackground(leTextFieldWidget* txt)
     if(txt->editWidget.widget.backgroundType == LE_WIDGET_BACKGROUND_FILL)
     {
         leWidget_SkinClassic_DrawBackground((leWidget*)txt, 
-                                            txt->editWidget.widget.scheme->background);
+                                            txt->editWidget.widget.scheme->background,
+                                            paintState.alpha);
     }
     
     nextState(txt);
 }
+
+#if LE_STREAMING_ENABLED == 1
+static void onStringStreamFinished(leStreamManager* strm)
+{
+    leTextFieldWidget* txt = (leTextFieldWidget*)strm->userData;
+
+    txt->editWidget.widget.drawState = DRAW_STRING;
+
+    nextState(txt);
+}
+#endif
 
 static void drawString(leTextFieldWidget* txt)
 {
@@ -255,41 +266,21 @@ static void drawString(leTextFieldWidget* txt)
                                  txt->editWidget.widget.scheme->textDisabled,
                                  paintState.alpha);
     }
-    
 
-      
-#if LE_EXTERNAL_STREAMING_ENABLED == 1                   
-    if(txt->reader != NULL)
+#if LE_STREAMING_ENABLED == 1
+    if(leGetActiveStream() != NULL)
     {
-        txt->editWidget.widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitString;
+        leGetActiveStream()->onDone = onStringStreamFinished;
+        leGetActiveStream()->userData = txt;
+
         txt->editWidget.widget.drawState = WAIT_STRING;
-        
-        return;
-    }
-#endif
-    
-    nextState(txt);
-}
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-static void waitString(leTextFieldWidget* txt)
-{
-    if(txt->reader->status != GFXU_READER_STATUS_FINISHED)
-    {
-        txt->reader->run(txt->reader);
-        
         return;
     }
-    
-    // free the reader
-    txt->reader->memIntf->heap.free(txt->reader);
-    txt->reader = NULL;
-    
-    txt->editWidget.widget.drawState = DRAW_STRING;
+#endif
     
     nextState(txt);
 }
-#endif
 
 static void drawCursor(leTextFieldWidget* txt)
 {
@@ -309,11 +300,13 @@ static void drawBorder(leTextFieldWidget* txt)
 {
     if(txt->editWidget.widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)txt);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)txt,
+                                                    paintState.alpha);
     }
     else if(txt->editWidget.widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardLoweredBorder((leWidget*)txt);
+        leWidget_SkinClassic_DrawStandardLoweredBorder((leWidget*)txt,
+                                                       paintState.alpha);
     }
     
     nextState(txt);
@@ -341,7 +334,7 @@ void _leTextFieldWidget_Paint(leTextFieldWidget* txt)
         break;
 #endif
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
         if(txt->editWidget.widget.drawState == WAIT_STRING)
             break;
 #endif

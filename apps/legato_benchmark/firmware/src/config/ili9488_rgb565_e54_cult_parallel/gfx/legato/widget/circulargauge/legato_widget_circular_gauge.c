@@ -244,12 +244,15 @@ void leCircularGaugeWidget_Constructor(leCircularGaugeWidget* _this)
     _this->endValue = DEFAULT_END_VALUE;
     _this->startAngle = DEFAULT_START_ANGLE;
     _this->centerAngle = DEFAULT_CENTER_ANGLE;
+    _this->dir = LE_COUNTER_CLOCKWISE;
 
     // default tick properties
     _this->ticksVisible = LE_TRUE;
     _this->tickValue = DEFAULT_TICK_VALUE;
-    _this->tickLabelsVisible = LE_TRUE;
     _this->tickLength = DEFAULT_TICK_LENGTH;
+
+    _this->tickLabelsVisible = LE_TRUE;
+    _this->ticksLabelFont = NULL;
 
     // default hand properties
     _this->handVisible = LE_TRUE;
@@ -263,6 +266,8 @@ void leCircularGaugeWidget_Constructor(leCircularGaugeWidget* _this)
     leArray_Create(&_this->arcsArray);
     leArray_Create(&_this->ticksArray);
     leArray_Create(&_this->labelsArray);
+
+    _this->cb = NULL;
 }
 
 void _leWidget_Destructor(leWidget* wgt);
@@ -361,11 +366,11 @@ static leResult setCenterAngle(leCircularGaugeWidget* _this,
 
     if (_this->centerAngle < 0)
     {
-        _this->dir = CIRCULAR_GAUGE_DIR_CLOCKWISE;
+        _this->dir = LE_CLOCKWISE;
     }
     else
     {
-        _this->dir = CIRCULAR_GAUGE_DIR_COUNTER_CLOCKWISE;
+        _this->dir = LE_COUNTER_CLOCKWISE;
     }
     
     _this->fn->invalidate(_this);
@@ -373,6 +378,7 @@ static leResult setCenterAngle(leCircularGaugeWidget* _this,
     return LE_SUCCESS;
 }
 
+#if 0
 static leCircularGaugeWidgetDir getDirection(const leCircularGaugeWidget* _this)
 {
     LE_ASSERT_THIS();
@@ -394,6 +400,7 @@ static leResult setDirection(leCircularGaugeWidget* _this,
         
     return LE_SUCCESS;
 }
+#endif
 
 static leResult addValueArc(leCircularGaugeWidget* _this, 
                             int32_t startValue, 

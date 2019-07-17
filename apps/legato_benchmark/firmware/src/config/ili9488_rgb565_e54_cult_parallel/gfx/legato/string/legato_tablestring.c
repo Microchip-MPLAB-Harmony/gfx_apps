@@ -1,37 +1,37 @@
 #include "gfx/legato/string/legato_tablestring.h"
 
-#include "gfx/legato/asset/legato_stringtable.h"
 #include "gfx/legato/core/legato_state.h"
 #include "gfx/legato/memory/legato_memory.h"
 #include "gfx/legato/string/legato_dynamicstring.h"
+#include "gfx/legato/string/legato_stringtable.h"
+#include "gfx/legato/string/legato_stringutils.h"
 
 static leTableStringVTable tableStringVTable;
 
-static leResult decodeCodePoint(uint32_t encoding,
-                                uint8_t* data,
-                                uint32_t max,
-                                uint32_t* codePoint,
-                                uint32_t* offset);
 
-void _leString_Constructor(leString* str);
-void _leString_Destructor(leString* str);
+void _leString_Constructor(leString* _this);
+void _leString_Destructor(leString* _this);
 
-void leTableString_Constructor(leTableString* str,
+void leTableString_Constructor(leTableString* _this,
                                uint32_t idx)
 {
-    str->base.fn = (void*)&tableStringVTable;
-    str->fn = (void*)&tableStringVTable;
+    LE_ASSERT_THIS();
+
+    _this->base.fn = (void*)&tableStringVTable;
+    _this->fn = (void*)&tableStringVTable;
     
-    _leString_Constructor((leString*)str);
+    _leString_Constructor((leString*)_this);
     
-    str->index = idx;
+    _this->index = idx;
 }
 
-void _leTableString_Destructor(leTableString* str)
+void _leTableString_Destructor(leTableString* _this)
 {
-    str->index = LE_STRING_NULLIDX;
+    LE_ASSERT_THIS();
+
+    _this->index = LE_STRING_NULLIDX;
     
-    _leString_Destructor((leString*)str);
+    _leString_Destructor((leString*)_this);
 }
 
 leTableString* leTableString_New(uint32_t idx)
@@ -45,67 +45,70 @@ leTableString* leTableString_New(uint32_t idx)
     return str;
 }
 
-leFont* _leTableString_GetFont(const leTableString* str)
+leFont* _leTableString_GetFont(const leTableString* _this)
 {
-    if(str == NULL)
-        return NULL;
+    LE_ASSERT_THIS();
         
-    return leStringTable_FontIndexLookup(leGetState()->stringTable,
-                                         str->index,
-                                         leGetState()->languageID);
+    return leStringTable_GetStringFont(leGetState()->stringTable,
+                                       _this->index,
+                                       leGetState()->languageID);
 }
 
-leResult _leTableString_SetFont(leTableString* str,
+leResult _leTableString_SetFont(leTableString* _this,
                                 const leFont* font)
 {
     return LE_FAILURE;
 }
 
-leResult _leTableString_SetFromString(leTableString* str,
+leResult _leTableString_SetFromString(leTableString* _this,
                                       const leString* src)
 {
     return LE_FAILURE;
 }
 
-leResult _leTableString_SetFromChar(leTableString* str,
+leResult _leTableString_SetFromChar(leTableString* _this,
                                     const leChar* buf,
                                     uint32_t size)
 {
     return LE_FAILURE;
 }
 
-leResult _leTableString_SetFromCStr(leTableString* str,
+leResult _leTableString_SetFromCStr(leTableString* _this,
                                     const char* cstr)
 {
     return LE_FAILURE;
 }
 
-uint32_t _leTableString_Length(const leTableString* str)
+uint32_t _leTableString_Length(const leTableString* _this)
 {
     const leStringTable* tbl = leGetState()->stringTable;
     leStringInfo info;
-    
-    if(str == NULL || str->index == LE_STRING_NULLIDX)
+
+    LE_ASSERT_THIS();
+
+    if(_this->index == LE_STRING_NULLIDX)
         return 0;
     
-    info.stringIndex = str->index;
-    info.languageID = leGetState()->languageID;    
+    info.stringIndex = _this->index;
+    info.languageID = leGetState()->languageID;
         
     if(leStringTable_StringLookup(tbl, &info) == LE_FAILURE)
         return 0;
-        
-    return info.size;
+
+    if(leStringTable_GetStringLength(tbl, &info) == LE_FAILURE)
+        return 0;
+
+    return info.length;
 }
 
-leBool _leTableString_IsEmpty(const leTableString* str)
+leBool _leTableString_IsEmpty(const leTableString* _this)
 {
-    if(str == NULL)
-        return LE_TRUE;
+    LE_ASSERT_THIS();
         
-    return _leTableString_Length(str) == 0;
+    return _leTableString_Length(_this) == 0;
 }
 
-leChar _leTableString_CharAt(const leTableString* str,
+leChar _leTableString_CharAt(const leTableString* _this,
                              uint32_t idx)
 {
     leFont* fnt = NULL;
@@ -115,16 +118,18 @@ leChar _leTableString_CharAt(const leTableString* str,
     const leStringTable* tbl = leGetState()->stringTable;
     uint32_t lang = leGetState()->languageID;
     leStringInfo info;
+
+    LE_ASSERT_THIS();
     
     if(tbl == NULL)
         return 0;
     
-    fnt = leStringTable_FontIndexLookup(tbl, str->index, lang);
+    fnt = leStringTable_GetStringFont(tbl, _this->index, lang);
     
     if(fnt == NULL)
         return 0;
         
-    info.stringIndex = str->index;
+    info.stringIndex = _this->index;
     info.languageID = lang;
     
     if(leStringTable_StringLookup(tbl, &info) == LE_FAILURE)
@@ -132,13 +137,13 @@ leChar _leTableString_CharAt(const leTableString* str,
     
     j = 0;
     
-    for(i = 0; i < info.size;)
+    for(i = 0; i < info.dataSize;)
     {
-        if(decodeCodePoint(tbl->encodingMode,
-                           info.address + i,
-                           info.size,
-                           &codePoint,
-                           &offset) == LE_FAILURE)
+        if(leDecodeCodePoint(tbl->encodingMode,
+                             info.data + i,
+                             info.dataSize,
+                             &codePoint,
+                             &offset) == LE_FAILURE)
             return LE_FAILURE;
         
         i += offset;
@@ -154,19 +159,17 @@ leChar _leTableString_CharAt(const leTableString* str,
 
 
 
-int32_t _leTableString_Compare(const leTableString* str,
+int32_t _leTableString_Compare(const leTableString* _this,
                                const leString* tgt)
 {
     uint32_t myLen, len, itr, chr;
-    
-    if(str == NULL && tgt == NULL)
-        return 0;
-        
-    if((str == NULL && tgt != NULL) ||
-       (str != NULL && tgt == NULL))
+
+    LE_ASSERT_THIS();
+
+    if(tgt == NULL)
         return -1;
     
-    myLen = str->fn->length(str);
+    myLen = _this->fn->length(_this);
     len = tgt->fn->length(tgt);
     
     if(myLen < len)
@@ -181,52 +184,53 @@ int32_t _leTableString_Compare(const leTableString* str,
     {
         chr = tgt->fn->charAt(tgt, itr);
         
-        if(str->fn->charAt(str, itr) != chr)
+        if(_this->fn->charAt(_this, itr) != chr)
         {
-            return str->fn->charAt(str, itr) - chr;
+            return _this->fn->charAt(_this, itr) - chr;
         }
     }
     
     return 0;
 }
 
-leResult _leTableString_Append(leTableString* str,
+leResult _leTableString_Append(leTableString* _this,
                                const leString* val)
 {
     return LE_FAILURE;
 }
 
-leResult _leTableString_Insert(leTableString* str,
+leResult _leTableString_Insert(leTableString* _this,
                                const leString* val,
                                uint32_t idx)
 {
     return LE_FAILURE;
 }
 
-leResult _leTableString_Remove(leTableString* str,
+leResult _leTableString_Remove(leTableString* _this,
                                uint32_t idx,
                                uint32_t count)
 {
     return LE_FAILURE;
 }
 
-void _leTableString_Clear(leTableString* str)
+void _leTableString_Clear(leTableString* _this)
 {
 }
 
-uint32_t _leTableString_ToChar(const leTableString* str, leChar* buf, uint32_t size)
+uint32_t _leTableString_ToChar(const leTableString* _this, leChar* buf, uint32_t size)
 {
     uint32_t myLen, itr;
-    
-    if(str == NULL ||
-       str->index == LE_STRING_NULLIDX ||
+
+    LE_ASSERT_THIS();
+
+    if(_this->index == LE_STRING_NULLIDX ||
        buf == NULL ||
        size == 0)
     {
         return LE_FAILURE;
     }
     
-    myLen = str->fn->length(str);
+    myLen = _this->fn->length(_this);
         
     if(size >= myLen)
     {
@@ -235,20 +239,20 @@ uint32_t _leTableString_ToChar(const leTableString* str, leChar* buf, uint32_t s
     
     for(itr = 0; itr < size; itr++)
     {
-        buf[itr] = str->fn->charAt(str, itr);
+        buf[itr] = _this->fn->charAt(_this, itr);
     }
     
     return size;
 }
 
-leResult _leString_Draw(const leString* str,
+leResult _leString_Draw(const leString* _this,
                         int32_t x,
                         int32_t y,
                         leHAlignment align,
                         leColor clr,
                         uint32_t a);
 
-leResult _leTableString_Draw(const leTableString* str,
+/*leResult _leTableString_Draw(const leTableString* _this,
                              int32_t x,
                              int32_t y,
                              leHAlignment align,
@@ -256,61 +260,66 @@ leResult _leTableString_Draw(const leTableString* str,
                              uint32_t a)
 {
     const leStringTable* table = leGetState()->stringTable;
-    leFont* font = str->fn->getFont(str);
+    leFont* font;
     leStringInfo info;
-    
+
+    LE_ASSERT_THIS();
+
+    font = _this->fn->getFont(_this);
+
     if(font == NULL)
         return LE_FAILURE;
         
-    info.stringIndex = str->index;
+    info.stringIndex = _this->index;
     info.languageID = leGetState()->languageID;
     
     if(leStringTable_StringLookup(table, &info) == LE_FAILURE)
         return LE_FAILURE;
 
-    return _leString_Draw((void*)str,
+    return _leString_Draw((void*)_this,
                           x,
                           y,
                           align,
                           clr,
                           a);
+}*/
+
+uint32_t _leTableString_GetID(const leTableString* _this)
+{
+    LE_ASSERT_THIS();
+        
+    return _this->index;
 }
 
-uint32_t _leTableString_GetID(const leTableString* str)
+leResult _leTableString_SetID(leTableString* _this, uint32_t id)
 {
-    if(str == NULL)
-        return 0;
-        
-    return str->index;
-}
+    LE_ASSERT_THIS();
 
-leResult _leTableString_SetID(leTableString* str, uint32_t id)
-{
-    if(str == NULL)
-        return LE_FAILURE;
-        
-    str->index = id;
+    _this->fn->preinvalidate(_this);
+
+    _this->index = id;
+
+    _this->fn->invalidate(_this);
         
     return LE_SUCCESS;
 }
 
-uint32_t _leTableString_SizeInBytes(leTableString* str)
+uint32_t _leTableString_SizeInBytes(leTableString* _this)
 {
     const leStringTable* table;
     leStringInfo info;
-    
-    if(str == NULL)
-        return 0;
+
+    LE_ASSERT_THIS();
     
     table = leGetState()->stringTable;
     
-    info.stringIndex = str->index;
+    info.stringIndex = _this->index;
     info.languageID = leGetState()->languageID;
     
     if(leStringTable_StringLookup(table, &info))
         return 0;
         
-    return info.size;
+    return info.dataSize;
 }
 
 void _leString_FillVTable(leStringVTable* vt);
@@ -334,165 +343,10 @@ void _leTableString_GenerateVTable()
     tableStringVTable.insert = _leTableString_Insert;
     tableStringVTable.remove = _leTableString_Remove;
     tableStringVTable.clear = _leTableString_Clear;
-    tableStringVTable._draw = _leTableString_Draw;
+    //tableStringVTable._draw = _leTableString_Draw;
     
     /* member functions */
     tableStringVTable.getID = _leTableString_GetID;
     tableStringVTable.setID = _leTableString_SetID;
     tableStringVTable.sizeInBytes = _leTableString_GetID;
-}
-
-static leResult decodeASCII(uint8_t* val,
-                            uint32_t max,
-                            uint32_t* codePoint,
-                            uint32_t* size)
-{
-    *codePoint = val[0];
-    *size = 1;
-    
-    return LE_SUCCESS;
-}
-
-static leResult decodeUTF8(uint8_t* val,
-                           uint32_t max,
-                           uint32_t* codePoint,
-                           uint32_t* size)
-{
-    uint32_t point = 0;
-    uint32_t length = 0;
-    
-    if((val[0] & 0x80) == 0x0)
-    {
-        length = 1;
-        point = val[0] & 0x7F;
-    }
-    else if((val[0] & 0xE0) == 0xC0)
-    {
-        length = 2;
-        
-        if(max < 2)
-            return LE_FAILURE;
-        
-        point |= (val[0] & 0x1F) << 6;
-        point |= (val[1] & 0x3F);
-    } 
-    else if((val[0] & 0xF0) == 0xE0)
-    {
-        length = 3;
-        
-        if(max < 3)
-            return LE_FAILURE;
-        
-        point |= (val[0] & 0xF) << 12;
-        point |= (val[1] & 0x3F) << 6;
-        point |= (val[2] & 0x3F);
-    }
-    else if((val[0] & 0xF8) == 0xF0)
-    {
-        length = 4;
-        
-        if(max < 4)
-            return LE_FAILURE;
-        
-        point |= (val[0] & 0x7) << 18;
-        point |= (val[1] & 0x3F) << 12;
-        point |= (val[2] & 0x3F) << 6;
-        point |= (val[3] & 0x3F);
-    }
-    else if((val[0] & 0xFC) == 0xF8)
-    {   
-        length = 5;
-        
-        if(max < 5)
-            return LE_FAILURE;
-        
-        point |= (val[0] & 0x3) << 24;
-        point |= (val[1] & 0x3F) << 18;
-        point |= (val[2] & 0x3F) << 12;
-        point |= (val[3] & 0x3F) << 6;
-        point |= (val[4] & 0x3F);
-    }
-    else if((val[0] & 0xFE) == 0xFC)
-    {
-        length = 6;
-        
-        if(max < 6)
-            return LE_FAILURE;
-        
-        point |= (val[0] & 0x1) << 30;
-        point |= (val[1] & 0x3F) << 24;
-        point |= (val[2] & 0x3F) << 18;
-        point |= (val[3] & 0x3F) << 12;
-        point |= (val[4] & 0x3F) << 6;
-        point |= (val[5] & 0x3F);
-    }
-    else
-        return LE_FAILURE;
-    
-    *size = length;
-    *codePoint = point;
-    
-    return LE_SUCCESS;
-}
-
-static leResult decodeUTF16(uint8_t* val,
-                            uint32_t max,
-                            uint32_t* codePoint,
-                            uint32_t* size)
-{
-    uint32_t point = 0;
-    uint32_t high, low;
-    
-    if((val[1] & 0xFC) == 0xDC)
-    {
-        if(max < 4)
-            return LE_FAILURE;
-            
-        *size = 4;
-        
-        high = val[0] << 8;
-        high |= val[1];
-        high -= 0xD800;
-        
-        low = val[2] << 8;
-        low |= val[3];
-        low -= 0xDC00;
-        
-        point = ((high << 10) + low) + 0x10000;
-    }
-    else
-    {
-        if(max < 2)
-            return LE_FAILURE;
-            
-        *size = 2;
-        
-        point += val[0];
-        point += (val[1] << 8);
-    }
-    
-    *codePoint = point;
-    
-    return LE_SUCCESS;
-}
-
-typedef leResult (*decodeGlyph_FnPtr)(uint8_t*,
-                                      uint32_t,
-                                      uint32_t*,
-                                      uint32_t*);
-                                         
-decodeGlyph_FnPtr decodeGlyph[] =
-{
-    &decodeASCII,
-    &decodeUTF8,
-    &decodeUTF16
-};
-
-static leResult decodeCodePoint(uint32_t encoding,
-                                uint8_t* data,
-                                uint32_t max,
-                                uint32_t* codePoint,
-                                uint32_t* offset)
-{
-    return decodeGlyph[encoding](data, max, codePoint, offset);
 }

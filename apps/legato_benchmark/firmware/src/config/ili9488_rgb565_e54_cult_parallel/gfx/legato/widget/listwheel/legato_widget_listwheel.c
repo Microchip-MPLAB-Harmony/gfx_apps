@@ -21,6 +21,7 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+#include <gfx/legato/legato.h>
 #include "gfx/legato/widget/listwheel/legato_widget_listwheel.h"
 
 #if LE_LISTWHEEL_WIDGET_ENABLED
@@ -195,26 +196,23 @@ static void invalidateContents(leListWheelWidget* _this)
 }
 #endif
 
-static void languageChanging(leListWheelWidget* _this)
+static void stringPreinvalidate(const leString* str,
+                                leListWheelWidget* lst)
 {
-    int32_t i;
-    uint32_t item;
-    leString* str;
-    item = _this->topItem;
-    
-    for(i = 0; i < _this->visibleItems; i++)
-    {
-        str = _this->items.values[item];
-        
-        if(str->fn->isEmpty(str) == LE_FALSE)
-        {
-            _this->fn->invalidate(_this);
-            
-            return;
-        }
-        
-        item = nextItem(_this->items.size, item);
-    }
+    lst->fn->invalidate(lst);
+}
+
+static void stringInvalidate(const leString* str,
+                             leListWheelWidget* lst)
+{
+    lst->fn->invalidate(lst);
+}
+
+static void handleLanguageChangeEvent(leListWheelWidget* _this)
+{
+    LE_ASSERT_THIS();
+
+    _this->fn->invalidate(_this);
 }
 
 void leListWheelWidget_Constructor(leListWheelWidget* _this)
@@ -242,29 +240,46 @@ void leListWheelWidget_Constructor(leListWheelWidget* _this)
     leArray_Create(&_this->items);
     
     _this->widget.halign = LE_HALIGN_CENTER;
+    _this->iconPos = LE_RELATIVE_POSITION_LEFTOF;
     _this->iconMargin = DEFAULT_MARGIN;
     _this->visibleItems = DEFAULT_VISIBLE_COUNT;
+    _this->selectedItem = -1;
+    _this->topItem = -1;
     
     calculateTopItem(_this);
     //_this->scrollBarWidth = DEFAULT_SCROLL_WIDTH;
-    
+
     _this->showIndicators = LE_TRUE;
     _this->indicatorArea = DEFAULT_INDICATOR_AREA;
     _this->shaded = LE_TRUE;
     
     _this->cycleDistance = leDivideRounding(_this->widget.rect.height,
                                             _this->visibleItems - 1);
+    _this->cycleDelta = 0;
+    _this->firstTouchY = 0;
+    _this->touchY = 0;
+    _this->lastTouchY = 0;
+
     //_this->cycleSteps = DEFAULT_CYCLE_STEPS;
     
     _this->minFlickDelta = DEFAULT_DRAG_DELTA;
     _this->rotationTick = DEFAULT_ROTATION_TICK;
-    _this->momentumFalloff = DEFAULT_MOMENTUM_FALLOFF;
+
     _this->stillTouching = LE_FALSE;
     _this->autoHideWheel = LE_FALSE;
     _this->hideWheel = LE_FALSE;
-    
     _this->indicatorFill = LE_LISTWHEEL_INDICATOR_FILL_SOLID;
     _this->zoomEffects = LE_LISTWHEEL_ZOOM_EFFECT_NONE;
+
+    _this->momentum = 0;
+    _this->maxMomentum = 0;
+    _this->momentumFalloff = DEFAULT_MOMENTUM_FALLOFF;
+    _this->snapPending = LE_FALSE;
+    _this->rotation = 0;
+    _this->rotationCounter = 0;
+    _this->rotationTick = 0;
+
+    _this->cb = NULL;
 }
 
 void _leWidget_Destructor(leWidget* _this);
@@ -990,20 +1005,22 @@ static leResult removeItem(leListWheelWidget* _this,
 
 static leResult removeAllItems(leListWheelWidget* _this)
 {
+    uint32_t i;
+
     leListWheelItem* item;
     
     LE_ASSERT_THIS();
-        
-    while(_this->items.size > 0)
+
+    for(i = 0; i < _this->items.size; i++)
     {
-        item = _this->items.values[0];
-    
+        item = _this->items.values[i];
+
         if(item != NULL)
         {
             LE_FREE(item);
         }
     }
-    
+
     leArray_Clear(&_this->items);
     
     _this->selectedItem = -1;
@@ -1162,10 +1179,27 @@ static leResult setItemString(leListWheelWidget* _this,
     //invalidateContents(_this);
        
     item = _this->items.values[idx];
+
+    if(item->string != NULL)
+    {
+        item->string->fn->setPreInvalidateCallback((leString*)item->string,
+                                                   NULL,
+                                                   NULL);
+
+        item->string->fn->setInvalidateCallback((leString*)item->string,
+                                                NULL,
+                                                NULL);
+    }
     
     item->string = str;
-    
-    //invalidateContents(_this);
+
+    item->string->fn->setPreInvalidateCallback((leString*)item->string,
+                                               (void*)stringPreinvalidate,
+                                               _this);
+
+    item->string->fn->setInvalidateCallback((leString*)item->string,
+                                            (void*)stringInvalidate,
+                                            _this);
     
     _this->fn->invalidate(_this);
     
@@ -1329,7 +1363,7 @@ void _leListWheelWidget_GenerateVTable()
     listWheelWidgetVTable.touchUpEvent = handleTouchUpEvent;
     listWheelWidgetVTable.resizeEvent = handleResizedEvent;
     listWheelWidgetVTable._paint = _leListWheelWidget_Paint;
-    listWheelWidgetVTable.languageChangeEvent = languageChanging;
+    listWheelWidgetVTable.languageChangeEvent = handleLanguageChangeEvent;
     
     /* member functions */
     listWheelWidgetVTable.getVisibleItemCount = getVisibleItemCount;

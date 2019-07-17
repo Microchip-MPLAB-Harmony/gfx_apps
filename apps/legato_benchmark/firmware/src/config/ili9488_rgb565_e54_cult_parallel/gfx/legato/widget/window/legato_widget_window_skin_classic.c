@@ -41,11 +41,11 @@ enum
     DRAW_BACKGROUND,
     DRAW_TITLE_BAR,
     DRAW_ICON,
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
     WAIT_ICON,
 #endif
     DRAW_STRING,
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
     WAIT_STRING,
 #endif
     DRAW_BORDER,
@@ -241,7 +241,8 @@ static void nextState(leWindowWidget* win)
 
 static void drawBackground(leWindowWidget* win)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)win);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)win,
+                                                paintState.alpha);
     
     nextState(win);
 }
@@ -274,10 +275,10 @@ static void drawTitleBar(leWindowWidget* win)
     nextState(win);
 }
 
-#if LE_ASSET_STREAMING_ENABLED == 1
-static void onImageStreamFinished(leAssetStreamReader* rdr)
+#if LE_STREAMING_ENABLED == 1
+static void onImageStreamFinished(leStreamManager* dec)
 {
-    leWindowWidget* win = (leWindowWidget*)rdr->userData;
+    leWindowWidget* win = (leWindowWidget*)dec->userData;
 
     win->widget.drawState = DRAW_ICON;
 
@@ -297,11 +298,11 @@ static void drawIcon(leWindowWidget* win)
                  iconRect.y,
                  paintState.alpha);
 
-#if LE_ASSET_STREAMING_ENABLED == 1
-    if(leGetReader() != NULL)
+#if LE_STREAMING_ENABLED == 1
+    if(leGetActiveStream() != NULL)
     {
-        leGetReader()->onFinished = onImageStreamFinished;
-        leGetReader()->userData = win;
+        leGetActiveStream()->onDone = onImageStreamFinished;
+        leGetActiveStream()->userData = win;
 
         win->widget.drawState = WAIT_ICON;
 
@@ -311,6 +312,17 @@ static void drawIcon(leWindowWidget* win)
         
     nextState(win);
 }
+
+#if LE_STREAMING_ENABLED == 1
+static void onStringStreamFinished(leStreamManager* strm)
+{
+    leWindowWidget* win = (leWindowWidget*)strm->userData;
+
+    win->widget.drawState = DRAW_STRING;
+
+    nextState(win);
+}
+#endif
 
 static void drawString(leWindowWidget* win)
 {
@@ -324,39 +336,21 @@ static void drawString(leWindowWidget* win)
                           win->widget.halign,
                           win->widget.scheme->text,
                           paintState.alpha);
-    
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-    if(win->reader != NULL)
-    {
-        win->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitString;
-        win->widget.drawState = WAIT_STRING;
-        
-        return;
-    }
-#endif
-    
-    nextState(win);
-}
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-static void waitString(leWindowWidget* win)
-{
-    if(win->reader->status != GFXU_READER_STATUS_FINISHED)
+#if LE_STREAMING_ENABLED == 1
+    if(leGetActiveStream() != NULL)
     {
-        win->reader->run(win->reader);
-        
+        leGetActiveStream()->onDone = onStringStreamFinished;
+        leGetActiveStream()->userData = win;
+
+        win->widget.drawState = WAIT_STRING;
+
         return;
     }
-    
-    // free the reader
-    win->reader->memIntf->heap.free(win->reader);
-    win->reader = NULL;
-    
-    win->widget.drawState = DRAW_STRING;
+#endif
     
     nextState(win);
 }
-#endif
 
 static void drawBorder(leWindowWidget* win)
 {
@@ -364,7 +358,8 @@ static void drawBorder(leWindowWidget* win)
     
     if(win->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)win);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)win,
+                                                    paintState.alpha);
     }
     else if(win->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
@@ -395,7 +390,7 @@ void _leWindowWidget_Paint(leWindowWidget* win)
     if(win->widget.drawState == NOT_STARTED)
         nextState(win);
 
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
     if(win->widget.drawState == WAIT_ICON ||
        win->widget.drawState == WAIT_STRING)
     {
@@ -411,7 +406,7 @@ void _leWindowWidget_Paint(leWindowWidget* win)
         break;
 #endif
         
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
         if(win->widget.drawState == WAIT_ICON ||
            win->widget.drawState == WAIT_STRING)
             break;

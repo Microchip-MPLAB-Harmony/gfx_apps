@@ -689,8 +689,7 @@ const uint8_t RAWRLE_GFX_mplab_100x100_data[10782] =
 leImage RAWRLE_GFX_mplab_100x100 =
 {
     {
-        LE_ASSET_TYPE_IMAGE, // asset type
-        LE_ASSET_LOCATION_ID_INTERNAL, // data location id
+        LE_STREAM_LOCATION_ID_INTERNAL, // data location id
         (void*)RAWRLE_GFX_mplab_100x100_data, // data address pointer
         10782, // data size
     },
@@ -707,7 +706,7 @@ leImage RAWRLE_GFX_mplab_100x100 =
     },
     LE_IMAGE_USE_MASK_COLOR, // image flags
     {
-        0x0000, // color mask
+        0x0, // color mask
     },
     NULL, // alpha mask
     NULL, // palette

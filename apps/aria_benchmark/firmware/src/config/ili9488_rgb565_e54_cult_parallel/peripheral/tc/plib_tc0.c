@@ -88,7 +88,7 @@ void TC0_TimerInitialize( void )
     TC0_REGS->COUNT16.TC_WAVE = TC_WAVE_WAVEGEN_MPWM;
 
     /* Configure timer period */
-    TC0_REGS->COUNT16.TC_CC[0U] = 59999U;
+    TC0_REGS->COUNT16.TC_CC[0U] = 60000U;
 
     /* Clear all interrupt flags */
     TC0_REGS->COUNT16.TC_INTFLAG = TC_INTFLAG_Msk;

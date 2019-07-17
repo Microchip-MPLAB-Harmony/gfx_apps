@@ -63,11 +63,6 @@ void _leBarGraphWidget_Constructor(leBarGraphWidget* _this)
     _this->fn = &barGraphWidgetVTable;
 
     _this->widget.type = LE_WIDGET_BAR_GRAPH;
-    
-    //_this->widget.destructor = (leWidget_Destructor_FnPtr)&_leBarGraphWidget_Destructor;
-
-    // override base class methods
-    //_this->widget.paint = (leWidget_Paint_FnPtr)&_leBarGraphWidget_Paint;
 
     _this->widget.rect.width = DEFAULT_WIDTH;
     _this->widget.rect.height = DEFAULT_HEIGHT;
@@ -96,6 +91,8 @@ void _leBarGraphWidget_Constructor(leBarGraphWidget* _this)
     
     leArray_Create(&_this->dataSeriesArray);
     leArray_Create(&_this->categories);
+
+    _this->ticksLabelFont = NULL;
 }
 
 void _leWidget_Destructor(leWidget* wgt);
@@ -998,6 +995,13 @@ static leResult clearData(leBarGraphWidget* _this)
     return LE_SUCCESS;
 }
 
+static void handleLanguageChangeEvent(leBarGraphWidget* _this)
+{
+    LE_ASSERT_THIS();
+
+    _this->fn->invalidate(_this);
+}
+
 void _leWidget_FillVTable(leWidgetVTable* tbl);
 void _leBarGraphWidget_Paint(leBarGraphWidget* _this);
 
@@ -1008,7 +1012,7 @@ void _leBarGraphWidget_GenerateVTable()
     /* overrides from base class */
     barGraphWidgetVTable._destructor = _leBarGraphWidget_Destructor;
     barGraphWidgetVTable._paint = _leBarGraphWidget_Paint;
-
+    barGraphWidgetVTable.languageChangeEvent = handleLanguageChangeEvent;
     
     /* member functions */
     barGraphWidgetVTable.getTickLength = getTickLength;

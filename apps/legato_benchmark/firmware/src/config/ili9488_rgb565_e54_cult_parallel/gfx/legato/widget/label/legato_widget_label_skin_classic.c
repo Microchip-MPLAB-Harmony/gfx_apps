@@ -26,10 +26,10 @@
 #if LE_LABEL_WIDGET_ENABLED
 
 #include "gfx/legato/common/legato_utils.h"
+#include "gfx/legato/core/legato_state.h"
 #include "gfx/legato/renderer/legato_renderer.h"
 #include "gfx/legato/string/legato_string.h"
 #include "gfx/legato/widget/legato_widget.h"
-
 #include "gfx/legato/widget/legato_widget_skin_classic_common.h"
 
 #define DEFAULT_NUM_LINES 5
@@ -40,7 +40,7 @@ enum
     DONE = LE_WIDGET_DRAW_STATE_DONE,
     DRAW_BACKGROUND,
     DRAW_STRING,
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
     WAIT_STRING,
 #endif
     DRAW_BORDER,
@@ -89,9 +89,7 @@ void _leLabelWidget_GetTextRect(leLabelWidget* lbl,
 
 static void drawBackground(leLabelWidget* lbl);
 static void drawString(leLabelWidget* lbl);
-//static void waitString(leLabelWidget* lbl);
 static void drawBorder(leLabelWidget* lbl);
-
 
 
 static void nextState(leLabelWidget* lbl)
@@ -147,16 +145,30 @@ static void nextState(leLabelWidget* lbl)
 
 static void drawBackground(leLabelWidget* lbl)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)lbl);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)lbl,
+                                                paintState.alpha);
     
     nextState(lbl);
 }
+
+#if LE_STREAMING_ENABLED == 1
+static void onStringStreamFinished(leStreamManager* strm)
+{
+    leLabelWidget* lbl = (leLabelWidget*)strm->userData;
+
+    lbl->widget.drawState = DRAW_STRING;
+
+    nextState(lbl);
+}
+#endif
 
 static void drawString(leLabelWidget* lbl)
 {
     leRect textRect, drawRect;
 
     _leLabelWidget_GetTextRect(lbl, &textRect, &drawRect);
+
+    //leRenderer_RectFill(&textRect, leColorConvert(LE_COLOR_MODE_RGB_888, LE_COLOR_MODE_RGB_565, 0xFF0000), 255);
     
     lbl->string->fn->_draw(lbl->string,
                           textRect.x,
@@ -164,49 +176,33 @@ static void drawString(leLabelWidget* lbl)
                           lbl->widget.halign,
                           lbl->widget.scheme->text,
                           paintState.alpha);
-        
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-    if(leGetReader() != NULL)
-    {
-        btn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitString;
-        btn->widget.drawState = WAIT_STRING;
-        
-        return;
-    }
-#endif
-    
-    nextState(lbl);
-}
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-static void waitString(leLabelWidget* lbl)
-{
-    if(lbl->reader->status != leREADER_STATUS_FINISHED)
+#if LE_STREAMING_ENABLED == 1
+    if(leGetActiveStream() != NULL)
     {
-        lbl->reader->run(lbl->reader);
-        
+        leGetActiveStream()->onDone = onStringStreamFinished;
+        leGetActiveStream()->userData = lbl;
+
+        lbl->widget.drawState = WAIT_STRING;
+
         return;
     }
-    
-    // free the reader
-    lbl->reader->memIntf->heap.free(lbl->reader);
-    lbl->reader = NULL;
-    
-    lbl->widget.drawState = DRAW_STRING;
+#endif
     
     nextState(lbl);
 }
-#endif
 
 static void drawBorder(leLabelWidget* lbl)
 {
     if(lbl->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)lbl);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)lbl,
+                                                    paintState.alpha);
     }
     else if(lbl->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)lbl);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)lbl,
+                                                      paintState.alpha);
     }
     
     nextState(lbl);
@@ -224,7 +220,7 @@ void _leLabelWidget_Paint(leLabelWidget* lbl)
     if(lbl->widget.drawState == NOT_STARTED)
         nextState(lbl);
 
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
     if(lbl->widget.drawState == WAIT_STRING)
         return;
 #endif
@@ -237,7 +233,7 @@ void _leLabelWidget_Paint(leLabelWidget* lbl)
         break;
 #endif
         
-#if LE_ASSET_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
         if(lbl->widget.drawState == WAIT_STRING)
             break;
 #endif

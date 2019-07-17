@@ -25,9 +25,32 @@ leRenderState* leGetRenderState()
     return &_rendererState; 
 }
 
+lePalette* leRenderer_GetGlobalPalette()
+{
+    return _rendererState.globalPalette;
+}
+
+leResult leRenderer_SetGlobalPalette(lePalette* pal)
+{
+    if(LE_GLOBAL_COLOR_MODE != LE_COLOR_MODE_PALETTE)
+        return LE_FAILURE;
+
+    _rendererState.globalPalette = pal;
+
+    return LE_SUCCESS;
+}
+
+leColor leRenderer_GlobalPaletteLookup(uint32_t idx)
+{
+    LE_ASSERT(LE_GLOBAL_COLOR_MODE == LE_COLOR_MODE_PALETTE &&
+              _rendererState.globalPalette != NULL);
+
+    return lePalette_GetColor(_rendererState.globalPalette, idx);
+}
+
 leColor leRenderer_ConvertColor(leColor inColor, leColorMode inMode)
 {
-    return leColorConvert(inMode, _rendererState.colorMode, inColor);
+    return leColorConvert(inMode, LE_GLOBAL_COLOR_MODE, inColor);
 }
 
 leRect leRenderer_GetDisplayRect()
@@ -84,7 +107,6 @@ leResult leRenderer_Initialize(const leDisplayDriver* dispDriver)
     }
  
     _rendererState.dispDriver = dispDriver;
-    _rendererState.colorMode = dispDriver->getColorMode();
     _rendererState.bufferCount = dispDriver->getBufferCount();
     
     _rendererState.displayRect.x = 0;
@@ -100,7 +122,7 @@ leResult leRenderer_Initialize(const leDisplayDriver* dispDriver)
     
     _rendererState.frameState = LE_FRAME_READY;
     
-    maxScratchPixels = SCRACH_BUFFER_SZ / leColorInfo[_rendererState.colorMode].size;
+    maxScratchPixels = SCRACH_BUFFER_SZ / leColorInfoTable[LE_GLOBAL_COLOR_MODE].size;
     
     //leRenderer_DamageArea(&lyr->widget.rect, LE_FALSE);
     
@@ -148,9 +170,12 @@ static void addDamageRectToList(leRectArray* arr, const leRect* rect)
 
 static void addRectToFrameList(leRect* rect)
 {
-    uint32_t i, j, cnt;
+    uint32_t i;
+#if LE_EFFICIENT_RECT_SLICING == 1
+    uint32_t j, cnt;
     leRect rects[4];
-    
+#endif
+
     if(_rendererState.frameRectList.size > 0)
     {
         for(i = 0; i < _rendererState.frameRectList.size; i++)
@@ -160,6 +185,7 @@ static void addRectToFrameList(leRect* rect)
             {
                 return;
             }
+#if LE_EFFICIENT_RECT_SLICING == 1
             // two rectangles are touching, split the incoming rectangle and
             // add pieces to list
             else if(leRectIntersects(rect, &_rendererState.frameRectList.rects[i]) == LE_TRUE)
@@ -173,6 +199,7 @@ static void addRectToFrameList(leRect* rect)
                 
                 return;
             }
+#endif
         }
     }
     
@@ -333,9 +360,9 @@ static void preRect()
     renderBuffer.size.width = _rendererState.frameRectList.rects[_rendererState.frameRectIdx].width;
     renderBuffer.size.height = _rendererState.frameRectList.rects[_rendererState.frameRectIdx].height;
     renderBuffer.pixel_count = renderBuffer.size.width * renderBuffer.size.height;
-    renderBuffer.mode = _rendererState.colorMode;
+    renderBuffer.mode = LE_GLOBAL_COLOR_MODE;
     renderBuffer.pixels = &scratchBuffer;
-    renderBuffer.buffer_length = renderBuffer.pixel_count * leColorInfo[renderBuffer.mode].size;
+    renderBuffer.buffer_length = renderBuffer.pixel_count * leColorInfoTable[renderBuffer.mode].size;
     
     _rendererState.frameState = LE_FRAME_PREWIDGET;
 }
@@ -656,8 +683,7 @@ extern int debugFlag;
 void leRenderer_Paint()
 {
 #if LE_PREEMPTION_LEVEL == 0
-    //leBool loop = LE_TRUE;
-    
+
     while(_rendererState.frameState != LE_FRAME_READY)
 #endif
     {

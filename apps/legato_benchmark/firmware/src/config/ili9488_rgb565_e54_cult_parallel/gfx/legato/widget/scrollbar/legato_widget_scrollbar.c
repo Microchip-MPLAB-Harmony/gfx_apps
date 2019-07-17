@@ -21,6 +21,7 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+#include <gfx/legato/legato.h>
 #include "gfx/legato/widget/scrollbar/legato_widget_scrollbar.h"
 
 #if LE_SCROLLBAR_WIDGET_ENABLED
@@ -192,8 +193,11 @@ void leScrollBarWidget_Constructor(leScrollBarWidget* _this)
     _this->extent = DEFAULT_EXTENT;
     _this->value = DEFAULT_VALUE;
     _this->step = DEFAULT_STEP;
+    _this->handleDownOffset = lePoint_Zero;
 
     //_this->widget.invalidateBorderAreas = (leWidget_InvalidateBorderAreas_FnPtr)&_leScrollBarWidget_InvalidateBorderAreas;
+
+    _this->valueChangedEvent = NULL;
 }
 
 void _leWidget_Destructor(leWidget* wgt);

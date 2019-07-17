@@ -699,8 +699,7 @@ const uint8_t PIC32Logo_data[10940] =
 leImage PIC32Logo =
 {
     {
-        LE_ASSET_TYPE_IMAGE, // asset type
-        LE_ASSET_LOCATION_ID_INTERNAL, // data location id
+        LE_STREAM_LOCATION_ID_INTERNAL, // data location id
         (void*)PIC32Logo_data, // data address pointer
         10940, // data size
     },
@@ -717,7 +716,7 @@ leImage PIC32Logo =
     },
     0, // image flags
     {
-        0x0000, // color mask
+        0x0, // color mask
     },
     NULL, // alpha mask
     NULL, // palette

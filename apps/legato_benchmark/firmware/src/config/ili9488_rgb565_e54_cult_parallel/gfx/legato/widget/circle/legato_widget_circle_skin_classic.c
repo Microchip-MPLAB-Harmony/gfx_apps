@@ -100,7 +100,8 @@ static void nextState(leCircleWidget* cir)
 
 static void drawBackground(leCircleWidget* cir)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)cir);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)cir,
+                                                paintState.alpha);
     
     nextState(cir);
 }
@@ -152,11 +153,13 @@ static void drawBorder(leCircleWidget* cir)
 {    
     if(cir->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)cir);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)cir,
+                                                    paintState.alpha);
     }
     else if(cir->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)cir);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)cir,
+                                                      paintState.alpha);
     }
     
     nextState(cir);

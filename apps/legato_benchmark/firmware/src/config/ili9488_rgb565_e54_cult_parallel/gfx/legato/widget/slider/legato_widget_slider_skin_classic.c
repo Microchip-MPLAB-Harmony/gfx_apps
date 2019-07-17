@@ -174,7 +174,8 @@ static void nextState(leSliderWidget* sld)
 
 static void drawBackground(leSliderWidget* sld)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)sld);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)sld,
+                                                paintState.alpha);
 
     nextState(sld);
 }

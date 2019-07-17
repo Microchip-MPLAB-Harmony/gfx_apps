@@ -21,6 +21,7 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+#include <gfx/legato/legato.h>
 #include "gfx/legato/widget/progressbar/legato_widget_progressbar.h"
 
 #if LE_PROGRESSBAR_WIDGET_ENABLED
@@ -66,6 +67,10 @@ void leProgressBarWidget_Constructor(leProgressBarWidget* _this)
 
     _this->widget.borderType = LE_WIDGET_BORDER_BEVEL;
     _this->widget.backgroundType = LE_WIDGET_BACKGROUND_FILL;
+
+    _this->direction = LE_DIRECTION_RIGHT;
+
+    _this->cb = NULL;
 }
 
 void _leWidget_Destructor(leWidget* wgt);

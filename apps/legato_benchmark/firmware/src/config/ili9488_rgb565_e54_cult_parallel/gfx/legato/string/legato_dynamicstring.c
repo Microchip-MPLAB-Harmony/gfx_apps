@@ -6,20 +6,22 @@
 
 static leDynamicStringVTable dynamicStringVTable;
 
-void _leString_Constructor(leString* str);
-void _leString_Destructor(leString* str);
+void _leString_Constructor(leString* _this);
+void _leString_Destructor(leString* _this);
 
-void leDynamicString_Constructor(leDynamicString* str)
+void leDynamicString_Constructor(leDynamicString* _this)
 {
-    str->base.fn = (void*)&dynamicStringVTable;
-    str->fn = (void*)&dynamicStringVTable;
+    LE_ASSERT_THIS();
+
+    _this->base.fn = (void*)&dynamicStringVTable;
+    _this->fn = (void*)&dynamicStringVTable;
     
-    _leString_Constructor((leString*)str);
+    _leString_Constructor((leString*)_this);
     
-    str->data = NULL;
-    str->capacity = 0;
-    str->length = 0;
-    str->font = NULL;
+    _this->data = NULL;
+    _this->capacity = 0;
+    _this->length = 0;
+    _this->font = NULL;
 }
 
 leDynamicString* leDynamicString_New()
@@ -33,143 +35,161 @@ leDynamicString* leDynamicString_New()
     return str;
 }
 
-void _leDynamicString_Destructor(leDynamicString* str)
+void _leDynamicString_Destructor(leDynamicString* _this)
 {
-    if(str->data != NULL)
+    if(_this->data != NULL)
     {
-        LE_FREE(str->data);
+        LE_FREE(_this->data);
     }
     
-    str->data = NULL;
-    str->capacity = 0;
-    str->length = 0;
-    str->font = NULL;
+    _this->data = NULL;
+    _this->capacity = 0;
+    _this->length = 0;
+    _this->font = NULL;
     
-    _leString_Destructor((leString*)str);
+    _leString_Destructor((leString*)_this);
 }
 
-leFont* _leDynamicString_GetFont(const leDynamicString* str)
+leFont* _leDynamicString_GetFont(const leDynamicString* _this)
 {
-    if(str == NULL)
-        return NULL;
+    LE_ASSERT_THIS();
         
-    return (leFont*)str->font;
+    return (leFont*)_this->font;
 }
 
-leResult _leDynamicString_SetFont(leDynamicString* str,
+leResult _leDynamicString_SetFont(leDynamicString* _this,
                                   const leFont* font)
 {
-    if(str == NULL)
-        return LE_FAILURE;
-        
-    str->font = font;
+    LE_ASSERT_THIS();
+
+    _this->fn->preinvalidate(_this);
+
+    _this->font = font;
+
+    _this->fn->invalidate(_this);
     
     return LE_SUCCESS;
 }
 
-uint32_t _leDynamicString_GetCapacity(leDynamicString* str)
+uint32_t _leDynamicString_GetCapacity(leDynamicString* _this)
 {
-    if(str == NULL)
-        return 0;
+    LE_ASSERT_THIS();
         
-    return str->capacity;
+    return _this->capacity;
 }
 
-leResult _leDynamicString_SetCapacity(leDynamicString* str, uint32_t cap)
+leResult _leDynamicString_SetCapacity(leDynamicString* _this, uint32_t cap)
 {
-    if(str == NULL)
-        return LE_FAILURE;
+    LE_ASSERT_THIS();
         
-    if(str->capacity == cap)
+    if(_this->capacity == cap)
         return LE_SUCCESS;
+
+    _this->fn->preinvalidate(_this);
     
-    if(str->data != NULL && cap == 0)
+    if(_this->data != NULL && cap == 0)
     {
-        LE_FREE(str->data);
+        LE_FREE(_this->data);
         
-        str->data = NULL;
-        str->capacity = 0;
-        str->length = 0;
+        _this->data = NULL;
+        _this->capacity = 0;
+        _this->length = 0;
         
         return LE_SUCCESS;
     }
         
-    str->data = LE_REALLOC(str->data, cap * sizeof(leChar));
+    _this->data = LE_REALLOC(_this->data, cap * sizeof(leChar));
     
-    if(str->data == NULL)
+    if(_this->data == NULL)
         return LE_FAILURE;
     
-    str->capacity = cap;
+    _this->capacity = cap;
     
-    if(str->length > str->capacity)
+    if(_this->length > _this->capacity)
     {
-        str->length = str->capacity;
+        _this->length = _this->capacity;
     }
+
+    _this->fn->invalidate(_this);
     
     return LE_SUCCESS;
 }
 
-leResult _leDynamicString_SetFromString(leDynamicString* str,
+leResult _leDynamicString_SetFromString(leDynamicString* _this,
                                         const leString* src)
 { 
     uint32_t len, itr;
-    
-    if(str == NULL || src == NULL)
+
+    LE_ASSERT_THIS();
+
+    if(src == NULL)
         return LE_FAILURE;
     
     len = src->fn->length(src);
     
-    if(str->capacity < len)
+    if(_this->capacity < len)
     {
-        if(str->fn->setCapacity(str, len) == LE_FAILURE)
+        if(_this->fn->setCapacity(_this, len) == LE_FAILURE)
         {
             return LE_FAILURE;
         }
     }
+
+    _this->fn->preinvalidate(_this);
     
     for(itr = 0; itr < len; itr++)
     {
-        str->data[itr] = src->fn->charAt(src, itr);
+        _this->data[itr] = src->fn->charAt(src, itr);
     }
     
-    str->length = len;
-    
+    _this->length = len;
+
+    _this->fn->invalidate(_this);
+
     return LE_SUCCESS;
 }
 
-leResult _leDynamicString_SetFromChar(leDynamicString* str,
+leResult _leDynamicString_SetFromChar(leDynamicString* _this,
                                       const leChar* buf,
                                       uint32_t size)
 {
     uint32_t itr;
-    
-    if(str == NULL || buf == NULL)
+
+    LE_ASSERT_THIS();
+
+    if(buf == NULL)
         return LE_FAILURE;
        
-    if(str->capacity < size)
+    if(_this->capacity < size)
     {
-        if(str->fn->setCapacity(str, size) == LE_FAILURE)
+        if(_this->fn->setCapacity(_this, size) == LE_FAILURE)
         {
             return LE_FAILURE;
         }
     }
+
+    _this->fn->preinvalidate(_this);
     
     for(itr = 0; itr < size; itr++)
     {
-        str->data[itr] = buf[itr];
+        _this->data[itr] = buf[itr];
     }
     
-    str->length = size;
-    
+    _this->length = size;
+
+    _this->fn->invalidate(_this);
+
     return LE_SUCCESS;
 }
 
-leResult _leDynamicString_SetFromCStr(leDynamicString* str,
+leResult _leDynamicString_SetFromCStr(leDynamicString* _this,
                                       const char* cstr)
 {
     uint32_t len, itr;
-    
-    if(str == NULL || cstr == NULL)
+
+    LE_ASSERT_THIS();
+
+    if(cstr == NULL)
     {
         return LE_FAILURE;
     }
@@ -179,66 +199,68 @@ leResult _leDynamicString_SetFromCStr(leDynamicString* str,
     if(len == 0)
         return LE_SUCCESS;
         
-    if(str->capacity < len)
+    if(_this->capacity < len)
     {
-        if(str->fn->setCapacity(str, len) == LE_FAILURE)
+        if(_this->fn->setCapacity(_this, len) == LE_FAILURE)
         {
             return LE_FAILURE;
         }
     }
-    
-    str->length = len;
+
+    _this->fn->preinvalidate(_this);
+
+    _this->length = len;
     
     for(itr = 0; itr < len; itr++)
     {
-        str->data[itr] = (leChar)((unsigned char)cstr[itr]);
+        _this->data[itr] = (leChar)((unsigned char)cstr[itr]);
     }
+
+    _this->fn->invalidate(_this);
     
     return LE_SUCCESS;
 }
 
-uint32_t _leDynamicString_Length(const leDynamicString* str)
+uint32_t _leDynamicString_Length(const leDynamicString* _this)
 {
-    if(str == NULL)
-        return 0;
+    LE_ASSERT_THIS();
         
-    return str->length;
+    return _this->length;
 }
 
-leBool _leDynamicString_IsEmpty(const leDynamicString* str)
+leBool _leDynamicString_IsEmpty(const leDynamicString* _this)
 {
-    if(str == NULL)
-        return LE_TRUE;
+    LE_ASSERT_THIS();
         
-    return str->length == 0;
+    return _this->length == 0;
 }
 
-leChar _leDynamicString_CharAt(const leDynamicString* str,
+leChar _leDynamicString_CharAt(const leDynamicString* _this,
                                uint32_t idx)
 {
-    if(str == NULL || idx >= str->length)
+    LE_ASSERT_THIS();
+
+    if(idx >= _this->length)
         return 0;
         
-    return str->data[idx];
+    return _this->data[idx];
 }
 
-int32_t _leDynamicString_Compare(const leDynamicString* str,
+int32_t _leDynamicString_Compare(const leDynamicString* _this,
                                  const leString* tgt)
 {
     uint32_t len, itr, chr;
-    
-    if(str == NULL && tgt == NULL)
-        return 0;
-        
-    if((str == NULL && tgt != NULL) ||
-       (str != NULL && tgt == NULL))
+
+    LE_ASSERT_THIS();
+
+    if(tgt == NULL)
         return -1;
-    
+        
     len = tgt->fn->length(tgt);
     
-    if(str->length < len)
+    if(_this->length < len)
     {
-        len = str->length;
+        len = _this->length;
     }
     
     if(len == 0)
@@ -248,22 +270,21 @@ int32_t _leDynamicString_Compare(const leDynamicString* str,
     {
         chr = tgt->fn->charAt(tgt, itr);
         
-        if(str->data[itr] != chr)
+        if(_this->data[itr] != chr)
         {
-            return str->data[itr] - chr;
+            return _this->data[itr] - chr;
         }
     }
     
     return 0;
 }
 
-leResult _leDynamicString_Append(leDynamicString* str,
+leResult _leDynamicString_Append(leDynamicString* _this,
                                  const leString* val)
 {
     uint32_t cpyLen, itr;
-    
-    if(str == NULL)
-        return LE_FAILURE;
+
+    LE_ASSERT_THIS();
         
     if(val == NULL || val->fn->length(val) == 0)
         return LE_SUCCESS;
@@ -271,133 +292,151 @@ leResult _leDynamicString_Append(leDynamicString* str,
     cpyLen = val->fn->length(val);
     
     /* resize to fit */
-    if(str->length + cpyLen > str->capacity)
+    if(_this->length + cpyLen > _this->capacity)
     {
-        if(str->fn->setCapacity(str, str->length + cpyLen) == LE_FAILURE)
+        if(_this->fn->setCapacity(_this, _this->length + cpyLen) == LE_FAILURE)
         {
             return LE_FAILURE;
         }
     }
+
+    _this->fn->preinvalidate(_this);
     
     for(itr = 0; itr < cpyLen; itr++)
     {
-        str->data[str->length + itr] = val->fn->charAt(val, itr);
+        _this->data[_this->length + itr] = val->fn->charAt(val, itr);
     }
 
-    str->length += itr;
+    _this->length += itr;
+
+    _this->fn->invalidate(_this);
         
     return LE_SUCCESS;
 }
 
-leResult _leDynamicString_Insert(leDynamicString* str,
+leResult _leDynamicString_Insert(leDynamicString* _this,
                                  const leString* val,
                                  uint32_t idx)
 {
     uint32_t cpyLen;
     uint32_t itr;
-    
-    if(str == NULL)
-        return LE_FALSE;
+
+    LE_ASSERT_THIS();
 
     if(val == NULL || val->fn->length(val) == 0)
         return LE_SUCCESS;
         
-    if(idx >= str->length)
+    if(idx >= _this->length)
     {
-        return _leDynamicString_Append(str, val);
+        return _leDynamicString_Append(_this, val);
     }
         
     cpyLen = val->fn->length(val);
     
     if(cpyLen == 0)
         return LE_SUCCESS;
-    
+
+    _this->fn->preinvalidate(_this);
+
     /* resize to fit */  
-    if(str->length + cpyLen > str->capacity)
+    if(_this->length + cpyLen > _this->capacity)
     {
-        if(str->fn->setCapacity(str, str->length + cpyLen) == LE_FAILURE)
+        if(_this->fn->setCapacity(_this, _this->length + cpyLen) == LE_FAILURE)
         {
             return LE_FAILURE;
         }
     }
     
     /* shift data right as much as possible to make room for the new values */
-    for(itr = 0; itr < str->length - idx; itr++)
+    for(itr = 0; itr < _this->length - idx; itr++)
     {
-        str->data[str->length - 1 + cpyLen - itr] = str->data[str->length - itr - 1];
+        _this->data[_this->length - 1 + cpyLen - itr] = _this->data[_this->length - itr - 1];
     }
 
     /* insert new data */
-    for(itr = 0; itr < (int32_t)cpyLen; itr++)
+    for(itr = 0; itr < cpyLen; itr++)
     {
-        if(idx + itr >= str->capacity)
+        if(idx + itr >= _this->capacity)
             break;
             
-        str->data[idx + itr] = val->fn->charAt(val, itr); 
+        _this->data[idx + itr] = val->fn->charAt(val, itr);
     }
     
-    str->length += cpyLen;
+    _this->length += cpyLen;
     
-    if(str->length > str->capacity)
+    if(_this->length > _this->capacity)
     {
-        str->length = str->capacity;
+        _this->length = _this->capacity;
     }
+
+    _this->fn->invalidate(_this);
    
     return LE_SUCCESS;
 }
 
-leResult _leDynamicString_Remove(leDynamicString* str,
+leResult _leDynamicString_Remove(leDynamicString* _this,
                                  uint32_t idx,
                                  uint32_t count)
 {
     uint32_t itr;
-    
-    if(str == NULL || str->data == NULL || idx >= str->length)
+
+    LE_ASSERT_THIS();
+
+    if(_this->data == NULL || idx >= _this->length)
         return LE_FAILURE;
     
     if(count == 0)
         return LE_SUCCESS;
+
+    _this->fn->preinvalidate(_this);
     
     /* simple case, just move length index */
-    if(idx + count >= str->length)
+    if(idx + count >= _this->length)
     {
-        str->length = idx;
+        _this->length = idx;
         
         return LE_SUCCESS;
     }
 
     /* shift data left */
-    for(itr = idx; itr < str->length - 1; itr++)
+    for(itr = idx; itr < (uint32_t)(_this->length - 1); itr++)
     {
-        str->data[itr] = str->data[itr + count];
+        _this->data[itr] = _this->data[itr + count];
     }
 
-    str->length -= count;
+    _this->length -= count;
+
+    _this->fn->invalidate(_this);
     
     return LE_SUCCESS;
 }
 
-void _leDynamicString_Clear(leDynamicString* str)
+void _leDynamicString_Clear(leDynamicString* _this)
 {
-    if(str == NULL)
-        return;
-        
-    str->length = 0;
+    LE_ASSERT_THIS();
+
+    _this->fn->preinvalidate(_this);
+
+    _this->length = 0;
+
+    _this->fn->invalidate(_this);
 }
 
-uint32_t _leDynamicString_ToChar(const leDynamicString* str,
+uint32_t _leDynamicString_ToChar(const leDynamicString* _this,
                                  leChar* buf,
                                  uint32_t size)
 {
-    if(str == NULL || str->data == NULL || buf == NULL || size == 0)
+    LE_ASSERT_THIS();
+
+    if(_this->data == NULL || buf == NULL || size == 0)
         return LE_FAILURE;
         
-    if(size >= str->length)
+    if(size >= _this->length)
     {
-        size = str->length;
+        size = _this->length;
     }
     
-    memcpy(buf, str->data, size * sizeof(leChar));
+    memcpy(buf, _this->data, size * sizeof(leChar));
     
     return size;
 }
