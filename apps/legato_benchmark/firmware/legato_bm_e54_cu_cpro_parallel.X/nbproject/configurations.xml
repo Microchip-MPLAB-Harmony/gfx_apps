@@ -232,6 +232,7 @@
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/system/input/sys_input.h</itemPath>
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/system/input/sys_input_gesture.h</itemPath>
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/system/input/sys_input_keyboard.h</itemPath>
+              <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/system/input/sys_input_listener.h</itemPath>
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/system/input/sys_input_mouse.h</itemPath>
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/system/input/sys_input_touch.h</itemPath>
             </logicalFolder>

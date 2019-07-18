@@ -41,6 +41,7 @@ extern "C" {
 
 #define LE_PREEMPTION_LEVEL                0
 #define LE_STREAMING_ENABLED               0
+#define LE_TOUCH_ORIENTATION               0
 
 #if LE_STREAMING_ENABLED == 1
 #define LE_ASSET_DECODER_CACHE_SIZE        128
