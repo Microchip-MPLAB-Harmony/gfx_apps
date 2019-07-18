@@ -435,8 +435,8 @@
           <Name dnOrder="1">legato_input.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/core</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/core/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">48CFC6805E4990467A2301A12313FA96</GeneratedChecksum>
-          <UserChecksum dnOrder="5">48CFC6805E4990467A2301A12313FA96</UserChecksum>
+          <GeneratedChecksum dnOrder="4">70B0F93924DCDAB42AAA7ED1EA4EA507</GeneratedChecksum>
+          <UserChecksum dnOrder="5">70B0F93924DCDAB42AAA7ED1EA4EA507</UserChecksum>
         </File>
         <File dnOrder="54">
           <Type dnOrder="0">SOURCE</Type>
@@ -1675,8 +1675,8 @@
           <Name dnOrder="1">legato_config.h</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato\</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">5529AA616F21DA230D7947AFA750B88F</GeneratedChecksum>
-          <UserChecksum dnOrder="5">5529AA616F21DA230D7947AFA750B88F</UserChecksum>
+          <GeneratedChecksum dnOrder="4">35C9D7941E5E5DC55A0B58049F7B6FFD</GeneratedChecksum>
+          <UserChecksum dnOrder="5">35C9D7941E5E5DC55A0B58049F7B6FFD</UserChecksum>
         </File>
         <File dnOrder="209">
           <Type dnOrder="0">HEADER</Type>
