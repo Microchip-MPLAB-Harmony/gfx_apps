@@ -133,9 +133,10 @@ extern leRasterFont NotoSans_Regular;
  * Height:       57
  * Baseline:     55
  * Style:        Antialias
- * Glyph Count:  11
- * Range Count:  2
+ * Glyph Count:  12
+ * Range Count:  3
  * Glyph Ranges: 0x20
+                 0x2D
                  0x30-0x39
 ***********************************/
 extern leRasterFont NotoSans_Bold;
@@ -144,17 +145,18 @@ extern leRasterFont NotoSans_Bold;
  * Legato String Table
  * Encoding        ASCII
  * Language Count: 1
- * String Count:   4
+ * String Count:   5
 *****************************************************************************/
 
 // language IDs
 #define language_default    0
 
 // string IDs
-#define string_ClockNums    0
-#define string_Default    1
-#define string_DefaultTime    2
-#define string_Nums    3
+#define string_ClearVal    0
+#define string_ClockNums    1
+#define string_Default    2
+#define string_DefaultTime    3
+#define string_Nums    4
 
 extern const leStringTable stringTable;
 //DOM-IGNORE-BEGIN

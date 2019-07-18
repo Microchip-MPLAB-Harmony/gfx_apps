@@ -28,7 +28,7 @@
 
 #include "system/time/sys_time.h"
 
-#define PERIOD_1000ms 1000
+#define PERIOD_ms 500
 #define MAX_SYSTOLIC_PRESSURE 250
 #define MIN_SYSTOLIC_PRESSURE 90
 #define MAX_DIASTOLIC_PRESSURE 140
@@ -47,18 +47,25 @@
 
 static SYS_TIME_HANDLE updateTimer1000ms;
 
-static leBool updateFlag;
+static leBool updateHeartFlag;
+static leBool updateClockFlag;
+static leBool touchDownFlag;
+static leBool updateValuesFlag;
+static leBool resetValuesFlag;
+static leBool startMonitorFlag;
 
 static char charBuff[16]; //char buffer
 static leChar clockStrBuff[16] = {0};
-static leChar sysStrBuff[16] = {0};
-static leChar diaStrBuff[16] = {0};
-static leChar pulseStrBuff[16] = {0};
+static leChar sysStrBuff[8] = {0};
+static leChar diaStrBuff[8] = {0};
+static leChar pulseStrBuff[8] = {0};
+static leChar clearStrBuff[8] = {0};
 
 static leFixedString clockStr;
 static leFixedString sysStr;
 static leFixedString diaStr;
 static leFixedString pulseStr;
+static leFixedString clearStr;
 
 static void updateClock(void)
 {
@@ -198,14 +205,54 @@ static void updateHeartRate(void)
     PulseLabel->fn->setString(PulseLabel, (leString*)&pulseStr);   
 }
 
-static void updateTimer_Callback1000ms ( uintptr_t context )
+static void resetValues(void)
 {
-    updateFlag = LE_TRUE;
+    //create the time character string from hr, min, sec variables
+    sprintf(charBuff, "---"); 
+
+    //convert the character string to leFixedString object
+    pulseStr.fn->setFromCStr(&clearStr, charBuff);    
+
+    //Update text
+    PulseLabel->fn->setString(PulseLabel, (leString*)&clearStr); 
+    DiaLabel->fn->setString(DiaLabel, (leString*)&clearStr);
+    SysLabel->fn->setString(SysLabel, (leString*)&clearStr); 
+    HeartImage->fn->setVisible(HeartImage, LE_FALSE);
+}
+
+static void updateTimer_Callback ( uintptr_t context )
+{
+    static uint32_t secondCounter = 0;
+    static uint32_t updateCounter = 0;
+    
+    updateHeartFlag = LE_TRUE;
+    
+    secondCounter++;
+    updateCounter++;
+    
+    //1s
+    if (secondCounter == 2)
+    {
+        updateClockFlag = LE_TRUE;
+        secondCounter = 0;
+    }
+    
+    //2s
+    if (updateCounter == 4)
+    {
+        updateValuesFlag = LE_TRUE;
+        updateCounter = 0;
+    }
 }
 
 void default_OnShow()
 {
-    updateFlag = LE_FALSE;
+    updateHeartFlag = LE_FALSE;
+    updateClockFlag = LE_FALSE;
+    touchDownFlag = LE_FALSE;
+    updateValuesFlag = LE_FALSE;
+    resetValuesFlag = LE_FALSE;
+    startMonitorFlag = LE_FALSE;
     
     leFixedString_Constructor(&clockStr, clockStrBuff, 16);
     clockStr.fn->setFont(&clockStr, leStringTable_GetStringFont(leGetState()->stringTable,
@@ -225,11 +272,16 @@ void default_OnShow()
     leFixedString_Constructor(&pulseStr, pulseStrBuff, 16);
     pulseStr.fn->setFont(&pulseStr, leStringTable_GetStringFont(leGetState()->stringTable,
                                                               string_Nums,
-                                                              0));      
+                                                              0));    
     
-    updateTimer1000ms = SYS_TIME_CallbackRegisterMS(updateTimer_Callback1000ms, 
+    leFixedString_Constructor(&clearStr, clearStrBuff, 8);
+    clearStr.fn->setFont(&clearStr, leStringTable_GetStringFont(leGetState()->stringTable,
+                                                              string_ClearVal,
+                                                              0));  
+    
+    updateTimer1000ms = SYS_TIME_CallbackRegisterMS(updateTimer_Callback, 
                                         1,
-                                        PERIOD_1000ms,
+                                        PERIOD_ms,
                                         SYS_TIME_PERIODIC);
 }
 
@@ -241,18 +293,57 @@ void default_OnHide()
     clockStr.fn->destructor(&clockStr);
     sysStr.fn->destructor(&sysStr);
     diaStr.fn->destructor(&diaStr);
-    pulseStr.fn->destructor(&pulseStr);    
+    pulseStr.fn->destructor(&pulseStr);   
+    clearStr.fn->destructor(&clearStr);   
 }
 
 void default_OnUpdate()
 {
-    if (updateFlag == LE_TRUE)
+    //Update clock
+    if (updateClockFlag == LE_TRUE)
     {
+        updateClockFlag = LE_FALSE;
         updateClock();
-        updateHeartIcon();
-        updateBloodPressure();  
-        updateHeartRate();
-        
-        updateFlag = LE_FALSE;
     }
+    
+    if (startMonitorFlag == LE_TRUE)
+    {
+        HeartImage->fn->setVisible(HeartImage, LE_TRUE);
+        startMonitorFlag = LE_FALSE;
+    }
+    
+    if (resetValuesFlag == LE_TRUE)
+    {
+        resetValues();
+        resetValuesFlag = LE_FALSE;
+    }
+    
+    //Update Heart and Values only when touched
+    if (touchDownFlag == LE_TRUE)
+    {
+        if (updateHeartFlag == LE_TRUE)
+        {
+            updateHeartFlag = LE_FALSE;
+            updateHeartIcon();
+        }
+        
+        if (updateValuesFlag == LE_TRUE)
+        {
+            updateValuesFlag = LE_FALSE;
+            updateBloodPressure();  
+            updateHeartRate();
+        }
+    }
+}
+
+void ButtonWidget0_OnPressed(leButtonWidget* btn)
+{
+    touchDownFlag = LE_TRUE;
+    startMonitorFlag = LE_TRUE;
+}
+
+void ButtonWidget0_OnReleased(leButtonWidget* btn)
+{
+    touchDownFlag = LE_FALSE;
+    resetValuesFlag = LE_TRUE;
 }

@@ -18,6 +18,7 @@ extern leLabelWidget* SysLabel;
 extern leLabelWidget* ClockLabel;
 extern leImageWidget* HeartImage;
 extern leImageWidget* ImageWidget6;
+extern leButtonWidget* ButtonWidget0;
 
 
 // screen lifecycle functions
@@ -33,6 +34,8 @@ leWidget* screenGetRoot_default(uint32_t lyrIdx); // gets a root widget for this
 // event handlers
 void default_OnShow(void);
 void default_OnUpdate(void);
+void ButtonWidget0_OnPressed(leButtonWidget* btn);
+void ButtonWidget0_OnReleased(leButtonWidget* btn);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

@@ -10,9 +10,10 @@ leLabelWidget* SysLabel;
 leLabelWidget* ClockLabel;
 leImageWidget* HeartImage;
 leImageWidget* ImageWidget6;
+leButtonWidget* ButtonWidget0;
 
 // string list for this screen
-static leTableString tableString_Default;
+static leTableString tableString_ClearVal;
 static leTableString tableString_DefaultTime;
 
 // event handlers
@@ -31,7 +32,7 @@ leResult screenShow_default()
         return LE_FAILURE;
 
     // initialize static strings
-    leTableString_Constructor(&tableString_Default, string_Default);
+    leTableString_Constructor(&tableString_ClearVal, string_ClearVal);
     leTableString_Constructor(&tableString_DefaultTime, string_DefaultTime);
 
     // layer 0
@@ -53,7 +54,7 @@ leResult screenShow_default()
     PulseLabel->fn->setSize(PulseLabel, 155, 75);
     PulseLabel->fn->setBackgroundType(PulseLabel, LE_WIDGET_BACKGROUND_NONE);
     PulseLabel->fn->setHAlignment(PulseLabel, LE_HALIGN_RIGHT);
-    PulseLabel->fn->setString(PulseLabel, (leString*)&tableString_Default);
+    PulseLabel->fn->setString(PulseLabel, (leString*)&tableString_ClearVal);
     root0->fn->addChild(root0, (leWidget*)PulseLabel);
 
     DiaLabel = leLabelWidget_New();
@@ -62,7 +63,7 @@ leResult screenShow_default()
     DiaLabel->fn->setScheme(DiaLabel, &HighStage2Scheme);
     DiaLabel->fn->setBackgroundType(DiaLabel, LE_WIDGET_BACKGROUND_NONE);
     DiaLabel->fn->setHAlignment(DiaLabel, LE_HALIGN_RIGHT);
-    DiaLabel->fn->setString(DiaLabel, (leString*)&tableString_Default);
+    DiaLabel->fn->setString(DiaLabel, (leString*)&tableString_ClearVal);
     root0->fn->addChild(root0, (leWidget*)DiaLabel);
 
     SysLabel = leLabelWidget_New();
@@ -71,7 +72,7 @@ leResult screenShow_default()
     SysLabel->fn->setScheme(SysLabel, &HighStage2Scheme);
     SysLabel->fn->setBackgroundType(SysLabel, LE_WIDGET_BACKGROUND_NONE);
     SysLabel->fn->setHAlignment(SysLabel, LE_HALIGN_RIGHT);
-    SysLabel->fn->setString(SysLabel, (leString*)&tableString_Default);
+    SysLabel->fn->setString(SysLabel, (leString*)&tableString_ClearVal);
     root0->fn->addChild(root0, (leWidget*)SysLabel);
 
     ClockLabel = leLabelWidget_New();
@@ -97,6 +98,15 @@ leResult screenShow_default()
     ImageWidget6->fn->setMargins(ImageWidget6, 0, 4, 4, 4);
     ImageWidget6->fn->setImage(ImageWidget6, &Microchip_meatball);
     root0->fn->addChild(root0, (leWidget*)ImageWidget6);
+
+    ButtonWidget0 = leButtonWidget_New();
+    ButtonWidget0->fn->setPosition(ButtonWidget0, 0, 0);
+    ButtonWidget0->fn->setSize(ButtonWidget0, 320, 480);
+    ButtonWidget0->fn->setBackgroundType(ButtonWidget0, LE_WIDGET_BACKGROUND_NONE);
+    ButtonWidget0->fn->setBorderType(ButtonWidget0, LE_WIDGET_BORDER_NONE);
+    ButtonWidget0->fn->setPressedEventCallback(ButtonWidget0, ButtonWidget0_OnPressed);
+    ButtonWidget0->fn->setReleasedEventCallback(ButtonWidget0, ButtonWidget0_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)ButtonWidget0);
 
     leAddRootWidget(root0, 0);
 
@@ -127,8 +137,9 @@ void screenHide_default()
     ClockLabel = NULL;
     HeartImage = NULL;
     ImageWidget6 = NULL;
+    ButtonWidget0 = NULL;
 
-    tableString_Default.fn->destructor(&tableString_Default);
+    tableString_ClearVal.fn->destructor(&tableString_ClearVal);
     tableString_DefaultTime.fn->destructor(&tableString_DefaultTime);
     showing = LE_FALSE;
 
