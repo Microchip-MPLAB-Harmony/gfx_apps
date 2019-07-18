@@ -27,7 +27,7 @@
 GFX_DisplayInfo GFX_DisplayInfoList[] =
 {
     {
-        "MXT-XPRO2", // description
+        "MXT-CPRO", // description
         0, // unused
         {
 			0,  // x position (always 0)
