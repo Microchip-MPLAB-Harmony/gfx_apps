@@ -21,6 +21,7 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+#include <gfx/legato/legato.h>
 #include "gfx/legato/widget/circle/legato_widget_circle.h"
 
 #if LE_CIRCLE_WIDGET_ENABLED == 1
@@ -38,6 +39,7 @@
 #define DEFAULT_ORIGIN_Y        50
 
 #define DEFAULT_RADIUS          50
+#define DEFAULT_THICKNESS       1
 
 static leCircleWidgetVTable circleWidgetVTable;
 
@@ -61,6 +63,8 @@ void _leCircleWidget_Constructor(leCircleWidget* _this)
     _this->x = DEFAULT_ORIGIN_X;
     _this->y = DEFAULT_ORIGIN_Y;
     _this->radius = DEFAULT_RADIUS;
+    _this->thickness = DEFAULT_THICKNESS;
+    _this->filled = LE_FALSE;
 }
 
 void _leWidget_Destructor(leWidget* wgt);

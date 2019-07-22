@@ -286,17 +286,18 @@ const uint8_t ArialMed_data[3784] =
     0x00,0x00,0x01,0xFF,0xF0,0x00,0x00,0x00,
 };
 
-leFont ArialMed =
+leRasterFont ArialMed =
 {
     {
-        LE_ASSET_TYPE_FONT, // asset type
-        LE_ASSET_LOCATION_ID_INTERNAL, // data location id
-        (void*)ArialMed_data, // data address pointer
-        3784, // data size
+        {
+            LE_STREAM_LOCATION_ID_INTERNAL, // data location id
+            (void*)ArialMed_data, // data address pointer
+            3784, // data size
+        },
+        LE_RASTER_FONT,
     },
-    65,
+    67,
     65,
     LE_FONT_BPP_1, // bits per pixel
     ArialMed_glyphs, // glyph table
-    ArialMed_data, // font data
 };

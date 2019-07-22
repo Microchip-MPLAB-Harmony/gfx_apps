@@ -520,9 +520,9 @@ LIB_EXPORT leResult leSliderWidget_SetValueChangedEventCallback(leSliderWidget* 
                                                                 leSliderWidget_ValueChangedEvent cb);
 // DOM-IGNORE-BEGIN
 // internal use only
-void _leSliderWidget_TouchDownEvent(leSliderWidget* sld, leInput_TouchDownEvent* evt);
-void _leSliderWidget_TouchUpEvent(leSliderWidget* sld, leInput_TouchUpEvent* evt);
-void _leSliderWidget_TouchMovedEvent(leSliderWidget* sld, leInput_TouchMoveEvent* evt);
+void _leSliderWidget_TouchDownEvent(leSliderWidget* sld, gauge* evt);
+void _leSliderWidget_TouchUpEvent(leSliderWidget* sld, leWidgetEvent_TouchUp* evt);
+void _leSliderWidget_TouchMovedEvent(leSliderWidget* sld, leWidgetEvent_TouchMove* evt);
 
 void _leSliderWidget_GetSlideAreaRect(leSliderWidget* sld, leRect* rect);
 void _leSliderWidget_GetHandleRect(leSliderWidget* sld, leRect* rect);

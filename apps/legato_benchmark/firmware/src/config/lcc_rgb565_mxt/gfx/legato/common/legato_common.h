@@ -204,6 +204,46 @@ static const leMargin leMargin_Zero = {0, 0, 0, 0};
 
 // *****************************************************************************
 /* Enumeration:
+    leDirection
+
+  Summary:
+    legato direction values
+
+  Description:
+    legato direction values
+
+  Remarks:
+    None.
+*/
+typedef enum leDirection
+{
+  LE_DIRECTION_RIGHT,
+  LE_DIRECTION_DOWN,
+  LE_DIRECTION_LEFT,
+  LE_DIRECTION_UP
+} leDirection;
+
+// *****************************************************************************
+/* Structure:
+    leRotationDirection
+
+  Summary:
+    Describes rotational direction
+
+  Description:
+    Describes rotational direction
+
+  Remarks:
+    None.
+*/
+typedef enum leRotationDirection
+{
+    LE_COUNTER_CLOCKWISE,
+    LE_CLOCKWISE,
+} leRotationDirection;
+
+// *****************************************************************************
+/* Enumeration:
     leRelativePosition
 
   Summary:
@@ -224,26 +264,6 @@ typedef enum leRelativePosition
     LE_RELATIVE_POSITION_BEHIND
 } leRelativePosition;
 
-/* Enumeration:
-    leDirection
-
-  Summary:
-    legato direction values
-
-  Description:
-    legato direction values
-
-  Remarks:
-    None.
-*/
-typedef enum leDirection
-{
-    LE_DIRECTION_RIGHT,
-    LE_DIRECTION_DOWN,
-    LE_DIRECTION_LEFT,
-    LE_DIRECTION_UP
-} leDirection;
-
 // *****************************************************************************
 /* Enumeration:
     leOrientation
@@ -259,8 +279,8 @@ typedef enum leDirection
 */
 typedef enum leOrientation
 {
-    LE_ORIENTATION_VERTICAL,
-    LE_ORIENTATION_HORIZONTAL
+  LE_ORIENTATION_HORIZONTAL,
+  LE_ORIENTATION_VERTICAL,
 } leOrientation;
 
 // *****************************************************************************
@@ -313,16 +333,8 @@ typedef void* leBuffer;
 
 /* library configuration flags */
 typedef uint16_t leChar;
+#define LE_UNKNOWN_GLYPH  0xFFFF
 
-#if LE_ALPHA_BLENDING_ENABLED == 1
-#define LE_GET_WIDGET_ALPHA(wgt) \
-if(wgt->fn->getCumulativeAlphaEnabled(wgt) == LE_TRUE) \
-{ \
-    a = wgt->fn->getCumulativeAlphaAmount(wgt); \
-}
-#else
-#define LE_GET_WIDGET_ALPHA(wgt)
-#endif
 // DOM-IGNORE-END
 
 //DOM-IGNORE-BEGIN

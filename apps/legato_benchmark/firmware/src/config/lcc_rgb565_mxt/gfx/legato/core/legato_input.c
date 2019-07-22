@@ -65,35 +65,13 @@ leResult leInput_SetEnabled(leBool enable)
     return LE_SUCCESS;
 }
 
-static lePoint transformCoordinate(int32_t x, int32_t y)
-{
-    lePoint pnt;
-    
-    /*leRect rect;
-    GFX_Orientation orientation;
-    leBool mirror;*/
-    
-    // reorient touch coordinates if the user interface is rotated
-    pnt.x = x;
-    pnt.y = y;
-    
-    /*rect = leContext_GetScreenRect();
-    
-    GFX_Get(GFXF_ORIENTATION, &orientation);
-    GFX_Get(GFXF_MIRRORED, &mirror);
-    
-    pnt = leUtils_ScreenToOrientedSpace(&pnt, &rect, orientation);
-    
-    if(mirror == LE_TRUE)
-        pnt = leUtils_ScreenToMirroredSpace(&pnt, &rect, orientation);*/
-
-    return pnt;
-}
-
 leResult leInput_InjectTouchDown(uint32_t id, int32_t x, int32_t y)
 {
-    leInput_TouchDownEvent* evt;
+    leWidgetEvent_TouchDown* evt;
     lePoint pnt;
+#if LE_TOUCH_ORIENTATION != 0
+    leRect displayRect;
+#endif
 
     if(_state.enabled == LE_FALSE ||               // inputs are disabled
        id >= LE_MAX_TOUCH_STATES ||                // don't overrun array
@@ -101,16 +79,32 @@ leResult leInput_InjectTouchDown(uint32_t id, int32_t x, int32_t y)
     {
         return LE_FAILURE;
     }
-    
+
     // reorient touch coordinates if the user interface is rotated
-    pnt = transformCoordinate(x, y);
+#if LE_TOUCH_ORIENTATION != 0
+    displayRect = leGetRenderState()->displayRect;
+#endif
+
+#if LE_TOUCH_ORIENTATION == 0
+    pnt.x = x;
+    pnt.y = y;
+#elif LE_TOUCH_ORIENTATION == 90 // 90 degrees
+    pnt.y = x;
+	pnt.x = displayRect.width - 1 - y;
+#elif LE_TOUCH_ORIENTATION == 180 // 180 degrees
+    pnt.x = displayRect.width - 1 - x;
+    pnt.y = displayRect.height - 1 - y;
+#else // 270 degrees
+    pnt.y = displayRect.height - 1 - x;
+    pnt.x = y;
+#endif
 
     // dispatch the event
     _state.touch[id].valid = LE_TRUE;
     _state.touch[id].x = pnt.x;
     _state.touch[id].y = pnt.y;
 
-    evt = LE_MALLOC(sizeof(leInput_TouchDownEvent));
+    evt = LE_MALLOC(sizeof(leWidgetEvent_TouchDown));
 
     if(evt == NULL)
         return LE_FAILURE;
@@ -136,8 +130,11 @@ leResult leInput_InjectTouchDown(uint32_t id, int32_t x, int32_t y)
 
 leResult leInput_InjectTouchUp(uint32_t id, int32_t x, int32_t y)
 {
-    leInput_TouchUpEvent* evt;
+    leWidgetEvent_TouchUp* evt;
     lePoint pnt;
+#if LE_TOUCH_ORIENTATION != 0
+    leRect displayRect;
+#endif
 
     if(id >= LE_MAX_TOUCH_STATES ||         // don't overrun array
        _state.touch[id].valid == LE_FALSE)  // touch id must be valid
@@ -148,10 +145,26 @@ leResult leInput_InjectTouchUp(uint32_t id, int32_t x, int32_t y)
     _state.touch[id].valid = LE_FALSE;
 
     // reorient touch coordinates if the user interface is rotated
-    pnt = transformCoordinate(x, y);
+#if LE_TOUCH_ORIENTATION != 0
+    displayRect = leGetRenderState()->displayRect;
+#endif
+
+#if LE_TOUCH_ORIENTATION == 0
+    pnt.x = x;
+    pnt.y = y;
+#elif LE_TOUCH_ORIENTATION == 90 // 90 degrees
+    pnt.y = x;
+    pnt.x = displayRect.width - 1 - y;
+#elif LE_TOUCH_ORIENTATION == 180 // 180 degrees
+    pnt.x = displayRect.width - 1 - x;
+    pnt.y = displayRect.height - 1 - y;
+#else // 270 degrees
+    pnt.y = displayRect.height - 1 - x;
+    pnt.x = y;
+#endif
 
     // dispatch event
-    evt = LE_MALLOC(sizeof(leInput_TouchUpEvent));
+    evt = LE_MALLOC(sizeof(leWidgetEvent_TouchUp));
 
     if(evt == NULL)
         return LE_FAILURE;
@@ -177,15 +190,22 @@ leResult leInput_InjectTouchUp(uint32_t id, int32_t x, int32_t y)
 
 leResult leInput_InjectTouchMoved(uint32_t id, int32_t x, int32_t y)
 {
-    leInput_TouchMoveEvent* evt;
+    leWidgetEvent_TouchMove* evt;
     leEvent* evtPtr;
     lePoint pnt;
     leListNode* node;
+#if LE_TOUCH_ORIENTATION != 0
+    leRect displayRect;
+#endif
 
     if(id >= LE_MAX_TOUCH_STATES ||         // don't overrun array
        _state.touch[id].valid == LE_FALSE)  // touch id must be valid
         return LE_FAILURE;
-        
+
+#if LE_TOUCH_ORIENTATION != 0
+    displayRect = leGetRenderState()->displayRect;
+#endif
+
     // find any existing touch moved event and overwrite
     node = _leGetEventState()->events.head;
     
@@ -195,16 +215,28 @@ leResult leInput_InjectTouchMoved(uint32_t id, int32_t x, int32_t y)
         
         if(evtPtr->id == LE_EVENT_TOUCH_MOVE)
         {
-            evt = (leInput_TouchMoveEvent*)evtPtr;
+            evt = (leWidgetEvent_TouchMove*)evtPtr;
          
             if(evt->touchID == id)
             {   
 #ifdef INPUT_EVENT_DEBUG
                 printf("overwriting previous move event\n");
 #endif                
-                
+
                 // reorient touch coordinates if the user interface is rotated
-                pnt = transformCoordinate(x, y);
+#if LE_TOUCH_ORIENTATION == 0
+                pnt.x = x;
+                pnt.y = y;
+#elif LE_TOUCH_ORIENTATION == 90 // 90 degrees
+                pnt.y = x;
+                pnt.x = displayRect.width - 1 - y;
+#elif LE_TOUCH_ORIENTATION == 180 // 180 degrees
+                pnt.x = displayRect.width - 1 - x;
+                pnt.y = displayRect.height - 1 - y;
+#else // 270 degrees
+                pnt.y = displayRect.height - 1 - x;
+                pnt.x = y;
+#endif
                 
                 evt->x = x;
                 evt->y = y;
@@ -222,13 +254,25 @@ leResult leInput_InjectTouchMoved(uint32_t id, int32_t x, int32_t y)
         node = node->next;
     }
 
-    evt = LE_MALLOC(sizeof(leInput_TouchMoveEvent));
+    evt = LE_MALLOC(sizeof(leWidgetEvent_TouchMove));
 
     if(evt == NULL)
         return LE_FAILURE;
 
     // reorient touch coordinates if the user interface is rotated
-    pnt = transformCoordinate(x, y);
+#if LE_TOUCH_ORIENTATION == 0
+    pnt.x = x;
+                pnt.y = y;
+#elif LE_TOUCH_ORIENTATION == 90 // 90 degrees
+    pnt.y = x;
+    pnt.x = displayRect.width - 1 - y;
+#elif LE_TOUCH_ORIENTATION == 180 // 180 degrees
+    pnt.x = displayRect.width - 1 - x;
+                pnt.y = displayRect.height - 1 - y;
+#else // 270 degrees
+                pnt.y = displayRect.height - 1 - x;
+                pnt.x = y;
+#endif
 
     evt->event.id = LE_EVENT_TOUCH_MOVE;
     evt->touchID = id;
@@ -254,7 +298,7 @@ leResult leInput_InjectTouchMoved(uint32_t id, int32_t x, int32_t y)
     return LE_SUCCESS;
 }
 
-leEventResult handleTouchDown(leInput_TouchDownEvent* evt)
+leEventResult handleTouchDown(leWidgetEvent_TouchDown* evt)
 {
     leWidget* targetWidget = NULL;
     leWidget* rootWidget;
@@ -275,7 +319,7 @@ leEventResult handleTouchDown(leInput_TouchDownEvent* evt)
     if(targetWidget == NULL)
     {
         leSetFocusWidget(NULL);
-        
+
         return LE_EVENT_HANDLED;
     }
 
@@ -292,8 +336,16 @@ leEventResult handleTouchDown(leInput_TouchDownEvent* evt)
         targetWidget = targetWidget->parent;
     }
 
-    leSetFocusWidget(targetWidget);
-    
+    if(evt->event.owner != NULL)
+    {
+        leSetFocusWidget(evt->event.owner);
+    }
+    // no widget claimed the event
+    else
+    {
+        leSetFocusWidget(NULL);
+    }
+
 #ifdef INPUT_EVENT_DEBUG  
     printf("handling touch down event %i, %i\n", evt->x, evt->y);
 #endif
@@ -301,7 +353,7 @@ leEventResult handleTouchDown(leInput_TouchDownEvent* evt)
     return LE_EVENT_HANDLED;
 }
 
-leBool handleTouchUp(leInput_TouchUpEvent* evt)
+leBool handleTouchUp(leWidgetEvent_TouchUp* evt)
 {
     leWidget* wgt = leGetFocusWidget();
     
@@ -322,7 +374,7 @@ leBool handleTouchUp(leInput_TouchUpEvent* evt)
     return LE_EVENT_DEFERRED;
 }
 
-leBool handleTouchMoved(leInput_TouchMoveEvent* evt)
+leBool handleTouchMoved(leWidgetEvent_TouchMove* evt)
 {
     leWidget* wgt = leGetFocusWidget();
 
@@ -349,7 +401,7 @@ leEventResult _leInput_HandleInputEvent(leEvent* evt)
     {
         case LE_EVENT_TOUCH_DOWN:
         {
-            return handleTouchDown((leInput_TouchDownEvent*)evt);
+            return handleTouchDown((leWidgetEvent_TouchDown*)evt);
 
 #ifdef INPUT_EVENT_DEBUG                
             printf("handled touch down\n");
@@ -359,7 +411,7 @@ leEventResult _leInput_HandleInputEvent(leEvent* evt)
         }
         case LE_EVENT_TOUCH_UP:
         {
-            return handleTouchUp((leInput_TouchUpEvent*)evt);
+            return handleTouchUp((leWidgetEvent_TouchUp*)evt);
 
 #ifdef INPUT_EVENT_DEBUG               
             printf("handled touch up\n");
@@ -369,7 +421,7 @@ leEventResult _leInput_HandleInputEvent(leEvent* evt)
         }
         case LE_EVENT_TOUCH_MOVE:
         {
-            return handleTouchMoved((leInput_TouchMoveEvent*)evt);
+            return handleTouchMoved((leWidgetEvent_TouchMove*)evt);
                 return LE_FAILURE;
 
 #ifdef INPUT_EVENT_DEBUG                

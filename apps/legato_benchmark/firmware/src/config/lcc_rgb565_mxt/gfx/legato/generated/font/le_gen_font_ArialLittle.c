@@ -91,17 +91,18 @@ const uint8_t ArialLittle_data[389] =
     0x00,0x0E,0x00,0x0C,0x00,
 };
 
-leFont ArialLittle =
+leRasterFont ArialLittle =
 {
     {
-        LE_ASSET_TYPE_FONT, // asset type
-        LE_ASSET_LOCATION_ID_INTERNAL, // data location id
-        (void*)ArialLittle_data, // data address pointer
-        389, // data size
+        {
+            LE_STREAM_LOCATION_ID_INTERNAL, // data location id
+            (void*)ArialLittle_data, // data address pointer
+            389, // data size
+        },
+        LE_RASTER_FONT,
     },
-    10,
+    20,
     14,
     LE_FONT_BPP_1, // bits per pixel
     ArialLittle_glyphs, // glyph table
-    ArialLittle_data, // font data
 };

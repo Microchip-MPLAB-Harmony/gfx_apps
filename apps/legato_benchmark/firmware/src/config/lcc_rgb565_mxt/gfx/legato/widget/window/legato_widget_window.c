@@ -34,6 +34,7 @@
 #define DEFAULT_WIDTH           100
 #define DEFAULT_HEIGHT          100
 
+#define DEFAULT_TITLE_HEIGHT    20
 #define DEFAULT_ICON_MARGIN     6
 
 static leWindowWidgetVTable windowWidgetVTable;
@@ -66,28 +67,44 @@ static void _invalidateTitleText(const leWindowWidget* _this)
     _this->fn->_damageArea(_this, &drawRect);
 }
 
-static void languageChanging(leWindowWidget* _this)
+static void stringPreinvalidate(const leString* str,
+                                leWindowWidget* win)
+{
+    _invalidateTitleText(win);
+}
+
+static void stringInvalidate(const leString* str,
+                             leWindowWidget* win)
+{
+    _invalidateTitleText(win);
+}
+
+static void handleLanguageChangeEvent(leWindowWidget* _this)
 {
     if(_this->title != NULL)
     {
-        _invalidateTitleText(_this);
+        _this->fn->invalidate(_this);
     }
 }
 
 void leWindowWidget_Constructor(leWindowWidget* _this)
 {
     leWidget_Constructor((leWidget*)_this);
+
+    _this->widget.fn = (void*)&windowWidgetVTable;
+    _this->fn = &windowWidgetVTable;
     
     _this->widget.type = LE_WIDGET_WINDOW;
 
     _this->widget.rect.width = DEFAULT_WIDTH;
     _this->widget.rect.height = DEFAULT_HEIGHT;
 
-    _this->iconMargin = DEFAULT_ICON_MARGIN;
-
     _this->widget.borderType = LE_WIDGET_BORDER_BEVEL;
 
+    _this->titleHeight = DEFAULT_TITLE_HEIGHT;
+    _this->iconMargin = DEFAULT_ICON_MARGIN;
     _this->title = NULL;
+    _this->icon = NULL;
 }
 
 void _leWidget_Destructor(leWidget* wgt);
@@ -110,21 +127,64 @@ leWindowWidget* leWindowWidget_New()
     return win;
 }
 
-static leString* getTitle(const leWindowWidget* _this)
+static uint32_t getTitleHeight(const leWindowWidget* _this)
+{
+    LE_ASSERT_THIS();
+
+    return _this->iconMargin;
+}
+
+static leResult setTitleHeight(leWindowWidget* _this,
+                               uint32_t ht)
+{
+    LE_ASSERT_THIS();
+
+    if(_this->titleHeight == ht)
+        return LE_SUCCESS;
+
+    _this->titleHeight = ht;
+
+    _this->fn->invalidate(_this);
+
+    return LE_SUCCESS;
+}
+
+static leString* getString(const leWindowWidget* _this)
 {
     LE_ASSERT_THIS();
     
     return (leString*)_this->title;
 }
 
-static leResult setTitle(leWindowWidget* _this,
+static leResult setString(leWindowWidget* _this,
                          const leString* str)
 {
     LE_ASSERT_THIS();
-    
+
+    if(_this->title != NULL)
+    {
+        _invalidateTitleBar(_this);
+
+        _this->title->fn->setPreInvalidateCallback((leString*)_this->title,
+                                                    NULL,
+                                                    NULL);
+
+        _this->title->fn->setInvalidateCallback((leString*)_this->title,
+                                                 NULL,
+                                                 NULL);
+    }
+
     _this->title = str;
-    
-    _this->fn->invalidate(_this);
+
+    _this->title->fn->setPreInvalidateCallback((leString*)_this->title,
+                                               (void*)stringPreinvalidate,
+                                               _this);
+
+    _this->title->fn->setInvalidateCallback((leString*)_this->title,
+                                            (void*)stringInvalidate,
+                                            _this);
+
+    _invalidateTitleBar(_this);
     
     return LE_SUCCESS;
 }
@@ -183,11 +243,13 @@ void _leWindowWidget_GenerateVTable()
     /* overrides from base class */
     windowWidgetVTable._destructor = destructor;
     windowWidgetVTable._paint = _leWindowWidget_Paint;
-    windowWidgetVTable.languageChangeEvent = languageChanging;
+    windowWidgetVTable.languageChangeEvent = handleLanguageChangeEvent;
     
     /* member functions */
-    windowWidgetVTable.getTitle = getTitle;
-    windowWidgetVTable.setTitle = setTitle;
+    windowWidgetVTable.getTitleHeight = getTitleHeight;
+    windowWidgetVTable.setTitleHeight = setTitleHeight;
+    windowWidgetVTable.getString = getString;
+    windowWidgetVTable.setString = setString;
     windowWidgetVTable.getIcon = getIcon;
     windowWidgetVTable.setIcon = setIcon;
     windowWidgetVTable.getIconMargin = getIconMargin;

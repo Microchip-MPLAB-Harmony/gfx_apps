@@ -25,11 +25,11 @@
 
 #if LE_GROUPBOX_WIDGET_ENABLED
 
+#include "gfx/legato/common/legato_utils.h"
+#include "gfx/legato/core/legato_state.h"
 #include "gfx/legato/renderer/legato_renderer.h"
 #include "gfx/legato/string/legato_string.h"
-#include "gfx/legato/common/legato_utils.h"
 #include "gfx/legato/widget/legato_widget.h"
-
 #include "gfx/legato/widget/legato_widget_skin_classic_common.h"
 
 #define OUTLINE_SPACE 2
@@ -63,7 +63,7 @@ void _leGroupBoxWidget_GetTextRect(const leGroupBoxWidget* box,
     
     bounds = box->fn->localRect(box);
     
-    box->string->fn->getRect(box->string, 0, textRect);
+    box->string->fn->getRect(box->string, textRect);
     
     //boundRect = box->widget.rect;
     bounds.x += (OUTLINE_SPACE * 3) + 2;
@@ -94,7 +94,6 @@ void _leGroupBoxWidget_GetTextRect(const leGroupBoxWidget* box,
 static void drawBackground(leGroupBoxWidget* box);
 static void drawOutline(leGroupBoxWidget* box);
 static void drawString(leGroupBoxWidget* box);
-//static void waitString(leGroupBoxWidget* box);
 static void drawBorder(leGroupBoxWidget* box);
 
 static void nextState(leGroupBoxWidget* box)
@@ -103,13 +102,13 @@ static void nextState(leGroupBoxWidget* box)
     {
         case NOT_STARTED:
         {
+            paintState.alpha = 255;
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
             if(box->fn->getCumulativeAlphaEnabled(box) == LE_TRUE)
             {
                 paintState.alpha = box->fn->getCumulativeAlphaAmount(box);
             }
-#else
-            paintState.alpha = 255;
 #endif
             
             if(box->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
@@ -157,7 +156,8 @@ static void nextState(leGroupBoxWidget* box)
 
 static void drawBackground(leGroupBoxWidget* box)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)box);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)box,
+                                                paintState.alpha);
 
     nextState(box);
 }
@@ -199,7 +199,7 @@ static void drawOutline(leGroupBoxWidget* box)
     
     if(box->string != NULL)
     {
-        box->string->fn->getRect(box->string, 0, &textRect);
+        box->string->fn->getRect(box->string, &textRect);
     }
     else
     {
@@ -333,6 +333,17 @@ static void drawOutline(leGroupBoxWidget* box)
     nextState(box);
 }
 
+#if LE_STREAMING_ENABLED == 1
+static void onStringStreamFinished(leStreamManager* strm)
+{
+    leGroupBoxWidget* box = (leGroupBoxWidget*)strm->userData;
+
+    box->widget.drawState = DRAW_STRING;
+
+    nextState(box);
+}
+#endif
+
 static void drawString(leGroupBoxWidget* box)
 {
     leRect textRect, drawRect;
@@ -342,53 +353,36 @@ static void drawString(leGroupBoxWidget* box)
     box->string->fn->_draw(box->string,
                            textRect.x,
                            textRect.y,
-                           box->widget.scheme->text,
-                           paintState.alpha,
                            box->widget.halign,
-                           0);
-    
-#if LE_EXTERNAL_STREAMING_ENABLED == 1   
-    if(box->reader != NULL)
-    {
-        box->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitString;
-        box->widget.drawState = WAIT_STRING;
-        
-        return;
-    }
-#endif
-    
-    nextState(box);
-}
+                           box->widget.scheme->text,
+                           paintState.alpha);
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1   
-static void waitString(leGroupBoxWidget* box)
-{
-    if(box->reader->status != leREADER_STATUS_FINISHED)
+#if LE_STREAMING_ENABLED == 1
+    if(leGetActiveStream() != NULL)
     {
-        box->reader->run(box->reader);
-        
+        leGetActiveStream()->onDone = onStringStreamFinished;
+        leGetActiveStream()->userData = box;
+
+        box->widget.drawState = WAIT_STRING;
+
         return;
     }
-    
-    // free the reader
-    box->reader->memIntf->heap.free(box->reader);
-    box->reader = NULL;
-    
-    box->widget.drawState = DRAW_STRING;
+#endif
     
     nextState(box);
 }
-#endif
 
 static void drawBorder(leGroupBoxWidget* box)
 {
     if(box->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)box);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)box,
+                                                    paintState.alpha);
     }
     else if(box->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)box);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)box,
+                                                      paintState.alpha);
     }
         
     nextState(box);
@@ -416,7 +410,7 @@ void _leGroupBoxWidget_Paint(leGroupBoxWidget* box)
         break;
 #endif
         
-#if LE_EXTERNAL_STREAMING_ENABLED == 1        
+#if LE_STREAMING_ENABLED == 1
         if(box->widget.drawState == WAIT_STRING)
             break;
 #endif

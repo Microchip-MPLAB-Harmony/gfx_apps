@@ -41,20 +41,6 @@ void _leTouchTestWidget_GetLineRects(const leTouchTestWidget* _this,
                                      leRect* horzRect,
                                      leRect* vertRect);
 
-static void _invalidateLineList(const leTouchTestWidget* _this)
-{
-    uint32_t idx;
-    leRect horzRect, vertRect;
-    
-    for(idx = 0; idx < _this->size; idx++)
-    {
-        _leTouchTestWidget_GetLineRects(_this, idx, &horzRect, &vertRect);
-        
-        _this->fn->_damageArea(_this, &horzRect);
-        _this->fn->_damageArea(_this, &vertRect);
-    }
-}
-
 void leTouchTestWidget_Constructor(leTouchTestWidget* _this)
 {
     leWidget_Constructor((leWidget*)_this);
@@ -75,6 +61,8 @@ void leTouchTestWidget_Constructor(leTouchTestWidget* _this)
     _this->size = 0;
     _this->start = 0;
     _this->next = 0;
+
+    _this->cb = NULL;
 }
 
 void _leWidget_Destructor(leWidget* wgt);
@@ -108,8 +96,6 @@ static leResult addPoint(leTouchTestWidget* _this,
 {
     LE_ASSERT_THIS();
         
-    _invalidateLineList(_this);
-        
     if(_this->size > 0 && _this->next == _this->start)
     {
         _this->start++;
@@ -135,23 +121,21 @@ static leResult addPoint(leTouchTestWidget* _this,
     {
         _this->cb(_this, pnt);
     }
-        
-    _invalidateLineList(_this);
-        
+
+    _this->fn->invalidate(_this);
+
     return LE_SUCCESS;
 }
 
 static leResult clearPoints(leTouchTestWidget* _this)
 {
     LE_ASSERT_THIS();
-    
-    _invalidateLineList(_this);
-    
+
     _this->start = 0;
     _this->size = 0;
     _this->next = 0;
 
-    _invalidateLineList(_this);
+    _this->fn->invalidate(_this);
         
     return LE_SUCCESS;
 }
@@ -174,7 +158,7 @@ static leResult setPointAddedEventCallback(leTouchTestWidget* _this,
 }
 
 static void handleTouchDownEvent(leTouchTestWidget* _this,
-                                 leInput_TouchDownEvent* evt)
+                                 leWidgetEvent_TouchDown* evt)
 {
     lePoint pnt;
     
@@ -182,8 +166,8 @@ static void handleTouchDownEvent(leTouchTestWidget* _this,
     
     pnt.x = evt->x;
     pnt.y = evt->y;
-    
-    evt->event.accepted = LE_TRUE;
+
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
 
     _this->state = LE_TOUCHTEST_STATE_DOWN;
     
@@ -195,11 +179,11 @@ static void handleTouchDownEvent(leTouchTestWidget* _this,
 }
 
 static void handleTouchUpEvent(leTouchTestWidget* _this,
-                               leInput_TouchUpEvent* evt)
+                               leWidgetEvent_TouchUp* evt)
 {
     LE_ASSERT_THIS();
-    
-    evt->event.accepted = LE_TRUE;
+
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
     _this->state = LE_TOUCHTEST_STATE_UP;
 
     //printf("_this touch up\n");
@@ -208,7 +192,7 @@ static void handleTouchUpEvent(leTouchTestWidget* _this,
 }
 
 static void handleTouchMovedEvent(leTouchTestWidget* _this,
-                                  leInput_TouchMoveEvent* evt)
+                                  leWidgetEvent_TouchMove* evt)
 {
     leRect rect;
     lePoint pnt;
@@ -220,7 +204,7 @@ static void handleTouchMovedEvent(leTouchTestWidget* _this,
     pnt.x = evt->x;
     pnt.y = evt->y;
 
-    evt->event.accepted = LE_TRUE;
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
 
     if(leRectContainsPoint(&rect, &pnt) == LE_TRUE)
     {

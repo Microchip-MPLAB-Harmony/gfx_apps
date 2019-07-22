@@ -21,9 +21,10 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+#include <gfx/legato/legato.h>
 #include "gfx/legato/widget/piechart/legato_widget_pie_chart.h"
 
-#if LE_PIE_CHART_WIDGET_ENABLED == 1
+#if LE_PIECHART_WIDGET_ENABLED == 1
 
 #include "gfx/legato/common/legato_error.h"
 #include "gfx/legato/common/legato_math.h"
@@ -66,6 +67,10 @@ void lePieChartWidget_Constructor(lePieChartWidget* _this)
     _this->labelsOffset = DEFAULT_LABEL_OFFSET;
     
     leArray_Create(&_this->pieArray);
+
+    _this->labelFont = NULL;
+
+    _this->pressedCallback = NULL;
 }
 
 void _leWidget_Destructor(leWidget* _this);
@@ -575,7 +580,7 @@ static int32_t _getPieIndexAtPoint(lePieChartWidget* _this,
 }
 
 static void handleTouchDownEvent(lePieChartWidget* _this,
-                                 leInput_TouchDownEvent* evt)
+                                 leWidgetEvent_TouchDown* evt)
 {
     lePoint pnt;
     int32_t index;
@@ -594,7 +599,7 @@ static void handleTouchDownEvent(lePieChartWidget* _this,
     
     if(index != -1)
     {
-        evt->event.accepted = LE_TRUE;
+        leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
         
         if(_this->pressedCallback != NULL)  
         {
@@ -645,4 +650,4 @@ void _lePieChartWidget_FillVTable(lePieChartWidgetVTable* tbl)
     *tbl = pieChartWidgetVTable;
 }
 
-#endif // LE_ARC_WIDGET_ENABLED
+#endif // LE_PIECHART_WIDGET_ENABLED

@@ -204,7 +204,8 @@ void leUtils_PointToLayerSpace(leWidget* widget, lePoint* pnt)
 }
 #endif
 
-void leUtils_PointToScreenSpace(leWidget* widget, lePoint* pnt)
+void leUtils_PointToScreenSpace(const leWidget* widget,
+                                lePoint* pnt)
 {
     if(widget == NULL || pnt == NULL)
         return;
@@ -218,7 +219,8 @@ void leUtils_PointToScreenSpace(leWidget* widget, lePoint* pnt)
     }
 }
 
-void leUtils_PointScreenToLocalSpace(leWidget* widget, lePoint* pnt)
+void leUtils_PointScreenToLocalSpace(const leWidget* widget,
+                                     lePoint* pnt)
 {
     leWidget* parent;
 
@@ -239,25 +241,27 @@ void leUtils_PointScreenToLocalSpace(leWidget* widget, lePoint* pnt)
     }
 }
 
-void leUtils_ClipRectToParent(leWidget* parent, leRect* rect)
+void leUtils_ClipRectToParent(const leWidget* widget,
+                              leRect* rect)
 {
     leRect result;
 
-    if(parent == NULL || rect == NULL)
+    if(widget == NULL || rect == NULL)
         return;
 
-    rect->x += parent->rect.x;
-    rect->y += parent->rect.y;
+    rect->x += widget->rect.x;
+    rect->y += widget->rect.y;
 
-    leRectClip(rect, &parent->rect, &result);
+    leRectClip(rect, &widget->rect, &result);
 
-    result.x -= parent->rect.x;
-    result.y -= parent->rect.y;
+    result.x -= widget->rect.x;
+    result.y -= widget->rect.y;
 
     *rect = result;
 }
 
-void leUtils_RectToParentSpace(leWidget* widget, leRect* rect)
+void leUtils_RectToParentSpace(const leWidget* widget,
+                               leRect* rect)
 {
     if(widget == NULL || rect == NULL || widget->parent == NULL)
         return;
@@ -266,7 +270,8 @@ void leUtils_RectToParentSpace(leWidget* widget, leRect* rect)
     rect->y += widget->parent->rect.y;
 }
 
-void leUtils_RectFromParentSpace(leWidget* widget, leRect* rect)
+void leUtils_RectFromParentSpace(const leWidget* widget,
+                                 leRect* rect)
 {
     if(widget == NULL || rect == NULL || widget->parent == NULL)
         return;
@@ -275,7 +280,8 @@ void leUtils_RectFromParentSpace(leWidget* widget, leRect* rect)
     rect->y -= widget->parent->rect.y;
 }
 
-void leUtils_RectToScreenSpace(leWidget* widget, leRect* rect)
+void leUtils_RectToScreenSpace(const leWidget* widget,
+                               leRect* rect)
 {
     if(widget == NULL || rect == NULL)
         return;
@@ -505,7 +511,9 @@ void leUtils_ArrangeRectangleRelative(leRect* sub,
     }
 }
 
-leBool _occlusionCullTestAscending(leWidget* widget, leRect* bounds)
+#if 0
+leBool _occlusionCullTestAscending(const leWidget* widget,
+                                   leRect* bounds)
 {
     uint32_t i, idx;
     leWidget *parent, *child;
@@ -545,7 +553,7 @@ leBool _occlusionCullTestAscending(leWidget* widget, leRect* bounds)
     return _occlusionCullTestAscending(parent, bounds);
 }
 
-leBool leUtils_OcclusionCullTest(leWidget* widget)
+leBool leUtils_OcclusionCullTest(const leWidget* widget)
 {
     uint32_t i;
     leWidget* child;
@@ -575,7 +583,7 @@ leBool leUtils_OcclusionCullTest(leWidget* widget)
     return _occlusionCullTestAscending(widget, &childRect);
 }
 
-void leUtils_ListOcclusionCullTest(leList* list, leRect rect)
+void leUtils_ListOcclusionCullTest(const leList* list, leRect rect)
 {
     uint32_t i, j;
     leWidget *widget, *higherWidget;
@@ -655,3 +663,4 @@ leBool leUtils_WidgetIsOccluded(const leWidget* wgt, const leRect* rect)
     
     return LE_FALSE;
 }
+#endif

@@ -56,16 +56,16 @@ static void nextState(leLineWidget* line)
     {
         case NOT_STARTED:
         {
+            paintState.alpha = 255;
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
             if(line->fn->getCumulativeAlphaEnabled(line) == LE_TRUE)
             {
                 paintState.alpha = line->fn->getCumulativeAlphaAmount(line);
             }
-#else
-            paintState.alpha = 255;
 #endif
-            
-            if(line->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
+
+            if(line->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE)
             {
                 line->widget.drawState = DRAW_BACKGROUND;
                 line->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBackground;
@@ -77,16 +77,16 @@ static void nextState(leLineWidget* line)
         {
             line->widget.drawState = DRAW_LINE;
             line->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawLine;
-    
+
             return;
         }
         case DRAW_LINE:
-        {            
+        {
             if(line->widget.borderType != LE_WIDGET_BORDER_NONE)
             {
                 line->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
                 line->widget.drawState = DRAW_BORDER;
-                
+
                 return;
             }
         }
@@ -100,30 +100,31 @@ static void nextState(leLineWidget* line)
 
 static void drawBackground(leLineWidget* line)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)line);
-    
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)line,
+                                                paintState.alpha);
+
     nextState(line);
 }
 
 static void drawLine(leLineWidget* line)
 {
     lePoint p1, p2;
-    
+
     p1.x = line->x1;
     p1.y = line->y1;
     p2.x = line->x2;
     p2.y = line->y2;
-    
+
     leUtils_PointToScreenSpace((leWidget*)line, &p1);
     leUtils_PointToScreenSpace((leWidget*)line, &p2);
-    
+
     leRenderer_DrawLine(p1.x,
                         p1.y,
                         p2.x,
                         p2.y,
                         line->widget.scheme->foreground,
                         paintState.alpha);
-    
+
     nextState(line);
 }
 
@@ -131,13 +132,15 @@ static void drawBorder(leLineWidget* line)
 {
     if(line->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)line);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)line,
+                                                    paintState.alpha);
     }
     else if(line->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)line);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)line,
+                                                      paintState.alpha);
     }
-    
+
     nextState(line);
 }
 
@@ -146,17 +149,17 @@ void _leLineWidget_Paint(leLineWidget* line)
     if(line->widget.scheme == NULL)
     {
         line->widget.drawState = DONE;
-        
+
         return;
     }
-    
+
     if(line->widget.drawState == NOT_STARTED)
         nextState(line);
-    
+
     while(line->widget.drawState != DONE)
     {
         line->widget.drawFunc((leWidget*)line);
-        
+
 #if LE_PREEMPTION_LEVEL == 2
         break;
 #endif

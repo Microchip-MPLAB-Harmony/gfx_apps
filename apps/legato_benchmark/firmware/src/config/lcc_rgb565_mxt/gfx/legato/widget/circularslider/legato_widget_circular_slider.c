@@ -23,7 +23,7 @@
 
 #include "gfx/legato/widget/circularslider/legato_widget_circular_slider.h"
 
-#if LE_CIRCULAR_SLIDER_WIDGET_ENABLED
+#if LE_CIRCULARSLIDER_WIDGET_ENABLED == 1
 
 #include "gfx/legato/common/legato_error.h"
 #include "gfx/legato/common/legato_math.h"
@@ -73,7 +73,7 @@ lePoint _leCircularSliderWidget_GetCircleCenterPointAtValue(leCircularSliderWidg
     
     leUtils_PointToScreenSpace((leWidget*)_this, &sliderPoint);
 
-    if (_this->direction == CIRCULAR_SLIDER_DIR_COUNTER_CLOCKWISE)
+    if (_this->direction == LE_COUNTER_CLOCKWISE)
     {
         valueEndAngle = _this->startAngle + valueCenterAngle;
     }
@@ -120,13 +120,13 @@ void leCircularSliderWidget_Constructor(leCircularSliderWidget* _this)
     _this->endValue = DEFAULT_END_VALUE;
     _this->value = DEFAULT_VALUE;
 
-    _this->direction = CIRCULAR_SLIDER_DIR_COUNTER_CLOCKWISE;
+    _this->direction = LE_COUNTER_CLOCKWISE;
     _this->roundEdges = LE_TRUE;
     _this->sticky = LE_TRUE;
     _this->buttonTouch = LE_TRUE;
+    _this->btnState = LE_CIRCULAR_SLIDER_STATE_UP;
 
     _this->outsideBorderArc.visible = LE_TRUE;
-    _this->radius = DEFAULT_RADIUS;
     _this->outsideBorderArc.thickness = DEFAULT_OUTSIDE_BORDER_THICKNESS;
     _this->outsideBorderArc.startAngle = _this->startAngle;
     _this->outsideBorderArc.centerAngle = 360;
@@ -168,6 +168,10 @@ void leCircularSliderWidget_Constructor(leCircularSliderWidget* _this)
     {
         _this->degPerUnit = 0;
     }
+
+    _this->pressedCallback = NULL;
+    _this->valueChangedCallback = NULL;
+    _this->releasedCallback = NULL;
 }
 
 void _leWidget_Destructor(leWidget* _this);
@@ -328,7 +332,7 @@ static leRect _getDamagedRect(leCircularSliderWidget* _this,
     valueCenterAngleOld = (int32_t) ((_this->value - _this->startValue)* _this->degPerUnit);
     valueCenterAngleNew = (int32_t) ((newValue - _this->startValue)* _this->degPerUnit);
     
-    if (_this->direction == CIRCULAR_SLIDER_DIR_COUNTER_CLOCKWISE)
+    if (_this->direction == LE_COUNTER_CLOCKWISE)
     {
         valueEndAngleOld = _this->startAngle + valueCenterAngleOld;
         valueEndAngleNew = _this->startAngle + valueCenterAngleNew;
@@ -383,7 +387,7 @@ static leRect _getDamagedRect(leCircularSliderWidget* _this,
     rect.width = _this->radius;
     rect.height = _this->radius;
     
-    if (_this->direction == CIRCULAR_SLIDER_DIR_COUNTER_CLOCKWISE)
+    if (_this->direction == LE_COUNTER_CLOCKWISE)
     {
         if (newValue < _this->value)
         {
@@ -816,7 +820,7 @@ static leResult setArcVisible(leCircularSliderWidget* _this,
     return LE_SUCCESS;
 }
 
-static leCircularSliderWidgetDir getDirection(const leCircularSliderWidget* _this)
+static leRotationDirection getDirection(const leCircularSliderWidget* _this)
 {
     LE_ASSERT_THIS();
         
@@ -824,7 +828,7 @@ static leCircularSliderWidgetDir getDirection(const leCircularSliderWidget* _thi
 }
 
 static leResult setDirection(leCircularSliderWidget* _this,
-                             leCircularSliderWidgetDir dir)
+                             leRotationDirection dir)
 {
     LE_ASSERT_THIS();
         
@@ -918,7 +922,7 @@ static uint32_t _getSliderValueAtPoint(leCircularSliderWidget* _this,
         angle = 180;
     }
 
-    if (_this->direction == CIRCULAR_SLIDER_DIR_COUNTER_CLOCKWISE)
+    if (_this->direction == LE_COUNTER_CLOCKWISE)
     {
         if (angle > _this->startAngle)
         {
@@ -948,7 +952,7 @@ static uint32_t _getSliderValueAtPoint(leCircularSliderWidget* _this,
 }
 
 static void handleTouchDownEvent(leCircularSliderWidget* _this,
-                                 leInput_TouchDownEvent* evt)
+                                 leWidgetEvent_TouchDown* evt)
 {
     lePoint pnt;
     
@@ -981,7 +985,7 @@ static void handleTouchDownEvent(leCircularSliderWidget* _this,
                     _this->pressedCallback(_this, _this->value);
                 }
 
-                evt->event.accepted = LE_TRUE;
+                leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
             }
             else
             {
@@ -1020,7 +1024,7 @@ static void handleTouchDownEvent(leCircularSliderWidget* _this,
                     _this->pressedCallback(_this, _this->value);
                 }
 
-                evt->event.accepted = LE_TRUE;
+                leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
                 
                 value = _getSliderValueAtPoint(_this, pntLocal);
                 
@@ -1035,13 +1039,13 @@ static void handleTouchDownEvent(leCircularSliderWidget* _this,
 }
 
 static void handleTouchUpEvent(leCircularSliderWidget* _this,
-                               leInput_TouchUpEvent* evt)
+                               leWidgetEvent_TouchUp* evt)
 {
     LE_ASSERT_THIS();
     
     if (_this->btnState == LE_CIRCULAR_SLIDER_STATE_DOWN)
     {
-        evt->event.accepted = LE_TRUE;
+        leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
         
         _this->btnState = LE_CIRCULAR_SLIDER_STATE_UP;
     
@@ -1052,7 +1056,7 @@ static void handleTouchUpEvent(leCircularSliderWidget* _this,
     }
 }
 
-static void handleTouchMovedEvent(leCircularSliderWidget* _this, leInput_TouchMoveEvent* evt)
+static void handleTouchMovedEvent(leCircularSliderWidget* _this, leWidgetEvent_TouchMove* evt)
 {
 //    uint32_t touchPntRadSqd;
     lePoint pnt;
@@ -1071,7 +1075,7 @@ static void handleTouchMovedEvent(leCircularSliderWidget* _this, leInput_TouchMo
     if (_this->circleButtonArc.visible == LE_TRUE && 
         _this->btnState == LE_CIRCULAR_SLIDER_STATE_DOWN)
     {
-        evt->event.accepted = LE_TRUE;
+        leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
     
         //Adjust point relative to widget local
         leUtils_PointScreenToLocalSpace((leWidget*)_this, &pnt);
@@ -1165,4 +1169,4 @@ void _leCircularSliderWidget_FillVTable(leCircularSliderWidgetVTable* tbl)
     *tbl = circularSliderWidgetVTable;
 }
 
-#endif // LE_CIRCULAR_SLIDER_WIDGET_ENABLED
+#endif // LE_CIRCULARSLIDER_WIDGET_ENABLED

@@ -21,6 +21,7 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+#include <gfx/legato/legato.h>
 #include "gfx/legato/widget/circle/legato_widget_circle.h"
 
 #if LE_CIRCLE_WIDGET_ENABLED
@@ -55,13 +56,13 @@ static void nextState(leCircleWidget* cir)
     {
         case NOT_STARTED:
         {
+            paintState.alpha = 255;
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
             if(cir->fn->getCumulativeAlphaEnabled(cir) == LE_TRUE)
             {
                 paintState.alpha = cir->fn->getCumulativeAlphaAmount(cir);
             }
-#else
-            paintState.alpha = 255;
 #endif
             
             if(cir->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
@@ -99,7 +100,8 @@ static void nextState(leCircleWidget* cir)
 
 static void drawBackground(leCircleWidget* cir)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)cir);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)cir,
+                                                paintState.alpha);
     
     nextState(cir);
 }
@@ -108,40 +110,40 @@ static void drawCircle(leCircleWidget* cir)
 {
     lePoint p;
     leRect circleRect;
-    
+
+    p.x = 0;
+    p.y = 0;
+
+    leUtils_PointToScreenSpace((leWidget*)cir, &p);
+
+    circleRect.x = p.x;
+    circleRect.y = p.y;
+    circleRect.width = cir->widget.rect.width;
+    circleRect.height = cir->widget.rect.height;
+
     p.x = cir->x;
     p.y = cir->y;
-    
-    leUtils_PointToScreenSpace((leWidget*)cir, &p);
-    
-    circleRect.x = p.x - cir->radius;
-    circleRect.y = p.y - cir->radius;
-    circleRect.width = cir->radius * 2;
-    circleRect.height = cir->radius * 2;
-    
-    leRenderer_ArcFill(&circleRect,
-                       p.x,
-                       p.y,
-                       cir->radius,
-                       0,
-                       360,
-                       cir->thickness,
-                       cir->widget.scheme->foreground,
-                       LE_FALSE,
-                       paintState.alpha);
-        
-    if (cir->filled == LE_TRUE && cir->thickness < cir->radius)
+
+    if(cir->filled == LE_FALSE)
     {
-        leRenderer_ArcFill(&circleRect,
-                           p.x,
-                           p.y,
-                           cir->radius - cir->thickness,
-                           0,
-                           360,
-                           cir->radius - cir->thickness,
-                           cir->widget.scheme->background,
-                           LE_FALSE,
-                           paintState.alpha);
+        leRenderer_CircleDraw(&circleRect,
+                              cir->x,
+                              cir->y,
+                              cir->radius,
+                              cir->thickness,
+                              cir->widget.scheme->foreground,
+                              paintState.alpha);
+    }
+    else
+    {
+        leRenderer_CircleFill(&circleRect,
+                              cir->x,
+                              cir->y,
+                              cir->radius,
+                              cir->thickness,
+                              cir->widget.scheme->foreground,
+                              cir->widget.scheme->background,
+                              paintState.alpha);
     }
 
     nextState(cir);
@@ -151,11 +153,13 @@ static void drawBorder(leCircleWidget* cir)
 {    
     if(cir->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)cir);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)cir,
+                                                    paintState.alpha);
     }
     else if(cir->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)cir);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)cir,
+                                                      paintState.alpha);
     }
     
     nextState(cir);

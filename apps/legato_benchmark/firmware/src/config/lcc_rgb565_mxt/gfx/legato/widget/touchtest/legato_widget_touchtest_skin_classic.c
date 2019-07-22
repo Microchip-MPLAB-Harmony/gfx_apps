@@ -21,6 +21,7 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+#include <gfx/legato/legato.h>
 #include "gfx/legato/widget/touchtest/legato_widget_touchtest.h"
 
 #if LE_TOUCHTEST_WIDGET_ENABLED
@@ -47,16 +48,15 @@ struct
     uint32_t alpha;
 } paintState;
 
-void _leTouchTestWidget_GetLineRects(const leTouchTestWidget* tch,
-                                     uint32_t idx,
-                                     leRect* horzRect,
-                                     leRect* vertRect)
+/*
+lePoint _leTouchTestWidget_GetLineRects(const leTouchTestWidget* tch,
+                                        uint32_t idx)
 {
     leRect widgetRect = tch->fn->localRect(tch);
     //lePoint pnt = tch->pnts[idx];
-    
-    //leUtils_PointToLayerSpace((leWidget*)tch, 
-    
+
+    //leUtils_PointToLayerSpace((leWidget*)tch,
+
     horzRect->x = widgetRect.x;
     horzRect->y = widgetRect.y + tch->pnts[idx].y;
     horzRect->width = widgetRect.width;
@@ -66,7 +66,7 @@ void _leTouchTestWidget_GetLineRects(const leTouchTestWidget* tch,
     vertRect->y = widgetRect.y;
     vertRect->width = 1;
     vertRect->height = widgetRect.height;
-}
+}*/
 
 static void drawBackground(leTouchTestWidget* tch);
 static void drawLines(leTouchTestWidget* tch);
@@ -78,13 +78,13 @@ static void nextState(leTouchTestWidget* tch)
     {
         case NOT_STARTED:
         {
+            paintState.alpha = 255;
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
             if(tch->fn->getCumulativeAlphaEnabled(tch) == LE_TRUE)
             {
                 paintState.alpha = tch->fn->getCumulativeAlphaAmount(tch);
             }
-#else
-            paintState.alpha = 255;
 #endif
 
             if(tch->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
@@ -125,19 +125,20 @@ static void nextState(leTouchTestWidget* tch)
 
 static void drawBackground(leTouchTestWidget* tch)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)tch);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)tch, paintState.alpha);
     
     nextState(tch);
 }
 
 static void drawLines(leTouchTestWidget* tch)
 {
-    leRect widgetRect, vertRect, horzRect, clipRect;
+    leRect widgetRect;
+    lePoint touchPnt;
     uint32_t per;
     uint32_t i, j;
     leColor c1, c2, clr;
     
-    widgetRect = tch->fn->localRect(tch);
+    widgetRect = tch->fn->rectToScreen(tch);
     
     // draw lines
     j = tch->start;
@@ -148,9 +149,7 @@ static void drawLines(leTouchTestWidget* tch)
         {
             j = 0;
         }
-            
-        _leTouchTestWidget_GetLineRects(tch, j, &horzRect, &vertRect);
-            
+
         per = lePercentWholeRounded(tch->pnts[j].y, widgetRect.height);
         
         c1 = tch->widget.scheme->foreground;
@@ -159,9 +158,13 @@ static void drawLines(leTouchTestWidget* tch)
         clr = leColorLerp(c1,
                           c2,
                           per,
-                          leGetRenderState()->colorMode);
-        
-        leRenderer_RectFill(&clipRect,
+                          LE_GLOBAL_COLOR_MODE);
+
+        touchPnt = tch->pnts[j];
+
+        leRenderer_HorzLine(widgetRect.x,
+                            widgetRect.y + touchPnt.y,
+                            widgetRect.width,
                             clr,
                             paintState.alpha);
         
@@ -173,9 +176,11 @@ static void drawLines(leTouchTestWidget* tch)
         clr = leColorLerp(c1,
                           c2,
                           per,
-                          leGetRenderState()->colorMode);
-            
-        leRenderer_RectFill(&clipRect,
+                          LE_GLOBAL_COLOR_MODE);
+
+        leRenderer_VertLine(widgetRect.x + touchPnt.x,
+                            widgetRect.y,
+                            widgetRect.height,
                             clr,
                             paintState.alpha);
         
@@ -189,11 +194,11 @@ static void drawBorder(leTouchTestWidget* tch)
 {
     if(tch->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)tch);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)tch, paintState.alpha);
     }
     else if(tch->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)tch);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)tch, paintState.alpha);
     }
     
     nextState(tch);

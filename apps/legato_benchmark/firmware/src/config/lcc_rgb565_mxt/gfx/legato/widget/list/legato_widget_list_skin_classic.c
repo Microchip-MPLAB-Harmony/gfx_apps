@@ -25,11 +25,11 @@
 
 #if LE_LIST_WIDGET_ENABLED == 1 && LE_SCROLLBAR_WIDGET_ENABLED == 1
 
+#include "gfx/legato/common/legato_utils.h"
+#include "gfx/legato/core/legato_state.h"
 #include "gfx/legato/renderer/legato_renderer.h"
 #include "gfx/legato/string/legato_string.h"
-#include "gfx/legato/common/legato_utils.h"
 #include "gfx/legato/widget/legato_widget.h"
-
 #include "gfx/legato/widget/legato_widget_skin_classic_common.h"
 
 enum
@@ -142,7 +142,7 @@ void _leListWidget_GetRowRect(const leListWidget* lst,
     // get text rectangle
     if(item->string != NULL)
     {
-        item->string->fn->getRect(item->string, 0, &textRect);
+        item->string->fn->getRect(item->string, &textRect);
     }
 
     // craft item entry rectangle
@@ -176,7 +176,7 @@ void _leListWidget_GetTextRect(const leListWidget* lst,
     // get text rectangle
     if(item->string != NULL)
     {
-        item->string->fn->getRect(item->string, 0, textRect);
+        item->string->fn->getRect(item->string, textRect);
     }
     else
     {
@@ -243,7 +243,7 @@ void _leListWidget_GetIconRect(const leListWidget* lst,
     // get text rectangle
     if(item->string != NULL)
     {
-        item->string->fn->getRect(item->string, 0, &textRect);
+        item->string->fn->getRect(item->string, &textRect);
     }
     
     // craft item entry rectangle
@@ -300,7 +300,7 @@ void _leListWidget_RecalculateRowRect(leListWidget* lst,
     // get text rectangle
     if(item->string != NULL)
     {
-        item->string->fn->getRect(item->string, 0, &textRect);
+        item->string->fn->getRect(item->string, &textRect);
     }
 
     // craft item entry rectangle
@@ -350,9 +350,7 @@ void _leListWidget_GetLogicalRect(leListWidget* lst, leRect* rect)
 
 static void drawBackground(leListWidget* lst);
 static void drawString(leListWidget* lst);
-//static void waitString(leListWidget* lst);
 static void drawIcon(leListWidget* lst);
-//static void waitIcon(leListWidget* lst);
 static void drawBorder(leListWidget* lst);
 
 static void nextState(leListWidget* lst)
@@ -361,13 +359,13 @@ static void nextState(leListWidget* lst)
     {
         case NOT_STARTED:
         {
+            paintState.alpha = 255;
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
             if(lst->fn->getCumulativeAlphaEnabled(lst) == LE_TRUE)
             {
                 paintState.alpha = lst->fn->getCumulativeAlphaAmount(lst);
             }
-#else
-            paintState.alpha = 255;
 #endif
 
             lst->widget.drawState = DRAW_BACKGROUND;
@@ -429,11 +427,13 @@ static void drawBackground(leListWidget* lst)
     // draw widget background
     if(lst->widget.backgroundType == LE_WIDGET_BACKGROUND_FILL)
     {
-        leWidget_SkinClassic_DrawBackground((leWidget*)lst, lst->widget.scheme->background);
+        leWidget_SkinClassic_DrawBackground((leWidget*)lst,
+                                            lst->widget.scheme->background,
+                                            paintState.alpha);
     }
     
-    widgetRect = lst->fn->localRect(lst);
-    
+    widgetRect = lst->fn->rectToScreen(lst);
+
     // draw item highlights
     if(lst->items.size > 0)
     {
@@ -469,6 +469,18 @@ static void drawBackground(leListWidget* lst)
     nextState(lst);
 }
 
+#if LE_STREAMING_ENABLED == 1
+static void onStringStreamFinished(leStreamManager* strm)
+{
+    leListWidget* lst = (leListWidget*)strm->userData;
+
+    paintState.nextItem++;
+
+    lst->widget.drawState = DRAW_STRING;
+    lst->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawString;
+}
+#endif
+
 static void drawString(leListWidget* lst)
 {
     leRect textRect, drawRect;
@@ -480,71 +492,57 @@ static void drawString(leListWidget* lst)
 
         return;
     }
-        
-    // get rectangles
-    paintState.item = lst->items.values[paintState.nextItem];
-    
-    _leListWidget_GetTextRect(lst,
-                              paintState.nextItem,
-                              &textRect,
-                              &drawRect);
-                              
-    if((paintState.nextItem == lst->itemDown ||
-       paintState.item->selected == LE_FALSE) && paintState.item->enabled == LE_TRUE)
-    {
-        clr = lst->widget.scheme->text;
-    }
-    else if((paintState.nextItem == lst->itemDown ||
-            paintState.item->selected == LE_FALSE) && paintState.item->enabled == LE_FALSE)
-    {
-        clr = lst->widget.scheme->textDisabled;
-    }    
-    else
-    {
-        clr = lst->widget.scheme->textHighlightText;
-    }
-        
-    paintState.item->string->fn->_draw(paintState.item->string,
-                                       textRect.x,
-                                       textRect.y,
-                                       clr,
-                                       0,
-                                       LE_HALIGN_CENTER,
-                                       paintState.alpha);
-   
-#if LE_EXTERNAL_STREAMING_ENABLED == 1          
-    if(lst->reader != NULL)
-    {
-        lst->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitString;
-        lst->widget.drawState = WAIT_STRING;
-        
-        return;
-    }
-#endif
-    
-    paintState.nextItem++;
-}
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1    
-static void waitString(leListWidget* lst)
-{
-    if(lst->reader->status != leREADER_STATUS_FINISHED)
+    paintState.item = lst->items.values[paintState.nextItem];
+
+    if(paintState.item->string != NULL)
     {
-        lst->reader->run(lst->reader);
-        
-        return;
+        // get rectangles
+        paintState.item = lst->items.values[paintState.nextItem];
+
+        _leListWidget_GetTextRect(lst,
+                                  paintState.nextItem,
+                                  &textRect,
+                                  &drawRect);
+
+        if(paintState.nextItem == lst->itemDown || paintState.item->selected == LE_FALSE)
+        {
+            if(paintState.item->enabled == LE_TRUE)
+            {
+                clr = lst->widget.scheme->text;
+            }
+            else
+            {
+                clr = lst->widget.scheme->textDisabled;
+            }
+        }
+        else
+        {
+            clr = lst->widget.scheme->textHighlightText;
+        }
+
+        paintState.item->string->fn->_draw(paintState.item->string,
+                                           textRect.x,
+                                           textRect.y,
+                                           LE_HALIGN_CENTER,
+                                           clr,
+                                           paintState.alpha);
+
+#if LE_STREAMING_ENABLED == 1
+        if(leGetActiveStream() != NULL)
+        {
+            leGetActiveStream()->onDone = onStringStreamFinished;
+            leGetActiveStream()->userData = lst;
+
+            lst->widget.drawState = WAIT_STRING;
+
+            return;
+        }
+#endif
     }
     
-    // free the reader
-    lst->reader->memIntf->heap.free(lst->reader);
-    lst->reader = NULL;
-    
     paintState.nextItem++;
-    
-    lst->widget.drawState = DRAW_STRING;
-    lst->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawString;
 }
-#endif
 
 static void drawIcon(leListWidget* lst)
 {
@@ -622,11 +620,13 @@ static void drawBorder(leListWidget* lst)
    
     if(lst->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)lst);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)lst,
+                                                    paintState.alpha);
     }
     else if(lst->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardLoweredBorder((leWidget*)lst);
+        leWidget_SkinClassic_DrawStandardLoweredBorder((leWidget*)lst,
+                                                       paintState.alpha);
     }
     
     nextState(lst);
@@ -654,7 +654,7 @@ void _leListWidget_Paint(leListWidget* lst)
         break;
 #endif
    
-#if LE_EXTERNAL_STREAMING_ENABLED == 1     
+#if LE_STREAMING_ENABLED == 1
         if(lst->widget.drawState == WAIT_STRING ||
            lst->widget.drawState == WAIT_ICON)
             break;

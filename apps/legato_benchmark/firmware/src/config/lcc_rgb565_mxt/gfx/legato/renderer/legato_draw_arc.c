@@ -14,6 +14,87 @@ typedef enum
     RIGHT_OF_LINE,
 } POINT_LINE_POS;
 
+typedef struct ArcDrawState
+{
+    leRect arcArea;
+    int32_t x;
+    int32_t y;
+    int32_t endAngle;
+    uint32_t iCirRadSqrd;
+    uint32_t oCirRadSqrd;
+    lePoint arcStartPt0;
+    lePoint arcStartPt1;
+    lePoint arcEndPt0;
+    lePoint arcEndPt1;
+    lePoint topRectPt;
+    lePoint botRectPt;
+    uint32_t absStartAngle;
+    uint32_t absEndAngle;
+    leArcDir dir;
+    uint32_t thickness;
+    leColor clr;
+    uint32_t alpha;
+} ArcDrawState;
+
+leResult leRenderer_CircleDraw(const leRect* rect,
+                               int32_t x,
+                               int32_t y,
+                               uint32_t radius,
+                               uint32_t thickness,
+                               leColor clr,
+                               uint32_t alpha)
+{
+    leRenderer_ArcFill(rect,
+                       x,
+                       y,
+                       radius,
+                       0,
+                       360,
+                       thickness,
+                       clr,
+                       LE_FALSE,
+                       alpha);
+
+    return LE_SUCCESS;
+}
+
+leResult leRenderer_CircleFill(const leRect* rect,
+                               int32_t x,
+                               int32_t y,
+                               uint32_t radius,
+                               uint32_t thickness,
+                               leColor borderClr,
+                               leColor fillClr,
+                               uint32_t alpha)
+{
+    leRenderer_ArcFill(rect,
+                       x,
+                       y,
+                       radius,
+                       0,
+                       360,
+                       thickness,
+                       borderClr,
+                       LE_FALSE,
+                       alpha);
+
+    if(thickness < radius)
+    {
+        leRenderer_ArcFill(rect,
+                           x,
+                           y,
+                           radius - thickness,
+                           0,
+                           360,
+                           radius - thickness,
+                           fillClr,
+                           LE_FALSE,
+                           alpha);
+    }
+
+    return LE_SUCCESS;
+}
+
 leResult leRenderer_ArcLine(int32_t x,
                             int32_t y, 
                             int32_t r,
@@ -54,9 +135,9 @@ leResult leRenderer_ArcLine(int32_t x,
 
 // This function returns the relative horizontal position of a point from a line.
 // Works only if test point and line are in the same half plane (Q1 & Q2, or Q3 & Q4).
-POINT_LINE_POS pointRelPositionFromLine(lePoint* linePt0,
-                                        lePoint* linePt1,
-                                        lePoint* point)
+POINT_LINE_POS pointRelPositionFromLine(const lePoint* linePt0,
+                                        const lePoint* linePt1,
+                                        const lePoint* point)
 {
     int sign = (linePt1->x - linePt0->x) * (point->y - linePt0->y) - 
                (linePt1->y - linePt0->y) * (point->x - linePt0->x);
@@ -93,28 +174,28 @@ static leColor getArcSoftEdgeColor(uint32_t oRadSqd,
         color = leColorLerp(gradient->c0,
                             gradient->c1,
                             20,
-                            _rendererState.colorMode);
+                            LE_GLOBAL_COLOR_MODE);
     }
     else if ((oRadSqd - ptRadSqd) < 32)
     {
         color = leColorLerp(gradient->c0,
                             gradient->c1,
                             40,
-                            _rendererState.colorMode);
+                            LE_GLOBAL_COLOR_MODE);
     }
     else if ((oRadSqd - ptRadSqd) < 50)
     {
         color = leColorLerp(gradient->c0,
                             gradient->c1,
                             60,
-                            _rendererState.colorMode);
+                            LE_GLOBAL_COLOR_MODE);
     }    
     else if ((oRadSqd - ptRadSqd) < 72)
     {
         color = leColorLerp(gradient->c0,
                             gradient->c1,
                             80,
-                            _rendererState.colorMode);
+                            LE_GLOBAL_COLOR_MODE);
     }
     //Do not test inner edge if full circle
     else if (thicknessSqd == oRadSqd)
@@ -126,28 +207,28 @@ static leColor getArcSoftEdgeColor(uint32_t oRadSqd,
         color = leColorLerp(gradient->c0,
                             gradient->c1,
                             20,
-                            _rendererState.colorMode);
+                            LE_GLOBAL_COLOR_MODE);
     }
     else if ((ptRadSqd - iRadSqd) < 32)
     {
         color = leColorLerp(gradient->c0,
                             gradient->c1,
                             40,
-                            _rendererState.colorMode);
+                            LE_GLOBAL_COLOR_MODE);
     }
     else if ((ptRadSqd - iRadSqd) < 50)
     {
         color = leColorLerp(gradient->c0,
                             gradient->c1,
                             60,
-                            _rendererState.colorMode);
+                            LE_GLOBAL_COLOR_MODE);
     }    
     else if ((ptRadSqd - iRadSqd) < 72)
     {
         color = leColorLerp(gradient->c0,
                             gradient->c1,
                             80,
-                            _rendererState.colorMode);
+                            LE_GLOBAL_COLOR_MODE);
     }
     else
     {
@@ -158,11 +239,556 @@ static leColor getArcSoftEdgeColor(uint32_t oRadSqd,
 }
 */
 
-#if LE_USE_ARC_SCAN_FILL == 1
+static void drawQ1(const ArcDrawState* state)
+{
+    lePoint drawPt;
+    lePoint scanPt;
+    uint32_t ptRadiusSqrd;
+    
+    for (scanPt.y = state->topRectPt.y; scanPt.y >= 0; scanPt.y--)
+    {
+        for (scanPt.x = 0; scanPt.x < state->botRectPt.x; scanPt.x++)
+        {
+            ptRadiusSqrd = (scanPt.x * scanPt.x) + (scanPt.y * scanPt.y);
+
+            //If point is outside outer circle, skip
+            if (ptRadiusSqrd < state->iCirRadSqrd)
+                continue;
+
+            //If point is outside outer circle, done scanning x
+            if (ptRadiusSqrd > state->oCirRadSqrd)
+                break;
+
+            if (state->absStartAngle == state->absEndAngle)
+            {
+                //Circle, do not filter, draw all points
+            }
+            else if ((state->absStartAngle <= 90 && state->absStartAngle >= 0) &&
+                     (state->absEndAngle <= 90 && state->absEndAngle >= 0))
+            {
+                //If both start and end angles are in Q1
+                //If CCW, exclude points RIGHT of start line and LEFT of end line
+                if (state->dir == LE_CCW)
+                {
+                    if (state->absStartAngle < state->absEndAngle)
+                    {
+                        //Include points between the two angles
+                        if ((pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) != RIGHT_OF_LINE) &&
+                            (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) != LEFT_OF_LINE))
+                        {
+                            //Do nothing
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                    else if (state->absStartAngle > state->absEndAngle)
+                    {
+                        //exclude points between the two angles
+                        if ((pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) == RIGHT_OF_LINE) &&
+                            (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) == LEFT_OF_LINE))
+                            continue;
+                    }
+                    else
+                    {
+                        if (pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) != ON_LINE)
+                            continue;
+                    }
+                }
+                else
+                {
+                    if (state->absStartAngle > state->absEndAngle)
+                    {
+                        //Include points between the two angles
+                        if ((pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) != LEFT_OF_LINE) &&
+                            (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) != RIGHT_OF_LINE))
+                        {
+                            //Do nothing
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                    else if (state->absStartAngle < state->absEndAngle)
+                    {
+                        //exclude points between the two angles
+                        if ((pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) == LEFT_OF_LINE)
+                            && (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) == RIGHT_OF_LINE))
+                            continue;
+                    }
+                    else
+                    {
+                        if (pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) != ON_LINE)
+                            continue;
+                    }
+                }
+            }
+            else if (state->absStartAngle <= 90 && state->absStartAngle >= 0)
+            {
+                //If CCW, exclude points RIGHT of start line
+                if (state->dir == LE_CCW)
+                {
+                    if (pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) == RIGHT_OF_LINE)
+                        continue;
+                }
+                //If CW, exclude points LEFT of start line
+                else
+                {
+                    if (pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) == LEFT_OF_LINE)
+                        continue;
+                }
+            }
+                //If end angle is in Q1, test agains Q1
+            else if (state->absEndAngle <= 90 && state->absEndAngle >= 0)
+            {
+                //If CCW, exclude points LEFT of start line
+                if (state->dir == LE_CCW)
+                {
+                    if (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) == LEFT_OF_LINE)
+                        continue;
+                }
+                //If CW, exclude points RIGHT of start line
+                else
+                {
+                    if (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) == RIGHT_OF_LINE)
+                        continue;
+                }
+            }
+
+            drawPt.x = state->arcArea.x + state->x + scanPt.x;
+            drawPt.y = state->arcArea.y + state->y - scanPt.y;
+
+            if(leRenderer_CullDrawPoint(&drawPt) == LE_FALSE)
+            {
+#if LE_ALPHA_BLENDING_ENABLED == 1
+                leRenderer_BlendPixel(drawPt.x, drawPt.y, state->clr, state->alpha);
+#else
+                leRenderer_PutPixel(drawPt.x, drawPt.y, state->clr);
+#endif
+            }
+        }
+    }
+}
+
+static void drawQ2(const ArcDrawState* state)
+{
+    lePoint drawPt;
+    lePoint scanPt;
+    uint32_t ptRadiusSqrd;
+
+    for (scanPt.y = state->topRectPt.y; scanPt.y >= 0; scanPt.y--)
+    {
+        for (scanPt.x = state->topRectPt.x; scanPt.x < 0; scanPt.x++)
+        {
+            ptRadiusSqrd = (scanPt.x * scanPt.x) + (scanPt.y * scanPt.y);
+
+            //If point is outside outer circle, skip
+            if (ptRadiusSqrd > state->oCirRadSqrd)
+                continue;
+
+            //If point is outside inner circle, done scanning x
+            if (ptRadiusSqrd < state->iCirRadSqrd)
+                break;
+
+            if (state->absStartAngle == state->absEndAngle)
+            {
+                //Circle, do not filter, draw all points
+            }
+            else if ((state->absStartAngle <= 180 && state->absStartAngle > 90) &&
+                     (state->absEndAngle <= 180 && state->absEndAngle > 90))
+            {
+                //If both start and end angles are in Q2
+                //If CCW, exclude points RIGHT of start line and LEFT of end line
+                if(state->dir == LE_CCW)
+                {
+                    if (state->absStartAngle < state->absEndAngle)
+                    {
+                        //Include points between the two angles
+                        if ((pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) != RIGHT_OF_LINE)
+                            && (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) != LEFT_OF_LINE))
+                        {
+                            //Do nothing
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                    else if (state->absStartAngle > state->absEndAngle)
+                    {
+                        //exclude points between the two angles
+                        if ((pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) == RIGHT_OF_LINE)
+                            && (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) == LEFT_OF_LINE))
+                            continue;
+                    }
+                    else
+                    {
+                        if (pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) != ON_LINE)
+                            continue;
+                    }
+                }
+                    //If CW, exclude points LEFT of start line and RIGHT of end line
+                else
+                {
+                    if (state->absStartAngle > state->absEndAngle)
+                    {
+                        //Include points between the two angles
+                        if ((pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) != LEFT_OF_LINE)
+                            && (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) != RIGHT_OF_LINE))
+                        {
+                            //Do nothing
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                    else if (state->absStartAngle < state->absEndAngle)
+                    {
+                        //exclude points between the two angles
+                        if ((pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) == LEFT_OF_LINE)
+                            && (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) == RIGHT_OF_LINE))
+                            continue;
+                    }
+                    else
+                    {
+                        if (pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) != ON_LINE)
+                            continue;
+                    }
+                }
+            }
+            else if (state->absStartAngle <= 180 && state->absStartAngle > 90)
+            {
+                //If CCW, exclude points RIGHT of start line
+                if (state->dir == LE_CCW)
+                {
+                    if (pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) == RIGHT_OF_LINE)
+                        continue;
+                }
+                    //If CW, exclude points LEFT of start line
+                else
+                {
+                    if (pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) == LEFT_OF_LINE)
+                        continue;
+                }
+            }
+                //If end angle is in Q2, test agains Q2
+            else if (state->absEndAngle <= 180 && state->absEndAngle > 90)
+            {
+                //If CCW, exclude points LEFT of start line
+                if (state->dir == LE_CCW)
+                {
+                    if (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) == LEFT_OF_LINE)
+                        continue;
+                }
+                    //If CCW, exclude points RIGHT of start line
+                else
+                {
+                    if (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) == RIGHT_OF_LINE)
+                        continue;
+                }
+            }
+
+            //Soften edge colors if anti-aliased
+
+
+            drawPt.x = state->arcArea.x + state->x + scanPt.x;
+            drawPt.y = state->arcArea.y + state->y - scanPt.y;
+
+            if(leRenderer_CullDrawPoint(&drawPt) == LE_FALSE)
+            {
+#if LE_ALPHA_BLENDING_ENABLED == 1
+                leRenderer_BlendPixel(drawPt.x, drawPt.y, state->clr, state->alpha);
+#else
+                leRenderer_PutPixel(drawPt.x, drawPt.y, state->clr);
+#endif
+            }
+        }
+    }
+}
+
+static void drawQ3(const ArcDrawState* state)
+{
+    lePoint drawPt;
+    lePoint scanPt;
+    uint32_t ptRadiusSqrd;
+    
+    for (scanPt.y = -1; scanPt.y > state->botRectPt.y; scanPt.y--)
+    {
+        for (scanPt.x = state->topRectPt.x; scanPt.x < 0; scanPt.x++)
+        {
+            ptRadiusSqrd = (scanPt.x * scanPt.x) + (scanPt.y * scanPt.y);
+
+            //If point is outside outer circle, skip
+            if (ptRadiusSqrd > state->oCirRadSqrd)
+                continue;
+
+            //If point is outside inner circle, done scanning x
+            if (ptRadiusSqrd < state->iCirRadSqrd)
+                break;
+
+            if (state->absStartAngle == state->absEndAngle)
+            {
+                //Circle, do not filter, draw all points
+            }
+            else if ((state->absStartAngle <= 270 && state->absStartAngle > 180) &&
+                (state->absEndAngle <= 270 && state->absEndAngle > 180))
+            {
+                //If CCW, exclude points RIGHT of start line and LEFT of end line
+                if (state->dir == LE_CCW)
+                {
+                    if (state->absStartAngle < state->absEndAngle)
+                    {
+                        //Include points between the two angles
+                        if ((pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) != LEFT_OF_LINE)
+                            && (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) != RIGHT_OF_LINE))
+                        {
+                            //Do nothing
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                    else if (state->absStartAngle > state->absEndAngle)
+                    {
+                        //exclude points between the two angles
+                        if ((pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) == LEFT_OF_LINE)
+                            && (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) == RIGHT_OF_LINE))
+                            continue;
+                    }
+                    else
+                    {
+                        if (pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) != ON_LINE)
+                            continue;
+                    }
+                }
+                else
+                {
+                    if (state->absStartAngle > state->absEndAngle)
+                    {
+                        //Include points between the two angles
+                        if ((pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) != RIGHT_OF_LINE)
+                            && (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) != LEFT_OF_LINE))
+                        {
+                            //Do nothing
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                    else if (state->absStartAngle < state->absEndAngle)
+                    {
+                        //exclude points between the two angles
+                        if ((pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) == RIGHT_OF_LINE)
+                            && (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) == LEFT_OF_LINE))
+                            continue;
+                    }
+                    else
+                    {
+                        if (pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) != ON_LINE)
+                            continue;
+                    }
+                }
+            }
+            else if (state->absStartAngle <= 270 && state->absStartAngle > 180)
+            {
+                //If CCW, exclude points LEFT of start line
+                if (state->dir == LE_CCW)
+                {
+                    if (pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) == LEFT_OF_LINE)
+                        continue;
+                }
+                    //If CW, exclude points RIGHT of start line
+                else
+                {
+                    if (pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) == RIGHT_OF_LINE)
+                        continue;
+                }
+            }
+            else if (state->absEndAngle <= 270 && state->absEndAngle > 180)
+            {
+                //If CCW, exclude points RIGHT of end line
+                if (state->dir == LE_CCW)
+                {
+                    if (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) == RIGHT_OF_LINE)
+                        continue;
+                }
+                    //If CW, exclude points LEFT of end line
+                else
+                {
+                    //corner case: if radius is too small, and end angle is close to 180, 
+                    //the end line approximates to a horizontal line. in this case, 
+                    //just draw all points in the quadrant
+                    if (state->arcEndPt0.y == 0 && state->arcEndPt1.y == 0)
+                    {
+                        //draw all points
+                    }
+                    else if (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) == LEFT_OF_LINE)
+                        continue;
+                }
+            }
+
+            drawPt.x = state->arcArea.x + state->x + scanPt.x;
+            drawPt.y = state->arcArea.y + state->y - scanPt.y;
+
+            if(leRenderer_CullDrawPoint(&drawPt) == LE_FALSE)
+            {
+#if LE_ALPHA_BLENDING_ENABLED == 1
+                leRenderer_BlendPixel(drawPt.x, drawPt.y, state->clr, state->alpha);
+#else
+                leRenderer_PutPixel(drawPt.x, drawPt.y, state->clr);
+#endif
+            }
+        }
+    }
+}
+
+static void drawQ4(const ArcDrawState* state)
+{
+    lePoint drawPt;
+    lePoint scanPt;
+    uint32_t ptRadiusSqrd;
+    
+    for (scanPt.y = -1; scanPt.y > state->botRectPt.y; scanPt.y--)
+    {
+        for (scanPt.x = 0; scanPt.x < state->botRectPt.x; scanPt.x++)
+        {
+            ptRadiusSqrd = (scanPt.x * scanPt.x) + (scanPt.y * scanPt.y);
+
+            //If point is outside outer circle, skip
+            if (ptRadiusSqrd < state->iCirRadSqrd)
+                continue;
+
+            //If point is outside outer circle, done scanning x
+            if (ptRadiusSqrd > state->oCirRadSqrd)
+                break;
+
+            if (state->absStartAngle == state->absEndAngle)
+            {
+                //Circle or almost a circle, do not filter, draw all points
+            }
+            else if ((state->absStartAngle < 360 && state->absStartAngle > 270) &&
+                (state->absEndAngle < 360 && state->absEndAngle > 270))
+            {
+                //If CCW, exclude points RIGHT of start line and LEFT of end line
+                if (state->dir == LE_CCW)
+                {
+                    if (state->absStartAngle < state->absEndAngle)
+                    {
+                        //Include points between the two angles
+                        if ((pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) != LEFT_OF_LINE)
+                            && (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) != RIGHT_OF_LINE))
+                        {
+                            //Do nothing
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                    else if (state->absStartAngle > state->absEndAngle)
+                    {
+                        //exclude points between the two angles
+                        if ((pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) == LEFT_OF_LINE)
+                            && (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) == RIGHT_OF_LINE))
+                            continue;
+                    }
+                    else
+                    {
+                        if (pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) != ON_LINE)
+                            continue;
+                    }
+                }
+                else
+                {
+                    if (state->absStartAngle > state->absEndAngle)
+                    {
+                        //Include points between the two angles
+                        if ((pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) != RIGHT_OF_LINE)
+                            && (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) != LEFT_OF_LINE))
+                        {
+                            //Do nothing
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                    else if (state->absStartAngle < state->absEndAngle)
+                    {
+                        //exclude points between the two angles
+                        if ((pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) == RIGHT_OF_LINE)
+                            && (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) == LEFT_OF_LINE))
+                            continue;
+                    }
+                    else
+                    {
+                        if (pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) != ON_LINE)
+                            continue;
+                    }
+                }
+            }
+            else if (state->absStartAngle < 360 && state->absStartAngle > 270)
+            {
+                //If CCW, exclude points LEFT of start line
+                if (state->dir == LE_CCW)
+                {
+                    if (pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) == LEFT_OF_LINE)
+                        continue;
+                }
+                    //If CW, exclude points RIGHT of start line
+                else
+                {
+                    if (pointRelPositionFromLine(&state->arcStartPt0, &state->arcStartPt1, &scanPt) == RIGHT_OF_LINE)
+                        continue;
+                }
+            }
+            else if (state->absEndAngle < 360 && state->absEndAngle > 270)
+            {
+                //If CCW, exclude points RIGHT of end line
+                if (state->dir == LE_CCW)
+                {
+                    //corner case: if radius is too small, and end angle is close to 360, 
+                    //the end line approximates to a horizontal line. in this case, 
+                    //just draw all points in the quadrant
+                    if (state->arcEndPt0.y == 0 && state->arcEndPt1.y == 0)
+                    {
+                        //draw all points
+                    }
+                    else if (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) == RIGHT_OF_LINE)
+                        continue;
+                }
+                //If CW, exclude points LEFT of end line
+                else
+                {
+                    if (pointRelPositionFromLine(&state->arcEndPt0, &state->arcEndPt1, &scanPt) == LEFT_OF_LINE)
+                        continue;
+                }
+            }
+
+            drawPt.x = state->arcArea.x + state->x + scanPt.x;
+            drawPt.y = state->arcArea.y + state->y - scanPt.y;
+
+            if(leRenderer_CullDrawPoint(&drawPt) == LE_FALSE)
+            {
+#if LE_ALPHA_BLENDING_ENABLED == 1
+                leRenderer_BlendPixel(drawPt.x, drawPt.y, state->clr, state->alpha);
+#else
+                leRenderer_PutPixel(drawPt.x, drawPt.y, state->clr);
+#endif
+            }
+        }
+    }
+}
+
 //This function does a scan fill from +y -> -y, -x -> +x or
 // Q2, Q1, Q3, Q4 in terms of quadrants. Points outside the 
 // arc fill area are discarded.
-leResult leRenderer_ArcFill(leRect* drawRect,
+leResult leRenderer_ArcFill(const leRect* drawRect,
                             int32_t x,
                             int32_t y,
                             int32_t r,
@@ -173,18 +799,22 @@ leResult leRenderer_ArcFill(leRect* drawRect,
                             leBool antialias,
                             uint32_t a)
 {
-    lePoint topRectPt, botRectPt; //Top and bottom points of arc rectangle
+    ArcDrawState state;
+
+    /*lePoint topRectPt, botRectPt; //Top and bottom points of arc rectangle
     lePoint arcStartPt0, arcStartPt1, arcEndPt0, arcEndPt1; //Points of arc edges
     lePoint drawPt; //Point to draw
     lePoint scanPt;
     int32_t endAngle;
     uint32_t ptRadiusSqrd, oCirRadSqrd, iCirRadSqrd; //Square of radii
     uint32_t absStartAngle, absEndAngle; //start and end angles in positive angles
-    leArcDir dir;
+    leArcDir dir;*/
     //uint32_t thicknessSqd;
     
     if(leRenderer_CullDrawRect(drawRect) == LE_TRUE)
         return LE_FAILURE;
+
+    state.arcArea = *drawRect;
 
     thickness = (thickness < (uint32_t)r) ? thickness : (uint32_t)r;
     
@@ -200,1826 +830,92 @@ leResult leRenderer_ArcFill(leRect* drawRect,
     //Determine points of arc edges
     if (startAngle >= 0)
     {
-        absStartAngle = startAngle;
+        state.absStartAngle = startAngle;
     }
     else
     {
-        absStartAngle = 360 + startAngle;
+        state.absStartAngle = 360 + startAngle;
     }
     
-    lePolarToXY(r, absStartAngle, &arcStartPt1);
-    lePolarToXY(r - thickness, absStartAngle, &arcStartPt0);
+    lePolarToXY(r, state.absStartAngle, &state.arcStartPt1);
+    lePolarToXY(r - thickness, state.absStartAngle, &state.arcStartPt0);
 
-    endAngle = startAngle + centerAngle;
+    state.endAngle = startAngle + centerAngle;
     
-    if (endAngle >= 0)
+    if (state.endAngle >= 0)
     {
-        absEndAngle = endAngle;
+        state.absEndAngle = state.endAngle;
     }
     else
     {
-        absEndAngle = 360 + endAngle;
+        state.absEndAngle = 360 + state.endAngle;
     }
-    
-    absEndAngle %= 360;
 
-    lePolarToXY(r, absEndAngle, &arcEndPt1);
-    lePolarToXY(r - thickness, absEndAngle, &arcEndPt0);
+    state.absEndAngle %= 360;
+
+    lePolarToXY(r, state.absEndAngle, &state.arcEndPt1);
+    lePolarToXY(r - thickness, state.absEndAngle, &state.arcEndPt0);
 
     if (centerAngle > 0)
     {
-        dir  = LE_CCW;
+        state.dir  = LE_CCW;
     }
     else
     {
-        dir = LE_CW;
+        state.dir = LE_CW;
     }
 
     //Determine bounding rectangle points
-    topRectPt.x = - ((int32_t)r);
-    topRectPt.y = r;
-    botRectPt.x = r;
-    botRectPt.y = -((int32_t)r);
+    state.topRectPt.x = - ((int32_t)r);
+    state.topRectPt.y = r;
+    state.botRectPt.x = r;
+    state.botRectPt.y = -((int32_t)r);
 
-    oCirRadSqrd = r * r;
-    iCirRadSqrd = (r - thickness) * (r - thickness);
+    state.oCirRadSqrd = r * r;
+    state.iCirRadSqrd = (r - thickness) * (r - thickness);
+
+    state.x = x;
+    state.y = y;
+    state.clr = clr;
+    state.alpha = a;
 
     //Scan thru the points in arc rectangle, per quadrant and filter points that are outside
     //Only scan if the arc overlaps with the quadrant
-    if (leArcsOverlapQuadrant(absStartAngle, 
-                              absEndAngle, 
-                              dir, 
+    if (leArcsOverlapQuadrant(state.absStartAngle,
+                              state.absEndAngle,
+                              state.dir,
                               LE_Q2) == LE_TRUE)
     {
-        for (scanPt.y = topRectPt.y; scanPt.y >= 0; scanPt.y--)
-        {
-            for (scanPt.x = topRectPt.x; scanPt.x <= 0; scanPt.x++)
-            {
-                ptRadiusSqrd = (scanPt.x * scanPt.x) + (scanPt.y * scanPt.y);
-                
-                //If point is outside outer circle, skip
-                if (ptRadiusSqrd > oCirRadSqrd)
-                    continue;
-                
-                //If point is outside inner circle, done scanning x
-                if (ptRadiusSqrd < iCirRadSqrd)
-                    break;
-
-                if (absStartAngle == absEndAngle)
-                {
-                    //Circle, do not filter, draw all points
-                }
-                else if ((absStartAngle <= 180 && absStartAngle > 90) && 
-                         (absEndAngle <= 180 && absEndAngle > 90))
-                {
-                    //If both start and end angles are in Q2
-                    //If CCW, exclude points RIGHT of start line and LEFT of end line
-                    if (dir == LE_CCW) 
-                    {
-                        if (absStartAngle < absEndAngle)
-                        {
-                            //Include points between the two angles
-                            if ((pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) != RIGHT_OF_LINE)
-                                && (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) != LEFT_OF_LINE))
-                            {
-                                //Do nothing
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                        else if (absStartAngle > absEndAngle)
-                        {
-                            //exclude points between the two angles
-                            if ((pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) == RIGHT_OF_LINE)
-                                && (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) == LEFT_OF_LINE))
-                                continue;                            
-                        }
-                        else
-                        {
-                            if (pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) != ON_LINE)
-                                continue;
-                        }
-                    }
-                    //If CW, exclude points LEFT of start line and RIGHT of end line
-                    else
-                    {
-                        if (absStartAngle > absEndAngle)
-                        {
-                            //Include points between the two angles
-                            if ((pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) != LEFT_OF_LINE)
-                                && (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) != RIGHT_OF_LINE))
-                            {
-                                //Do nothing
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                        else if (absStartAngle < absEndAngle)
-                        {
-                            //exclude points between the two angles
-                            if ((pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) == LEFT_OF_LINE)
-                                && (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) == RIGHT_OF_LINE))
-                                continue;                            
-                        }
-                        else
-                        {
-                            if (pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) != ON_LINE)
-                                continue;
-                        }
-                    }
-                }
-                else if (absStartAngle <= 180 && absStartAngle > 90)
-                {
-                    //If CCW, exclude points RIGHT of start line
-                    if (dir == LE_CCW)
-                    {
-                        if (pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) == RIGHT_OF_LINE)
-                            continue;
-                    }
-                    //If CW, exclude points LEFT of start line
-                    else
-                    {
-                        if (pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) == LEFT_OF_LINE)
-                            continue;
-                    }
-                }
-                //If end angle is in Q2, test agains Q2
-                else if (absEndAngle <= 180 && absEndAngle > 90)
-                {
-                    //If CCW, exclude points LEFT of start line
-                    if (dir == LE_CCW)
-                    {
-                        if (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) == LEFT_OF_LINE)
-                            continue;
-                    }
-                    //If CCW, exclude points RIGHT of start line
-                    else
-                    {
-                        if (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) == RIGHT_OF_LINE)
-                            continue;
-                    }
-                }
-
-                //Soften edge colors if anti-aliased
-                
-                
-                drawPt.x = x + scanPt.x;
-                drawPt.y = y - scanPt.y;
-
-                if(leRenderer_CullDrawPoint(&drawPt) == LE_TRUE)
-                {
-                    leRenderer_PutPixel(drawPt.x, drawPt.y, clr);
-                }
-            }
-        }
+        drawQ2(&state);
     }
 
     //Don't scan thru Q1 points if not needed. Optimize?
-    if(leArcsOverlapQuadrant(absStartAngle, 
-                             absEndAngle, 
-                             dir, 
+    if(leArcsOverlapQuadrant(state.absStartAngle,
+                             state.absEndAngle,
+                             state.dir, 
                              LE_Q1) == LE_TRUE)
     {
-        for (scanPt.y = topRectPt.y; scanPt.y >= 0; scanPt.y--)
-        {
-            for (scanPt.x = 0; scanPt.x < botRectPt.x; scanPt.x++)
-            {
-                ptRadiusSqrd = (scanPt.x * scanPt.x) + (scanPt.y * scanPt.y);
-                
-                //If point is outside outer circle, skip
-                if (ptRadiusSqrd < iCirRadSqrd)
-                    continue;
-
-                //If point is outside outer circle, done scanning x
-                if (ptRadiusSqrd > oCirRadSqrd)
-                    break;
-                
-                if (absStartAngle == absEndAngle)
-                {
-                    //Circle, do not filter, draw all points
-                }
-                else if ((absStartAngle <= 90 && absStartAngle >= 0) && 
-                   (absEndAngle <= 90 && absEndAngle >= 0))
-                {
-                    //If both start and end angles are in Q1
-                    //If CCW, exclude points RIGHT of start line and LEFT of end line
-                    if (dir == LE_CCW) 
-                    {
-                        if (absStartAngle < absEndAngle)
-                        {
-                            //Include points between the two angles
-                            if ((pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) != RIGHT_OF_LINE)
-                                && (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) != LEFT_OF_LINE))
-                            {
-                                //Do nothing
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                        else if (absStartAngle > absEndAngle)
-                        {
-                            //exclude points between the two angles
-                            if ((pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) == RIGHT_OF_LINE)
-                                && (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) == LEFT_OF_LINE))
-                                continue;                            
-                        }
-                        else
-                        {
-                            if (pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) != ON_LINE)
-                                continue;
-                        }
-                    }
-                    else
-                    {
-                        if (absStartAngle > absEndAngle)
-                        {
-                            //Include points between the two angles
-                            if ((pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) != LEFT_OF_LINE)
-                                && (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) != RIGHT_OF_LINE))
-                            {
-                                //Do nothing
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                        else if (absStartAngle < absEndAngle)
-                        {
-                            //exclude points between the two angles
-                            if ((pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) == LEFT_OF_LINE)
-                                && (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) == RIGHT_OF_LINE))
-                                continue;                            
-                        }
-                        else
-                        {
-                            if (pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) != ON_LINE)
-                                continue;
-                        }
-                    }
-                }
-                else if (absStartAngle <= 90 && absStartAngle >= 0)
-                {
-                    //If CCW, exclude points RIGHT of start line
-                    if (dir == LE_CCW)
-                    {
-                        if (pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) == RIGHT_OF_LINE)
-                            continue;
-                    }
-                    //If CW, exclude points LEFT of start line
-                    else
-                    {
-                        if (pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) == LEFT_OF_LINE)
-                            continue;
-                    }
-                }
-                //If end angle is in Q1, test agains Q1
-                else if (absEndAngle <= 90 && absEndAngle >= 0)
-                {
-                    //If CCW, exclude points LEFT of start line
-                    if (dir == LE_CCW)
-                    {
-                        if (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) == LEFT_OF_LINE)
-                            continue;
-                    }
-                    //If CW, exclude points RIGHT of start line
-                    else
-                    {
-                        if (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) == RIGHT_OF_LINE)
-                            continue;
-                    }
-                }
-
-                drawPt.x = x + scanPt.x;
-                drawPt.y = y - scanPt.y;
-
-                if(leRenderer_CullDrawPoint(&drawPt) == LE_TRUE)
-                {
-                    leRenderer_PutPixel(drawPt.x, drawPt.y, clr);
-                }
-            }
-        }
+        drawQ1(&state);
     }
 
     //Don't scan thru Q3 points if not needed. Optimize?
-    if(leArcsOverlapQuadrant(absStartAngle, 
-                             absEndAngle, 
-                             dir, 
+    if(leArcsOverlapQuadrant(state.absStartAngle,
+                             state.absEndAngle,
+                             state.dir,
                              LE_Q3) == LE_TRUE)
     {
-        for (scanPt.y = 0; scanPt.y > botRectPt.y; scanPt.y--)
-        {
-            for (scanPt.x = topRectPt.x; scanPt.x <= 0; scanPt.x++)
-            {
-                ptRadiusSqrd = (scanPt.x * scanPt.x) + (scanPt.y * scanPt.y);
-                
-                //If point is outside outer circle, skip
-                if (ptRadiusSqrd > oCirRadSqrd)
-                    continue;
-                
-                //If point is outside inner circle, done scanning x
-                if (ptRadiusSqrd < iCirRadSqrd)
-                    break;
-
-                if (absStartAngle == absEndAngle)
-                {
-                    //Circle, do not filter, draw all points
-                }
-                else if ((absStartAngle <= 270 && absStartAngle > 180) && 
-                   (absEndAngle <= 270 && absEndAngle > 180))
-                {
-                    //If CCW, exclude points RIGHT of start line and LEFT of end line
-                    if (dir == LE_CCW) 
-                    {
-                        if (absStartAngle < absEndAngle)
-                        {
-                            //Include points between the two angles
-                            if ((pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) != LEFT_OF_LINE)
-                                && (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) != RIGHT_OF_LINE))
-                            {
-                                //Do nothing
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                        else if (absStartAngle > absEndAngle)
-                        {
-                            //exclude points between the two angles
-                            if ((pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) == LEFT_OF_LINE)
-                                && (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) == RIGHT_OF_LINE))
-                                continue;                            
-                        }
-                        else
-                        {
-                            if (pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) != ON_LINE)
-                                continue;
-                        }
-                    }
-                    else
-                    {
-                        if (absStartAngle > absEndAngle)
-                        {
-                            //Include points between the two angles
-                            if ((pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) != RIGHT_OF_LINE)
-                                && (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) != LEFT_OF_LINE))
-                            {
-                                //Do nothing
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                        else if (absStartAngle < absEndAngle)
-                        {
-                            //exclude points between the two angles
-                            if ((pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) == RIGHT_OF_LINE)
-                                && (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) == LEFT_OF_LINE))
-                                continue;                            
-                        }
-                        else
-                        {
-                            if (pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) != ON_LINE)
-                                continue;
-                        }
-                    }
-                }
-                else if (absStartAngle <= 270 && absStartAngle > 180)
-                {
-                    //If CCW, exclude points LEFT of start line
-                    if (dir == LE_CCW)
-                    {
-                        if (pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) == LEFT_OF_LINE)
-                            continue;
-                    }
-                    //If CW, exclude points RIGHT of start line
-                    else
-                    {
-                        if (pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) == RIGHT_OF_LINE)
-                            continue;
-                    }
-                }
-                else if (absEndAngle <= 270 && absEndAngle > 180)
-                {
-                    //If CCW, exclude points RIGHT of end line
-                    if (dir == LE_CCW)
-                    {
-                        if (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) == RIGHT_OF_LINE)
-                            continue;
-                    }
-                    //If CW, exclude points LEFT of end line
-                    else
-                    {
-                                                //corner case: if radius is too small, and end angle is close to 180, 
-                        //the end line approximates to a horizontal line. in this case, 
-                        //just draw all points in the quadrant
-                        if (arcEndPt0.y == 0 && arcEndPt1.y == 0)
-                        {
-                            //draw all points
-                        }
-                        else if (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) == LEFT_OF_LINE)
-                            continue;
-                    }
-                }
-
-                drawPt.x = x + scanPt.x;
-                drawPt.y = y - scanPt.y;
-
-                if(leRenderer_CullDrawPoint(&drawPt) == LE_TRUE)
-                {
-                    leRenderer_PutPixel(drawPt.x, drawPt.y, clr);
-                }
-            }
-        }
+        drawQ3(&state);
     }
 
     //Don't scan thru Q4 points if not needed. Optimize?
-    if(leArcsOverlapQuadrant(absStartAngle, 
-                             absEndAngle, 
-                             dir, 
+    if(leArcsOverlapQuadrant(state.absStartAngle,
+                             state.absEndAngle,
+                             state.dir,
                              LE_Q4) == LE_TRUE)
     {
-        for (scanPt.y = 0; scanPt.y > botRectPt.y; scanPt.y--)
-        {
-            for (scanPt.x = 0; scanPt.x < botRectPt.x; scanPt.x++)
-            {
-                ptRadiusSqrd = (scanPt.x * scanPt.x) + (scanPt.y * scanPt.y);
-                
-                //If point is outside outer circle, skip
-                if (ptRadiusSqrd < iCirRadSqrd)
-                    continue;
-
-                //If point is outside outer circle, done scanning x
-                if (ptRadiusSqrd > oCirRadSqrd)
-                    break;
-
-                if (absStartAngle == absEndAngle)
-                {
-                    //Circle or almost a circle, do not filter, draw all points
-                }
-                else if ((absStartAngle < 360 && absStartAngle > 270) && 
-                   (absEndAngle < 360 && absEndAngle > 270))
-                {
-                    //If CCW, exclude points RIGHT of start line and LEFT of end line
-                    if (dir == LE_CCW) 
-                    {
-                        if (absStartAngle < absEndAngle)
-                        {
-                            //Include points between the two angles
-                            if ((pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) != LEFT_OF_LINE)
-                                && (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) != RIGHT_OF_LINE))
-                            {
-                                //Do nothing
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                        else if (absStartAngle > absEndAngle)
-                        {
-                            //exclude points between the two angles
-                            if ((pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) == LEFT_OF_LINE)
-                                && (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) == RIGHT_OF_LINE))
-                                continue;                            
-                        }
-                        else
-                        {
-                            if (pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) != ON_LINE)
-                                continue;
-                        }
-                    }
-                    else
-                    {
-                        if (absStartAngle > absEndAngle)
-                        {
-                            //Include points between the two angles
-                            if ((pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) != RIGHT_OF_LINE)
-                                && (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) != LEFT_OF_LINE))
-                            {
-                                //Do nothing
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                        else if (absStartAngle < absEndAngle)
-                        {
-                            //exclude points between the two angles
-                            if ((pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) == RIGHT_OF_LINE)
-                                && (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) == LEFT_OF_LINE))
-                                continue;                            
-                        }
-                        else
-                        {
-                            if (pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) != ON_LINE)
-                                continue;
-                        }
-                    }
-                }
-                else if (absStartAngle < 360 && absStartAngle > 270)
-                {
-                    //If CCW, exclude points LEFT of start line
-                    if (dir == LE_CCW)
-                    {
-                        if (pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) == LEFT_OF_LINE)
-                            continue;
-                    }
-                    //If CW, exclude points RIGHT of start line
-                    else
-                    {
-                        if (pointRelPositionFromLine(&arcStartPt0, &arcStartPt1, &scanPt) == RIGHT_OF_LINE)
-                            continue;
-                    }
-                }
-                else if (absEndAngle < 360 && absEndAngle > 270)
-                {
-                    //If CCW, exclude points RIGHT of end line
-                    if (dir == LE_CCW)
-                    {
-                        //corner case: if radius is too small, and end angle is close to 360, 
-                        //the end line approximates to a horizontal line. in this case, 
-                        //just draw all points in the quadrant
-                        if (arcEndPt0.y == 0 && arcEndPt1.y == 0)
-                        {
-                            //draw all points
-                        }
-                        else if (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) == RIGHT_OF_LINE)
-                            continue;
-                    }
-                    //If CW, exclude points LEFT of end line
-                    else
-                    {
-                        if (pointRelPositionFromLine(&arcEndPt0, &arcEndPt1, &scanPt) == LEFT_OF_LINE)
-                            continue;
-                    }
-                }
-                
-                drawPt.x = x + scanPt.x;
-                drawPt.y = y - scanPt.y;
-
-                if(leRenderer_CullDrawPoint(&drawPt) == LE_TRUE)
-                {
-                    leRenderer_PutPixel(drawPt.x, drawPt.y, clr);
-                }
-            }
-        }
+        drawQ4(&state);
     }
 
     return LE_SUCCESS;
 }
 
-#else
-
-static int32_t circleGetXGivenY(int32_t r, int32_t y)
-{
-    if (-r < y && y < r)
-        return (int32_t) sqrt(r*r - y*y);
-
-    return 0;
-}
-
-//Draws horizontal lines to fill arc
-static void drawArcFillLine(int32_t x,
-                            int32_t y, 
-                            const lePoint* drawPtStart,
-                            const lePoint* drawPtEnd,
-                            leColor clr)
-{
-    //Circle, do not filter, draw all points
-    lePoint start, end;
-
-    //startX should always be less or equal to endX.
-    if (drawPtStart->x > drawPtEnd->x ||
-        drawPtStart->y != drawPtEnd->y)
-        return;
-    
-    start.x = x + drawPtStart->x;
-    start.y = y - drawPtStart->y;
-                
-    end.x = x + drawPtEnd->x;
-    end.y = y - drawPtEnd->y;
-    
-    leRenderer_DrawLine(start.x, start.y, end.x, end.y, clr);
-}
-
-//This fill algorithm draws lines between the arc boundaries.
-//This can take advantage of the GPU's line draw operation.
-leResult leRenderer_ArcFill(int32_t x,
-                            int32_t y,
-                            int32_t r,
-                            int32_t startAngle,
-                            int32_t centerAngle,
-                            uint32_t thickness,
-                            leColor clr)
-{
-    lePoint topRectPt; //Top and bottom points of arc rectangle
-    lePoint arcStartPt0, arcStartPt1, arcEndPt0, arcEndPt1; //Points of arc edges
-    lePoint scanPt;
-    int32_t endAngle;
-    uint32_t absStartAngle, absEndAngle; //start and end angles in positive angles
-    leArcDir dir;
-    uint32_t quadrantFlag = 0;
-    
-    lePoint drawPtStart, drawPtEnd;
-    
-    thickness = (thickness < (uint32_t)r) ? thickness : (uint32_t)r;
-    
-    //Don't care about wrapping 
-    if (centerAngle == 0)
-        return LE_SUCCESS;
-
-    startAngle %= 360;
-    centerAngle %= 360;
-
-    //Determine points of arc edges
-    if (startAngle >= 0)
-    {
-        absStartAngle = startAngle;
-    }
-    else
-    {
-        absStartAngle = 360 + startAngle;
-    }
-    
-    lePolarToXY(r, absStartAngle, &arcStartPt1);
-    lePolarToXY(r - thickness, absStartAngle, &arcStartPt0);
-
-    endAngle = startAngle + centerAngle;
-    
-    if (endAngle >= 0)
-    {
-        absEndAngle = endAngle;
-    }
-    else
-    {
-        absEndAngle = 360 + endAngle;
-    }
-    
-    absEndAngle %= 360;
-
-    lePolarToXY(r, absEndAngle, &arcEndPt1);
-    lePolarToXY(r - thickness, absEndAngle, &arcEndPt0);
-
-    if (centerAngle > 0)
-    {
-        dir = LE_CCW;
-    }
-    else
-    {
-        dir = LE_CW;
-    }
-
-    //Determine bounding rectangle points
-    topRectPt.x = - ((int32_t)r);
-    topRectPt.y = r;
-
-    //Scan thru the points in arc rectangle, per quadrant and filter points that are outside
-    
-    //Set the quadrant flag
-    if(leArcsOverlapQuadrant(absStartAngle, 
-                             absEndAngle, 
-                             dir, 
-                             LE_Q1) == LE_TRUE)
-    {
-        quadrantFlag |= (1 << LE_Q1);
-    }
-    
-    if (leArcsOverlapQuadrant(absStartAngle, 
-                              absEndAngle, 
-                              dir, 
-                              LE_Q2) == LE_TRUE)
-    {
-        quadrantFlag |= (1 << LE_Q2);
-    }
-    
-    if (leArcsOverlapQuadrant(absStartAngle, 
-                              absEndAngle, 
-                              dir, 
-                              LE_Q3) == LE_TRUE)
-    {
-        quadrantFlag |= (1 << LE_Q3);
-    }
-    
-    if (leArcsOverlapQuadrant(absStartAngle, 
-                              absEndAngle, 
-                              dir, 
-                              LE_Q4) == LE_TRUE)
-    {
-        quadrantFlag |= (1 << LE_Q4);
-    }
-    
-    for (scanPt.y = topRectPt.y; scanPt.y >= 0; scanPt.y--)
-    {
-        int32_t outX, inX;
-
-        outX = circleGetXGivenY(r, scanPt.y);
-        inX = circleGetXGivenY(r - thickness, scanPt.y);
-        
-        drawPtStart.y = scanPt.y;
-        drawPtEnd.y = drawPtStart.y;
-        
-        //Only scan if the arc overlaps with the quadrant
-        if (scanPt.y >= 0 && quadrantFlag & (1 << LE_Q2))
-        {
-            do 
-            {
-                drawPtStart.x = -outX;
-                drawPtEnd.x = -inX;            
-
-                if (absStartAngle == absEndAngle)
-                {
-                    //Otherwise, draw all points
-                    drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                }
-                //If both start and end angles are in Q2
-                else if ((90 <= absStartAngle && absStartAngle <= 180 ) && 
-                         (90 <= absEndAngle && absEndAngle <= 180 ))
-                {
-                    //If CCW, exclude points RIGHT of start line and LEFT of end line
-                    if (dir == LE_CCW) 
-                    {
-                        if (absEndAngle > absStartAngle)
-                        {
-                            int32_t xPoint;
-
-                            if (drawPtStart.y > arcStartPt1.y || drawPtStart.y < arcEndPt0.y)
-                                continue;
-
-                            //Clip start of line from the arc end edge
-                            xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtStart.y);
-                            
-                            if (arcEndPt0.y != arcEndPt1.y && xPoint > drawPtStart.x)
-                            {
-                                drawPtStart.x = xPoint;
-                            }
-                            
-                            //Clip end of line from the arc start edge
-                            xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtEnd.y);
-                            
-                            if (arcStartPt0.y != arcStartPt1.y && xPoint < drawPtEnd.x)
-                            {
-                                drawPtEnd.x = xPoint;
-                            }
-                            
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                        else if (absStartAngle > absEndAngle) 
-                        {
-                            int32_t xPoint;
-                            lePoint drawPtStartCopy = drawPtStart;
-                            lePoint drawPtEndCopy = drawPtEnd;
-
-                            //Draw lines right of end Angle
-                            if(drawPtStartCopy.y > arcEndPt1.y)
-                            {
-                                drawArcFillLine(x, y, &drawPtStartCopy, &drawPtEnd, clr);
-                            }
-                            else if(drawPtStartCopy.y <= arcEndPt1.y &&
-                                    drawPtStartCopy.y >= arcEndPt0.y)
-                            {
-                                xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtStartCopy.y);
-                                if(arcEndPt0.y != arcEndPt1.y && xPoint > drawPtStartCopy.x)
-                                {
-                                    drawPtStartCopy.x = xPoint;
-                                }
-                                
-                                drawArcFillLine(x, y, &drawPtStartCopy, &drawPtEnd, clr);
-                            }
-
-                            //Draw lines left of Start Angle Edge
-                            if (drawPtEndCopy.y >= arcStartPt0.y &&
-                                drawPtEndCopy.y <= arcStartPt1.y)
-                            {
-                                xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtEndCopy.y);
-                                if (arcStartPt0.y != arcStartPt1.y && xPoint < drawPtEndCopy.x)
-                                    drawPtEndCopy.x = xPoint;
-
-                                drawArcFillLine(x, y, &drawPtStart, &drawPtEndCopy, clr);
-                            }
-                            else if (drawPtEndCopy.y < arcStartPt0.y)
-                            {
-                                drawArcFillLine(x, y, &drawPtStart, &drawPtEndCopy, clr);
-                            }
-                        }
-                    }
-                    //If CW, exclude points LEFT of start line and RIGHT of end line
-                    else
-                    {
-                        if (absEndAngle > absStartAngle)
-                        {
-                            int32_t xPoint;
-                            lePoint drawPtStartCopy = drawPtStart;
-                            lePoint drawPtEndCopy = drawPtEnd;
-
-                            //Draw lines right of start Angle
-                            if (drawPtStartCopy.y > arcStartPt1.y)
-                            {
-                                drawArcFillLine(x, y, &drawPtStartCopy, &drawPtEnd, clr);
-                            }
-                            else if (drawPtStartCopy.y <= arcStartPt1.y &&
-                                     drawPtStartCopy.y >= arcStartPt0.y)
-                            {
-                                xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtStart.y);
-                                
-                                if (arcStartPt0.y != arcStartPt1.y && xPoint > drawPtStartCopy.x)
-                                {
-                                   drawPtStartCopy.x = xPoint;
-                                }
-                                
-                                drawArcFillLine(x, y, &drawPtStartCopy, &drawPtEnd, clr);
-                            }
-
-                            //Clip end point to arc start edge
-                            if (drawPtEndCopy.y <= arcEndPt0.y)
-                            {
-                                drawArcFillLine(x, y, &drawPtStart, &drawPtEndCopy, clr);
-                            }
-                            else if (drawPtEndCopy.y > arcEndPt0.y &&
-                                     drawPtEndCopy.y < arcEndPt1.y)
-                            {
-                                xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtStart.y);
-                                
-                                if (arcEndPt0.y != arcEndPt1.y && xPoint < drawPtEndCopy.x)
-                                {
-                                    drawPtEndCopy.x = xPoint;
-                                }
-                                
-                                drawArcFillLine(x, y, &drawPtStart, &drawPtEndCopy, clr);
-                            }
-
-                        }
-                        else if (absStartAngle > absEndAngle)
-                        {
-                            int32_t xPoint;
-
-                            if (drawPtStart.y > arcEndPt1.y || drawPtStart.y < arcStartPt0.y)
-                                continue;
-
-                            //Clip line from the arc end edge
-                            xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtStart.y);
-                            
-                            if (arcStartPt0.y != arcStartPt1.y && xPoint > drawPtStart.x)
-                            {
-                                drawPtStart.x = xPoint;
-                            }
-                            
-                            //Clip line from the arc start edge
-                            xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtEnd.y);
-                            
-                            if (arcEndPt0.y != arcEndPt1.y && xPoint < drawPtEnd.x)
-                            {
-                                drawPtEnd.x = xPoint;
-                            }
-                            
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                    }
-                }
-                else if (absStartAngle <= 180 && absStartAngle > 90) 
-                {
-                    //If CCW, exclude points RIGHT of start line
-                    if (dir == LE_CCW) 
-                    {
-                        int32_t xPoint;
-
-                        if (drawPtStart.y > arcStartPt1.y)
-                            continue;
-
-                        //Clip end point to arc start edge
-                        if (drawPtStart.y >= arcStartPt0.y)
-                        {
-                            xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtStart.y);
-                            
-                            if (arcStartPt0.y != arcStartPt1.y && xPoint < drawPtEnd.x)
-                            {    
-                                drawPtEnd.x = xPoint;
-                            }
-                                
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                        else if (drawPtStart.y < arcStartPt0.y)
-                        {
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                    }
-                    //If CW, start point to arc start edge
-                    else 
-                    {
-                        int32_t xPoint;
-
-                        if (drawPtStart.y < arcStartPt0.y)
-                            continue;
-
-                        if (drawPtStart.x < arcStartPt1.x)
-                        {
-                            drawPtStart.x = arcStartPt1.x;
-                        }
-                        
-                        if (drawPtStart.y >= arcStartPt1.y)
-                        {
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                        else if (drawPtStart.y >= arcStartPt0.y)
-                        {
-                            xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtStart.y);
-                            
-                            if (arcStartPt0.y != arcStartPt1.y && xPoint > drawPtStart.x)
-                            {
-                                drawPtStart.x = xPoint;
-                            }
-                            
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                    }
-                }
-                //If end angle is in Q2, test agains Q2
-                else if (absEndAngle <= 180 && absEndAngle > 90) 
-                {
-                    if (dir == LE_CCW) 
-                    {
-                        int32_t xPoint;
-
-                        if (drawPtStart.y > arcEndPt0.y)
-                        {
-                            xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtStart.y);
-                            
-                            if (arcEndPt0.y != arcEndPt1.y && xPoint > drawPtStart.x)
-                            {
-                                drawPtStart.x = xPoint;
-                            }
-                            
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                    }
-                    else 
-                    {
-                        int32_t xPoint;
-
-                        //Clip end point to arc end edge
-                        if (drawPtStart.y < arcEndPt0.y)
-                        {
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                        else if (drawPtStart.y >= arcEndPt0.y &&
-                                 drawPtStart.y <= arcEndPt1.y)
-                        {
-                            xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtStart.y);
-                            
-                            if (arcEndPt0.y != arcEndPt1.y && xPoint < drawPtEnd.x)
-                            {
-                                drawPtEnd.x = xPoint;
-                            }
-                            
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-
-                    }
-                }
-                else 
-                {
-                    //Otherwise, draw all points
-                    drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                }
-            }
-            while(0);
-        }
-
-        //Don't scan thru Q1 points if not needed. Optimize?
-        if (scanPt.y >= 0 && quadrantFlag & (1 << LE_Q1))
-        {
-            do
-            {
-                drawPtStart.x = inX;
-                drawPtEnd.x = outX;            
-
-                if (absStartAngle == absEndAngle)
-                {
-                    //Otherwise, draw all points
-                    drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                }
-                //If both start and end angles are in Q1
-                else if ((absStartAngle <= 90 && absStartAngle >= 0) && 
-                         (absEndAngle <= 90 && absEndAngle >= 0))
-                {
-                    if (dir == LE_CCW) 
-                    {
-                        //If CCW, exclude points RIGHT of start line and LEFT of end line
-                        if (absEndAngle > absStartAngle) 
-                        {
-                            int32_t xPoint;
-
-                            if (drawPtStart.y > arcEndPt1.y || 
-                                drawPtStart.y < arcStartPt0.y)
-                                continue;
-
-                            //Clip start of line from the arc end edge
-                            xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtStart.y);
-                            if (arcEndPt0.y != arcEndPt1.y && xPoint > drawPtStart.x)
-                            {
-                                drawPtStart.x = xPoint;
-                            }
-                            
-                            //Clip end of line from the arc start edge
-                            xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtEnd.y);
-                            
-                            if (arcStartPt0.y != arcStartPt1.y && xPoint < drawPtEnd.x)
-                            {
-                                drawPtEnd.x = xPoint;
-                            }
-                            
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                        else if (absStartAngle > absEndAngle) 
-                        {
-                            int32_t xPoint;
-                            lePoint drawPtStartCopy = drawPtStart;
-                            lePoint drawPtEndCopy = drawPtEnd;
-
-                            //Draw lines right of End Angle
-                            if (drawPtStartCopy.y < arcEndPt0.y)
-                            {
-                                drawArcFillLine(x, y, &drawPtStartCopy, &drawPtEnd, clr);                            
-                            }
-                            else if (drawPtStartCopy.y >= arcEndPt0.y &&
-                                     drawPtStartCopy.y <= arcEndPt1.y)
-                            {
-                                xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtStartCopy.y);
-                                
-                                if (arcEndPt0.y != arcEndPt1.y && xPoint > drawPtStartCopy.x)
-                                {
-                                    drawPtStartCopy.x = xPoint;
-                                }
-
-                                drawArcFillLine(x, y, &drawPtStartCopy, &drawPtEnd, clr);
-                            }
-
-                            //Draw lines left of Start Angle Edge
-                            if (drawPtEndCopy.y > arcStartPt1.y)
-                            {  
-                                drawArcFillLine(x, y, &drawPtStart, &drawPtEndCopy, clr);
-                            }
-                            else if (drawPtEndCopy.y <= arcStartPt1.y &&
-                                     drawPtEndCopy.y >= arcStartPt0.y)
-                            {
-                                xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtEndCopy.y);
-                                
-                                if (arcStartPt0.y != arcStartPt1.y && xPoint < drawPtEndCopy.x)
-                                {
-                                    drawPtEndCopy.x = xPoint;
-                                }
-
-                                drawArcFillLine(x, y, &drawPtStart, &drawPtEndCopy, clr);
-                            }
-                        }
-                    }
-                    //If CW, exclude points LEFT of start line and RIGHT of end line
-                    else
-                    {
-                        if (absEndAngle > absStartAngle) 
-                        {
-                            int32_t xPoint;
-                            lePoint drawPtStartCopy = drawPtStart;
-                            lePoint drawPtEndCopy = drawPtEnd;
-
-                            //Draw lines right of start Angle
-                            if (drawPtStartCopy.y <= arcStartPt0.y)
-                            {
-                                drawArcFillLine(x, y, &drawPtStartCopy, &drawPtEnd, clr);
-                            }
-                            else if (drawPtStartCopy.y < arcStartPt1.y)
-                            {
-                                xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtStart.y);
-                                
-                                if (arcStartPt0.y != arcStartPt1.y && xPoint > drawPtStartCopy.x)
-                                {
-                                    drawPtStartCopy.x = xPoint;
-                                }
-                                
-                                drawArcFillLine(x, y, &drawPtStartCopy, &drawPtEnd, clr);
-                            }
-
-                            //Clip end point to arc end edge
-                            if (drawPtEndCopy.y > arcEndPt1.y)
-                            {
-                                drawArcFillLine(x, y, &drawPtStart, &drawPtEndCopy, clr);
-                            }
-                            else if (drawPtEndCopy.y <= arcEndPt1.y)
-                            {
-                                xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtStart.y);
-                                
-                                if (arcEndPt0.y != arcEndPt1.y && xPoint < drawPtEnd.x)
-                                {
-                                    drawPtEndCopy.x = xPoint;
-                                }
-                                
-                                drawArcFillLine(x, y, &drawPtStart, &drawPtEndCopy, clr);                            
-                            }
-                        }
-                        else if (absStartAngle > absEndAngle) 
-                        {
-                            int32_t xPoint;
-
-                            //Clip start point from the arc start edge
-                            xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtStart.y);
-                            
-                            if (arcStartPt0.y != arcStartPt1.y && xPoint > drawPtStart.x)
-                            {
-                                drawPtStart.x = xPoint;
-                            }
-                            
-                            //Clip start point from the arc end edge
-                            xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtEnd.y);
-                            
-                            if (arcEndPt0.y != arcEndPt1.y && xPoint < drawPtEnd.x)
-                            {
-                                drawPtEnd.x = xPoint;
-                            }
-                            
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                    }
-                }
-                else if (0 <= absStartAngle && absStartAngle <= 90 )
-                {
-                    //If CCW, clip end point to start edge
-                    if (dir == LE_CCW) 
-                    {
-                        int32_t xPoint;
-
-                        if (drawPtEnd.x > arcStartPt1.x)
-                        {
-                            drawPtEnd.x = arcStartPt1.x;
-                        }
-                        
-                        //Clip end point to arc start edge
-                        if (drawPtStart.y >= arcStartPt1.y)
-                        {
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                        else if (drawPtStart.y < arcStartPt1.y &&
-                                 drawPtStart.y >= arcStartPt0.y)
-                        {
-                            xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtStart.y);
-                            
-                            if (arcStartPt0.y != arcStartPt1.y && xPoint < drawPtEnd.x)
-                            {
-                                drawPtEnd.x = xPoint;
-                            }
-                            
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                    }
-                    //If CW, exclude points LEFT of start line
-                    else 
-                    {
-                        int32_t xPoint;
-
-                        if (drawPtStart.y <= arcStartPt0.y)
-                        {
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                        else if (drawPtStart.y >= arcStartPt0.y &&
-                                 drawPtStart.y <= arcStartPt1.y)
-                        {
-                            xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtStart.y);
-                            
-                            if (arcStartPt0.y != arcStartPt1.y && xPoint > drawPtStart.x)
-                            {
-                                drawPtStart.x = xPoint;
-                            }
-                            
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                    }
-                }
-                //If end angle is in Q1, test agains Q1
-                else if (absEndAngle <= 90 && absEndAngle >= 0)
-                {
-                    if (dir == LE_CCW) 
-                    {
-                        int32_t xPoint;
-
-                        if (drawPtStart.y <= arcEndPt0.y)
-                        {
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                        else if (drawPtStart.y <= arcEndPt1.y)
-                        {
-                            xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtStart.y);
-                            
-                            if (arcEndPt0.y != arcEndPt1.y && xPoint > drawPtStart.x)
-                            {
-                                drawPtStart.x = xPoint;
-                            }
-                            
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                    }
-                    else 
-                    {
-                        int32_t xPoint;
-
-                        if (drawPtEnd.x > arcEndPt1.x)
-                            drawPtEnd.x = arcEndPt1.x;
-
-                        //Clip end point to arc end edge
-                        if (drawPtStart.y >= arcEndPt1.y)
-                        {
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                        else if (drawPtStart.y >= arcEndPt0.y)
-                        {
-                            xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtStart.y);
-                            
-                            if (arcEndPt0.y != arcEndPt1.y && xPoint < drawPtEnd.x)
-                            {
-                                drawPtEnd.x = xPoint;
-                            }
-                            
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                    }
-                }
-                else
-                {
-                    //Otherwise, draw all points
-                    drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                }
-            }
-            while(0);
-        }
-
-        drawPtStart.y = -scanPt.y;
-        drawPtEnd.y = drawPtStart.y;
-
-        //Fill Q3 area
-        if (drawPtStart.y <= 0 && quadrantFlag & (1 << LE_Q3))
-        {
-            do
-            {
-                drawPtStart.x = -outX;
-                drawPtEnd.x = -inX;
-
-                if (absStartAngle == absEndAngle)
-                {
-                    //Otherwise, draw all points
-                    drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                }
-                //If both start and end angles are in Q1
-                else if ((180 <= absStartAngle && absStartAngle <= 270 ) && 
-                         (180 <= absEndAngle && absEndAngle <= 270))
-                {
-                    if (dir == LE_CCW) 
-                    {
-                        //If CCW, exclude points RIGHT of start line and LEFT of end line
-                        if (absEndAngle > absStartAngle) 
-                        {
-                            int32_t xPoint;
-
-                            if (drawPtStart.y > arcStartPt0.y ||
-                                drawPtStart.y < arcEndPt1.y)
-                                continue;
-
-                            //Clip start of line from the arc start edge
-                            xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtStart.y);
-                            
-                            if (arcStartPt0.y != arcStartPt1.y && xPoint > drawPtStart.x)
-                            {
-                                drawPtStart.x = xPoint;
-                            }
-                            
-                            //Clip end of line from the arc end edge
-                            xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtEnd.y);
-                            
-                            if (arcEndPt0.y != arcEndPt1.y && xPoint < drawPtEnd.x)
-                            {
-                                drawPtEnd.x = xPoint;
-                            }
-                            
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                        else if (absStartAngle > absEndAngle) 
-                        {
-                            int32_t xPoint;
-                            lePoint drawPtStartCopy = drawPtStart;
-                            lePoint drawPtEndCopy = drawPtEnd;
-
-                            //Draw lines right of Start Angle
-                            if (drawPtStartCopy.y < arcStartPt1.y)
-                            {
-                                drawArcFillLine(x, y, &drawPtStartCopy, &drawPtEnd, clr);                            
-                            }
-                            else if (drawPtStartCopy.y >= arcStartPt1.y &&
-                                     drawPtStartCopy.y <= arcStartPt0.y)
-                            {
-                                xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtStartCopy.y);
-                                
-                                if (arcStartPt1.y != arcStartPt0.y && xPoint > drawPtStartCopy.x)
-                                {
-                                    drawPtStartCopy.x = xPoint;
-                                }
-
-                                drawArcFillLine(x, y, &drawPtStartCopy, &drawPtEnd, clr);
-                            }
-
-                            //Draw lines left of End Angle Edge
-                            if (drawPtEndCopy.y > arcEndPt0.y)
-                            {  
-                                drawArcFillLine(x, y, &drawPtStart, &drawPtEndCopy, clr);
-                            }
-                            else if (drawPtEndCopy.y <= arcEndPt0.y &&
-                                     drawPtEndCopy.y >= arcEndPt1.y)
-                            {
-                                xPoint = leGetXGivenYOnLine(arcEndPt1, arcEndPt0, drawPtEndCopy.y);
-                                
-                                if (arcEndPt1.y != arcEndPt0.y && xPoint < drawPtEndCopy.x)
-                                {
-                                    drawPtEndCopy.x = xPoint;
-                                }
-
-                                drawArcFillLine(x, y, &drawPtStart, &drawPtEndCopy, clr);
-                            }
-                        }
-                    }
-                    //If CW, exclude points LEFT of start line and RIGHT of end line
-                    else
-                    {
-                        if (absEndAngle > absStartAngle) 
-                        {
-                            int32_t xPoint;
-                            lePoint drawPtStartCopy = drawPtStart;
-                            lePoint drawPtEndCopy = drawPtEnd;
-
-                            //Draw lines left of start arc edge
-                            if (drawPtEndCopy.y >= arcStartPt0.y)
-                            {
-                                drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                            }
-                            else if (drawPtEndCopy.y < arcStartPt0.y &&
-                                     drawPtEndCopy.y >= arcStartPt1.y)
-                            {
-                                xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtEndCopy.y);
-                                
-                                if (arcStartPt0.y != arcStartPt1.y && xPoint < drawPtEndCopy.x)
-                                {
-                                    drawPtEndCopy.x = xPoint;
-                                }
-
-                                drawArcFillLine(x, y, &drawPtStart, &drawPtEndCopy, clr);
-                            }
-
-                            if (drawPtStartCopy.x < arcEndPt1.x)
-                            {
-                                drawPtStartCopy.x = arcEndPt1.x;
-                            }
-                            
-                            //Draw lines right of end arc edge
-                            if (drawPtStartCopy.y <= arcEndPt1.y)
-                            {
-                                drawArcFillLine(x, y, &drawPtStartCopy, &drawPtEnd, clr);                            
-                            }
-                            else if (drawPtEndCopy.y <= arcEndPt0.y &&
-                                     drawPtEndCopy.y >= arcEndPt1.y)
-                            {
-                                xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtStartCopy.y);
-                                
-                                if (arcEndPt0.y != arcEndPt1.y && xPoint > drawPtStartCopy.x)
-                                {
-                                    drawPtStartCopy.x = xPoint;
-                                }
-                                
-                                drawArcFillLine(x, y, &drawPtStartCopy, &drawPtEnd, clr);                            
-                            }
-                        }
-                        else if (absStartAngle > absEndAngle)
-                        {
-                            int32_t xPoint;
-
-                            if (drawPtStart.y > arcEndPt0.y ||
-                                drawPtStart.y < arcStartPt1.y)
-                                continue;
-
-                            //Clip start point from the arc start edge
-                            xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtStart.y);
-                            
-                            if (arcEndPt0.y != arcEndPt1.y && xPoint > drawPtStart.x)
-                            {
-                                drawPtStart.x = xPoint;
-                            }
-                            
-                            //Clip start point from the arc end edge
-                            xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtEnd.y);
-                            
-                            if (arcStartPt0.y != arcStartPt1.y && xPoint < drawPtEnd.x)
-                            {
-                                drawPtEnd.x = xPoint;
-                            }
-                            
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                    }
-                }
-                else if (180 <= absStartAngle && absStartAngle <= 270 )
-                {
-                    //If CCW, draw lines from start arc edge
-                    if (dir == LE_CCW) 
-                    {
-                        int32_t xPoint;
-
-                        if (drawPtStart.x < arcStartPt1.x)
-                        {
-                            drawPtStart.x = arcStartPt1.x;
-                        }
-                        
-                        if (drawPtStart.y <= arcStartPt1.y)
-                        {
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                        else if (drawPtStart.y > arcStartPt1.y &&
-                                 drawPtStart.y <= arcStartPt0.y)
-                        {
-                            xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtStart.y);
-                            
-                            if (arcStartPt0.y != arcStartPt1.y && xPoint > drawPtStart.x)
-                            {
-                                drawPtStart.x = xPoint;
-                            }
-
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                    }
-                    //If CW, draw lines to start arc edge
-                    else 
-                    {
-                        int32_t xPoint;
-
-                        if (drawPtEnd.y >= arcStartPt0.y)
-                        {
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                        else if (drawPtEnd.y < arcStartPt0.y &&
-                                 drawPtEnd.y >= arcStartPt1.y)
-                        {
-                            xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtStart.y);
-                            
-                            if (arcStartPt0.y != arcStartPt1.y && xPoint < drawPtEnd.x)
-                            {
-                                drawPtEnd.x = xPoint;
-                            }
-                            
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                    }
-                }
-                //If end angle is in Q3, test against Q3
-                else if (180 <= absEndAngle && absEndAngle <= 270)
-                {
-                    //CCW, draw line to end arc edge
-                    if (dir == LE_CCW) 
-                    {
-                        int32_t xPoint;
-
-                        if (drawPtEnd.y >= arcEndPt0.y)
-                        {
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                        else if (drawPtEnd.y <= arcEndPt0.y && 
-                                 drawPtEnd.y >= arcEndPt1.y)
-                        {
-                            xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtStart.y);
-                            
-                            if (arcEndPt0.y != arcEndPt1.y && xPoint < drawPtEnd.x)
-                            {
-                                drawPtEnd.x = xPoint;
-                            }
-
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                    }
-                    //CW, draw line from end arc edge
-                    else 
-                    {
-                        int32_t xPoint;
-
-                        if (drawPtStart.x < arcEndPt1.x)
-                        {
-                            drawPtStart.x = arcEndPt1.x;
-                        }
-                        
-                        if (drawPtStart.y <= arcEndPt1.y)
-                        {
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                        else if (drawPtStart.y <= arcEndPt0.y &&
-                                 drawPtStart.y >= arcEndPt1.y)
-                        {
-                            xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtStart.y);
-                            
-                            if (arcStartPt1.y != arcEndPt0.y && xPoint > drawPtStart.x)
-                            {
-                                drawPtStart.x = xPoint;
-                            }
-
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                    }
-                }
-                else
-                {
-                    //Otherwise, draw all points
-                    drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                }
-            }
-            while(0);
-        }
-
-        if (drawPtStart.y <= 0 && quadrantFlag & (1 << LE_Q4))
-        {
-            do
-            {
-                drawPtStart.x = inX;
-                drawPtEnd.x = outX;            
-
-                if (absStartAngle == absEndAngle)
-                {
-                    //Otherwise, draw all points
-                    drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                }
-                //If both start and end angles are in Q1
-                else if ((270 <= absStartAngle && absStartAngle <= 360 ) && 
-                         (270 <= absEndAngle && absEndAngle <= 360))
-                {
-                    if (dir == LE_CCW) 
-                    {
-                        if (absEndAngle > absStartAngle) 
-                        {
-                            //Draw line from arc start to arc end
-                            int32_t xPoint;
-
-                            if (drawPtStart.y > arcEndPt0.y ||
-                                drawPtStart.y < arcStartPt1.y)
-                                continue;
-
-                            //Clip start of line from the arc start edge
-                            xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtStart.y);
-                            
-                            if (arcStartPt0.y != arcStartPt1.y && xPoint > drawPtStart.x)
-                            {
-                                drawPtStart.x = xPoint;
-                            }
-                            
-                            //Clip end of line from the arc end edge
-                            xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtEnd.y);
-                            
-                            if (arcEndPt0.y != arcEndPt1.y && xPoint < drawPtEnd.x)
-                            {
-                                drawPtEnd.x = xPoint;
-                            }
-                            
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                        else if (absStartAngle > absEndAngle) 
-                        {
-                            int32_t xPoint;
-                            lePoint drawPtStartCopy = drawPtStart;
-                            lePoint drawPtEndCopy = drawPtEnd;
-
-                            //Draw lines right of Start Angle
-                            if (drawPtStartCopy.y > arcStartPt0.y)
-                            {
-                                drawArcFillLine(x, y, &drawPtStartCopy, &drawPtEnd, clr);                            
-                            }
-                            else if (drawPtStartCopy.y >= arcStartPt1.y &&
-                                     drawPtStartCopy.y <= arcStartPt0.y)
-                            {
-                                xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtStartCopy.y);
-                                
-                                if (arcStartPt1.y != arcStartPt0.y && xPoint > drawPtStartCopy.x)
-                                {
-                                    drawPtStartCopy.x = xPoint;
-                                }
-
-                                drawArcFillLine(x, y, &drawPtStartCopy, &drawPtEnd, clr);
-                            }
-
-                            //Draw lines left of End Angle Edge
-                            if (drawPtEndCopy.y < arcEndPt1.y)
-                            {  
-                                drawArcFillLine(x, y, &drawPtStart, &drawPtEndCopy, clr);
-                            }
-                            else if (drawPtEndCopy.y <= arcEndPt0.y &&
-                                     drawPtEndCopy.y >= arcEndPt1.y)
-                            {
-                                xPoint = leGetXGivenYOnLine(arcEndPt1, arcEndPt0, drawPtEndCopy.y);
-                                
-                                if (arcEndPt1.y != arcEndPt0.y && xPoint < drawPtEndCopy.x)
-                                {
-                                    drawPtEndCopy.x = xPoint;
-                                }
-
-                                drawArcFillLine(x, y, &drawPtStart, &drawPtEndCopy, clr);
-                            }
-                        }
-                    }
-                    //If CW, exclude points LEFT of start line and RIGHT of end line
-                    else
-                    {
-                        if (absEndAngle > absStartAngle)
-                        {
-                            int32_t xPoint;
-                            lePoint drawPtStartCopy = drawPtStart;
-                            lePoint drawPtEndCopy = drawPtEnd;
-
-                            if (drawPtEndCopy.x > arcStartPt1.x)
-                            {
-                                drawPtEndCopy.x = arcStartPt1.x;
-                            }
-                            
-                            //Draw lines left of start arc edge
-                            if (drawPtEndCopy.y <= arcStartPt1.y)
-                            {
-                                drawArcFillLine(x, y, &drawPtStart, &drawPtEndCopy, clr);
-                            }
-                            else if (drawPtEndCopy.y <= arcStartPt0.y &&
-                                     drawPtEndCopy.y > arcStartPt1.y)
-                            {
-                                xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtEndCopy.y);
-                                
-                                if (arcStartPt0.y != arcStartPt1.y && xPoint < drawPtEndCopy.x)
-                                {
-                                    drawPtEndCopy.x = xPoint;
-                                }
-
-                                drawArcFillLine(x, y, &drawPtStart, &drawPtEndCopy, clr);
-                            }
-
-                            //Draw lines right of end arc edge
-                            if (drawPtStartCopy.y >= arcEndPt0.y)
-                            {
-                                drawArcFillLine(x, y, &drawPtStartCopy, &drawPtEnd, clr);                            
-                            }
-                            else if (drawPtEndCopy.y < arcEndPt0.y &&
-                                     drawPtEndCopy.y >= arcEndPt1.y)
-                            {
-                                xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtStartCopy.y);
-                                
-                                if (arcEndPt0.y != arcEndPt1.y && xPoint > drawPtStartCopy.x)
-                                {
-                                    drawPtStartCopy.x = xPoint;
-                                }
-                                
-                                drawArcFillLine(x, y, &drawPtStartCopy, &drawPtEnd, clr);                            
-                            }
-                        }
-                        else if (absStartAngle > absEndAngle)
-                        {
-                            int32_t xPoint;
-
-                            //Draw line from the arc end edge
-                            xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtStart.y);
-                            
-                            if (arcEndPt0.y != arcEndPt1.y && xPoint > drawPtStart.x)
-                            {
-                                drawPtStart.x = xPoint;
-                            }
-                            
-                            //Draw line to the arc start edge
-                            xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtEnd.y);
-                            
-                            if (arcStartPt0.y != arcStartPt1.y && xPoint < drawPtEnd.x)
-                            {
-                                drawPtEnd.x = xPoint;
-                            }
-                            
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                    }
-                }
-                else if (270 <= absStartAngle && absStartAngle <= 360)
-                {
-                    //If CCW, draw lines from start arc edge
-                    if (dir == LE_CCW) 
-                    {
-                        int32_t xPoint;
-
-                        if (drawPtStart.y >= arcStartPt0.y)
-                        {
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                        else if (drawPtStart.y >= arcStartPt1.y &&
-                                 drawPtStart.y < arcStartPt0.y)
-                        {
-                            xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtStart.y);
-                            
-                            if (arcStartPt0.y != arcStartPt1.y && xPoint > drawPtStart.x)
-                            {
-                                drawPtStart.x = xPoint;
-                            }
-
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                    }
-                    //If CW, draw lines to start arc edge
-                    else 
-                    {
-                        int32_t xPoint;
-
-                        if (drawPtEnd.x > arcStartPt1.x)
-                        {
-                            drawPtEnd.x = arcStartPt1.x;
-                        }
-                        
-                        if (drawPtEnd.y <= arcStartPt1.y)
-                        {
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                        else if (drawPtEnd.y <= arcStartPt0.y &&
-                                 drawPtEnd.y > arcStartPt1.y)
-                        {
-                            xPoint = leGetXGivenYOnLine(arcStartPt0, arcStartPt1, drawPtStart.y);
-                            
-                            if (arcStartPt0.y != arcStartPt1.y && xPoint < drawPtEnd.x)
-                            {
-                                drawPtEnd.x = xPoint;
-                            }
-                            
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                    }
-                }
-                //If end angle is in Q4, test agains Q4
-                else if (270 <= absEndAngle && absEndAngle <= 360)
-                {
-                    //CCW, draw line from end arc edge
-                    if (dir == LE_CCW) 
-                    {
-                        int32_t xPoint;
-
-                        if (drawPtEnd.x > arcEndPt1.x)
-                        {
-                            drawPtEnd.x = arcEndPt1.x;
-                        }
-                        
-                        if (drawPtEnd.y <= arcEndPt1.y)
-                        {
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                        else if (drawPtEnd.y <= arcEndPt0.y && 
-                                 drawPtEnd.y > arcEndPt1.y)
-                        {
-                            xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtEnd.y);
-                            
-                            if (arcEndPt0.y != arcEndPt1.y && xPoint < drawPtEnd.x)
-                            {
-                                drawPtEnd.x = xPoint;
-                            }
-                            
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                    }
-                    //CW, draw line from end arc edge
-                    else 
-                    {
-                        int32_t xPoint;
-
-                        if (drawPtStart.y >= arcEndPt0.y)
-                        {
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                        else if (drawPtStart.y < arcEndPt0.y &&
-                                 drawPtStart.y >= arcEndPt1.y)
-                        {
-                            xPoint = leGetXGivenYOnLine(arcEndPt0, arcEndPt1, drawPtStart.y);
-                            
-                            if (arcStartPt1.y != arcEndPt0.y && xPoint > drawPtStart.x)
-                            {
-                                drawPtStart.x = xPoint;
-                            }
-                            
-                            drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                        }
-                    }
-                }
-                else
-                {
-                    //Otherwise, draw all points
-                    drawArcFillLine(x, y, &drawPtStart, &drawPtEnd, clr);
-                }
-            }
-            while(0);
-        }
-    }
-
-    return LE_SUCCESS;
-}
-#endif

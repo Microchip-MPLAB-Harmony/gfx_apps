@@ -20,8 +20,8 @@ leLabelWidget* MotionRefreshLabel;
 leLabelWidget* MotionRefreshValue;
 leLabelWidget* MotionContainerTitle;
 leButtonWidget* MotionNextButton;
-leButtonWidget* MotionPlusButton;
 leButtonWidget* MotionMinusButton;
+leButtonWidget* MotionPlusButton;
 leLabelWidget* MotionNumLabel;
 leLabelWidget* MotionRectCount;
 leLabelWidget* MotionRectSizeLabel;
@@ -175,6 +175,7 @@ leResult screenShow_FPSMotion()
     MotionRefreshValue->fn->setPosition(MotionRefreshValue, 6, 88);
     MotionRefreshValue->fn->setSize(MotionRefreshValue, 101, 27);
     MotionRefreshValue->fn->setBackgroundType(MotionRefreshValue, LE_WIDGET_BACKGROUND_NONE);
+    MotionRefreshValue->fn->setHAlignment(MotionRefreshValue, LE_HALIGN_CENTER);
     MotionRefreshValue->fn->setString(MotionRefreshValue, (leString*)&tableString_NumsLittle);
     MotionSideContainer->fn->addChild(MotionSideContainer, (leWidget*)MotionRefreshValue);
 
@@ -182,6 +183,7 @@ leResult screenShow_FPSMotion()
     MotionContainerTitle->fn->setPosition(MotionContainerTitle, 5, 1);
     MotionContainerTitle->fn->setSize(MotionContainerTitle, 103, 25);
     MotionContainerTitle->fn->setBackgroundType(MotionContainerTitle, LE_WIDGET_BACKGROUND_NONE);
+    MotionContainerTitle->fn->setHAlignment(MotionContainerTitle, LE_HALIGN_CENTER);
     MotionContainerTitle->fn->setString(MotionContainerTitle, (leString*)&tableString_MotionUpdates);
     MotionSideContainer->fn->addChild(MotionSideContainer, (leWidget*)MotionContainerTitle);
 
@@ -193,21 +195,21 @@ leResult screenShow_FPSMotion()
     MotionNextButton->fn->setPressedEventCallback(MotionNextButton, MotionNextButton_OnPressed);
     MotionSideContainer->fn->addChild(MotionSideContainer, (leWidget*)MotionNextButton);
 
-    MotionPlusButton = leButtonWidget_New();
-    MotionPlusButton->fn->setPosition(MotionPlusButton, 1, 133);
-    MotionPlusButton->fn->setSize(MotionPlusButton, 55, 30);
-    MotionPlusButton->fn->setBackgroundType(MotionPlusButton, LE_WIDGET_BACKGROUND_NONE);
-    MotionPlusButton->fn->setString(MotionPlusButton, (leString*)&tableString_Minus);
-    MotionPlusButton->fn->setPressedEventCallback(MotionPlusButton, MotionPlusButton_OnPressed);
-    MotionSideContainer->fn->addChild(MotionSideContainer, (leWidget*)MotionPlusButton);
-
     MotionMinusButton = leButtonWidget_New();
-    MotionMinusButton->fn->setPosition(MotionMinusButton, 57, 133);
+    MotionMinusButton->fn->setPosition(MotionMinusButton, 1, 133);
     MotionMinusButton->fn->setSize(MotionMinusButton, 55, 30);
     MotionMinusButton->fn->setBackgroundType(MotionMinusButton, LE_WIDGET_BACKGROUND_NONE);
-    MotionMinusButton->fn->setString(MotionMinusButton, (leString*)&tableString_Plus);
+    MotionMinusButton->fn->setString(MotionMinusButton, (leString*)&tableString_Minus);
     MotionMinusButton->fn->setPressedEventCallback(MotionMinusButton, MotionMinusButton_OnPressed);
     MotionSideContainer->fn->addChild(MotionSideContainer, (leWidget*)MotionMinusButton);
+
+    MotionPlusButton = leButtonWidget_New();
+    MotionPlusButton->fn->setPosition(MotionPlusButton, 57, 133);
+    MotionPlusButton->fn->setSize(MotionPlusButton, 55, 30);
+    MotionPlusButton->fn->setBackgroundType(MotionPlusButton, LE_WIDGET_BACKGROUND_NONE);
+    MotionPlusButton->fn->setString(MotionPlusButton, (leString*)&tableString_Plus);
+    MotionPlusButton->fn->setPressedEventCallback(MotionPlusButton, MotionPlusButton_OnPressed);
+    MotionSideContainer->fn->addChild(MotionSideContainer, (leWidget*)MotionPlusButton);
 
     MotionNumLabel = leLabelWidget_New();
     MotionNumLabel->fn->setPosition(MotionNumLabel, 2, 112);
@@ -266,6 +268,7 @@ leResult screenShow_FPSMotion()
     showing = LE_TRUE;
 
     FPSMotion_OnShow();
+
     return LE_SUCCESS;
 }
 
@@ -281,6 +284,7 @@ void screenHide_FPSMotion()
     leWidget_Delete(root0);
 
     root0 = NULL;
+
     MotionBackground = NULL;
     RectMotionWidget10 = NULL;
     RectMotionWidget9 = NULL;
@@ -298,8 +302,8 @@ void screenHide_FPSMotion()
     MotionRefreshValue = NULL;
     MotionContainerTitle = NULL;
     MotionNextButton = NULL;
-    MotionPlusButton = NULL;
     MotionMinusButton = NULL;
+    MotionPlusButton = NULL;
     MotionNumLabel = NULL;
     MotionRectCount = NULL;
     MotionRectSizeLabel = NULL;
@@ -318,7 +322,6 @@ void screenHide_FPSMotion()
     tableString_RectanglesNum.fn->destructor(&tableString_RectanglesNum);
     tableString_NumsTiny.fn->destructor(&tableString_NumsTiny);
     tableString_Size.fn->destructor(&tableString_Size);
-
     showing = LE_FALSE;
 
     FPSMotion_OnHide();

@@ -51,14 +51,12 @@
 
 #include "gfx/legato/common/legato_color.h"
 #include "gfx/legato/common/legato_math.h"
-
-#include "gfx/legato/asset/legato_asset.h"
-#include "gfx/legato/asset/legato_palette.h"
-#include "gfx/legato/asset/legato_font.h"
 #include "gfx/legato/core/legato_input.h"
 #include "gfx/legato/core/legato_scheme.h"
 #include "gfx/legato/core/legato_state.h"
+#include "gfx/legato/font/legato_font.h"
 #include "gfx/legato/image/legato_image.h"
+#include "gfx/legato/image/legato_palette.h"
 #include "gfx/legato/memory/legato_memory.h"
 #include "gfx/legato/renderer/legato_driver.h"
 #include "gfx/legato/renderer/legato_renderer.h"
@@ -72,7 +70,7 @@
 #include "gfx/legato/widget/arc/legato_widget_arc.h"
 #endif
 
-#if LE_BAR_GRAPH_WIDGET_ENABLED
+#if LE_BARGRAPH_WIDGET_ENABLED
 #include "gfx/legato/widget/bargraph/legato_widget_bar_graph.h"
 #endif
 
@@ -88,11 +86,11 @@
 #include "gfx/legato/widget/circle/legato_widget_circle.h"
 #endif
 
-#if LE_CIRCULAR_GAUGE_WIDGET_ENABLED 
-#include "gfx/legato/widget/circularguage/legato_widget_circular_gauge.h"
+#if LE_CIRCULARGAUGE_WIDGET_ENABLED
+#include "gfx/legato/widget/circulargauge/legato_widget_circular_gauge.h"
 #endif
 
-#if LE_CIRCULAR_SLIDER_WIDGET_ENABLED 
+#if LE_CIRCULARSLIDER_WIDGET_ENABLED
 #include "gfx/legato/widget/circularslider/legato_widget_circular_slider.h"
 #endif
 
@@ -132,7 +130,7 @@
 #include "gfx/legato/widget/line/legato_widget_line.h"
 #endif
 
-#if LE_LINE_GRAPH_WIDGET_ENABLED
+#if LE_LINEGRAPH_WIDGET_ENABLED
 #include "gfx/legato/widget/linegraph/legato_widget_line_graph.h"
 #endif
 
@@ -144,7 +142,7 @@
 #include "gfx/legato/widget/listwheel/legato_widget_listwheel.h"
 #endif
 
-#if LE_PIE_CHART_WIDGET_ENABLED
+#if LE_PIECHART_WIDGET_ENABLED
 #include "gfx/legato/widget/piechart/legato_widget_pie_chart.h"
 #endif
 
@@ -156,7 +154,7 @@
 #include "gfx/legato/widget/radiobutton/legato_widget_radiobutton.h"
 #endif
 
-#if LE_RADIAL_MENU_WIDGET_ENABLED
+#if LE_RADIALMENU_WIDGET_ENABLED
 #include "gfx/legato/widget/radialmenu/legato_widget_radial_menu.h"
 #endif
 

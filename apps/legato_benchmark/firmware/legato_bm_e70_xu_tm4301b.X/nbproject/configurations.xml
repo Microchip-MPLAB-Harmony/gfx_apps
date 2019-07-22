@@ -23,18 +23,11 @@
           <logicalFolder name="f1" displayName="gfx" projectFiles="true">
             <logicalFolder name="f2" displayName="driver" projectFiles="true">
               <logicalFolder name="f1" displayName="lcc" projectFiles="true">
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/driver/controller/le_lcc/drv_gfx_le_lcc.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/driver/controller/lcc/drv_gfx_lcc.h</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="f1" displayName="legato" projectFiles="true">
-              <logicalFolder name="f1" displayName="asset" projectFiles="true">
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/asset/legato_asset.h</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/asset/legato_binary.h</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/asset/legato_font.h</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/asset/legato_palette.h</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/asset/legato_stringtable.h</itemPath>
-              </logicalFolder>
-              <logicalFolder name="f2" displayName="common" projectFiles="true">
+              <logicalFolder name="f1" displayName="common" projectFiles="true">
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/common/legato_color.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/common/legato_common.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/common/legato_error.h</itemPath>
@@ -43,32 +36,39 @@
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/common/legato_rect.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/common/legato_utils.h</itemPath>
               </logicalFolder>
-              <logicalFolder name="f3" displayName="core" projectFiles="true">
+              <logicalFolder name="f2" displayName="core" projectFiles="true">
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/core/legato_event.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/core/legato_input.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/core/legato_scheme.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/core/legato_state.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/core/legato_stream.h</itemPath>
               </logicalFolder>
-              <logicalFolder name="f4" displayName="datastructure" projectFiles="true">
+              <logicalFolder name="f3" displayName="datastructure" projectFiles="true">
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/datastructure/legato_array.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/datastructure/legato_list.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/datastructure/legato_rectarray.h</itemPath>
               </logicalFolder>
+              <logicalFolder name="f4" displayName="font" projectFiles="true">
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/font/legato_font.h</itemPath>
+              </logicalFolder>
               <logicalFolder name="f10" displayName="generated" projectFiles="true">
                 <logicalFolder name="f1" displayName="screen" projectFiles="true">
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/screen/le_gen_screen_FPSMotion.h</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/screen/le_gen_screen_FPSCounters.h</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/screen/le_gen_screen_FPSImages.h</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/screen/le_gen_screen_FPSMotion.h</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/screen/le_gen_screen_SplashScreen.h</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/le_gen_init.h</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/le_gen_harmony.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/le_gen_assets.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/le_gen_harmony.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/le_gen_init.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/le_gen_scheme.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f5" displayName="image" projectFiles="true">
+                <logicalFolder name="f1" displayName="raw" projectFiles="true">
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/image/raw/legato_imagedecoder_raw.h</itemPath>
+                </logicalFolder>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/image/legato_image.h</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/image/legato_imagedecoder.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/image/legato_palette.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/image/legato_image_utils.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f6" displayName="memory" projectFiles="true">
@@ -84,7 +84,10 @@
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/string/legato_dynamicstring.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/string/legato_fixedstring.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/string/legato_string.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/string/legato_string_renderer.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/string/legato_stringtable.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/string/legato_tablestring.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/string/legato_stringutils.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f9" displayName="widget" projectFiles="true">
                 <logicalFolder name="f1" displayName="arc" projectFiles="true">
@@ -102,8 +105,8 @@
                 <logicalFolder name="f5" displayName="circle" projectFiles="true">
                   <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/widget/circle/legato_widget_circle.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f6" displayName="circularguage" projectFiles="true">
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/widget/circularguage/legato_widget_circular_gauge.h</itemPath>
+                <logicalFolder name="f6" displayName="circulargauge" projectFiles="true">
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/widget/circulargauge/legato_widget_circular_gauge.h</itemPath>
                 </logicalFolder>
                 <logicalFolder name="f7" displayName="circularslider" projectFiles="true">
                   <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/widget/circularslider/legato_widget_circular_slider.h</itemPath>
@@ -220,6 +223,7 @@
               <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input_gesture.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input_keyboard.h</itemPath>
+              <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input_listener.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input_mouse.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/system/input/sys_input_touch.h</itemPath>
             </logicalFolder>
@@ -255,42 +259,42 @@
       <logicalFolder name="f2" displayName="packs" projectFiles="true">
         <logicalFolder name="f1" displayName="ATSAME70Q21B_DFP" projectFiles="true">
           <logicalFolder name="f1" displayName="component" projectFiles="true">
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/aes.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/pio.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/twihs.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/efc.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/matrix.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/tc.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/smc.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/uart.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/gpbr.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/supc.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/qspi.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/usart.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/ssc.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/i2sc.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/pwm.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/chipid.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/wdt.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/isi.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/acc.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/mcan.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/trng.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/aes.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/afec.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/rswdt.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/xdmac.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/hsmci.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/rstc.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/gmac.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/utmi.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/sdramc.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/rtc.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/chipid.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/dacc.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/efc.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/gmac.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/gpbr.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/hsmci.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/i2sc.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/icm.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/isi.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/matrix.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/mcan.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/pio.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/pmc.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/pwm.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/qspi.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/rstc.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/rswdt.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/rtc.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/rtt.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/usbhs.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/sdramc.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/smc.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/spi.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/ssc.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/supc.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/tc.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/trng.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/twihs.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/uart.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/usart.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/usbhs.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/utmi.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/wdt.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/xdmac.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="pio" projectFiles="true">
             <itemPath>../src/packs/ATSAME70Q21B_DFP/pio/same70q21b.h</itemPath>
@@ -347,18 +351,11 @@
           <logicalFolder name="f1" displayName="gfx" projectFiles="true">
             <logicalFolder name="f2" displayName="driver" projectFiles="true">
               <logicalFolder name="f1" displayName="lcc" projectFiles="true">
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/driver/controller/le_lcc/drv_gfx_le_lcc.c</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/driver/controller/lcc/drv_gfx_lcc.c</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="f1" displayName="legato" projectFiles="true">
-              <logicalFolder name="f1" displayName="asset" projectFiles="true">
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/asset/legato_font.c</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/asset/legato_font_liberationmono1.c</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/asset/legato_font_liberationmono8.c</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/asset/legato_palette.c</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/asset/legato_stringtable.c</itemPath>
-              </logicalFolder>
-              <logicalFolder name="f2" displayName="common" projectFiles="true">
+              <logicalFolder name="f1" displayName="common" projectFiles="true">
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/common/legato_color.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/common/legato_color_blend.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/common/legato_color_convert.c</itemPath>
@@ -370,66 +367,83 @@
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/common/legato_rect.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/common/legato_utils.c</itemPath>
               </logicalFolder>
-              <logicalFolder name="f3" displayName="core" projectFiles="true">
+              <logicalFolder name="f2" displayName="core" projectFiles="true">
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/core/legato_event.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/core/legato_input.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/core/legato_scheme.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/core/legato_state.c</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/core/legato_stream.c</itemPath>
               </logicalFolder>
-              <logicalFolder name="f4" displayName="datastructure" projectFiles="true">
+              <logicalFolder name="f3" displayName="datastructure" projectFiles="true">
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/datastructure/legato_array.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/datastructure/legato_list.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/datastructure/legato_rectarray.c</itemPath>
               </logicalFolder>
+              <logicalFolder name="f4" displayName="font" projectFiles="true">
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/font/legato_font.c</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/font/legato_rasterfont_liberationmono1.c</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/font/legato_rasterfont_liberationmono8.c</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/font/legato_rasterfont_stream.c</itemPath>
+              </logicalFolder>
               <logicalFolder name="f10" displayName="generated" projectFiles="true">
                 <logicalFolder name="f1" displayName="font" projectFiles="true">
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/font/le_gen_font_ArialTiny.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/font/le_gen_font_ArialNarrow.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/font/le_gen_font_ArialTitle.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/font/le_gen_font_ArialMed.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/font/le_gen_font_ArialLittle.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/font/le_gen_font_ArialTinyAve.c</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/font/le_gen_font_ArialLarge.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/font/le_gen_font_ArialLittle.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/font/le_gen_font_ArialMed.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/font/le_gen_font_ArialNarrow.c</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/font/le_gen_font_ArialNarrowMed.c</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/font/le_gen_font_ArialSmall.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/font/le_gen_font_ArialTiny.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/font/le_gen_font_ArialTinyAve.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/font/le_gen_font_ArialTitle.c</itemPath>
                 </logicalFolder>
                 <logicalFolder name="f2" displayName="image" projectFiles="true">
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_40x40.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_480x270.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_200x200.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_480x270.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_480x270.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_100x100.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_40x40.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_MicrochipLogo.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_HarmonyLogo.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_100x100.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_200x200.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_200x200.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_PIC32Logo.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_200x200.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_480x270.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_100x100.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_100x100.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_40x40.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_40x40.c</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_Bar.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_HarmonyLogo.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_MicrochipLogo.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_PIC32Logo.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_100x100.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_200x200.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_40x40.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_480x270.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_100x100.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_200x200.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_40x40.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_480x270.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_100x100.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_200x200.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_40x40.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_480x270.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_100x100.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_200x200.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_40x40.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_480x270.c</itemPath>
                 </logicalFolder>
                 <logicalFolder name="f3" displayName="screen" projectFiles="true">
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/screen/le_gen_screen_SplashScreen.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/screen/le_gen_screen_FPSMotion.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/screen/le_gen_screen_FPSImages.c</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/screen/le_gen_screen_FPSCounters.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/screen/le_gen_screen_FPSImages.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/screen/le_gen_screen_FPSMotion.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/screen/le_gen_screen_SplashScreen.c</itemPath>
                 </logicalFolder>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/le_gen_harmony.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/le_gen_init.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/le_gen_scheme.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/le_gen_stringtable.c</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/generated/le_gen_harmony.c</itemPath>
               </logicalFolder>
               <logicalFolder name="f5" displayName="image" projectFiles="true">
+                <logicalFolder name="f1" displayName="raw" projectFiles="true">
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/image/raw/legato_imagedecoder_raw.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/image/raw/legato_imagedecoder_raw_blend.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/image/raw/legato_imagedecoder_raw_convert.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/image/raw/legato_imagedecoder_raw_mask.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/image/raw/legato_imagedecoder_raw_palette_internal.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/image/raw/legato_imagedecoder_raw_palette_stream.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/image/raw/legato_imagedecoder_raw_read_internal.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/image/raw/legato_imagedecoder_raw_read_stream.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/image/raw/legato_imagedecoder_raw_write.c</itemPath>
+                </logicalFolder>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/image/legato_image.c</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/image/legato_imagedecoder_raw_internal.c</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/image/legato_imagedecoder_rle_internal.c</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/image/legato_palette.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/image/legato_image_utils.c</itemPath>
               </logicalFolder>
               <logicalFolder name="f6" displayName="memory" projectFiles="true">
@@ -448,10 +462,11 @@
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/string/legato_dynamicstring.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/string/legato_fixedstring.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/string/legato_string.c</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/string/legato_stringbuffer_external.c</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/string/legato_string_external.c</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/string/legato_string_query.c</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/string/legato_string_renderer.c</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/string/legato_string_renderer_stream.c</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/string/legato_stringtable.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/string/legato_tablestring.c</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/string/legato_stringutils.c</itemPath>
               </logicalFolder>
               <logicalFolder name="f9" displayName="widget" projectFiles="true">
                 <logicalFolder name="f1" displayName="arc" projectFiles="true">
@@ -474,9 +489,9 @@
                   <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/widget/circle/legato_widget_circle.c</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/widget/circle/legato_widget_circle_skin_classic.c</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f6" displayName="circularguage" projectFiles="true">
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/widget/circularguage/legato_widget_circular_gauge.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/widget/circularguage/legato_widget_circular_gauge_skin_classic.c</itemPath>
+                <logicalFolder name="f6" displayName="circulargauge" projectFiles="true">
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/widget/circulargauge/legato_widget_circular_gauge.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/widget/circulargauge/legato_widget_circular_gauge_skin_classic.c</itemPath>
                 </logicalFolder>
                 <logicalFolder name="f7" displayName="circularslider" projectFiles="true">
                   <itemPath>../src/config/lcc_rgb565_mxt/gfx/legato/widget/circularslider/legato_widget_circular_slider.c</itemPath>
@@ -654,14 +669,14 @@
         <targetDevice>ATSAME70Q21B</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>ICD4Tool</platformTool>
+        <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.20</languageToolchainVersion>
-        <platform>2</platform>
+        <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
-        <pack name="SAME70_DFP" vendor="Microchip" version="4.0.29"/>
+        <pack name="SAME70_DFP" vendor="Microchip" version="3.0.10"/>
+        <pack name="CMSIS" vendor="ARM" version="5.0.1"/>
       </packs>
       <compileType>
         <linkerTool>
@@ -725,7 +740,7 @@
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
         <property key="make-warnings-into-errors" value="true"/>
-        <property key="optimization-level" value="-O3"/>
+        <property key="optimization-level" value="-O1"/>
         <property key="place-data-into-section" value="true"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
@@ -761,9 +776,6 @@
         <property key="preprocessor-macros" value=""/>
         <property key="warning-level" value=""/>
       </C32-AS>
-      <C32-CO>
-        <property key="coverage-enable" value="false"/>
-      </C32-CO>
       <C32-LD>
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
@@ -784,7 +796,7 @@
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-cross-reference-file" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
-        <property key="heap-size" value="0"/>
+        <property key="heap-size" value="1024"/>
         <property key="input-libraries" value=""/>
         <property key="kseg-length" value=""/>
         <property key="kseg-origin" value=""/>

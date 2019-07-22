@@ -68,6 +68,7 @@ leResult screenShow_FPSCounters()
     FPSCounterValue->fn->setPosition(FPSCounterValue, 0, 70);
     FPSCounterValue->fn->setSize(FPSCounterValue, 353, 134);
     FPSCounterValue->fn->setBackgroundType(FPSCounterValue, LE_WIDGET_BACKGROUND_NONE);
+    FPSCounterValue->fn->setHAlignment(FPSCounterValue, LE_HALIGN_CENTER);
     FPSCounterValue->fn->setString(FPSCounterValue, (leString*)&tableString_NumsLarge);
     root0->fn->addChild(root0, (leWidget*)FPSCounterValue);
 
@@ -97,6 +98,7 @@ leResult screenShow_FPSCounters()
     FPSRefreshValue->fn->setPosition(FPSRefreshValue, 4, 94);
     FPSRefreshValue->fn->setSize(FPSRefreshValue, 101, 28);
     FPSRefreshValue->fn->setBackgroundType(FPSRefreshValue, LE_WIDGET_BACKGROUND_NONE);
+    FPSRefreshValue->fn->setHAlignment(FPSRefreshValue, LE_HALIGN_CENTER);
     FPSRefreshValue->fn->setString(FPSRefreshValue, (leString*)&tableString_NumsLittle);
     FPSSideContainer->fn->addChild(FPSSideContainer, (leWidget*)FPSRefreshValue);
 
@@ -120,6 +122,7 @@ leResult screenShow_FPSCounters()
     FPSContainerTitle->fn->setPosition(FPSContainerTitle, 2, 2);
     FPSContainerTitle->fn->setSize(FPSContainerTitle, 109, 25);
     FPSContainerTitle->fn->setBackgroundType(FPSContainerTitle, LE_WIDGET_BACKGROUND_NONE);
+    FPSContainerTitle->fn->setHAlignment(FPSContainerTitle, LE_HALIGN_CENTER);
     FPSContainerTitle->fn->setString(FPSContainerTitle, (leString*)&tableString_DynamicString);
     FPSSideContainer->fn->addChild(FPSSideContainer, (leWidget*)FPSContainerTitle);
 
@@ -135,6 +138,7 @@ leResult screenShow_FPSCounters()
     FPSStringSize->fn->setPosition(FPSStringSize, 68, 123);
     FPSStringSize->fn->setSize(FPSStringSize, 24, 25);
     FPSStringSize->fn->setBackgroundType(FPSStringSize, LE_WIDGET_BACKGROUND_NONE);
+    FPSStringSize->fn->setHAlignment(FPSStringSize, LE_HALIGN_CENTER);
     FPSStringSize->fn->setString(FPSStringSize, (leString*)&tableString_NumsLittle);
     FPSSideContainer->fn->addChild(FPSSideContainer, (leWidget*)FPSStringSize);
 
@@ -158,6 +162,7 @@ leResult screenShow_FPSCounters()
     showing = LE_TRUE;
 
     FPSCounters_OnShow();
+
     return LE_SUCCESS;
 }
 
@@ -173,6 +178,7 @@ void screenHide_FPSCounters()
     leWidget_Delete(root0);
 
     root0 = NULL;
+
     FPSBackground = NULL;
     FPSCounterValue = NULL;
     FPSSideContainer = NULL;
@@ -196,7 +202,6 @@ void screenHide_FPSCounters()
     tableString_DynamicString.fn->destructor(&tableString_DynamicString);
     tableString_Next.fn->destructor(&tableString_Next);
     tableString_Size.fn->destructor(&tableString_Size);
-
     showing = LE_FALSE;
 
     FPSCounters_OnHide();

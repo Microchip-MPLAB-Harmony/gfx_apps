@@ -43,9 +43,9 @@
 
 #include "gfx/legato/common/legato_common.h"
 
-#include "gfx/legato/asset/legato_asset.h"
 #include "gfx/legato/common/legato_color.h"
 #include "gfx/legato/common/legato_pixelbuffer.h"
+#include "gfx/legato/core/legato_stream.h"
 
 typedef struct lePalette lePalette;
 
@@ -75,8 +75,23 @@ typedef enum leImageFormat
 */
 typedef enum leImageFlags
 {
-    LE_IMAGE_USE_MASK  = 0x1,
+    LE_IMAGE_USE_MASK_COLOR  = 1 << 0,
+    LE_IMAGE_USE_MASK_MAP    = 1 << 1,
+    LE_IMAGE_USE_ALPHA_MAP   = 1 << 2,
+    LE_IMAGE_INTERNAL_ALLOC  = 1 << 3
 } leImageFlags;
+
+typedef enum leImageFilterMode
+{
+    LE_IMAGE_NEAREST_NEIGHBOR,
+    LE_IMAGE_BILINEAR,
+} leImageFilterMode;
+
+typedef struct leImageMap
+{
+    leStreamDescriptor header;
+    lePixelBuffer buffer;
+} leImageMap;
 
 // *****************************************************************************
 /* Structure:
@@ -95,34 +110,65 @@ typedef enum leImageFlags
     flags - indicates of the mask field is used
     mask - may contain a masking color for the image.  blit operations may 
            reference this value and reject image pixels that match this
-           value
+           value.  This can either be a single color mode or a pointer to an
+           image map data array.
+
+    alphaMask - pointer to an array of per-pixel alpha blending values
+
     palette - will contain a valid pointer to a palette asset if thie image
               is an index map instead of a color image
 */
 typedef struct leImage
 {
-    leAssetHeader header;
+    leStreamDescriptor header;
     leImageFormat format;
     lePixelBuffer buffer;
     leImageFlags flags;
-    leColor mask;
+
+    union
+    {
+        leColor color;
+        leImageMap* map;
+    } mask;
+
+    leImageMap* alphaMap;
+
     lePalette* palette;
 } leImage;
+
+LIB_EXPORT leResult leImage_Create(leImage* img,
+                                   uint32_t width,
+                                   uint32_t height,
+                                   leColorMode mode,
+                                   void* data,
+                                   uint32_t locationID);
+
+LIB_EXPORT leImage* leImage_Allocate(uint32_t width,
+                                     uint32_t height,
+                                     leColorMode mode);
+
+LIB_EXPORT leResult leImage_Free(leImage* img);
 
 typedef struct leImageDecoder
 {
     leBool   (*supportsImage)(const leImage* img);
     leResult (*draw)(const leImage* img, const leRect* srcRect, int32_t x, int32_t y, uint32_t a);
-    leResult (*copy)(const leImage* img, leImage* newImg);
-    leResult (*copyToAddress)(const leImage* img, void* address, leImage* newImg);
-    leResult (*decompress)(const leImage* img, leImage* newImg);
-    leResult (*decompressToAddress)(const leImage* img, void* address, leImage* newImg);
+    leResult (*copy)(const leImage* src, leImage* dst, const leRect* srcRect);
+    leResult (*render)(const leImage* src, leImage* dst, const leRect* srcRect, leBool applyAlpha);
+    leResult (*resize)(const leImage* src, leImage* dest, const leRect* srcRect, uint32_t width, uint32_t height);
     void     (*exec)(void);
     leBool   (*isDone)(void);
     void     (*free)(void);
 } leImageDecoder;
 
 void leImage_InitDecoders();
+
+#if LE_STREAMING_ENABLED == 1
+typedef struct leImageStreamDecoder
+{
+    leStreamManager base;
+} leImageStreamDecoder;
+#endif
 
 // *****************************************************************************
 /* Function:
@@ -146,60 +192,23 @@ LIB_EXPORT leResult leImage_Draw(const leImage* img,
                                  int32_t x,
                                  int32_t y,
                                  uint32_t a);
-      
-LIB_EXPORT leImage* leImage_Copy(const leImage* img,
-                                 void* addr,
-                                 leBool allocate);
+
+#ifdef NOT_IMPLEMENTED
+LIB_EXPORT  leResult leImage_Copy(const leImage* src,
+                                  leImage* dst,
+                                  leRect* sourceRect);
                                  
-LIB_EXPORT leImage* leImage_Decompress(const leImage* img);
-                                                          
+LIB_EXPORT leResult leImage_Render(const leImage* img,
+                                   leImage* dst,
+                                   leRect* sourceRect,
+                                   leBool applyAlpha);
 
-// *****************************************************************************
-/* Function:
-    leResult lePreprocessImage(leImage* img,
-                                    uint32_t destAddress,
-                                    leColorMode destMode,
-                                    leBool padBuffer);
-
-  Summary:
-    Preprocesses an image to a specified memory address.
-     
-  Description:
-    This function preprocesses an image asset through the HAL pipeline
-    and renders it to a given address, in a given color mode, and can pad
-    the image buffer dimensions to be powers of 2 as required by some 
-    graphics accelerators.
-    
-    This function is also useful for pre-staging images into run-time memory
-    locations.
-    
-    The caller is required to ensure that the destination address is capable of 
-    containing the result.  The size can be calculated by using the method:
-    
-    leColorInfo[destMode].size * img->width * img->height
-    
-    This function only works with images that are located in a core accessible
-    memory location like SRAM or DDR.  If the image is located in an external
-    source then leDrawImage should be called directly.  The caller will then
-    need to service the media streaing state machine.  Once finished the
-    image asset descriptor must be changed manually.  This function can be used
-    as a reference on how to accomplish this.
-     
-  Parameters:
-    leImage* img - pointer to the image asset to draw
-    uint32_t destAddress - the address to render the image to
-    leColorMode destMode - the desired output mode of the image
-    leBool padBuffer - indicates that the image buffer dimensions should be
-                         padded to equal powers of 2 (required by some GPUs)
-
-  Returns:
-    leResult - the result of the operation
-*/
-#if 0
-LIB_EXPORT leResult lePreprocessImage(leImage* img,
-                                           uint32_t destAddress,
-                                           leColorMode destMode,
-                                           leBool padBuffer);
+LIB_EXPORT leResult leImage_Resize(const leImage* src,
+                                   leImage* dst,
+                                   leRect* sourceRect,
+                                   uint32_t width,
+                                   uint32_t height,
+                                   leImageFilterMode mode);
 #endif
 
 #endif /* LE_IMAGE_H */

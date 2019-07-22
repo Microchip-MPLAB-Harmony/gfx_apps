@@ -23,7 +23,7 @@
 
 #include "gfx/legato/widget/piechart/legato_widget_pie_chart.h"
 
-#if LE_PIE_CHART_WIDGET_ENABLED == 1
+#if LE_PIECHART_WIDGET_ENABLED == 1
 
 #include <stdio.h>
 
@@ -52,9 +52,10 @@ enum
 
 static struct
 {
+    leRect pieRect;
     int32_t startAngle;
     int32_t centerAngle;
-    lePoint p;
+    //lePoint p;
     lePoint pieCenter;
     uint32_t totalValue;
     uint32_t alpha;
@@ -70,13 +71,13 @@ static void nextState(lePieChartWidget* chart)
     {
         case NOT_STARTED:
         {
+            paintState.alpha = 255;
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
             if(chart->fn->getCumulativeAlphaEnabled(chart) == LE_TRUE)
             {
                 paintState.alpha = chart->fn->getCumulativeAlphaAmount(chart);
             }
-#else
-            paintState.alpha = 255;
 #endif
             
             if(chart->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
@@ -114,7 +115,8 @@ static void nextState(lePieChartWidget* chart)
 
 static void drawBackground(lePieChartWidget* chart)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)chart);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)chart,
+                                                paintState.alpha);
     
     nextState(chart);
 }
@@ -133,7 +135,7 @@ static void drawSliceLabel(lePieChartWidget* chart,
     //Protect from overflow
     if (value < MAX_TICK_LABEL_VALUE)
     {
-        sprintf(strbuff, "%ld", value);
+        sprintf(strbuff, "%d", (int)value);
     }
     else
     {
@@ -146,7 +148,7 @@ static void drawSliceLabel(lePieChartWidget* chart,
 
     //Get the string rectangle
     bounds = chart->fn->localRect(chart);
-    str.fn->getRect(&str, 0, &textRect);
+    str.fn->getRect(&str, &textRect);
 
     leRectClip(&textRect, &bounds, &drawRect);
 
@@ -161,48 +163,48 @@ static void drawSliceLabel(lePieChartWidget* chart,
     //Orient the text rectangle based on the label quadrant
     if (midAngle < 10)
     {
-        drawRect.x = paintState.p.x + centerPoint.x;
-        drawRect.y = paintState.p.y - centerPoint.y - (textRect.height/2);
+        drawRect.x = paintState.pieCenter.x + centerPoint.x;
+        drawRect.y = paintState.pieCenter.y - centerPoint.y - (textRect.height/2);
     }
     else if (midAngle <= 80)
     {
-        drawRect.x = paintState.p.x + centerPoint.x;
-        drawRect.y = paintState.p.y - centerPoint.y - textRect.height;
+        drawRect.x = paintState.pieCenter.x + centerPoint.x;
+        drawRect.y = paintState.pieCenter.y - centerPoint.y - textRect.height;
     }
     else if (midAngle <= 100)
     {
-        drawRect.x = paintState.p.x + centerPoint.x - (textRect.width/2);
-        drawRect.y = paintState.p.y - centerPoint.y - textRect.height;
+        drawRect.x = paintState.pieCenter.x + centerPoint.x - (textRect.width/2);
+        drawRect.y = paintState.pieCenter.y - centerPoint.y - textRect.height;
     }
     else if (midAngle <= 170)
     {
-        drawRect.x = paintState.p.x + centerPoint.x - textRect.width;
-        drawRect.y = paintState.p.y - centerPoint.y - textRect.height;
+        drawRect.x = paintState.pieCenter.x + centerPoint.x - textRect.width;
+        drawRect.y = paintState.pieCenter.y - centerPoint.y - textRect.height;
     }
     else if (midAngle <= 190)
     {
-        drawRect.x = paintState.p.x + centerPoint.x - textRect.width;
-        drawRect.y = paintState.p.y - centerPoint.y - (textRect.height/2);
+        drawRect.x = paintState.pieCenter.x + centerPoint.x - textRect.width;
+        drawRect.y = paintState.pieCenter.y - centerPoint.y - (textRect.height/2);
     }
     else if (midAngle <= 260)
     {
-        drawRect.x = paintState.p.x + centerPoint.x - textRect.width;
-        drawRect.y = paintState.p.y - centerPoint.y;
+        drawRect.x = paintState.pieCenter.x + centerPoint.x - textRect.width;
+        drawRect.y = paintState.pieCenter.y - centerPoint.y;
     }
     else if (midAngle <= 280)
     {
-        drawRect.x = paintState.p.x + centerPoint.x - (textRect.width/2);
-        drawRect.y = paintState.p.y - centerPoint.y;
+        drawRect.x = paintState.pieCenter.x + centerPoint.x - (textRect.width/2);
+        drawRect.y = paintState.pieCenter.y - centerPoint.y;
     }
     else if (midAngle <= 350)
     {
-        drawRect.x = paintState.p.x + centerPoint.x;
-        drawRect.y = paintState.p.y - centerPoint.y;
+        drawRect.x = paintState.pieCenter.x + centerPoint.x;
+        drawRect.y = paintState.pieCenter.y - centerPoint.y;
     }
     else
     {
-        drawRect.x = paintState.p.x + centerPoint.x;
-        drawRect.y = paintState.p.y - centerPoint.y - (textRect.height/2);
+        drawRect.x = paintState.pieCenter.x + centerPoint.x;
+        drawRect.y = paintState.pieCenter.y - centerPoint.y - (textRect.height/2);
     }
 
 //                drawRect.x = p.x + centerPoint.x;
@@ -211,9 +213,8 @@ static void drawSliceLabel(lePieChartWidget* chart,
     str.fn->_draw(&str,
                   drawRect.x,
                   drawRect.y,
-                  chart->widget.scheme->text,
-                  0,
                   LE_HALIGN_CENTER,
+                  chart->widget.scheme->text,
                   paintState.alpha);
 
     str.fn->destructor(&str);
@@ -225,8 +226,11 @@ static void drawSliceArc(lePieChartWidget* chart,
 {
     lePoint offsetPoint;
     int32_t midAngle;
-    leRect arcRect;
-        
+    lePoint center;
+
+    center.x = paintState.pieCenter.x;
+    center.y = paintState.pieCenter.y;
+
     if (pie->offset != 0)
     {
         //Find center angle of pie
@@ -240,18 +244,13 @@ static void drawSliceArc(lePieChartWidget* chart,
         //Find points of 
         lePolarToXY(pie->offset, midAngle , &offsetPoint);
 
-        paintState.pieCenter.x += offsetPoint.x;
-        paintState.pieCenter.y -= offsetPoint.y;
+        center.x += offsetPoint.x;
+        center.y -= offsetPoint.y;
     }
-    
-    arcRect.width = pie->radius * 2;
-    arcRect.height = arcRect.width;
-    arcRect.x = paintState.pieCenter.x - pie->radius;
-    arcRect.y = paintState.pieCenter.y - pie->radius;
 
-    leRenderer_ArcFill(&arcRect,
-                       paintState.pieCenter.x,
-                       paintState.pieCenter.y,
+    leRenderer_ArcFill(&paintState.pieRect,
+                       center.x,
+                       center.y,
                        pie->radius,
                        paintState.startAngle,
                        paintState.centerAngle,
@@ -268,7 +267,7 @@ static void drawPieSlice(lePieChartWidget* chart,
     lePieChartPie* pie = leArray_Get(&chart->pieArray, idx);
     leColor clr;
     
-    paintState.pieCenter = paintState.p;
+    //paintState.pieCenter = paintState.p;
 
     if (pie->scheme != NULL)
     {
@@ -315,13 +314,12 @@ static void drawPieSlice(lePieChartWidget* chart,
 
 static void drawPieChart(lePieChartWidget* chart)
 {
-    leRect chartRect;
     unsigned int i;
     
     paintState.totalValue = 0;
     
-    paintState.p.x = chart->widget.rect.width / 2;
-    paintState.p.y = chart->widget.rect.height / 2;
+    //paintState.p.x = chart->widget.rect.width / 2;
+    //paintState.p.y = chart->widget.rect.height / 2;
     
     paintState.startAngle = chart->startAngle;
     
@@ -336,15 +334,18 @@ static void drawPieChart(lePieChartWidget* chart)
     }
     
     
-    leUtils_PointToScreenSpace((leWidget*)chart, &paintState.p);
-    
-    chartRect.x = 0;
-    chartRect.y = 0;
-    chartRect.width = chart->widget.rect.width;
-    chartRect.height = chart->widget.rect.height;
-    
-    leUtils_RectToScreenSpace((leWidget*)chart, &chartRect);
-    
+    //leUtils_PointToScreenSpace((leWidget*)chart, &paintState.p);
+
+    paintState.pieRect.x = 0;
+    paintState.pieRect.y = 0;
+    paintState.pieRect.width = chart->widget.rect.width;
+    paintState.pieRect.height = chart->widget.rect.height;
+
+    leUtils_RectToScreenSpace((leWidget*)chart, &paintState.pieRect);
+
+    paintState.pieCenter.x = paintState.pieRect.width / 2;
+    paintState.pieCenter.y = paintState.pieRect.height / 2;
+
     //GFX_Set(GFXF_DRAW_MODE, GFX_DRAW_LINE);
     //GFX_Set(GFXF_DRAW_COLOR, chart->widget.scheme->foreground);
         
@@ -369,11 +370,13 @@ static void drawBorder(lePieChartWidget* chart)
 {    
     if(chart->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)chart);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)chart,
+                                                    paintState.alpha);
     }
     else if(chart->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)chart);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)chart,
+                                                      paintState.alpha);
     }
     
     nextState(chart);
@@ -403,4 +406,4 @@ void _lePieChartWidget_Paint(lePieChartWidget* chart)
     }
 }
 
-#endif // LE_ARC_WIDGET_ENABLED
+#endif // LE_PIECHART_WIDGET_ENABLED

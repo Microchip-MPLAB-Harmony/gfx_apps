@@ -41,7 +41,7 @@ const int16_t _cosTable[COSINE_TABLE_ENTRIES + 1] =
     0
 };
 
-int16_t leNormalize360(int16_t t)
+int16_t leNormalizeAngle(int16_t t)
 {
     if (t >= 360)
     {
@@ -59,10 +59,7 @@ int16_t leNormalize360(int16_t t)
 int16_t leSineCosineGet(int16_t v, LE_TRIG_FUNCTION_TYPE type)
 {
     // if angle is neg, convert to pos equivalent
-    if (v < 0)
-    {
-    	v += 360;   					
-    }
+    v = leNormalizeAngle(v);
            
     if(v > COSINE_TABLE_ENTRIES * 3)
     {
@@ -126,6 +123,8 @@ leResult lePolarToXY(int32_t r, int32_t a, lePoint* p)
 
 leResult leEllipsePoint(int32_t t, int32_t a, int32_t b, int32_t theta, lePoint* p)
 {
+    t = leNormalizeAngle(t);
+
     p->x = (a * leSineCosineGet(t, LE_TRIG_COSINE_TYPE) * leSineCosineGet(theta, LE_TRIG_COSINE_TYPE) / (256 * 256))
             - (b * leSineCosineGet(t, LE_TRIG_SINE_TYPE) * leSineCosineGet(theta, LE_TRIG_SINE_TYPE) / (256 * 256));
             

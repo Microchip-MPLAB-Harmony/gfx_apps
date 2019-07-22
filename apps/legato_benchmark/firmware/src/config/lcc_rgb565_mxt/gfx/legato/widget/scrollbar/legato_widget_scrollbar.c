@@ -21,6 +21,7 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+#include <gfx/legato/legato.h>
 #include "gfx/legato/widget/scrollbar/legato_widget_scrollbar.h"
 
 #if LE_SCROLLBAR_WIDGET_ENABLED
@@ -172,6 +173,9 @@ static uint32_t _getValueFromPercent(const leScrollBarWidget* _this,
 void leScrollBarWidget_Constructor(leScrollBarWidget* _this)
 {
     leWidget_Constructor((leWidget*)_this);
+
+    _this->widget.fn = (void*)&scrollBarWidgetVTable;
+    _this->fn = &scrollBarWidgetVTable;
     
     _this->widget.type = LE_WIDGET_SCROLLBAR;
 
@@ -180,7 +184,7 @@ void leScrollBarWidget_Constructor(leScrollBarWidget* _this)
 
     _this->state = LE_SCROLLBAR_STATE_NONE;
 
-    _this->widget.borderType = LE_WIDGET_BORDER_NONE;
+    _this->widget.borderType = LE_WIDGET_BORDER_BEVEL;
 
     _this->alignment = LE_ORIENTATION_VERTICAL;
     
@@ -189,8 +193,11 @@ void leScrollBarWidget_Constructor(leScrollBarWidget* _this)
     _this->extent = DEFAULT_EXTENT;
     _this->value = DEFAULT_VALUE;
     _this->step = DEFAULT_STEP;
+    _this->handleDownOffset = lePoint_Zero;
 
     //_this->widget.invalidateBorderAreas = (leWidget_InvalidateBorderAreas_FnPtr)&_leScrollBarWidget_InvalidateBorderAreas;
+
+    _this->valueChangedEvent = NULL;
 }
 
 void _leWidget_Destructor(leWidget* wgt);
@@ -438,7 +445,7 @@ static leResult setValueChangedEventCallback(leScrollBarWidget* _this,
 }
 
 static void handleTouchDownEvent(leScrollBarWidget* _this,
-                                 leInput_TouchDownEvent* evt)
+                                 leWidgetEvent_TouchDown* evt)
 {
     leRect rect;
     lePoint pnt;
@@ -449,7 +456,7 @@ static void handleTouchDownEvent(leScrollBarWidget* _this,
     pnt.y = evt->y;
     
     // already guaranteed to be inside widget rectangle, accept event
-    evt->event.accepted = LE_TRUE;
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
 
     // was the up/left button pressed
     _leScrollBar_GetUpLeftButtonRect(_this, &rect);
@@ -490,7 +497,7 @@ static void handleTouchDownEvent(leScrollBarWidget* _this,
 }
 
 static void handleTouchUpEvent(leScrollBarWidget* _this,
-                               leInput_TouchUpEvent* evt)
+                               leWidgetEvent_TouchUp* evt)
 {
     leRect rect = _this->widget.rect;
     lePoint pnt;
@@ -500,7 +507,7 @@ static void handleTouchUpEvent(leScrollBarWidget* _this,
     pnt.x = evt->x;
     pnt.y = evt->y;
 
-    evt->event.accepted = LE_TRUE;
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
     
     if(_this->state == LE_SCROLLBAR_STATE_TOP_INSIDE)
     {
@@ -531,7 +538,7 @@ static void handleTouchUpEvent(leScrollBarWidget* _this,
 }
 
 static void handleTouchMovedEvent(leScrollBarWidget* _this,
-                                  leInput_TouchMoveEvent* evt)
+                                  leWidgetEvent_TouchMove* evt)
 {
     leRect rect = _this->widget.rect;
     lePoint pnt;
@@ -543,7 +550,7 @@ static void handleTouchMovedEvent(leScrollBarWidget* _this,
     pnt.x = evt->x;
     pnt.y = evt->y;
 
-    evt->event.accepted = LE_TRUE;
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
 
     if(_this->state == LE_SCROLLBAR_STATE_TOP_PRESSED ||
        _this->state == LE_SCROLLBAR_STATE_TOP_INSIDE)
@@ -607,7 +614,7 @@ void _leScrollBarWidget_Paint(leScrollBarWidget* _this);
 void _leScrollBarWidget_GenerateVTable()
 {
     _leWidget_FillVTable((void*)&scrollBarWidgetVTable);
-    
+
     /* overrides from base class */
     scrollBarWidgetVTable._destructor = destructor;
     scrollBarWidgetVTable._paint = _leScrollBarWidget_Paint;

@@ -25,11 +25,11 @@
 
 #if LE_WINDOW_WIDGET_ENABLED == 1
 
+#include "gfx/legato/common/legato_utils.h"
+#include "gfx/legato/core/legato_state.h"
 #include "gfx/legato/renderer/legato_renderer.h"
 #include "gfx/legato/string/legato_string.h"
-#include "gfx/legato/common/legato_utils.h"
 #include "gfx/legato/widget/legato_widget.h"
-
 #include "gfx/legato/widget/legato_widget_skin_classic_common.h"
 
 #define DEFAULT_BAR_HEIGHT 20
@@ -41,9 +41,13 @@ enum
     DRAW_BACKGROUND,
     DRAW_TITLE_BAR,
     DRAW_ICON,
+#if LE_STREAMING_ENABLED == 1
     WAIT_ICON,
+#endif
     DRAW_STRING,
+#if LE_STREAMING_ENABLED == 1
     WAIT_STRING,
+#endif
     DRAW_BORDER,
 };
 
@@ -56,10 +60,9 @@ void _leWindowWidget_GetTextRect(const leWindowWidget* win,
                                  leRect* textRect,
                                  leRect* drawRect);
 
-void _leWindowWidget_GetTitleBarRect(const leWindowWidget* win, leRect* barRect)
+void _leWindowWidget_GetTitleBarRect(const leWindowWidget* win,
+                                     leRect* barRect)
 {
-    leRect textRect, drawRect;
-
     barRect->x = win->widget.margin.left;
     
     barRect->y = win->widget.margin.top;
@@ -68,16 +71,7 @@ void _leWindowWidget_GetTitleBarRect(const leWindowWidget* win, leRect* barRect)
                      win->widget.margin.left -
                      win->widget.margin.right;
                      
-    _leWindowWidget_GetTextRect(win, &textRect, &drawRect);
-    
-    barRect->height = textRect.height +
-                      win->widget.margin.top +
-                      win->widget.margin.bottom;
-                      
-    if(barRect->height == 0)
-    {
-        barRect->height = DEFAULT_BAR_HEIGHT;                      
-    }
+    barRect->height = win->titleHeight;
 }
 
 void _leWindowWidget_GetIconRect(const leWindowWidget* win,
@@ -142,7 +136,7 @@ void _leWindowWidget_GetTextRect(const leWindowWidget* win,
     
     _leWindowWidget_GetTitleBarRect(win, &barRect);
     
-    win->title->fn->getRect(win->title, 0, textRect);
+    win->title->fn->getRect(win->title, textRect);
     
     imageRect = leRect_Zero;
     
@@ -174,9 +168,7 @@ void _leWindowWidget_GetTextRect(const leWindowWidget* win,
 static void drawBackground(leWindowWidget* win);
 static void drawTitleBar(leWindowWidget* win);
 static void drawIcon(leWindowWidget* win);
-//static void waitIcon(leWindowWidget* win);
 static void drawString(leWindowWidget* win);
-//static void waitString(leWindowWidget* win);
 static void drawBorder(leWindowWidget* win);
 
 static void nextState(leWindowWidget* win)
@@ -185,13 +177,13 @@ static void nextState(leWindowWidget* win)
     {
         case NOT_STARTED:
         {
+            paintState.alpha = 255;
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
             if(win->fn->getCumulativeAlphaEnabled(win) == LE_TRUE)
             {
                 paintState.alpha = win->fn->getCumulativeAlphaAmount(win);
             }
-#else
-            paintState.alpha = 255;
 #endif
 
             if(win->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
@@ -249,7 +241,8 @@ static void nextState(leWindowWidget* win)
 
 static void drawBackground(leWindowWidget* win)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)win);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)win,
+                                                paintState.alpha);
     
     nextState(win);
 }
@@ -282,6 +275,17 @@ static void drawTitleBar(leWindowWidget* win)
     nextState(win);
 }
 
+#if LE_STREAMING_ENABLED == 1
+static void onImageStreamFinished(leStreamManager* dec)
+{
+    leWindowWidget* win = (leWindowWidget*)dec->userData;
+
+    win->widget.drawState = DRAW_ICON;
+
+    nextState(win);
+}
+#endif
+
 static void drawIcon(leWindowWidget* win)
 {
     leRect iconRect, imgSrcRect;
@@ -293,12 +297,14 @@ static void drawIcon(leWindowWidget* win)
                  iconRect.x,
                  iconRect.y,
                  paintState.alpha);
-     
-#if LE_EXTERNAL_STREAMING_ENABLED == 1              
-    if(win->reader != NULL)
+
+#if LE_STREAMING_ENABLED == 1
+    if(leGetActiveStream() != NULL)
     {
+        leGetActiveStream()->onDone = onImageStreamFinished;
+        leGetActiveStream()->userData = win;
+
         win->widget.drawState = WAIT_ICON;
-        win->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitIcon;
 
         return;
     }
@@ -307,22 +313,13 @@ static void drawIcon(leWindowWidget* win)
     nextState(win);
 }
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-static void waitIcon(leWindowWidget* win)
+#if LE_STREAMING_ENABLED == 1
+static void onStringStreamFinished(leStreamManager* strm)
 {
-    if(win->reader->status != GFXU_READER_STATUS_FINISHED)
-    {
-        win->reader->run(win->reader);
-        
-        return;
-    }
-    
-    // free the reader
-    win->reader->memIntf->heap.free(win->reader);
-    win->reader = NULL;
-    
-    win->widget.drawState = DRAW_ICON;
-    
+    leWindowWidget* win = (leWindowWidget*)strm->userData;
+
+    win->widget.drawState = DRAW_STRING;
+
     nextState(win);
 }
 #endif
@@ -336,43 +333,24 @@ static void drawString(leWindowWidget* win)
     win->title->fn->_draw(win->title,
                           textRect.x,
                           textRect.y,
-                          win->widget.scheme->text,
-                          paintState.alpha,
                           win->widget.halign,
-                          0);
-    
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-    if(win->reader != NULL)
-    {
-        win->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitString;
-        win->widget.drawState = WAIT_STRING;
-        
-        return;
-    }
-#endif
-    
-    nextState(win);
-}
+                          win->widget.scheme->text,
+                          paintState.alpha);
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-static void waitString(leWindowWidget* win)
-{
-    if(win->reader->status != GFXU_READER_STATUS_FINISHED)
+#if LE_STREAMING_ENABLED == 1
+    if(leGetActiveStream() != NULL)
     {
-        win->reader->run(win->reader);
-        
+        leGetActiveStream()->onDone = onStringStreamFinished;
+        leGetActiveStream()->userData = win;
+
+        win->widget.drawState = WAIT_STRING;
+
         return;
     }
-    
-    // free the reader
-    win->reader->memIntf->heap.free(win->reader);
-    win->reader = NULL;
-    
-    win->widget.drawState = DRAW_STRING;
+#endif
     
     nextState(win);
 }
-#endif
 
 static void drawBorder(leWindowWidget* win)
 {
@@ -380,7 +358,8 @@ static void drawBorder(leWindowWidget* win)
     
     if(win->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)win);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)win,
+                                                    paintState.alpha);
     }
     else if(win->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
@@ -410,6 +389,14 @@ void _leWindowWidget_Paint(leWindowWidget* win)
     
     if(win->widget.drawState == NOT_STARTED)
         nextState(win);
+
+#if LE_STREAMING_ENABLED == 1
+    if(win->widget.drawState == WAIT_ICON ||
+       win->widget.drawState == WAIT_STRING)
+    {
+        return;
+    }
+#endif
     
     while(win->widget.drawState != DONE)
     {
@@ -419,7 +406,7 @@ void _leWindowWidget_Paint(leWindowWidget* win)
         break;
 #endif
         
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
         if(win->widget.drawState == WAIT_ICON ||
            win->widget.drawState == WAIT_STRING)
             break;

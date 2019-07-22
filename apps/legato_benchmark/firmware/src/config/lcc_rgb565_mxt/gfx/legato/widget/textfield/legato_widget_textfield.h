@@ -81,11 +81,13 @@ typedef struct leTextFieldWidget leTextFieldWidget;
     leResult   (*setCursorEnabled)(THIS_TYPE* _this, leBool en); \
     uint32_t   (*getCursorPosition)(const THIS_TYPE* _this); \
     leResult   (*setCursorPosition)(THIS_TYPE* _this, uint32_t pos); \
-    const leString* (*getText)(const THIS_TYPE* txt); \
-    leResult   (*setText)(THIS_TYPE* _this, const leString* str); \
-    leString*  (*getHintText)(const THIS_TYPE* txt); \
-    leResult   (*setHintText)(THIS_TYPE* _this, const leString* str); \
-    leResult   (*setClearHintOnEdit)(THIS_TYPE* _this, leBool clr); \
+    const leString* (*getString)(const THIS_TYPE* txt); \
+    leResult   (*setString)(THIS_TYPE* _this, const leString* str); \
+    leFont*    (*getFont)(const THIS_TYPE* _this); \
+    leResult   (*setFont)(THIS_TYPE* _this, const leFont* fnt); \
+    leString*  (*getHintString)(const THIS_TYPE* txt); \
+    leResult   (*setHintString)(THIS_TYPE* _this, const leString* str); \
+    leResult   (*setClearValueOnFirstEdit)(THIS_TYPE* _this, leBool clr); \
     leTextFieldWidget_TextChangedCallback (*getTextChangedEventCallback)(const THIS_TYPE* _this); \
     leResult   (*setTextChangedEventCallback)(THIS_TYPE* _this, leTextFieldWidget_TextChangedCallback cb); \
     leTextFieldWidget_FocusChangedCallback (*getFocusChangedEventCallback)(const THIS_TYPE* _this); \
@@ -511,9 +513,9 @@ LIB_EXPORT leResult leTextFieldWidget_SetFocusChangedEventCallback(leTextFieldWi
 
 // DOM-IGNORE-BEGIN
 // internal use only
-void _leTextFieldWidget_TouchDownEvent(leTextFieldWidget* txt, leInput_TouchDownEvent* evt);
-void _leTextFieldWidget_TouchUpEvent(leTextFieldWidget* txt, leInput_TouchUpEvent* evt);
-void _leTextFieldWidget_TouchMovedEvent(leTextFieldWidget* txt, leInput_TouchMoveEvent* evt);
+void _leTextFieldWidget_TouchDownEvent(leTextFieldWidget* txt, gauge* evt);
+void _leTextFieldWidget_TouchUpEvent(leTextFieldWidget* txt, leWidgetEvent_TouchUp* evt);
+void _leTextFieldWidget_TouchMovedEvent(leTextFieldWidget* txt, leWidgetEvent_TouchMove* evt);
 
 void _leTextFieldWidget_FocusGained(leWidget* widget);
 void _leTextFieldWidget_FocusLost(leWidget* widget);

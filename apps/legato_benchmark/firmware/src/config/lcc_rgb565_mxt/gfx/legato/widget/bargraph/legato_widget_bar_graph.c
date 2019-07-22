@@ -23,17 +23,22 @@
 
 #include "gfx/legato/widget/bargraph/legato_widget_bar_graph.h"
 
-#if LE_BAR_GRAPH_WIDGET_ENABLED
+#if LE_BARGRAPH_WIDGET_ENABLED
+
+#define MAX_TICK_LABEL_DIGITS 10
+#define MAX_TICK_LABEL_VALUE 999999999
+#define LABEL_OFFSET_MIN_PIX 5
 
 #include <stdio.h>
 #include <string.h>
+#include <gfx/legato/legato.h>
 
 #include "gfx/legato/common/legato_error.h"
 #include "gfx/legato/common/legato_utils.h"
 #include "gfx/legato/core/legato_state.h"
 #include "gfx/legato/memory/legato_memory.h"
 #include "gfx/legato/renderer/legato_renderer.h"
-#include "gfx/legato/string/legato_dynamicstring.h"
+#include "gfx/legato/string/legato_stringutils.h"
 #include "gfx/legato/widget/legato_widget.h"
 
 #define DEFAULT_WIDTH           101
@@ -58,11 +63,6 @@ void _leBarGraphWidget_Constructor(leBarGraphWidget* _this)
     _this->fn = &barGraphWidgetVTable;
 
     _this->widget.type = LE_WIDGET_BAR_GRAPH;
-    
-    //_this->widget.destructor = (leWidget_Destructor_FnPtr)&_leBarGraphWidget_Destructor;
-
-    // override base class methods
-    //_this->widget.paint = (leWidget_Paint_FnPtr)&_leBarGraphWidget_Paint;
 
     _this->widget.rect.width = DEFAULT_WIDTH;
     _this->widget.rect.height = DEFAULT_HEIGHT;
@@ -91,6 +91,8 @@ void _leBarGraphWidget_Constructor(leBarGraphWidget* _this)
     
     leArray_Create(&_this->dataSeriesArray);
     leArray_Create(&_this->categories);
+
+    _this->ticksLabelFont = NULL;
 }
 
 void _leWidget_Destructor(leWidget* wgt);
@@ -98,9 +100,9 @@ void _leWidget_Destructor(leWidget* wgt);
 void _leBarGraphWidget_Destructor(leBarGraphWidget* _this)
 {
     _this->fn->clearData(_this);
-    
-    _this->ticksLabelString.fn->destructor(&_this->ticksLabelString);
-    
+
+    _this->ticksLabelFont = NULL;
+
     _leWidget_Destructor((leWidget*)_this);
 }
 
@@ -137,7 +139,7 @@ static void getCategoryLabelMaxDrawRect(const leBarGraphWidget* _this,
         if(category == NULL)
             return;
         
-        category->fn->getRect(category, 0, &textRect);
+        category->fn->getRect(category, &textRect);
         
         if(textRect.height > rect->height)
         {
@@ -158,17 +160,12 @@ static void getValueLabelMaxDrawRect(const leBarGraphWidget* _this,
     leRect minLabelRect;
     leRect maxLabelRect;
     char strbuff[MAX_TICK_LABEL_DIGITS];
-    leDynamicString str;
-    
+
     *rect = leRect_Zero;
     
-    if(_this->ticksLabelString.fn->getFont(&_this->ticksLabelString) == NULL)
+    if(_this->ticksLabelFont == NULL)
         return;
     
-    leDynamicString_Constructor(&str);
-    
-    str.fn->setFont(&str, _this->ticksLabelString.fn->getFont(&_this->ticksLabelString));
-        
     //Calculate the offset for the value labels
     if(_this->valueAxisLabelsVisible)
     {
@@ -180,42 +177,40 @@ static void getValueLabelMaxDrawRect(const leBarGraphWidget* _this,
             //Protect from overflow
             if(_this->minValue > -MAX_TICK_LABEL_VALUE)
             {
-                sprintf(strbuff, "%ld", _this->minValue);
+                sprintf(strbuff, "%d", (int)_this->minValue);
             }
             else
             {
                 sprintf(strbuff, "---");
             }
 
-            str.fn->setFromCStr(&str, strbuff);
-            
-            str.fn->getRect(&str, 0, &minLabelRect);
+            leStringUtils_GetRectCStr(strbuff,
+                                      _this->ticksLabelFont,
+                                      &minLabelRect);
         }
 
         //Protect from overflow
         if(_this->maxValue < MAX_TICK_LABEL_VALUE) 
         {
-            sprintf(strbuff, "%ld", _this->maxValue);
+            sprintf(strbuff, "%d", (int)_this->maxValue);
         }
         else 
         {
             sprintf(strbuff, "---");
         }
 
-        str.fn->setFromCStr(&str, strbuff);
-            
-        str.fn->getRect(&str, 0, &maxLabelRect);
+        leStringUtils_GetRectCStr(strbuff,
+                                  _this->ticksLabelFont,
+                                  &maxLabelRect);
 
-        rect->width = (maxLabelRect.width > minLabelRect.width) ? 
-                    (maxLabelRect.width) : 
-                    (minLabelRect.width);
+        rect->width = (maxLabelRect.width > minLabelRect.width) ?
+                      (maxLabelRect.width) :
+                      (minLabelRect.width);
 
         rect->height = (maxLabelRect.height > minLabelRect.height) ? 
-                    (maxLabelRect.height) : 
-                    (minLabelRect.height);
+                       (maxLabelRect.height) :
+                       (minLabelRect.height);
     }
-    
-    str.fn->destructor(&str);
 }
 
 //Gets the rectangle of the graph area (without labels or ticks)
@@ -270,11 +265,17 @@ void _leBarGraphWidget_GetGraphRect(const leBarGraphWidget* _this,
     {
         getValueLabelMaxDrawRect(_this, &valueLabelMaxRect);
 
-        graphRect->x += (valueLabelMaxRect.width + LABEL_OFFSET_MIN_PIX * 2);
-        graphRect->width -= (valueLabelMaxRect.width + LABEL_OFFSET_MIN_PIX * 2);
+        if(valueLabelMaxRect.width != 0)
+        {
+            graphRect->x += (valueLabelMaxRect.width + LABEL_OFFSET_MIN_PIX * 2);
+            graphRect->width -= (valueLabelMaxRect.width + LABEL_OFFSET_MIN_PIX * 2);
+        }
 
-        graphRect->y += valueLabelMaxRect.height / 2 + LABEL_OFFSET_MIN_PIX;
-        graphRect->height -= valueLabelMaxRect.height / 2  + LABEL_OFFSET_MIN_PIX;
+        if(valueLabelMaxRect.height != 0)
+        {
+            graphRect->y += valueLabelMaxRect.height / 2 + LABEL_OFFSET_MIN_PIX;
+            graphRect->height -= valueLabelMaxRect.height / 2 + LABEL_OFFSET_MIN_PIX;
+        }
     }
 
     if(_this->categAxisTicksVisible)
@@ -730,31 +731,19 @@ static leResult setCategoryAxisLabelsVisible(leBarGraphWidget* _this,
     return LE_SUCCESS;
 }
 
-static leResult setTicksLabelString(leBarGraphWidget* _this, 
-                                    const leString* str)
+static leFont* getTicksLabelFont(leBarGraphWidget* _this)
 {
     LE_ASSERT_THIS();
     
-    if(str == NULL)
-    {
-        _this->ticksLabelString.fn->clear(&_this->ticksLabelString);
-        
-        return LE_SUCCESS;
-    }    
-        
-    _this->ticksLabelString.fn->setFromString(&_this->ticksLabelString, str);
-    
-    _this->fn->invalidate(_this);
-        
-    return LE_SUCCESS;
+    return (leFont*)_this->ticksLabelFont;
 }
 
 static leResult setTicksLabelFont(leBarGraphWidget* _this, 
                                   const leFont* font)
 {
     LE_ASSERT_THIS();
-    
-    _this->ticksLabelString.fn->setFont(&_this->ticksLabelString, font);
+
+    _this->ticksLabelFont = font;
     
     _this->fn->invalidate(_this);
         
@@ -776,7 +765,7 @@ static leResult addSeries(leBarGraphWidget* _this,
     leArray_Create(&series->data);
     
     series->axis = BAR_GRAPH_AXIS_0;
-    series->scheme = _this->widget.scheme;
+    series->scheme = leGetDefaultScheme();
     
     leArray_PushBack(&_this->dataSeriesArray, series);
     
@@ -920,10 +909,10 @@ static leResult setSeriesScheme(leBarGraphWidget* _this,
 static leResult addCategory(leBarGraphWidget* _this,
                             uint32_t* id)
 {
-    leArray_PushBack(&_this->categories, NULL);
-    
     LE_ASSERT_THIS();
-    
+
+    leArray_PushBack(&_this->categories, NULL);
+
     if(id != NULL)
     {
         *id = _this->categories.size;
@@ -1006,6 +995,13 @@ static leResult clearData(leBarGraphWidget* _this)
     return LE_SUCCESS;
 }
 
+static void handleLanguageChangeEvent(leBarGraphWidget* _this)
+{
+    LE_ASSERT_THIS();
+
+    _this->fn->invalidate(_this);
+}
+
 void _leWidget_FillVTable(leWidgetVTable* tbl);
 void _leBarGraphWidget_Paint(leBarGraphWidget* _this);
 
@@ -1016,7 +1012,7 @@ void _leBarGraphWidget_GenerateVTable()
     /* overrides from base class */
     barGraphWidgetVTable._destructor = _leBarGraphWidget_Destructor;
     barGraphWidgetVTable._paint = _leBarGraphWidget_Paint;
-
+    barGraphWidgetVTable.languageChangeEvent = handleLanguageChangeEvent;
     
     /* member functions */
     barGraphWidgetVTable.getTickLength = getTickLength;
@@ -1051,7 +1047,7 @@ void _leBarGraphWidget_GenerateVTable()
     barGraphWidgetVTable.addDataToSeries = addDataToSeries;
     barGraphWidgetVTable.setDataInSeries = setDataInSeries;
     barGraphWidgetVTable.clearData = clearData;
-    barGraphWidgetVTable.setTicksLabelString = setTicksLabelString;
+    barGraphWidgetVTable.getTicksLabelFont = getTicksLabelFont;
     barGraphWidgetVTable.setTicksLabelFont = setTicksLabelFont;
     barGraphWidgetVTable.getGridLinesVisible = getGridLinesVisible;
     barGraphWidgetVTable.setGridLinesVisible = setGridLinesVisible;
@@ -1069,4 +1065,4 @@ void _leBarGraphWidget_FillVTable(leBarGraphWidgetVTable* tbl)
     *tbl = barGraphWidgetVTable;
 }
 
-#endif // LE_BAR_GRAPH_WIDGET_ENABLED
+#endif // LE_BARGRAPH_WIDGET_ENABLED

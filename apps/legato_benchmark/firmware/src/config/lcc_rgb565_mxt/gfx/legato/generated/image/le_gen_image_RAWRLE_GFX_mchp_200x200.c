@@ -1761,14 +1761,13 @@ const uint8_t RAWRLE_GFX_mchp_200x200_data[27926] =
 leImage RAWRLE_GFX_mchp_200x200 =
 {
     {
-        LE_ASSET_TYPE_IMAGE, // asset type
-        LE_ASSET_LOCATION_ID_INTERNAL, // data location id
+        LE_STREAM_LOCATION_ID_INTERNAL, // data location id
         (void*)RAWRLE_GFX_mchp_200x200_data, // data address pointer
         27926, // data size
     },
     LE_IMAGE_FORMAT_RLE,
     {
-        LE_COLOR_MODE_INDEX_8,
+        LE_COLOR_MODE_RGB_565,
         {
             200,
             200
@@ -1777,7 +1776,10 @@ leImage RAWRLE_GFX_mchp_200x200 =
         27926,
         (void*)RAWRLE_GFX_mchp_200x200_data
     },
-    LE_IMAGE_USE_MASK, // image flags
-    0x0, // image mask
-    &leGenPalette0, // palette
+    LE_IMAGE_USE_MASK_COLOR, // image flags
+    {
+        0x0, // color mask
+    },
+    NULL, // alpha mask
+    NULL, // palette
 };

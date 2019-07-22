@@ -25,11 +25,11 @@
 
 #if LE_IMAGESEQUENCE_WIDGET_ENABLED
 
+#include "gfx/legato/common/legato_utils.h"
+#include "gfx/legato/core/legato_state.h"
 #include "gfx/legato/renderer/legato_renderer.h"
 #include "gfx/legato/string/legato_string.h"
-#include "gfx/legato/common/legato_utils.h"
 #include "gfx/legato/widget/legato_widget.h"
-
 #include "gfx/legato/widget/legato_widget_skin_classic_common.h"
 
 enum
@@ -89,7 +89,6 @@ void _leImageSequenceWidget_GetImageRect(leImageSequenceWidget* img,
 
 static void drawBackground(leImageSequenceWidget* img);
 static void drawImage(leImageSequenceWidget* img);
-//static void waitImage(leImageSequenceWidget* img);
 static void drawBorder(leImageSequenceWidget* img);
 
 static void nextState(leImageSequenceWidget* img)
@@ -98,13 +97,13 @@ static void nextState(leImageSequenceWidget* img)
     {
         case NOT_STARTED:
         {
+            paintState.alpha = 255;
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
             if(img->fn->getCumulativeAlphaEnabled(img) == LE_TRUE)
             {
                 paintState.alpha = img->fn->getCumulativeAlphaAmount(img);
             }
-#else
-            paintState.alpha = 255;
 #endif
             
             if(img->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
@@ -146,10 +145,22 @@ static void nextState(leImageSequenceWidget* img)
 
 static void drawBackground(leImageSequenceWidget* img)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)img);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)img,
+                                                paintState.alpha);
     
     nextState(img);
 }
+
+#if LE_STREAMING_ENABLED == 1
+static void onImageStreamFinished(leStreamManager* dec)
+{
+    leImageSequenceWidget* img = (leImageSequenceWidget*)dec->userData;
+
+    img->widget.drawState = DRAW_IMAGE;
+
+    nextState(img);
+}
+#endif
 
 static void drawImage(leImageSequenceWidget* img)
 {
@@ -162,55 +173,37 @@ static void drawImage(leImageSequenceWidget* img)
     
     _leImageSequenceWidget_GetImageRect(img, &imgRect, &imgSrcRect);
     
-    leUtils_RectToScreenSpace((leWidget*)img, &imgRect);
-    
     leImage_Draw(img->images[img->activeIdx].image,
                  &imgSrcRect,
                  imgRect.x,
                  imgRect.y, paintState.alpha);
-               
-#if LE_EXTERNAL_STREAMING_ENABLED == 1                   
-    if(img->reader != NULL)
-    {  
-        img->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitImage;
-        img->widget.drawState = WAIT_IMAGE;
-        
-        return;
-    }
-#endif       
-    
-    nextState(img);
-}
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-static void waitImage(leImageSequenceWidget* img)
-{
-    if(img->reader->status != leREADER_STATUS_FINISHED)
+#if LE_STREAMING_ENABLED == 1
+    if(leGetActiveStream() != NULL)
     {
-        img->reader->run(img->reader);
-        
+        leGetActiveStream()->onDone = onImageStreamFinished;
+        leGetActiveStream()->userData = img;
+
+        img->widget.drawState = WAIT_IMAGE;
+
         return;
     }
-    
-    // free the reader
-    img->reader->memIntf->heap.free(img->reader);
-    img->reader = NULL;
-    
-    img->widget.drawState = DRAW_IMAGE;
+#endif
     
     nextState(img);
 }
-#endif
 
 static void drawBorder(leImageSequenceWidget* img)
 {
     if(img->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)img);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)img,
+                                                    paintState.alpha);
     }
     else if(img->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)img);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)img,
+                                                      paintState.alpha);
     }
     
     nextState(img);
@@ -227,7 +220,12 @@ void _leImageSequenceWidget_Paint(leImageSequenceWidget* img)
     
     if(img->widget.drawState == NOT_STARTED)
         nextState(img);
-    
+
+#if LE_STREAMING_ENABLED == 1
+    if(img->widget.drawState == WAIT_IMAGE)
+        return;
+#endif
+
     while(img->widget.drawState != DONE)
     {
         img->widget.drawFunc((leWidget*)img);

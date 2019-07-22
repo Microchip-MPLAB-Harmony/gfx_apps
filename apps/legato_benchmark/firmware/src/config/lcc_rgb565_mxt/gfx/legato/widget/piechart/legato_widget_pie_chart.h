@@ -44,9 +44,9 @@
 
 #include "gfx/legato/common/legato_common.h"
 
-#if LE_PIE_CHART_WIDGET_ENABLED == 1
+#if LE_PIECHART_WIDGET_ENABLED == 1
 
-#include "gfx/legato/asset/legato_font.h"
+#include "gfx/legato/font/legato_font.h"
 #include "gfx/legato/widget/legato_widget.h"
 
 // *****************************************************************************
@@ -687,5 +687,5 @@ LIB_EXPORT leResult lePieChartWidget_SetLabelsOffset(lePieChartWidget* chart, ui
 
 #endif
 
-#endif // LE_PIE_CHART_WIDGET_ENABLED
+#endif // LE_PIECHART_WIDGET_ENABLED
 #endif /* LEGATO_WIDGET_PIE_CHART_H */

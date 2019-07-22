@@ -49,11 +49,13 @@
 
 #include "gfx/legato/common/legato_common.h"
 
-#include "gfx/legato/asset/legato_asset.h"
-#include "gfx/legato/asset/legato_font.h"
+#include "gfx/legato/font/legato_font.h"
+#include "gfx/legato/common/legato_error.h"
 
 //DOM-IGNORE-BEGIN
 struct leString;
+
+typedef void (*leString_InvalidateCallback)(const struct leString* str, void* userData);
 
 #define LE_STRING_VTABLE(THIS_TYPE) \
     void        (*destructor)(THIS_TYPE* str); \
@@ -71,14 +73,18 @@ struct leString;
     leResult    (*remove)(THIS_TYPE* str, uint32_t idx, uint32_t count); \
     void        (*clear)(THIS_TYPE* str); \
     uint32_t    (*toChar)(const THIS_TYPE* str, leChar* buf, uint32_t size); \
-    leResult    (*getRect)(const THIS_TYPE* str, int32_t linePadding, leRect* rect); \
+    leResult    (*getRect)(const THIS_TYPE* str, leRect* rect); \
     uint32_t    (*getLineCount)(const THIS_TYPE* str); \
     leResult    (*getLineRect)(const THIS_TYPE* str, uint32_t line, leRect* rect); \
     leResult    (*getLineIndices)(const THIS_TYPE* str, uint32_t line, uint32_t* start, uint32_t* end); \
-    leResult    (*getCharRect)(const THIS_TYPE* str, uint32_t idx, leRect* rect, int32_t linePadding); \
-    leResult    (*getCharIndexAtPoint)(const THIS_TYPE* str, lePoint* pt, int32_t linePadding, uint32_t* idx); \
-    leResult    (*_draw)(const THIS_TYPE* str, int32_t x, int32_t y, leColor clr, uint32_t a, leHAlignment align, int32_t linePadding); \
-    
+    leResult    (*getCharRect)(const THIS_TYPE* str, uint32_t idx, leRect* rect); \
+    leResult    (*getCharIndexAtPoint)(const THIS_TYPE* str, lePoint* pt, uint32_t* idx); \
+    leResult    (*_draw)(const THIS_TYPE* str, int32_t x, int32_t y, leHAlignment align, leColor clr, uint32_t a); \
+    void        (*preinvalidate)(THIS_TYPE* str); \
+    void        (*invalidate)(THIS_TYPE* str); \
+    leResult    (*setPreInvalidateCallback)(THIS_TYPE* str, leString_InvalidateCallback, void* userData); \
+    leResult    (*setInvalidateCallback)(THIS_TYPE* str, leString_InvalidateCallback, void* userData);
+
 typedef struct leStringVTable
 {
 	LE_STRING_VTABLE(struct leString)
@@ -98,6 +104,12 @@ typedef struct leStringVTable
 typedef struct leString
 {
     leStringVTable* fn;
+
+    leString_InvalidateCallback preInvCallback;
+    void* preCBUserData;
+
+    leString_InvalidateCallback invCallback;
+    void* invCBUserData;
 } leString;
 
 // *****************************************************************************

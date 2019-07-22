@@ -102,14 +102,13 @@ const uint8_t RAWRLE_GFX_mchp_40x40_data[1385] =
 leImage RAWRLE_GFX_mchp_40x40 =
 {
     {
-        LE_ASSET_TYPE_IMAGE, // asset type
-        LE_ASSET_LOCATION_ID_INTERNAL, // data location id
+        LE_STREAM_LOCATION_ID_INTERNAL, // data location id
         (void*)RAWRLE_GFX_mchp_40x40_data, // data address pointer
         1385, // data size
     },
     LE_IMAGE_FORMAT_RLE,
     {
-        LE_COLOR_MODE_INDEX_8,
+        LE_COLOR_MODE_RGB_565,
         {
             40,
             40
@@ -118,7 +117,10 @@ leImage RAWRLE_GFX_mchp_40x40 =
         1385,
         (void*)RAWRLE_GFX_mchp_40x40_data
     },
-    LE_IMAGE_USE_MASK, // image flags
-    0x0, // image mask
-    &leGenPalette5, // palette
+    LE_IMAGE_USE_MASK_COLOR, // image flags
+    {
+        0x0, // color mask
+    },
+    NULL, // alpha mask
+    NULL, // palette
 };

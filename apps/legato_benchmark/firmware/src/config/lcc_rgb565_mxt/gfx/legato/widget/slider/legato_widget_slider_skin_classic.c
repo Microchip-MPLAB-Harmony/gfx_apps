@@ -67,7 +67,7 @@ void _leSliderWidget_GetSlideAreaRect(leSliderWidget* sld, leRect* rect)
         scrollRect.x = widgetRect.x + sld->grip / 2;
         scrollRect.y = widgetRect.y + (widgetRect.height / 2) - (scrollRect.height / 2);
     }
-    
+
     *rect = scrollRect;
 }
 
@@ -119,14 +119,14 @@ static void nextState(leSliderWidget* sld)
     switch(sld->widget.drawState)
     {
         case NOT_STARTED:
-        {         
+        {
+            paintState.alpha = 255;
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
             if(sld->fn->getCumulativeAlphaEnabled(sld) == LE_TRUE)
             {
                 paintState.alpha = sld->fn->getCumulativeAlphaAmount(sld);
             }
-#else
-            paintState.alpha = 255;
 #endif
            
             if(sld->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
@@ -174,7 +174,8 @@ static void nextState(leSliderWidget* sld)
 
 static void drawBackground(leSliderWidget* sld)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)sld);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)sld,
+                                                paintState.alpha);
 
     nextState(sld);
 }
@@ -184,7 +185,8 @@ static void drawBar(leSliderWidget* sld)
     leRect barRect;
     
     _leSliderWidget_GetSlideAreaRect(sld, &barRect);
-    
+    leUtils_RectToScreenSpace((leWidget*)sld, &barRect);
+
     // fill bar area
     leRenderer_RectFill(&barRect,
                         sld->widget.scheme->background,
@@ -215,8 +217,9 @@ static void drawHandle(leSliderWidget* sld)
     leRect handleRect;
     
     _leSliderWidget_GetHandleRect(sld, &handleRect);
-    
-    // fill handle area       
+    leUtils_RectToScreenSpace((leWidget*)sld, &handleRect);
+
+    // fill handle area
     leRenderer_RectFill(&handleRect,
                         sld->widget.scheme->base,
                         paintState.alpha);

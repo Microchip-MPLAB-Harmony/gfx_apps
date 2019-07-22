@@ -44,7 +44,7 @@
 
 #include "gfx/legato/common/legato_common.h"
 
-#if LE_BAR_GRAPH_WIDGET_ENABLED
+#if LE_BARGRAPH_WIDGET_ENABLED
 
 #include "gfx/legato/string/legato_dynamicstring.h"
 #include "gfx/legato/widget/legato_widget.h"
@@ -54,9 +54,7 @@
 // Section: Data Types and Constants
 // *****************************************************************************
 // *****************************************************************************
-#define MAX_TICK_LABEL_DIGITS 10
-#define MAX_TICK_LABEL_VALUE 999999999
-#define LABEL_OFFSET_MIN_PIX 5
+
 
 // *****************************************************************************
 /* Enumeration:
@@ -143,7 +141,7 @@ typedef struct leBarGraphWidget leBarGraphWidget;
     leResult                (*addDataToSeries)(THIS_TYPE* _this, uint32_t seriesID, int32_t val, uint32_t* idx); \
     leResult                (*setDataInSeries)(THIS_TYPE* _this, uint32_t seriesID, uint32_t index, int32_t value); \
     leResult                (*clearData)(THIS_TYPE* _this); \
-    leResult                (*setTicksLabelString)(THIS_TYPE* _this, const leString* str); \
+    leFont*                 (*getTicksLabelFont)(THIS_TYPE* _this); \
     leResult                (*setTicksLabelFont)(THIS_TYPE* _this, const leFont* font); \
     leBool                  (*getGridLinesVisible)(const THIS_TYPE* _this, leBarGraphValueAxis axis); \
     leResult                (*setGridLinesVisible)(THIS_TYPE* _this, leBarGraphValueAxis axis, leBool vis); \
@@ -200,7 +198,7 @@ typedef struct leBarGraphWidget
     leBool valueGridLinesVisible;
     leBool stacked;
     leArray dataSeriesArray;
-    leDynamicString ticksLabelString;
+    const leFont* ticksLabelFont;
     leBarGraphTickPosition valueAxisTicksPosition;
     leBarGraphTickPosition valueAxisSubticksPosition;
 
@@ -209,13 +207,6 @@ typedef struct leBarGraphWidget
     leBool categAxisTicksVisible;
     leBarGraphTickPosition categAxisTicksPosition;
     leArray categories;
-    
-    // paint state
-    leRect graphRect;
-    lePoint originPoint;
-    int32_t originValue;
-    uint32_t alpha;
-    float pixelsPerUnit;
 } leBarGraphWidget;
 
 // *****************************************************************************
@@ -1151,5 +1142,5 @@ void _leBarGraphWidget_GetGraphRect(leBarGraphWidget* graph,
 // DOM-IGNORE-END
 #endif
 
-#endif // LE_BAR_GRAPH_WIDGET_ENABLED
+#endif // LE_BARGRAPH_WIDGET_ENABLED
 #endif /* LEGATO_WIDGET_BAR_GRAPH_H */

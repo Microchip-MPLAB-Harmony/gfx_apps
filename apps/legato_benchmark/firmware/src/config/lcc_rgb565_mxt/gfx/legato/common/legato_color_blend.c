@@ -118,3 +118,53 @@ leColor leColorBlend_RGBA_8888(leColor c1, leColor c2)
     
     return result;
 }
+
+leColor leColorBlend_ARGB_8888(leColor c1, leColor c2)
+{
+    leColor result;
+    uint32_t ia1, /*ia2,*/ oneMinus_ia1;
+    uint32_t c1a, c2a;
+
+    result = 0;
+
+    c1a = (c1 & ARGB_8888_ALPHA_MASK);
+    c1a >>= 24;
+    ia1 = lePercent(c1a, 255);
+
+    c2a = (c2 & ARGB_8888_ALPHA_MASK);
+    c2a >>= 24;
+
+    // calculate result alpha
+    //ia2 = GFX_Percent(c2a, 255);
+    oneMinus_ia1 = 10000 - ia1;
+
+    // alpha channel
+    result |= calculateBlendColor((c1 & ARGB_8888_ALPHA_MASK) >> 24,
+                                  ia1,
+                                  (c2 & ARGB_8888_ALPHA_MASK) >> 24,
+                                  oneMinus_ia1,
+                                  255) << 24;
+
+    // red channel
+    result |= calculateBlendColor((c1 & ARGB_8888_RED_MASK) >> 16,
+                                  ia1,
+                                  (c2 & ARGB_8888_RED_MASK) >> 16,
+                                  oneMinus_ia1,
+                                  255) << 16;
+
+    // green channel
+    result |= calculateBlendColor((c1 & ARGB_8888_GREEN_MASK) >> 8,
+                                  ia1,
+                                  (c2 & ARGB_8888_GREEN_MASK) >> 8,
+                                  oneMinus_ia1,
+                                  255) << 8;
+
+    // blue channel
+    result |= calculateBlendColor((c1 & ARGB_8888_BLUE_MASK),
+                                  ia1,
+                                  (c2 & ARGB_8888_BLUE_MASK),
+                                  oneMinus_ia1,
+                                  255);
+
+    return result;
+}

@@ -63,8 +63,10 @@ typedef struct leWindowWidget leWindowWidget;
 #define LE_WINDOWWIDGET_VTABLE(THIS_TYPE) \
     LE_WIDGET_VTABLE(THIS_TYPE) \
     \
-    leString* (*getTitle)(const THIS_TYPE* _this); \
-    leResult  (*setTitle)(THIS_TYPE* _this, const leString* str); \
+    uint32_t  (*getTitleHeight)(const THIS_TYPE* _this); \
+    leResult  (*setTitleHeight)(THIS_TYPE* this, uint32_t ht); \
+    leString* (*getString)(const THIS_TYPE* _this); \
+    leResult  (*setString)(THIS_TYPE* _this, const leString* str); \
     leImage*  (*getIcon)(const THIS_TYPE* _this); \
     leResult  (*setIcon)(THIS_TYPE* _this, const leImage* img); \
     uint32_t  (*getIconMargin)(const THIS_TYPE* this); \
@@ -97,6 +99,7 @@ typedef struct leWindowWidget
     
     leWindowWidgetVTable* fn;
 
+    uint32_t titleHeight; // title height
     const leString* title; // title text
 
     const leImage* icon; // title icon

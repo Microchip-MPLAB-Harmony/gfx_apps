@@ -188,13 +188,13 @@ static void nextState(leImagePlusWidget* img)
     {
         case NOT_STARTED:
         {
+            paintState.alpha = 255;
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
             if(img->fn->getCumulativeAlphaEnabled(img) == LE_TRUE)
             {
                 paintState.alpha = img->fn->getCumulativeAlphaAmount(img);
             }
-#else
-            paintState.alpha = 255;
 #endif
             
             if(img->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 

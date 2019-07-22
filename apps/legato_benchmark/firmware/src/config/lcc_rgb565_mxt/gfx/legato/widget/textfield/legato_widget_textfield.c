@@ -21,9 +21,10 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+#include <gfx/legato/legato.h>
 #include "gfx/legato/widget/textfield/legato_widget_textfield.h"
 
-#if LE_TEXTFIELD_WIDGET_ENABLED
+#if LE_TEXTFIELD_WIDGET_ENABLED == 1
 
 #include "gfx/legato/common/legato_error.h"
 #include "gfx/legato/common/legato_utils.h"
@@ -55,6 +56,18 @@ static void _invalidateText(const leTextFieldWidget* _this)
     _this->fn->_damageArea(_this, &drawRect);
 }
 
+static void stringPreinvalidate(const leString* str,
+                                leTextFieldWidget* txt)
+{
+    _invalidateText(txt);
+}
+
+static void stringInvalidate(const leString* str,
+                             leTextFieldWidget* txt)
+{
+    _invalidateText(txt);
+}
+
 static void _invalidateCursor(const leTextFieldWidget* _this)
 {
     leRect cursorRect;
@@ -67,13 +80,20 @@ static void _invalidateCursor(const leTextFieldWidget* _this)
 static void _setCursorFromPoint(leTextFieldWidget* _this,
                                 const lePoint* pnt)
 {
+    leRect widgetRect;
     leRect textRect;
-    
-    _this->text.fn->getRect(&_this->text, 0, &textRect);
-    
+    uint32_t charIdx;
+    lePoint lclPnt = *pnt;
+
+    _this->text.fn->getRect(&_this->text, &textRect);
+
+    widgetRect = _this->editWidget.widget.rect;
+    widgetRect.x = 0;
+    widgetRect.y = 0;
+
     leUtils_ArrangeRectangleRelative(&textRect,
                                      leRect_Zero,
-                                     _this->editWidget.widget.rect,
+                                     widgetRect,
                                      _this->editWidget.widget.halign,
                                      LE_VALIGN_MIDDLE,
                                      0,
@@ -82,10 +102,31 @@ static void _setCursorFromPoint(leTextFieldWidget* _this,
                                      _this->editWidget.widget.margin.right,
                                      _this->editWidget.widget.margin.bottom,
                                      0);
-    
-    leUtils_RectToScreenSpace((leWidget*)_this, &textRect);
-    
-    //leTextFieldWidget_SetCursorPosition(_this, leString_GetCharIndexAtPoint(&_this->text, pnt->x - _this->editWidget.widget.rect.x));
+
+    // move text rect into screen space
+    leUtils_RectToScreenSpace((leWidget *) _this, &textRect);
+
+    lclPnt.x = pnt->x - textRect.x;
+
+    if(lclPnt.x >= textRect.width)
+    {
+        _this->fn->setCursorPosition(_this, _this->text.fn->length(&_this->text));
+    }
+    else if(lclPnt.x < 0)
+    {
+        _this->fn->setCursorPosition(_this, 0);
+    }
+    else
+    {
+        // ignore y coordinate
+        lclPnt.y = 0;
+
+        _this->text.fn->getCharIndexAtPoint(&_this->text,
+                                            &lclPnt,
+                                            &charIdx);
+
+        _this->fn->setCursorPosition(_this, charIdx);
+    }
 }
 
 void leEditWidget_Constructor(leEditWidget* editWgt);
@@ -102,24 +143,6 @@ void leTextFieldWidget_Constructor(leTextFieldWidget* _this)
     
     _this->editWidget.widget.type = LE_WIDGET_TEXTFIELD;
 
-    // override base class methods
-    /*_this->editWidget.widget.update = (leWidget_Update_FnPtr)&_leTextFieldWidget_Update;
-    _this->editWidget.widget.paint = (leWidget_Paint_FnPtr)&_leTextFieldWidget_Paint;
-    _this->editWidget.widget.focusGained = (leWidget_Focus_FnPtr)&_leTextFieldWidget_FocusGained;
-    _this->editWidget.widget.focusLost = (leWidget_Focus_FnPtr)&_leTextFieldWidget_FocusLost;
-    _this->editWidget.widget.touchDown = (leWidget_TouchDownEvent_FnPtr)&_leTextFieldWidget_TouchDownEvent;
-    _this->editWidget.widget.touchUp = (leWidget_TouchUpEvent_FnPtr)&_leTextFieldWidget_TouchUpEvent;
-    _this->editWidget.widget.touchMoved = (leWidget_TouchMovedEvent_FnPtr)&_leTextFieldWidget_TouchMovedEvent;*/
-
-    // override edit class methods
-    /*_this->editWidget.startEdit = (leEditWidget_StartEdit_FnPtr)&startEdit;
-    _this->editWidget.endEdit = (leEditWidget_EndEdit_FnPtr)&endEdit;
-    _this->editWidget.clear = (leEditWidget_Clear_FnPtr)&clear;
-    _this->editWidget.accept = (leEditWidget_Accept_FnPtr)&accept;
-    _this->editWidget.append = (leEditWidget_Append_FnPtr)&append;
-    _this->editWidget.set = (leEditWidget_Set_FnPtr)&set;
-    _this->editWidget.backspace = (leEditWidget_Backspace_FnPtr)&backspace;*/
-
     _this->editWidget.widget.rect.width = DEFAULT_WIDTH;
     _this->editWidget.widget.rect.height = DEFAULT_HEIGHT;
     
@@ -129,9 +152,13 @@ void leTextFieldWidget_Constructor(leTextFieldWidget* _this)
     _this->hintText = NULL;
     
     _this->editWidget.widget.halign = LE_HALIGN_LEFT;
+    _this->cursorPos = 0;
     _this->cursorEnable = LE_TRUE;
     _this->cursorDelay = DEFAULT_CURSOR_TIME;
     _this->clearOnFirstEdit = LE_TRUE;
+
+    _this->textChangedEvent = NULL;
+    _this->focusChangedEvent = NULL;
 }
 
 void _leEditWidget_Destructor(leEditWidget* edit);
@@ -193,11 +220,6 @@ static leResult setCursorDelay(leTextFieldWidget* _this,
         return LE_FAILURE;
 
     _this->cursorDelay = dt;
-
-    if(_this->cursorEnable == LE_TRUE && _this->cursorVisible == LE_TRUE)
-    {
-        _invalidateCursor(_this);
-    }
         
     return LE_SUCCESS;
 }
@@ -219,10 +241,7 @@ static leResult setCursorEnabled(leTextFieldWidget* _this,
 
     _this->cursorEnable = en;
 
-    if(_this->cursorEnable == LE_TRUE && _this->cursorVisible == LE_TRUE)
-    {
-        _invalidateCursor(_this);
-    }
+    _this->fn->invalidate(_this);
         
     return LE_SUCCESS;
 }
@@ -244,59 +263,94 @@ static leResult setCursorPosition(leTextFieldWidget* _this,
 
     _this->cursorPos = pos;
 
-    if(_this->cursorVisible == LE_TRUE)
-    {
-        _invalidateCursor(_this);
-    }
+    _this->cursorVisible = LE_TRUE;
+
+    _this->fn->invalidate(_this);
         
     return LE_SUCCESS;
 }
 
-const static leString* getText(const leTextFieldWidget* _this)
+const static leString* getString(const leTextFieldWidget* _this)
 {
     LE_ASSERT_THIS();
     
     return (const leString*)&_this->text;
 }
 
-static leResult setText(leTextFieldWidget* _this,
-                        const leString* str)
+static leResult setString(leTextFieldWidget* _this,
+                          const leString* str)
 {
     LE_ASSERT_THIS();
     
-    _invalidateText(_this);
-    
     _this->text.fn->setFromString(&_this->text, str);
     _this->cursorPos = _this->text.length;
-    
-    _invalidateText(_this);
+
+    _this->fn->invalidate(_this);
     
     return LE_SUCCESS;
 }
 
-static leString* getHintText(const leTextFieldWidget* _this)
+static leFont* getFont(const leTextFieldWidget* _this)
+{
+    LE_ASSERT_THIS();
+
+    return _this->text.fn->getFont(&_this->text);
+}
+
+static leResult setFont(leTextFieldWidget* _this,
+                        const leFont* fnt)
+{
+    LE_ASSERT_THIS();
+
+    _this->text.fn->setFont(&_this->text, fnt);
+
+    _this->fn->invalidate(_this);
+
+    return LE_SUCCESS;
+}
+
+static leString* getHintString(const leTextFieldWidget* _this)
 {
     LE_ASSERT_THIS();
     
     return (leString*)_this->hintText;
 }
 
-static leResult setHintText(leTextFieldWidget* _this,
-                            const leString* str)
+static leResult setHintString(leTextFieldWidget* _this,
+                              const leString* str)
 {
     LE_ASSERT_THIS();
-    
-    _invalidateText(_this);
-    
+
+    if(_this->hintText != NULL)
+    {
+        _invalidateText(_this);
+
+        _this->hintText->fn->setPreInvalidateCallback((leString*)_this->hintText,
+                                                      NULL,
+                                                      NULL);
+
+        _this->hintText->fn->setInvalidateCallback((leString*)_this->hintText,
+                                                   NULL,
+                                                   NULL);
+    }
+
     _this->hintText = str;
-    
+
+    _this->hintText->fn->setPreInvalidateCallback((leString*)_this->hintText,
+                                                  (void*)stringPreinvalidate,
+                                                  _this);
+
+    _this->hintText->fn->setInvalidateCallback((leString*)_this->hintText,
+                                               (void*)stringInvalidate,
+                                               _this);
+
     _invalidateText(_this);
     
     return LE_SUCCESS;
 }
 
-static leResult setClearHintOnEdit(leTextFieldWidget* _this,
-                                   leBool clear)
+static leResult setClearValueOnFirstEdit(leTextFieldWidget* _this,
+                                         leBool clear)
 {
     LE_ASSERT_THIS();
     
@@ -318,6 +372,8 @@ static void handleFocusGainedEvent(leTextFieldWidget* _this)
     {
         _this->focusChangedEvent(_this, LE_TRUE);
     }
+
+    _this->fn->invalidate(_this);
 }
 
 static void handleFocusLostEvent(leTextFieldWidget* _this)
@@ -328,6 +384,8 @@ static void handleFocusLostEvent(leTextFieldWidget* _this)
     {
         _this->focusChangedEvent(_this, LE_FALSE);
     }
+
+    _this->fn->invalidate(_this);
 }
 
 static leTextFieldWidget_TextChangedCallback getTextChangedEventCallback(const leTextFieldWidget* _this)
@@ -379,15 +437,11 @@ static leResult editStart(leTextFieldWidget* _this)
 
     if (_this->clearOnFirstEdit == LE_TRUE)
     {
-        _invalidateText(_this);
-        
-        //leString_Clear(&_this->text);
+        _this->text.fn->clear(&_this->text);
         _this->clearOnFirstEdit  = LE_FALSE;
     }
-    else
-    {
-        _invalidateCursor(_this);
-    }
+
+    _this->fn->invalidate(_this);
     
     return LE_SUCCESS;
 }
@@ -398,16 +452,15 @@ static void editEnd(leTextFieldWidget* _this)
     
     _this->cursorTime = 0;
     _this->cursorVisible = LE_FALSE;
-    
-    _invalidateCursor(_this);
+
+    _this->fn->invalidate(_this);
 }
 
 static void editClear(leTextFieldWidget* _this)
 {
     LE_ASSERT_THIS();
-    
-    _invalidateText(_this);
-    _invalidateCursor(_this);
+
+    _this->fn->invalidate(_this);
     
     _this->text.fn->clear(&_this->text);
 
@@ -421,49 +474,38 @@ static void editAccept(leTextFieldWidget* _this)
 {   
     LE_ASSERT_THIS();
     
-    //leGetState()->
-    //leContext_SetEditWidget(NULL);
+    leSetEditWidget(NULL);
 }
 
 static void editAppend(leTextFieldWidget* _this,
                        const leString* str)
 {
     LE_ASSERT_THIS();
-    
-    // initial string value is probably referencing string table
-    // extract it to local cache and to make editable
-    //if(_this->text.table_index != LE_STRING_NULLIDX)
-    //    leString_ExtractFromTable(&_this->text, _this->text.table_index);
 
-    //_invalidateText(_this);
-    //_invalidateCursor(_this);
-    
-//    _this->text.fn->insert(&_this->text, &str, _this->cursorPos);
-//    
-//    _this->cursorPos += str.fn->length(&str);
-//    
-//    if(_this->cursorEnable == LE_TRUE)
-//    {
-//        _this->cursorTime = 0;
-//        _this->cursorVisible = LE_TRUE;
-//    }
-//    
-//    _invalidateText(_this);
-//    _invalidateCursor(_this);
-//
-//    if (_this->textChangedEvent != NULL)
-//    {
-//        _this->textChangedEvent(_this);
-//    }
+    if(str == NULL)
+        return;
+
+    _this->text.fn->insert(&_this->text, str, _this->cursorPos);
+    _this->cursorPos += str->fn->length(str);
+
+    if(_this->cursorEnable == LE_TRUE)
+    {
+        _this->cursorTime = 0;
+        _this->cursorVisible = LE_TRUE;
+    }
+
+    if (_this->textChangedEvent != NULL)
+    {
+        _this->textChangedEvent(_this);
+    }
+
+    _this->fn->invalidate(_this);
 }
 
 static void editSet(leTextFieldWidget* _this,
                     const leString* str)
 {
     LE_ASSERT_THIS();
-    
-    _invalidateText(_this);
-    _invalidateCursor(_this);
     
     _this->text.fn->setFromString(&_this->text, str);
     
@@ -475,13 +517,12 @@ static void editSet(leTextFieldWidget* _this,
         _this->cursorVisible = LE_TRUE;
     }
 
-    _invalidateText(_this);
-    _invalidateCursor(_this);
-
     if (_this->textChangedEvent != NULL)
     {
         _this->textChangedEvent(_this);
     }
+
+    _this->fn->invalidate(_this);
 }
 
 static void editBackspace(leTextFieldWidget* _this)
@@ -491,9 +532,6 @@ static void editBackspace(leTextFieldWidget* _this)
     if(_this->cursorPos == 0)
         return;
         
-    _invalidateText(_this);
-    _invalidateCursor(_this);
-    
     _this->text.fn->remove(&_this->text, _this->cursorPos - 1, 1);
         
     if(_this->cursorPos > _this->text.length)
@@ -511,17 +549,16 @@ static void editBackspace(leTextFieldWidget* _this)
         _this->cursorVisible = LE_TRUE;
     }
 
-    _invalidateText(_this);
-    _invalidateCursor(_this);
-
     if (_this->textChangedEvent != NULL)
     {
         _this->textChangedEvent(_this);
     }
+
+    _this->fn->invalidate(_this);
 }
 
 static void handleTouchDownEvent(leTextFieldWidget* _this,
-                                 leInput_TouchDownEvent* evt)
+                                 leWidgetEvent_TouchDown* evt)
 {
     lePoint pnt;
     
@@ -531,20 +568,20 @@ static void handleTouchDownEvent(leTextFieldWidget* _this,
     pnt.y = evt->y;
     
     _setCursorFromPoint(_this, &pnt);
-    
-    evt->event.accepted = LE_TRUE;
+
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
 }
 
 static void handleTouchUpEvent(leTextFieldWidget* _this,
-                               leInput_TouchUpEvent* evt)
+                               leWidgetEvent_TouchUp* evt)
 {
     LE_ASSERT_THIS();
-    
-    evt->event.accepted = LE_TRUE;
+
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
 }
 
 static void handleTouchMovedEvent(leTextFieldWidget* _this,
-                                  leInput_TouchMoveEvent* evt)
+                                  leWidgetEvent_TouchMove* evt)
 {
     LE_ASSERT_THIS();
     
@@ -554,17 +591,25 @@ static void handleTouchMovedEvent(leTextFieldWidget* _this,
     pnt.y = evt->y;
     
     _setCursorFromPoint(_this, &pnt);*/
-    
-    evt->event.accepted = LE_TRUE;
+
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
 }
 
 void _leEditWidget_FillVTable(leEditWidgetVTable* tbl);
 void _leTextFieldWidget_Paint(leTextFieldWidget* _this);
 
+static void handleLanguageChangeEvent(leTextFieldWidget* _this)
+{
+    LE_ASSERT_THIS();
+
+    _this->fn->invalidate(_this);
+}
+
+
 void _leTextFieldWidget_GenerateVTable()
 {
     _leEditWidget_FillVTable((void*)&textFieldWidgetVTable);
-    
+
     /* overrides from base class */
     textFieldWidgetVTable._destructor = destructor;
     textFieldWidgetVTable._paint = _leTextFieldWidget_Paint;
@@ -574,6 +619,7 @@ void _leTextFieldWidget_GenerateVTable()
     textFieldWidgetVTable.touchMoveEvent = handleTouchMovedEvent;
     textFieldWidgetVTable.focusLostEvent = handleFocusLostEvent;
     textFieldWidgetVTable.focusGainedEvent = handleFocusGainedEvent;
+    textFieldWidgetVTable.languageChangeEvent = handleLanguageChangeEvent;
     
     /* override from edit widget */
     textFieldWidgetVTable.editStart = editStart;
@@ -591,11 +637,13 @@ void _leTextFieldWidget_GenerateVTable()
     textFieldWidgetVTable.setCursorEnabled = setCursorEnabled;
     textFieldWidgetVTable.getCursorPosition = getCursorPosition;
     textFieldWidgetVTable.setCursorPosition = setCursorPosition;
-    textFieldWidgetVTable.getText = getText;
-    textFieldWidgetVTable.setText = setText;
-    textFieldWidgetVTable.getHintText = getHintText;
-    textFieldWidgetVTable.setHintText = setHintText;
-    textFieldWidgetVTable.setClearHintOnEdit = setClearHintOnEdit;
+    textFieldWidgetVTable.getString = getString;
+    textFieldWidgetVTable.setString = setString;
+    textFieldWidgetVTable.getHintString = getHintString;
+    textFieldWidgetVTable.setHintString = setHintString;
+    textFieldWidgetVTable.getFont = getFont;
+    textFieldWidgetVTable.setFont = setFont;
+    textFieldWidgetVTable.setClearValueOnFirstEdit = setClearValueOnFirstEdit;
     textFieldWidgetVTable.getTextChangedEventCallback = getTextChangedEventCallback;
     textFieldWidgetVTable.setTextChangedEventCallback = setTextChangedEventCallback;
     textFieldWidgetVTable.getFocusChangedEventCallback = getFocusChangedEventCallback;

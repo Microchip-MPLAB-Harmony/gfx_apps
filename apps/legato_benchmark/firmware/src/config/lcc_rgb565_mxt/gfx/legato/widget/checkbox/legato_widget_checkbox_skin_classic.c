@@ -27,6 +27,7 @@
 
 #include "gfx/legato/common/legato_utils.h"
 #include "gfx/legato/core/legato_scheme.h"
+#include "gfx/legato/core/legato_state.h"
 #include "gfx/legato/renderer/legato_renderer.h"
 #include "gfx/legato/string/legato_string.h"
 
@@ -43,9 +44,13 @@ enum
     DONE = LE_WIDGET_DRAW_STATE_DONE,
     DRAW_BACKGROUND,
     DRAW_IMAGE,
+#if LE_STREAMING_ENABLED == 1
     WAIT_IMAGE,
+#endif
     DRAW_STRING,
+#if LE_STREAMING_ENABLED == 1
     WAIT_STRING,
+#endif
     DRAW_BORDER
 };
 
@@ -66,7 +71,7 @@ void _leCheckBoxWidget_GetImageRect(const leCheckBoxWidget* cbox,
     
     if(cbox->string != NULL)
     {
-        cbox->string->fn->getRect(cbox->string, -1, &textRect);
+        cbox->string->fn->getRect(cbox->string, &textRect);
     }
     
     if(cbox->checked == LE_FALSE)
@@ -129,7 +134,7 @@ void _leCheckBoxWidget_GetTextRect(const leCheckBoxWidget* cbox,
     if(cbox->string == NULL)
         return;
     
-    cbox->string->fn->getRect(cbox->string, 0, textRect);
+    cbox->string->fn->getRect(cbox->string, textRect);
     
     bounds = cbox->fn->localRect(cbox);
     
@@ -183,9 +188,7 @@ void _leCheckBoxWidget_GetTextRect(const leCheckBoxWidget* cbox,
 
 static void drawBackground(leCheckBoxWidget* cbox);
 static void drawImage(leCheckBoxWidget* cbox);
-//static void waitImage(leCheckBoxWidget* cbox);
 static void drawString(leCheckBoxWidget* cbox);
-//static void waitString(leCheckBoxWidget* cbox);
 static void drawBorder(leCheckBoxWidget* cbox);
 
 static void nextState(leCheckBoxWidget* cbox)
@@ -194,13 +197,13 @@ static void nextState(leCheckBoxWidget* cbox)
     {
         case NOT_STARTED:
         {
+            paintState.alpha = 255;
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
             if(cbox->fn->getCumulativeAlphaEnabled(cbox) == LE_TRUE)
             {
                 paintState.alpha = cbox->fn->getCumulativeAlphaAmount(cbox);
             }
-#else
-            paintState.alpha = 255;
 #endif
             
             if(cbox->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
@@ -317,10 +320,22 @@ static void drawCheckBox(leCheckBoxWidget* cbox, leRect* rect)
 
 static void drawBackground(leCheckBoxWidget* cbox)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)cbox);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)cbox,
+                                                 paintState.alpha);
 
     nextState(cbox);
 }
+
+#if LE_STREAMING_ENABLED == 1
+static void onImageStreamFinished(leStreamManager* dec)
+{
+    leCheckBoxWidget* cbox = (leCheckBoxWidget*)dec->userData;
+
+    cbox->widget.drawState = DRAW_IMAGE;
+
+    nextState(cbox);
+}
+#endif
 
 static void drawImage(leCheckBoxWidget* cbox)
 {
@@ -351,10 +366,12 @@ static void drawImage(leCheckBoxWidget* cbox)
                      imgRect.y,
                      paintState.alpha);
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1                           
-        if(cbox->reader != NULL)
-        {  
-            cbox->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitImage;
+#if LE_STREAMING_ENABLED == 1
+        if(leGetActiveStream() != NULL)
+        {
+            leGetActiveStream()->onDone = onImageStreamFinished;
+            leGetActiveStream()->userData = cbox;
+
             cbox->widget.drawState = WAIT_IMAGE;
             
             return;
@@ -365,24 +382,13 @@ static void drawImage(leCheckBoxWidget* cbox)
     nextState(cbox);
 }
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1 
-static void waitImage(leCheckBoxWidget* cbox)
+#if LE_STREAMING_ENABLED == 1
+static void onStringStreamFinished(leStreamManager* strm)
 {
-    if(cbox->reader->status != leREADER_STATUS_FINISHED)
-    {
-        cbox->reader->run(cbox->reader);
+    leCheckBoxWidget* cbox = (leCheckBoxWidget*)strm->userData;
 
-        return;
-    }
-    else
-    {
-        // free the reader
-        cbox->reader->memIntf->heap.free(cbox->reader);
-        cbox->reader = NULL;
-    }
-            
-    cbox->widget.drawState = DRAW_IMAGE;
-    
+    cbox->widget.drawState = DRAW_STRING;
+
     nextState(cbox);
 }
 #endif
@@ -400,55 +406,36 @@ static void drawString(leCheckBoxWidget* cbox)
     cbox->string->fn->_draw(cbox->string,
                             textRect.x,
                             textRect.y,
-                            cbox->widget.scheme->text,
-                            paintState.alpha,
                             cbox->widget.halign,
-                            0);
-        
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-    if(leGetReader() != NULL)
+                            cbox->widget.scheme->text,
+                            paintState.alpha);
+
+#if LE_STREAMING_ENABLED == 1
+    if(leGetActiveStream() != NULL)
     {
-        cbox->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitString;
+        leGetActiveStream()->onDone = onStringStreamFinished;
+        leGetActiveStream()->userData = cbox;
+
         cbox->widget.drawState = WAIT_STRING;
-        
+
         return;
     }
 #endif
-
-
     
     nextState(cbox);
 }
-
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-static void waitString(leCheckBoxWidget* cbox)
-{
-    if(cbox->reader->status != leREADER_STATUS_FINISHED)
-    {
-        cbox->reader->run(cbox->reader);
-        
-        return;
-    }
-    
-    // free the reader
-    cbox->reader->memIntf->heap.free(cbox->reader);
-    cbox->reader = NULL;
-    
-    cbox->widget.drawState = DRAW_STRING;
-    
-    nextState(cbox);
-}
-#endif
 
 static void drawBorder(leCheckBoxWidget* cbox)
 {
     if(cbox->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)cbox);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)cbox,
+                                                    paintState.alpha);
     }
     else if(cbox->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)cbox);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)cbox,
+                                                      paintState.alpha);
     }
     
     nextState(cbox);
@@ -467,6 +454,14 @@ void _leCheckBoxWidget_Paint(leCheckBoxWidget* cbox)
     {
         nextState(cbox);
     }
+
+#if LE_STREAMING_ENABLED == 1
+    if(cbox->widget.drawState == WAIT_IMAGE ||
+       cbox->widget.drawState == WAIT_STRING)
+    {
+        return;
+    }
+#endif
     
     while(cbox->widget.drawState != DONE)
     {
@@ -476,7 +471,7 @@ void _leCheckBoxWidget_Paint(leCheckBoxWidget* cbox)
         break;
 #endif
         
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
         if(cbox->widget.drawState == WAIT_IMAGE ||
            cbox->widget.drawState == WAIT_STRING)
             break;

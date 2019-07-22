@@ -296,8 +296,15 @@ LIB_EXPORT leResult lePixelBufferSet(const lePixelBuffer* const buffer,
 LIB_EXPORT leResult lePixelBufferSet_Unsafe(const lePixelBuffer* const buffer,
                                             uint32_t x,
                                             uint32_t y,
-                                            leColor color);                                         
-                                            
+                                            leColor color);
+
+leResult lePixelBufferAreaFill(const lePixelBuffer* const buffer,
+                               uint32_t x,
+                               uint32_t y,
+                               uint32_t w,
+                               uint32_t h,
+                               const leColor color);
+
 // *****************************************************************************
 /* Function:
     leResult lePixelBufferAreaFill_Unsafe(const lePixelBuffer* const buffer,
@@ -318,8 +325,11 @@ LIB_EXPORT leResult lePixelBufferSet_Unsafe(const lePixelBuffer* const buffer,
     leResult
 */                                              
 LIB_EXPORT leResult lePixelBufferAreaFill_Unsafe(const lePixelBuffer* const buffer,
-                                                 const leRect* const rect,
-                                                 const leColor color);      
+                                                 uint32_t x,
+                                                 uint32_t y,
+                                                 uint32_t w,
+                                                 uint32_t h,
+                                                 leColor color);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

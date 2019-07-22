@@ -108,6 +108,7 @@ leResult screenShow_FPSImages()
     ImageRefreshValue->fn->setPosition(ImageRefreshValue, 7, 89);
     ImageRefreshValue->fn->setSize(ImageRefreshValue, 101, 24);
     ImageRefreshValue->fn->setBackgroundType(ImageRefreshValue, LE_WIDGET_BACKGROUND_NONE);
+    ImageRefreshValue->fn->setHAlignment(ImageRefreshValue, LE_HALIGN_CENTER);
     ImageRefreshValue->fn->setString(ImageRefreshValue, (leString*)&tableString_NumsLittle);
     ImageSideContainer->fn->addChild(ImageSideContainer, (leWidget*)ImageRefreshValue);
 
@@ -115,6 +116,7 @@ leResult screenShow_FPSImages()
     ImageContainerTitle->fn->setPosition(ImageContainerTitle, 0, 2);
     ImageContainerTitle->fn->setSize(ImageContainerTitle, 111, 25);
     ImageContainerTitle->fn->setBackgroundType(ImageContainerTitle, LE_WIDGET_BACKGROUND_NONE);
+    ImageContainerTitle->fn->setHAlignment(ImageContainerTitle, LE_HALIGN_CENTER);
     ImageContainerTitle->fn->setString(ImageContainerTitle, (leString*)&tableString_ImageRendering);
     ImageSideContainer->fn->addChild(ImageSideContainer, (leWidget*)ImageContainerTitle);
 
@@ -199,6 +201,7 @@ leResult screenShow_FPSImages()
     showing = LE_TRUE;
 
     FPSImages_OnShow();
+
     return LE_SUCCESS;
 }
 
@@ -214,6 +217,7 @@ void screenHide_FPSImages()
     leWidget_Delete(root0);
 
     root0 = NULL;
+
     ImageBackground = NULL;
     ImageRenderArea = NULL;
     ImageSideContainer = NULL;
@@ -244,7 +248,6 @@ void screenHide_FPSImages()
     tableString_ImageType.fn->destructor(&tableString_ImageType);
     tableString_Previous.fn->destructor(&tableString_Previous);
     tableString_NextSymbol.fn->destructor(&tableString_NextSymbol);
-
     showing = LE_FALSE;
 
     FPSImages_OnHide();

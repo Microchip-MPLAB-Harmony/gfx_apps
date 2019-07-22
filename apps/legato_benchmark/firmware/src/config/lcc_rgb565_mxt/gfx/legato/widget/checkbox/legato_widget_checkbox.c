@@ -21,6 +21,7 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+#include <gfx/legato/legato.h>
 #include "gfx/legato/widget/checkbox/legato_widget_checkbox.h"
 
 #if LE_CHECKBOX_WIDGET_ENABLED == 1
@@ -68,27 +69,30 @@ static void invalidateTextRect(const leCheckBoxWidget* _this)
 static void invalidateContents(const leCheckBoxWidget* _this)
 {
     LE_ASSERT_THIS();
-    
-    if(_this->string != NULL &&
-       _this->string->fn->isEmpty(_this->string) == LE_FALSE)
-    {
-        invalidateTextRect(_this);
-    }
-        
-    if((_this->checked == LE_TRUE && _this->checkedImage != NULL) ||
-       (_this->checked == LE_FALSE && _this->uncheckedImage != NULL))
-    {
-        invalidateImageRect(_this);
-    }
+
+    invalidateImageRect(_this);
+    invalidateTextRect(_this);
 }
 
-static void languageChanging(leCheckBoxWidget* _this)
+static void stringPreinvalidate(const leString* str,
+                                leCheckBoxWidget* cbox)
+{
+    invalidateContents(cbox);
+}
+
+static void stringInvalidate(const leString* str,
+                             leCheckBoxWidget* cbox)
+{
+    invalidateContents(cbox);
+}
+
+static void handleLanguageChangeEvent(leCheckBoxWidget* _this)
 {   
     LE_ASSERT_THIS();
     
     if(_this->string != NULL)
     {
-        invalidateTextRect(_this);
+        _this->fn->invalidate(_this);
     }
 }
 
@@ -113,6 +117,7 @@ void _leCheckBoxWidget_Constructor(leCheckBoxWidget* _this)
 
     _this->string = NULL;
 
+    _this->imagePosition = LE_RELATIVE_POSITION_LEFTOF;
     _this->imageMargin = DEFAULT_IMAGE_MARGIN;
 
     _this->widget.halign = LE_HALIGN_LEFT;
@@ -120,6 +125,9 @@ void _leCheckBoxWidget_Constructor(leCheckBoxWidget* _this)
     
     _this->checkedImage = NULL;
     _this->uncheckedImage = NULL;
+
+    _this->checkedEvent = NULL;
+    _this->uncheckedEvent = NULL;
 }
 
 void _leWidget_Destructor(leWidget* _this);
@@ -173,8 +181,8 @@ static leResult setChecked(leCheckBoxWidget* _this,
     {
         _this->uncheckedEvent(_this);
     }
-    
-    invalidateImageRect(_this);
+
+    _this->fn->invalidate(_this);
     
     return LE_SUCCESS;
 }
@@ -190,13 +198,31 @@ static leResult setString(leCheckBoxWidget* _this,
                           const leString* str)
 {
     LE_ASSERT_THIS();
-        
-    _this->string = str;
-        
-    if(_this->string != NULL && _this->string->fn->length(_this->string) != 0)
+
+    if(_this->string != NULL)
     {
         invalidateTextRect(_this);
+
+        _this->string->fn->setPreInvalidateCallback((leString*)_this->string,
+                                                    NULL,
+                                                    NULL);
+
+        _this->string->fn->setInvalidateCallback((leString*)_this->string,
+                                                 NULL,
+                                                 NULL);
     }
+
+    _this->string = str;
+
+    _this->string->fn->setPreInvalidateCallback((leString*)_this->string,
+                                                (void*)stringPreinvalidate,
+                                                _this);
+
+    _this->string->fn->setInvalidateCallback((leString*)_this->string,
+                                             (void*)stringInvalidate,
+                                             _this);
+
+    invalidateTextRect(_this);
         
     return LE_SUCCESS;
 }
@@ -215,7 +241,7 @@ static leResult setCheckedImage(leCheckBoxWidget* _this,
 
     _this->checkedImage = img;
 
-    invalidateContents(_this);
+    _this->fn->invalidate(_this);
     
     return LE_SUCCESS;
 }
@@ -234,7 +260,7 @@ static leResult setUncheckedImage(leCheckBoxWidget* _this,
 
     _this->uncheckedImage = img;
 
-    invalidateContents(_this);
+    _this->fn->invalidate(_this);
     
     return LE_SUCCESS;
 }
@@ -252,8 +278,8 @@ static leResult setImagePosition(leCheckBoxWidget* _this,
     LE_ASSERT_THIS();
     
     _this->imagePosition = pos;
-    
-    invalidateContents(_this);
+
+    _this->fn->invalidate(_this);
     
     return LE_SUCCESS;
 }
@@ -271,8 +297,8 @@ static leResult setImageMargin(leCheckBoxWidget* _this,
     LE_ASSERT_THIS();
     
     _this->imageMargin = mg;
-    
-    invalidateContents(_this);
+
+    _this->fn->invalidate(_this);
     
     return LE_SUCCESS;
 }
@@ -312,7 +338,7 @@ static leResult setUncheckedEventCallback(leCheckBoxWidget* _this,
 }
 
 static void handleTouchDownEvent(leCheckBoxWidget* _this,
-                                 leInput_TouchDownEvent* evt)
+                                 leWidgetEvent_TouchDown* evt)
 {
     leRect imgRect, imgSrcRect;
     lePoint pt;
@@ -326,14 +352,14 @@ static void handleTouchDownEvent(leCheckBoxWidget* _this,
     
     if(leRectContainsPoint(&imgRect, &pt) == LE_TRUE)
     {
-        evt->event.accepted = LE_TRUE;
+        leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
 
        // printf("cbox touch down\n");
     }
 }
 
 static void handleTouchUpEvent(leCheckBoxWidget* _this,
-                               leInput_TouchUpEvent* evt)
+                               leWidgetEvent_TouchUp* evt)
 {
     leRect imgRect, imgSrcRect;
     lePoint pnt;
@@ -343,37 +369,22 @@ static void handleTouchUpEvent(leCheckBoxWidget* _this,
     pnt.x = evt->x;
     pnt.y = evt->y;
 
-    evt->event.accepted = LE_TRUE;
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
 
     _leCheckBoxWidget_GetImageRect(_this, &imgRect, &imgSrcRect);
     
     if(leRectContainsPoint(&imgRect, &pnt) == LE_TRUE)
     {
-        _this->checked = !_this->checked;
-
-        if(_this->checked == LE_TRUE && _this->checkedEvent != NULL)
-        {
-            _this->checkedEvent(_this);
-        }
-        else if(_this->checked == LE_FALSE && _this->uncheckedEvent != NULL)
-        {
-            _this->uncheckedEvent(_this);
-        }
-        
-        //printf("cbox released\n");
-        
-        _this->fn->_damageArea(_this, &imgRect);
+        _this->fn->setChecked(_this, !_this->checked);
     }
-    
-    //printf("cbox touch up\n");
 }
 
 static void handleTouchMovedEvent(leCheckBoxWidget* _this,
-                                  leInput_TouchMoveEvent* evt)
+                                  leWidgetEvent_TouchMove* evt)
 {
     LE_ASSERT_THIS();
 
-    evt->event.accepted = LE_TRUE;
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
 }
 
 void _leWidget_FillVTable(leWidgetVTable* tbl);
@@ -385,7 +396,7 @@ void _leCheckBoxWidget_GenerateVTable()
     
     /* overrides from base class */
     checkBoxWidgetVTable._destructor = _leCheckBoxWidget_Destructor;
-    checkBoxWidgetVTable.languageChangeEvent = languageChanging;
+    checkBoxWidgetVTable.languageChangeEvent = handleLanguageChangeEvent;
     checkBoxWidgetVTable._paint = _leCheckBoxWidget_Paint;
     checkBoxWidgetVTable.invalidateContents = invalidateContents;
     checkBoxWidgetVTable.touchDownEvent = handleTouchDownEvent;

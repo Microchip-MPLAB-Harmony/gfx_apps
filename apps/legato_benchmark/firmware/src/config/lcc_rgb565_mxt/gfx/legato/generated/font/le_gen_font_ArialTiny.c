@@ -135,17 +135,18 @@ const uint8_t ArialTiny_data[363] =
     0x30,0x30,0x20,0x20,0xC0,0x78,0x10,0x20,0x20,0x40,0xF8,
 };
 
-leFont ArialTiny =
+leRasterFont ArialTiny =
 {
     {
-        LE_ASSET_TYPE_FONT, // asset type
-        LE_ASSET_LOCATION_ID_INTERNAL, // data location id
-        (void*)ArialTiny_data, // data address pointer
-        363, // data size
+        {
+            LE_STREAM_LOCATION_ID_INTERNAL, // data location id
+            (void*)ArialTiny_data, // data address pointer
+            363, // data size
+        },
+        LE_RASTER_FONT,
     },
-    6,
+    12,
     8,
     LE_FONT_BPP_1, // bits per pixel
     ArialTiny_glyphs, // glyph table
-    ArialTiny_data, // font data
 };

@@ -339,7 +339,7 @@ LIB_EXPORT leResult lePolarToXY(int32_t r, int32_t a, lePoint* p);
 
 // *****************************************************************************
 /* Function:
-    int16_t leNormalize360(int16_t t)
+    int16_t leNormalizeAngle(int16_t t)
 
   Summary:
      normalize an angle between 0 - 360
@@ -352,7 +352,7 @@ LIB_EXPORT leResult lePolarToXY(int32_t r, int32_t a, lePoint* p);
               Example: t = -5, return value is 355
                        t = 450, return value is 90
 */
-LIB_EXPORT int16_t leNormalize360(int16_t t);
+LIB_EXPORT int16_t leNormalizeAngle(int16_t t);
 
 
 // *****************************************************************************

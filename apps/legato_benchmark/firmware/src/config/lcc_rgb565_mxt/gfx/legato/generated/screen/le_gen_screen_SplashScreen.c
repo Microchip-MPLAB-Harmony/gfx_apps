@@ -70,6 +70,7 @@ leResult screenShow_SplashScreen()
     showing = LE_TRUE;
 
     SplashScreen_OnShow();
+
     return LE_SUCCESS;
 }
 
@@ -85,13 +86,12 @@ void screenHide_SplashScreen()
     leWidget_Delete(root0);
 
     root0 = NULL;
+
     SplashBackground = NULL;
     SplashPIC32Logo = NULL;
     SplashHarmonyLogo = NULL;
     SplashBar = NULL;
     SplashMicrochipLogo = NULL;
-
-
     showing = LE_FALSE;
 
     SplashScreen_OnHide();

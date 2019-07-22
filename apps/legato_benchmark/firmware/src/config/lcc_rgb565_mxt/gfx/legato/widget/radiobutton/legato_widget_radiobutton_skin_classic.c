@@ -25,12 +25,12 @@
 
 #if LE_RADIOBUTTON_WIDGET_ENABLED == 1
 
+#include "gfx/legato/common/legato_utils.h"
+#include "gfx/legato/core/legato_state.h"
 #include "gfx/legato/image/legato_image.h"
 #include "gfx/legato/renderer/legato_renderer.h"
 #include "gfx/legato/string/legato_string.h"
-#include "gfx/legato/common/legato_utils.h"
 #include "gfx/legato/widget/legato_widget.h"
-
 #include "gfx/legato/widget/legato_widget_skin_classic_common.h"
 
 #define MIN_CIRCLE_SIZE       15
@@ -43,9 +43,13 @@ enum
     DONE = LE_WIDGET_DRAW_STATE_DONE,
     DRAW_BACKGROUND,
     DRAW_IMAGE,
+#if LE_STREAMING_ENABLED == 1
     WAIT_IMAGE,
+#endif
     DRAW_STRING,
+#if LE_STREAMING_ENABLED == 1
     WAIT_STRING,
+#endif
     DRAW_BORDER,
 };
 
@@ -64,9 +68,9 @@ void _leRadioButtonWidget_GetImageRect(const leRadioButtonWidget* btn,
     imgRect->x = 0;
     imgRect->y = 0;
     
-    if(btn->text != NULL)
+    if(btn->string != NULL)
     {
-        btn->text->fn->getRect(btn->text, 0, &textRect);
+        btn->string->fn->getRect(btn->string, &textRect);
     }
     else
     {
@@ -131,9 +135,9 @@ void _leRadioButtonWidget_GetTextRect(leRadioButtonWidget* btn,
     
     bounds = btn->fn->localRect(btn);
     
-    if(btn->text != NULL)
+    if(btn->string != NULL)
     {
-        btn->text->fn->getRect(btn->text, 0, textRect);
+        btn->string->fn->getRect(btn->string, textRect);
     }
     else
     {
@@ -190,9 +194,7 @@ void _leRadioButtonWidget_GetTextRect(leRadioButtonWidget* btn,
 
 static void drawBackground(leRadioButtonWidget* btn);
 static void drawImage(leRadioButtonWidget* btn);
-//static void waitImage(leRadioButtonWidget* btn);
 static void drawString(leRadioButtonWidget* btn);
-//static void waitString(leRadioButtonWidget* btn);
 static void drawBorder(leRadioButtonWidget* btn);
 
 static void nextState(leRadioButtonWidget* btn)
@@ -201,13 +203,13 @@ static void nextState(leRadioButtonWidget* btn)
     {
         case NOT_STARTED:
         {
+            paintState.alpha = 255;
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
             if(btn->fn->getCumulativeAlphaEnabled(btn) == LE_TRUE)
             {
                 paintState.alpha = btn->fn->getCumulativeAlphaAmount(btn);
             }
-#else
-            paintState.alpha = 255;
 #endif
 
             if(btn->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
@@ -227,7 +229,7 @@ static void nextState(leRadioButtonWidget* btn)
         }
         case DRAW_IMAGE:
         {            
-            if(btn->text != NULL)
+            if(btn->string != NULL)
             {
                 btn->widget.drawState = DRAW_STRING;
                 btn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawString;
@@ -258,62 +260,61 @@ static void drawCircle(leRadioButtonWidget* btn, leRect* rect, leBool filled)
     int x = rect->x;
     int y = rect->y;
     leColor clr;
-    uint32_t a = paintState.alpha;
-    
+
     // fill
     clr = btn->widget.scheme->background;
     
-    leRenderer_HorzLine(x + 4, y + 2, 6, clr, a);
-    leRenderer_HorzLine(x + 3, y + 3, 7, clr, a);
-    leRenderer_HorzLine(x + 2, y + 4, 9, clr, a);
-    leRenderer_HorzLine(x + 2, y + 5, 9, clr, a);
-    leRenderer_HorzLine(x + 2, y + 6, 9, clr, a);
-    leRenderer_HorzLine(x + 2, y + 7, 9, clr, a);
-    leRenderer_HorzLine(x + 3, y + 8, 7, clr, a);
-    leRenderer_HorzLine(x + 4, y + 9, 6, clr, a);
-    leRenderer_HorzLine(x + 2, y + 10, 7, clr, a);
-    leRenderer_HorzLine(x + 4, y + 11, 3, clr, a);
+    leRenderer_HorzLine(x + 4, y + 2, 7, clr, paintState.alpha);
+    leRenderer_HorzLine(x + 3, y + 3, 8, clr, paintState.alpha);
+    leRenderer_HorzLine(x + 2, y + 4, 10, clr, paintState.alpha);
+    leRenderer_HorzLine(x + 2, y + 5, 10, clr, paintState.alpha);
+    leRenderer_HorzLine(x + 2, y + 6, 10, clr, paintState.alpha);
+    leRenderer_HorzLine(x + 2, y + 7, 10, clr, paintState.alpha);
+    leRenderer_HorzLine(x + 3, y + 8, 8, clr, paintState.alpha);
+    leRenderer_HorzLine(x + 4, y + 9, 7, clr, paintState.alpha);
+    leRenderer_HorzLine(x + 2, y + 10, 8, clr, paintState.alpha);
+    leRenderer_HorzLine(x + 4, y + 11, 4, clr, paintState.alpha);
     
     // upper outer ring
     clr = btn->widget.scheme->shadow;
     
-    leRenderer_HorzLine(x + 4, y + 0, 3, clr, a);
-    leRenderer_HorzLine(x + 2, y + 1, 1, clr, a);
-    leRenderer_HorzLine(x + 8, y + 1, 1, clr, a);
-    leRenderer_HorzLine(x + 8, y + 1, 1, clr, a);
-    leRenderer_VertLine(x + 1, y + 2, 1, clr, a);
-    leRenderer_VertLine(x + 1, y + 8, 1, clr, a);
-    leRenderer_VertLine(x + 1, y + 2, 1, clr, a);
-    leRenderer_VertLine(x + 0, y + 4, 3, clr, a);
+    leRenderer_HorzLine(x + 4, y + 0, 4, clr, paintState.alpha);
+    leRenderer_HorzLine(x + 2, y + 1, 2, clr, paintState.alpha);
+    leRenderer_HorzLine(x + 8, y + 1, 2, clr, paintState.alpha);
+    leRenderer_HorzLine(x + 8, y + 1, 2, clr, paintState.alpha);
+    leRenderer_VertLine(x + 1, y + 2, 2, clr, paintState.alpha);
+    leRenderer_VertLine(x + 1, y + 8, 2, clr, paintState.alpha);
+    leRenderer_VertLine(x + 1, y + 2, 2, clr, paintState.alpha);
+    leRenderer_VertLine(x + 0, y + 4, 4, clr, paintState.alpha);
     
     // upper inner ring
     clr = btn->widget.scheme->shadowDark;
     
-    leRenderer_HorzLine(x + 4, y + 1, 3, clr, a);
-    leRenderer_HorzLine(x + 2, y + 2, 1, clr, a);
-    leRenderer_HorzLine(x + 8, y + 2, 1, clr, a);
-    leRenderer_BlendPixel(x + 2, y + 3, clr, a);
-    leRenderer_VertLine(x + 1, y + 4, 3, clr, a);
-    leRenderer_BlendPixel(x + 2, y + 8, clr, a);
+    leRenderer_HorzLine(x + 4, y + 1, 4, clr, paintState.alpha);
+    leRenderer_HorzLine(x + 2, y + 2, 2, clr, paintState.alpha);
+    leRenderer_HorzLine(x + 8, y + 2, 2, clr, paintState.alpha);
+    leRenderer_BlendPixel_Safe(x + 2, y + 4, clr, paintState.alpha);
+    leRenderer_VertLine(x + 1, y + 4, 4, clr, paintState.alpha);
+    leRenderer_BlendPixel_Safe(x + 2, y + 9, clr, paintState.alpha);
     
     // lower inner ring
     clr = btn->widget.scheme->highlight;
     
-    leRenderer_BlendPixel(x + 9, y + 3, clr, a);
-    leRenderer_VertLine(x + 10, y + 4, 3, clr, a);
-    leRenderer_BlendPixel(x + 9, y + 8, clr, a);
-    leRenderer_HorzLine(x + 2, y + 9, 1, clr, a);
-    leRenderer_HorzLine(x + 8, y + 9, 1, clr, a);    
-    leRenderer_HorzLine(x + 4, y + 10, 3, clr, a);
+    leRenderer_BlendPixel_Safe(x + 9, y + 4, clr, paintState.alpha);
+    leRenderer_VertLine(x + 10, y + 4, 4, clr, paintState.alpha);
+    leRenderer_BlendPixel_Safe(x + 9, y + 9, clr, paintState.alpha);
+    leRenderer_HorzLine(x + 2, y + 9, 2, clr, paintState.alpha);
+    leRenderer_HorzLine(x + 8, y + 9, 2, clr, paintState.alpha);
+    leRenderer_HorzLine(x + 4, y + 10, 4, clr, paintState.alpha);
     
     if(filled == LE_TRUE)
     {
         clr = btn->widget.scheme->foreground;
         
-        leRenderer_HorzLine(x + 5, y + 4, 1, clr, a);
-        leRenderer_HorzLine(x + 4, y + 5, 3, clr, a);
-        leRenderer_HorzLine(x + 4, y + 6, 3, clr, a);
-        leRenderer_HorzLine(x + 5, y + 7, 1, clr, a);
+        leRenderer_HorzLine(x + 5, y + 4, 2, clr, paintState.alpha);
+        leRenderer_HorzLine(x + 4, y + 5, 4, clr, paintState.alpha);
+        leRenderer_HorzLine(x + 4, y + 6, 4, clr, paintState.alpha);
+        leRenderer_HorzLine(x + 5, y + 7, 2, clr, paintState.alpha);
     }
 }
 
@@ -467,10 +468,22 @@ static void drawCircleArcs(leRadioButtonWidget* btn,
 
 static void drawBackground(leRadioButtonWidget* btn)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)btn);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)btn,
+                                                paintState.alpha);
 
     nextState(btn);
 }
+
+#if LE_STREAMING_ENABLED == 1
+static void onImageStreamFinished(leStreamManager* dec)
+{
+    leRadioButtonWidget* btn = (leRadioButtonWidget*)dec->userData;
+
+    btn->widget.drawState = DRAW_IMAGE;
+
+    nextState(btn);
+}
+#endif
 
 static void drawImage(leRadioButtonWidget* btn)
 {
@@ -506,13 +519,15 @@ static void drawImage(leRadioButtonWidget* btn)
                      imgRect.x,
                      imgRect.y,
                      paintState.alpha);
-          
-#if LE_EXTERNAL_STREAMING_ENABLED == 1                           
-        if(btn->reader != NULL)
-        {  
-            btn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitImage;
+
+#if LE_STREAMING_ENABLED == 1
+        if(leGetActiveStream() != NULL)
+        {
+            leGetActiveStream()->onDone = onImageStreamFinished;
+            leGetActiveStream()->userData = btn;
+
             btn->widget.drawState = WAIT_IMAGE;
-            
+
             return;
         }
 #endif
@@ -521,24 +536,13 @@ static void drawImage(leRadioButtonWidget* btn)
     nextState(btn);
 }
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-static void waitImage(leRadioButtonWidget* btn)
+#if LE_STREAMING_ENABLED == 1
+static void onStringStreamFinished(leStreamManager* strm)
 {
-    if(btn->reader->status != GFXU_READER_STATUS_FINISHED)
-    {
-        btn->reader->run(btn->reader);
+    leRadioButtonWidget* btn = (leRadioButtonWidget*)strm->userData;
 
-        return;
-    }
-    else
-    {
-        // free the reader
-        btn->reader->memIntf->heap.free(btn->reader);
-        btn->reader = NULL;
-    }
-            
-    btn->widget.drawState = DRAW_IMAGE;
-    
+    btn->widget.drawState = DRAW_STRING;
+
     nextState(btn);
 }
 #endif
@@ -549,56 +553,39 @@ static void drawString(leRadioButtonWidget* btn)
     
     _leRadioButtonWidget_GetTextRect(btn, &textRect, &drawRect);
         
-    btn->text->fn->_draw(btn->text,
+    btn->string->fn->_draw(btn->string,
                          textRect.x,
                          textRect.y,
-                         btn->widget.scheme->text,
-                         0,
                          LE_HALIGN_CENTER,
+                         btn->widget.scheme->text,
                          paintState.alpha);
-        
-#if LE_EXTERNAL_STREAMING_ENABLED == 1                       
-    if(btn->reader != NULL)
-    {
-        btn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitString;
-        btn->widget.drawState = WAIT_STRING;
-    
-        return;
-    }
-#endif
-    
-    nextState(btn);
-}
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-static void waitString(leRadioButtonWidget* btn)
-{
-    if(btn->reader->status != GFXU_READER_STATUS_FINISHED)
+#if LE_STREAMING_ENABLED == 1
+    if(leGetActiveStream() != NULL)
     {
-        btn->reader->run(btn->reader);
-        
+        leGetActiveStream()->onDone = onStringStreamFinished;
+        leGetActiveStream()->userData = btn;
+
+        btn->widget.drawState = WAIT_STRING;
+
         return;
     }
-    
-    // free the reader
-    btn->reader->memIntf->heap.free(btn->reader);
-    btn->reader = NULL;
-    
-    btn->widget.drawState = DRAW_STRING;
+#endif
     
     nextState(btn);
 }
-#endif
 
 static void drawBorder(leRadioButtonWidget* btn)
 {
     if(btn->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)btn);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)btn,
+                                                    paintState.alpha);
     }
     else if(btn->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)btn);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)btn,
+                                                      paintState.alpha);
     }
     
     nextState(btn);
@@ -617,6 +604,14 @@ void _leRadioButtonWidget_Paint(leRadioButtonWidget* btn)
     {
         nextState(btn);
     }
+
+#if LE_STREAMING_ENABLED == 1
+    if(btn->widget.drawState == WAIT_STRING ||
+       btn->widget.drawState == WAIT_IMAGE)
+    {
+        return;
+    }
+#endif
     
     while(btn->widget.drawState != DONE)
     {
@@ -626,7 +621,7 @@ void _leRadioButtonWidget_Paint(leRadioButtonWidget* btn)
         break;
 #endif
         
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
         if(btn->widget.drawState == WAIT_STRING ||
            btn->widget.drawState == WAIT_IMAGE)
             break;

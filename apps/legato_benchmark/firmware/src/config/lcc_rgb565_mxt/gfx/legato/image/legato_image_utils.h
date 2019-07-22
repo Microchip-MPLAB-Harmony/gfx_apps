@@ -45,21 +45,19 @@
 
 // DOM-IGNORE-BEGIN
 
-// internal use only
-uint32_t getRLEDataAtIndex(uint8_t* data,
-                           uint32_t max,
-                           uint32_t idx,
-                           uint32_t* startBlock,
-                           uint32_t* startOffset);
+uint32_t leGetRLEDataAtIndex(uint8_t* data,
+                             uint32_t max,
+                             uint32_t idx,
+                             uint32_t* startBlock,
+                             uint32_t* startOffset);
 
-// internal use only                        
-uint32_t getDiscreteValueAtIndex(uint32_t index, uint32_t value, leColorMode mode);
+uint32_t leGetDiscreteValueAtIndex(uint32_t index,
+                                   uint32_t value,
+                                   leColorMode mode);
 
-// internal use only
-uint32_t getOffsetFromIndexAndBPP(uint32_t index, leBitsPerPixel bpp);
+uint32_t leGetOffsetFromIndexAndBPP(uint32_t index,
+                                    leBitsPerPixel bpp);
 
-// internal use only
-leResult convertColorAndSetDraw(uint32_t color, leColorMode mode);
 
 // DOM-IGNORE-END
 

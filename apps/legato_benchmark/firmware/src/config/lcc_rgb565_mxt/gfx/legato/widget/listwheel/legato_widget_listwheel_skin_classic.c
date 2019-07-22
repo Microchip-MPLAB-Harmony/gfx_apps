@@ -26,11 +26,11 @@
 
 #if LE_LISTWHEEL_WIDGET_ENABLED
 
+#include "gfx/legato/common/legato_utils.h"
+#include "gfx/legato/core/legato_state.h"
 #include "gfx/legato/renderer/legato_renderer.h"
 #include "gfx/legato/string/legato_string.h"
-#include "gfx/legato/common/legato_utils.h"
 #include "gfx/legato/widget/legato_widget.h"
-
 #include "gfx/legato/widget/legato_widget_skin_classic_common.h"
 
 enum
@@ -39,9 +39,13 @@ enum
     DONE = LE_WIDGET_DRAW_STATE_DONE,
     DRAW_BACKGROUND,
     DRAW_STRING,
+#if LE_STREAMING_ENABLED == 1
     WAIT_STRING,
+#endif
     DRAW_ICON,
+#if LE_STREAMING_ENABLED == 1
     WAIT_ICON,
+#endif
     DRAW_INDICATORS,
     DRAW_BORDER,
 };
@@ -75,7 +79,7 @@ void _leListWheelWidget_GetItemTextRect(const leListWheelWidget* whl,
     
     if(item->string != NULL)
     {
-        item->string->fn->getRect(item->string, 0, textRect);    
+        item->string->fn->getRect(item->string, textRect);
     }
     else
     {
@@ -214,7 +218,7 @@ void _leListWheelWidget_GetItemIconRect(leListWheelWidget* whl,
     
     if(item->string != NULL)
     {
-        item->string->fn->getRect(item->string, 0, &textRect);    
+        item->string->fn->getRect(item->string, &textRect);
     }
     else
     {
@@ -274,7 +278,7 @@ void _leListWheelWidget_GetItemRect(leListWheelWidget* whl,
     
     if(item->string != NULL)
     {
-        item->string->fn->getRect(item->string, 0, &textRect);    
+        item->string->fn->getRect(item->string, &textRect);
     }
     else
     {
@@ -300,9 +304,7 @@ void _leListWheelWidget_GetItemRect(leListWheelWidget* whl,
 
 static void drawBackground(leListWheelWidget* whl);
 static void drawString(leListWheelWidget* whl);
-//static void waitString(leListWheelWidget* whl);
 static void drawIcon(leListWheelWidget* whl);
-//static void waitIcon(leListWheelWidget* whl);
 static void drawIndicators(leListWheelWidget* whl);
 static void drawBorder(leListWheelWidget* whl);
 
@@ -312,13 +314,13 @@ static void nextState(leListWheelWidget* whl)
     {
         case NOT_STARTED:
         {
+            paintState.alpha = 255;
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
             if(whl->fn->getCumulativeAlphaEnabled(whl) == LE_TRUE)
             {
                 paintState.alpha = whl->fn->getCumulativeAlphaAmount(whl);
             }
-#else
-            paintState.alpha = 255;
 #endif
             
             whl->paintState.per = leDivideRounding(whl->widget.rect.height, whl->visibleItems - 1);
@@ -395,8 +397,6 @@ static void nextItem(leListWheelWidget* whl)
     }
 }
 
-
-
 static void drawBackground(leListWheelWidget* whl)
 {
     leRect widgetRect, drawRect;
@@ -430,7 +430,9 @@ static void drawBackground(leListWheelWidget* whl)
         }
         else
         {
-            leWidget_SkinClassic_DrawBackground((leWidget*)whl, whl->widget.scheme->background);
+            leWidget_SkinClassic_DrawBackground((leWidget*)whl,
+                                                whl->widget.scheme->background,
+                                                paintState.alpha);
         }
     }
     
@@ -457,6 +459,18 @@ static void drawBackground(leListWheelWidget* whl)
    
     nextState(whl);    
 }
+
+#if LE_STREAMING_ENABLED == 1
+static void onStringStreamFinished(leStreamManager* strm)
+{
+    leListWheelWidget* whl = (leListWheelWidget*)strm->userData;
+
+    nextItem(whl);
+
+    whl->widget.drawState = DRAW_STRING;
+    whl->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawString;
+}
+#endif
 
 static void drawString(leListWheelWidget* whl)
 {
@@ -518,15 +532,16 @@ static void drawString(leListWheelWidget* whl)
         item->string->fn->_draw(item->string,
                                 textRect.x,
                                 textRect.y,
-                                whl->widget.scheme->textHighlightText,
-                                0,
                                 whl->widget.halign,
+                                whl->widget.scheme->textHighlightText,
                                 paintState.alpha);
-        
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-        if(whl->reader != NULL)
+
+#if LE_STREAMING_ENABLED == 1
+        if(leGetActiveStream() != NULL)
         {
-            whl->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitString;
+            leGetActiveStream()->onDone = onStringStreamFinished;
+            leGetActiveStream()->userData = whl;
+
             whl->widget.drawState = WAIT_STRING;
 
             return;
@@ -540,15 +555,16 @@ static void drawString(leListWheelWidget* whl)
             item->string->fn->_draw(item->string,
                                 textRect.x,
                                 textRect.y,
-                                whl->widget.scheme->text,
-                                0,
                                 whl->widget.halign,
+                                whl->widget.scheme->text,
                                 paintState.alpha);
-                     
-#if LE_EXTERNAL_STREAMING_ENABLED == 1                                
-            if(whl->reader != NULL)
+
+#if LE_STREAMING_ENABLED == 1
+            if(leGetActiveStream() != NULL)
             {
-                whl->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitString;
+                leGetActiveStream()->onDone = onStringStreamFinished;
+                leGetActiveStream()->userData = whl;
+
                 whl->widget.drawState = WAIT_STRING;
 
                 return;
@@ -682,24 +698,14 @@ static void drawString(leListWheelWidget* whl)
     nextItem(whl);
 }
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-static void waitString(leListWheelWidget* whl)
+#if LE_STREAMING_ENABLED == 1
+static void onImageStreamFinished(leStreamManager* dec)
 {
-    if(whl->reader->status != leREADER_STATUS_FINISHED)
-    {
-        whl->reader->run(whl->reader);
-        
-        return;
-    }
-    
-    // free the reader
-    whl->reader->memIntf->heap.free(whl->reader);
-    whl->reader = NULL;
-    
-    nextItem(whl);
-    
-    whl->widget.drawState = DRAW_STRING;
-    whl->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawString;
+    leListWheelWidget* whl = (leListWheelWidget*)dec->userData;
+
+    whl->widget.drawState = DRAW_ICON;
+
+    nextState(whl);
 }
 #endif
 
@@ -758,11 +764,13 @@ static void drawIcon(leListWheelWidget* whl)
                              clipRect.x, clipRect.y,
                              paintState.alpha);
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-                if(whl->reader != NULL)
+#if LE_STREAMING_ENABLED == 1
+                if(leGetActiveStream() != NULL)
                 {
+                    leGetActiveStream()->onDone = onImageStreamFinished;
+                    leGetActiveStream()->userData = whl;
+
                     whl->widget.drawState = WAIT_ICON;
-                    whl->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitIcon;
 
                     return;
                 }
@@ -777,15 +785,17 @@ static void drawIcon(leListWheelWidget* whl)
                                  clipRect.x, clipRect.y,
                                  paintState.alpha);
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-                    if(whl->reader != NULL)
+#if LE_STREAMING_ENABLED == 1
+                    if(leGetActiveStream() != NULL)
                     {
+                        leGetActiveStream()->onDone = onImageStreamFinished;
+                        leGetActiveStream()->userData = whl;
+
                         whl->widget.drawState = WAIT_ICON;
-                        whl->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitIcon;
 
                         return;
-                    }                
-#endif                    
+                    }
+#endif
                 }
                 else 
                 {
@@ -914,27 +924,6 @@ static void drawIcon(leListWheelWidget* whl)
     nextItem(whl);
 }
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-static void waitIcon(leListWheelWidget* whl)
-{
-    if(whl->reader->status != leREADER_STATUS_FINISHED)
-    {
-        whl->reader->run(whl->reader);
-        
-        return;
-    }
-    
-    // free the reader
-    whl->reader->memIntf->heap.free(whl->reader);
-    whl->reader = NULL;
-    
-    nextItem(whl);
-    
-    whl->widget.drawState = DRAW_ICON;
-    whl->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawIcon;
-}
-#endif
-
 static void drawIndicators(leListWheelWidget* whl)
 {
     leRect rect, drawRect;
@@ -1013,11 +1002,13 @@ static void drawBorder(leListWheelWidget* whl)
 {
     if(whl->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)whl);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)whl,
+                                                    paintState.alpha);
     }
     else if(whl->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardLoweredBorder((leWidget*)whl);
+        leWidget_SkinClassic_DrawStandardLoweredBorder((leWidget*)whl,
+                                                       paintState.alpha);
     }
     
     nextState(whl);
@@ -1034,7 +1025,15 @@ void _leListWheelWidget_Paint(leListWheelWidget* whl)
     
     if(whl->widget.drawState == NOT_STARTED)
         nextState(whl);
-    
+
+#if LE_STREAMING_ENABLED == 1
+    if(whl->widget.drawState == WAIT_STRING ||
+       whl->widget.drawState == WAIT_ICON)
+    {
+        return;
+    }
+#endif
+
     while(whl->widget.drawState != DONE)
     {
         whl->widget.drawFunc((leWidget*)whl);
@@ -1042,8 +1041,8 @@ void _leListWheelWidget_Paint(leListWheelWidget* whl)
 #if LE_PREEMPTION_LEVEL == 2
         break;
 #endif
-        
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
+
+#if LE_STREAMING_ENABLED == 1
         if(whl->widget.drawState == WAIT_STRING ||
            whl->widget.drawState == WAIT_ICON)
             break;

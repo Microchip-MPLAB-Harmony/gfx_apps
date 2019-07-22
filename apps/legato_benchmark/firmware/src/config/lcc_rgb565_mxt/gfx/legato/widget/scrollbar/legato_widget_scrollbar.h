@@ -540,9 +540,9 @@ LIB_EXPORT leResult leScrollBarWidget_SetValueChangedEventCallback(leScrollBarWi
 
 // DOM-IGNORE-BEGIN
 // internal use only
-void _leScrollBarWidget_TouchDownEvent(leScrollBarWidget* bar, leInput_TouchDownEvent* evt);
-void _leScrollBarWidget_TouchUpEvent(leScrollBarWidget* bar, leInput_TouchUpEvent* evt);
-void _leScrollBarWidget_TouchMovedEvent(leScrollBarWidget* bar, leInput_TouchMoveEvent* evt);
+void _leScrollBarWidget_TouchDownEvent(leScrollBarWidget* bar, gauge* evt);
+void _leScrollBarWidget_TouchUpEvent(leScrollBarWidget* bar, leWidgetEvent_TouchUp* evt);
+void _leScrollBarWidget_TouchMovedEvent(leScrollBarWidget* bar, leWidgetEvent_TouchMove* evt);
 
 void _leScrollBar_GetUpLeftButtonRect(leScrollBarWidget* bar, leRect* rect);
 void _leScrollBar_GetDownRightButtonRect(leScrollBarWidget* bar, leRect* rect);

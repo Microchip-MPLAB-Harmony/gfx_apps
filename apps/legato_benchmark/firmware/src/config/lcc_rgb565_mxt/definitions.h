@@ -55,7 +55,7 @@
 #include "peripheral/xdmac/plib_xdmac.h"
 #include "peripheral/efc/plib_efc.h"
 #include "peripheral/tc/plib_tc0.h"
-#include "gfx/driver/controller/le_lcc/drv_gfx_le_lcc.h"
+#include "gfx/driver/controller/lcc/drv_gfx_lcc.h"
 #include "driver/i2c/drv_i2c.h"
 #include "system/time/sys_time.h"
 #include "bsp/bsp.h"

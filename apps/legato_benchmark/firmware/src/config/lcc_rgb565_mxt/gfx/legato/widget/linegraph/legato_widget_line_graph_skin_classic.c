@@ -23,14 +23,16 @@
 
 #include "gfx/legato/widget/linegraph/legato_widget_line_graph.h"
 
-#if LE_LINE_GRAPH_WIDGET_ENABLED
+#if LE_LINEGRAPH_WIDGET_ENABLED
 
 #include <stdio.h>
+#include <gfx/legato/legato.h>
 
 #include "gfx/legato/common/legato_math.h"
 #include "gfx/legato/common/legato_utils.h"
 #include "gfx/legato/renderer/legato_renderer.h"
-#include "gfx/legato/string/legato_fixedstring.h"
+#include "gfx/legato/string/legato_string_renderer.h"
+#include "gfx/legato/string/legato_stringutils.h"
 #include "gfx/legato/widget/legato_widget.h"
 #include "gfx/legato/widget/legato_widget_skin_classic_common.h"
 
@@ -38,9 +40,6 @@
 #define MAX_TICK_LABEL_VALUE 999999999
 #define LABEL_OFFSET_MIN_PIX 5
 #define TICK_LABEL_MARGIN 3
-
-static leChar charBuff[MAX_TICK_LABEL_DIGITS];
-static char strbuff[MAX_TICK_LABEL_DIGITS];
 
 enum
 {
@@ -62,13 +61,13 @@ static struct
     lePoint originPoint;
     int32_t originValue;
     lePoint valuePoint;
+    char strbuff[MAX_TICK_LABEL_DIGITS];
 } paintState;
 
 static void drawBackground(leLineGraphWidget* graph);
 static void drawLineGraph(leLineGraphWidget* graph);
 static void drawString(leLineGraphWidget* graph);
 static void drawBorder(leLineGraphWidget* graph);
-//static void waitString(leLineGraphWidget* btn);
 
 lePoint _leLineGraphWidget_GetOriginPoint(const leLineGraphWidget* _this);
 
@@ -78,13 +77,13 @@ static void nextState(leLineGraphWidget* graph)
     {
         case NOT_STARTED:
         {
+            paintState.alpha = 255;
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
             if(graph->fn->getCumulativeAlphaEnabled(graph) == LE_TRUE)
             {
                 paintState.alpha = graph->fn->getCumulativeAlphaAmount(graph);
             }
-#else
-            paintState.alpha = 255;
 #endif
             
             if(graph->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
@@ -129,7 +128,8 @@ static void nextState(leLineGraphWidget* graph)
 
 static void drawBackground(leLineGraphWidget* graph)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)graph);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)graph,
+                                                paintState.alpha);
     
     nextState(graph);
 }
@@ -138,57 +138,52 @@ static void drawBackground(leLineGraphWidget* graph)
 static void getValueLabelMaxDrawRect(const leLineGraphWidget* graph,
                                      leRect * rect)
 {
-    leFixedString str;
     leRect minLabelRect;
     leRect maxLabelRect;
     *rect = leRect_Zero;
-    
-    leFixedString_Constructor(&str, charBuff, MAX_TICK_LABEL_DIGITS);
-    str.fn->setFont(&str, graph->ticksLabelFont);
+
+    if(graph->valueAxisLabelsVisible == LE_FALSE ||
+       graph->ticksLabelFont == NULL)
+        return;
     
     //Calculate the offset for the value labels
-    if (graph->valueAxisLabelsVisible && graph->ticksLabelFont != NULL)
+    minLabelRect = leRect_Zero;
+    maxLabelRect = leRect_Zero;
+
+    if (graph->minValue < 0)
     {
-        minLabelRect = leRect_Zero;
-        maxLabelRect = leRect_Zero;
-
-        if (graph->minValue < 0)
-        {
-            //Protect from overflow
-            if (graph->minValue > -MAX_TICK_LABEL_VALUE)
-            {
-                sprintf(strbuff, "%ld", graph->minValue);
-            }
-            else
-            {
-                sprintf(strbuff, "---");
-            }
-            
-            str.fn->setFromCStr(&str, strbuff);
-            str.fn->getRect(&str, 0, &minLabelRect);
-        }
-
         //Protect from overflow
-        if (graph->maxValue < MAX_TICK_LABEL_VALUE) 
+        if (graph->minValue > -MAX_TICK_LABEL_VALUE)
         {
-            sprintf(strbuff, "%ld", graph->maxValue);
+            sprintf(paintState.strbuff, "%d", (int)graph->minValue);
         }
-        else 
+        else
         {
-            sprintf(strbuff, "---");
+            sprintf(paintState.strbuff, "---");
         }
 
-        str.fn->setFromCStr(&str, strbuff);
-        str.fn->getRect(&str, 0, &minLabelRect);
-
-        rect->width = (maxLabelRect.width > minLabelRect.width) ? 
-                      (maxLabelRect.width) : 
-                      (minLabelRect.width);
-
-        rect->height = (maxLabelRect.height > minLabelRect.height) ? 
-                       (maxLabelRect.height) : 
-                       (minLabelRect.height);
+        leStringUtils_GetRectCStr(paintState.strbuff, graph->ticksLabelFont, &minLabelRect);
     }
+
+    //Protect from overflow
+    if (graph->maxValue < MAX_TICK_LABEL_VALUE)
+    {
+        sprintf(paintState.strbuff, "%d", (int)graph->maxValue);
+    }
+    else
+    {
+        sprintf(paintState.strbuff, "---");
+    }
+
+    leStringUtils_GetRectCStr(paintState.strbuff, graph->ticksLabelFont, &maxLabelRect);
+
+    rect->width = (maxLabelRect.width > minLabelRect.width) ?
+                  (maxLabelRect.width) :
+                  (minLabelRect.width);
+
+    rect->height = (maxLabelRect.height > minLabelRect.height) ?
+                   (maxLabelRect.height) :
+                   (minLabelRect.height);
 }
 
 //Gets the maximum draw rectangle for the category labels
@@ -205,10 +200,10 @@ static void getCategoryLabelMaxDrawRect(const leLineGraphWidget* graph,
     {
         category = leArray_Get(&graph->categories, categoryIndex);
         
-        if (category == NULL)
-            return;
+        if (category == NULL || category->text == NULL)
+            continue;
         
-        category->text->fn->getRect(category->text, 0, &textRect);
+        category->text->fn->getRect(category->text, &textRect);
         
         if (textRect.height > rect->height)
         {
@@ -228,30 +223,28 @@ static void drawTickLabelWithValue(const leLineGraphWidget* graph,
                                    int32_t value,
                                    leColor clr)
 {
-
-    leFixedString str;
-    leRect textRect, /*widgetRect,*/ drawRect;
+    leRect textRect;
+    leCStringRenderRequest req;
 
     if(graph->ticksLabelFont == NULL)
         return;
         
-    leFixedString_Constructor(&str, charBuff, MAX_TICK_LABEL_DIGITS);
-    str.fn->setFont(&str, graph->ticksLabelFont);
-
     //Protect from overflow
     if (value < MAX_TICK_LABEL_VALUE)
     {
-        sprintf(strbuff, "%ld", value);
+        sprintf(paintState.strbuff, "%d", (int)value);
     }
     else
     {
-        sprintf(strbuff, "---");
+        sprintf(paintState.strbuff, "---");
     }
 
-    // get the string rectangle 
-    str.fn->setFromCStr(&str, strbuff);
-    str.fn->getRect(&str, 0, &textRect);
-    
+    // get the string rectangle
+    leStringUtils_GetRectCStr(paintState.strbuff,
+                              graph->ticksLabelFont,
+                              &textRect);
+
+#if 0
     if (position == LE_RELATIVE_POSITION_LEFTOF)
     {
         drawRect.x = tickPoint.x - textRect.width - LABEL_OFFSET_MIN_PIX;
@@ -267,16 +260,17 @@ static void drawTickLabelWithValue(const leLineGraphWidget* graph,
         drawRect.x = tickPoint.x;
         drawRect.y = tickPoint.y;
     }
-    
-    str.fn->_draw(&str,
-                  drawRect.x,
-                  drawRect.y,
-                  clr,
-                  0,
-                  LE_HALIGN_CENTER,
-                  paintState.alpha);
-                  
-    str.fn->destructor(&str);
+#endif
+
+    req.str = paintState.strbuff;
+    req.font = graph->ticksLabelFont;
+    req.x = textRect.x;
+    req.y = textRect.y;
+    req.align = LE_HALIGN_CENTER;
+    req.color = clr;
+    req.alpha = paintState.alpha;
+
+    leStringRenderer_DrawCString(&req);
 }
 
 static void drawSeriesPoint(leLineGraphDataSeries* series,
@@ -297,8 +291,8 @@ static void drawSeriesPoint(leLineGraphDataSeries* series,
             rect.y = point.y - rect.height;
 
             leRenderer_ArcFill(&rect,
-                               point.x,
-                               point.y,
+                               point.x - rect.x,
+                               point.y - rect.y,
                                series->pointSize / 2,
                                0,
                                360,
@@ -386,8 +380,11 @@ void _leLineGraphWidget_GetGraphRect(const leLineGraphWidget* graph,
     {
         getValueLabelMaxDrawRect(graph, &valueLabelMaxRect);
 
-        graphRect->y += valueLabelMaxRect.height / 2 + LABEL_OFFSET_MIN_PIX;
-        graphRect->height -= valueLabelMaxRect.height / 2  + LABEL_OFFSET_MIN_PIX;
+        if(valueLabelMaxRect.y > 0)
+        {
+            graphRect->y += valueLabelMaxRect.height / 2 + LABEL_OFFSET_MIN_PIX;
+            graphRect->height -= valueLabelMaxRect.height / 2 + LABEL_OFFSET_MIN_PIX;
+        }
     }
 
     if (graph->categAxisTicksVisible)
@@ -425,18 +422,21 @@ void _leLineGraphWidget_GetGraphRect(const leLineGraphWidget* graph,
 
     if (graph->fillValueArea == LE_TRUE)
     {
-        if ((categoryLabelMaxRect.width / 2) > valueLabelMaxRect.width)
+        if (categoryLabelMaxRect.width != 0)
         {
-            graphRect->x += (categoryLabelMaxRect.width/2 + LABEL_OFFSET_MIN_PIX * 2);
-            graphRect->width -= (categoryLabelMaxRect.width/2 + LABEL_OFFSET_MIN_PIX * 2);
-        }
-        else
-        {
-            graphRect->x += (valueLabelMaxRect.width + LABEL_OFFSET_MIN_PIX * 2);
-            graphRect->width -= (valueLabelMaxRect.width + LABEL_OFFSET_MIN_PIX * 2);
-        }
+            if((categoryLabelMaxRect.width / 2) > valueLabelMaxRect.width)
+            {
+                graphRect->x += (categoryLabelMaxRect.width/2 + LABEL_OFFSET_MIN_PIX * 2);
+                graphRect->width -= (categoryLabelMaxRect.width/2 + LABEL_OFFSET_MIN_PIX * 2);
+            }
+            else
+            {
+                graphRect->x += (valueLabelMaxRect.width + LABEL_OFFSET_MIN_PIX * 2);
+                graphRect->width -= (valueLabelMaxRect.width + LABEL_OFFSET_MIN_PIX * 2);
+            }
 
-        graphRect->width -= (categoryLabelMaxRect.width/2 + LABEL_OFFSET_MIN_PIX);
+            graphRect->width -= (categoryLabelMaxRect.width/2 + LABEL_OFFSET_MIN_PIX);
+        }
     }
     else if (valueLabelMaxRect.width != 0)
     {
@@ -448,7 +448,7 @@ void _leLineGraphWidget_GetGraphRect(const leLineGraphWidget* graph,
 static void fillBase(leLineGraphWidget* graph)
 {
     leRenderer_RectFill(&paintState.rect,
-                        graph->widget.scheme->base,
+                        graph->widget.scheme->background,
                         paintState.alpha);
 }
 
@@ -537,8 +537,8 @@ static void drawMinMaxLabels(leLineGraphWidget* graph)
 
 static void drawTicks(leLineGraphWidget* graph)
 {
-    lePoint drawPoint;
-    lePoint drawEndPoint;
+    lePoint drawPoint = lePoint_Zero;
+    lePoint drawEndPoint = lePoint_Zero;
     int32_t value = 0;
 
     if (graph->valueAxisTicksVisible)
@@ -1297,7 +1297,8 @@ static void drawLineGraph(leLineGraphWidget* graph)
     //leRect widgetRect;
     
     //widgetRect = graph->fn->rectToScreen(graph);
-    
+
+
     _leLineGraphWidget_GetGraphRect(graph, &paintState.rect);
         
     paintState.pixelsPerUnit = (float) paintState.rect.height / ((float) graph->maxValue - (float) graph->minValue);
@@ -1307,19 +1308,19 @@ static void drawLineGraph(leLineGraphWidget* graph)
     {
         fillBase(graph);
     }
-    
+
     // adjust the horizontal borders if ticks are shown
     if (graph->valueAxisTicksVisible == LE_TRUE)
     {
         drawValueAxisTickBorders(graph);
     }
-    
+
     //Draw the labels for min/max values
     if (graph->valueAxisLabelsVisible == LE_TRUE)
     {
         drawMinMaxLabels(graph);
     }
-   
+
     // determine the origin point
     paintState.originPoint = _leLineGraphWidget_GetOriginPoint(graph);
     
@@ -1341,7 +1342,7 @@ static void drawLineGraph(leLineGraphWidget* graph)
     {
         drawTicks(graph);
     }
-    
+
     //Draw the fills if needed
     if (graph->fillValueArea == LE_TRUE &&
         graph->categories.size > 0 && 
@@ -1355,7 +1356,7 @@ static void drawLineGraph(leLineGraphWidget* graph)
     {
         drawOriginLine(graph);
     }
-    
+
     //Draw the category ticks
     if((graph->categAxisTicksVisible == LE_TRUE) && (graph->categories.size > 0))
     {
@@ -1367,7 +1368,7 @@ static void drawLineGraph(leLineGraphWidget* graph)
     {
         drawSubTicks(graph);
     }
-    
+
     drawBorders(graph);
     
     //Draw the points/lines
@@ -1399,7 +1400,7 @@ static void _leLineGraphWidget_GetCategoryTextRect(leLineGraphWidget* graph,
     if (category == NULL || category->text == NULL)
         return;
     
-    category->text->fn->getRect(category->text, 0, textRect);
+    category->text->fn->getRect(category->text, textRect);
     
     bounds.x = 0;
     bounds.y = 0;
@@ -1445,6 +1446,17 @@ static void _leLineGraphWidget_GetCategoryTextRect(leLineGraphWidget* graph,
     drawRect->y = textRect->y;
 }
 
+#if LE_STREAMING_ENABLED == 1
+static void onStringStreamFinished(leStreamManager* strm)
+{
+    leLineGraphWidget* graph = (leLineGraphWidget*)strm->userData;
+
+    graph->widget.drawState = DRAW_STRING;
+
+    nextState(graph);
+}
+#endif
+
 static void drawString(leLineGraphWidget* graph)
 {
     leRect textRect, drawRect;
@@ -1460,7 +1472,7 @@ static void drawString(leLineGraphWidget* graph)
             category = leArray_Get(&graph->categories, categoryIndex);
             
             if (category == NULL || category->text == NULL)
-                return;
+                continue;
                 
             _leLineGraphWidget_GetCategoryTextRect(graph,
                                                    categoryIndex,
@@ -1472,55 +1484,38 @@ static void drawString(leLineGraphWidget* graph)
             category->text->fn->_draw(category->text,
                                       textRect.x,
                                       textRect.y,
-                                      graph->widget.scheme->text,
-                                      paintState.alpha,
                                       LE_HALIGN_CENTER,
-                                      0);
-         
-#if LE_EXTERNAL_STREAMING_ENABLED == 1         
-             if(graph->reader != NULL)
-             {
-                 graph->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitString;
-                 graph->widget.drawState = WAIT_STRING;
+                                      graph->widget.scheme->text,
+                                      paintState.alpha);
 
-                 return;
-             }
-#endif                 
+#if LE_STREAMING_ENABLED == 1
+            if(leGetActiveStream() != NULL)
+            {
+                leGetActiveStream()->onDone = onStringStreamFinished;
+                leGetActiveStream()->userData = graph;
+
+                graph->widget.drawState = WAIT_STRING;
+
+                return;
+            }
+#endif
         }
     }
 
     nextState(graph);
 }
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-static void waitString(leLineGraphWidget* graph)
-{
-    if(graph->reader->status != leREADER_STATUS_FINISHED)
-    {
-        graph->reader->run(graph->reader);
-        
-        return;
-    }
-    
-    // free the reader
-    graph->reader->memIntf->heap.free(graph->reader);
-    graph->reader = NULL;
-    
-    graph->widget.drawState = DRAW_STRING;
-    
-    nextState(graph);
-}
-#endif
-
 static void drawBorder(leLineGraphWidget* graph)
 {    
     if(graph->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)graph);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)graph,
+                                                    paintState.alpha);
     }
     else if(graph->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)graph);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)graph,
+                                                      paintState.alpha);
     }
     
     nextState(graph);
@@ -1545,7 +1540,12 @@ void _leLineGraphWidget_Paint(leLineGraphWidget* graph)
 #if LE_PREEMPTION_LEVEL == 2
         break;
 #endif
+
+#if LE_STREAMING_ENABLED == 1
+        if(graph->widget.drawState == WAIT_STRING)
+            break;
+#endif
     }
 }
 
-#endif // LE_LINE_GRAPH_WIDGET_ENABLED
+#endif // LE_LINEGRAPH_WIDGET_ENABLED

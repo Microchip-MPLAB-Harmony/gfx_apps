@@ -42,6 +42,8 @@ leFixedString* leFixedString_New(leChar* buf,
 
 void _leFixedString_Destructor(leFixedString* _this)
 {
+    LE_ASSERT_THIS();
+
     _this->data = NULL;
     _this->capacity = 0;
     _this->length = 0;
@@ -61,8 +63,12 @@ leResult _leFixedString_SetFont(leFixedString* _this,
                                 const leFont* font)
 {
     LE_ASSERT_THIS();
+
+    _this->fn->preinvalidate(_this);
         
     _this->font = font;
+
+    _this->fn->invalidate(_this);
     
     return LE_SUCCESS;
 }
@@ -90,6 +96,8 @@ leResult _leFixedString_SetFromString(leFixedString* _this,
     {
         srcLength = _this->capacity;
     }
+
+    _this->fn->preinvalidate(_this);
     
     _this->length = srcLength;
     
@@ -97,6 +105,8 @@ leResult _leFixedString_SetFromString(leFixedString* _this,
     {
         _this->data[itr] = src->fn->charAt(src, itr);
     }
+
+    _this->fn->invalidate(_this);
     
     return LE_SUCCESS;
 }
@@ -121,14 +131,18 @@ leResult _leFixedString_SetFromChar(leFixedString* _this,
     {
         size = _this->capacity;
     }
-    
+
+    _this->fn->preinvalidate(_this);
+
     _this->length = size;
     
     for(itr = 0; itr < size; itr++)
     {
         _this->data[itr] = buf[itr];
     }
-    
+
+    _this->fn->invalidate(_this);
+
     return LE_SUCCESS;
 }
 
@@ -151,6 +165,8 @@ leResult _leFixedString_SetFromCStr(leFixedString* _this,
     {
         len = _this->capacity;
     }
+
+    _this->fn->preinvalidate(_this);
     
     _this->length = len;
     
@@ -158,6 +174,8 @@ leResult _leFixedString_SetFromCStr(leFixedString* _this,
     {
         _this->data[itr] = (leChar)((unsigned char)cstr[itr]);
     }
+
+    _this->fn->invalidate(_this);
     
     return LE_SUCCESS;
 }
@@ -186,8 +204,6 @@ leChar _leFixedString_CharAt(const leFixedString* _this,
         
     return _this->data[idx];
 }
-
-
 
 int32_t _leFixedString_Compare(const leFixedString* _this,
                                const leString* tgt)
@@ -244,11 +260,15 @@ leResult _leFixedString_Append(leFixedString* _this,
     {
         cpyLen = _this->capacity - _this->length;
     }
+
+    _this->fn->preinvalidate(_this);
     
     for(itr = 0; itr < cpyLen; itr++)
     {
         _this->data[_this->length + itr] = val->fn->charAt(val, itr);
     }
+
+    _this->fn->invalidate(_this);
         
     return LE_SUCCESS;
 }
@@ -277,6 +297,8 @@ leResult _leFixedString_Insert(leFixedString* _this,
     
     if(cpyLen == 0)
         return LE_SUCCESS;
+
+    _this->fn->preinvalidate(_this);
     
     /* shift data right as much as possible to make room for the new values */
     for(itr = (int32_t)_this->length - 1; itr >= (int32_t)_this->length - 1 - (int32_t)idx; itr--)
@@ -302,6 +324,8 @@ leResult _leFixedString_Insert(leFixedString* _this,
     {
         _this->length = _this->capacity;
     }
+
+    _this->fn->invalidate(_this);
    
     return LE_SUCCESS;
 }
@@ -319,16 +343,18 @@ leResult _leFixedString_Remove(leFixedString* _this,
     
     if(count == 0)
         return LE_SUCCESS;
+
+    _this->fn->preinvalidate(_this);
     
     /* simple case, just move length index */
-    if(idx + count == _this->length - 1)
+    if(idx + count == (uint32_t)_this->length - 1)
     {
         _this->length = idx;
         
         return LE_SUCCESS;
     }
     
-    if(idx + count >= _this->length)
+    if(idx + count >= (uint32_t)_this->length)
     {
         count = _this->length - 1 - idx;
     }
@@ -340,6 +366,8 @@ leResult _leFixedString_Remove(leFixedString* _this,
     }
        
     _this->length -= count;
+
+    _this->fn->invalidate(_this);
     
     return LE_SUCCESS;
 }
@@ -347,8 +375,12 @@ leResult _leFixedString_Remove(leFixedString* _this,
 void _leFixedString_Clear(leFixedString* _this)
 {
     LE_ASSERT_THIS();
+
+    _this->fn->preinvalidate(_this);
     
     _this->length = 0;
+
+    _this->fn->invalidate(_this);
 }
 
 uint32_t _leFixedString_ToChar(const leFixedString* _this,

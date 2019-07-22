@@ -56,13 +56,13 @@ void leImagePlusWidget_Constructor(leImagePlusWidget* _this)
     _this->widget.fn = (void*)&imagePlusWidgetVTable;
     _this->fn = &imagePlusWidgetVTable;
     
-    _this->widget.type = LE_WIDGET_IMAGE;
+    _this->widget.type = LE_WIDGET_IMAGEPLUS;
 
     _this->widget.rect.width = DEFAULT_WIDTH;
     _this->widget.rect.height = DEFAULT_HEIGHT;
 
     _this->widget.borderType = LE_WIDGET_BORDER_NONE;
-    _this->widget.backgroundType = LE_WIDGET_BACKGROUND_NONE;
+    _this->widget.backgroundType = LE_WIDGET_BACKGROUND_FILL;
     
     _this->transformX = 0;
     _this->transformY = 0;
@@ -378,14 +378,14 @@ static leResult setInteractive(leImagePlusWidget* _this,
 }
 
 static void handleTouchDownEvent(leImagePlusWidget* _this,
-                                 leInput_TouchDownEvent* evt)
+                                 leWidgetEvent_TouchDown* evt)
 {    
     LE_ASSERT_THIS();
     
     if(_this->inputEnabled == LE_FALSE)
         return;
-    
-    evt->event.accepted = LE_TRUE;
+
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
     
     if(evt->touchID == 0)
     {
@@ -404,14 +404,14 @@ static void handleTouchDownEvent(leImagePlusWidget* _this,
 }
 
 static void handleTouchUpEvent(leImagePlusWidget* _this,
-                               leInput_TouchUpEvent* evt)
+                               leWidgetEvent_TouchUp* evt)
 {
     LE_ASSERT_THIS();
     
     if(_this->inputEnabled == LE_FALSE)
         return;
-        
-    evt->event.accepted = LE_TRUE;
+
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
     
     if(evt->touchID == 0)
     {
@@ -427,14 +427,14 @@ static void handleTouchUpEvent(leImagePlusWidget* _this,
 }
 
 static void handleTouchMovedEvent(leImagePlusWidget* _this,
-                                  leInput_TouchMoveEvent* evt)
+                                  leWidgetEvent_TouchMove* evt)
 {    
     LE_ASSERT_THIS();
     
     if(_this->inputEnabled == LE_FALSE)
         return;
 
-    evt->event.accepted = LE_TRUE;
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
     
     if(_this->image != NULL)
     {

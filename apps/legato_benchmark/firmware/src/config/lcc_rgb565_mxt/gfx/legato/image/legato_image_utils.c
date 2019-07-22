@@ -25,11 +25,11 @@
 
 #define RLE_HEADER_SIZE 2
 
-uint32_t getRLEDataAtIndex(uint8_t* data,
-                           uint32_t max,
-                           uint32_t idx,
-                           uint32_t* startBlock,
-                           uint32_t* startOffset)
+uint32_t leGetRLEDataAtIndex(uint8_t* data,
+                             uint32_t max,
+                             uint32_t idx,
+                             uint32_t* startBlock,
+                             uint32_t* startOffset)
 {
     uint32_t rleRunLength;
     uint32_t rleDataSize;
@@ -75,7 +75,7 @@ uint32_t getRLEDataAtIndex(uint8_t* data,
     return 0; 
 }
 
-uint32_t getDiscreteValueAtIndex1(uint32_t idx, uint32_t val)
+static uint32_t getDiscreteValueAtIndex1(uint32_t idx, uint32_t val)
 {
     uint32_t offs;
     
@@ -86,7 +86,7 @@ uint32_t getDiscreteValueAtIndex1(uint32_t idx, uint32_t val)
     return idx;
 }
 
-uint32_t getDiscreteValueAtIndex4(uint32_t idx, uint32_t val)
+static uint32_t getDiscreteValueAtIndex4(uint32_t idx, uint32_t val)
 {
     if(idx % 2 > 0)
     {
@@ -100,14 +100,14 @@ uint32_t getDiscreteValueAtIndex4(uint32_t idx, uint32_t val)
     return idx;
 }
 
-uint32_t getDiscreteValueAtIndex8(uint32_t idx, uint32_t val)
+static uint32_t getDiscreteValueAtIndex8(uint32_t idx, uint32_t val)
 {
     return val;
 }
 
 typedef uint32_t (*getDiscreteValue_FnPtr)(uint32_t, uint32_t);
 
-getDiscreteValue_FnPtr getDiscreteValue[LE_COLOR_MODE_COUNT] =
+static getDiscreteValue_FnPtr getDiscreteValue[LE_COLOR_MODE_COUNT] =
 {
     &getDiscreteValueAtIndex8,
     &getDiscreteValueAtIndex8,
@@ -121,36 +121,10 @@ getDiscreteValue_FnPtr getDiscreteValue[LE_COLOR_MODE_COUNT] =
     &getDiscreteValueAtIndex8,
 };
 
-uint32_t getDiscreteValueAtIndex(uint32_t idx,
-                                 uint32_t val,
-                                 leColorMode mode)
+uint32_t leGetDiscreteValueAtIndex(uint32_t idx,
+                                   uint32_t val,
+                                   leColorMode mode)
 {
-    /*uint32_t offs;
-    
-    if(mode == LE_COLOR_MODE_INDEX_1)
-    {
-        offs = idx % 8;
-        idx = val & (0x80 >> offs);
-        idx >>= 7 - offs;
-    }
-    else if(mode == LE_COLOR_MODE_INDEX_4)
-    {
-        if(idx % 2 > 0)
-        {
-            offs = 0xF;
-            idx = val & offs;
-        }
-        else
-        {
-            offs = 0xF0;
-            idx = (val & offs) >> 0x4;
-        }
-    }
-    else
-        idx = val;
-        
-    return idx;*/
-    
     return getDiscreteValue[mode](idx, val);
 }
 
@@ -186,7 +160,7 @@ static uint32_t calcOffset32bpp(uint32_t index)
 
 typedef uint32_t (*calcOffset_FnPtr)(uint32_t);
 
-calcOffset_FnPtr calcOffset[] =
+static calcOffset_FnPtr calcOffset[] =
 {
     &calcOffset1bpp,
     &calcOffset4bpp,
@@ -196,21 +170,7 @@ calcOffset_FnPtr calcOffset[] =
     &calcOffset32bpp
 };
 
-uint32_t getOffsetFromIndexAndBPP(uint32_t index, leBitsPerPixel bpp)
+uint32_t leGetOffsetFromIndexAndBPP(uint32_t index, leBitsPerPixel bpp)
 {
     return calcOffset[bpp](index);
-}
-
-leResult convertColorAndSetDraw(uint32_t color, leColorMode mode)
-{
-#if 0
-    leColorMode colorMode;
-    
-    if(GFX_Get(GFXF_COLOR_MODE, &colorMode) == LE_FAILURE)
-        return LE_FAILURE;
-        
-    return GFX_Set(GFXF_DRAW_COLOR, leColorConvert(mode, colorMode, color));
-#else
-    return LE_FAILURE;
-#endif    
 }

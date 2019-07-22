@@ -35,10 +35,22 @@ extern "C" {
 #endif
 
 
+#define LE_GLOBAL_COLOR_MODE               LE_COLOR_MODE_RGB_565
+
 #define LE_ASSERT_ENABLE                   0
 
 #define LE_PREEMPTION_LEVEL                0
-#define LE_EXTERNAL_STREAMING_ENABLED      0
+#define LE_STREAMING_ENABLED               0
+#define LE_TOUCH_ORIENTATION               0
+
+#if LE_STREAMING_ENABLED == 1
+#define LE_ASSET_DECODER_CACHE_SIZE        128
+#define LE_ASSET_DECODER_USE_PIXEL_CACHE   0
+#define LE_ASSET_DECODER_USE_PALETTE_CACHE 0
+#define LE_ASSET_DECODER_USE_MASK_CACHE    0
+#define LE_ASSET_DECODER_USE_BLEND_CACHE   0
+#define LE_RASTERFONT_GLYPH_CACHE_SIZE     256
+#endif
 
 // default Font Support
 #define LE_INCLUDE_DEFAULT_1BPP_FONT       0
@@ -46,27 +58,27 @@ extern "C" {
 
 // widget inclusion
 #define LE_ARC_WIDGET_ENABLED              0
-#define LE_BAR_GRAPH_WIDGET_ENABLED        1
+#define LE_BARGRAPH_WIDGET_ENABLED         1
 #define LE_BUTTON_WIDGET_ENABLED           1
 #define LE_CHECKBOX_WIDGET_ENABLED         1
 #define LE_CIRCLE_WIDGET_ENABLED           1
-#define LE_CIRCULAR_GAUGE_WIDGET_ENABLED   0
-#define LE_CIRCULAR_SLIDER_WIDGET_ENABLED  0
+#define LE_CIRCULARGAUGE_WIDGET_ENABLED    0
+#define LE_CIRCULARSLIDER_WIDGET_ENABLED   0
 #define LE_DRAWSURFACE_WIDGET_ENABLED      1
 #define LE_GRADIENT_WIDGET_ENABLED         1
 #define LE_GROUPBOX_WIDGET_ENABLED         1
 #define LE_IMAGE_WIDGET_ENABLED            1
-#define LE_IMAGEPLUS_WIDGET_ENABLED        1
+#define LE_IMAGEPLUS_WIDGET_ENABLED        0
 #define LE_IMAGESEQUENCE_WIDGET_ENABLED    1
 #define LE_KEYPAD_WIDGET_ENABLED           1
 #define LE_LABEL_WIDGET_ENABLED            1
 #define LE_LINE_WIDGET_ENABLED             1
-#define LE_LINE_GRAPH_WIDGET_ENABLED       1
+#define LE_LINEGRAPH_WIDGET_ENABLED        1
 #define LE_LIST_WIDGET_ENABLED             1
 #define LE_LISTWHEEL_WIDGET_ENABLED        1
-#define LE_PIE_CHART_WIDGET_ENABLED        0
+#define LE_PIECHART_WIDGET_ENABLED         0
 #define LE_PROGRESSBAR_WIDGET_ENABLED      1
-#define LE_RADIAL_MENU_WIDGET_ENABLED      1
+#define LE_RADIALMENU_WIDGET_ENABLED       0
 #define LE_RADIOBUTTON_WIDGET_ENABLED      0
 #define LE_RECTANGLE_WIDGET_ENABLED        1
 #define LE_SCROLLBAR_WIDGET_ENABLED        1
@@ -112,7 +124,7 @@ extern "C" {
 #define LE_WIDGET_MAX_EVENT_FILTERS        2
 
 // renderer config
-#define LE_ALPHA_BLENDING_ENABLED          0
+#define LE_ALPHA_BLENDING_ENABLED          1
 #define LE_SCRATCH_BUFFER_SIZE_KB          16
 #define LE_USE_ARC_SCAN_FILL               1
 #define LE_ARC_SMOOTH_EDGE                 LE_FALSE

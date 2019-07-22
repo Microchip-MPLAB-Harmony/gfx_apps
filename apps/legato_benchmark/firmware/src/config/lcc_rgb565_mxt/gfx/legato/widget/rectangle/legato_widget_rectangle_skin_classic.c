@@ -103,13 +103,13 @@ static void nextState(leRectangleWidget* rct)
     {
         case NOT_STARTED:
         {
+            paintState.alpha = 255;
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
             if(rct->fn->getCumulativeAlphaEnabled(rct) == LE_TRUE)
             {
                 paintState.alpha = rct->fn->getCumulativeAlphaAmount(rct);
             }
-#else
-            paintState.alpha = 255;
 #endif
             
             if(rct->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
@@ -150,7 +150,8 @@ static void nextState(leRectangleWidget* rct)
 
 static void drawBackground(leRectangleWidget* rct)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)rct);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)rct,
+                                                paintState.alpha);
     
     nextState(rct);
 }
@@ -159,7 +160,7 @@ static void drawEdge(leRectangleWidget* rct)
 {
     leRect widgetRect, edgeRect;
     
-    widgetRect = rct->fn->localRect(rct);
+    widgetRect = rct->fn->rectToScreen(rct);
 
     // left bar
     edgeRect.x = widgetRect.x;
@@ -198,11 +199,13 @@ static void drawBorder(leRectangleWidget* rct)
 {
     if(rct->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)rct);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)rct,
+                                                    paintState.alpha);
     }
     else if(rct->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)rct);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)rct,
+                                                      paintState.alpha);
     }
     
     nextState(rct);

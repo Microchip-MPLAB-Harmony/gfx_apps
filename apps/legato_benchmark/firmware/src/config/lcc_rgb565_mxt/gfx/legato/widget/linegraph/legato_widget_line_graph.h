@@ -44,7 +44,7 @@
 
 #include "gfx/legato/common/legato_common.h"
 
-#if LE_LINE_GRAPH_WIDGET_ENABLED == 1
+#if LE_LINEGRAPH_WIDGET_ENABLED == 1
 
 #include "gfx/legato/string/legato_string.h"
 #include "gfx/legato/widget/legato_widget.h"
@@ -1431,5 +1431,5 @@ lePoint _leLineGraphWidget_GetOriginPoint(leLineGraphWidget* graph);
 
 #endif
 
-#endif // LE_LINE_GRAPH_WIDGET_ENABLED
+#endif // LE_LINEGRAPH_WIDGET_ENABLED
 #endif /* LEGATO_WIDGET_LINE_GRAPH_H */

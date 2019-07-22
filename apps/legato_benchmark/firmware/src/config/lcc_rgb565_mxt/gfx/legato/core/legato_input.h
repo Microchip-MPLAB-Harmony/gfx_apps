@@ -51,7 +51,7 @@
 
 // *****************************************************************************
 
-typedef struct leWidget leWidget;
+#include "gfx/legato/widget/legato_widget.h"
 
 // DOM-IGNORE-BEGIN
 #define LE_INPUT_PRIMARY_ID    0
@@ -274,73 +274,7 @@ void leInput_Shutdown();
 
 // DOM-IGNORE-END
 
-// *****************************************************************************
-/* Structure:
-    leInput_TouchDownEvent_t
 
-  Summary:
-    Register and handle the touch press detect event
-
-  Description:
-    Register and handle the touch press detect event
-
-  Remarks:
-    None.
-*/
-typedef struct leInput_TouchDownEvent
-{
-    leWidgetEvent event;
-    
-    int32_t touchID;
-    int32_t x;
-    int32_t y;
-} leInput_TouchDownEvent;
-
-// *****************************************************************************
-/* Structure:
-    leInput_TouchUpEvent
-
-  Summary:
-    Register and handle the touch release detect event
-
-  Description:
-    Register and handle the touch release detect event
-
-  Remarks:
-    None.
-*/
-typedef struct leInput_TouchUpEvent
-{
-    leWidgetEvent event;
-    
-    int32_t touchID;
-    int32_t x;
-    int32_t y;
-} leInput_TouchUpEvent;
-
-// *****************************************************************************
-/* Structure:
-    leInput_TouchMoveEvent
-
-  Summary:
-    Register and handle the touch coordinates changed event
-
-  Description:
-    Register and handle the touch coordinates changed event
-
-  Remarks:
-    None.
-*/
-typedef struct leInput_TouchMoveEvent
-{
-    leWidgetEvent event;
-    
-    int32_t touchID;
-    int32_t prevX;
-    int32_t prevY;
-    int32_t x;
-    int32_t y;
-} leInput_TouchMoveEvent;
 
 // *****************************************************************************
 // *****************************************************************************

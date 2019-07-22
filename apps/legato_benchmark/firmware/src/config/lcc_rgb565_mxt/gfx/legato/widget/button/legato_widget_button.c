@@ -26,6 +26,7 @@
 #if LE_BUTTON_WIDGET_ENABLED == 1
 
 #include <string.h>
+#include <gfx/legato/legato.h>
 
 #include "gfx/legato/common/legato_error.h"
 #include "gfx/legato/common/legato_utils.h"
@@ -71,6 +72,18 @@ static void invalidateTextRect(const leButtonWidget* _this)
     _this->fn->_damageArea(_this, &drawRect);
 }
 
+static void stringPreinvalidate(const leString* str,
+                                leButtonWidget* btn)
+{
+    invalidateTextRect(btn);
+}
+
+static void stringInvalidate(const leString* str,
+                             leButtonWidget* btn)
+{
+    invalidateTextRect(btn);
+}
+
 void leButtonWidget_Constructor(leButtonWidget* _this)
 {
     /* call base class constructor */
@@ -90,12 +103,16 @@ void leButtonWidget_Constructor(leButtonWidget* _this)
     _this->widget.borderType = LE_WIDGET_BORDER_BEVEL;
 
     _this->string = NULL;
-    
+
+    _this->imagePosition = LE_RELATIVE_POSITION_LEFTOF;
     _this->imageMargin = DEFAULT_IMAGE_MARGIN;
     _this->pressedOffset = DEFAULT_PRESSED_OFFSET;
     
     _this->pressedImage = NULL;
     _this->releasedImage = NULL;
+
+    _this->pressedEvent = NULL;
+    _this->releasedEvent = NULL;
 }
 
 leButtonWidget* leButtonWidget_New()
@@ -125,8 +142,6 @@ void _leButtonWidget_Destructor(leButtonWidget* _this)
     /* call base class destructor */
     _leWidget_Destructor((leWidget*)_this);
 }
-
-
 
 static leBool getToggleable(const leButtonWidget* _this)
 {
@@ -233,10 +248,31 @@ static leResult setString(leButtonWidget* _this,
 {
     LE_ASSERT_THIS();
 
+    if(_this->string != NULL)
+    {
+        invalidateTextRect(_this);
+
+        _this->string->fn->setPreInvalidateCallback((leString*)_this->string,
+                                                    NULL,
+                                                    NULL);
+
+        _this->string->fn->setInvalidateCallback((leString*)_this->string,
+                                                 NULL,
+                                                 NULL);
+    }
+
     _this->string = str;
-        
-    _this->fn->invalidate(_this);
-        
+
+    _this->string->fn->setPreInvalidateCallback((leString*)_this->string,
+                                                (void*)stringPreinvalidate,
+                                                _this);
+
+    _this->string->fn->setInvalidateCallback((leString*)_this->string,
+                                             (void*)stringInvalidate,
+                                             _this);
+
+    invalidateTextRect(_this);
+
     return LE_SUCCESS;
 }
 
@@ -410,20 +446,18 @@ static void languageChanging(leButtonWidget* _this)
 {
     LE_ASSERT_THIS();
     
-    if(_this->string != NULL && _this->string->fn->isEmpty(_this->string) == LE_FALSE)
+    if(_this->string != NULL)
     {
-        _this->fn->invalidateContents(_this);
+        _this->fn->invalidate(_this);
     }
 }
 
 static void touchDown(leButtonWidget* _this,
-                      leInput_TouchDownEvent* evt)
+                      leWidgetEvent_TouchDown* evt)
 {
-    leBool dirty = LE_FALSE;
-    
     LE_ASSERT_THIS();
-    
-    evt->event.accepted = LE_TRUE;
+
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
 
     if(_this->toggleable == LE_TRUE)
     {
@@ -447,39 +481,16 @@ static void touchDown(leButtonWidget* _this,
         }
     }
 
-    // try to find a reason to redraw
-    if(_this->pressedImage != NULL && _this->pressedImage != _this->releasedImage)
-    {
-        dirty = LE_TRUE;
-    }
-        
-    if(_this->widget.borderType == LE_WIDGET_BORDER_BEVEL)
-    {
-        dirty = LE_TRUE;
-    }
-        
-    if(_this->pressedOffset != 0 &&
-       (_this->pressedImage != NULL ||
-       (_this->string != NULL && _this->string->fn->isEmpty(_this->string) == LE_FALSE)))
-    {
-        dirty = LE_TRUE;
-    }
-        
-    if(dirty == LE_TRUE)
-    {
-        _this->fn->invalidate(_this);
-    }
-        
+    _this->fn->invalidate(_this);
+
     //printf("button touch down\n");
 }
 
 static void touchUp(leButtonWidget* _this,
-                    leInput_TouchUpEvent* evt)
+                    leWidgetEvent_TouchUp* evt)
 {
     leRect rect;
     lePoint pnt;
-    
-    leBool dirty = LE_FALSE;
     
     LE_ASSERT_THIS();
     
@@ -488,7 +499,7 @@ static void touchUp(leButtonWidget* _this,
     pnt.x = evt->x;
     pnt.y = evt->y;
 
-    evt->event.accepted = LE_TRUE;
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
 
     leUtils_ClipRectToParent(_this->widget.parent, &rect);
     leUtils_RectToScreenSpace((leWidget*)_this, &rect);
@@ -547,41 +558,17 @@ static void touchUp(leButtonWidget* _this,
         }
     }
     
-    // try to find a reason to redraw
-    if(_this->pressedImage != NULL &&
-       _this->pressedImage != _this->releasedImage)
-    {
-        dirty = LE_TRUE;
-    }
-        
-    if(_this->widget.borderType == LE_WIDGET_BORDER_BEVEL)
-    {
-        dirty = LE_TRUE;
-    }
-        
-    if(_this->pressedOffset != 0 &&
-       (_this->pressedImage != NULL ||
-       (_this->string != NULL && _this->string->fn->isEmpty(_this->string) == LE_FALSE)))
-    {
-        dirty = LE_TRUE;
-    }
-        
-    if(dirty == LE_TRUE)
-    {
-        _this->fn->invalidate(_this);
-    }
-    
+    _this->fn->invalidate(_this);
+
     //printf("button touch up\n");
 }
 
 static void touchMoved(leButtonWidget* _this,
-                       leInput_TouchMoveEvent* evt)
+                       leWidgetEvent_TouchMove* evt)
 {
     leRect rect;
     lePoint pnt;
     
-    leBool dirty = LE_FALSE;
-
     LE_ASSERT_THIS();
     
     rect = _this->fn->localRect(_this);
@@ -589,7 +576,7 @@ static void touchMoved(leButtonWidget* _this,
     pnt.x = evt->x;
     pnt.y = evt->y;
 
-    evt->event.accepted = LE_TRUE;
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
     
     //Toggle buttons will not respond to touch outside the button area
     if ((leRectContainsPoint(&rect, &pnt) == LE_FALSE) && 
@@ -607,28 +594,7 @@ static void touchMoved(leButtonWidget* _this,
         {
             _this->state = LE_BUTTON_STATE_UP;
             
-            // try to find a reason to redraw
-            if(_this->pressedImage != NULL && _this->pressedImage != _this->releasedImage)
-            {
-                dirty = LE_TRUE;
-            }
-                
-            if(_this->widget.borderType == LE_WIDGET_BORDER_BEVEL)
-            {
-                dirty = LE_TRUE;
-            }
-                
-            if(_this->pressedOffset != 0 &&
-               (_this->pressedImage != NULL ||
-               (_this->string != NULL && _this->string->fn->isEmpty(_this->string) == LE_FALSE)))
-            {
-                dirty = LE_TRUE;
-            }
-                
-            if(dirty == LE_TRUE)
-            {
-                _this->fn->invalidate(_this);
-            }
+            _this->fn->invalidate(_this);
         }
     }
     else if(_this->state == LE_BUTTON_STATE_UP)
@@ -640,28 +606,7 @@ static void touchMoved(leButtonWidget* _this,
         {
             _this->state = LE_BUTTON_STATE_DOWN;
 
-            // try to find a reason to redraw
-            if(_this->pressedImage != NULL && _this->pressedImage != _this->releasedImage)
-            {
-                dirty = LE_TRUE;
-            }
-                
-            if(_this->widget.borderType == LE_WIDGET_BORDER_BEVEL)
-            {
-                dirty = LE_TRUE;
-            }
-                
-            if(_this->pressedOffset != 0 &&
-               (_this->pressedImage != NULL ||
-               (_this->string != NULL && _this->string->fn->isEmpty(_this->string) == LE_FALSE)))
-            {
-                dirty = LE_TRUE;
-            }
-                
-            if(dirty == LE_TRUE)
-            {
-                _this->fn->invalidate(_this);
-            }
+            _this->fn->invalidate(_this);
         }
     }
 }

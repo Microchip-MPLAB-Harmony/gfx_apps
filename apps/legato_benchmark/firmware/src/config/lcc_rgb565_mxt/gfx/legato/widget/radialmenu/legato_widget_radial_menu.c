@@ -21,9 +21,10 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+#include <gfx/legato/legato.h>
 #include "gfx/legato/widget/radialmenu/legato_widget_radial_menu.h"
 
-#if LE_RADIAL_MENU_WIDGET_ENABLED
+#if LE_RADIALMENU_WIDGET_ENABLED
 
 #include "gfx/legato/common/legato_error.h"
 #include "gfx/legato/common/legato_math.h"
@@ -58,6 +59,36 @@
 
 static leRadialMenuWidgetVTable radialMenuWidgetVTable;
 
+static leBool filterWidgetEvent(leWidget* wgt, leWidgetEvent* evt, void* data)
+{
+    if(evt->id == LE_EVENT_TOUCH_DOWN)
+    {
+        leWidgetEvent_TouchDown* tchEvt = (leWidgetEvent_TouchDown*)evt;
+
+        //leWidgetEvent_Accept((leWidgetEvent*)evt, NULL);
+
+        return LE_TRUE;
+    }
+    else if(evt->id == LE_EVENT_TOUCH_UP)
+    {
+        leWidgetEvent_TouchUp* tchEvt = (leWidgetEvent_TouchUp*)evt;
+
+        //leWidgetEvent_Accept((leWidgetEvent*)evt, NULL);
+
+        return LE_TRUE;
+    }
+    else if(evt->id == LE_EVENT_TOUCH_MOVE)
+    {
+        leWidgetEvent_TouchMove* tchEvt = (leWidgetEvent_TouchMove*)evt;
+
+        //leWidgetEvent_Accept((leWidgetEvent*)evt, NULL);
+
+        return LE_TRUE;
+    }
+
+    return LE_FALSE;
+}
+
 static void invalidateContents(leRadialMenuWidget* _this)
 {
     _this->fn->_damageArea(_this, &_this->widget.rect);
@@ -68,11 +99,188 @@ static void handleLanguageChangeEvent(leRadialMenuWidget* _this)
     invalidateContents(_this);
 }
 
+//Weigh the angle t between 90 (prominent) and 270 (sunken) and returns a percent, t has to be between 0 to 360
+uint32_t _weighAngle(int32_t t)
+{
+    int32_t angle;
+
+    t = leNormalizeAngle(t);
+
+    if (t >= 90 && t <= 270)
+    {
+        angle = t - 90;
+    }
+    else if (t < 90)
+    {
+        angle = 90 - t;
+    }
+    else
+    {
+        angle = 450 - t;
+    }
+
+    //Calculate the percent scale relative to prominent (90) and minimum (270)
+    return lePercentWholeRounded(angle, 180);
+}
+
+static leResult _insertionSort(leList* list, leRadialMenuItemNode* item)
+{
+    uint32_t i, percentTest, percentNew;
+    leRadialMenuItemNode* testItem;
+
+    if (list->size == 0)
+    {
+        leList_PushFront(list, item);
+        return LE_SUCCESS;
+    }
+
+    percentNew = _weighAngle(item->t);
+
+    for(i = 0; i < list->size; ++i)
+    {
+        testItem = leList_Get(list,i);
+
+        percentTest = _weighAngle(testItem->t);
+
+        if (percentNew > percentTest)
+        {
+            leList_InsertAt(list, item, i);
+            return LE_SUCCESS;
+        }
+    }
+
+    //if we got here without an insertion, item goes to the back
+    leList_PushBack(list, item);
+
+    return LE_SUCCESS;
+}
+
+static void arrangeItems(leRadialMenuWidget* mn)
+{
+    lePoint itemPos;
+//    leRect mnScreenRect;
+    leRadialMenuItemNode* item;
+    uint32_t i,percent;
+    leList drawOrderList;
+
+    leList_Create(&drawOrderList);
+
+//    mnScreenRect = leWidget_RectToScreenSpace((leWidget*)mn);
+    for (i = 0; i < mn->hiddenList.size; ++i)
+    {
+        item = leList_Get(&mn->hiddenList, i);
+
+        item->widget->fn->setVisible(item->widget, LE_FALSE);
+    }
+
+    for (i = 0; i < mn->shownList.size; ++i)
+    {
+        item = leList_Get(&mn->shownList, i);
+
+        percent = 100 - _weighAngle(item->t);
+
+#if LE_ALPHA_BLENDING_ENABLED == 1
+        switch(mn->blendMode)
+        {
+            case LE_RADIAL_MENU_INTERPOLATE_GRADUAL:
+            {
+                item->widget->alphaAmount = leLerp(mn->minAlphaAmount, mn->maxAlphaAmount, percent);
+
+                break;
+            }
+            case LE_RADIAL_MENU_INTERPOLATE_OFF:
+            {
+                item->widget->alphaAmount = item->origAlphaAmount;
+
+                break;
+            }
+            case LE_RADIAL_MENU_INTERPOLATE_PROMINENT:
+            {
+                if (mn->fn->isProminent(mn, item->widget))
+                {
+                    item->widget->alphaAmount = mn->maxAlphaAmount;
+                }
+                else
+                {
+                    item->widget->alphaAmount = mn->minAlphaAmount;
+                }
+
+                break;
+            }
+        }
+#endif
+
+        switch(mn->scaleMode)
+        {
+            case LE_RADIAL_MENU_INTERPOLATE_GRADUAL:
+            {
+                item->widget->fn->setSize(item->widget,
+                                          item->origSize.width * leLerp(mn->minSizePercent, mn->maxSizePercent, percent) / 100,
+                                          item->origSize.height * leLerp(mn->minSizePercent, mn->maxSizePercent, percent) / 100);
+
+                break;
+            }
+            case LE_RADIAL_MENU_INTERPOLATE_OFF:
+            {
+                item->widget->fn->setSize(item->widget,
+                                          item->origSize.width,
+                                          item->origSize.height);
+
+                break;
+            }
+            case LE_RADIAL_MENU_INTERPOLATE_PROMINENT:
+            {
+                if(mn->fn->isProminent(mn, item->widget))
+                {
+                    item->widget->fn->setSize(item->widget,
+                                              item->origSize.width * (int32_t)mn->maxSizePercent / 100,
+                                              item->origSize.height * (int32_t)mn->maxSizePercent / 100);
+                }
+                else
+                {
+                    item->widget->fn->setSize(item->widget,
+                                              item->origSize.width * (int32_t)mn->minSizePercent / 100,
+                                              item->origSize.height * (int32_t)mn->minSizePercent / 100);
+                }
+
+                break;
+            }
+        }
+
+        //Establish widget positions
+        leEllipsePoint(item->t, mn->a, mn->b, mn->theta, &itemPos);
+
+        itemPos.x = itemPos.x + mn->widget.rect.width / 2 - item->widget->rect.width / 2;
+        itemPos.y = itemPos.y + mn->widget.rect.height / 2 - item->widget->rect.height / 2;
+
+        item->widget->fn->setPosition(item->widget, itemPos.x, itemPos.y);
+
+        //This step is to setup arranging the draw order of each item
+        leArray_Remove(&mn->widget.children, item->widget);
+
+        item->widget->fn->setVisible(item->widget, LE_TRUE);
+
+        //Sort by inserting into empty list
+        _insertionSort(&drawOrderList, item);
+    }
+
+    //Re-add each widget item back as child from back to front
+    for (i = 0; i < drawOrderList.size; ++i)
+    {
+        item = leList_Get(&drawOrderList, i);
+
+        leArray_PushBack(&mn->widget.children, item->widget);
+    }
+
+    leList_Clear(&drawOrderList);
+}
+
 static leResult _rotateMenuItems(leRadialMenuWidget* _this, int32_t angle)
 {
     leRadialMenuItemNode* item = NULL;
     leRadialMenuItemNode* itemToHide = NULL;
     leList itemsToHide;
+    uint32_t itemsShown = _this->itemsShown;
     uint32_t i; 
     
     if(_this->widgetList.size == 0)
@@ -80,14 +288,19 @@ static leResult _rotateMenuItems(leRadialMenuWidget* _this, int32_t angle)
     
     if(angle == 0)
         return LE_SUCCESS;
-    
+
+    if(_this->itemsShown > _this->widgetList.size)
+    {
+        itemsShown = _this->widgetList.size;
+    }
+
     leList_Create(&itemsToHide);
     
     for(i = 0; i < _this->shownList.size; ++i)
     {
         item = leList_Get(&_this->shownList, i);
         
-        if (_this->itemsShown < _this->widgetList.size)
+        if (itemsShown < _this->widgetList.size)
         {                
             if(leAbsoluteValue(item->t - BACK_ANGLE) < leAbsoluteValue(angle) &&
               (item->t - BACK_ANGLE) * angle >= 0)
@@ -106,7 +319,7 @@ static leResult _rotateMenuItems(leRadialMenuWidget* _this, int32_t angle)
         }
 
         item->t -= angle;                
-        item->t = leNormalize360(item->t);
+        item->t = leNormalizeAngle(item->t);
     }
 
     for(i = 0; i < itemsToHide.size; ++i)
@@ -150,9 +363,10 @@ void leRadialMenuWidget_Constructor(leRadialMenuWidget* _this)
     _this->widget.rect.width = DEFAULT_WIDTH;
     _this->widget.rect.height = DEFAULT_HEIGHT;
 
-    _this->drawEllipse = LE_FALSE;
+    _this->drawEllipse = LE_TRUE;
 
     _this->widget.borderType = LE_WIDGET_BORDER_NONE;
+    _this->widget.backgroundType = LE_WIDGET_BACKGROUND_NONE;
 
     _this->widget.halign = LE_HALIGN_CENTER;
     _this->widget.valign = LE_VALIGN_MIDDLE;
@@ -163,10 +377,10 @@ void leRadialMenuWidget_Constructor(leRadialMenuWidget* _this)
     _this->b = DEFAULT_B;
     _this->theta = DEFAULT_THETA;
     _this->ellipseChanged = LE_TRUE;
-    _this->itemsShown = 0;
+    _this->itemsShown = 5;
 
-    _this->scaleMode = LE_RADIAL_MENU_INTERPOLATE_OFF;
-    _this->blendMode = LE_RADIAL_MENU_INTERPOLATE_OFF;
+    _this->scaleMode = LE_RADIAL_MENU_INTERPOLATE_GRADUAL;
+    _this->blendMode = LE_RADIAL_MENU_INTERPOLATE_GRADUAL;
     
     _this->maxSizePercent = DEFAULT_MAX_SIZE_PERCENT;
     _this->minSizePercent = DEFAULT_MIN_SIZE_PERCENT;
@@ -197,6 +411,21 @@ void _leWidget_Destructor(leWidget* wgt);
 
 static void destructor(leRadialMenuWidget* _this)
 {
+    leRadialMenuItemNode* item;
+    uint32_t i;
+
+    for(i = 0; i < _this->widgetList.size; i++)
+    {
+        item = leList_Get(&_this->widgetList, i);
+
+        // free all widgets
+        if(item->widget != NULL)
+        {
+            leWidget_Delete(item->widget);
+        }
+    }
+
+    // free the widget item list
     leList_Destroy(&_this->widgetList);
 
     _this->highlighter = NULL;
@@ -332,7 +561,14 @@ static int32_t _getSliceAngle(const leRadialMenuWidget* _this)
     if(_this == NULL || _this->itemsShown == 0)
         return 0;
 
-    return (360 / _this->itemsShown);
+    if(_this->itemsShown > _this->widgetList.size)
+    {
+        return (360 / _this->widgetList.size);
+    }
+    else
+    {
+        return (360 / _this->itemsShown);
+    }
 }
 
 static void handleResizedEvent(leRadialMenuWidget* _this,
@@ -429,6 +665,8 @@ static leBool _updateEllipse(leRadialMenuWidget* _this)
         }
     }
 
+    arrangeItems(_this);
+
     //Shave some calculations
     _this->ellipseChanged = LE_FALSE;
     
@@ -459,11 +697,15 @@ static void update(leRadialMenuWidget* _this, uint32_t dt)
                 //Rotate the menu to target angle
                 if (_this->userRequestedAngleDiff != 0)
                 {
-                    _this->userRequestedAngleDiff = _this->userRequestedAngleDiff * 2 / 3;
+                    //_this->userRequestedAngleDiff = _this->userRequestedAngleDiff * 2 / 3;
 
                     _rotateMenuItems(_this, _this->userRequestedAngleDiff);
+                    arrangeItems(_this);
 
                     invalidateContents(_this);
+
+                    _this->userRequestedAngleDiff = 0;
+                    _this->state = LE_RADIAL_MENU_INPUT_READY;
                 }
                 else
                 {
@@ -509,14 +751,16 @@ static void update(leRadialMenuWidget* _this, uint32_t dt)
                     _this->targetAngleDiff /= 2;     
                                    
                     _rotateMenuItems(_this, _this->targetAngleDiff);
+                    arrangeItems(_this);
                 }
                 else //1 or -1
                 {
                     _rotateMenuItems(_this, _this->targetAngleDiff);
+                    arrangeItems(_this);
                     
                     _this->targetAngleDiff = 0;
                 }
-                
+
                 invalidateContents(_this);
                 
                 if (_this->targetAngleDiff == 0)
@@ -695,16 +939,26 @@ static leResult _respaceItems(leRadialMenuWidget* _this)
     uint32_t frontLastIndex = 0;
     uint32_t backFirstIndex = 0;
     int32_t sliceCount = 0;
+    uint32_t itemsShown;
     
     LE_ASSERT_THIS();
     
     if(_this->widgetList.size == 0 || _this->itemsShown == 0)
         return LE_FAILURE;
-    
+
+    if(_this->itemsShown > _this->widgetList.size)
+    {
+        itemsShown = _this->widgetList.size;
+    }
+    else
+    {
+        itemsShown = _this->itemsShown;
+    }
+
     angle = _getSliceAngle(_this);
 
-    frontLastIndex = _this->itemsShown % 2 == 0 ? _this->itemsShown / 2 : _this->itemsShown / 2 + 1;
-    backFirstIndex = (_this->widgetList.size - 1) - _this->itemsShown / 2;
+    frontLastIndex = itemsShown % 2 == 0 ? itemsShown / 2 : itemsShown / 2 + 1;
+    backFirstIndex = (_this->widgetList.size - 1) - itemsShown / 2;
     
     leList_Clear(&_this->shownList);
     leList_Clear(&_this->hiddenList);        
@@ -717,7 +971,7 @@ static leResult _respaceItems(leRadialMenuWidget* _this)
         {
             if (i < frontLastIndex ||
                 i > backFirstIndex ||
-                _this->itemsShown == _this->widgetList.size)
+                itemsShown == _this->widgetList.size)
             {
                 item->t = sliceCount++ * angle;
                 
@@ -730,6 +984,8 @@ static leResult _respaceItems(leRadialMenuWidget* _this)
                 
                 leList_PushFront(&_this->hiddenList, item);
             }
+
+            item->t += PROMINENT_ANGLE;
         }
     }
 
@@ -759,6 +1015,7 @@ static leResult addWidget(leRadialMenuWidget* _this,
                           leWidget* widget)
 {
     leRadialMenuItemNode* item = NULL;
+    leWidgetEventFilter filter;
     
     LE_ASSERT_THIS();
     
@@ -772,30 +1029,22 @@ static leResult addWidget(leRadialMenuWidget* _this,
     
     item->widget = widget;
 
-    //item->origTouchDown = widget->touchDown;
-    //item->origTouchUp   = widget->touchUp;
-    //item->origTouchMoved = widget->touchMoved;
-    
+    filter.filterEvent = filterWidgetEvent;
+    filter.data = _this;
+
+    widget->fn->installEventFilter(widget, filter);
+
     item->origAlphaAmount = widget->alphaAmount;
     item->origSize = widget->rect;
     
     leList_PushBack(&_this->widgetList, item);
     
-    //leWidget_OverrideTouchDownEvent(widget, &_leRadialMenuWidget_TouchDownEvent);            
-    //leWidget_OverrideTouchMovedEvent(widget, &_leRadialMenuWidget_TouchMovedEvent);                
-    //leWidget_OverrideTouchUpEvent(widget, &_leRadialMenuWidget_TouchUpEvent);
-    
     widget->fn->setParent(widget, (leWidget*)_this);
     
     _deriveWidestTallestItem(_this, item, widget);
-
-    //Make sure items shown is valid
-    if (_this->itemsShown == 0 || _this->itemsShown > _this->widgetList.size)
-    {
-        _this->itemsShown = _this->widgetList.size;
-    }
     
     _respaceItems(_this);
+    arrangeItems(_this);
     
     invalidateContents(_this);
 
@@ -806,7 +1055,8 @@ static leResult removeWidget(leRadialMenuWidget* _this,
                              leWidget* widget)
 {
     leRadialMenuItemNode* item = NULL;
-    
+    leWidgetEventFilter filter;
+
     LE_ASSERT_THIS();
     
     if(_this->widgetList.size == 0 || widget == NULL)
@@ -816,10 +1066,11 @@ static leResult removeWidget(leRadialMenuWidget* _this,
     
     if(item == NULL)
         return LE_FAILURE;
-    
-    //leWidget_OverrideTouchDownEvent(widget, item->origTouchDown);            
-    //leWidget_OverrideTouchMovedEvent(widget, item->origTouchMoved);                
-    //leWidget_OverrideTouchUpEvent(widget, item->origTouchUp);
+
+    filter.filterEvent = filterWidgetEvent;
+    filter.data = _this;
+
+    widget->fn->removeEventFilter(widget, filter);
     
     leList_Remove(&_this->widgetList, item);
     
@@ -827,14 +1078,9 @@ static leResult removeWidget(leRadialMenuWidget* _this,
     
     LE_FREE(&item);
     item = NULL;
-    
-    //Make sure items shown is valid
-    if (_this->itemsShown == 0 || _this->itemsShown > _this->widgetList.size)
-    {
-        _this->itemsShown = _this->widgetList.size;
-    }
 
     _respaceItems(_this);
+    arrangeItems(_this);
     
     invalidateContents(_this);
     
@@ -897,14 +1143,9 @@ static leResult setWidgetAtIndex(leRadialMenuWidget* _this,
     widget->fn->setParent(widget, (leWidget*)_this);
     
     _deriveWidestTallestItem(_this, item, widget);
-    
-    //Make sure items shown is valid
-    if (_this->itemsShown == 0 || _this->itemsShown > _this->widgetList.size)
-    {
-        _this->itemsShown = _this->widgetList.size;
-    }
 
     _respaceItems(_this);
+    arrangeItems(_this);
 
     invalidateContents(_this);
 
@@ -920,7 +1161,6 @@ static leResult removeAllWidgets(leRadialMenuWidget* _this)
     
     _this->tallestWidgetItem = NULL;
     _this->widestWidgetItem = NULL;
-    _this->itemsShown = 0;
     
     for(i = 0; i < _this->widgetList.size; ++i)
     {
@@ -954,7 +1194,9 @@ static leResult setScaleMode(leRadialMenuWidget* _this,
 
     _this->ellipseChanged = LE_TRUE;
     _this->scaleMode = mode;
-    
+
+    arrangeItems(_this);
+
     invalidateContents(_this);
 
     _this->state = LE_RADIAL_MENU_RESET_TO_INPUT_POS;
@@ -972,6 +1214,8 @@ static leResult setScaleRange(leRadialMenuWidget* _this,
     _this->minSizePercent = leClampi(MIN_SIZE_PERCENT, MAX_SIZE_PERCENT, min);
     
     _this->ellipseChanged = LE_TRUE;
+
+    arrangeItems(_this);
 
     invalidateContents(_this);
 
@@ -1121,21 +1365,22 @@ static leResult setItemProminenceChangedEventCallback(leRadialMenuWidget* _this,
 }
 
 static void handleTouchDownEvent(leRadialMenuWidget* _this,
-                                 leInput_TouchDownEvent* evt)
+                                 leWidgetEvent_TouchDown* evt)
 {
-    /*leRadialMenuItemNode* widgetItem;
+    leRadialMenuItemNode* widgetItem;
     leRect clipRect;
     lePoint touchPoint;
     
-    LE_ASSERT_THIS();
-    
-    if(widget->type == LE_WIDGET_RADIAL_MENU)
+    if (_this->state != LE_RADIAL_MENU_INPUT_READY)
+        return;
+
+    /*if(_this->fn->getType(_this) == LE_WIDGET_RADIAL_MENU)
     {
         _this = (leRadialMenuWidget*)widget;
 
-        if (_this->state != LE_RADIAL_MENU_INPUT_READY)
-            return;
-    }
+
+    }*/
+#if 0
     else if(widget->parent->type == LE_WIDGET_RADIAL_MENU)
     {
         _this = (leRadialMenuWidget*)widget->parent;
@@ -1163,6 +1408,7 @@ static void handleTouchDownEvent(leRadialMenuWidget* _this,
             }            
         }        
     }
+#endif
         
     _this->touchPressed = LE_TRUE;
     
@@ -1171,19 +1417,17 @@ static void handleTouchDownEvent(leRadialMenuWidget* _this,
         _this->highlighter->fn->setVisible(_this->highlighter, LE_FALSE);        
     }
 
-    evt->event.accepted = LE_TRUE;*/
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
 }
 
 static void handleTouchUpEvent(leRadialMenuWidget* _this,
-                               leInput_TouchUpEvent* evt)
+                               leWidgetEvent_TouchUp* evt)
 {
-   /* leRadialMenuItemNode* widgetItem;
-    leRadialMenuWidget* _this = NULL;
+    leRadialMenuItemNode* widgetItem;
     leRect clipRect;
     lePoint touchPoint;
     
-    LE_ASSERT_THIS();
-    
+#if 0
     if(widget->parent == NULL)
         return;
 
@@ -1220,7 +1464,8 @@ static void handleTouchUpEvent(leRadialMenuWidget* _this,
             }
         }        
     }
-        
+#endif
+
     _this->touchPressed = LE_FALSE;
     
     if (_this != NULL && _this->highlighter != NULL)
@@ -1228,22 +1473,20 @@ static void handleTouchUpEvent(leRadialMenuWidget* _this,
         _this->highlighter->fn->setVisible(_this->highlighter, LE_FALSE);        
     }
 
-    evt->event.accepted = LE_TRUE;*/
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
 }
 
+static int touch = 0;
+
+//#include <stdio.h>
+
 static void handleTouchMovedEvent(leRadialMenuWidget* _this,
-                                  leInput_TouchMoveEvent* evt)
+                                  leWidgetEvent_TouchMove* evt)
 {
-    /*leRadialMenuWidget* _this = NULL;
     leRect clipRect;
     lePoint touchPoint;
 	int32_t dx, dy;
 	
-	LE_ASSERT_THIS();
-    
-    if(widget->parent == NULL)
-        return;
-    
     clipRect = _this->touchArea;
 
     leUtils_RectToScreenSpace((leWidget*)_this, &clipRect);
@@ -1258,15 +1501,17 @@ static void handleTouchMovedEvent(leRadialMenuWidget* _this,
         dx = evt->x - evt->prevX;    
         
         _this->touchPressed = LE_TRUE;
-        
-        if (_this->theta <= 45)
-        {
-            _this->userRequestedAngleDiff += dx * leSineCosineGet(_this->theta, LE_TRIG_COSINE_TYPE) / 256 / 4;
-        }
-        else
+
+        _this->userRequestedAngleDiff = dx;
+
+        //if (_this->theta <= 45)
+        //{
+            //_this->userRequestedAngleDiff += dx * leSineCosineGet(_this->theta, LE_TRIG_COSINE_TYPE) / 256 / 4;
+        //}
+        /*else
         {
             _this->userRequestedAngleDiff += dy * leSineCosineGet(_this->theta, LE_TRIG_SINE_TYPE) / 256 / 2;
-        }
+        }*/
         
         if (_this->userRequestedAngleDiff != 0)
         {
@@ -1280,10 +1525,14 @@ static void handleTouchMovedEvent(leRadialMenuWidget* _this,
             {
                 _this->userRequestedDirection = -1;
             }
-        }        
+        }
+
+        //printf("%d: %d, %d\n", touch, _this->userRequestedAngleDiff, _this->userRequestedDirection);
+
+        //touch++;
     }
-    
-    evt->event.accepted = LE_TRUE;*/
+
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
 }
 
 void _leWidget_FillVTable(leWidgetVTable* tbl);

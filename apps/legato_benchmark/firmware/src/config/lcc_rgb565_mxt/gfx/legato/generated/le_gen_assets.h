@@ -63,7 +63,7 @@ extern "C" {
  * Name:   RAW_GFX_mchp_200x200
  * Size:   200x200 pixels
  * Format: Raw
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage RAW_GFX_mchp_200x200;
 
@@ -72,7 +72,7 @@ extern leImage RAW_GFX_mchp_200x200;
  * Name:   RAW_GFX_mchp_480x270
  * Size:   480x270 pixels
  * Format: Raw
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage RAW_GFX_mchp_480x270;
 
@@ -81,7 +81,7 @@ extern leImage RAW_GFX_mchp_480x270;
  * Name:   RAW_GFX_mplab_200x200
  * Size:   200x200 pixels
  * Format: Raw
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage RAW_GFX_mplab_200x200;
 
@@ -90,7 +90,7 @@ extern leImage RAW_GFX_mplab_200x200;
  * Name:   RAW_GFX_mplab_480x270
  * Size:   480x270 pixels
  * Format: Raw
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage RAW_GFX_mplab_480x270;
 
@@ -99,7 +99,7 @@ extern leImage RAW_GFX_mplab_480x270;
  * Name:   RAW_GFX_mchp_100x100
  * Size:   100x100 pixels
  * Format: Raw
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage RAW_GFX_mchp_100x100;
 
@@ -108,7 +108,7 @@ extern leImage RAW_GFX_mchp_100x100;
  * Name:   RAW_GFX_mchp_40x40
  * Size:   40x40 pixels
  * Format: Raw
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage RAW_GFX_mchp_40x40;
 
@@ -117,7 +117,7 @@ extern leImage RAW_GFX_mchp_40x40;
  * Name:   RAW_GFX_mplab_100x100
  * Size:   100x100 pixels
  * Format: Raw
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage RAW_GFX_mplab_100x100;
 
@@ -126,7 +126,7 @@ extern leImage RAW_GFX_mplab_100x100;
  * Name:   RAW_GFX_mplab_40x40
  * Size:   40x40 pixels
  * Format: Raw
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage RAW_GFX_mplab_40x40;
 
@@ -135,7 +135,7 @@ extern leImage RAW_GFX_mplab_40x40;
  * Name:   RAWRLE_GFX_mchp_100x100
  * Size:   100x100 pixels
  * Format: RLE
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage RAWRLE_GFX_mchp_100x100;
 
@@ -144,7 +144,7 @@ extern leImage RAWRLE_GFX_mchp_100x100;
  * Name:   RAWRLE_GFX_mchp_200x200
  * Size:   200x200 pixels
  * Format: RLE
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage RAWRLE_GFX_mchp_200x200;
 
@@ -153,7 +153,7 @@ extern leImage RAWRLE_GFX_mchp_200x200;
  * Name:   RAWRLE_GFX_mchp_40x40
  * Size:   40x40 pixels
  * Format: RLE
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage RAWRLE_GFX_mchp_40x40;
 
@@ -162,7 +162,7 @@ extern leImage RAWRLE_GFX_mchp_40x40;
  * Name:   RAWRLE_GFX_mchp_480x270
  * Size:   480x270 pixels
  * Format: RLE
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage RAWRLE_GFX_mchp_480x270;
 
@@ -171,7 +171,7 @@ extern leImage RAWRLE_GFX_mchp_480x270;
  * Name:   RAWRLE_GFX_mplab_100x100
  * Size:   100x100 pixels
  * Format: RLE
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage RAWRLE_GFX_mplab_100x100;
 
@@ -180,7 +180,7 @@ extern leImage RAWRLE_GFX_mplab_100x100;
  * Name:   RAWRLE_GFX_mplab_200x200
  * Size:   200x200 pixels
  * Format: RLE
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage RAWRLE_GFX_mplab_200x200;
 
@@ -189,7 +189,7 @@ extern leImage RAWRLE_GFX_mplab_200x200;
  * Name:   RAWRLE_GFX_mplab_40x40
  * Size:   40x40 pixels
  * Format: RLE
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage RAWRLE_GFX_mplab_40x40;
 
@@ -198,7 +198,7 @@ extern leImage RAWRLE_GFX_mplab_40x40;
  * Name:   RAWRLE_GFX_mplab_480x270
  * Size:   480x270 pixels
  * Format: RLE
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage RAWRLE_GFX_mplab_480x270;
 
@@ -207,7 +207,7 @@ extern leImage RAWRLE_GFX_mplab_480x270;
  * Name:   Bar
  * Size:   480x65 pixels
  * Format: RLE
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage Bar;
 
@@ -216,7 +216,7 @@ extern leImage Bar;
  * Name:   HarmonyLogo
  * Size:   197x139 pixels
  * Format: RLE
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage HarmonyLogo;
 
@@ -225,7 +225,7 @@ extern leImage HarmonyLogo;
  * Name:   MicrochipLogo
  * Size:   144x39 pixels
  * Format: RLE
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage MicrochipLogo;
 
@@ -234,96 +234,9 @@ extern leImage MicrochipLogo;
  * Name:   PIC32Logo
  * Size:   240x62 pixels
  * Format: RLE
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage PIC32Logo;
-
-/*****************************************************************************
-* MPLAB Harmony Graphics Palette Assets
-*****************************************************************************/
-/*********************************
- * Legato Palette Asset
- * Mode:   RGB_565
- * Size:   80
- ***********************************/
-extern lePalette leGenPalette7;
-
-/*********************************
- * Legato Palette Asset
- * Mode:   RGB_565
- * Size:   893
- ***********************************/
-extern lePalette leGenPalette9;
-
-/*********************************
- * Legato Palette Asset
- * Mode:   RGB_565
- * Size:   52
- ***********************************/
-extern lePalette leGenPalette8;
-
-/*********************************
- * Legato Palette Asset
- * Mode:   RGB_565
- * Size:   96
- ***********************************/
-extern lePalette leGenPalette3;
-
-/*********************************
- * Legato Palette Asset
- * Mode:   RGB_565
- * Size:   227
- ***********************************/
-extern lePalette leGenPalette10;
-
-/*********************************
- * Legato Palette Asset
- * Mode:   RGB_565
- * Size:   185
- ***********************************/
-extern lePalette leGenPalette4;
-
-/*********************************
- * Legato Palette Asset
- * Mode:   RGB_565
- * Size:   98
- ***********************************/
-extern lePalette leGenPalette5;
-
-/*********************************
- * Legato Palette Asset
- * Mode:   RGB_565
- * Size:   99
- ***********************************/
-extern lePalette leGenPalette6;
-
-/*********************************
- * Legato Palette Asset
- * Mode:   RGB_565
- * Size:   299
- ***********************************/
-extern lePalette leGenPalette0;
-
-/*********************************
- * Legato Palette Asset
- * Mode:   RGB_565
- * Size:   373
- ***********************************/
-extern lePalette leGenPalette1;
-
-/*********************************
- * Legato Palette Asset
- * Mode:   RGB_565
- * Size:   488
- ***********************************/
-extern lePalette leGenPalette11;
-
-/*********************************
- * Legato Palette Asset
- * Mode:   RGB_565
- * Size:   95
- ***********************************/
-extern lePalette leGenPalette2;
 
 /*****************************************************************************
 * MPLAB Harmony Graphics Font Assets
@@ -338,7 +251,7 @@ extern lePalette leGenPalette2;
  * Range Count:  1
  * Glyph Ranges: 0x30-0x39
 ***********************************/
-extern leFont ArialLarge;
+extern leRasterFont ArialLarge;
 
 /*********************************
  * Legato Font Asset
@@ -350,7 +263,7 @@ extern leFont ArialLarge;
  * Range Count:  1
  * Glyph Ranges: 0x30-0x39
 ***********************************/
-extern leFont ArialMed;
+extern leRasterFont ArialMed;
 
 /*********************************
  * Legato Font Asset
@@ -362,7 +275,7 @@ extern leFont ArialMed;
  * Range Count:  1
  * Glyph Ranges: 0x30-0x39
 ***********************************/
-extern leFont ArialSmall;
+extern leRasterFont ArialSmall;
 
 /*********************************
  * Legato Font Asset
@@ -386,7 +299,7 @@ extern leFont ArialSmall;
                  0x74-0x75
                  0x78-0x7A
 ***********************************/
-extern leFont ArialNarrow;
+extern leRasterFont ArialNarrow;
 
 /*********************************
  * Legato Font Asset
@@ -402,7 +315,7 @@ extern leFont ArialNarrow;
                  0x3C
                  0x3E
 ***********************************/
-extern leFont ArialNarrowMed;
+extern leRasterFont ArialNarrowMed;
 
 /*********************************
  * Legato Font Asset
@@ -429,7 +342,7 @@ extern leFont ArialNarrowMed;
                  0x72-0x75
                  0x77-0x7A
 ***********************************/
-extern leFont ArialTiny;
+extern leRasterFont ArialTiny;
 
 /*********************************
  * Legato Font Asset
@@ -452,7 +365,7 @@ extern leFont ArialTiny;
                  0x6C-0x70
                  0x72-0x74
 ***********************************/
-extern leFont ArialTitle;
+extern leRasterFont ArialTitle;
 
 /*********************************
  * Legato Font Asset
@@ -471,7 +384,7 @@ extern leFont ArialTitle;
                  0x72
                  0x75-0x76
 ***********************************/
-extern leFont ArialLittle;
+extern leRasterFont ArialLittle;
 
 /*********************************
  * Legato Font Asset
@@ -483,7 +396,7 @@ extern leFont ArialLittle;
  * Range Count:  1
  * Glyph Ranges: 0x61
 ***********************************/
-extern leFont ArialTinyAve;
+extern leRasterFont ArialTinyAve;
 
 /*****************************************************************************
  * Legato String Table

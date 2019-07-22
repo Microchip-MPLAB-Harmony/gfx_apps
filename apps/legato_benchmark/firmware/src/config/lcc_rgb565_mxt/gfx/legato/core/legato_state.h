@@ -5,11 +5,10 @@
 
 #include "gfx/legato/common/legato_common.h"
 
-#include "gfx/legato/asset/legato_stringtable.h"
 #include "gfx/legato/renderer/legato_driver.h"
 #include "gfx/legato/core/legato_input.h"
 #include "gfx/legato/core/legato_scheme.h"
-
+#include "gfx/legato/string/legato_stringtable.h"
 #include "gfx/legato/widget/legato_editwidget.h" 
 
 // *****************************************************************************
@@ -47,8 +46,8 @@ typedef struct leState
     //leScreen screens[LE_MAX_SCREENS];
     //int32_t activeScreen;
     
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-    leExternalAssetReader* assetReader; // external asset reader state
+#if LE_STREAMING_ENABLED == 1
+    leStreamManager* activeStream; // active stream state
 #endif
 } leState;
 
@@ -409,6 +408,9 @@ LIB_EXPORT void leRedrawAll();
         leResult    
 
 */
+
+
+
 LIB_EXPORT leBool leIsDrawing();
 
 LIB_EXPORT leResult leAddRootWidget(leWidget* wgt,
@@ -419,6 +421,7 @@ LIB_EXPORT leResult leRemoveRootWidget(leWidget* wgt,
 
 LIB_EXPORT leBool leWidgetIsInScene(const leWidget* wgt);
 
+
 leResult leEdit_StartEdit();
 void leEdit_EndEdit();
 void leEdit_Clear();
@@ -427,11 +430,10 @@ void leEdit_Set(leString* str);
 void leEdit_Append(leString* str);
 void leEdit_Backspace();
 
-// internal
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
-leExternalAssetReader* leGetReader();
-void leFreeReader();
-leResult leRunReader();
+#if LE_STREAMING_ENABLED == 1
+leStreamManager* leGetActiveStream();
+leResult leRunActiveStream();
+void leAbortActiveStream();
 #endif
 
 #endif /* LEGATO_STATE_H */

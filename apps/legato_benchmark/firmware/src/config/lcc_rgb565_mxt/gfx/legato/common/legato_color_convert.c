@@ -250,10 +250,10 @@ static leColor rgb332_gs8(leColor color)
     red = leScaleInteger(red, RGB_3_BITS, 55);
     
     green = (color & RGB_332_GREEN_MASK) >> 2;
-    green = leScaleInteger(red, RGB_3_BITS, 183);
+    green = leScaleInteger(green, RGB_3_BITS, 183);
     
     blue = (color & RGB_332_BLUE_MASK);
-    blue = leScaleInteger(red, RGB_2_BITS, 17);
+    blue = leScaleInteger(blue, RGB_2_BITS, 17);
     
     return red + green + blue;
 }
@@ -322,10 +322,10 @@ static leColor rgb565_gs8(leColor color)
     red = leScaleInteger(red, 7, 55);
     
     green = (color & RGB_565_GREEN_MASK) >> 5;
-    green = leScaleInteger(red, 7, 183);
+    green = leScaleInteger(green, 7, 183);
     
     blue = (color & RGB_565_BLUE_MASK);
-    blue = leScaleInteger(red, 7, 17);
+    blue = leScaleInteger(blue, 7, 17);
     
     return red + green + blue;
 }
@@ -572,127 +572,6 @@ static leColor argb8888_rgba8888(leColor color)
 {
     return (color << 8) | ((color & 0xFF000000) >> 24);
 }
-
-#if 0
-static leColor lut_gs8(leColor color)
-{
-    leColor res;
-    
-    if(leGetRenderState()->palette == NULL ||
-       leGetRenderState()->palette->pixels == NULL)
-    {
-        return 0;
-    }
-        
-    res = lePixelBufferGetIndex(leGetRenderState()->palette, color);
-                       
-    return leColorConvert(leGetRenderState()->palette->mode,
-                          LE_COLOR_MODE_GS_8,
-                          res);
-}
-
-static leColor lut_rgb332(leColor color)
-{
-    leColor res;
-    
-    if(leGetRenderState()->palette == NULL ||
-       leGetRenderState()->palette->pixels == NULL)
-    {
-        return 0;
-    }
-        
-    res = lePixelBufferGetIndex(leGetRenderState()->palette, color);
-                       
-    return leColorConvert(leGetRenderState()->palette->mode,
-                          LE_COLOR_MODE_RGB_332,
-                          res);
-}
-
-static leColor lut_rgb565(leColor color)
-{
-    leColor res;
-    
-    if(leGetRenderState()->palette == NULL ||
-       leGetRenderState()->palette->pixels == NULL)
-    {
-        return 0;
-    }
-        
-    res = lePixelBufferGetIndex(leGetRenderState()->palette, color);
-                       
-    return leColorConvert(leGetRenderState()->palette->mode,
-                          LE_COLOR_MODE_RGB_565,
-                          res);
-}
-
-static leColor lut_rgba5551(leColor color)
-{
-    leColor res;
-    
-    if(leGetRenderState()->palette == NULL ||
-       leGetRenderState()->palette->pixels == NULL)
-    {
-        return 0;
-    }
-        
-    res = lePixelBufferGetIndex(leGetRenderState()->palette, color);
-                       
-    return leColorConvert(leGetRenderState()->palette->mode,
-                            LE_COLOR_MODE_RGBA_5551,
-                            res);
-}
-
-static leColor lut_rgb888(leColor color)
-{
-    leColor res;
-    
-    if(leGetRenderState()->palette == NULL ||
-       leGetRenderState()->palette->pixels == NULL)
-    {
-        return 0;
-    }
-        
-    res = lePixelBufferGetIndex(leGetRenderState()->palette, color);
-                       
-    return leColorConvert(leGetRenderState()->palette->mode,
-                            LE_COLOR_MODE_RGB_888,
-                            res);
-}
-
-static leColor lut_rgba8888(leColor color)
-{
-    leColor res;
-    
-    if(leGetRenderState()->palette == NULL ||
-       leGetRenderState()->palette->pixels == NULL)
-    {
-        return 0;
-    }
-        
-    res = lePixelBufferGetIndex(leGetRenderState()->palette, color);
-                       
-    return leColorConvert(leGetRenderState()->palette->mode,
-                            LE_COLOR_MODE_RGBA_8888,
-                            res);
-}
-
-static leColor lut_argb8888(leColor color)
-{
-    leColor res;
-    
-    if(leGetRenderState()->palette == NULL ||
-       leGetRenderState()->palette->pixels == NULL)
-    {
-        return 0;
-    }
-        
-    res = lePixelBufferGetIndex(leGetRenderState()->palette, color);
-                       
-    return leColorConvert(leGetRenderState()->palette->mode,
-                            LE_COLOR_MODE_ARGB_8888,
-                            res);
-}
-#endif
 
 leColor leColorConvert(leColorMode mode_in,
                            leColorMode mode_out,

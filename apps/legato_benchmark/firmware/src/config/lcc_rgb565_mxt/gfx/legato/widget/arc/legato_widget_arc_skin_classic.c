@@ -23,7 +23,7 @@
 
 #include "gfx/legato/widget/arc/legato_widget_arc.h"
 
-#if LE_ARC_WIDGET_ENABLED
+#if LE_ARC_WIDGET_ENABLED == 1
 
 #include "gfx/legato/common/legato_math.h"
 
@@ -57,13 +57,13 @@ static void nextState(leArcWidget* arc)
     {
         case NOT_STARTED:
         {
+            paintState.alpha = 255;
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
             if(arc->fn->getCumulativeAlphaEnabled(arc) == LE_TRUE)
             {
-                paintState.alpha = graph->fn->getCumulativeAlphaAmount(arc);
+                paintState.alpha = arc->fn->getCumulativeAlphaAmount(arc);
             }
-#else
-            paintState.alpha = 255;
 #endif
             
             if(arc->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
@@ -101,7 +101,7 @@ static void nextState(leArcWidget* arc)
 
 static void drawBackground(leArcWidget* arc)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)arc);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)arc, paintState.alpha);
     
     nextState(arc);
 }
@@ -138,25 +138,20 @@ static void drawArc(leArcWidget* arc)
 {
     lePoint p;
     leRect arcRect;
-    uint32_t a = 255;
-    
-#if LE_ALPHA_BLENDING_ENABLED == 1
-    if(arc->fn->getCumulativeAlphaEnabled(arc) == LE_TRUE)
-    {
-        a = arc->fn->getCumulativeAlphaAmount(arc);
-    }
-#endif
-    
-    p.x = arc->widget.rect.width/2;
-    p.y = arc->widget.rect.height/2;
-    
+
+    p.x = 0;
+    p.y = 0;
+
     leUtils_PointToScreenSpace((leWidget*)arc, &p);
-    
-    arcRect.x = p.x - arc->radius;
-    arcRect.y = p.y - arc->radius;
+
+    arcRect.x = p.x;
+    arcRect.y = p.y;
     arcRect.width = arc->radius * 2;
     arcRect.height = arc->radius * 2;
-    
+
+    p.x = arc->widget.rect.width / 2;
+    p.y = arc->widget.rect.height / 2;
+
     leRenderer_ArcFill(&arcRect,
                        p.x,
                        p.y,
@@ -166,7 +161,7 @@ static void drawArc(leArcWidget* arc)
                        arc->thickness,
                        arc->widget.scheme->foreground,
                        LE_FALSE,
-                       a);
+                       paintState.alpha);
     
     //Draw the edges
     if (arc->roundEdge == LE_TRUE)
@@ -182,7 +177,7 @@ static void drawArc(leArcWidget* arc)
                            arc->thickness / 2,
                            arc->widget.scheme->foreground,
                            LE_FALSE,
-                           a);
+                           paintState.alpha);
         
         point = _leArcWidget_GetMidPointAtAngle(arc,
                                                 arc->startAngle + arc->centerAngle);
@@ -196,7 +191,7 @@ static void drawArc(leArcWidget* arc)
                            arc->thickness / 2,
                            arc->widget.scheme->foreground,
                            LE_FALSE,
-                           a);
+                           paintState.alpha);
     }
 
     nextState(arc);
@@ -205,10 +200,16 @@ static void drawArc(leArcWidget* arc)
 static void drawBorder(leArcWidget* arc)
 {    
     if(arc->widget.borderType == LE_WIDGET_BORDER_LINE)
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)arc);
+    {
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget *) arc,
+                                                    paintState.alpha);
+    }
     else if(arc->widget.borderType == LE_WIDGET_BORDER_BEVEL)
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)arc);
-    
+    {
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget *) arc,
+                                                      paintState.alpha);
+    }
+
     nextState(arc);
 }
 
@@ -222,8 +223,10 @@ void _leArcWidget_Paint(leArcWidget* arc)
     }
     
     if(arc->widget.drawState == NOT_STARTED)
+    {
         nextState(arc);
-    
+    }
+
     while(arc->widget.drawState != DONE)
     {
         arc->widget.drawFunc((leWidget*)arc);

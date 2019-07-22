@@ -1,6 +1,7 @@
 #include "gfx/legato/memory/legato_fixedheap.h"
 
 #include "gfx/legato/common/legato_error.h"
+#include "legato_fixedheap.h"
 
 #if LE_FIXEDHEAP_ENABLE == 1
 
@@ -112,11 +113,6 @@ void* leFixedHeap_Alloc(leFixedHeap* heap)
     leFixedHeapBlock* freeBlk;
     leFixedHeapBlock* allocBlk;
     
-    if(heap->logicalBlockSize == 256)
-    {
-        freeBlk = NULL;
-    }
-
     LE_ASSERT(heap != NULL && heap->initialized == LE_TRUE);
     
     LE_ASSERT_VAR(heap->capacity != 0 &&
@@ -127,7 +123,7 @@ void* leFixedHeap_Alloc(leFixedHeap* heap)
         return NULL;
 
     freeBlk = (leFixedHeapBlock*)heap->freeList;
-    
+
     heap->freeList = freeBlk->data;
 
     allocBlk = (leFixedHeapBlock*)freeBlk;
@@ -147,6 +143,11 @@ void* leFixedHeap_Alloc(leFixedHeap* heap)
 #endif
 
     heap->capacity--;
+
+    if(heap->capacity == 0)
+    {
+        heap->freeList = NULL;
+    }
     
 #if LE_FIXEDHEAP_DEBUG == 1
     LE_ASSERT(leFixedHeap_Validate(heap) == LE_SUCCESS);
@@ -164,11 +165,6 @@ void leFixedHeap_Free(leFixedHeap* heap,
                       void* ptr)
 {
     leFixedHeapBlock *oldFreeBlk, *freeBlk;
-    
-    if(heap->logicalBlockSize == 256)
-    {
-        freeBlk = NULL;
-    }
 
     LE_ASSERT(heap != NULL && heap->initialized == LE_TRUE);
     
@@ -182,8 +178,10 @@ void leFixedHeap_Free(leFixedHeap* heap,
     freeBlk = (leFixedHeapBlock*)((uint8_t*)ptr - LE_FIXEDHEAP_HEADER_SIZE);
 
 #if LE_FIXEDHEAP_DEBUG == 1
+    LE_ASSERT_MSG(freeBlk->debug.free != LE_TRUE, "Trying to free an address that hasn't been allocated");
+
     memset(&freeBlk->data, MS_FREE, heap->logicalBlockSize);
-    
+
     freeBlk->debug.free = LE_TRUE;
 #endif
 
@@ -240,7 +238,21 @@ leResult leFixedHeap_Validate(struct leFixedHeap* heap)
             return LE_FAILURE;
     }
 
+    i = 0;
+
+    while(1)
+    {
+        if(i == heap->numElements - heap->capacity)
+            break;
+
+        blk = heap->freeList;
+
+        blk = (leFixedHeapBlock*)blk->data;
+
+        i++;
+    }
 #endif
+
     return LE_SUCCESS;
 }
 

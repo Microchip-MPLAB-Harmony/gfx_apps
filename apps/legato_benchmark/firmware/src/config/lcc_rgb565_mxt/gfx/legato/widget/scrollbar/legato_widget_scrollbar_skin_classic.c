@@ -168,13 +168,13 @@ static void nextState(leScrollBarWidget* bar)
     {
         case NOT_STARTED:
         {
+            paintState.alpha = 255;
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
             if(bar->fn->getCumulativeAlphaEnabled(bar) == LE_TRUE)
             {
                 paintState.alpha = bar->fn->getCumulativeAlphaAmount(bar);
             }
-#else
-            paintState.alpha = 255;
 #endif
 
             bar->widget.drawState = DRAW_BACKGROUND;
@@ -257,7 +257,7 @@ static void drawUpButton(leScrollBarWidget* bar)
         pnt.x = rect.x + (rect.width / 2) - 1 + arrowOffset;
         pnt.y = rect.y + (rect.height / 2) - 1 + arrowOffset;
         
-        leRenderer_BlendPixel(pnt.x, pnt.y - 1, bar->widget.scheme->foreground, paintState.alpha);
+        leRenderer_BlendPixel_Safe(pnt.x, pnt.y - 1, bar->widget.scheme->foreground, paintState.alpha);
         leRenderer_HorzLine(pnt.x - 1, pnt.y + 0, 2, bar->widget.scheme->foreground, paintState.alpha);
         leRenderer_HorzLine(pnt.x - 2, pnt.y + 1, 4, bar->widget.scheme->foreground, paintState.alpha);
         leRenderer_HorzLine(pnt.x - 3, pnt.y + 2, 6, bar->widget.scheme->foreground, paintState.alpha);
@@ -266,8 +266,8 @@ static void drawUpButton(leScrollBarWidget* bar)
     {
         pnt.x = rect.x + (rect.width / 2) - 1 + arrowOffset;
         pnt.y = rect.y + (rect.height / 2) - 1 + arrowOffset;
-        
-        leRenderer_BlendPixel(pnt.x - 1, pnt.y, bar->widget.scheme->foreground, paintState.alpha);
+
+        leRenderer_BlendPixel_Safe(pnt.x - 1, pnt.y, bar->widget.scheme->foreground, paintState.alpha);
         leRenderer_VertLine(pnt.x, pnt.y - 1, 2, bar->widget.scheme->foreground, paintState.alpha);
         leRenderer_VertLine(pnt.x + 1, pnt.y - 2, 4, bar->widget.scheme->foreground, paintState.alpha);
         leRenderer_VertLine(pnt.x + 2, pnt.y - 3, 6, bar->widget.scheme->foreground, paintState.alpha);
@@ -345,7 +345,7 @@ static void drawDownButton(leScrollBarWidget* bar)
         leRenderer_HorzLine(pnt.x - 3, pnt.y - 1, 6, bar->widget.scheme->foreground, paintState.alpha);
         leRenderer_HorzLine(pnt.x - 2, pnt.y + 0, 4, bar->widget.scheme->foreground, paintState.alpha);
         leRenderer_HorzLine(pnt.x - 1, pnt.y + 1, 2, bar->widget.scheme->foreground, paintState.alpha);
-        leRenderer_BlendPixel(pnt.x, pnt.y + 2, bar->widget.scheme->foreground, paintState.alpha);
+        leRenderer_BlendPixel_Safe(pnt.x, pnt.y + 2, bar->widget.scheme->foreground, paintState.alpha);
     }
     else
     {
@@ -355,7 +355,7 @@ static void drawDownButton(leScrollBarWidget* bar)
         leRenderer_VertLine(pnt.x - 1, pnt.y - 3, 6, bar->widget.scheme->foreground, paintState.alpha);
         leRenderer_VertLine(pnt.x + 0, pnt.y - 2, 4, bar->widget.scheme->foreground, paintState.alpha);
         leRenderer_VertLine(pnt.x + 1, pnt.y - 1, 2, bar->widget.scheme->foreground, paintState.alpha);
-        leRenderer_BlendPixel(pnt.x + 2, pnt.y, bar->widget.scheme->foreground, paintState.alpha);
+        leRenderer_BlendPixel_Safe(pnt.x + 2, pnt.y, bar->widget.scheme->foreground, paintState.alpha);
     }
     
     // draw button border

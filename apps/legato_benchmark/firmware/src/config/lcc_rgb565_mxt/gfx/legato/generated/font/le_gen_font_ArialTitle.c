@@ -85,17 +85,18 @@ const uint8_t ArialTitle_data[178] =
     0x70,0x38,
 };
 
-leFont ArialTitle =
+leRasterFont ArialTitle =
 {
     {
-        LE_ASSET_TYPE_FONT, // asset type
-        LE_ASSET_LOCATION_ID_INTERNAL, // data location id
-        (void*)ArialTitle_data, // data address pointer
-        178, // data size
+        {
+            LE_STREAM_LOCATION_ID_INTERNAL, // data location id
+            (void*)ArialTitle_data, // data address pointer
+            178, // data size
+        },
+        LE_RASTER_FONT,
     },
-    8,
+    14,
     10,
     LE_FONT_BPP_1, // bits per pixel
     ArialTitle_glyphs, // glyph table
-    ArialTitle_data, // font data
 };

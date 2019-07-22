@@ -5,6 +5,7 @@
 #include "gfx/legato/common/legato_pixelbuffer.h"
 #include "gfx/legato/common/legato_rect.h"
 #include "gfx/legato/datastructure/legato_rectarray.h"
+#include "gfx/legato/image/legato_palette.h"
 #include "gfx/legato/renderer/legato_driver.h"
 #include "gfx/legato/widget/legato_widget.h"
 
@@ -61,9 +62,7 @@ typedef struct leRenderState
 
     uint32_t deltaTime;           // stores delta time for updates that happen
                                   // during rendering
-                      
-    leColorMode colorMode;        // the color mode the library uses
-    
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
     leBool alphaEnable;
     uint8_t alpha;
@@ -72,7 +71,7 @@ typedef struct leRenderState
     //leBool maskEnable;
     //uint32_t maskValue;
     
-    //lePixelBuffer* palette;
+    lePalette* globalPalette;
     
     lePixelBuffer* renderBuffer;
 } leRenderState;
@@ -94,9 +93,14 @@ leResult leRenderer_DamageArea(const leRect* rect);
 							 
 void leRenderer_Paint();
 
+
+
 LIB_EXPORT leRenderState* leGetRenderState();
 
-LIB_EXPORT uint32_t leRenderer_GetDrawCount();
+lePalette* leRenderer_GetGlobalPalette();
+leResult leRenderer_SetGlobalPalette(lePalette* pal);
+
+leColor leRenderer_GlobalPaletteLookup(uint32_t idx);
 
 leColor leRenderer_ConvertColor(leColor inColor, leColorMode inMode);
 
@@ -104,15 +108,48 @@ leRect leRenderer_GetDisplayRect();
 
 leRect leRenderer_GetDrawRect();
 leBool leRenderer_CullDrawRect(const leRect* rect);
+leBool leRenderer_CullDrawXY(int32_t x, int32_t y);
 leBool leRenderer_CullDrawPoint(const lePoint* pt);
 void leRenderer_ClipDrawRect(const leRect* rect, leRect* res);
 
-leResult leRenderer_PutPixel(int32_t x, int32_t y, leColor clr);
+leColor leRenderer_GetPixel(int32_t x,
+                            int32_t y);
+
+leResult leRenderer_GetPixel_Safe(int32_t x,
+                                  int32_t y,
+                                  leColor* clr);
+
+leResult leRenderer_PutPixel(int32_t x,
+                             int32_t y,
+                             leColor clr);
 
 leResult leRenderer_BlendPixel(int32_t x,
                                int32_t y,
                                leColor clr,
                                uint32_t a);
+
+leResult leRenderer_PutPixel_Safe(int32_t x,
+                                  int32_t y,
+                                  leColor clr);
+
+leResult leRenderer_BlendPixel_Safe(int32_t x,
+                                    int32_t y,
+                                    leColor clr,
+                                    uint32_t a);
+
+leResult leRenderer_FillArea(int32_t x,
+                             int32_t y,
+                             uint32_t width,
+                             uint32_t height,
+                             leColor clr,
+                             uint32_t a);
+
+leResult leRenderer_FillArea_Safe(int32_t x,
+                                  int32_t y,
+                                  uint32_t width,
+                                  uint32_t height,
+                                  leColor clr,
+                                  uint32_t a);
 
 leResult leRenderer_HorzLine(int32_t x,
                              int32_t y,
@@ -151,6 +188,31 @@ leResult leRenderer_VertGradientRect(const leRect* rect,
                                      leColor clr2,
                                      uint32_t a);
 
+leResult leRenderer_CircleDraw(const leRect* rect,
+                               int32_t x,
+                               int32_t y,
+                               uint32_t radius,
+                               uint32_t thickness,
+                               leColor clr,
+                               uint32_t alpha);
+
+leResult leRenderer_CircleDraw(const leRect* rect,
+                               int32_t x,
+                               int32_t y,
+                               uint32_t radius,
+                               uint32_t thickness,
+                               leColor clr,
+                               uint32_t alpha);
+
+leResult leRenderer_CircleFill(const leRect* rect,
+                               int32_t x,
+                               int32_t y,
+                               uint32_t radius,
+                               uint32_t thickness,
+                               leColor borderClr,
+                               leColor fillClr,
+                               uint32_t alpha);
+
 leResult leRenderer_ArcLine(int32_t x,
                             int32_t y,
                             int32_t r,
@@ -159,7 +221,7 @@ leResult leRenderer_ArcLine(int32_t x,
                             leColor clr,
                             uint32_t a);   
                             
-leResult leRenderer_ArcFill(leRect* drawRect,
+leResult leRenderer_ArcFill(const leRect* drawRect,
                             int32_t x,
                             int32_t y,
                             int32_t r,

@@ -23,7 +23,7 @@
 
 #include "gfx/legato/widget/radialmenu/legato_widget_radial_menu.h"
 
-#if LE_RADIAL_MENU_WIDGET_ENABLED
+#if LE_RADIALMENU_WIDGET_ENABLED
 
 #include "gfx/legato/common/legato_math.h"
 #include "gfx/legato/common/legato_utils.h"
@@ -56,13 +56,13 @@ static void nextState(leRadialMenuWidget* mn)
     {
         case NOT_STARTED:
         {
+            paintState.alpha = 255;
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
             if(mn->fn->getCumulativeAlphaEnabled(mn) == LE_TRUE)
             {
                 paintState.alpha = mn->fn->getCumulativeAlphaAmount(mn);
             }
-#else
-            paintState.alpha = 255;
 #endif
 
             if(mn->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
@@ -79,32 +79,25 @@ static void nextState(leRadialMenuWidget* mn)
             {
                 mn->widget.drawState = DRAW_ELLIPSE;
                 mn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawEllipse;
+
+                return;
             }
-            else
-            {
-                mn->widget.drawState = ARRANGE_ITEMS;
-                mn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&arrangeItems;                
-            }
-            return;
         }
         case DRAW_ELLIPSE:
         {            
-            if(mn->widgetList.size > 0)
+            /*if(mn->widgetList.size > 0)
             {
                 mn->widget.drawState = ARRANGE_ITEMS;
-                mn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&arrangeItems;                
-            }
-            else
-            {
-                mn->widget.drawState = DONE;
-                mn->widget.drawFunc = NULL;                
-            }
-            return;
+                mn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&arrangeItems;
+
+                return;
+            }*/
         }
         case ARRANGE_ITEMS:
         {
             mn->widget.drawState = DONE;
-            mn->widget.drawFunc = NULL;                
+            mn->widget.drawFunc = NULL;
+
             return;
         }
     }
@@ -139,177 +132,9 @@ static void drawEllipse(leRadialMenuWidget* mn)
     nextState(mn);
 }
 
-//Weigh the angle t between 90 (prominent) and 270 (sunken) and returns a percent, t has to be between 0 to 360
-uint32_t _weighAngle(int32_t t)
-{
-    int32_t angle;
-    
-    t = leNormalize360(t);
-    
-    if (t >= 90 && t <= 270)
-    {
-        angle = t - 90;
-    }
-    else if (t < 90)
-    {
-        angle = 90 - t;
-    }
-    else
-    {
-        angle = 450 - t;
-    }
 
-    //Calculate the percent scale relative to prominent (90) and minimum (270)
-    return lePercentWholeRounded(angle, 180);
-}
 
-static leResult _insertionSort(leList* list, leRadialMenuItemNode* item)
-{
-    uint32_t i, percentTest, percentNew; 
-    leRadialMenuItemNode* testItem;
-    
-    if (list->size == 0)
-    {
-        leList_PushFront(list, item);
-        return LE_SUCCESS;
-    }
-    
-    percentNew = _weighAngle(item->t);
 
-    for(i = 0; i < list->size; ++i)
-    {
-        testItem = leList_Get(list,i);
-
-        percentTest = _weighAngle(testItem->t);
-
-        if (percentNew > percentTest)
-        {
-            leList_InsertAt(list, item, i);
-            return LE_SUCCESS;
-        }
-    }
-
-    //if we got here without an insertion, item goes to the back
-    leList_PushBack(list, item);
-    
-    return LE_SUCCESS;
-}
-
-static void arrangeItems(leRadialMenuWidget* mn)
-{
-    lePoint itemPos;
-//    leRect mnScreenRect;
-    leRadialMenuItemNode* item;
-    uint32_t i,percent;
-    leList drawOrderList;
-    
-    leList_Create(&drawOrderList);
-
-//    mnScreenRect = leWidget_RectToScreenSpace((leWidget*)mn);
-    for (i = 0; i < mn->hiddenList.size; ++i)
-    {
-        item = leList_Get(&mn->hiddenList, i);
-
-        item->widget->fn->setVisible(item->widget, LE_FALSE);
-    }
-    
-    for (i = 0; i < mn->shownList.size; ++i)
-    {
-        item = leList_Get(&mn->shownList, i);
-        
-        percent = 100 - _weighAngle(item->t);
-
-        switch(mn->blendMode)
-        {
-            case LE_RADIAL_MENU_INTERPOLATE_GRADUAL:
-            {
-                item->widget->alphaAmount = leLerp(mn->minAlphaAmount, mn->maxAlphaAmount, percent);                
-            
-                break;
-            }
-            case LE_RADIAL_MENU_INTERPOLATE_OFF:
-            {
-                item->widget->alphaAmount = item->origAlphaAmount;
-            
-                break;
-            }
-            case LE_RADIAL_MENU_INTERPOLATE_PROMINENT:
-            {
-                if (mn->fn->isProminent(mn, item->widget))
-                {
-                    item->widget->alphaAmount = mn->maxAlphaAmount;
-                }
-                else
-                {
-                    item->widget->alphaAmount = mn->minAlphaAmount;
-                }                
-            
-                break;
-            }
-        }
-
-        switch(mn->scaleMode)
-        {
-            case LE_RADIAL_MENU_INTERPOLATE_GRADUAL:
-            {
-                item->widget->rect.width = item->origSize.width * leLerp(mn->minSizePercent, mn->maxSizePercent, percent) / 100;                
-                item->widget->rect.height = item->origSize.height * leLerp(mn->minSizePercent, mn->maxSizePercent, percent) / 100;                
-            
-                break;
-            }
-            case LE_RADIAL_MENU_INTERPOLATE_OFF:
-            {
-                item->widget->rect.width = item->origSize.width;
-                item->widget->rect.height = item->origSize.height;        
-            
-                break;
-            }
-            case LE_RADIAL_MENU_INTERPOLATE_PROMINENT:
-            {
-                if(mn->fn->isProminent(mn, item->widget))
-                {
-                    item->widget->rect.width = item->origSize.width * (int32_t)mn->maxSizePercent / 100;
-                    item->widget->rect.height = item->origSize.height * (int32_t)mn->maxSizePercent / 100;                
-                }
-                else
-                {
-                    item->widget->rect.width = item->origSize.width * (int32_t)mn->minSizePercent / 100;
-                    item->widget->rect.height = item->origSize.height * (int32_t)mn->minSizePercent / 100;        
-                }                
-            
-                break;
-            }
-        }
-
-        //Establish widget positions
-        leEllipsePoint(item->t, mn->a, mn->b, mn->theta, &itemPos);
-
-        itemPos.x = itemPos.x + mn->widget.rect.width / 2 - item->widget->rect.width / 2;
-        itemPos.y = itemPos.y + mn->widget.rect.height / 2 - item->widget->rect.height / 2;
-        
-        item->widget->fn->setPosition(item->widget, itemPos.x, itemPos.y);        
-        
-        //This step is to setup arranging the draw order of each item
-        leArray_Remove(&mn->widget.children, item->widget);
-        
-        item->widget->fn->setVisible(item->widget, LE_TRUE);
-        
-        //Sort by inserting into empty list
-        _insertionSort(&drawOrderList, item);
-    }
-
-    //Re-add each widget item back as child from back to front
-    for (i = 0; i < drawOrderList.size; ++i)
-    {
-        item = leList_Get(&drawOrderList, i);
-
-        leArray_PushBack(&mn->widget.children, item->widget);
-    }
-
-    leList_Clear(&drawOrderList);
-
-    nextState(mn);
-}
 
 void _leRadialMenuWidget_Paint(leRadialMenuWidget* mn)
 {

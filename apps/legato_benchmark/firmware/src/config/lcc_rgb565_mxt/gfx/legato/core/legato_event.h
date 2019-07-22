@@ -63,6 +63,7 @@ typedef enum leEventID
     LE_EVENT_TOUCH_DOWN,
     LE_EVENT_TOUCH_UP,
     LE_EVENT_TOUCH_MOVE,
+    LE_EVENT_LANGUAGE_CHANGED,
     
     // widget events
     LE_WIDGET_EVENT_PAINT = 100,
@@ -70,7 +71,6 @@ typedef enum leEventID
     LE_WIDGET_EVENT_RESIZED,
     LE_WIDGET_EVENT_FOCUS_GAINED,
     LE_WIDGET_EVENT_FOCUS_LOST,
-    LE_WIDGET_EVENT_LANGUAGE_CHANGED,
 } leEventID;
 
 typedef struct leWidget leWidget;
@@ -88,26 +88,11 @@ typedef struct leEvent
 } leEvent;
 
 // *****************************************************************************
-/* Structure:
-    leWidgetEvent
-
-  Summary:
-    Basic widget event definition  
-*/
-typedef struct leWidgetEvent
-{
-    leEventID id;
-    leWidget* source;
-    leWidget* target;
-    leBool accepted;
-} leWidgetEvent;
-
-// *****************************************************************************
 /* Function Pointer:
     leEvent_FilterEvent
 
   Summary:
-    Function pointer to define an event filter.  Event filters allow a 
+    Function pointer to define an event filter.  Event filters allow a
     receiver to discard undesirable events
 */
 typedef leBool (*leEvent_FilterEvent)(leEvent*);

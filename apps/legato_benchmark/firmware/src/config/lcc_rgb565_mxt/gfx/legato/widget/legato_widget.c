@@ -59,8 +59,8 @@ static leWidget_ResizeEvent _resizeEvent =
 
 void leWidget_Constructor(leWidget* _this)
 {
-	uint32_t evt;
-	
+    uint32_t i;
+
     LE_ASSERT_THIS();
     
     _this->fn = &widgetVTable;
@@ -76,8 +76,8 @@ void leWidget_Constructor(leWidget* _this)
 
     _this->rect.x = 0;
     _this->rect.y = 0;
-    _this->rect.width = 1;
-    _this->rect.height = 1;
+    _this->rect.width = 100;
+    _this->rect.height = 100;
     _this->cornerRadius = 0;
 
     _this->borderType = LE_WIDGET_BORDER_NONE;
@@ -97,14 +97,21 @@ void leWidget_Constructor(leWidget* _this)
     _this->margin.bottom = DEFAULT_BORDER_MARGIN;
     
     _this->scheme = leGetDefaultScheme();
-	
-	for(evt = 0; evt < LE_WIDGET_MAX_EVENT_FILTERS; evt++)
-	{
-		_this->eventFilters[evt] = NULL;
-	}
 
+    for(i = 0; i < LE_WIDGET_MAX_EVENT_FILTERS; i++)
+    {
+        _this->eventFilters[i].filterEvent = NULL;
+        _this->eventFilters[i].data = NULL;
+    }
+
+    _this->root = LE_FALSE;
     _this->parent = NULL;
+
     leArray_Create(&_this->children);
+
+    _this->optimizationFlags = 0;
+    _this->drawCount = 0;
+    _this->drawFunc = NULL;
 }
 
 void _leWidget_Destructor(leWidget* _this)
@@ -113,6 +120,16 @@ void _leWidget_Destructor(leWidget* _this)
     uint32_t i;
 
     LE_ASSERT_THIS();
+
+    if(leGetFocusWidget() == (void*)_this)
+    {
+        leSetFocusWidget(NULL);
+    }
+
+    if(leGetEditWidget() == (void*)_this)
+    {
+        leSetEditWidget(NULL);
+    }
     
     for(i = 0; i < _this->children.size; i++)
     {
@@ -149,6 +166,13 @@ void leWidget_Delete(leWidget* wgt)
     wgt->fn->_destructor(wgt);
     
     LE_FREE(wgt);
+}
+
+static leWidgetType getType(const leWidget* _this)
+{
+    LE_ASSERT_THIS();
+
+    return _this->type;
 }
 
 int32_t _leWidget_GetX(const leWidget* _this)
@@ -1138,15 +1162,18 @@ void _leWidget_InvalidateContents(const leWidget* _this)
 { }
 
 static leResult _leWidget_InstallEventFilter(leWidget* _this,
-                                             leEventFilter_Fn fltr)
+                                             leWidgetEventFilter fltr)
 {
     uint32_t i;
     
     LE_ASSERT_THIS();
-    
+
+    if(fltr.filterEvent == NULL)
+        return LE_FAILURE;
+
     for(i = 0; i < LE_WIDGET_MAX_EVENT_FILTERS; i++)
     {
-        if(_this->eventFilters[i] == NULL)
+        if(_this->eventFilters[i].filterEvent == NULL)
         {
             _this->eventFilters[i] = fltr;
             
@@ -1158,17 +1185,21 @@ static leResult _leWidget_InstallEventFilter(leWidget* _this,
 }
 
 static leResult _leWidget_RemoveEventFilter(leWidget* _this,
-                                            leEventFilter_Fn fltr)
+                                            leWidgetEventFilter fltr)
 {
     uint32_t i;
     
     LE_ASSERT_THIS();
-    
+
+    if(fltr.filterEvent == NULL)
+        return LE_FAILURE;
+
     for(i = 0; i < LE_WIDGET_MAX_EVENT_FILTERS; i++)
     {
-        if(_this->eventFilters[i] == fltr)
+        if(_this->eventFilters[i].filterEvent == fltr.filterEvent)
         {
-            _this->eventFilters[i] = NULL;
+            _this->eventFilters[i].filterEvent = NULL;
+            _this->eventFilters[i].data = NULL;
             
             return LE_SUCCESS;
         }
@@ -1178,15 +1209,15 @@ static leResult _leWidget_RemoveEventFilter(leWidget* _this,
 }
 
 void _leWidget_TouchDownEvent(leWidget* _this,
-                              leInput_TouchDownEvent* evt)
+                              leWidgetEvent_TouchDown* evt)
 { }
 
 void _leWidget_TouchUpEvent(leWidget* _this,
-                            leInput_TouchUpEvent* evt)
+                            leWidgetEvent_TouchUp* evt)
 { }
 
 void _leWidget_TouchMoveEvent(leWidget* _this,
-                              leInput_TouchMoveEvent* evt)
+                              leWidgetEvent_TouchMove* evt)
 { }
 
 void _leWidget_MoveEvent(leWidget* _this,
@@ -1197,7 +1228,7 @@ void _leWidget_ResizeEvent(leWidget* _this,
                            leWidget_ResizeEvent* evt)
 { }
 
-void _leWidget_FocusLostEvent(leWidget* _thiss)
+void _leWidget_FocusLostEvent(leWidget* _this)
 { }
 
 void _leWidget_FocusGainedEvent(leWidget* _this)
@@ -1206,75 +1237,99 @@ void _leWidget_FocusGainedEvent(leWidget* _this)
 void _leWidget_LanguageChangeEvent(leWidget* _this)
 { }
 
+static leBool filterEvent(leWidget* _this,
+                          leWidgetEvent* evt)
+{
+    uint32_t i;
+
+    for(i = 0; i < LE_WIDGET_MAX_EVENT_FILTERS; i++)
+    {
+        if(_this->eventFilters[i].filterEvent != NULL &&
+            _this->eventFilters[i].filterEvent(_this, evt, _this->eventFilters[i].data) == LE_TRUE)
+        {
+            return LE_TRUE;
+        }
+    }
+
+    return LE_FALSE;
+}
+
 void _leWidget_HandleEvent(leWidget* _this,
                            leEvent* evt)
 {
-    uint32_t i;
-    
     LE_ASSERT_THIS();
-    
-    for(i = 0; i < LE_WIDGET_MAX_EVENT_FILTERS; i++)
-    {
-        if(_this->eventFilters[i] != NULL &&
-           _this->eventFilters[i](_this, evt) == LE_TRUE)
-        {
-            return;
-        }
-    }
     
     switch(evt->id)
     {
         case LE_EVENT_TOUCH_DOWN:
         {
-            _this->fn->touchDownEvent(_this, (leInput_TouchDownEvent*)evt);
-        
+            if(filterEvent(_this, (leWidgetEvent*)evt) == LE_TRUE)
+                return;
+
+            _this->fn->touchDownEvent(_this, (leWidgetEvent_TouchDown*)evt);
+
             break;
         }
         case LE_EVENT_TOUCH_UP:
         {
-            _this->fn->touchUpEvent(_this, (leInput_TouchUpEvent*)evt);
+            if(filterEvent(_this, (leWidgetEvent*)evt) == LE_TRUE)
+                return;
+
+            _this->fn->touchUpEvent(_this, (leWidgetEvent_TouchUp*)evt);
         
             break;
         }
         case LE_EVENT_TOUCH_MOVE:
         {
-            _this->fn->touchMoveEvent(_this, (leInput_TouchMoveEvent*)evt);
+            if(filterEvent(_this, (leWidgetEvent*)evt) == LE_TRUE)
+                return;
+
+            _this->fn->touchMoveEvent(_this, (leWidgetEvent_TouchMove*)evt);
         
             break;
         }
         case LE_WIDGET_EVENT_PAINT:
         {
+            if(filterEvent(_this, (leWidgetEvent*)evt) == LE_TRUE)
+                return;
+
             _this->fn->_paint(_this);
             
             break;
         }
         case LE_WIDGET_EVENT_MOVED:
         {
+            if(filterEvent(_this, (leWidgetEvent*)evt) == LE_TRUE)
+                return;
+
             _this->fn->moveEvent(_this, (leWidget_MoveEvent*)evt);
             
             break;
         }
         case LE_WIDGET_EVENT_RESIZED:
         {
+            if(filterEvent(_this, (leWidgetEvent*)evt) == LE_TRUE)
+                return;
+
             _this->fn->resizeEvent(_this, (leWidget_ResizeEvent*)evt);
             
             break;
         }
         case LE_WIDGET_EVENT_FOCUS_GAINED:
         {
+            if(filterEvent(_this, (leWidgetEvent*)evt) == LE_TRUE)
+                return;
+
             _this->fn->focusGainedEvent(_this);
             
             break;
         }
         case LE_WIDGET_EVENT_FOCUS_LOST:
         {
+            if(filterEvent(_this, (leWidgetEvent*)evt) == LE_TRUE)
+                return;
+
             _this->fn->focusLostEvent(_this);
-            
-            break;
-        }
-        case LE_WIDGET_EVENT_LANGUAGE_CHANGED:
-        {
-            _this->fn->languageChangeEvent(_this);
             
             break;
         }
@@ -1350,6 +1405,7 @@ void _leWidget_Update(leWidget* _this, uint32_t dt)
 
 void _leWidget_GenerateVTable()
 {
+    widgetVTable.getType = getType;
     widgetVTable.getX = _leWidget_GetX;
     widgetVTable.setX = _leWidget_SetX;
     widgetVTable.getY = _leWidget_GetY;

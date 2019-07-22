@@ -59,13 +59,13 @@ static void nextState(leKeyPadWidget* pad)
     {
         case NOT_STARTED:
         {
+            paintState.alpha = 255;
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
             if(pad->fn->getCumulativeAlphaEnabled(pad) == LE_TRUE)
             {
                 paintState.alpha = pad->fn->getCumulativeAlphaAmount(pad);
             }
-#else
-            paintState.alpha = 255;
 #endif
             
             if(pad->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
@@ -96,7 +96,8 @@ static void nextState(leKeyPadWidget* pad)
 
 static void drawBackground(leKeyPadWidget* pad)
 {
-    leWidget_SkinClassic_DrawStandardBackground((leWidget*)pad);
+    leWidget_SkinClassic_DrawStandardBackground((leWidget*)pad,
+                                                paintState.alpha);
     
     nextState(pad);
 }
@@ -105,11 +106,13 @@ static void drawBorder(leKeyPadWidget* pad)
 {
     if(pad->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)pad);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)pad,
+                                                    paintState.alpha);
     }
     else if(pad->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)pad);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)pad,
+                                                      paintState.alpha);
     }
     
     nextState(pad);

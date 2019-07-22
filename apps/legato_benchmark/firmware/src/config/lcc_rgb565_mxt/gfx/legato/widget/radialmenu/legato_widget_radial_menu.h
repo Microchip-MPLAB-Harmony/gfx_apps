@@ -43,7 +43,7 @@
 
 #include "gfx/legato/common/legato_common.h"
 
-#if LE_RADIAL_MENU_WIDGET_ENABLED == 1
+#if LE_RADIALMENU_WIDGET_ENABLED == 1
 
 #include "gfx/legato/widget/legato_widget.h"
 #include "gfx/legato/widget/image/legato_widget_image.h"

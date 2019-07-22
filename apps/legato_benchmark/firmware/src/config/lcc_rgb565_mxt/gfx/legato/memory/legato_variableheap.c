@@ -146,6 +146,7 @@ static leResult _validateList(leVariableHeapBlockHeader* blk)
 #endif
 
 #if LE_USE_DEBUG_ALLOCATOR == 1
+#if 0
 static uint32_t _countList(leVariableHeapBlockHeader* blk)
 {
     uint32_t count = 0;
@@ -159,6 +160,7 @@ static uint32_t _countList(leVariableHeapBlockHeader* blk)
 
     return count;
 }
+#endif
 #endif
 
 static leVariableHeapBlockHeader* _findSlot(leVariableHeapBlockHeader* list, leVariableHeapBlockHeader* blk)
@@ -330,6 +332,10 @@ static leVariableHeapBlockHeader* _combineBlockPrev(leVariableHeap* heap,
                                                     leVariableHeapBlockHeader* blk)
 {
     leVariableHeapBlockHeader *prevprev, *prev, *next;
+
+#if LE_VARIABLEHEAP_DEBUG == 0
+    (void)heap;
+#endif
 
     if(blk->prev == NULL || _areAdjacent(blk->prev, blk) == LE_FALSE)
         return blk;
@@ -683,6 +689,7 @@ size_t leVariableHeap_Used(leVariableHeap* heap)
 leBool leVariableHeap_Contains(leVariableHeap* heap, void* ptr)
 {
     void* heapEnd = (uint8_t*)heap->data + heap->size;
+
     return ptr >= heap->data && ptr < heapEnd; 
 }
 

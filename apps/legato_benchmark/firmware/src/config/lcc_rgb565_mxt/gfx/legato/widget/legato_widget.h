@@ -46,7 +46,6 @@
 #include "gfx/legato/common/legato_common.h"
 #include "gfx/legato/common/legato_rect.h"
 #include "gfx/legato/core/legato_event.h"
-#include "gfx/legato/core/legato_input.h"
 #include "gfx/legato/core/legato_scheme.h"
 #include "gfx/legato/datastructure/legato_array.h"
 
@@ -77,91 +76,91 @@ Enumeration:
 typedef enum leWidgetType
 {
     LE_WIDGET_WIDGET,
-#if LE_ARC_WIDGET_ENABLED
+#if LE_ARC_WIDGET_ENABLED == 1
     LE_WIDGET_ARC,
 #endif
-#if LE_BAR_GRAPH_WIDGET_ENABLED
+#if LE_BARGRAPH_WIDGET_ENABLED == 1
     LE_WIDGET_BAR_GRAPH,
 #endif
-#if LE_BUTTON_WIDGET_ENABLED
+#if LE_BUTTON_WIDGET_ENABLED == 1
     LE_WIDGET_BUTTON,
 #endif
-#if LE_BUTTON_WIDGET_ENABLED
+#if LE_BUTTON_WIDGET_ENABLED == 1
     LE_WIDGET_CHECKBOX,
 #endif
-#if LE_CIRCLE_WIDGET_ENABLED
+#if LE_CIRCLE_WIDGET_ENABLED == 1
     LE_WIDGET_CIRCLE,
 #endif
-#if LE_CIRCULAR_GAUGE_WIDGET_ENABLED
+#if LE_CIRCULARGAUGE_WIDGET_ENABLED == 1
     LE_WIDGET_CIRCULAR_GAUGE,
 #endif
-#if LE_CIRCULAR_SLIDER_WIDGET_ENABLED
+#if LE_CIRCULARSLIDER_WIDGET_ENABLED == 1
     LE_WIDGET_CIRCULAR_SLIDER,
 #endif
-#if LE_DRAWSURFACE_WIDGET_ENABLED
+#if LE_DRAWSURFACE_WIDGET_ENABLED == 1
     LE_WIDGET_DRAWSURFACE,
 #endif
-#if LE_IMAGE_WIDGET_ENABLED
+#if LE_IMAGE_WIDGET_ENABLED == 1
     LE_WIDGET_IMAGE,
 #endif
-#if LE_IMAGEPLUS_WIDGET_ENABLED
+#if LE_IMAGEPLUS_WIDGET_ENABLED == 1
     LE_WIDGET_IMAGEPLUS,
 #endif
-#if LE_IMAGESEQUENCE_WIDGET_ENABLED
+#if LE_IMAGESEQUENCE_WIDGET_ENABLED == 1
     LE_WIDGET_IMAGESEQUENCE,
 #endif
-#if LE_GRADIENT_WIDGET_ENABLED
+#if LE_GRADIENT_WIDGET_ENABLED == 1
     LE_WIDGET_GRADIENT,
 #endif
-#if LE_GROUPBOX_WIDGET_ENABLED
+#if LE_GROUPBOX_WIDGET_ENABLED == 1
     LE_WIDGET_GROUPBOX,
 #endif
-#if LE_KEYPAD_WIDGET_ENABLED && LE_BUTTON_WIDGET_ENABLED
+#if LE_KEYPAD_WIDGET_ENABLED  == 1 && LE_BUTTON_WIDGET_ENABLED == 1
     LE_WIDGET_KEYPAD,
 #endif
-#if LE_LABEL_WIDGET_ENABLED
+#if LE_LABEL_WIDGET_ENABLED == 1
     LE_WIDGET_LABEL,
 #endif
-#if LE_LINE_WIDGET_ENABLED
+#if LE_LINE_WIDGET_ENABLED == 1
     LE_WIDGET_LINE,
 #endif
-#if LE_LINE_GRAPH_WIDGET_ENABLED
+#if LE_LINEGRAPH_WIDGET_ENABLED == 1
     LE_WIDGET_LINE_GRAPH,
 #endif
-#if LE_LIST_WIDGET_ENABLED && LE_SCROLLBAR_WIDGET_ENABLED
+#if LE_LIST_WIDGET_ENABLED && LE_SCROLLBAR_WIDGET_ENABLED == 1
     LE_WIDGET_LIST,
 #endif
-#if LE_LISTWHEEL_WIDGET_ENABLED
+#if LE_LISTWHEEL_WIDGET_ENABLED == 1
     LE_WIDGET_LISTWHEEL,
 #endif
-#if LE_PIE_CHART_WIDGET_ENABLED
+#if LE_PIECHART_WIDGET_ENABLED == 1
     LE_WIDGET_PIE_CHART,
 #endif
-#if LE_PROGRESSBAR_WIDGET_ENABLED
+#if LE_PROGRESSBAR_WIDGET_ENABLED == 1
     LE_WIDGET_PROGRESSBAR,
 #endif
-#if LE_RADIAL_MENU_WIDGET_ENABLED
+#if LE_RADIALMENU_WIDGET_ENABLED == 1
     LE_WIDGET_RADIAL_MENU,
 #endif
-#if LE_RADIOBUTTON_WIDGET_ENABLED
+#if LE_RADIOBUTTON_WIDGET_ENABLED == 1
     LE_WIDGET_RADIOBUTTON,
 #endif
-#if LE_RECTANGLE_WIDGET_ENABLED
+#if LE_RECTANGLE_WIDGET_ENABLED == 1
     LE_WIDGET_RECTANGLE,
 #endif
-#if LE_SCROLLBAR_WIDGET_ENABLED
+#if LE_SCROLLBAR_WIDGET_ENABLED == 1
     LE_WIDGET_SCROLLBAR,
 #endif
-#if LE_SLIDER_WIDGET_ENABLED
+#if LE_SLIDER_WIDGET_ENABLED == 1
     LE_WIDGET_SLIDER,
 #endif
-#if LE_TEXTFIELD_WIDGET_ENABLED
+#if LE_TEXTFIELD_WIDGET_ENABLED == 1
     LE_WIDGET_TEXTFIELD,
 #endif
-#if LE_TOUCHTEST_WIDGET_ENABLED
+#if LE_TOUCHTEST_WIDGET_ENABLED == 1
     LE_WIDGET_TOUCHTEST,
 #endif
-#if LE_WINDOW_WIDGET_ENABLED
+#if LE_WINDOW_WIDGET_ENABLED == 1
     LE_WIDGET_WINDOW,
 #endif
     // begin custom types, not essential but good for identifying base pointers
@@ -285,12 +284,110 @@ typedef struct leWidget_ResizeEvent
     uint32_t newHeight;
 } leWidget_ResizeEvent;
 
-typedef leBool (*leEventFilter_Fn)(leWidget* wgt, leEvent* evt);
+// *****************************************************************************
+/* Structure:
+    leWidgetEvent
+
+  Summary:
+    Basic widget event definition
+*/
+typedef struct leWidgetEvent
+{
+    leEventID id;
+    leBool accepted;
+    leWidget* owner;
+} leWidgetEvent;
+
+
+// *****************************************************************************
+/* Structure:
+    leInput_TouchDownEvent_t
+
+  Summary:
+    Register and handle the touch press detect event
+
+  Description:
+    Register and handle the touch press detect event
+
+  Remarks:
+    None.
+*/
+typedef struct leWidgetEvent_TouchDown
+{
+    leWidgetEvent event;
+
+    int32_t touchID;
+    int32_t x;
+    int32_t y;
+} leWidgetEvent_TouchDown;
+
+// *****************************************************************************
+/* Structure:
+    leInput_TouchUpEvent
+
+  Summary:
+    Register and handle the touch release detect event
+
+  Description:
+    Register and handle the touch release detect event
+
+  Remarks:
+    None.
+*/
+typedef struct leWidgetEvent_TouchUp
+{
+    leWidgetEvent event;
+
+    int32_t touchID;
+    int32_t x;
+    int32_t y;
+} leWidgetEvent_TouchUp;
+
+// *****************************************************************************
+/* Structure:
+    leInput_TouchMoveEvent
+
+  Summary:
+    Register and handle the touch coordinates changed event
+
+  Description:
+    Register and handle the touch coordinates changed event
+
+  Remarks:
+    None.
+*/
+typedef struct leWidgetEvent_TouchMove
+{
+    leWidgetEvent event;
+
+    uint32_t touchID;
+    int32_t prevX;
+    int32_t prevY;
+    int32_t x;
+    int32_t y;
+} leWidgetEvent_TouchMove;
+
+void leWidgetEvent_Accept(leWidgetEvent* evt, leWidget* owner);
+
+// *****************************************************************************
+/* Struct Definition:
+    leWidgetEventFilter
+
+  Summary:
+    Struct that defines an event filter.  Event filters allow a
+    receiver to discard undesirable events
+*/
+typedef struct
+{
+    leBool (*filterEvent)(leWidget* target, leWidgetEvent* evt, void* data);
+    void* data;
+} leWidgetEventFilter;
 
 // DOM-IGNORE-BEGIN
 typedef struct leWidget leWidget;
 
 #define LE_WIDGET_VTABLE(THIS_TYPE) \
+    leWidgetType       (*getType)(const THIS_TYPE* _this); \
     int32_t            (*getX)(const THIS_TYPE* _this); \
     leResult           (*setX)(THIS_TYPE* _this, int32_t x); \
     int32_t            (*getY)(const THIS_TYPE* _this); \
@@ -348,8 +445,8 @@ typedef struct leWidget leWidget;
     void               (*invalidate)(const THIS_TYPE* _this); \
     /*void             (*invalidateRect)(const THIS_TYPE* _this, const leRect* rect);*/ \
     void               (*invalidateContents)(const THIS_TYPE* _this); \
-    leResult           (*installEventFilter)(THIS_TYPE* _this, leEventFilter_Fn fltr); \
-    leResult           (*removeEventFilter)(THIS_TYPE* _this, leEventFilter_Fn fltr); \
+    leResult           (*installEventFilter)(THIS_TYPE* _this, leWidgetEventFilter fltr); \
+    leResult           (*removeEventFilter)(THIS_TYPE* _this, leWidgetEventFilter fltr); \
     void               (*update)(THIS_TYPE* _this, uint32_t dt); \
     \
     void               (*moveEvent)(THIS_TYPE* _this, leWidget_MoveEvent* evt); \
@@ -357,9 +454,9 @@ typedef struct leWidget leWidget;
     void               (*focusGainedEvent)(THIS_TYPE* _this); \
     void               (*focusLostEvent)(THIS_TYPE* _this); \
     void               (*languageChangeEvent)(THIS_TYPE* _this); \
-    void               (*touchDownEvent)(THIS_TYPE* _this, leInput_TouchDownEvent* evt); \
-    void               (*touchUpEvent)(THIS_TYPE* _this, leInput_TouchUpEvent* evt); \
-    void               (*touchMoveEvent)(THIS_TYPE* _this, leInput_TouchMoveEvent* evt); \
+    void               (*touchDownEvent)(THIS_TYPE* _this, leWidgetEvent_TouchDown* evt); \
+    void               (*touchUpEvent)(THIS_TYPE* _this, leWidgetEvent_TouchUp* evt); \
+    void               (*touchMoveEvent)(THIS_TYPE* _this, leWidgetEvent_TouchMove* evt); \
     \
     void               (*_destructor)(THIS_TYPE* _this); \
     \
@@ -439,8 +536,8 @@ typedef struct leWidget
     const leScheme* scheme; // the widget's color scheme
 
     //leWidgetInputHandler externalHandler;
-    
-    leEventFilter_Fn eventFilters[LE_WIDGET_MAX_EVENT_FILTERS];
+
+    leWidgetEventFilter eventFilters[LE_WIDGET_MAX_EVENT_FILTERS];
 
     leBool root;      // indicates if this widget is a root widget
     leWidget* parent; // pointer to the widget's parent

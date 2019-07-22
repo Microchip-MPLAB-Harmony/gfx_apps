@@ -54,13 +54,13 @@ static void nextState(leGradientWidget* grad)
     {
         case NOT_STARTED:
         {
+            paintState.alpha = 255;
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
             if(grad->fn->getCumulativeAlphaEnabled(grad) == LE_TRUE)
             {
                 paintState.alpha = grad->fn->getCumulativeAlphaAmount(grad);
             }
-#else
-            paintState.alpha = 255;
 #endif
             
             if(grad->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
@@ -134,11 +134,13 @@ static void drawBorder(leGradientWidget* grad)
 {
     if(grad->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)grad);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)grad,
+                                                    paintState.alpha);
     }
     else if(grad->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)grad);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)grad,
+                                                      paintState.alpha);
     }
         
     nextState(grad);

@@ -23,7 +23,7 @@
 
 #include "gfx/legato/widget/circularslider/legato_widget_circular_slider.h"
 
-#if LE_CIRCULAR_SLIDER_WIDGET_ENABLED
+#if LE_CIRCULARSLIDER_WIDGET_ENABLED == 1
 
 #include "gfx/legato/renderer/legato_renderer.h"
 #include "gfx/legato/string/legato_string.h"
@@ -58,13 +58,13 @@ static void nextState(leCircularSliderWidget* slider)
     {
         case NOT_STARTED:
         {
-#if LE_ALPHA_BLENDING_ENABLED == 1
-            if(graph->fn->getCumulativeAlphaEnabled(graph) == LE_TRUE)
-            {
-                paintState.alpha = graph->fn->getCumulativeAlphaAmount(graph);
-            }
-#else
             paintState.alpha = 255;
+
+#if LE_ALPHA_BLENDING_ENABLED == 1
+            if(slider->fn->getCumulativeAlphaEnabled(slider) == LE_TRUE)
+            {
+                paintState.alpha = slider->fn->getCumulativeAlphaAmount(slider);
+            }
 #endif
             
             if(slider->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
@@ -105,7 +105,8 @@ static void drawBackground(leCircularSliderWidget* slider)
     if(slider->widget.backgroundType == LE_WIDGET_BACKGROUND_FILL)
     {
         leWidget_SkinClassic_DrawBackground((leWidget*) slider, 
-                                             slider->widget.scheme->background);
+                                             slider->widget.scheme->background,
+                                             paintState.alpha);
     }
     
     nextState(slider);
@@ -148,7 +149,7 @@ static void drawCircularSlider(leCircularSliderWidget* slider)
                 NULL, 
                 NULL);*/
 
-        if (slider->direction == CIRCULAR_SLIDER_DIR_COUNTER_CLOCKWISE)
+        if (slider->direction == LE_COUNTER_CLOCKWISE)
         {
             //GFX_Set(GFXF_DRAW_THICKNESS, slider->inActiveArc.thickness);
             
@@ -194,7 +195,7 @@ static void drawCircularSlider(leCircularSliderWidget* slider)
                 NULL, 
                 NULL);*/
 
-        if (slider->direction == CIRCULAR_SLIDER_DIR_COUNTER_CLOCKWISE)
+        if (slider->direction == LE_COUNTER_CLOCKWISE)
         {
             //GFX_Set(GFXF_DRAW_THICKNESS, slider->activeArc.thickness);
                         
@@ -245,8 +246,8 @@ static void drawCircularSlider(leCircularSliderWidget* slider)
                         360);*/
                         
             leRenderer_ArcFill(&sliderRect,
-                               center.x,
-                               center.y,
+                               center.x - sliderRect.x,
+                               center.y - sliderRect.y,
                                slider->activeArc.thickness / 2,
                                0,
                                360,
@@ -275,15 +276,15 @@ static void drawCircularSlider(leCircularSliderWidget* slider)
                             360);*/  
                             
                 leRenderer_ArcFill(&sliderRect,
-                               center.x,
-                               center.y,
-                               slider->activeArc.thickness/2,
-                               0,
-                               360,
-                               slider->activeArc.thickness / 2,
-                               slider->widget.scheme->foreground,
-                               LE_FALSE,
-                               paintState.alpha);     
+                                   center.x - sliderRect.x,
+                                   center.y - sliderRect.y,
+                                   slider->activeArc.thickness/2,
+                                   0,
+                                   360,
+                                   slider->activeArc.thickness / 2,
+                                   slider->widget.scheme->foreground,
+                                   LE_FALSE,
+                                   paintState.alpha);
             }
         }
     }
@@ -304,8 +305,8 @@ static void drawCircularSlider(leCircularSliderWidget* slider)
                     360);*/
                     
         leRenderer_ArcFill(&sliderRect,
-                           p.x,
-                           p.y, 
+                           p.x - sliderRect.x,
+                           p.y - sliderRect.y,
                            slider->radius,
                            0,
                            360,
@@ -331,8 +332,8 @@ static void drawCircularSlider(leCircularSliderWidget* slider)
                     360);*/
                     
         leRenderer_ArcFill(&sliderRect,
-                           p.x, 
-                           p.y, 
+                           p.x - sliderRect.x,
+                           p.y - sliderRect.y,
                            slider->radius - slider->outsideBorderArc.thickness - slider->activeArc.thickness, 
                            0, 
                            360,
@@ -361,8 +362,8 @@ static void drawCircularSlider(leCircularSliderWidget* slider)
                     360);*/
                     
         leRenderer_ArcFill(&sliderRect,
-                           center.x,
-                           center.y,
+                           center.x - sliderRect.x,
+                           center.y - sliderRect.y,
                            slider->circleButtonArc.radius,
                            0,
                            360,
@@ -387,8 +388,8 @@ static void drawCircularSlider(leCircularSliderWidget* slider)
                         360);*/
                         
             leRenderer_ArcFill(&sliderRect,
-                               center.x, 
-                               center.y, 
+                               center.x - sliderRect.x,
+                               center.y - sliderRect.y,
                                slider->circleButtonArc.radius - slider->circleButtonArc.thickness, 
                                0,
                                360,
@@ -406,11 +407,13 @@ static void drawBorder(leCircularSliderWidget* slider)
 {    
     if(slider->widget.borderType == LE_WIDGET_BORDER_LINE)
     {
-        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)slider);
+        leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)slider,
+                                                    paintState.alpha);
     }
     else if(slider->widget.borderType == LE_WIDGET_BORDER_BEVEL)
     {
-        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)slider);
+        leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)slider,
+                                                      paintState.alpha);
     }
     
     nextState(slider);
@@ -438,4 +441,4 @@ void _leCircularSliderWidget_Paint(leCircularSliderWidget* slider)
     }
 }
 
-#endif // LE_CIRCULAR_SLIDER_WIDGET_ENABLED
+#endif // LE_CIRCULARSLIDER_WIDGET_ENABLED

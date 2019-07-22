@@ -21,6 +21,7 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
+#include <gfx/legato/legato.h>
 #include "gfx/legato/widget/slider/legato_widget_slider.h"
 
 #if LE_SLIDER_WIDGET_ENABLED
@@ -65,6 +66,7 @@ static void invalidateHandle(const leSliderWidget* _this)
     leRect rect;
     
     _leSliderWidget_GetHandleRect(_this, &rect);
+    leUtils_RectToScreenSpace((leWidget*)_this, &rect);
     
     _this->fn->_damageArea(_this, &rect);
 }
@@ -76,7 +78,8 @@ const uint32_t _getPercentFromPoint(const leSliderWidget* _this,
     int32_t val;
     
     _leSliderWidget_GetSlideAreaRect(_this, &scrollRect);
-    
+    leUtils_RectToScreenSpace((leWidget*)_this, &scrollRect);
+
     if(_this->alignment == LE_ORIENTATION_VERTICAL)
     {
         // translate rect and point in to rect space
@@ -150,7 +153,7 @@ void leSliderWidget_Constructor(leSliderWidget* _this)
     _this->state = LE_SLIDER_STATE_NONE;
 
     _this->widget.borderType = LE_WIDGET_BORDER_BEVEL;
-    _this->widget.backgroundType = LE_WIDGET_BACKGROUND_NONE;
+    _this->widget.backgroundType = LE_WIDGET_BACKGROUND_FILL;
 
     _this->alignment = LE_ORIENTATION_VERTICAL;
     
@@ -158,6 +161,9 @@ void leSliderWidget_Constructor(leSliderWidget* _this)
     _this->max = DEFAULT_MAX;
     _this->value = DEFAULT_VALUE;
     _this->grip = DEFAULT_GRIP;
+
+    _this->valueChangedEvent = NULL;
+    _this->handleDownOffset = lePoint_Zero;
 }
 
 void _leWidget_Destructor(leWidget* wgt);
@@ -427,7 +433,7 @@ static leResult setValueChangedEventCallback(leSliderWidget* _this,
 }
 
 static void handleTouchDownEvent(leSliderWidget* _this,
-                                 leInput_TouchDownEvent* evt)
+                                 leWidgetEvent_TouchDown* evt)
 {
     leRect rect;
     lePoint pnt;
@@ -440,12 +446,10 @@ static void handleTouchDownEvent(leSliderWidget* _this,
     pnt.y = evt->y;
     
     // already guaranteed to be inside widget rectangle, accept event
-    evt->event.accepted = LE_TRUE;
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
     
     // was the handle touched
     _leSliderWidget_GetHandleRect(_this, &rect);
-    
-    leUtils_ClipRectToParent((leWidget*)_this, &rect);
     leUtils_RectToScreenSpace((leWidget*)_this, &rect);
     
     if(leRectContainsPoint(&rect, &pnt) == LE_TRUE)
@@ -481,17 +485,17 @@ static void handleTouchDownEvent(leSliderWidget* _this,
 }
 
 static void handleTouchUpEvent(leSliderWidget* _this,
-                               leInput_TouchUpEvent* evt)
+                               leWidgetEvent_TouchUp* evt)
 {
     LE_ASSERT_THIS();
- 
-    evt->event.accepted = LE_TRUE;
+
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
     
     _this->state = LE_SLIDER_STATE_NONE;
 }
 
 static void handleTouchMovedEvent(leSliderWidget* _this,
-                                  leInput_TouchMoveEvent* evt)
+                                  leWidgetEvent_TouchMove* evt)
 {
     lePoint pnt;
     uint32_t percent;
@@ -501,7 +505,7 @@ static void handleTouchMovedEvent(leSliderWidget* _this,
     pnt.x = evt->x;
     pnt.y = evt->y;
 
-    evt->event.accepted = LE_TRUE;
+    leWidgetEvent_Accept((leWidgetEvent*)evt, (leWidget*)_this);
 
     if(_this->state == LE_SLIDER_STATE_HANDLE_DOWN)
     {

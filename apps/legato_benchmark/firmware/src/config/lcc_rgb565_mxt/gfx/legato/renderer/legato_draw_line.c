@@ -128,8 +128,12 @@ leResult leRenderer_DrawLine(int32_t x0,
     LinePutPixelFn putPixelFn;
     
     a = leClampi(0, 255, a);
-    
-    if(a < 255)
+
+    if(a == 0)
+    {
+        return LE_SUCCESS;
+    }
+    else if(a < 255)
     {
         putPixelFn = lineBlendPixel;
     }
@@ -212,11 +216,11 @@ leResult leRenderer_EllipseLine(int32_t x,
         
         p.x += x;
         p.y += y;
-        
+
 #if LE_ALPHA_BLENDING_ENABLED == 1
-        leRenderer_BlendPixel(p.x, p.y, clr, alpha);
+        leRenderer_BlendPixel_Safe(p.x, p.y, clr, alpha);
 #else
-        leRenderer_PutPixel(p.x, p.y, clr);
+        leRenderer_PutPixel_Safe(p.x, p.y, clr);
 #endif
 
         if (sa != startAngle)
@@ -229,8 +233,8 @@ leResult leRenderer_EllipseLine(int32_t x,
                                 alpha);
         }
 
-        lp.x = x;
-        lp.y = y;
+        lp.x = p.x;
+        lp.y = p.y;
         
         //Clockwise
         if (centerAngle < 0)
