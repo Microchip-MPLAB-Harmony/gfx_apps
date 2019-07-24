@@ -482,7 +482,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/glcd_gpu_rgb565_mxt_mzdas_sk;../src/packs/PIC32MZ2064DAS169_DFP;../src/mips;../src/config/glcd_gpu_rgb565_mxt_mzdas_sk;../src/config/glcd_gpu_rgba8888_mxt_mzdas_sk;../src/packs/PIC32MZ2064DAR169_DFP;"/>
+                  value="../src/packs/PIC32MZ2064DAS169_DFP;../src/config/glcd_gpu_rgba8888_mxt_mzdas_sk;../src;../src/config/glcd_gpu_rgb565_mxt_mzdas_sk;../src/packs/PIC32MZ2064DAR169_DFP;../src/mips"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
