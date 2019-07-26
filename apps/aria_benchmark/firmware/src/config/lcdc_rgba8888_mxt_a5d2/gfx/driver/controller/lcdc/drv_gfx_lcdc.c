@@ -56,6 +56,7 @@
 #define LCDC_NUM_LAYERS 3
 #define LCDC_DEFAULT_BRIGHTNESS_PCT 100
 
+
 #define LCDC_DEFAULT_GFX_COLOR_MODE GFX_COLOR_MODE_RGBA_8888
 #define FRAMEBUFFER_PIXEL_TYPE    uint32_t
 
@@ -101,6 +102,7 @@ typedef struct __display_layer {
     uint32_t   colorspace;
     uint16_t   color;
     LCDC_DMA_DESC * desc;
+    uint32_t frameOffset;
 } DISPLAY_LAYER;
 
 //This array defines the z-order of the hw layers in the GLCD
@@ -311,6 +313,23 @@ static GFX_Result layerBufferAddressSet(uint32_t idx, GFX_Buffer address)
     return GFX_SUCCESS;
 }
 
+void layerSetFrameBufferOffset(GFX_Layer* layer, uint32_t offset)
+{
+    FRAMEBUFFER_PIXEL_TYPE * baseAddr = (FRAMEBUFFER_PIXEL_TYPE *) drvLayer[layer->id].baseaddr[layer->buffer_read_idx];
+    
+    drvLayer[layer->id].frameOffset = offset;
+    
+    LCDCUpdateDMADescriptor(drvLayer[layer->id].desc,
+                            (uint32_t) &baseAddr[drvLayer[layer->id].frameOffset] ,
+                            0x1,
+                            (uint32_t) drvLayer[layer->id].desc);
+}
+
+void * layerGetReadFrameBufferBase(GFX_Layer* layer)
+{
+    return (void *)drvLayer[layer->id].baseaddr[layer->buffer_read_idx];
+}
+
 static GFX_Result layerBufferAllocate(uint32_t idx)
 {
     GFX_Layer* layer;
@@ -372,6 +391,7 @@ static GFX_Result layerPositionSet(int32_t x, int32_t y)
     return GFX_SUCCESS;
 }
 
+
 static GFX_Result layerSizeSet(int32_t width, int32_t height)
 {
     uint32_t idx;
@@ -379,21 +399,21 @@ static GFX_Result layerSizeSet(int32_t width, int32_t height)
     idx = GFX_ActiveContext()->layer.active->id;
 
     defLayerSizeSet(width, height);
-
     LCDC_SetWindowSize(drvLayer[idx].hwLayerID,
-                        GFX_ActiveContext()->layer.active->rect.display.width,
-                        GFX_ActiveContext()->layer.active->rect.display.height);
+                       GFX_ActiveContext()->layer.active->rect.display.width,
+                       GFX_ActiveContext()->layer.active->rect.display.height);
 
     return GFX_SUCCESS;
 }
 
 
-
 void layerSwapped(GFX_Layer* layer)
 {
+    FRAMEBUFFER_PIXEL_TYPE * baseAddr;
     if (layer->buffer_count > BUFFER_PER_LAYER)
         return;
     
+    baseAddr = (FRAMEBUFFER_PIXEL_TYPE *) drvLayer[layer->id].baseaddr[layer->buffer_read_idx];
     switch(drvLayer[layer->id].hwLayerID)
     {
         case LCDC_LAYER_BASE:
@@ -402,7 +422,7 @@ void layerSwapped(GFX_Layer* layer)
         case LCDC_LAYER_HEO:
         case LCDC_LAYER_PP:
             LCDCUpdateDMADescriptor(drvLayer[layer->id].desc,
-                                    (uint32_t) drvLayer[layer->id].baseaddr[layer->buffer_read_idx],
+                                    (uint32_t) &baseAddr[drvLayer[layer->id].frameOffset] ,
                                     0x1,
                                     (uint32_t) drvLayer[layer->id].desc);
             break;
@@ -411,12 +431,11 @@ void layerSwapped(GFX_Layer* layer)
     }
 }
 
-static GFX_Result layerEnabledSet(GFX_Bool val)
+void layerEnable(GFX_Layer* layer, GFX_Bool enable)
 {
-    GFX_ActiveContext()->layer.active->enabled = val;
-    uint32_t layerIdx = GFX_ActiveContext()->layer.active->id;
+    uint32_t layerIdx = layer->id;
     
-    if(val == GFX_TRUE)
+    if(enable == GFX_TRUE)
     {
         LCDC_SetChannelEnable(drvLayer[layerIdx].hwLayerID, true);
         LCDC_IRQ_Enable(LCDC_INTERRUPT_BASE + drvLayer[layerIdx].hwLayerID);
@@ -426,6 +445,15 @@ static GFX_Result layerEnabledSet(GFX_Bool val)
         LCDC_SetChannelEnable(drvLayer[layerIdx].hwLayerID, false);
         LCDC_IRQ_Disable(LCDC_INTERRUPT_BASE + drvLayer[layerIdx].hwLayerID);
     }
+
+    layer->enabled = enable;    
+}
+
+static GFX_Result layerEnabledSet(GFX_Bool val)
+{
+    GFX_ActiveContext()->layer.active->enabled = val;
+
+    layerEnable(GFX_ActiveContext()->layer.active, val);
     
     return GFX_SUCCESS;
 }
@@ -484,7 +512,6 @@ static GFX_Result LCDCInitialize(GFX_Context* context)
     /* LCDC initialization */
     //1. Configure the LCD timing parameters
     LCDC_WaitForSyncInProgress();
-    LCDC_SetClockSourceSelection(LCDC_CLOCK_SOURCE_SYSTEM); //Use 1x MCK
     LCDC_SetPWMClockSourceSelection(LCDC_PWM_CLOCK_SOURCE);
     LCDC_SetClockDivider(MCLK_FREQ_HZ / PIXEL_CLOCK_FREQ_HZ - 2);
 
@@ -569,6 +596,7 @@ static GFX_Result LCDCInitialize(GFX_Context* context)
         drvLayer[layerCount].sizey      = drvLayer[layerCount].resy;
         drvLayer[layerCount].alpha      = context->layer.layers[layerCount].alphaAmount;
         drvLayer[layerCount].colorspace = convertColorModeGfxToLCDC(LCDC_DEFAULT_GFX_COLOR_MODE);
+        drvLayer[layerCount].frameOffset = 0;
         LCDCUpdateDMADescriptor(drvLayer[layerCount].desc, 
                                 (uint32_t) drvLayer[layerCount].baseaddr[0],
                                 0x01,
@@ -602,15 +630,14 @@ static GFX_Result LCDCInitialize(GFX_Context* context)
         LCDC_SetBlenderUseIteratedColor(drvLayer[layerCount].hwLayerID, true); //Use iterated color        
         LCDC_UpdateOverlayAttributesEnable(drvLayer[layerCount].hwLayerID);
         LCDC_UpdateAttribute(drvLayer[layerCount].hwLayerID); //Apply the attributes
-        //LCDC_SetChannelEnable(drvLayer[layerCount].hwLayerID, true);
-        
+
         // all layers off by default
         context->layer.layers[layerCount].enabled = GFX_FALSE;
     }
 
+
     //Register the interrupt handler
     LCDC_IRQ_CallbackRegister(_IntHandlerVSync, NULL);
-
     
     return GFX_SUCCESS;
 }
@@ -624,8 +651,8 @@ static void layerSwapPending(GFX_Layer* layer)
 
     if(context->layerSwapSync)
     {
-	for(l = 0; l < context->layer.count; l++)
- 	{
+    for(l = 0; l < context->layer.count; l++)
+    {
             lyr = &context->layer.layers[l];
             hwLayerID = drvLayer[lyr->id].hwLayerID;
 
@@ -694,7 +721,7 @@ void _IntHandlerVSync(uintptr_t context)
     {
         LCDC_LAYER_ID layerID = lcdcLayerZOrder[i];
         status = LCDC_LAYER_IRQ_Status(layerID);
-        if (status)
+        if (status && pendingDMATransfer[layerID] == GFX_TRUE)
         {
             LCDC_LAYER_IRQ_Disable(layerID, LCDC_LAYER_INTERRUPT_DMA);
             

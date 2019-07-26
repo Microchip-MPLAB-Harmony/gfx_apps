@@ -52,12 +52,6 @@ void LCDC_SetPixelClockPolarity(LCDC_SIGNAL_POLARITY polarity)
                                 LCDC_LCDCFG0_CLKPOL(polarity == LCDC_POLARITY_NEGATIVE);
 }
 
-void LCDC_SetClockSourceSelection(LCDC_CLOCK_SOURCE source)
-{
-    LCDC_REGS->LCDC_LCDCFG0 = (LCDC_REGS->LCDC_LCDCFG0 & ~LCDC_LCDCFG0_CLKSEL_Msk) | 
-                                LCDC_LCDCFG0_CLKSEL(source == LCDC_CLOCK_SOURCE_SYSTEM_2X);
-}
-
 void LCDC_SetPWMClockSourceSelection(LCDC_PWM_CLOCK_SOURCE source)
 {
     LCDC_REGS->LCDC_LCDCFG0 = (LCDC_REGS->LCDC_LCDCFG0 & ~LCDC_LCDCFG0_CLKPWMSEL_Msk) | 
@@ -85,9 +79,7 @@ void LCDC_SetLayerClockGatingDisable(LCDC_LAYER_ID layer, bool disable)
                                 LCDC_LCDCFG0_CGDISHEO(disable == false);
             break;
         case LCDC_LAYER_PP:
-            LCDC_REGS->LCDC_LCDCFG0 = (LCDC_REGS->LCDC_LCDCFG0 & ~LCDC_LCDCFG0_CGDISPP_Msk) | 
-                                LCDC_LCDCFG0_CGDISPP(disable == false);
-            break;
+            //Unsupported
         default:
             break;
     }
@@ -193,12 +185,6 @@ void LCDC_SetOutputMode(LCDC_OUTPUT_COLOR_MODE mode)
 {
     LCDC_REGS->LCDC_LCDCFG5 = (LCDC_REGS->LCDC_LCDCFG5 & ~LCDC_LCDCFG5_MODE_Msk) | 
                                   LCDC_LCDCFG5_MODE(mode);
-}
-
-void LCDC_SetPostPocessingEnable(bool enable)
-{
-    LCDC_REGS->LCDC_LCDCFG5 = (LCDC_REGS->LCDC_LCDCFG5 & ~LCDC_LCDCFG5_PP_Msk) | 
-                                  LCDC_LCDCFG5_PP(enable == true);
 }
 
 void LCDC_SetVSYNCPulseSetupConfig(bool synchronous)
@@ -415,8 +401,8 @@ void LCDC_SetDMAHeadPointer(LCDC_LAYER_ID layer, uint32_t head)
                                         LCDC_OVR2HEAD_HEAD(head);
             break;
         case LCDC_LAYER_HEO:
-            LCDC_REGS->LCDC_HEOHEAD = (LCDC_REGS->LCDC_HEOHEAD & ~LCDC_OVR2HEAD_HEAD_Msk) | 
-                                       LCDC_OVR2HEAD_HEAD(head);
+            LCDC_REGS->LCDC_HEOHEAD = (LCDC_REGS->LCDC_HEOHEAD & ~LCDC_HEOHEAD_HEAD_Msk) | 
+                                       LCDC_HEOHEAD_HEAD(head);
             break;
         case LCDC_LAYER_PP:
         default:
@@ -445,9 +431,7 @@ void LCDC_UpdateAddToQueue(LCDC_LAYER_ID layer)
                               LCDC_ATTR_HEOA2Q(1);
             break;
         case LCDC_LAYER_PP:
-            LCDC_REGS->LCDC_ATTR = (LCDC_REGS->LCDC_ATTR & ~LCDC_ATTR_PPA2Q_Msk) | 
-                              LCDC_ATTR_PPA2Q(1);
-            break;
+            //Unsupported
         default:
           break;
     }
@@ -512,8 +496,7 @@ void LCDC_SetHorizStride(LCDC_LAYER_ID layer, uint32_t xstride)
             LCDC_REGS->LCDC_HEOCFG5 = LCDC_HEOCFG5_XSTRIDE(xstride);
             break;
         case LCDC_LAYER_PP:
-            LCDC_REGS->LCDC_PPCFG2 = LCDC_PPCFG2_XSTRIDE(xstride);
-            break;
+            //Unsupported
         default:
           break;
     }
@@ -562,8 +545,7 @@ void LCDC_SetDMAAddressRegister(LCDC_LAYER_ID layer, uint32_t addr)
             LCDC_REGS->LCDC_HEOADDR = LCDC_HEOADDR_ADDR(addr);
             break;
         case LCDC_LAYER_PP:
-            LCDC_REGS->LCDC_PPADDR = LCDC_PPADDR_ADDR(addr);
-            break;
+            //Unsupported
         default:
           break;
     }
@@ -586,8 +568,7 @@ void LCDC_SetDMADescriptorNextAddress(LCDC_LAYER_ID layer, uint32_t next)
             LCDC_REGS->LCDC_HEONEXT = LCDC_HEONEXT_NEXT(next);  
             break;
         case LCDC_LAYER_PP:
-            LCDC_REGS->LCDC_PPNEXT = LCDC_PPNEXT_NEXT(next);  
-            break;
+            //Unsupported
         default:
           break;
     }  
@@ -614,9 +595,7 @@ void LCDC_SetTransferDescriptorFetchEnable(LCDC_LAYER_ID layer, bool enable)
                                         LCDC_HEOCTRL_DFETCH(enable == true);
             break;
         case LCDC_LAYER_PP:
-            LCDC_REGS->LCDC_PPCTRL = (LCDC_REGS->LCDC_PPCTRL & ~LCDC_PPCTRL_DFETCH_Msk) | 
-                                        LCDC_PPCTRL_DFETCH(enable == true);
-            break;
+            //Unsupported
         default:
           break;
     }
@@ -643,9 +622,7 @@ void LCDC_UpdateOverlayAttributesEnable(LCDC_LAYER_ID layer)
                                         LCDC_HEOCHER_UPDATEEN(1);
             break;
         case LCDC_LAYER_PP:
-            LCDC_REGS->LCDC_PPCHER = (LCDC_REGS->LCDC_PPCHER & ~LCDC_PPCHER_UPDATEEN_Msk) | 
-                                        LCDC_PPCHER_UPDATEEN(1);
-            break;
+            //Unsupported
         default:
           break;
     }  
@@ -668,7 +645,7 @@ void LCDC_SetChannelEnable(LCDC_LAYER_ID layer, bool enable)
                 LCDC_REGS->LCDC_OVR1CHER = (LCDC_REGS->LCDC_OVR1CHER & ~LCDC_OVR1CHER_CHEN_Msk) | 
                                             LCDC_OVR1CHER_CHEN(1);
             else
-                LCDC_REGS->LCDC_OVR1CHDR = (LCDC_REGS->LCDC_BASECHDR & ~LCDC_OVR1CHDR_CHDIS_Msk) | 
+                LCDC_REGS->LCDC_OVR1CHDR = (LCDC_REGS->LCDC_OVR1CHDR & ~LCDC_OVR1CHDR_CHDIS_Msk) | 
                                             LCDC_OVR1CHDR_CHDIS(1);    
             break;
         case LCDC_LAYER_OVR2:
@@ -688,13 +665,7 @@ void LCDC_SetChannelEnable(LCDC_LAYER_ID layer, bool enable)
                                             LCDC_HEOCHDR_CHDIS(1);    
             break;
         case LCDC_LAYER_PP:
-            if (enable == true)
-                LCDC_REGS->LCDC_PPCHER = (LCDC_REGS->LCDC_PPCHER & ~LCDC_PPCHER_CHEN_Msk) | 
-                                            LCDC_PPCHER_CHEN(1);
-            else
-                LCDC_REGS->LCDC_PPCHDR = (LCDC_REGS->LCDC_PPCHDR & ~LCDC_PPCHDR_CHDIS_Msk) | 
-                                            LCDC_PPCHDR_CHDIS(1);    
-            break;
+            //Unsupported
         default:
           break;
     }  
@@ -721,9 +692,7 @@ void LCDC_AddToQueueEnable(LCDC_LAYER_ID layer)
                                         LCDC_HEOCHER_A2QEN(1);
             break;
         case LCDC_LAYER_PP:
-            LCDC_REGS->LCDC_PPCHER = (LCDC_REGS->LCDC_PPCHER & ~LCDC_PPCHSR_A2QSR_Msk) | 
-                                        LCDC_PPCHER_A2QEN(1);
-            break;
+            //Unsupported
         default:
           break;
     }  
@@ -919,9 +888,7 @@ void LCDC_UpdateAttribute(LCDC_LAYER_ID layer)
                                     LCDC_ATTR_BASE(1);
             break;          
         case LCDC_LAYER_PP:
-            LCDC_REGS->LCDC_ATTR = (LCDC_REGS->LCDC_ATTR & ~LCDC_ATTR_PP_Msk) | 
-                                    LCDC_ATTR_PP(1);
-            break;
+            //Unsupported
         default:
           break;
     }   
@@ -972,9 +939,7 @@ void LCDC_IRQ_Enable(LCDC_INTERRUPT interrupt)
                                       LCDC_LCDIER_HEOIE(1);                    
             break;
         case LCDC_INTERRUPT_PP:
-            LCDC_REGS->LCDC_LCDIER = (LCDC_REGS->LCDC_LCDIER & ~LCDC_LCDIER_PPIE_Msk) |
-                                      LCDC_LCDIER_PPIE(1);                 
-            break;
+            //Unsupported
         default:
           break;
     }
@@ -1017,9 +982,7 @@ void LCDC_IRQ_Disable(LCDC_INTERRUPT interrupt)
                                       LCDC_LCDIDR_HEOID(1);                    
             break;
         case LCDC_INTERRUPT_PP:
-            LCDC_REGS->LCDC_LCDIDR = (LCDC_REGS->LCDC_LCDIDR & ~LCDC_LCDIDR_PPID_Msk) |
-                                      LCDC_LCDIDR_PPID(1);
-            break;
+            //Unsupported
         default:
           break;
     }
@@ -1142,4 +1105,29 @@ void LCDC_Interrupt_Handler(void)
     {
         LCDC_IRQ_CallbackObj.callback_fn(LCDC_IRQ_CallbackObj.context);
     }
+}
+
+void LCDC_SetHEOImageMemSize(uint16_t width, uint16_t height)
+{
+    LCDC_REGS->LCDC_HEOCFG4 = LCDC_HEOCFG4_YMEMSIZE(height - 1) | 
+                            LCDC_HEOCFG4_XMEMSIZE(width - 1); 
+}
+
+void LCDC_SetHEOVideoPriority(bool top)
+{
+    LCDC_REGS->LCDC_HEOCFG12 = (LCDC_REGS->LCDC_HEOCFG12 & ~LCDC_HEOCFG12_VIDPRI_Msk) | 
+        LCDC_HEOCFG12_VIDPRI(top == true); 
+}
+
+void LCDC_SetHEOScaler(uint16_t yfactor, uint16_t xfactor, bool enable)
+{
+    LCDC_REGS->LCDC_HEOCFG13 = LCDC_HEOCFG13_SCALEN(enable == true) |
+                               LCDC_HEOCFG13_YFACTOR(yfactor) |
+                               LCDC_HEOCFG13_XFACTOR(xfactor);
+}
+
+void LCDC_SetHEOFilterPhaseOffset(uint8_t yphidef, uint8_t xphidef)
+{
+    LCDC_REGS->LCDC_HEOCFG41 = LCDC_HEOCFG41_YPHIDEF(yphidef) | 
+                              LCDC_HEOCFG41_XPHIDEF(xphidef); 
 }
