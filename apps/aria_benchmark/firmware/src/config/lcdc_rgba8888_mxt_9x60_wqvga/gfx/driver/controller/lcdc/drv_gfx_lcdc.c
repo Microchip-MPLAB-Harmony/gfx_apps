@@ -130,6 +130,10 @@ uint32_t state;
 static DISPLAY_LAYER drvLayer[LCDC_NUM_LAYERS];
 static volatile int32_t waitForAlphaSetting[LCDC_NUM_LAYERS] = {0};
 
+//CUSTOM CODE - DO NOT MODIFY OR REMOVE
+extern unsigned int vsyncCount;
+//END OF CUSTOM CODE
+
 /**** Hardware Abstraction Interfaces ****/
 enum
 {
@@ -468,6 +472,10 @@ static GFX_Result LCDCInitialize(GFX_Context* context)
     uint32_t      i,j;
 
     cntxt = context;
+
+//CUSTOM CODE - DO NOT REMOVE/MODIFY
+    vsyncCount = 25;
+//END OF CUSTOM CODE    
 
     // general default initialization
     if(defInitialize(context) == GFX_FAILURE)

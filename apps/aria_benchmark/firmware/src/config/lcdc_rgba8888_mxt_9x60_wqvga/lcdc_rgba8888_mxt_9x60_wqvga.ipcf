@@ -26,7 +26,6 @@
     </linkerFile>
     <files relRoot="$PROJ_DIR$\..\..\firmware\src\config\lcdc_rgba8888_mxt_9x60_wqvga">
         <group name="Header Files" relRoot="$PROJ_DIR$\..\..\firmware\src\config\lcdc_rgba8888_mxt_9x60_wqvga">
-            <path>\bsp\bsp.h</path>
             <path>\gfx\hal\gfx.h</path>
             <path>\gfx\hal\inc\gfx_color.h</path>
             <path>\gfx\hal\inc\gfx_common.h</path>
@@ -52,6 +51,7 @@
             <path>\gfx\hal\inc\gfx_draw_stretchblit.h</path>
             <path>\gfx\hal\inc\gfx_math.h</path>
             <path>\gfx\hal\gfx_config.h</path>
+            <path>\bsp\bsp.h</path>
             <path>\device_cache.h</path>
             <path>\toolchain_specifics.h</path>
             <path>\definitions.h</path>
@@ -193,6 +193,7 @@
             <path>\gfx\libaria\libaria_events.h</path>
             <path>\gfx\libaria\libaria_macros.h</path>
             <path>\driver\input\drv_maxtouch.h</path>
+            <path>\gfx\driver\controller\lcdc\drv_gfx_lcdc.h</path>
             <path>\driver\driver.h</path>
             <path>\driver\driver_common.h</path>
             <path>\system\system.h</path>
@@ -207,11 +208,9 @@
             <path>\..\..\app.h</path>
             <path>\user.h</path>
             <path>\configuration.h</path>
-            <path>\gfx\driver\controller\lcdc\drv_gfx_lcdc.h</path>
             <path>\gfx\gfx_assets.h</path>
         </group>
         <group name="Source Files" relRoot="$PROJ_DIR$\..\..\firmware\src\config\lcdc_rgba8888_mxt_9x60_wqvga">
-            <path>\bsp\bsp.c</path>
             <path>\gfx\hal\src\gfx.c</path>
             <path>\gfx\hal\src\gfx_color.c</path>
             <path>\gfx\hal\src\gfx_context.c</path>
@@ -242,6 +241,7 @@
             <path>\gfx\hal\src\gfx_draw_rect.c</path>
             <path>\gfx\hal\src\gfx_draw_stretchblit.c</path>
             <path>\gfx\hal\src\gfx_math.c</path>
+            <path>\bsp\bsp.c</path>
             <path>\..\..\main.c</path>
             <path>\initialization.c</path>
             <path>\interrupts.c</path>
@@ -366,11 +366,11 @@
             <path>\gfx\libaria\libaria_events.c</path>
             <path>\gfx\libaria\libaria_macros.c</path>
             <path>\driver\input\drv_maxtouch.c</path>
+            <path>\gfx\driver\controller\lcdc\drv_gfx_lcdc.c</path>
             <path>\system\int\src\sys_int.c</path>
             <path>\system\cache\sys_cache.c</path>
             <path>\..\..\app.c</path>
             <path>\tasks.c</path>
-            <path>\gfx\driver\controller\lcdc\drv_gfx_lcdc.c</path>
             <path>\gfx\gfx_assets.c</path>
         </group>
     </files>

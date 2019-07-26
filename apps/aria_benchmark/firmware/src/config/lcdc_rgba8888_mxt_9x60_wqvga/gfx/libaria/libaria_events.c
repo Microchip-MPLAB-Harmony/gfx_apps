@@ -68,10 +68,10 @@ void GPUButtonWidget1_PressedEvent(laButtonWidget* btn)
 {
     // Set Text (GPUButtonWidget1) - Set Text - GPUButtonWidget1
     laButtonWidget_SetText((laButtonWidget*)GPUButtonWidget1, laString_CreateFromID(string_GPUOn));
+
+    // Custom Action
     GFX_Set(GFXF_DRAW_PIPELINE_MODE, GFX_PIPELINE_GCUGPU);
     resetFPS();
-    // Custom Action
-    
 }
 
 // GPUButtonWidget1 - ReleasedEvent
@@ -79,10 +79,10 @@ void GPUButtonWidget1_ReleasedEvent(laButtonWidget* btn)
 {
     // Set Text (GPUButtonWidget1) - Set Text - GPUButtonWidget1
     laButtonWidget_SetText((laButtonWidget*)GPUButtonWidget1, laString_CreateFromID(string_GPUOff));
+
+    // Custom Action
     GFX_Set(GFXF_DRAW_PIPELINE_MODE, GFX_PIPELINE_GCU);
     resetFPS();
-    // Custom Action
-    
 }
 
 // MotionMenuNextButton - PressedEvent
@@ -125,10 +125,10 @@ void GPUButtonWidget2_PressedEvent(laButtonWidget* btn)
 {
     // Set Text (GPUButtonWidget2) - Set Text - GPUButtonWidget2
     laButtonWidget_SetText((laButtonWidget*)GPUButtonWidget2, laString_CreateFromID(string_GPUOn));
+
+    // Custom Action
     GFX_Set(GFXF_DRAW_PIPELINE_MODE, GFX_PIPELINE_GCUGPU);
     resetFPS();
-    // Custom Action
-    
 }
 
 // GPUButtonWidget2 - ReleasedEvent
@@ -136,10 +136,10 @@ void GPUButtonWidget2_ReleasedEvent(laButtonWidget* btn)
 {
     // Set Text (GPUButtonWidget2) - Set Text - GPUButtonWidget2
     laButtonWidget_SetText((laButtonWidget*)GPUButtonWidget2, laString_CreateFromID(string_GPUOff));
+
+    // Custom Action
     GFX_Set(GFXF_DRAW_PIPELINE_MODE, GFX_PIPELINE_GCU);
     resetFPS();
-    // Custom Action
-    
 }
 
 // ImageNextButtonWidget - PressedEvent
@@ -182,10 +182,10 @@ void GPUButtonWidget3_PressedEvent(laButtonWidget* btn)
 {
     // Set Text (GPUButtonWidget3) - Set Text - GPUButtonWidget3
     laButtonWidget_SetText((laButtonWidget*)GPUButtonWidget3, laString_CreateFromID(string_GPUOn));
+
+    // Custom Action
     GFX_Set(GFXF_DRAW_PIPELINE_MODE, GFX_PIPELINE_GCUGPU);
     resetFPS();
-    // Custom Action
-    
 }
 
 // GPUButtonWidget3 - ReleasedEvent
@@ -193,10 +193,10 @@ void GPUButtonWidget3_ReleasedEvent(laButtonWidget* btn)
 {
     // Set Text (GPUButtonWidget3) - Set Text - GPUButtonWidget3
     laButtonWidget_SetText((laButtonWidget*)GPUButtonWidget3, laString_CreateFromID(string_GPUOff));
+
+    // Custom Action
     GFX_Set(GFXF_DRAW_PIPELINE_MODE, GFX_PIPELINE_GCU);
     resetFPS();
-    // Custom Action
-    
 }
 
 

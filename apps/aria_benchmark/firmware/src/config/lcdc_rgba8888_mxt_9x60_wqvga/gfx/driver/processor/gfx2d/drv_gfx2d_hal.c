@@ -41,18 +41,16 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "gfx/hal/inc/gfx_processor_interface.h"
 #include "gfx/driver/processor/gfx2d/drv_gfx2d.h"
 
-//#include <xc.h>
-//#include <sys/attribs.h>
-//#include <sys/kmem.h>
-
 const char* driverName = "GFX 2D";
 
-#define CMD_BUFFER_SIZE  8192
-uint32_t __attribute__((coherent, aligned(32))) commandBuffer[CMD_BUFFER_SIZE];
+/*
 
-// GPU command buffer seems to work better when placed in DDR
-//#define CMD_BUFFER_DDR_ADDRESS 0xA9E00000
 
+#define DISPLAY_WIDTH  480
+#define DISPLAY_HEIGHT 272
+extern uint32_t  __attribute__ ((aligned (64))) blitbuffer[DISPLAY_WIDTH * DISPLAY_HEIGHT] ;
+extern uint32_t  __attribute__ ((aligned (64))) maskbuffer[DISPLAY_WIDTH * DISPLAY_HEIGHT] ;
+*/
 
 GFX2D_PIXEL_FORMAT p2dFormats[GFX_COLOR_MODE_COUNT] =
 {
@@ -66,7 +64,7 @@ GFX2D_PIXEL_FORMAT p2dFormats[GFX_COLOR_MODE_COUNT] =
     -1, // GFX_COLOR_MODE_YUV
     -1, // GFX_COLOR_MODE_INDEX_1
     -1, //GFX_COLOR_MODE_INDEX_4
-    -1, // GFX_COLOR_MODE_INDEX_8
+    GFX2D_IDX8, // GFX_COLOR_MODE_INDEX_8
 };
 
 static GFX_Result drawLine(const GFX_Point* p1,
@@ -80,7 +78,20 @@ static GFX_Result drawLine(const GFX_Point* p1,
 
     // return failure if line is not horizonal or vertical line
     if(p1->x != p2->x && p1->y != p2->y)
-        return GFX_FAILURE;  
+    {
+        cpuDrawLine(p1, p2, state);
+        return GFX_SUCCESS;
+    }
+
+    lrect.x = p1->x;
+    lrect.y = p1->y;
+    lrect.width = p2->x;
+    lrect.height = p2->y;
+
+    if ( p1->x == p2->x )
+      lrect.width = 1;
+    if ( p1->y == p2->y )
+      lrect.height = 1;
 
     switch(context->orientation)
     {
@@ -119,7 +130,7 @@ static GFX_Result drawLine(const GFX_Point* p1,
     
     DRV_GFX2D_Fill(&buffer,
              (GFX2D_RECTANGLE*)&lrect,
-             GFX_ColorConvert(state->colorMode, GFX_COLOR_MODE_ARGB_8888, state->color));
+             GFX_ColorConvert(state->colorMode, GFX_COLOR_MODE_RGBA_8888, state->color));
     
     return GFX_SUCCESS;
 }
@@ -128,7 +139,6 @@ static GFX_Result fillRect(const GFX_Rect* rect,
                            const GFX_DrawState* state)
 {
     struct gpu_buffer    buffer;
-    //GFX2D_RECTANGLE rect;
     GFX_Rect lrect;
     GFX2D_TRANSFER_DIRECTION orientation = GFX2D_XY00;
     GFX_Context* context = GFX_ActiveContext();
@@ -196,53 +206,41 @@ static GFX_Result fillRect(const GFX_Rect* rect,
     
     DRV_GFX2D_Fill(&buffer,
              (GFX2D_RECTANGLE*)&lrect,
-             GFX_ColorConvert(state->colorMode, GFX_COLOR_MODE_ARGB_8888, state->color));
+             GFX_ColorConvert(state->colorMode, GFX_COLOR_MODE_RGBA_8888, state->color));
     
     return GFX_SUCCESS;
 }
 
-/*
 static GFX_Result drawBlit(const GFX_PixelBuffer* source,
                            const GFX_Rect* srcRect,
                            const GFX_Point* drawPoint,
                            const GFX_DrawState* state)
 {
-    n2d_buffer_t src_buffer, dest_buffer;
+    struct gpu_buffer src_buffer, dest_buffer;
     GFX_Rect dest_rect;
-    n2d_orientation_t orientation = N2D_0;
+    GFX2D_TRANSFER_DIRECTION orientation = GFX2D_XY00;
     GFX_Context* context = GFX_ActiveContext();
-    n2d_blend_t blend = N2D_BLEND_NONE;
-
-    // the source address must reside in KSEG1 (cache coherent) memory
-    // and the source buffer must be raw pixels as the the GPU doesn't
-    // understand palettized blits
-    // if this fails then fall back to software mode
-    if(IS_KVA1(source->pixels) == GFX_FALSE ||
-       GFX_COLOR_MODE_IS_INDEX(source->mode) == GFX_TRUE ||
-       GFX_COLOR_MODE_IS_INDEX(state->target->mode) == GFX_TRUE ||
-       n2dFormats[source->mode] == -1 ||
-       n2dFormats[state->colorMode] == -1)
-        return cpuDrawBlit(source, srcRect, drawPoint, state);
     
     switch(context->orientation)
     {
         case GFX_ORIENTATION_0:
-            orientation = N2D_0;
+        {
+            orientation = GFX2D_XY00;
             break;
-
+        }
         case GFX_ORIENTATION_90:
         {
-            orientation = N2D_90;
+            orientation = GFX2D_XY01;
             break;
         }
         case GFX_ORIENTATION_180:
         {
-            orientation = N2D_180;
+            orientation = GFX2D_XY10;
             break;
         }
         case GFX_ORIENTATION_270:
         {
-            orientation = N2D_270;
+            orientation = GFX2D_XY11;
             break;
         }
     }
@@ -250,165 +248,81 @@ static GFX_Result drawBlit(const GFX_PixelBuffer* source,
     // craft source buffer descriptor
     src_buffer.width = source->size.width;
     src_buffer.height = source->size.height;
-    src_buffer.stride = source->size.width * GFX_ColorInfo[source->mode].size;
-    src_buffer.format = n2dFormats[source->mode];
-    src_buffer.orientation = orientation;
-    src_buffer.handle = NULL;
-    src_buffer.memory = source->pixels;
-    src_buffer.gpu = KVA_TO_PA(source->pixels);
+    src_buffer.format = p2dFormats[source->mode];
+    src_buffer.dir = orientation;
+    src_buffer.addr = (uint32_t)source->pixels;
        
     // craft dest buffer descriptor
     dest_buffer.width = state->target->size.width;
     dest_buffer.height = state->target->size.height;
-    dest_buffer.stride = state->target->size.width * GFX_ColorInfo[state->colorMode].size;
-    dest_buffer.format = n2dFormats[state->target->mode];
-    dest_buffer.orientation = orientation;
-    dest_buffer.handle = NULL;
-    dest_buffer.memory = state->target->pixels;
-    dest_buffer.gpu = KVA_TO_PA(state->target->pixels);
+    dest_buffer.format = p2dFormats[state->target->mode];
+    dest_buffer.dir = orientation;
+    dest_buffer.addr = (uint32_t)state->target->pixels;
     
     dest_rect.x = drawPoint->x;
     dest_rect.y = drawPoint->y;
     dest_rect.width = srcRect->width;
     dest_rect.height = srcRect->height;
     
+    /*
+    GFX2D_BUFFER target;
     if(state->maskEnable == GFX_TRUE)
     {
-        n2d_color_t color = (n2d_color_t)GFX_ColorConvert(state->colorMode, GFX_COLOR_MODE_ARGB_8888, state->maskValue);
+       GFX2D_ROP rop;
         
-        n2d_draw_state(N2D_TRANSPARENCY_SOURCE,
-                       color,
-                       0xA,
-                       0xC);        
+       rop.high = 0xA;
+       rop.low = 0xC;
+       rop.mode = GFX2D_ROP4;
+       
+       target.addr = (uint32_t)blitbuffer;
+       target.width = dest_buffer.width;
+       target.height = dest_buffer.height;
+       target.format = dest_buffer.format;
+       
+       mask_buffer.addr = (uint32_t)maskbuffer;
+        
+       DRV_GFX2D_Rop(&target, 
+                       (GFX2D_RECTANGLE*)&dest_rect, 
+                       &dest_buffer, 
+                       (GFX2D_RECTANGLE*)&dest_rect, 
+                       &src_buffer, 
+                       (GFX2D_RECTANGLE*)&dest_rect,
+                       &mask_buffer,
+                       rop); 
+       src_buffer.addr =  target.addr;
     }    
 
     if ((state->alphaEnable == GFX_TRUE) && 
         ((state->blendMode & GFX_BLEND_CHANNEL) == 0))
     {
-        n2d_set_global_alpha(N2D_GLOBAL_ALPHA_ON, N2D_GLOBAL_ALPHA_OFF, state->globalAlphaValue, 0xff);
-        blend = N2D_BLEND_SRC_OVER;
-    }
+        GFX2D_BLEND blend;
+        
+        blend.spe=0;
+        blend.func=GFX2D_FUNCTION_ADD;
+        blend.dfact=GFX2D_FACTOR_ONE_MINUS_SRC_ALPHA;
+        blend.sfact=GFX2D_FACTOR_ONE;
 
-    n2d_blit(&dest_buffer,
-             (n2d_rectangle_t*)&dest_rect,
-             &src_buffer,
-             (n2d_rectangle_t*)srcRect,
+        DRV_GFX2D_Blend(&target, (GFX2D_RECTANGLE*)&dest_rect, &dest_buffer, 
+            (GFX2D_RECTANGLE*)&dest_rect, &src_buffer, (GFX2D_RECTANGLE*)&dest_rect,
              blend);
-
-    if(state->maskEnable == GFX_TRUE)
-    {
-        n2d_draw_state(N2D_TRANSPARENCY_NONE, 0, 0xC, 0xC);
+        src_buffer.addr =  target.addr;
     }
+    */
 
-    if ((state->alphaEnable == GFX_TRUE) && 
-        ((state->blendMode & GFX_BLEND_CHANNEL) == 0))
-    {
-        n2d_set_global_alpha(N2D_GLOBAL_ALPHA_OFF, N2D_GLOBAL_ALPHA_OFF, 0xff, 0xff);
-        blend = N2D_BLEND_NONE;
-    }
+    DRV_GFX2D_Copy(&dest_buffer,
+             (GFX2D_RECTANGLE*)&dest_rect,
+             &src_buffer,
+             (GFX2D_RECTANGLE*)srcRect);
     
     return GFX_SUCCESS;
 }
 
+/*
 static GFX_Result drawStretchBlit(const GFX_PixelBuffer* source,
                                   const GFX_Rect* srcRect,
                                   const GFX_Rect* destRect,
                                   const GFX_DrawState* state)
 {
-    n2d_buffer_t src_buffer, dest_buffer;
-    n2d_orientation_t orientation = N2D_0;
-    GFX_Context* context = GFX_ActiveContext();
-    n2d_blend_t blend = N2D_BLEND_NONE;
-
-    // the source address must reside in KSEG1 (cache coherent) memory
-    // and the source buffer must be raw pixels as the the GPU doesn't
-    // understand palettized blits
-    // if this fails then fall back to software mode
-    if(IS_KVA1(source->pixels) == GFX_FALSE ||
-       GFX_COLOR_MODE_IS_INDEX(source->mode) == GFX_TRUE ||
-       GFX_COLOR_MODE_IS_INDEX(state->target->mode) == GFX_TRUE ||
-       n2dFormats[source->mode] == -1 ||
-       n2dFormats[state->colorMode] == -1)
-        return cpuDrawStretchBlit_NearestNeighbor(source, srcRect, destRect, state);
-    
-    switch(context->orientation)
-    {
-        case GFX_ORIENTATION_0:
-            orientation = N2D_0;
-            break;
-
-        case GFX_ORIENTATION_90:
-        {
-            orientation = N2D_90;
-            break;
-        }
-        case GFX_ORIENTATION_180:
-        {
-            orientation = N2D_180;
-            break;
-        }
-        case GFX_ORIENTATION_270:
-        {
-            orientation = N2D_270;
-            break;
-        }
-    }
-
-    // craft source buffer descriptor
-    src_buffer.width = source->size.width;
-    src_buffer.height = source->size.height;
-    src_buffer.stride = source->size.width * GFX_ColorInfo[source->mode].size;
-    src_buffer.format = n2dFormats[source->mode];
-    src_buffer.orientation = orientation;
-    src_buffer.handle = NULL;
-    src_buffer.memory = source->pixels;
-    src_buffer.gpu = KVA_TO_PA(source->pixels);
-       
-    // craft dest buffer descriptor
-    dest_buffer.width = state->target->size.width;
-    dest_buffer.height = state->target->size.height;
-    dest_buffer.stride = state->target->size.width * GFX_ColorInfo[state->colorMode].size;
-    dest_buffer.format = n2dFormats[state->target->mode];
-    dest_buffer.orientation = orientation;
-    dest_buffer.handle = NULL;
-    dest_buffer.memory = state->target->pixels;
-    dest_buffer.gpu = KVA_TO_PA(state->target->pixels);
-    
-    if(state->maskEnable == GFX_TRUE)
-    {
-        n2d_color_t color = (n2d_color_t)GFX_ColorConvert(state->colorMode, GFX_COLOR_MODE_ARGB_8888, state->maskValue);
-        
-        n2d_draw_state(N2D_TRANSPARENCY_SOURCE,
-                       color,
-                       0xA,
-                       0xC);        
-    }    
-
-    if ((state->alphaEnable == GFX_TRUE) && 
-        ((state->blendMode & GFX_BLEND_CHANNEL) == 0))
-    {
-        n2d_set_global_alpha(N2D_GLOBAL_ALPHA_ON, N2D_GLOBAL_ALPHA_OFF, state->globalAlphaValue, 0xff);
-        blend = N2D_BLEND_SRC_OVER;
-    }
-
-    n2d_blit(&dest_buffer,
-             (n2d_rectangle_t*)destRect,
-             &src_buffer,
-             (n2d_rectangle_t*)srcRect,
-             blend);
-
-    if(state->maskEnable == GFX_TRUE)
-    {
-        n2d_draw_state(N2D_TRANSPARENCY_NONE, 0, 0xC, 0xC);
-    }
-
-    if ((state->alphaEnable == GFX_TRUE) && 
-        ((state->blendMode & GFX_BLEND_CHANNEL) == 0))
-    {
-        n2d_set_global_alpha(N2D_GLOBAL_ALPHA_OFF, N2D_GLOBAL_ALPHA_OFF, 0xff, 0xff);
-        blend = N2D_BLEND_NONE;
-    }
-    
     return GFX_SUCCESS;
 }
 */
@@ -421,7 +335,7 @@ GFX_Result procGFX2DInfoGet(GFX_ProcessorInfo* info)
 
 	// populate info struct
     strcpy(info->name, driverName);
-    info->color_formats = GFX_COLOR_MASK_ARGB_8888;
+    info->color_formats = GFX_COLOR_MASK_RGBA_8888;
     
     return GFX_SUCCESS;
 }
@@ -438,7 +352,7 @@ GFX_Result procGFX2DContextInitialize(GFX_Context* context)
 	
 	context->hal.drawPipeline[GFX_PIPELINE_GPU].drawRect[GFX_DRAW_FILL][GFX_ANTIALIAS_OFF] = &fillRect;
 	
-        //context->hal.drawPipeline[GFX_PIPELINE_GPU].drawBlit = &drawBlit;
+        context->hal.drawPipeline[GFX_PIPELINE_GPU].drawBlit = &drawBlit;
 		
     // according to nano2d documentation the stretch blit is a fast resize, override nearest neighbor version
     //context->hal.drawPipeline[GFX_PIPELINE_GPU].drawStretchBlit[GFX_RESIZE_NEARESTNEIGHBOR] = &drawStretchBlit;
@@ -449,7 +363,7 @@ GFX_Result procGFX2DContextInitialize(GFX_Context* context)
 	
 	context->hal.drawPipeline[GFX_PIPELINE_GCUGPU].drawRect[GFX_DRAW_FILL][GFX_ANTIALIAS_OFF] = &fillRect;
 	
-        //context->hal.drawPipeline[GFX_PIPELINE_GCUGPU].drawBlit = &drawBlit;
+        context->hal.drawPipeline[GFX_PIPELINE_GCUGPU].drawBlit = &drawBlit;
 	
     // according to nano2d documentation the stretch blit is a fast resize, override nearest neighbor version
     //context->hal.drawPipeline[GFX_PIPELINE_GCUGPU].drawStretchBlit[GFX_RESIZE_NEARESTNEIGHBOR] = &drawStretchBlit;
