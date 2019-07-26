@@ -171,71 +171,71 @@ laBool SpeedDrawSurfaceWidget_DrawNotificationEvent(laDrawSurfaceWidget* sfc, GF
     #define SCREEN_WIDTH 480
     #define SCREEN_HEIGHT 272
     #define POINTER_LENGTH 104
-
+    
     extern const uint8_t needle2_data[90000];
-
+    
     GFX_Rect oldRect, newRect;
     uint32_t * writeBuffer;
-
+    
     GFX_Point ptSource, ptDest, ptDest2;
     GFX_Color color = 0;
     int16_t sin256, cos256;
     GFX_Point ptPointerTip;
     GFX_Context* context = GFX_ActiveContext();
-
+    
     GFX_Point ptCenter = {.x = 75, .y = 75};
-
+    
     GFX_Rect sourceRect = {.x = 0, 
                            .y = 0,
                            .height = IMAGE_HEIGHT,
                            .width = IMAGE_WIDTH};
-
+    
     GFX_Rect centerRect = {.x = 65, 
                            .y = 65,
                            .height = 40,
                            .width = 40};
-
+    
     GFX_Rect widgetRect = {.x = 0,
                            .y = 0,
                            .height = sfc->widget.rect.height,
                            .width = sfc->widget.rect.width};
-
+    
     static int oldAngle = 0;
     int newAngle = APP_GetSpeedAngle();
-
+    
     GFX_Set(GFXF_LAYER_ACTIVE, context->layer.active->id);
     GFX_Get(GFXF_LAYER_BUFFER_ADDRESS,
             context->layer.active->buffer_write_idx,
             (GFX_Buffer *) &writeBuffer);
-
+    
     GFX_PolarToXY(POINTER_LENGTH , oldAngle, &ptPointerTip);
     ptPointerTip.x += ptCenter.x;
     ptPointerTip.y = ptCenter.y - ptPointerTip.y;
     oldRect = GFX_RectFromPoints(&ptPointerTip, &ptCenter);
     oldRect = GFX_RectCombine(&oldRect, &centerRect);
-
+    
     GFX_PolarToXY(POINTER_LENGTH, newAngle, &ptPointerTip);
     ptPointerTip.x += ptCenter.x;
     ptPointerTip.y = ptCenter.y - ptPointerTip.y;
     newRect = GFX_RectFromPoints(&ptPointerTip, &ptCenter);
     newRect = GFX_RectCombine(&newRect, &centerRect);
-
+    
     oldAngle = newAngle;
-
+    
     sin256 =  GFX_SineCosineGet(-newAngle, GFX_TRIG_SINE_TYPE);
     cos256 =  GFX_SineCosineGet(-newAngle, GFX_TRIG_COSINE_TYPE);
-
+    
     GFX_Set(GFXF_DRAW_CLIP_RECT, rect);
     GFX_Set(GFXF_DRAW_CLIP_ENABLE, GFX_TRUE);
-
+    
     GFX_RectClip(&widgetRect,
                  &oldRect,
                  &oldRect);
-
+    
     GFX_RectClip(&widgetRect, 
                  &newRect,
                  &newRect);
-
+    
     //Clear the old rect
     if (GFX_RectCompare(&oldRect, &newRect) == 0)
     {
@@ -244,7 +244,7 @@ laBool SpeedDrawSurfaceWidget_DrawNotificationEvent(laDrawSurfaceWidget* sfc, GF
         laUtils_RectToLayerSpace((laWidget *) sfc, &oldRect);
         GFX_DrawRect(oldRect.x, oldRect.y, oldRect.width, oldRect.height);
     }
-
+    
     //Scan thru the pixels to right, bottom and find the source pixel in original image
     for (ptDest.y = newRect.y;
          ptDest.y < newRect.y + newRect.height;
@@ -260,7 +260,7 @@ laBool SpeedDrawSurfaceWidget_DrawNotificationEvent(laDrawSurfaceWidget* sfc, GF
             ptSource.y = (-(ptDest.x - ptCenter.x) * sin256 + 
                            (ptDest.y - ptCenter.y)* cos256) / 256 +
                           ptCenter.y;
-
+    
             if (GFX_RectContainsPoint(&sourceRect, &ptSource))
             {
                 color = getImagePixelGaussianBlur3x3((uint32_t *) needle2_data,
@@ -268,16 +268,16 @@ laBool SpeedDrawSurfaceWidget_DrawNotificationEvent(laDrawSurfaceWidget* sfc, GF
                                              IMAGE_HEIGHT,
                                              ptSource);
             }
-
+    
             GFX_Set(GFXF_DRAW_COLOR, color);
-
+    
             ptDest2 = ptDest;
-
+    
             laUtils_PointToLayerSpace((laWidget *) sfc, &ptDest2);
             writeBuffer[SCREEN_WIDTH * ptDest2.y + ptDest2.x] = color;
         }
     }
-
+    
     return LA_TRUE;
 }
 
