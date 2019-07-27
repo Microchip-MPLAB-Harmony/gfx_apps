@@ -2529,6 +2529,7 @@ int32_t libaria_preprocess_assets(void)
 {
 
     // process images configured for preprocessing
+//CUSTOM CODE - DO NOT MODIFY OR REMOVE!!!    
     laUtils_PreprocessImage(&MicrochipLogo,0xA85FD000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
     laUtils_PreprocessImage(&NewHarmonyLogo,0xA867D000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
     laUtils_PreprocessImage(&LucyInTheSky,0xA82FD000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
@@ -2539,6 +2540,7 @@ int32_t libaria_preprocess_assets(void)
     laUtils_PreprocessImage(&GFX_Touch_80_drop,0xA86FD000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
     laUtils_PreprocessImage(&GFX_alpha_80x80_drop,0xA873D000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
     laUtils_PreprocessImage(&GFX_Slide_80_drop,0xA872D000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+//END OF CUSTOM CODE    
 
     return 0;
 }
