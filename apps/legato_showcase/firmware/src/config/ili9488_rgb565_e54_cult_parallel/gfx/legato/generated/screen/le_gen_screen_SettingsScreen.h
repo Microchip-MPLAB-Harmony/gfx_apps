@@ -33,10 +33,18 @@ leWidget* screenGetRoot_SettingsScreen(uint32_t lyrIdx); // gets a root widget f
 
 // event handlers
 void SettingsScreen_OnShow(void);
+
 void SettingsScreen_OnUpdate(void);
-void SettingsHomeButton_OnReleased(leButtonWidget* btn);
-void ButtonWidgetChinese_OnReleased(leButtonWidget* btn);
-void ButtonWidgetEnglish_OnReleased(leButtonWidget* btn);
+
+void SettingsHomeButton_OnReleased(leButtonWidget* btn)
+;
+
+void ButtonWidgetChinese_OnReleased(leButtonWidget* btn)
+;
+
+void ButtonWidgetEnglish_OnReleased(leButtonWidget* btn)
+;
+
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

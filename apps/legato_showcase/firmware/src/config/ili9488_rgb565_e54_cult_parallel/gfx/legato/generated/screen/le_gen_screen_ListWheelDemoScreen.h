@@ -37,11 +37,21 @@ leWidget* screenGetRoot_ListWheelDemoScreen(uint32_t lyrIdx); // gets a root wid
 
 // event handlers
 void ListWheelDemoScreen_OnShow(void);
+
 void ListWheelDemoScreen_OnUpdate(void);
-void ListWheelHelpButton_OnReleased(leButtonWidget* btn);
-void ListWheelHomeButton_OnReleased(leButtonWidget* btn);
-void ListWheel1_OnSelectionChanged(leListWheelWidget* lst, int32_t idx);
-void ListWheelNextButton_OnReleased(leButtonWidget* btn);
+
+void ListWheelHelpButton_OnReleased(leButtonWidget* btn)
+;
+
+void ListWheelHomeButton_OnReleased(leButtonWidget* btn)
+;
+
+void ListWheel1_OnSelectionChanged(leListWheelWidget* lst, int32_t idx)
+;
+
+void ListWheelNextButton_OnReleased(leButtonWidget* btn)
+;
+
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

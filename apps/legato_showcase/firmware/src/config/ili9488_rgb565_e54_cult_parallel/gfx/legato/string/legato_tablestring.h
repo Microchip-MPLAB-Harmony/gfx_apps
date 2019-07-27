@@ -77,29 +77,69 @@ LIB_EXPORT leTableString* leTableString_New(uint32_t idx);
 */
 LIB_EXPORT void leTableString_Constructor(leTableString* str,
                                           uint32_t idx);
-                                   
-  
 
 
 // *****************************************************************************
-/* Function:
-    leResult setID(leTableString* str, uint32_t id)
+/* Virtual Member Function:
+    uint32_t getID(const leFixedString* this)
 
-   Summary:
-    Sets the string table ID of a table string object
+  Summary:
+     Gets the current string table ID of this string
 
-   Parameters:
-    leTableString* str - the 'this' pointer of the string
-    uint32_t id - the string table id to use
+  Description:
+     Gets the current string table ID of this string
+
+  Parameters:
+    const leFixedString* this - The string to operate on
+
+  Remarks:
+    Usage - _this->fn->getID(_this);
+
+  Returns:
+    uint32_t - the string table ID
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setID(leFixedString* this,
+                   uint32_t id)
+
+  Summary:
+     Sets the string table ID of this string
+
+  Description:
+     Sets the string table ID of this string
+
+  Parameters:
+    leFixedString* this - The string to operate on
+    uint32_t id - the string table ID to use
+
+  Remarks:
+    Usage - _this->fn->setID(_this, id);
 
   Returns:
     leResult - the result of the operation
-    
-  Remarks:
-    Usage: str->fn->setID(str, id);
 */
 
+// *****************************************************************************
+/* Virtual Member Function:
+    uint32_t sizeInBytes(const leFixedString* this)
 
+  Summary:
+     Gets the size of this string in bytes
+
+  Description:
+     Gets the size of this string in bytes
+
+  Parameters:
+    const leFixedString* this - The string to operate on
+
+  Remarks:
+    Usage - _this->fn->sizeInBytes(_this);
+
+  Returns:
+    uint32_t - the string size in bytes
+*/
 
 
 

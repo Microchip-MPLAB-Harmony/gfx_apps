@@ -38,15 +38,33 @@ leWidget* screenGetRoot_MainMenu(uint32_t lyrIdx); // gets a root widget for thi
 
 // event handlers
 void MainMenu_OnShow(void);
+
 void MainMenu_OnUpdate(void);
-void ListwheelDemoMenuButton_OnReleased(leButtonWidget* btn);
-void AlphaBlendingDemoMenuButton_OnReleased(leButtonWidget* btn);
-void SlideShowDemoMenuButton_OnReleased(leButtonWidget* btn);
-void TouchTestDemoMenuDemo_OnReleased(leButtonWidget* btn);
-void KeypadDemoMenuButton_OnReleased(leButtonWidget* btn);
-void MainMenuHelpButton_OnReleased(leButtonWidget* btn);
-void MainMenuSettingsButton_OnReleased(leButtonWidget* btn);
-void MainMenuNextButton_OnReleased(leButtonWidget* btn);
+
+void ListwheelDemoMenuButton_OnReleased(leButtonWidget* btn)
+;
+
+void AlphaBlendingDemoMenuButton_OnReleased(leButtonWidget* btn)
+;
+
+void SlideShowDemoMenuButton_OnReleased(leButtonWidget* btn)
+;
+
+void TouchTestDemoMenuDemo_OnReleased(leButtonWidget* btn)
+;
+
+void KeypadDemoMenuButton_OnReleased(leButtonWidget* btn)
+;
+
+void MainMenuHelpButton_OnReleased(leButtonWidget* btn)
+;
+
+void MainMenuSettingsButton_OnReleased(leButtonWidget* btn)
+;
+
+void MainMenuNextButton_OnReleased(leButtonWidget* btn)
+;
+
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

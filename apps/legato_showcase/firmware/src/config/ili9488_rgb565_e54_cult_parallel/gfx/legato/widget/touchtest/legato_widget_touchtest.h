@@ -163,109 +163,115 @@ typedef struct leTouchTestWidget
     leTouchTestWidget*
 
   Remarks:
-
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leTouchTestWidget* leTouchTestWidget_New();
 
+/* Function:
+    void leTouchTestWidget_Constructor(leTouchTestWidget* wgt)
+
+  Summary:
+    Initializes an leTouchTestWidget widget pointer.
+
+  Description:
+    Initializes an leTouchTestWidget widget pointer.
+
+  Parameters:
+    leTouchTestWidget* wgt - the pointer to initialize
+
+  Returns:
+    void
+
+  Remarks:
+
+*/
 LIB_EXPORT void leTouchTestWidget_Constructor(leTouchTestWidget* tch);
 
-#if 0
 // *****************************************************************************
-/* Function:
-    leResult leTouchTest_AddPoint(leTouchTestWidget* tch, lePoint* pnt)
+/* Virtual Member Function:
+    leResult addPoint(leTouchTestWidget* _this,
+                      lePoint* pnt)
 
   Summary:
-    Adds a point to the touch test widget.  The point will then be displayed.
+     Add a point to the widget
 
   Description:
-
+     Add a point to the widget
 
   Parameters:
-    leTouchTestWidget* tch - the widget
-    lePoint* pnt - a pointer to the point to add
-
-  Returns:
-    leResult - the operation result
+    leTouchTestWidget* _this - The touchtest widget to operate on
+    lePoint* pnt - the point
 
   Remarks:
+    Usage - _this->fn->addPoint(_this, pnt);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leTouchTest_AddPoint(leTouchTestWidget* tch, lePoint* pnt);
 
 // *****************************************************************************
-/* Function:
-    leResult leTouchTest_ClearPoints(leTouchTestWidget* tch)
+/* Virtual Member Function:
+    leResult clearPoints(leTouchTestWidget* _this)
 
   Summary:
-    Clears all of the existing touch points
+     Clear all points
 
   Description:
-
+     Clear all points
 
   Parameters:
-    leTouchTestWidget* tch - the widget
-
-  Returns:
-    leResult - the operation result
+    leTouchTestWidget* _this - The touchtest widget to operate on
 
   Remarks:
+    Usage - _this->fn->clearPoints(_this);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leTouchTest_ClearPoints(leTouchTestWidget* tch);
 
 // *****************************************************************************
-/* Function:
-    leTouchTestWidget_PointAddedEventCallback leTouchTestWidget_GetPointAddedEventCallback(leTouchTestWidget* txt)
+/* Virtual Member Function:
+    leTouchTestWidget_PointAddedEventCallback getPointAddedEventCallback(const leTouchTestWidget* _this)
 
   Summary:
-    Gets the current point added event callback
+     Get the point added event callback pointer
 
   Description:
-
+     Get the point added event callback pointer
 
   Parameters:
-    leTouchTestWidget* tch - the widget
-
-  Returns:
-    leTouchTestWidget_PointAddedEventCallback - a valid pointer or NULL
+    const leTouchTestWidget* _this - The touchtest widget to operate on
 
   Remarks:
+    Usage - _this->fn->getPointAddedEventCallback(_this);
 
+  Returns:
+    leTouchTestWidget_PointAddedEventCallback - the callback pointer
 */
-LIB_EXPORT leTouchTestWidget_PointAddedEventCallback leTouchTestWidget_GetPointAddedEventCallback(leTouchTestWidget* txt);
 
 // *****************************************************************************
-/* Function:
-    leResult leTouchTestWidget_SetPointAddedEventCallback(leTouchTestWidget* txt,
-                                                          leTouchTestWidget_PointAddedEventCallback cb)
+/* Virtual Member Function:
+    leResult setPointAddedEventCallback(leTouchTestWidget* _this,
+                                        leTouchTestWidget_PointAddedEventCallback cb)
 
   Summary:
-    Sets the point added event callback
+     Set the point added event callback pointer
 
   Description:
-
+     Set the point added event callback pointer
 
   Parameters:
-    leTouchTestWidget* tch - the widget
-    leTouchTestWidget_PointAddedEventCallback cb - a valid pointer or NULL
-
-  Returns:
-    leResult - the operation result
+    leTouchTestWidget* _this - The touchtest widget to operate on
+    leTouchTestWidget_PointAddedEventCallback cb - the callback pointer
 
   Remarks:
+    Usage - _this->fn->setPointAddedEventCallback(_this, cb);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leTouchTestWidget_SetPointAddedEventCallback(leTouchTestWidget* txt,
-                                                                 leTouchTestWidget_PointAddedEventCallback cb);
-// DOM-IGNORE-BEGIN
-// internal use only
-void _leTouchTestWidget_GetLineRects(leTouchTestWidget* tch,
-                                     uint32_t idx,
-                                     leRect* horzRect,
-                                     leRect* vertRect);
-// DOM-IGNORE-END
 
-#endif
+
 
 #endif // LE_TOUCHTEST_WIDGET_ENABLED
 #endif /* LEGATO_TOUCHTEST_H */

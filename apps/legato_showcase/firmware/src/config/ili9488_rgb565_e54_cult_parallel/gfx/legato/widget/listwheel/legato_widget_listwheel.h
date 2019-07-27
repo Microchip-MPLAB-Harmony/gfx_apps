@@ -273,1021 +273,897 @@ typedef struct leListWheelWidget
     leListWheelWidget*
 
   Remarks:
-
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leListWheelWidget* leListWheelWidget_New();
 
+/* Function:
+    void leListWheelWidget_Constructor(leListWheelWidget* wgt)
+
+  Summary:
+    Initializes an leListWheelWidget widget pointer.
+
+  Description:
+    Initializes an leListWheelWidget widget pointer.
+
+  Parameters:
+    leListWheelWidget* wgt - the pointer to initialize
+
+  Returns:
+    void
+
+  Remarks:
+
+*/
 LIB_EXPORT void leListWheelWidget_Constructor(leListWheelWidget* whl);
 
-#if 0
 // *****************************************************************************
-/* Function:
-    leHAlignment leListWheelWidget_GetAlignment(leListWheelWidget* whl)
+/* Virtual Member Function:
+    uint32_t getVisibleItemCount(const leListWheelWidget* _this)
 
   Summary:
-    Gets the horizontal alignment for the list widget
+     Gets the visible item count
 
   Description:
-
+     Gets the visible item count
 
   Parameters:
-    leListWheelWidget* whl - the widget
-
-  Returns:
-    leHAlignment - the current list halign mode
+    const leListWheelWidget* _this - The list wheel widget to operate on
 
   Remarks:
-
-*/
-LIB_EXPORT leHAlignment leListWheelWidget_GetAlignment(leListWheelWidget* whl);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_SetAlignment(leListWheelWidget* whl,
-                                                  leHAlignment align)
-
-  Summary:
-    Sets the horizontal alignment mode for the list widget.
-
-  Description:
-
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-    leHAlignment align - the desired halign mode
+    Usage - _this->fn->getVisibleItemCount(_this);
 
   Returns:
-    leResult
-
-  Remarks:
-
+    uint32_t - the visibility setting
 */
-LIB_EXPORT leResult leListWheelWidget_SetAlignment(leListWheelWidget* whl,
-                                                   leHAlignment align);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leListWheelWidget_GetVisibleItemCount(leListWheelWidget* whl)
+/* Virtual Member Function:
+    leResult setVisibleItemCount(leListWheelWidget* _this,
+                                 uint32_t cnt)
 
   Summary:
-    Returns the list's visible item count
+     Sets the visible item count
 
   Description:
-
+     Sets the visible item count
 
   Parameters:
-    leListWidget* lst - the widget
+    leListWheelWidget* _this - The list wheel widget to operate on
+    uint32_t cnt - the item count
+
+  Remarks:
+    Usage - _this->fn->setVisibleItemCount(_this, cnt);
 
   Returns:
-    uint32_t - the number of visible items
-
-  Remarks:
-
+    leResult - the result of the operation
 */
-LIB_EXPORT uint32_t leListWheelWidget_GetVisibleItemCount(leListWheelWidget* whl);
 
 // *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_SetVisibleItemCount(leListWheelWidget* whl,
-                                                   uint32_t cnt)
+/* Virtual Member Function:
+    leRelativePosition getIconPosition(const leListWheelWidget* _this)
 
   Summary:
-    Sets the number of visible items in the list.  Must be greater than or equal
-    to three and must be an odd number.
+     Gets the image icon position
 
   Description:
-
+     Gets the image icon position
 
   Parameters:
-    leListWidget* lst - the widget
-    uint32_t cnt - the desired number of items
+    const leListWheelWidget* _this - The list wheel widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getIconPosition(_this);
 
   Returns:
-    leResult - the operation result
-
-  Remarks:
-
+    leRelativePosition - the position
 */
-LIB_EXPORT leResult leListWheelWidget_SetVisibleItemCount(leListWheelWidget* whl,
-                                                          uint32_t cnt);
-
 
 // *****************************************************************************
-/* Function:
-    leRelativePosition leListWheelWidget_GetIconPosition(leListWheelWidget* whl)
+/* Virtual Member Function:
+    leResult setIconPosition(leListWheelWidget* _this,
+                             leRelativePosition pos)
 
   Summary:
-    Sets the icon position for the list wheel widget.
+     Sets the image icon position
 
   Description:
-
+     Sets the image icon position
 
   Parameters:
-    leListWheelWidget* whl - the widget
+    leListWheelWidget* _this - The list wheel widget to operate on
+    leRelativePosition pos - the position value
+
+  Remarks:
+    Usage - _this->fn->setIconPosition(_this, pos);
 
   Returns:
-    leRelativePosition - the current icon position
-
-  Remarks:
-
+    leResult - the result of the operation
 */
-LIB_EXPORT leRelativePosition leListWheelWidget_GetIconPosition(leListWheelWidget* whl);
 
 // *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_SetIconPosition(leListWheelWidget* whl,
-                                                      leRelativePosition pos)
+/* Virtual Member Function:
+    uint32_t getIconMargin(const leListWheelWidget* _this)
 
   Summary:
-    Sets the icon position for the list wheel widget
+     Gets the icon margin
 
   Description:
-
+     Gets the icon margin
 
   Parameters:
-    leListWheelWidget* whl - the widget
-    leRelativePosition pos - the relative position setting
-
-  Returns:
-    leResult - the operation result
+    const leListWheelWidget* _this - The list wheel widget to operate on
 
   Remarks:
-
-*/
-LIB_EXPORT leResult leListWheelWidget_SetIconPosition(leListWheelWidget* whl,
-                                                      leRelativePosition pos);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leListWheelWidget_GetIconMargin(leListWheelWidget* whl)
-
-  Summary:
-    Gets the icon margin value for the list wheel widget
-
-  Description:
-
-
-  Parameters:
-    leListWheelWidget* whl - the widget
+    Usage - _this->fn->getIconMargin(_this);
 
   Returns:
     uint32_t - the icon margin value
-
-  Remarks:
-
 */
-LIB_EXPORT uint32_t leListWheelWidget_GetIconMargin(leListWheelWidget* whl);
 
 // *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_SetIconMargin(leListWheelWidget* whl, uint32_t mg)
+/* Virtual Member Function:
+    leResult setIconMargin(leListWheelWidget* _this,
+                           uint32_t mg)
 
   Summary:
-    Sets the icon margin value for the list widget.
+     Sets the icon margin
 
   Description:
-    The icon margin value is the distance between the icon image and the text.
+     Sets the icon margin
 
   Parameters:
-    leListWheelWidget* whl - the widget
+    leListWheelWidget* _this - The list wheel widget to operate on
     uint32_t mg - the margin value
 
-  Returns:
-    leResult - the operation result
-
   Remarks:
-
-*/
-LIB_EXPORT leResult leListWheelWidget_SetIconMargin(leListWheelWidget* whl,
-                                                    uint32_t mg);
-
-// *****************************************************************************
-/* Function:
-    leBool leListWheelWidget_GetShowIndicators(leListWheelWidget* whl)
-
-  Summary:
-    Returns true if the list is displaying its selected item indicators
-
-  Description:
-
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-
-  Returns:
-    leBool - true if the indicators are being shown
-
-  Remarks:
-
-*/
-LIB_EXPORT leBool leListWheelWidget_GetShowIndicators(leListWheelWidget* whl);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_SetShowIndicators(leListWheelWidget* whl,
-                                                 leBool b)
-
-  Summary:
-    Configures the list to display the selected item indicator bars
-
-  Description:
-
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-    leBool b - configures the indicator bar display state
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leListWheelWidget_SetShowIndicators(leListWheelWidget* whl,
-                                                        leBool b);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leListWheelWidget_GetIndicatorArea(leListWheelWidget* whl)
-
-  Summary:
-    Returns the spacing for the selected item indicator bars.
-
-  Description:
-
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-
-  Returns:
-    uint32_t - the display area
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leListWheelWidget_GetIndicatorArea(leListWheelWidget* whl);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_SetIndicatorArea(leListWheelWidget* whl,
-                                                uint32_t area)
-
-  Summary:
-    Configures the display area for the list selection indicator bars
-
-  Description:
-    This space is measured from the middle of the widget outward.
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-    uint32_t area - the display area for the indicator bars
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leListWheelWidget_SetIndicatorArea(leListWheelWidget* whl,
-                                                       uint32_t area);
-
-// *****************************************************************************
-/* Function:
-    leBool leListWheelWidget_GetShaded(leListWheelWidget* whl)
-
-  Summary:
-    Returns true if the list is using gradient shading to illustrate depth
-
-  Description:
-
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-
-  Returns:
-    leBool - true gradient shading is being used
-
-  Remarks:
-
-*/
-LIB_EXPORT leBool leListWheelWidget_GetShaded(leListWheelWidget* whl);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_SetShaded(leListWheelWidget* whl,
-                                         leBool b)
-
-  Summary:
-    Configures the list to use gradient or flat background shading
-
-  Description:
-
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-    leBool b - true if gradient shading should be used
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leListWheelWidget_SetShaded(leListWheelWidget* whl,
-                                                leBool b);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leListWheelWidget_GetFlickInitSpeed(leListWheelWidget* whl)
-
-  Summary:
-    Returns the flick init speed for the wheel.
-
-  Description:
-
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-
-  Returns:
-    uint32_t - the flick init speed value
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leListWheelWidget_GetFlickInitSpeed(leListWheelWidget* whl);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_SetFlickInitSpeed(leListWheelWidget* whl,
-                                                 uint32_t speed)
-
-  Summary:
-    Configures the flick init speed for the list wheel
-
-  Description:
-    The flick init speed is the drag distance needed to move the wheel into
-    momentum mode.  It is the distance that must be covered from one Legato
-    update frame to another.
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-    uint32_t speed - the flick init speed value
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leListWheelWidget_SetFlickInitSpeed(leListWheelWidget* whl,
-                                                        uint32_t speed);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leListWheelWidget_GetMaxMomentum(leListWheelWidget* whl)
-
-  Summary:
-    Returns the maximum momentum value for the wheel.
-
-  Description:
-
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-
-  Returns:
-    uint32_t - the maximum momentum value.
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leListWheelWidget_GetMaxMomentum(leListWheelWidget* whl);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_SetMaxMomentum(leListWheelWidget* whl,
-                                              uint32_t max)
-
-  Summary:
-    Configures the maximum momentum value for the wheel
-
-  Description:
-    When a wheel is in momenum mode addition drag/flick gestures will add
-    more momentum to the wheel.  The maximum momentum value governs the maximum
-    speed at which the wheel can rotate at any single point in time.
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-    uint32_t max - the maximum momentum value
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leListWheelWidget_SetMaxMomentum(leListWheelWidget* whl,
-                                                     uint32_t max);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leListWheelWidget_GetMomentumFalloffRate(leListWheelWidget* whl)
-
-  Summary:
-    Returns the momentum falloff rate for the wheel.
-
-  Description:
-
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-
-  Returns:
-    uint32_t - the momentum falloff rate value.
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leListWheelWidget_GetMomentumFalloffRate(leListWheelWidget* whl);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_SetMomentumFalloffRate(leListWheelWidget* whl,
-                                                      uint32_t rate)
-
-  Summary:
-    Configures the momentum falloff rate for the wheel
-
-  Description:
-    When a wheel is in momenum mode and during each rotation update tick the
-    wheel will reduce its current momentum value by this falloff percentage.
-    The higher this value is the faster a wheel will slow down.  The wheel is
-    limited to integer math so the lowest this value can be is one.
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-    uint32_t max - the momentum falloff value
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leListWheelWidget_SetMomentumFalloffRate(leListWheelWidget* whl,
-                                                             uint32_t rate);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leListWheelWidget_GetRotationUpdateRate(leListWheelWidget* whl)
-
-  Summary:
-    Returns the wheel rotation update rate.
-
-  Description:
-
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-
-  Returns:
-    uint32_t - the rotation update rate value.
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leListWheelWidget_GetRotationUpdateRate(leListWheelWidget* whl);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_SetRotationUpdateRate(leListWheelWidget* whl,
-                                                     uint32_t ms)
-
-  Summary:
-    Configures the rotation update rate for a wheel
-
-  Description:
-    When a wheel is in momenum mode it may be too costly to update with every
-    Legato update loop call.  This value can delay a wheel update.  For instance,
-    if Legato is updating every 20ms, the wheel can be set to update every 60ms
-    and it will update approximately every three to four Legato updates.  This
-    can cut down on the number of repaints the wheel needs to perform and can
-    also slow the wheel down it if is rotating too fast for the application
-    to handle.  This value is typically expressed in milliseconds.
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-    uint32_t ms - the desired rotation update rate
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leListWheelWidget_SetRotationUpdateRate(leListWheelWidget* whl,
-                                                            uint32_t ms);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leListWheelWidget_GetItemCount(leListWheelWidget* whl)
-
-  Summary:
-    Gets the number of items currently contained in the list
-
-  Description:
-
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-
-  Returns:
-    uint32_t - the number of items in the list
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leListWheelWidget_GetItemCount(leListWheelWidget* whl);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leListWheelWidget_AppendItem(leListWheelWidget* whl)
-
-  Summary:
-    Appends a new item entry to the list.  The initial value of the item
-    will be empty.
-
-  Description:
-
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-
-  Returns:
-    uint32_t - the index of the newly appended item
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leListWheelWidget_AppendItem(leListWheelWidget* whl);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leListWheelWidget_InsertItem(leListWheelWidget* whl, uint32_t idx)
-
-  Summary:
-    Attempts to insert a new item at the desired index.  Existing items at
-    idx or greater will be shuffled one index to the right.
-
-  Description:
-
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-    uint32_t idx - the desired index of the new item
-
-  Returns:
-    uint32_t - the index of the inserted item
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leListWheelWidget_InsertItem(leListWheelWidget* whl, uint32_t idx);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_RemoveItem(leListWheelWidget* whl, uint32_t idx)
-
-  Summary:
-    Attempts to remove an item from the list.
-
-  Description:
-
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-    uint32_t idx - the index to remove from the list
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-    The memory owned by the string item will be freed automatically.
-*/
-LIB_EXPORT leResult leListWheelWidget_RemoveItem(leListWheelWidget* whl, uint32_t idx);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_RemoveAllItems(leListWheelWidget* whl)
-
-  Summary:
-    Attempts to remove all items from the list.
-
-  Description:
-
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-    All memory owned by each item string will be freed automatically.
-*/
-LIB_EXPORT leResult leListWheelWidget_RemoveAllItems(leListWheelWidget* whl);
-
-// *****************************************************************************
-/* Function:
-    int32_t leListWheelWidget_GetSelectedItem(leListWheelWidget* whl)
-
-  Summary:
-    Returns the index of the currently selected item.
-
-  Description:
-
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-
-  Returns:
-    int32_t - the index of the selected item or -1 if an error occured
-
-  Remarks:
-
-*/
-LIB_EXPORT int32_t leListWheelWidget_GetSelectedItem(leListWheelWidget* whl);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_SetSelectedItem(leListWheelWidget* whl,
-                                               uint32_t idx)
-
-  Summary:
-    Attempts to set the selectedi tem index
-
-  Description:
-
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-    uint32_t idx - the desired selected item index
+    Usage - _this->fn->setIconMargin(_this, mg);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leListWheelWidget_SetSelectedItem(leListWheelWidget* whl,
-                                                      uint32_t idx);
 
 // *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_SelectPreviousItem(leListWheelWidget* whl)
+/* Virtual Member Function:
+    leBool getShowIndicators(const leListWheelWidget* _this)
 
   Summary:
-    Attempts to move the selected item index to the previous item in the list.
+     Indicates if the selection indicators should be drawn
 
   Description:
-
+     Indicates if the selection indicators should be drawn
 
   Parameters:
-    leListWheelWidget* whl - the widget
+    const leListWheelWidget* _this - The list wheel widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getShowIndicators(_this);
+
+  Returns:
+    leBool - the setting value
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setShowIndicators(leListWheelWidget* _this,
+                               leBool b)
+
+  Summary:
+     Set the draw indicator setting value
+
+  Description:
+     Set the draw indicator setting value
+
+  Parameters:
+    leListWheelWidget* _this - The list wheel widget to operate on
+    leBool b - the setting value
+
+  Remarks:
+    Usage - _this->fn->setShowIndicators(_this, b);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leListWheelWidget_SelectPreviousItem(leListWheelWidget* whl);
 
 // *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_SelectNextItem(leListWheelWidget* whl)
+/* Virtual Member Function:
+    uint32_t getIndicatorArea(const leListWheelWidget* _this)
 
   Summary:
-    Attempts to move the selected item index to the next item in the list.
+     Gets the area of the selection indicators
 
   Description:
-
+     Gets the area of the selection indicators
 
   Parameters:
-    leListWheelWidget* whl - the widget
+    const leListWheelWidget* _this - The list wheel widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getIndicatorArea(_this);
+
+  Returns:
+    uint32_t - the area value
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setIndicatorArea(leListWheelWidget* _this,
+                              uint32_t area)
+
+  Summary:
+     Sets the area of hte selection indicators
+
+  Description:
+     Sets the area of hte selection indicators
+
+  Parameters:
+    leListWheelWidget* _this - The list wheel widget to operate on
+    uint32_t area - the area value
+
+  Remarks:
+    Usage - _this->fn->setIndicatorArea(_this, area);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leListWheelWidget_SelectNextItem(leListWheelWidget* whl);
 
 // *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_GetItemString(leListWheelWidget* whl,
-                                           uint32_t idx,
-                                           leString* str)
+/* Virtual Member Function:
+    leBool getShaded(const leListWheelWidget* _this)
 
   Summary:
-    Gets the text value for an item in the list.
+     Gets the shaded setting value
 
   Description:
-    This function allocates memory and initializes the input string pointer.  The
-    caller is responsible for managing the memory once this function returns.
+     Gets the shaded setting value
 
   Parameters:
-    leListWheelWidget* whl - the widget
-    uint32_t idx - the index to consider
-    leString* str - a pointer to an leString object
+    const leListWheelWidget* _this - The list wheel widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getShaded(_this);
 
   Returns:
-    leResult - the operation result
-
-  Remarks:
-
+    leBool - the setting value
 */
-LIB_EXPORT leResult leListWheelWidget_GetItemString(leListWheelWidget* whl,
-                                                  uint32_t idx,
-                                                  leString* str);
 
 // *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_SetItemString(leListWheelWidget* whl,
-                                           uint32_t index,
-                                           leString str)
+/* Virtual Member Function:
+    leResult setShaded(leListWheelWidget* _this,
+                       leBool b)
 
   Summary:
-    Sets the text value for an item in the list.
+     Sets the shaded setting value
 
   Description:
-    This function copies the contents of the input string into its internal
-    string buffer.  The input string can then be freed or altered without
-    affecting the label's internal string value.
+     Sets the shaded setting value
 
   Parameters:
-    leListWheelWidget* whl - the widget
-    uint32_t idx - the index to consider
-    leString str - an leString object
-
-  Returns:
-    leResult - the operation result
+    leListWheelWidget* _this - The list wheel widget to operate on
+    leBool b - the setting value
 
   Remarks:
-
-*/
-LIB_EXPORT leResult leListWheelWidget_SetItemString(leListWheelWidget* whl,
-                                                  uint32_t index,
-                                                  leString str);
-
-
-// *****************************************************************************
-/* Function:
-    leImage* leListWheelWidget_GetItemIcon(leListWheelWidget* whl,
-                                                   uint32_t index)
-
-  Summary:
-    Gets the pointer to the image asset for the icon for the item at the given
-    index.
-
-  Description:
-
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-    uint32_t idx - the index to consider
-
-  Returns:
-    leImage* - the image asset pointer or NULL
-
-  Remarks:
-
-*/
-LIB_EXPORT leImage* leListWheelWidget_GetItemIcon(leListWheelWidget* whl,
-                                                          uint32_t index);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_SetItemIcon(leListWheelWidget* whl,
-                                           uint32_t index,
-                                           leImage* img)
-
-  Summary:
-    Sets the icon pointer for a given index.
-
-  Description:
-
-
-  Parameters:
-    leListWheelWidget* whl - the widget
-    uint32_t idx - the index to configure
-    leImage* - the image asset pointer to use as the icon
+    Usage - _this->fn->setShaded(_this, b);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leListWheelWidget_SetItemIcon(leListWheelWidget* whl,
-                                                  uint32_t index,
-                                                  leImage* img);
-
-
 
 // *****************************************************************************
-/* Function:
-    leListWheelWidget_SelectedItemChangedEvent leListWheelWidget_GetSelectedItemChangedEventCallback(leListWheelWidget* whl)
+/* Virtual Member Function:
+    uint32_t getFlickInitSpeed(const leListWheelWidget* _this)
 
   Summary:
-    Gets the callback for the item selected changed event
+     Gets the flick init speed
 
   Description:
-
+     Gets the flick init speed
 
   Parameters:
-    leListWheelWidget* whl - the widget
-
-  Returns:
-    leListWheelWidget_SelectedItemChangedEvent - the current pointer to the callback or NULL
+    const leListWheelWidget* _this - The list wheel widget to operate on
 
   Remarks:
+    Usage - _this->fn->getFlickInitSpeed(_this);
 
+  Returns:
+    uint32_t - the speed value
 */
-LIB_EXPORT leListWheelWidget_SelectedItemChangedEvent leListWheelWidget_GetSelectedItemChangedEventCallback(leListWheelWidget* whl);
 
 // *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_SetSelectedItemChangedEventCallback(leListWheelWidget* whl,
-                                                                   leListWheelWidget_SelectedItemChangedEvent cb)
+/* Virtual Member Function:
+    leResult setFlickInitSpeed(leListWheelWidget* _this,
+                               uint32_t sp)
 
   Summary:
-
+     Sets the flick init speed
 
   Description:
-    This callback is called whenver the wheel's selected item changes.
+     Sets the flick init speed
 
   Parameters:
-    leListWheelWidget* whl - the widget
-    leListWheelWidget_SelectedItemChangedEvent - the desired pointer to callback or NULL
-
-  Returns:
-    leResult - the operation result
+    leListWheelWidget* _this - The list wheel widget to operate on
+    uint32_t sp - the speed value
 
   Remarks:
+    Usage - _this->fn->setFlickInitSpeed(_this, sp);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leListWheelWidget_SetSelectedItemChangedEventCallback(leListWheelWidget* whl,
-                                                                          leListWheelWidget_SelectedItemChangedEvent cb);
 
 // *****************************************************************************
-/* Function:
-    leListWheelIndicatorFill leListWheelWidget_GetIndicatorFill(leListWheelWidget* whl)
+/* Virtual Member Function:
+    uint32_t getMaxMomentum(const leListWheelWidget* _this)
 
   Summary:
-    Gets the indicator area fill type
+     Get the max momentum value
 
   Description:
-
+     Get the max momentum value
 
   Parameters:
-    leListWheelWidget* whl - the widget
-
-  Returns:
-    leListWheelIndicatorFill - the indicator area fill type
+    const leListWheelWidget* _this - The list wheel widget to operate on
 
   Remarks:
+    Usage - _this->fn->getMaxMomentum(_this);
 
+  Returns:
+    uint32_t - the value
 */
-LIB_EXPORT leListWheelIndicatorFill leListWheelWidget_GetIndicatorFill(leListWheelWidget* whl);
 
 // *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_SetIndicatorFill(leListWheelWidget* whl, leListWheelIndicatorFill fill)
+/* Virtual Member Function:
+    leResult setMaxMomentum(leListWheelWidget* _this,
+                            uint32_t max)
 
   Summary:
-    Sets the indicator fill type
+     Sets the max momentum value
 
   Description:
-    Sets the indicator fill type
+     Sets the max momentum value
 
   Parameters:
-    leListWheelWidget* whl - the widget
-    leListWheelIndicatorFill fill - fill type
-
-  Returns:
-    leResult - the operation result
+    leListWheelWidget* _this - The list wheel widget to operate on
+    uint32_t max - the maximum value
 
   Remarks:
+    Usage - _this->fn->setMaxMomentum(_this, max);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leListWheelWidget_SetIndicatorFill(leListWheelWidget* whl, leListWheelIndicatorFill fill);
 
 // *****************************************************************************
-/* Function:
-    leListWheelZoomEffects leListWheelWidget_GetZoomEffects(leListWheelWidget* whl)
+/* Virtual Member Function:
+    uint32_t getMomentumFalloffRate(const leListWheelWidget* _this)
 
   Summary:
-    Gets the list wheel zoom effect
+     Gets the momentum falloff rate
 
   Description:
-
+     Gets the momentum falloff rate
 
   Parameters:
-    leListWheelWidget* whl - the widget
-
-  Returns:
-    leListWheelZoomEffects - the list wheel zoom effect type
+    const leListWheelWidget* _this - The list wheel widget to operate on
 
   Remarks:
+    Usage - _this->fn->getMomentumFalloffRate(_this);
 
+  Returns:
+    uint32_t - the value
 */
-LIB_EXPORT leListWheelZoomEffects leListWheelWidget_GetZoomEffects(leListWheelWidget* whl);
 
 // *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_SetZoomEffects(leListWheelWidget* whl, leListWheelZoomEffects zoomEffects)
+/* Virtual Member Function:
+    leResult setMomentumFalloffRate(leListWheelWidget* _this,
+                                    uint32_t percent)
 
   Summary:
-    Sets the list wheel zoom effect
+     Sets the momentum falloff rate
 
   Description:
-    Sets the list wheel zoom effect
+     Sets the momentum falloff rate
 
   Parameters:
-    leListWheelWidget* whl - the widget
-    leListWheelZoomEffects zoomEffects - the zoom effect
-
-  Returns:
-    leResult - the operation result
+    leListWheelWidget* _this - The list wheel widget to operate on
+    uint32_t percent - the value
 
   Remarks:
+    Usage - _this->fn->setMomentumFalloffRate(_this, percent);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leListWheelWidget_SetZoomEffects(leListWheelWidget* whl, leListWheelZoomEffects zoomEffects);
 
 // *****************************************************************************
-/* Function:
-    leListWheelIndicatorFill leListWheelWidget_GetAutoHideWheel(leListWheelWidget* whl)
+/* Virtual Member Function:
+    uint32_t getRotationUpdateRate(const leListWheelWidget* _this)
 
   Summary:
-    Returns the list wheel auto hide setting
+     Gets the rotation update rate
 
   Description:
-
+     Gets the rotation update rate
 
   Parameters:
-    leListWheelWidget* whl - the widget
-
-  Returns:
-    leBool - true if the list wheel is set to auto hide
+    const leListWheelWidget* _this - The list wheel widget to operate on
 
   Remarks:
+    Usage - _this->fn->getRotationUpdateRate(_this);
 
+  Returns:
+    uint32_t - the value
 */
-LIB_EXPORT leBool leListWheelWidget_GetAutoHideWheel(leListWheelWidget* whl);
 
 // *****************************************************************************
-/* Function:
-    leResult leListWheelWidget_SetAutoHideWheel(leListWheelWidget* whl, leBool autoHide)
+/* Virtual Member Function:
+    leResult setRotationUpdateRate(leListWheelWidget* _this,
+                                   uint32_t ms)
 
   Summary:
-    Sets the list wheel to auto hide when not active
+     Sets the rotation update rate
 
   Description:
-    Sets the list wheel to auto hide when not active
+     Sets the rotation update rate
 
   Parameters:
-    leListWheelWidget* whl - the widget
-    leBool autoHide - sets the list wheel to auto hide
-
-  Returns:
-    leResult - the operation result
+    leListWheelWidget* _this - The list wheel widget to operate on
+    uint32_t ms - the value
 
   Remarks:
+    Usage - _this->fn->setRotationUpdateRate(_this, ms);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leListWheelWidget_SetAutoHideWheel(leListWheelWidget* whl, leBool autoHide);
 
-// DOM-IGNORE-BEGIN
-// internal use only
-void _leListWheelWidget_GetItemTextRect(leListWheelWidget* whl,
-                                        uint32_t idx,
-                                        uint32_t pos,
-                                        leRect* textRect,
-                                        leRect* drawRect);
+// *****************************************************************************
+/* Virtual Member Function:
+    uint32_t getItemCount(const leListWheelWidget* _this)
 
-// internal use only
-void _leListWheelWidget_GetItemIconRect(leListWheelWidget* whl,
-                                        uint32_t idx,
-                                        uint32_t pos,
-                                        leRect* imgRect,
-                                        leRect* imgSrcRect);
-// DOM-IGNORE-END
+  Summary:
+     Gets the total item count
 
-#endif
+  Description:
+     Gets the total item count
+
+  Parameters:
+    const leListWheelWidget* _this - The list wheel widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getItemCount(_this);
+
+  Returns:
+    uint32_t - the item count value
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    int32_t appendItem(leListWheelWidget* _this)
+
+  Summary:
+     Appends an item to the list
+
+  Description:
+     Appends an item to the list
+
+  Parameters:
+    leListWheelWidget* _this - The list wheel widget to operate on
+
+  Remarks:
+    Usage - _this->fn->appendItem(_this);
+
+  Returns:
+    int32_t - the index of the appended item
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    int32_t insertItem(leListWheelWidget* _this,
+                       int32_t idx)
+
+  Summary:
+     Inserts an item into the list
+
+  Description:
+     Inserts an item into the list
+
+  Parameters:
+    leListWheelWidget* _this - The list wheel widget to operate on
+    int32_t idx - the index
+
+  Remarks:
+    Usage - _this->fn->insertItem(_this, idx);
+
+  Returns:
+    int32_t - the index of the appended item
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult removeItem(leListWheelWidget* _this,
+                        int32_t idx)
+
+  Summary:
+     Removes an item from the list
+
+  Description:
+     Removes an item from the list
+
+  Parameters:
+    leListWheelWidget* _this - The list wheel widget to operate on
+    int32_t idx - the index
+
+  Remarks:
+    Usage - _this->fn->removeItem(_this, idx);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult removeAllItems(leListWheelWidget* _this)
+
+  Summary:
+     Removes all items from the list
+
+  Description:
+     Removes all items from the list
+
+  Parameters:
+    leListWheelWidget* _this - The list wheel widget to operate on
+
+  Remarks:
+    Usage - _this->fn->removeAllItems(_this);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    int32_t getSelectedItem(const leListWheelWidget* _this)
+
+  Summary:
+     Gets the selected item
+
+  Description:
+     Gets the selected item
+
+  Parameters:
+    const leListWheelWidget* _this - The list wheel widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getSelectedItem(_this);
+
+  Returns:
+    int32_t - the index of the selected item
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setSelectedItem(leListWheelWidget* _this,
+                             int32_t idx)
+
+  Summary:
+     Sets the selected item
+
+  Description:
+     Sets the selected item
+
+  Parameters:
+    leListWheelWidget* _this - The list wheel widget to operate on
+    int32_t idx - the index
+
+  Remarks:
+    Usage - _this->fn->setSelectedItem(_this, idx);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult selectPreviousItem(leListWheelWidget* _this)
+
+  Summary:
+     Selects the previous item
+
+  Description:
+     Selects the previous item
+
+  Parameters:
+    leListWheelWidget* _this - The list wheel widget to operate on
+
+  Remarks:
+    Usage - _this->fn->selectPreviousItem(_this);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult selectNextItem(leListWheelWidget* _this)
+
+  Summary:
+     Selects the next item
+
+  Description:
+     Selects the next item
+
+  Parameters:
+    leListWheelWidget* _this - The list wheel widget to operate on
+
+  Remarks:
+    Usage - _this->fn->selectNextItem(_this);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leString* getItemString(const leListWheelWidget* _this,
+                            int32_t idx)
+
+  Summary:
+     Gets the string pointer for an item
+
+  Description:
+     Gets the string pointer for an item
+
+  Parameters:
+    const leListWheelWidget* _this - The list wheel widget to operate on
+    int32_t idx - the index
+
+  Remarks:
+    Usage - _this->fn->getItemString(_this, idx);
+
+  Returns:
+    leString* - the string pointer
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setItemString(leListWheelWidget* _this,
+                           int32_t idx,
+                           const leString* str)
+
+  Summary:
+     Sets the string pointer for an item
+
+  Description:
+     Sets the string pointer for an item
+
+  Parameters:
+    leListWheelWidget* _this - The list wheel widget to operate on
+    int32_t idx - the index
+    const leString* str - the string pointer
+
+  Remarks:
+    Usage - _this->fn->setItemString(_this, idx, str);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leImage* getItemIcon(const leListWheelWidget* _this,
+                         int32_t idx)
+
+  Summary:
+     Gets the image pointer for an item
+
+  Description:
+     Gets the image pointer for an item
+
+  Parameters:
+    const leListWheelWidget* _this - The list wheel widget to operate on
+    int32_t idx - the index
+
+  Remarks:
+    Usage - _this->fn->getItemIcon(_this, idx);
+
+  Returns:
+    leImage* - the image pointer
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setItemIcon(leListWheelWidget* _this,
+                         int32_t idx,
+                         const leImage* img)
+
+  Summary:
+     Sets the image pointer for an item
+
+  Description:
+     Sets the image pointer for an item
+
+  Parameters:
+    leListWheelWidget* _this - The list wheel widget to operate on
+    int32_t idx - the index
+    const leImage* img - the image pointer
+
+  Remarks:
+    Usage - _this->fn->setItemIcon(_this, idx, img);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leListWheelWidget_SelectedItemChangedEvent getSelectedItemChangedEventCallback(const leListWheelWidget* _this)
+
+  Summary:
+     Gets the selected item changed event callback pointer.
+
+  Description:
+     Gets the selected item changed event callback pointer.
+
+  Parameters:
+    const leListWheelWidget* _this - The list wheel widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getSelectedItemChangedEventCallback(_this);
+
+  Returns:
+    leListWheelWidget_SelectedItemChangedEvent - the callback pointer
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setSelectedItemChangedEventCallback(leListWheelWidget* _this,
+                                                 leListWheelWidget_SelectedItemChangedEvent cb)
+
+  Summary:
+     Sets the selected item changed event callback pointer.
+
+  Description:
+     Sets the selected item changed event callback pointer.
+
+  Parameters:
+    leListWheelWidget* _this - The list wheel widget to operate on
+    leListWheelWidget_SelectedItemChangedEvent cb - the callback pointer
+
+  Remarks:
+    Usage - _this->fn->setSelectedItemChangedEventCallback(_this, cb);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leListWheelIndicatorFill getIndicatorFill(const leListWheelWidget* _this)
+
+  Summary:
+     Gets the indicator fill setting value
+
+  Description:
+     Gets the indicator fill setting value
+
+  Parameters:
+    const leListWheelWidget* _this - The list wheel widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getIndicatorFill(_this);
+
+  Returns:
+    leListWheelIndicatorFill - the setting value
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setIndicatorFill(leListWheelWidget* _this,
+                              leListWheelIndicatorFill fill)
+
+  Summary:
+     Sets the indicator fill setting value
+
+  Description:
+     Sets the indicator fill setting value
+
+  Parameters:
+    leListWheelWidget* _this - The list wheel widget to operate on
+    leListWheelIndicatorFill fill - the setting value
+
+  Remarks:
+    Usage - _this->fn->setIndicatorFill(_this, fill);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leListWheelZoomEffects getZoomEffects(const leListWheelWidget* _this)
+
+  Summary:
+     Gets the current zoom effects
+
+  Description:
+     Gets the current zoom effects
+
+  Parameters:
+    const leListWheelWidget* _this - The list wheel widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getZoomEffects(_this);
+
+  Returns:
+    leListWheelZoomEffects - the setting value
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setZoomEffects(leListWheelWidget* _this,
+                            leListWheelZoomEffects zfx)
+
+  Summary:
+     Sets the zoom effects value
+
+  Description:
+     Sets the zoom effects value
+
+  Parameters:
+    leListWheelWidget* _this - The list wheel widget to operate on
+    leListWheelZoomEffects zfx - the setting value
+
+  Remarks:
+    Usage - _this->fn->setZoomEffects(_this, zfx);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leBool getAutoHideWheel(const leListWheelWidget* _this)
+
+  Summary:
+     Gets the wheel auto-hide setting
+
+  Description:
+     Gets the wheel auto-hide setting
+
+  Parameters:
+    const leListWheelWidget* _this - The list wheel widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getAutoHideWheel(_this);
+
+  Returns:
+    leBool - the setting value
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setAutoHideWheel(leListWheelWidget* _this,
+                              leBool b)
+
+  Summary:
+     Sets the wheel auto-hide setting
+
+  Description:
+     Sets the wheel auto-hide setting
+
+  Parameters:
+    leListWheelWidget* _this - The list wheel widget to operate on
+    leBool b - the setting value
+
+  Remarks:
+    Usage - _this->fn->setAutoHideWheel(_this, b);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+
 
 #endif // LE_LISTWHEEL_WIDGET_ENABLED
 #endif /* LEGATO_LISTWHEELWIDGET_H */

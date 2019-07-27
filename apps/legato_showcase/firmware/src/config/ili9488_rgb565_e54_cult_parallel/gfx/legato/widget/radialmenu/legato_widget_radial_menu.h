@@ -235,594 +235,566 @@ typedef struct leRadialMenuWidget
     leRadialMenuWidget*
     
   Remarks:
-    
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leRadialMenuWidget* leRadialMenuWidget_New();
 
+/* Function:
+    void leRadialMenuWidget_Constructor(leRadialMenuWidget* wgt)
+
+  Summary:
+    Initializes an leRadialMenuWidget widget pointer.
+
+  Description:
+    Initializes an leRadialMenuWidget widget pointer.
+
+  Parameters:
+    leRadialMenuWidget* wgt - the pointer to initialize
+
+  Returns:
+    void
+
+  Remarks:
+
+*/
 LIB_EXPORT void leRadialMenuWidget_Constructor(leRadialMenuWidget* rad);
 
-#if 0
-
 // *****************************************************************************
-/* Function:
-    leBool leRadialMenuWidget_IsProminent(leRadialMenuWidget* mn, leWidget* widget)
+/* Virtual Member Function:
+    leBool isProminent(const leRadialMenuWidget* _this,
+                       const leWidget* widget)
 
   Summary:
-    Returns true if this radial menu item is currently in the primary selectable position
+     Evaluates a widget to see if it is the prominent widget
 
   Description:
-    
+     Evaluates a widget to see if it is the prominent widget
 
   Parameters:
-    leRadialMenuWidget* mn - the radial menu widget
-	leWidget* mn - the item widget to inspect
+    const leRadialMenuWidget* _this - The radial menu bar widget to operate on
+    const leWidget* widget -
+
+  Remarks:
+    Usage - _this->fn->isProminent(_this, widget);
 
   Returns:
-    leBool - true if this widget is currently prominent
-    
-  Remarks:
-    
+    leBool - the prominent indicator
 */
-LIB_EXPORT leBool leRadialMenuWidget_IsProminent(leRadialMenuWidget* mn, leWidget* widget);
 
 // *****************************************************************************
-/* Function:
-    leResult leRadialMenuWidget_SetProminent(leRadialMenuWidget* mn, leWidget* widget)
+/* Virtual Member Function:
+    leResult setProminent(leRadialMenuWidget* _this,
+                          const leWidget* widget)
 
   Summary:
-    Sets this widget as prominent.
+     Sets a widget as prominent
 
   Description:
-    If this widget belongs to a radial menu then this function will
-    cycle the radial menu to show the widget in the primary selectable position.
+     Sets a widget as prominent
 
   Parameters:
-  leRadialMenuWidget* mn - the radial menu widget
-  leWidget* widget - the item widget to show prominence
+    leRadialMenuWidget* _this - The radial menu bar widget to operate on
+    const leWidget* widget - the widget to test
+
+  Remarks:
+    Usage - _this->fn->setProminent(_this, widget);
 
   Returns:
-    leResult - the operation result
-    
-  Remarks:
-    
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leRadialMenuWidget_SetProminent(leRadialMenuWidget* mn, leWidget* widget);
 
 // *****************************************************************************
-/* Function:
-    int32_t leRadialMenuWidget_GetProminentIndex(leRadialMenuWidget* mn)
+/* Virtual Member Function:
+    int32_t getProminentIndex(const leRadialMenuWidget* _this)
 
   Summary:
-    Gets the index of the widget within the radial menu that is prominent
+     Gets the prominent item index
 
   Description:
-    Returns the index of the widget that is in the primary selectable position.
+     Gets the prominent item index
 
   Parameters:
-    leRadialMenuWidget* mn - the radial menu widget
+    const leRadialMenuWidget* _this - The radial menu bar widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getProminentIndex(_this);
 
   Returns:
-    int32_t - the index of the widget, returns -1 if there is a failure
-    
-  Remarks:
-    
+    int32_t - the prominent index
 */
-LIB_EXPORT int32_t leRadialMenuWidget_GetProminentIndex(leRadialMenuWidget* mn);
 
 // *****************************************************************************
-/* Function:
-    leResult leRadialMenuWidget_SetNumberOfItemsShown(leRadialMenuWidget* mn, int32_t num)
+/* Virtual Member Function:
+    leResult setProminentIndex(leRadialMenuWidget* _this,
+                               int32_t index)
 
   Summary:
-    Sets the number of items visible on the menu
+     Sets the prominent item index
 
   Description:
-    Sets the number of items visible on the menu, this number can be less than or equal to
-    the total number of items
+     Sets the prominent item index
 
   Parameters:
-    leRadialMenuWidget* mn - the radial menu widget
-    int32_t num - the number of widgets shown
+    leRadialMenuWidget* _this - The radial menu bar widget to operate on
+    int32_t index - the desired prominent index
+
+  Remarks:
+    Usage - _this->fn->setProminentIndex(_this, index);
 
   Returns:
-    leResult - the operation result
-    
-  Remarks:
-    
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leRadialMenuWidget_SetNumberOfItemsShown(leRadialMenuWidget* mn, int32_t num);
 
 // *****************************************************************************
-/* Function:
-    leResult leRadialMenuWidget_SetProminentIndex(leRadialMenuWidget* mn, int32_t index)
+/* Virtual Member Function:
+    leResult setNumberOfItemsShown(leRadialMenuWidget* _this,
+                                   uint32_t cnt)
 
   Summary:
-    Sets a widget with index within the radial menu as prominent
+     Sets the number of items shown
 
   Description:
-    If the index supplied is within the range of widgets within te radial menu then 
-    this function will cycle the radial menu to show the widget 
-    in the primary selectable position.
+     Sets the number of items shown
 
   Parameters:
-    leRadialMenuWidget* mn - the radial menu widget
-    int32_t index - the item widget to show prominence
+    leRadialMenuWidget* _this - The radial menu bar widget to operate on
+    uint32_t cnt - the item count
+
+  Remarks:
+    Usage - _this->fn->setNumberOfItemsShown(_this, cnt);
 
   Returns:
-    leResult - the operation result
-    
-  Remarks:
-    
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leRadialMenuWidget_SetProminentIndex(leRadialMenuWidget* mn, uint32_t index);
 
 // *****************************************************************************
-/* Function:
-    leResult leRadialMenuWidget_SetHighlightProminent(leRadialMenuWidget* mn, leBool enable)
+/* Virtual Member Function:
+    leResult setHighlightProminent(leRadialMenuWidget* _this,
+                                   leBool hl)
 
   Summary:
-    Sets the item widget to highlight when it is at the prominent location
+     Sets the highlight prominent setting value
 
   Description:
-    This tells the radial menu widget to enable/disable the ability for the prominent item widget to be
-    highlighted when it comes to rest at the prominent location.
- 
+     Sets the highlight prominent setting value
+
   Parameters:
-    leRadialMenuWidget* mn - the radial menu widget
-    leBool enable - the item widget to highlight when prominent
+    leRadialMenuWidget* _this - The radial menu bar widget to operate on
+    leBool hl - the setting value
+
+  Remarks:
+    Usage - _this->fn->setHighlightProminent(_this, hl);
 
   Returns:
-    leResult - the operation result
-    
-  Remarks:
-    
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leRadialMenuWidget_SetHighlightProminent(leRadialMenuWidget* mn, leBool enable);
 
 // *****************************************************************************
-/* Function:
-    int32_t leRadialMenuWidget_GetTheta(leRadialMenuWidget* mn)
+/* Virtual Member Function:
+    int32_t getTheta(const leRadialMenuWidget* _this)
 
   Summary:
-    Gets the theta value for the radial menu.
+     Gets the menu ellipse rotation coefficient
 
   Description:
-    This function returns the current value of theta
+     Gets the menu ellipse rotation coefficient
 
   Parameters:
-    leRadialMenuWidget* mn - the widget
-    
-  Returns:
-    leResult - the operation result
-    
+    const leRadialMenuWidget* _this - The radial menu bar widget to operate on
+
   Remarks:
-    
+    Usage - _this->fn->getTheta(_this);
+
+  Returns:
+    int32_t - the theta value
 */
-LIB_EXPORT int32_t leRadialMenuWidget_GetTheta(leRadialMenuWidget* mn);
 
 // *****************************************************************************
-/* Function:
-    leResult leRadialMenuWidget_SetTheta(leRadialMenuWidget* mn,
-                                         int32_t theta)
+/* Virtual Member Function:
+    leResult setTheta(leRadialMenuWidget* _this,
+                      int32_t tht)
 
   Summary:
-    Sets the theta value for the radial menu.
+     Sets the menu ellipse rotation coefficient
 
   Description:
-    This function sets the theta (angle of rotation of the ellipse)
+     Sets the menu ellipse rotation coefficient
 
   Parameters:
-    leRadialMenuWidget* mn - the widget
-    int32_t theta - angle in degrees of rotation relative to the y-axis of the ellipse
-    
-  Returns:
-    leResult - the operation result
-    
-  Remarks:
-    
-*/                                             
-LIB_EXPORT leResult leRadialMenuWidget_SetTheta(leRadialMenuWidget* mn,
-                                                int32_t theta);
-
-
-// *****************************************************************************
-/* Function:
-    leResult leRadialMenuWidget_SetEllipseType(leRadialMenuWidget* mn,
-                                               leRadialMenuEllipseType type)
-
-  Summary:
-    Sets the ellipse type for the radial menu track.
-
-  Description:
-    This function sets the ellipse type for the radial menu.  There are three types:
-    DEFAULT - the elliptical track is best-fit based on the width and height of the 
-              radial menu widget and all the item widgets with scaling factored in.
-              The theta angle value is used for the ellipse but only in a limited way.
-    ORBITAL - the elliptical track is flatter and factors in the theta angle value more.
-              Some of the items may be clipped out of the widget area depending on the 
-              size of radial widget and the theta angle
-    ROLLODEX - the elliptical track is vertical in-nature and visually simular to a rollodex
-
-  Parameters:
-    leRadialMenuWidget* mn - the widget
-    leRadialMenuEllipseType type - type of ellipse
-    
-  Returns:
-    leResult - the operation result
-    
-  Remarks:
-    
-*/                                             
-LIB_EXPORT leResult leRadialMenuWidget_SetEllipseType(leRadialMenuWidget* mn,
-                                                      leRadialMenuEllipseType type);
-
-
-// *****************************************************************************
-/* Function:
-    leWidget* leRadialMenuWidget_GetWidget(leRadialMenuWidget* mn, int32_t index)
-
-  Summary:
-    Gets the pointer for the widget by index
-
-  Description:
-    Returns the pointer to the widget
-
-  Parameters:
-    leRadialMenuWidget* mn - the radial menu widget
-	uint32_t index - index value
-
-  Returns:
-    leWidget* - the pointer to the widget at the index value on the list
-	Returns NULL if the index is out-of-range of the current list
-    
-  Remarks:
-    
-*/    
-LIB_EXPORT leWidget* leRadialMenuWidget_GetWidget(leRadialMenuWidget* mn, uint32_t index);
-
-// *****************************************************************************
-/* Function:
-    leResult leRadialMenuWidget_SetWidgetAt(leRadialMenuWidget* mn, 
-											leWidget* widget,
-											int32_t index)
-
-  Summary:
-    Insert a widget to the radial menu at the index specified
-
-  Description:
-    
-
-  Parameters:
-    leRadialMenuWidget* mn - the widget
-	leWidget* widget - the item widget 
-	uint32_t index - index value
-    
-  Returns:
-    leResult - the operation result, returns LE_SUCCESS if the set was successful
-				returns fail if the index value is out of the range of the widget list
-
-    
-  Remarks:
-    
-*/    
-LIB_EXPORT leResult leRadialMenuWidget_SetWidgetAt(leRadialMenuWidget* mn,
-                                                   leWidget* widget,
-                                                   uint32_t index);
-
-// *****************************************************************************
-/* Function:
-    leResult leRadialMenuWidget_AddWidget(leRadialMenuWidget* mn, leWidget* widget)
-
-  Summary:
-    Add a widget to the radial menu
-
-  Description:
-    Adds a widget for the radial menu to manage, increments the total item count
-
-  Parameters:
-    leRadialMenuWidget* mn - the radial menu widget
-	leWidget* widget - the item widget
-
-  Returns:
-	leResult - the operation result
+    leRadialMenuWidget* _this - The radial menu bar widget to operate on
+    int32_t tht - the theta value
 
   Remarks:
-    
-*/    
-LIB_EXPORT leResult leRadialMenuWidget_AddWidget(leRadialMenuWidget* mn, leWidget* widget);
+    Usage - _this->fn->setTheta(_this, tht);
 
-// *****************************************************************************
-/* Function:
-	leResult leRadialMenuWidget_RemoveWidget(leRadialMenuWidget* mn, leWidget* widget)
-
-   Summary:
-	Removes a widget to the radial menu
-
-   Description:
-	Removes a widget for the radial menu to manage, decrements the total item count
-
-   Parameters:
-	leRadialMenuWidget* mn - the radial menu widget
-	leWidget* widget - the item widget
-
-   Returns:
-	leResult - the operation result, returns LE_FAIL if a match is not found
-
-   Remarks:
-
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leRadialMenuWidget_RemoveWidget(leRadialMenuWidget* mn, leWidget* widget);
 
 // *****************************************************************************
-/* Function:
-	leResult leRadialMenuWidget_ClearItems(leRadialMenuWidget* mn)
+/* Virtual Member Function:
+    leResult setEllipseType(leRadialMenuWidget* _this,
+                            leRadialMenuEllipseType type)
 
   Summary:
-    Clears all items in the radial menu widget
+     Sets the menu ellipse type
 
   Description:
-    Removes all items
+     Sets the menu ellipse type
 
   Parameters:
-    leRadialMenuWidget* mn - the widget
-        
-  Returns:
-    leResult - the operation result
+    leRadialMenuWidget* _this - The radial menu bar widget to operate on
+    leRadialMenuEllipseType type - the type
 
   Remarks:
-    
-*/                                                           
-LIB_EXPORT leResult leRadialMenuWidget_ClearItems(leRadialMenuWidget* mn);
+    Usage - _this->fn->setEllipseType(_this, type);
+
+  Returns:
+    leResult - the result of the operation
+*/
 
 // *****************************************************************************
-/* Function:
-    leResult leRadialMenuWidget_SetSizeScaling(leRadialMenuWidget* mn,
-                                                leRadialMenuWidgetScaleType setting)
+/* Virtual Member Function:
+    leResult addWidget(leRadialMenuWidget* _this,
+                       leWidget* wgt)
 
   Summary:
-    Enables per item size scaling for the radial menu
+     Adds a widget to the ellipse
 
   Description:
-    Enable/Disable the ability for the radial menu to scale the items sizes as they
-	travel into the background
+     Adds a widget to the ellipse
 
   Parameters:
-    leRadialMenuWidget* mn - the widget
-	leRadialMenuWidgetScaleType setting - setting flag
-    
-  Returns:
-    leResult - the operation result
-    
+    leRadialMenuWidget* _this - The radial menu bar widget to operate on
+    leWidget* wgt - the widget to add
+
   Remarks:
-    
-*/    
-LIB_EXPORT leResult leRadialMenuWidget_SetSizeScaling(leRadialMenuWidget* mn,
-														leRadialMenuWidgetScaleType setting);
+    Usage - _this->fn->addWidget(_this, wgt);
+
+  Returns:
+    leResult - the result of the operation
+*/
 
 // *****************************************************************************
-/* Function:
-    leResult leRadialMenuWidget_SetAlphaScaling(leRadialMenuWidget* mn,
-														leRadialMenuWidgetScaleType setting)
+/* Virtual Member Function:
+    leResult removeWidget(leRadialMenuWidget* _this,
+                          leWidget* wgt)
 
   Summary:
-    Enables per item alpha scaling for the radial menu
+     Removes a widget from the ellipse
 
   Description:
-    Enable/Disable the ability for the radial menu to scale the items alpha as they
-	travel into the background
+     Removes a widget from the ellipse
 
   Parameters:
-    leRadialMenuWidget* mn - the widget
-	leRadialMenuWidgetScaleType setting - setting flag
+    leRadialMenuWidget* _this - The radial menu bar widget to operate on
+    leWidget* wgt - the widget to remove
+
+  Remarks:
+    Usage - _this->fn->removeWidget(_this, wgt);
 
   Returns:
-    leResult - the operation result
-    
-  Remarks:
-    
-*/    
-LIB_EXPORT leResult leRadialMenuWidget_SetAlphaScaling(leRadialMenuWidget* mn,
-														leRadialMenuWidgetScaleType setting);
+    leResult - the result of the operation
+*/
 
 // *****************************************************************************
-/* Function:
-    leResult leRadialMenuWidget_SetSizeScaleMinMax(leRadialMenuWidget* mn, 
-														int32_t min, int32_t max)
+/* Virtual Member Function:
+    leWidget* getWidgetAtIndex(const leRadialMenuWidget* _this,
+                               int32_t idx)
 
   Summary:
-    Sets the minimum and maximum size scaling ratio in percent
+     Gets a widget at a given index
 
   Description:
-    Sets the minimum and maximum size scaling ratio for the items. These values
-	are only used if leRadialMenuWidget_SetSizeScaling is called and 
-	size scaling is enabled 
+     Gets a widget at a given index
 
   Parameters:
-    leRadialMenuWidget* mn - the widget
-	int32_t min - the minimum size scale percentage, it should be between 1 - 200
-	int32_t max - the maximum size scale percentage, it should be between 1 - 200
-
-  Returns:
-    leResult - the operation result
+    const leRadialMenuWidget* _this - The radial menu bar widget to operate on
+    int32_t idx - the index
 
   Remarks:
-    
-*/    
-LIB_EXPORT leResult leRadialMenuWidget_SetSizeScaleMinMax(leRadialMenuWidget* mn,
-															int32_t min, int32_t max);
+    Usage - _this->fn->getWidgetAtIndex(_this, idx);
+
+  Returns:
+    leWidget* - the widget
+*/
 
 // *****************************************************************************
-/* Function:
-    leResult leRadialMenuWidget_SetAlphaScaleMinMax(leRadialMenuWidget* mn, 
-														int32_t min, int32_t max)
+/* Virtual Member Function:
+    leResult setWidgetAtIndex(leRadialMenuWidget* _this,
+                              int32_t idx,
+                              leWidget* wgt)
 
   Summary:
-    Sets the minimum and maximum alpha scaling ratio
+     Sets a widget at a given index
 
   Description:
-    Sets the minimum and maximum alpha scaling ratio for the items. These values
-	are only used if leRadialMenuWidget_SetAlphaScaling is called and 
-	alpha scaling is enabled 
+     Sets a widget at a given index
 
   Parameters:
-    leRadialMenuWidget* mn - the widget
-	int32_t min - the minimum alpha scale, it should be between 0 - 255
-	int32_t max - the maximum alpha scale, it should be between 0 - 255
-
-  Returns:
-    leResult - the operation result
+    leRadialMenuWidget* _this - The radial menu bar widget to operate on
+    int32_t idx - the index
+    leWidget* wgt - the widget to set
 
   Remarks:
-    
-*/    
-LIB_EXPORT leResult leRadialMenuWidget_SetAlphaScaleMinMax(leRadialMenuWidget* mn,
-															int32_t min, int32_t max);
+    Usage - _this->fn->setWidgetAtIndex(_this, idx, wgt);
+
+  Returns:
+    leResult - the result of the operation
+*/
 
 // *****************************************************************************
-/* Function:
-    leResult leRadialMenuWidget_SetTouchArea(leRadialMenuWidget* mn, 
-                                int32_t x, int32_t y, int32_t width, int32_t height)
+/* Virtual Member Function:
+    leResult removeAllWidgets(leRadialMenuWidget* _this)
 
   Summary:
-    Sets the area that touch input is allowed within the radial menu widget
+     Removes all widgets from the menu
 
   Description:
-    Sets the area that touch input is permitted. This area has to be at or smaller
-	than the rectangular area of the entire radial menu widget.  The default is
-	the bottom half of the widget.
+     Removes all widgets from the menu
 
   Parameters:
-    leRadialMenuWidget* mn - the widget
-	leRect rect - rectangular area, x-y represents offsets in local space
-
-  Returns:
-    leResult - the operation result
+    leRadialMenuWidget* _this - The radial menu bar widget to operate on
 
   Remarks:
-    
-*/    
-LIB_EXPORT leResult leRadialMenuWidget_SetTouchArea(leRadialMenuWidget* mn,
-                                int32_t x, int32_t y, int32_t width, int32_t height);
+    Usage - _this->fn->removeAllWidgets(_this);
+
+  Returns:
+    leResult - the result of the operation
+*/
 
 // *****************************************************************************
-/* Function:
-    leResult leRadialMenuWidget_SetDrawEllipse(leRadialMenuWidget* mn, leBool enable)
+/* Virtual Member Function:
+    leResult setScaleMode(leRadialMenuWidget* _this,
+                          leRadialMenuWidgetInterpolationMode mode)
 
   Summary:
-    Enables drawing the elliptical track for the radial menu
+     Sets the menu item scaling mode
 
   Description:
-    Enable/Disable the drawing of the elliptical track of travel of the items in the 
- *  radial menu
+     Sets the menu item scaling mode
 
   Parameters:
-    leRadialMenuWidget* mn - the widget
-	leRadialMenuWidgetScaleType setting - setting flag
+    leRadialMenuWidget* _this - The radial menu bar widget to operate on
+    leRadialMenuWidgetInterpolationMode mode -
+
+  Remarks:
+    Usage - _this->fn->setScaleMode(_this, mode);
 
   Returns:
-    leResult - the operation result
-    
-  Remarks:
-    
-*/    
-LIB_EXPORT leResult leRadialMenuWidget_SetDrawEllipse(leRadialMenuWidget* mn, leBool enable);
+    leResult - the result of the operation
+*/
 
 // *****************************************************************************
-/* Function:
-    leRadialMenuWidget_ItemSelectedEvent leRadialMenuWidget_GetItemSelectedEventCallback(leRadialMenuWidget* mn)
+/* Virtual Member Function:
+    leResult setScaleRange(leRadialMenuWidget* _this,
+                           int32_t min,
+                           int32_t max)
 
   Summary:
-    Gets the current radial menu item selected event callback
+     Sets the scale range for menu items
 
   Description:
-    
+     Sets the scale range for menu items
 
   Parameters:
-    leRadialMenuWidget* mn - the widget
-        
-  Returns:
-    leRadialMenuWidget_ItemSelectedEvent - a valid callback pointer or NULL
-    
+    leRadialMenuWidget* _this - The radial menu bar widget to operate on
+    int32_t min - the minimum value
+    int32_t max - the maximum value
+
   Remarks:
-    
-*/    
-LIB_EXPORT leRadialMenuWidget_ItemSelectedEvent leRadialMenuWidget_GetItemSelectedEventCallback(leRadialMenuWidget* mn);
+    Usage - _this->fn->setScaleRange(_this, min, max);
+
+  Returns:
+    leResult - the result of the operation
+*/
 
 // *****************************************************************************
-/* Function:
-    leResult leRadialMenuWidget_SetItemSelectedEventCallback(leRadialMenuWidget* mn,
-                                                          leRadialMenuWidget_ItemSelectedEvent cb)
+/* Virtual Member Function:
+    leResult setBlendMode(leRadialMenuWidget* _this,
+                          leRadialMenuWidgetInterpolationMode mode)
 
   Summary:
-    Sets the radial menu item selected event callback
+     Sets the menu item blending mode
 
   Description:
-    This callback is called when an item widget in the radial menu becomes selected
+     Sets the menu item blending mode
 
   Parameters:
-    leRadialMenuWidget* mn - the widget
-    leRadialMenuWidget_ItemSelectedEvent - a valid callback pointer or NULL
-    
-  Returns:
-    leResult - the operation result
-    
+    leRadialMenuWidget* _this - The radial menu bar widget to operate on
+    leRadialMenuWidgetInterpolationMode mode -
+
   Remarks:
-    
-*/    
-LIB_EXPORT leResult leRadialMenuWidget_SetItemSelectedEventCallback(leRadialMenuWidget* mn,
-													leRadialMenuWidget_ItemSelectedEvent cb);
+    Usage - _this->fn->setBlendMode(_this, mode);
+
+  Returns:
+    leResult - the result of the operation
+*/
 
 // *****************************************************************************
-/* Function:
-    leRadialMenuWidget_ItemProminenceChangedEvent leRadialMenuWidget_GetItemProminenceChangeddEventCallback(leRadialMenuWidget* mn)
+/* Virtual Member Function:
+    leResult setBlendRange(leRadialMenuWidget* _this,
+                           int32_t min,
+                           int32_t max)
 
   Summary:
-    Gets the current radial menu item prominence change event callback
+     Sets the blending range
 
   Description:
-    
+     Sets the blending range
 
   Parameters:
-    leRadialMenuWidget* mn - the widget
-        
-  Returns:
-    leRadialMenuWidget_ItemProminenceChangedEvent - a valid callback pointer or NULL
-    
+    leRadialMenuWidget* _this - The radial menu bar widget to operate on
+    int32_t min - the minimum value
+    int32_t max - the maximum value
+
   Remarks:
-    
-*/    
-LIB_EXPORT leRadialMenuWidget_ItemProminenceChangedEvent leRadialMenuWidget_GetItemProminenceChangeddEventCallback(leRadialMenuWidget* mn);
+    Usage - _this->fn->setBlendRange(_this, min, max);
+
+  Returns:
+    leResult - the result of the operation
+*/
 
 // *****************************************************************************
-/* Function:
-    leResult leRadialMenuWidget_SetItemProminenceChangedEventCallback(leRadialMenuWidget* mn,
-                                                            leRadialMenuWidget_ItemProminenceChangedEvent cb)
+/* Virtual Member Function:
+    leResult setTouchArea(leRadialMenuWidget* _this,
+                          int32_t x,
+                          int32_t y,
+                          int32_t width,
+                          int32_t height)
 
   Summary:
-    Sets the deselected callback pointer
+     Sets the menu touch area
 
   Description:
-    This callback is called when this radial menu is deselected
+     Sets the menu touch area
 
   Parameters:
-    leRadialMenuWidget* mn - the widget
-    leRadialMenuWidget_DeselectedEvent - a valid callback pointer or NULL
-    
-  Returns:
-    leResult - the operation result
-    
+    leRadialMenuWidget* _this - The radial menu bar widget to operate on
+    int32_t x - the X value
+    int32_t y - the Y value
+    int32_t width - the width value
+    int32_t height - the height value
+
   Remarks:
-    
-*/    
-LIB_EXPORT leResult leRadialMenuWidget_SetItemProminenceChangedEventCallback(leRadialMenuWidget* mn,
-												leRadialMenuWidget_ItemProminenceChangedEvent cb);
+    Usage - _this->fn->setTouchArea(_this, x, y, width, height);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setDrawEllipse(leRadialMenuWidget* _this,
+                            leBool b)
+
+  Summary:
+     Sets the draw ellipse setting value
+
+  Description:
+     Sets the draw ellipse setting value
+
+  Parameters:
+    leRadialMenuWidget* _this - The radial menu bar widget to operate on
+    leBool b - the setting value
+
+  Remarks:
+    Usage - _this->fn->setDrawEllipse(_this, b);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leRadialMenuWidget_ItemSelectedEvent getItemSelectedEventCallback(const leRadialMenuWidget* _this)
+
+  Summary:
+     Gets the item selected event callback pointer
+
+  Description:
+     Gets the item selected event callback pointer
+
+  Parameters:
+    const leRadialMenuWidget* _this - The radial menu bar widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getItemSelectedEventCallback(_this);
+
+  Returns:
+    leRadialMenuWidget_ItemSelectedEvent - the callback pointer
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setItemSelectedEventCallback(leRadialMenuWidget* _this,
+                                          leRadialMenuWidget_ItemSelectedEvent cb)
+
+  Summary:
+     Sets the item selected event callback pointer
+
+  Description:
+     Sets the item selected event callback pointer
+
+  Parameters:
+    leRadialMenuWidget* _this - The radial menu bar widget to operate on
+    leRadialMenuWidget_ItemSelectedEvent cb - the callback pointer
+
+  Remarks:
+    Usage - _this->fn->setItemSelectedEventCallback(_this, cb);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leRadialMenuWidget_ItemProminenceChangedEvent getItemProminenceChangedEventCallback(const leRadialMenuWidget* _this)
+
+  Summary:
+     Gets the item prominence changed event callback pointer
+
+  Description:
+     Gets the item prominence changed event callback pointer
+
+  Parameters:
+    const leRadialMenuWidget* _this - The radial menu bar widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getItemProminenceChangedEventCallback(_this);
+
+  Returns:
+    leRadialMenuWidget_ItemProminenceChangedEvent - the callback pointer
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setItemProminenceChangedEventCallback(leRadialMenuWidget* _this,
+                                                   leRadialMenuWidget_ItemProminenceChangedEvent cb)
+
+  Summary:
+     Sets the item prominence changed event callback pointer
+
+  Description:
+     Sets the item prominence changed event callback pointer
+
+  Parameters:
+    leRadialMenuWidget* _this - The radial menu bar widget to operate on
+    leRadialMenuWidget_ItemProminenceChangedEvent cb - the callback pointer
+
+  Remarks:
+    Usage - _this->fn->setItemProminenceChangedEventCallback(_this, cb);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+
 
 // DOM-IGNORE-BEGIN
 // internal use only
 leWidgetUpdateState _leRadialMenuWidget_Update(leRadialMenuWidget* mn);
 // DOM-IGNORE-END
-
-#endif
 
 #endif // LE_RADIALMENU_WIDGET_ENABLED
 #endif /* LEGATO_RADIALMENU_H */

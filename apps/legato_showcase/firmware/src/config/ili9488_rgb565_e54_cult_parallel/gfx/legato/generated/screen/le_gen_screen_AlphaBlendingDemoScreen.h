@@ -38,14 +38,29 @@ leWidget* screenGetRoot_AlphaBlendingDemoScreen(uint32_t lyrIdx); // gets a root
 
 // event handlers
 void AlphaBlendingDemoScreen_OnShow(void);
+
 void AlphaBlendingDemoScreen_OnHide(void);
+
 void AlphaBlendingDemoScreen_OnUpdate(void);
-void SliderWidget1_OnValueChanged(leSliderWidget* sld);
-void AlphaHelpButton_OnReleased(leButtonWidget* btn);
-void AlphaHomeButton_OnReleased(leButtonWidget* btn);
-void AlphaNextButton_OnReleased(leButtonWidget* btn);
-void SliderUpButtonWidget_OnReleased(leButtonWidget* btn);
-void SliderDownButtonWidget_OnReleased(leButtonWidget* btn);
+
+void SliderWidget1_OnValueChanged(leSliderWidget* sld)
+;
+
+void AlphaHelpButton_OnReleased(leButtonWidget* btn)
+;
+
+void AlphaHomeButton_OnReleased(leButtonWidget* btn)
+;
+
+void AlphaNextButton_OnReleased(leButtonWidget* btn)
+;
+
+void SliderUpButtonWidget_OnReleased(leButtonWidget* btn)
+;
+
+void SliderDownButtonWidget_OnReleased(leButtonWidget* btn)
+;
+
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

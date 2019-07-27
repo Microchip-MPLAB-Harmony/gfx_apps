@@ -33,8 +33,12 @@ leWidget* screenGetRoot_AlphaBlendingHelpScreen(uint32_t lyrIdx); // gets a root
 
 // event handlers
 void AlphaBlendingHelpScreen_OnShow(void);
+
 void AlphaBlendingHelpScreen_OnUpdate(void);
-void AlphaHelpCloseButton_OnReleased(leButtonWidget* btn);
+
+void AlphaHelpCloseButton_OnReleased(leButtonWidget* btn)
+;
+
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

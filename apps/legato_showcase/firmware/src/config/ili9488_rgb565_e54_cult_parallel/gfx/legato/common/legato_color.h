@@ -205,6 +205,13 @@ typedef struct leColorModeInfo
     
 } leColorModeInfo;
 
+// *****************************************************************************
+/* Data Table:
+    leColorInfoTable
+
+  Summary:
+    Color information reference table
+*/
 extern const leColorModeInfo leColorInfoTable[];
 
 // *****************************************************************************

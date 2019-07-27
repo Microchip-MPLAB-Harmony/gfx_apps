@@ -59,8 +59,8 @@ typedef struct leImage leImage;
 #if LE_IMAGE_WIDGET_DEBUG_CB == 1
 typedef void (*leImageWidget_DrawEventCallback)(leImageWidget* );
 
-#define DEBUG_START_VFN void (*setDebugDrawStartCallback(THIS_TYPE* _this, leImageWidget_DrawEventCallback cb);
-#define DEBUG_END_VFN void (*setDebugDrawEndCallback(THIS_TYPE* _this, leImageWidget_DrawEventCallback cb);
+#define DEBUG_START_VFN void (*setDebugDrawStartCallback)(THIS_TYPE* _this, leImageWidget_DrawEventCallback cb);
+#define DEBUG_END_VFN void (*setDebugDrawEndCallback)(THIS_TYPE* _this, leImageWidget_DrawEventCallback cb);
 #else
 #define DEBUG_START_VFN
 #define DEBUG_END_VFN
@@ -131,56 +131,117 @@ typedef struct leImageWidget
     leImageWidget* - the widget
 
   Remarks:
-
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leImageWidget* leImageWidget_New();
 
-LIB_EXPORT leResult leImageWidget_PNew(leImageWidget* img);
-
-// *****************************************************************************
 /* Function:
-    leImage* leImageWidget_GetImage(leImageWidget* img)
+    void leImageWidget_Constructor(leImageWidget* wgt)
 
   Summary:
-    Gets the image asset pointer for the widget.
+    Initializes an leImageWidget widget pointer.
 
   Description:
-
+    Initializes an leImageWidget widget pointer.
 
   Parameters:
-    leImageWidget* img - the widget
+    leImageWidget* wgt - the pointer to initialize
 
   Returns:
-    leImage* - the image asset pointer
+    void
 
   Remarks:
 
 */
-//LIB_EXPORT leImage* leImageWidget_GetImage(leImageWidget* img);
+LIB_EXPORT void leImageWidget_Constructor(leImageWidget* img);
+
 // *****************************************************************************
-/* Function:
-    leResult leImageWidget_SetImage(leImageWidget* img,
-                                    leImage* imgAst)
+/* Virtual Member Function:
+    leImage* getImage(const leImageWidget* _this)
 
   Summary:
-    Sets the image asset pointer for the widget.
+     Gets the image pointer
 
   Description:
-
+     Gets the image pointer
 
   Parameters:
-    lleImageWidget* img - the widget
-    leImage* imgAst - the image asset pointer
-
-  Returns:
-    leResult - the operation result
+    const leImageWidget* _this - The image to operate on
 
   Remarks:
+    Usage - _this->fn->getImage(_this);
 
+  Returns:
+    leImage* - the image pointer
 */
-/*LIB_EXPORT leResult leImageWidget_SetImage(leImageWidget* img,
-                                           leImage* imgAst);
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setImage(leImageWidget* _this,
+                      leImage* img)
+
+  Summary:
+     Sets the image pointer
+
+  Description:
+     Sets the image pointer
+
+  Parameters:
+    leImageWidget* _this - The image to operate on
+    leImage* img - the image pointer
+
+  Remarks:
+    Usage - _this->fn->setImage(_this, img);
+
+  Returns:
+    leResult - the result of the operation
 */
+
+// *****************************************************************************
+/* Virtual Member Function:
+    void setDebugDrawStartCallback(leImageWidget* _this,
+                                   leImageWidget_DrawEventCallback cb)
+
+  Summary:
+     Sets the debug draw start callback
+
+  Description:
+     Sets the debug draw start callback
+
+  Parameters:
+    leImageWidget* _this - The image to operate on
+    leImageWidget_DrawEventCallback cb - the callback pointer
+
+  Remarks:
+    Usage - _this->fn->setDebugDrawStartCallback(_this, cb);
+
+  Returns:
+    void
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    void setDebugDrawEndCallback(leImageWidget* _this,
+                                 leImageWidget_DrawEventCallback cb)
+
+  Summary:
+     Sets the debug draw end callback
+
+  Description:
+     Sets the debug draw end callback
+
+  Parameters:
+    leImageWidget* _this - The image to operate on
+    leImageWidget_DrawEventCallback cb - the callback pointer
+
+  Remarks:
+    Usage - _this->fn->setDebugDrawEndCallback(_this, cb);
+
+  Returns:
+    void
+*/
+
+
 
 #endif // LE_IMAGE_WIDGET_ENABLED
 #endif /* LEGATO_IMAGE_H */

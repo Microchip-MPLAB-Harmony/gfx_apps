@@ -152,10 +152,10 @@ leResult leInput_InjectTouchUp(uint32_t id, int32_t x, int32_t y)
 #if LE_TOUCH_ORIENTATION == 0
     pnt.x = x;
     pnt.y = y;
-#elif LE_TOUCH_ORIENTATION == 1 // 90 degrees
+#elif LE_TOUCH_ORIENTATION == 90 // 90 degrees
     pnt.y = x;
     pnt.x = displayRect.width - 1 - y;
-#elif LE_TOUCH_ORIENTATION == 2 // 180 degrees
+#elif LE_TOUCH_ORIENTATION == 180 // 180 degrees
     pnt.x = displayRect.width - 1 - x;
     pnt.y = displayRect.height - 1 - y;
 #else // 270 degrees
@@ -227,10 +227,10 @@ leResult leInput_InjectTouchMoved(uint32_t id, int32_t x, int32_t y)
 #if LE_TOUCH_ORIENTATION == 0
                 pnt.x = x;
                 pnt.y = y;
-#elif LE_TOUCH_ORIENTATION == 1 // 90 degrees
+#elif LE_TOUCH_ORIENTATION == 90 // 90 degrees
                 pnt.y = x;
                 pnt.x = displayRect.width - 1 - y;
-#elif LE_TOUCH_ORIENTATION == 2 // 180 degrees
+#elif LE_TOUCH_ORIENTATION == 180 // 180 degrees
                 pnt.x = displayRect.width - 1 - x;
                 pnt.y = displayRect.height - 1 - y;
 #else // 270 degrees
@@ -263,10 +263,10 @@ leResult leInput_InjectTouchMoved(uint32_t id, int32_t x, int32_t y)
 #if LE_TOUCH_ORIENTATION == 0
     pnt.x = x;
                 pnt.y = y;
-#elif LE_TOUCH_ORIENTATION == 1 // 90 degrees
+#elif LE_TOUCH_ORIENTATION == 90 // 90 degrees
     pnt.y = x;
     pnt.x = displayRect.width - 1 - y;
-#elif LE_TOUCH_ORIENTATION == 2 // 180 degrees
+#elif LE_TOUCH_ORIENTATION == 180 // 180 degrees
     pnt.x = displayRect.width - 1 - x;
                 pnt.y = displayRect.height - 1 - y;
 #else // 270 degrees

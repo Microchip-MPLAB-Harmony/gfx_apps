@@ -35,16 +35,35 @@ leWidget* screenGetRoot_SlideShowDemoScreen(uint32_t lyrIdx); // gets a root wid
 
 // event handlers
 void SlideShowDemoScreen_OnShow(void);
+
 void SlideShowDemoScreen_OnHide(void);
+
 void SlideShowDemoScreen_OnUpdate(void);
-void SlideshowHelpButton_OnReleased(leButtonWidget* btn);
-void SlideShowHomeButton_OnReleased(leButtonWidget* btn);
-void SlideShowPrevButton_OnReleased(leButtonWidget* btn);
-void SlideshowNextButton_OnReleased(leButtonWidget* btn);
-void SlideShowFFButton_OnPressed(leButtonWidget* btn);
-void SlideShowFFButton_OnReleased(leButtonWidget* btn);
-void SlideShowPlayButton_OnPressed(leButtonWidget* btn);
-void SlideShowPlayButton_OnReleased(leButtonWidget* btn);
+
+void SlideshowHelpButton_OnReleased(leButtonWidget* btn)
+;
+
+void SlideShowHomeButton_OnReleased(leButtonWidget* btn)
+;
+
+void SlideShowPrevButton_OnReleased(leButtonWidget* btn)
+;
+
+void SlideshowNextButton_OnReleased(leButtonWidget* btn)
+;
+
+void SlideShowFFButton_OnPressed(leButtonWidget* btn)
+;
+
+void SlideShowFFButton_OnReleased(leButtonWidget* btn)
+;
+
+void SlideShowPlayButton_OnPressed(leButtonWidget* btn)
+;
+
+void SlideShowPlayButton_OnReleased(leButtonWidget* btn)
+;
+
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

@@ -32,8 +32,12 @@ leWidget* screenGetRoot_ListWheelHelpScreen(uint32_t lyrIdx); // gets a root wid
 
 // event handlers
 void ListWheelHelpScreen_OnShow(void);
+
 void ListWheelHelpScreen_OnUpdate(void);
-void ListWheelHelpCloseButton_OnReleased(leButtonWidget* btn);
+
+void ListWheelHelpCloseButton_OnReleased(leButtonWidget* btn)
+;
+
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

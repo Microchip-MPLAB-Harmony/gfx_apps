@@ -38,8 +38,12 @@ leWidget* screenGetRoot_SlideshowHelpScreen(uint32_t lyrIdx); // gets a root wid
 
 // event handlers
 void SlideshowHelpScreen_OnShow(void);
+
 void SlideshowHelpScreen_OnUpdate(void);
-void SlideShowHelpCloseButton_OnReleased(leButtonWidget* btn);
+
+void SlideShowHelpCloseButton_OnReleased(leButtonWidget* btn)
+;
+
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

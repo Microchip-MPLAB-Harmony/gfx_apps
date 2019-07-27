@@ -32,8 +32,12 @@ leWidget* screenGetRoot_KeypadHelpScreen(uint32_t lyrIdx); // gets a root widget
 
 // event handlers
 void KeypadHelpScreen_OnShow(void);
+
 void KeypadHelpScreen_OnUpdate(void);
-void KeypadHelpCloseButton_OnReleased(leButtonWidget* btn);
+
+void KeypadHelpCloseButton_OnReleased(leButtonWidget* btn)
+;
+
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

@@ -44,8 +44,12 @@ leWidget* screenGetRoot_MainMenuHelp(uint32_t lyrIdx); // gets a root widget for
 
 // event handlers
 void MainMenuHelp_OnShow(void);
+
 void MainMenuHelp_OnUpdate(void);
-void MainMenuHelpCloseButton_OnReleased(leButtonWidget* btn);
+
+void MainMenuHelpCloseButton_OnReleased(leButtonWidget* btn)
+;
+
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

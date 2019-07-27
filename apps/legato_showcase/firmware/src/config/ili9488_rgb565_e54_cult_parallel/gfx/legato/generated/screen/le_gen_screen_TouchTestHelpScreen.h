@@ -32,8 +32,12 @@ leWidget* screenGetRoot_TouchTestHelpScreen(uint32_t lyrIdx); // gets a root wid
 
 // event handlers
 void TouchTestHelpScreen_OnShow(void);
+
 void TouchTestHelpScreen_OnUpdate(void);
-void TouchTestHelpCloseButton_OnReleased(leButtonWidget* btn);
+
+void TouchTestHelpCloseButton_OnReleased(leButtonWidget* btn)
+;
+
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

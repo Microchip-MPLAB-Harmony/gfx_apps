@@ -117,103 +117,73 @@ typedef struct leLabelWidget
     leLabelWidget*
 
   Remarks:
-
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leLabelWidget* leLabelWidget_New();
 
+/* Function:
+    void leLabelWidget_Constructor(leLabelWidget* wgt)
+
+  Summary:
+    Initializes an leLabelWidget widget pointer.
+
+  Description:
+    Initializes an leLabelWidget widget pointer.
+
+  Parameters:
+    leLabelWidget* wgt - the pointer to initialize
+
+  Returns:
+    void
+
+  Remarks:
+
+*/
 LIB_EXPORT void leLabelWidget_Constructor(leLabelWidget* lbl);
 
-#if 0
 // *****************************************************************************
-/* Function:
-    leResult leLabelWidget_GetText(leLabelWidget* lbl, leString* str)
+/* Virtual Member Function:
+    leString* getString(const leLabelWidget* _this)
 
   Summary:
-    Gets the text value for the label.
+     Gets the label string
 
   Description:
-    This function allocates memory and initializes the input string pointer.  The
-    caller is responsible for managing the memory once this function returns.
+     Gets the label string
 
   Parameters:
-    leLabelWidget* lbl - the widget
-    leString* str - a pointer to an leString object
-
-  Returns:
-    leResult - the operation result
+    const leLabelWidget* _this - The label widget to operate on
 
   Remarks:
+    Usage - _this->fn->getString(_this);
 
+  Returns:
+    leString* - the string pointer
 */
-LIB_EXPORT leResult leLabelWidget_GetText(leLabelWidget* lbl, leString* str);
 
 // *****************************************************************************
-/* Function:
-    leResult leLabelWidget_SetText(leLabelWidget* lbl, leString str)
+/* Virtual Member Function:
+    leResult setString(leLabelWidget* _this,
+                       leString* str)
 
   Summary:
-    Sets the text value for the label.
+     Sets the label string
 
   Description:
-    This function copies the contents of the input string into its internal
-    string buffer.  The input string can then be freed or altered without
-    affecting the label's internal string value.
+     Sets the label string
 
   Parameters:
-    leLabelWidget* lbl - the widget
-    leString str - an leString object
-
-  Returns:
-    leResult - the operation result
+    leLabelWidget* _this - The label widget to operate on
+    leString* str - the string pointer
 
   Remarks:
-
-*/
-LIB_EXPORT leResult leLabelWidget_SetText(leLabelWidget* lbl, leString str);
-
-// *****************************************************************************
-/* Function:
-    int32_t leLabelWidget_GetTextLineSpace(leLabelWidget* lbl)
-
-  Summary:
-    Returns the line spacing in pixels for the label text. If < 0, the
-    ascent value of the string's font is used.
-
-  Description:
-
-  Parameters:
-    leLabelWidget* lbl - the label to reference
+    Usage - _this->fn->setString(_this, str);
 
   Returns:
-    int32_t - the line spacing in pixels
-
-  Remarks:
-
+    leResult - the result of the operation
 */
-LIB_EXPORT int32_t leLabelWidget_GetTextLineSpace(leLabelWidget* lbl);
 
-// *****************************************************************************
-/* Function:
-    leResult leLabelWidget_SetTextLineSpace(leLabelWidget* lbl, int32_t pixels)
 
-  Summary:
-    Sets the line space in pixels of the text in the label widget. A value < 0
-    sets the spacing to the ascent value of the string's font.
-
-  Description:
-
-  Parameters:
-    leLabelWidget* lbl - the label to modify
-    int32_t pixels - the line space, in pixels
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leLabelWidget_SetTextLineSpace(leLabelWidget* lbl, int32_t pixels);
-#endif
 
 #endif // LE_LABEL_WIDGET_ENABLED
 #endif /* LEGATO_LABEL_H */

@@ -32,12 +32,23 @@ leWidget* screenGetRoot_KeypadDemoScreen(uint32_t lyrIdx); // gets a root widget
 
 // event handlers
 void KeypadDemoScreen_OnShow(void);
+
 void KeypadDemoScreen_OnHide(void);
+
 void KeypadDemoScreen_OnUpdate(void);
-void TextFieldWidget1_OnFocusChanged(leTextFieldWidget* txt, leBool focused);
-void KeypadHelpButton_OnReleased(leButtonWidget* btn);
-void KeypadHomeButton_OnReleased(leButtonWidget* btn);
-void KeypadNextButton_OnReleased(leButtonWidget* btn);
+
+void TextFieldWidget1_OnFocusChanged(leTextFieldWidget* txt, leBool focused)
+;
+
+void KeypadHelpButton_OnReleased(leButtonWidget* btn)
+;
+
+void KeypadHomeButton_OnReleased(leButtonWidget* btn)
+;
+
+void KeypadNextButton_OnReleased(leButtonWidget* btn)
+;
+
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
