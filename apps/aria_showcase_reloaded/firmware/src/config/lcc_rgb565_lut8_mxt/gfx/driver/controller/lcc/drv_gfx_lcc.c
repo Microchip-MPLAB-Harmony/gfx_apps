@@ -60,11 +60,14 @@
 const char* DRIVER_NAME = "LCC SMC";
 static uint32_t supported_color_formats = (GFX_COLOR_MASK_RGB_565 | GFX_COLOR_MASK_RGB_332);
 
+#define FRAMEBUFFER_ATTRIBUTE __attribute__((aligned(FRAMEBUFFER_PIXEL_BYTES*8)))
+
 FRAMEBUFFER_TYPE frameBuffer[BUFFER_COUNT][DISPLAY_WIDTH * DISPLAY_HEIGHT];
 
-uint16_t __attribute__((aligned(16))) frameLine[DISPLAY_WIDTH];
+uint16_t FRAMEBUFFER_ATTRIBUTE frameLine[DISPLAY_WIDTH];
 
 #define DRV_GFX_LCC_DMA_CHANNEL_INDEX XDMAC_CHANNEL_0
+#define DRV_GFX_DMA_EVENT_TYPE XDMAC_TRANSFER_EVENT
 
 #ifndef GFX_DISP_INTF_PIN_RESET_Set
 #error "GFX_DISP_INTF_PIN_RESET GPIO must be defined in the Pin Settings"
@@ -97,7 +100,7 @@ enum
 
 static int DRV_GFX_LCC_Start();
 static void DRV_GFX_LCC_DisplayRefresh(void);
-void dmaIntHandler (XDMAC_TRANSFER_EVENT status,
+void dmaIntHandler (DRV_GFX_DMA_EVENT_TYPE status,
                     uintptr_t contextHandle);
 
 GFX_Context* cntxt;
@@ -323,7 +326,7 @@ static int DRV_GFX_LCC_Start()
     lccDMAStartTransfer(frameLine,
                         2,
                         (const void *) EBI_BASE_ADDR);
-    
+
     return 0;
 }
 
@@ -484,7 +487,7 @@ static void DRV_GFX_LCC_DisplayRefresh(void)
                         (uint32_t*) EBI_BASE_ADDR);
 }
 
-void dmaIntHandler (XDMAC_TRANSFER_EVENT status,
+void dmaIntHandler (DRV_GFX_DMA_EVENT_TYPE status,
                     uintptr_t contextHandle)
 {
     DRV_GFX_LCC_DisplayRefresh();
