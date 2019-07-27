@@ -111,8 +111,8 @@ void DRV_GFX2D_Initialize();
    Precondition:
 
    Parameters:
-    destination   - Pointer to a n2d_buffer_t structure that describes the buffer to be filled
-    rectangle     - Pointer to a rectangle that specifies the area to be filled. If rectangle is NULL,
+    dest             - Pointer to a n2d_buffer_t structure that describes the buffer to be filled
+    dest_rectangle   - Pointer to a rectangle that specifies the area to be filled. If rectangle is NULL,
                     the entire buffer will be filled with the specified color
     color         - The color value to use for filling the buffer
     blend         - The blending mode to be applied to each pixel. If no blending is required, set this
@@ -125,8 +125,8 @@ void DRV_GFX2D_Initialize();
     This function will wait until the hardware is complete, i.e. it is synchronous
 */
 void  DRV_GFX2D_Fill(
-    GFX2D_BUFFER *destination,
-    GFX2D_RECTANGLE *rectangle,
+    GFX2D_BUFFER *dest,
+    GFX2D_RECTANGLE *dest_rectangle,
     gpu_color_t color);
 
 // *****************************************************************************
@@ -147,13 +147,13 @@ void  DRV_GFX2D_Fill(
    Precondition:
 
    Parameters:
-    destination           - Pointer to a n2d_buffer_t structure that describes the destination of the
+    dest      - Pointer to a n2d_buffer_t structure that describes the destination of the
                             blit
-    destination_rectangle - Optional pointer to the rectangle that defines the region inside the
+    dest_rect - Optional pointer to the rectangle that defines the region inside the
                             destination buffer. If this rectangle is not specified, the entire destination
                             buffer is used as the destination region
-    source                - Pointer to a n2d_buffer_t structure that describes the source of the blit
-    source_rectangle      - Optional pointer to the rectangle that defines the region inside the source buffer.
+    src        - Pointer to a n2d_buffer_t structure that describes the source of the blit
+    dest_rect  - Optional pointer to the rectangle that defines the region inside the source buffer.
                             If this rectangle is not specified, the entire source buffer is used as the source
                             region
 
@@ -164,10 +164,98 @@ void  DRV_GFX2D_Fill(
     This function will wait until the hardware is complete, i.e. it is synchronous.
   */
 void DRV_GFX2D_Copy(
-    GFX2D_BUFFER *destination,
-    GFX2D_RECTANGLE *destination_rectangle,
-    GFX2D_BUFFER *source,
-    GFX2D_RECTANGLE *source_rectangle);
+    GFX2D_BUFFER *dest,
+    GFX2D_RECTANGLE *dest_rect,
+    GFX2D_BUFFER *src,
+    GFX2D_RECTANGLE *src_rect);
+
+// *****************************************************************************
+/* Function:
+    void DRV_GFX2D_Blend()
+
+   Summary:
+    Blend two source buffers to a destination buffer
+
+   Description:
+    The specified region of two source buffers is composited together defined by 
+    blend. The result is copied to the specified region of the destination buffer.
+
+   Precondition:
+
+   Parameters:
+    dest      - Pointer to a n2d_buffer_t structure that describes the destination of the
+                   blit
+    dest_rect - Optional pointer to the rectangle that defines the region inside the
+                   destination buffer. If this rectangle is not specified, the entire destination
+                   buffer is used as the destination region
+    src1        - Pointer to a n2d_buffer_t structure that describes the source of the blit
+    src1_rect  - Optional pointer to the rectangle that defines the region inside the source buffer.
+                 If this rectangle is not specified, the entire source buffer is used as the source
+                 region
+    src2        - Pointer to a n2d_buffer_t structure that describes the source of the blit
+    src2_rect  - Optional pointer to the rectangle that defines the region inside the source buffer.
+                 If this rectangle is not specified, the entire source buffer is used as the source
+                 region
+
+  Returns:
+    Returns the status as defined by GFX_STATUS
+
+  Remarks:
+    This function will wait until the hardware is complete, i.e. it is synchronous.
+  */
+void  DRV_GFX2D_Blend(
+    GFX2D_BUFFER *dest,
+    GFX2D_RECTANGLE *dest_rect,
+    GFX2D_BUFFER *src1,
+    GFX2D_RECTANGLE *src1_rect,
+    GFX2D_BUFFER *src2,
+    GFX2D_RECTANGLE *src2_rect,
+    GFX2D_BLEND blend);
+
+// *****************************************************************************
+/* Function:
+    void DRV_GFX2D_Rop()
+
+   Summary:
+    Copy and filter pixels of a source buffer with a destination buffer.
+
+   Description:
+    The specified region of the source buffer is filtered using mask. The result 
+    copied to the specified regionof the destination buffer. 
+
+   Precondition:
+
+   Parameters:
+    dest      - Pointer to a GFX2D_BUFFER structure that describes the destination of the
+                   blit
+    dest_rect - Optional pointer to the rectangle that defines the region inside the
+                   destination buffer. If this rectangle is not specified, the entire destination
+                   buffer is used as the destination region
+    src1       - Pointer to a GFX2D_BUFFER structure that describes the source of the blit
+    src1_rect - Optional pointer to the rectangle that defines the region inside the source buffer.
+                 If this rectangle is not specified, the entire source buffer is used as the source
+                 region
+    src2       - Pointer to a GFX2D_BUFFER structure that describes the source of the blit
+    src2_rect - Optional pointer to the rectangle that defines the region inside the source buffer.
+                 If this rectangle is not specified, the entire source buffer is used as the source
+                 region
+    pmask       - Pointer to a masking buffer
+
+  Returns:
+    Returns the status as defined by GFX_STATUS
+
+  Remarks:
+    This function will wait until the hardware is complete, i.e. it is synchronous.
+  */
+void  DRV_GFX2D_Rop(
+   GFX2D_BUFFER *dest, 
+   GFX2D_RECTANGLE *dest_rect, 
+   GFX2D_BUFFER *src1,      
+   GFX2D_RECTANGLE *src1_rect, 
+   GFX2D_BUFFER *src2, 
+   GFX2D_RECTANGLE *src2_rect,
+   GFX2D_BUFFER *pmask, 
+   GFX2D_ROP rop);
 
 // *****************************************************************************
 // *****************************************************************************

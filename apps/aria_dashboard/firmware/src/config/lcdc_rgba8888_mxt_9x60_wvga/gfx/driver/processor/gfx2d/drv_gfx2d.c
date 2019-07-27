@@ -56,22 +56,18 @@ SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
 // *****************************************************************************
 // *****************************************************************************
 
-static void _gpuDelay(int ms)
-{
-    SYS_TIME_HANDLE timer = SYS_TIME_HANDLE_INVALID;
+#define DISPLAY_WIDTH  800
+#define DISPLAY_HEIGHT 480
+uint32_t  __attribute__ ((aligned (64))) blitbuffer[DISPLAY_WIDTH * DISPLAY_HEIGHT] ;
+uint32_t  __attribute__ ((aligned (64))) maskbuffer[DISPLAY_WIDTH * DISPLAY_HEIGHT] ;
 
-    if (SYS_TIME_DelayMS(ms, &timer) != SYS_TIME_SUCCESS)
-        return;
-
-    while (SYS_TIME_DelayIsComplete(timer) == false);
-} 
 
 /* Indicate end of execute instruction */
 volatile uint8_t gpu_end = 0;
 
 void _IntHandler(uintptr_t context)
 {
-    gpu_end = true;
+    gpu_end = 1;
 }
 
 /**** End Hardware Abstraction Interfaces ****/
@@ -86,18 +82,66 @@ void DRV_GFX2D_Initialize()
 }
 
 void  DRV_GFX2D_Fill(
-    GFX2D_BUFFER *destination,
-    GFX2D_RECTANGLE *rectangle,
+    GFX2D_BUFFER *dest,
+    GFX2D_RECTANGLE *dest_rect,
     gpu_color_t color)
 {
-    PLIB_GFX2D_Fill(destination, rectangle, color);
+    PLIB_GFX2D_Fill(dest, dest_rect, color);
 
-    _gpuDelay(10);
     /* Wait for instruction to complete */
+    while ( PLIB_GFX2D_GetGlobalStatusBusy() == true ) ;
     //while (gpu_end == 0) {
     //};
 }
 
+void  DRV_GFX2D_Copy(
+    GFX2D_BUFFER *dest,
+    GFX2D_RECTANGLE *dest_rect,
+    GFX2D_BUFFER *src,
+    GFX2D_RECTANGLE *src_rect)
+{
+    PLIB_GFX2D_Copy(dest, dest_rect, src, src_rect);
+
+    /* Wait for instruction to complete */
+    while ( PLIB_GFX2D_GetGlobalStatusBusy() == true ) ;
+    //while (gpu_end == 0) {
+    //};
+}
+
+void  DRV_GFX2D_Blend(
+    GFX2D_BUFFER *dest,
+    GFX2D_RECTANGLE *dest_rect,
+    GFX2D_BUFFER *src1,
+    GFX2D_RECTANGLE *src1_rect,
+    GFX2D_BUFFER *src2,
+    GFX2D_RECTANGLE *src2_rect,
+    GFX2D_BLEND blend)
+{
+    PLIB_GFX2D_Blend(dest, dest_rect, src1, src1_rect, src2, src2_rect, blend);
+
+    /* Wait for instruction to complete */
+    while ( PLIB_GFX2D_GetGlobalStatusBusy() == true ) ;
+    //while (gpu_end == 0) {
+    //};
+}
+
+void  DRV_GFX2D_Rop(
+   GFX2D_BUFFER *dest, 
+   GFX2D_RECTANGLE *dest_rect, 
+   GFX2D_BUFFER *src1,      
+   GFX2D_RECTANGLE *src1_rect, 
+   GFX2D_BUFFER *src2, 
+   GFX2D_RECTANGLE *src2_rect,
+   GFX2D_BUFFER *pmask, 
+   GFX2D_ROP rop)
+{
+    PLIB_GFX2D_Rop(dest, dest_rect, src1, src1_rect, src2, src2_rect, pmask, rop);
+
+    /* Wait for instruction to complete */
+    while ( GFX2D_GetGlobalStatusBusy() == true ) ;
+    //while (gpu_end == 0) {
+    //};
+}
 /*******************************************************************************
  End of File
 */
