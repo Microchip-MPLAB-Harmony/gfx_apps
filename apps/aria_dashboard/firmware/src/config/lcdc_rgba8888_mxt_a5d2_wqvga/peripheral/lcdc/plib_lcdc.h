@@ -2032,6 +2032,106 @@ void LCDC_LAYER_IRQ_Disable(LCDC_LAYER_ID layer, LCDC_LAYER_INTERRUPT interrupt)
 */
 uint32_t LCDC_LAYER_IRQ_Status(LCDC_LAYER_ID layer);
 
+// *****************************************************************************
+/* Function:
+    void LCDC_SetHEOImageMemSize(uint16_t width, uint16_t height)
+
+   Summary:
+    Sets the dimensions of the HEO Image Memory source
+
+   Description:
+    None
+
+   Precondition:
+    None.
+
+   Parameters:
+    width - width in pixels
+    height - height in pixels
+
+   Returns:
+    None
+
+   Remarks:
+    None
+*/
+void LCDC_SetHEOImageMemSize(uint16_t width, uint16_t height);
+
+// *****************************************************************************
+/* Function:
+    void LCDC_SetHEOVideoPriority(bool top);
+
+   Summary:
+    Sets the priority of the HEO layer versus OVL1
+
+   Description:
+    None
+
+   Precondition:
+    None.
+
+   Parameters:
+    top - if true, HEO layer is displayed on top of OVL1
+
+   Returns:
+    None
+
+   Remarks:
+    None
+*/
+void LCDC_SetHEOVideoPriority(bool top);
+
+// *****************************************************************************
+/* Function:
+    void LCDC_SetHEOScaler(uint16_t yfactor, uint16_t xfactor, bool enable)
+
+   Summary:
+    Configures the HEO 2D scaler
+
+   Description:
+    None
+
+   Precondition:
+    None.
+
+   Parameters:
+    yfactor - the scaler vertical factor
+    xfactor - the scaler horizontal factor
+    enable - enables/disables the scaler
+
+   Returns:
+    None
+
+   Remarks:
+    None
+*/
+void LCDC_SetHEOScaler(uint16_t yfactor, uint16_t xfactor, bool enable);
+
+// *****************************************************************************
+/* Function:
+    void LCDC_SetHEOFilterPhaseOffset(uint8_t yphidef, uint8_t xphidef)
+
+   Summary:
+    Configures the HEO 2D scaler first coefficients
+
+   Description:
+    None
+
+   Precondition:
+    None.
+
+   Parameters:
+    yphidef - the index of the first coefficient set used in vertical resampling
+    xphidef - the index of the first coefficient set used in horizontal resampling
+
+   Returns:
+    None
+
+   Remarks:
+    None
+*/
+void LCDC_SetHEOFilterPhaseOffset(uint8_t yphidef, uint8_t xphidef);
+
 
 #ifdef __cplusplus  // Provide C++ Compatibility
 
