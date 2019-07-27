@@ -194,511 +194,483 @@ typedef struct leImageSequenceWidget
     leImageSequenceWidget*
 
   Remarks:
-
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leImageSequenceWidget* leImageSequenceWidget_New();
 
+/* Function:
+    void leImageSequenceWidget_Constructor(leImageSequenceWidget* wgt)
+
+  Summary:
+    Initializes an leImageSequenceWidget widget pointer.
+
+  Description:
+    Initializes an leImageSequenceWidget widget pointer.
+
+  Parameters:
+    leImageSequenceWidget* wgt - the pointer to initialize
+
+  Returns:
+    void
+
+  Remarks:
+
+*/
 LIB_EXPORT void leImageSequenceWidget_Constructor(leImageSequenceWidget* img);
 
-#if 0
 // *****************************************************************************
-/* Function:
-    uint32_t leImageSequenceWidget_GetImageCount(leImageSequenceWidget* img)
+/* Virtual Member Function:
+    uint32_t getImageCount(const leImageSequenceWidget* _this)
 
   Summary:
-    Gets the number of image entries for this widget.
+     Gets the image count
 
   Description:
-
+     Gets the image count
 
   Parameters:
-    leImageSequenceWidget* img - the widget
-
-  Returns:
-    uint32_t - the number of entries for this sequence widget
+    const leImageSequenceWidget* _this - The image sequence widget to operate on
 
   Remarks:
-
-*/
-LIB_EXPORT uint32_t leImageSequenceWidget_GetImageCount(leImageSequenceWidget* img);
-
-// *****************************************************************************
-/* Function:
-    leResult leImageSequenceWidget_SetImageCount(leImageSequenceWidget* img,
-                                                 uint32_t count)
-
-  Summary:
-    Sets the number of image entries for this widget.  An image entry that is
-    null will show nothing.
-
-  Description:
-
-
-  Parameters:
-    leImageSequenceWidget* img - the widget
-    uint32_t count - the desired number of entries
+    Usage - _this->fn->getImageCount(_this);
 
   Returns:
-    leResult - the operation result
-
-  Remarks:
-
+    uint32_t - the image count
 */
-LIB_EXPORT leResult leImageSequenceWidget_SetImageCount(leImageSequenceWidget* img,
-                                                        uint32_t count);
 
 // *****************************************************************************
-/* Function:
-    leImage* leImageSequenceWidget_GetImage(leImageSequenceWidget* img,
-                                                    uint32_t idx)
+/* Virtual Member Function:
+    leResult setImageCount(leImageSequenceWidget* _this,
+                           uint32_t cnt)
 
   Summary:
-    Gets the image asset pointer for an entry.
+     Sets the image count
 
   Description:
-
+     Sets the image count
 
   Parameters:
-    leImageSequenceWidget* img - the widget
+    leImageSequenceWidget* _this - The image sequence widget to operate on
+    uint32_t cnt - the image count
+
+  Remarks:
+    Usage - _this->fn->setImageCount(_this, cnt);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leImage* getImage(const leImageSequenceWidget* _this,
+                      uint32_t idx)
+
+  Summary:
+     Gets the image pointer
+
+  Description:
+     Gets the image pointer
+
+  Parameters:
+    const leImageSequenceWidget* _this - The image sequence widget to operate on
     uint32_t idx - the index
 
-  Returns:
-    leImage* - the image asset pointer
-
   Remarks:
+    Usage - _this->fn->getImage(_this, idx);
 
+  Returns:
+    leImage* - the image pointer
 */
-LIB_EXPORT leImage* leImageSequenceWidget_GetImage(leImageSequenceWidget* img,
-                                                           uint32_t idx);
+
 // *****************************************************************************
-/* Function:
-    leResult leImageSequenceWidget_SetImage(leImageSequenceWidget* img,
-                                            uint32_t idx,
-                                            leImage* imgAst)
+/* Virtual Member Function:
+    leResult setImage(leImageSequenceWidget* _this,
+                      uint32_t idx,
+                      const leImage* img)
 
   Summary:
-    Sets the image asset pointer for an entry.
+     Sets the image pointer
 
   Description:
-
+     Sets the image pointer
 
   Parameters:
-    leImageSequenceWidget* img - the widget
+    leImageSequenceWidget* _this - The image sequence widget to operate on
     uint32_t idx - the index
-    leImage* imgAst - the image asset pointer
+    const leImage* img - the image pointer
+
+  Remarks:
+    Usage - _this->fn->setImage(_this, idx, img);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leImageSequenceWidget_SetImage(leImageSequenceWidget* img,
-                                                   uint32_t idx,
-                                                   leImage* imgAst);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leImageSequenceWidget_GetImageDelay(leImageSequenceWidget* img,
-                                                        uint32_t idx)
+/* Virtual Member Function:
+    uint32_t getImageDelay(const leImageSequenceWidget* _this,
+                           uint32_t idx)
 
   Summary:
-    Gets the image delay for an entry.
+     Gets the image cycle delay
 
   Description:
-
+     Gets the image cycle delay
 
   Parameters:
-    leImageSequenceWidget* img - the widget
+    const leImageSequenceWidget* _this - The image sequence widget to operate on
     uint32_t idx - the index
 
-  Returns:
-    uint32_t - the delay value
-
   Remarks:
+    Usage - _this->fn->getImageDelay(_this, idx);
 
+  Returns:
+    uint32_t - the image delay
 */
-LIB_EXPORT uint32_t leImageSequenceWidget_GetImageDelay(leImageSequenceWidget* img,
-                                                        uint32_t idx);
 
 // *****************************************************************************
-/* Function:
-    leResult leImageSequenceWidget_SetImageDelay(leImageSequenceWidget* img,
-                                                        uint32_t idx,
-                                                        uint32_t delay)
+/* Virtual Member Function:
+    leResult setImageDelay(leImageSequenceWidget* _this,
+                           uint32_t idx,
+                           uint32_t dly)
 
   Summary:
-    Sets the image delay for an entry.
+     Sets the image cycle delay
 
   Description:
-
+     Sets the image cycle delay
 
   Parameters:
-    leImageSequenceWidget* img - the widget
+    leImageSequenceWidget* _this - The image sequence widget to operate on
     uint32_t idx - the index
-    uint32_t delay - the delay value
+    uint32_t dly - the image delay
+
+  Remarks:
+    Usage - _this->fn->setImageDelay(_this, idx, dly);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leImageSequenceWidget_SetImageDelay(leImageSequenceWidget* img,
-                                                        uint32_t idx,
-                                                        uint32_t delay);
 
 // *****************************************************************************
-/* Function:
-    leHAlignment leImageSequenceWidget_GetImageHAlignment(leImageSequenceWidget* img,
-                                                          uint32_t idx)
+/* Virtual Member Function:
+    leHAlignment getImageHAlignment(const leImageSequenceWidget* _this,
+                                    uint32_t idx)
 
   Summary:
-    Gets the horizontal alignment for an image entry
+     Gets the image horizontal alignment
 
   Description:
-
+     Gets the image horizontal alignment
 
   Parameters:
-    leImageSequenceWidget* img - the widget
+    const leImageSequenceWidget* _this - The image sequence widget to operate on
     uint32_t idx - the index
 
-  Returns:
-    leHAlignment - the halign value
-
   Remarks:
+    Usage - _this->fn->getImageHAlignment(_this, idx);
 
+  Returns:
+    leHAlignment - the alignment
 */
-LIB_EXPORT leHAlignment leImageSequenceWidget_GetImageHAlignment(leImageSequenceWidget* img,
-                                                                 uint32_t idx);
 
 // *****************************************************************************
-/* Function:
-    leResult leImageSequenceWidget_SetImageHAlignment(leImageSequenceWidget* img,
-                                                      uint32_t idx,
-                                                      leHAlignment align)
+/* Virtual Member Function:
+    leResult setImageHAlignment(leImageSequenceWidget* _this,
+                                uint32_t idx,
+                                leHAlignment align)
 
   Summary:
-    Sets the horizontal alignment for an image entry.
+     Sets the image horizontal alignment
 
   Description:
-
+     Sets the image horizontal alignment
 
   Parameters:
-    leImageSequenceWidget* img - the widget
+    leImageSequenceWidget* _this - The image sequence widget to operate on
     uint32_t idx - the index
-    leHAlignment align - the halign value
+    leHAlignment align - the alignment
+
+  Remarks:
+    Usage - _this->fn->setImageHAlignment(_this, idx, align);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leImageSequenceWidget_SetImageHAlignment(leImageSequenceWidget* img,
-                                                             uint32_t idx,
-                                                             leHAlignment align);
 
 // *****************************************************************************
-/* Function:
-    leVAlignment leImageSequenceWidget_GetImageVAlignment(leImageSequenceWidget* img,
-                                                          uint32_t idx)
+/* Virtual Member Function:
+    leVAlignment getImageVAlignment(const leImageSequenceWidget* _this,
+                                    uint32_t idx)
 
   Summary:
-    Sets the vertical alignment for an image entry
+     Gets the image vertical alignment
 
   Description:
-
+     Gets the image vertical alignment
 
   Parameters:
-    leImageSequenceWidget* img - the widget
+    const leImageSequenceWidget* _this - The image sequence widget to operate on
     uint32_t idx - the index
 
-  Returns:
-    leVAlignment - the valign value
-
   Remarks:
+    Usage - _this->fn->getImageVAlignment(_this, idx);
 
+  Returns:
+    leVAlignment - the alignment
 */
-LIB_EXPORT leVAlignment leImageSequenceWidget_GetImageVAlignment(leImageSequenceWidget* img,
-                                                                 uint32_t idx);
 
 // *****************************************************************************
-/* Function:
-    leResult leImageSequenceWidget_SetImageVAlignment(leImageSequenceWidget* img,
-                                                             uint32_t idx,
-                                                             leVAlignment align)
+/* Virtual Member Function:
+    leResult setImageVAlignment(leImageSequenceWidget* _this,
+                                uint32_t idx,
+                                leVAlignment align)
 
   Summary:
-    Sets the vertical alignment value for an image entry
+     Sets the image vertical alignment
 
   Description:
-
+     Sets the image vertical alignment
 
   Parameters:
-    leImageSequenceWidget* img - the widget
+    leImageSequenceWidget* _this - The image sequence widget to operate on
     uint32_t idx - the index
-    leVAlignment align - the vertical alignment setting
+    leVAlignment align - the alignment
+
+  Remarks:
+    Usage - _this->fn->setImageVAlignment(_this, idx, align);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leImageSequenceWidget_SetImageVAlignment(leImageSequenceWidget* img,
-                                                             uint32_t idx,
-                                                             leVAlignment align);
 
 // *****************************************************************************
-/* Function:
-    leResult leImageSequenceWidget_Stop(leImageSequenceWidget* img)
+/* Virtual Member Function:
+    leResult stop(leImageSequenceWidget* _this)
 
   Summary:
-    Stops the widget from automatically cycling through the image entries.
+     Stops the sequence from automatically cycling
 
   Description:
-
+     Stops the sequence from automatically cycling
 
   Parameters:
-    leImageSequenceWidget* img - the widget
+    leImageSequenceWidget* _this - The image sequence widget to operate on
+
+  Remarks:
+    Usage - _this->fn->stop(_this);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leImageSequenceWidget_Stop(leImageSequenceWidget* img);
 
 // *****************************************************************************
-/* Function:
-    leResult leImageSequenceWidget_Play(leImageSequenceWidget* img)
+/* Virtual Member Function:
+    leResult play(leImageSequenceWidget* _this)
 
   Summary:
-    Starts the widget automatically cycling through the image entries.
+     Starts the sequence automatic cycle
 
   Description:
-
+     Starts the sequence automatic cycle
 
   Parameters:
-    leImageSequenceWidget* img - the widget
+    leImageSequenceWidget* _this - The image sequence widget to operate on
+
+  Remarks:
+    Usage - _this->fn->play(_this);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leImageSequenceWidget_Play(leImageSequenceWidget* img);
 
 // *****************************************************************************
-/* Function:
-    leResult leImageSequenceWidget_Rewind(leImageSequenceWidget* img)
+/* Virtual Member Function:
+    leResult rewind(leImageSequenceWidget* _this)
 
   Summary:
-    Resets the current image sequence display index to zero.
+     Returns the sequence to the first image
 
   Description:
-
+     Returns the sequence to the first image
 
   Parameters:
-    leImageSequenceWidget* img - the widget
+    leImageSequenceWidget* _this - The image sequence widget to operate on
+
+  Remarks:
+    Usage - _this->fn->rewind(_this);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leImageSequenceWidget_Rewind(leImageSequenceWidget* img);
 
 // *****************************************************************************
-/* Function:
-    leBool leImageSequenceWidget_IsPlaying(leImageSequenceWidget* img)
+/* Virtual Member Function:
+    leBool isPlaying(const leImageSequenceWidget* _this)
 
   Summary:
-    Indicates if the widget is currently cycling through the image entries.
+     Indicates of the sequence is automatically cycling
 
   Description:
-
+     Indicates of the sequence is automatically cycling
 
   Parameters:
-    leImageSequenceWidget* img - the widget
+    const leImageSequenceWidget* _this - The image sequence widget to operate on
+
+  Remarks:
+    Usage - _this->fn->isPlaying(_this);
 
   Returns:
-    leBool - indicates if the widget is automatically cycling
-
-  Remarks:
-
+    leBool - the setting value
 */
-LIB_EXPORT leBool leImageSequenceWidget_IsPlaying(leImageSequenceWidget* img);
 
 // *****************************************************************************
-/* Function:
-    leBool leImageSequenceWidget_GetRepeat(leImageSequenceWidget* img)
+/* Virtual Member Function:
+    leBool getRepeat(const leImageSequenceWidget* _this)
 
   Summary:
-    Indicates if the widget will repeat through the image entries.
+     Indicates if the sequence will repeat the cycle
 
   Description:
-
+     Indicates if the sequence will repeat the cycle
 
   Parameters:
-    leImageSequenceWidget* img - the widget
+    const leImageSequenceWidget* _this - The image sequence widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getRepeat(_this);
 
   Returns:
-    leBool - indicates if the widget is automatically repeating
-
-  Remarks:
-
+    leBool - the setting value
 */
-LIB_EXPORT leBool leImageSequenceWidget_GetRepeat(leImageSequenceWidget* img);
 
 // *****************************************************************************
-/* Function:
-    leResult leImageSequenceWidget_SetRepeat(leImageSequenceWidget* img,
-                                                    leBool repeat)
+/* Virtual Member Function:
+    leResult setRepeat(leImageSequenceWidget* _this,
+                       leBool rpt)
 
   Summary:
-    Sets the repeat flag for the widget
+     Sets the repeat flag
 
   Description:
-
+     Sets the repeat flag
 
   Parameters:
-    leImageSequenceWidget* img - the widget
-    leBool repeat - the desired repeat setting
+    leImageSequenceWidget* _this - The image sequence widget to operate on
+    leBool rpt - the setting value
+
+  Remarks:
+    Usage - _this->fn->setRepeat(_this, rpt);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leImageSequenceWidget_SetRepeat(leImageSequenceWidget* img,
-                                                    leBool repeat);
 
 // *****************************************************************************
-/* Function:
-    leResult leImageSequenceWidget_ShowImage(leImageSequenceWidget* img,
-                                             uint32_t idx)
+/* Virtual Member Function:
+    leResult showImage(leImageSequenceWidget* _this,
+                       uint32_t idx)
 
   Summary:
-    Sets the active display index to the indicated value.
+     Sets the current visible image index
 
   Description:
-
+     Sets the current visible image index
 
   Parameters:
-    leImageSequenceWidget* img - the widget
-    uint32_t idx - the desired index
+    leImageSequenceWidget* _this - The image sequence widget to operate on
+    uint32_t idx - the index
+
+  Remarks:
+    Usage - _this->fn->showImage(_this, idx);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leImageSequenceWidget_ShowImage(leImageSequenceWidget* img,
-                                                    uint32_t idx);
 
 // *****************************************************************************
-/* Function:
-    leResult leImageSequenceWidget_ShowNextImage(leImageSequenceWidget* img)
+/* Virtual Member Function:
+    leResult showNextImage(leImageSequenceWidget* _this)
 
   Summary:
-    Sets the active display index to the next index value.
+     Advance to the next image
 
   Description:
-
+     Advance to the next image
 
   Parameters:
-    leImageSequenceWidget* img - the widget
+    leImageSequenceWidget* _this - The image sequence widget to operate on
+
+  Remarks:
+    Usage - _this->fn->showNextImage(_this);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leImageSequenceWidget_ShowNextImage(leImageSequenceWidget* img);
 
 // *****************************************************************************
-/* Function:
-    leResult leImageSequenceWidget_ShowPreviousImage(leImageSequenceWidget* img)
+/* Virtual Member Function:
+    leResult showPreviousImage(leImageSequenceWidget* _this)
 
   Summary:
-    Sets the active display index to the previous index value.
+     Return to the previous image
 
   Description:
-
+     Return to the previous image
 
   Parameters:
-    leImageSequenceWidget* img - the widget
+    leImageSequenceWidget* _this - The image sequence widget to operate on
+
+  Remarks:
+    Usage - _this->fn->showPreviousImage(_this);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leImageSequenceWidget_ShowPreviousImage(leImageSequenceWidget* img);
 
 // *****************************************************************************
-/* Function:
-    leImageSequenceImageChangedEvent_FnPtr leImageSequenceWidget_GetImageChangedEventCallback(leImageSequenceWidget* img)
+/* Virtual Member Function:
+    leImageSequenceImageChangedEvent_FnPtr getImageChangedEventCallback(const leImageSequenceWidget* _this)
 
   Summary:
-    Gets the image changed event callback pointer.
+     Gets the image changed event callback
 
   Description:
-
+     Gets the image changed event callback
 
   Parameters:
-    leImageSequenceWidget* img - the widget
-
-  Returns:
-    leImageSequenceImageChangedEvent_FnPtr - a valid callback pointer or NULL
+    const leImageSequenceWidget* _this - The image sequence widget to operate on
 
   Remarks:
+    Usage - _this->fn->getImageChangedEventCallback(_this);
 
+  Returns:
+    leImageSequenceImageChangedEvent_FnPtr - the callback pointer
 */
-LIB_EXPORT leImageSequenceImageChangedEvent_FnPtr leImageSequenceWidget_GetImageChangedEventCallback(leImageSequenceWidget* img);
 
 // *****************************************************************************
-/* Function:
-    leResult leImageSequenceWidget_SetImageChangedEventCallback(leImageSequenceWidget* img,
-                                                                leImageSequenceImageChangedEvent_FnPtr cb)
+/* Virtual Member Function:
+    leResult setImageChangedEventCallback(leImageSequenceWidget* _this,
+                                          leImageSequenceImageChangedEvent_FnPtr cb)
 
   Summary:
-    Sets the image changed event callback pointer.  This callback is called
-    whenever the active display index is changed.
+     Sets the image chagned event callback
 
   Description:
-
+     Sets the image chagned event callback
 
   Parameters:
-    leImageSequenceWidget* img - the widget
-    leImageSequenceImageChangedEvent_FnPtr cb - a valid callback pointer or NULL
-
-  Returns:
-    leResult
+    leImageSequenceWidget* _this - The image sequence widget to operate on
+    leImageSequenceImageChangedEvent_FnPtr cb - the callback pointer
 
   Remarks:
+    Usage - _this->fn->setImageChangedEventCallback(_this, cb);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leImageSequenceWidget_SetImageChangedEventCallback(leImageSequenceWidget* img,
-                                                                       leImageSequenceImageChangedEvent_FnPtr cb);
 
-// DOM-IGNORE-BEGIN
-// internal use only
-void _leImageSequenceWidget_GetImageRect(leImageSequenceWidget* img,
-                                         leRect* imgRect,
-                                         leRect* imgSrcRect);
-// DOM-IGNORE-END
 
-#endif
 
 #endif // LE_IMAGESEQUENCE_WIDGET_ENABLED
 #endif /* LEGATO_IMAGESEQUENCE_H */

@@ -23,7 +23,7 @@ typedef struct leDynamicStringVTable
     leDynamicString
 
   Summary:
-    String type that dynamically allocates internal memory to accomodate dynamic
+    String type that dynamically allocates internal memory to accommodate dynamic
     string operations.
 
   Remarks:
@@ -31,9 +31,9 @@ typedef struct leDynamicStringVTable
 */
 typedef struct leDynamicString
 {
-    leString base;
+    leString base; // string base data
     
-    leDynamicStringVTable* fn;
+    leDynamicStringVTable* fn; // function table
     
     leChar*     data;     // local string data storage
     
@@ -80,5 +80,48 @@ LIB_EXPORT leDynamicString* leDynamicString_New();
     the destructor member function to clean properly clean this object up.
 */
 LIB_EXPORT void leDynamicString_Constructor(leDynamicString* str);
+
+// *****************************************************************************
+/* Virtual Member Function:
+    uint32_t getCapacity(leDynamicString* str)
+
+  Summary:
+    Gets the capacity of the dynamic string
+
+  Description:
+    Gets the capacity of the dynamic string
+
+  Parameters:
+    leDynamicString* str - The string to operate on
+
+  Remarks:
+    Usage - _this->fn->getCapacity(_this);
+
+  Returns:
+    uint32_t - the current string capacity
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setCapacity(leDynamicString* str,
+                         uint32_t cap)
+
+  Summary:
+    Sets the capacity of the dynamic string
+
+  Description:
+    Sets the capacity of the dynamic string
+
+  Parameters:
+    leDynamicString* str - The string to operate on
+    uint32_t cap - the desired capacity
+
+  Remarks:
+    Usage - _this->fn->setCapacity(_this, cap);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
 
 #endif /* LEGATO_DYNAMICSTRING_H */

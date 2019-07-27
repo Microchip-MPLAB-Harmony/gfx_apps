@@ -81,16 +81,30 @@ typedef enum leImageFlags
     LE_IMAGE_INTERNAL_ALLOC  = 1 << 3
 } leImageFlags;
 
+// *****************************************************************************
+/* Enumeration:
+    leImageFilterMode
+
+  Summary:
+    A list of flags defining image filtering modes
+*/
 typedef enum leImageFilterMode
 {
     LE_IMAGE_NEAREST_NEIGHBOR,
     LE_IMAGE_BILINEAR,
 } leImageFilterMode;
 
+// *****************************************************************************
+/* Structure:
+    struct leImageMap
+
+  Summary:
+    Structure defining a general image map buffer.
+*/
 typedef struct leImageMap
 {
-    leStreamDescriptor header;
-    lePixelBuffer buffer;
+    leStreamDescriptor header; // standard stream header
+    lePixelBuffer buffer; // the buffer that describes this map
 } leImageMap;
 
 // *****************************************************************************
@@ -117,6 +131,22 @@ typedef struct leImageMap
 
     palette - will contain a valid pointer to a palette asset if thie image
               is an index map instead of a color image
+
+    leStreamDescriptor header - standard stream header
+    format - the format of the image.  this directly affects which decoder
+             is invoked when rendering the image
+    lePixelBuffer buffer - the buffer that describes this image data
+    leImageFlags flags - image descriptor flags
+
+    union
+    {
+        leColor color; // single masking color
+        leImageMap* map; // color mask map
+    } mask; // defines mask techniques
+
+    leImageMap* alphaMap; // placeholder for blending mask
+
+    lePalette* palette; // lookup palette for this image
 */
 typedef struct leImage
 {
@@ -136,6 +166,33 @@ typedef struct leImage
     lePalette* palette;
 } leImage;
 
+// *****************************************************************************
+/* Function:
+    leResult leImage_Create(leImage* img,
+                            uint32_t width,
+                            uint32_t height,
+                            leColorMode mode,
+                            void* data,
+                            uint32_t locationID)
+
+   Summary:
+    Initializes a leImage pointer
+
+   Description:
+    Initializes a leImage pointer
+
+   Parameters:
+    leImage* img - the image object to initialize
+    uint32_t width - the width of the image
+    uint32_t height - the height of the image
+    leColorMode mode - the color mode of the image
+    void* data - the data address of the image
+    uint32_t locationID - the location ID of the image
+
+  Returns:
+
+  Remarks:
+*/
 LIB_EXPORT leResult leImage_Create(leImage* img,
                                    uint32_t width,
                                    uint32_t height,
@@ -143,12 +200,71 @@ LIB_EXPORT leResult leImage_Create(leImage* img,
                                    void* data,
                                    uint32_t locationID);
 
+// *****************************************************************************
+/* Function:
+    leImage* leImage_Allocate(uint32_t width,
+                              uint32_t height,
+                              leColorMode mode)
+
+   Summary:
+    Dynamically allocates an image buffer in local memory using the
+    given parameters.
+
+   Description:
+    Dynamically allocates an image buffer in local memory using the
+    given parameters.  This uses the library's internal allocator and
+    memory pools.
+
+   Parameters:
+    uint32_t width - the width of the image in pixels
+    uint32_t height - the height of the image in pixels
+    leColorMode mode - the color mode of the image
+
+  Returns:
+    leImage* - a valid image or null if there wasn't enough memory for the
+               allocation
+  Remarks:
+*/
 LIB_EXPORT leImage* leImage_Allocate(uint32_t width,
                                      uint32_t height,
                                      leColorMode mode);
 
+// *****************************************************************************
+/* Function:
+    leResult leImage_Free(leImage* img)
+
+   Summary:
+    Frees an image buffer that was allocated using leImage_Allocate.
+
+   Description:
+    Frees an image buffer that was allocated using leImage_Allocate.
+
+   Parameters:
+    leImage* img - the image to free
+
+  Returns:
+
+  Remarks:
+*/
 LIB_EXPORT leResult leImage_Free(leImage* img);
 
+// *****************************************************************************
+/* Structure:
+    struct leImageDecoder
+
+  Summary:
+    Structure defining a general image decoder object.  Specific decoders
+    will implement this in their own way.
+
+    supportsImage - queries the decoder to see if it supports a given image
+    draw - initializes the decoder to draw an image to the render buffer
+    copy - intiailizes the decoder to perform an image copy operation
+    render - initializes the decoder to perform a direct memory render operation
+    resize - initialies the decoder to perform an image resize operation
+    exec - run the decoder
+    isDone - query the decoder for completion
+    free - frees the decoder to cleanup any allocated resources
+*/
 typedef struct leImageDecoder
 {
     leBool   (*supportsImage)(const leImage* img);
@@ -161,9 +277,32 @@ typedef struct leImageDecoder
     void     (*free)(void);
 } leImageDecoder;
 
+// *****************************************************************************
+/* Function:
+    void leImage_InitDecoders()
+
+   Summary:
+    Global function to initialize all image decoders.  INTERNAL USE ONLY
+
+   Description:
+    Global function to initialize all image decoders.  INTERNAL USE ONLY
+
+   Parameters:
+
+  Returns:
+
+  Remarks:
+*/
 void leImage_InitDecoders();
 
 #if LE_STREAMING_ENABLED == 1
+// *****************************************************************************
+/* Structure:
+    struct leImageStreamDecoder
+
+  Summary:
+    Defines the base implementation for a streaming image decoder.
+*/
 typedef struct leImageStreamDecoder
 {
     leStreamManager base;
@@ -180,8 +319,8 @@ typedef struct leImageStreamDecoder
   Parameters:
     leImage* img - pointer to the image asset to draw
     leRect* sourceRect - the source rectangle of the image to blit   
-    int32_t dest_x - the x position to draw to
-    int32_t dest_y - the y position to draw to
+    int32_t x - the x position to draw to
+    int32_t x - the y position to draw to
     uint32_t a - global alpha amount to apply
 
   Returns:

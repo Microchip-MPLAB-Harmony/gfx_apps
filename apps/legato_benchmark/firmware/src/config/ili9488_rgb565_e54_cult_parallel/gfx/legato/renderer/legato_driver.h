@@ -44,6 +44,41 @@
 
 #include "gfx/legato/common/legato_pixelbuffer.h"
 
+// *****************************************************************************
+/* Structure:
+    struct leDisplayDriver
+
+  Summary:
+    Defines the interface for a Legato display driver.  All drivers must,
+    at a minimum, implement these interfaces
+
+    getColorMode - returns the supported color mode for the driver
+
+    getBufferCount - returns the number of buffers the driver is configured to use
+
+    getDisplayWidth - returns the width of the driver frame buffer
+
+    getDisplayHeight - returns the height of the driver frame buffer
+
+    update - the driver tasks/update function
+
+    getLayerCount - the number of hardware layers the driver supports
+
+    getActiveLayer - the current active hardware layer
+
+    setActiveLayer - sets the current active hardware layer
+                     all buffer writes should go to this layer
+
+    blitBuffer - instructs the driver to blit a buffer (buf) at
+                 location (x, y)
+
+    swap - instructs the driver to swap its buffer chain
+
+    getVSYNCCount - queries the driver for its VSYNC counter
+                    if a driver implements this counter this value
+                    can be used to do frame rate calculations
+
+*/
 typedef struct leDisplayDriver
 {
     leColorMode (*getColorMode)(void);

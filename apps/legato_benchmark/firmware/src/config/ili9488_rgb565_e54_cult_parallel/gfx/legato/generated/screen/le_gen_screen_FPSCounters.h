@@ -38,11 +38,20 @@ leWidget* screenGetRoot_FPSCounters(uint32_t lyrIdx); // gets a root widget for 
 
 // event handlers
 void FPSCounters_OnShow(void);
+
 void FPSCounters_OnHide(void);
+
 void FPSCounters_OnUpdate(void);
-void FPSCounterSizeDown_OnPressed(leButtonWidget* btn);
-void FPSCounterSizeUp_OnPressed(leButtonWidget* btn);
-void FPSNextButton_OnPressed(leButtonWidget* btn);
+
+void FPSCounterSizeDown_OnPressed(leButtonWidget* btn)
+;
+
+void FPSCounterSizeUp_OnPressed(leButtonWidget* btn)
+;
+
+void FPSNextButton_OnPressed(leButtonWidget* btn)
+;
+
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

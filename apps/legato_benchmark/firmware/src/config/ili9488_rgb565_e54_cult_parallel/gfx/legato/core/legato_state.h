@@ -26,6 +26,20 @@
 */
 typedef void (*leLanguageChangedCallback_FnPtr)(uint32_t);
 
+
+// *****************************************************************************
+/* Structure:
+    struct leState
+
+  Summary:
+    The global structure that holds the state of the library
+
+  Description:
+    The global structure that holds the state of the library
+
+  Remarks:
+
+*/
 typedef struct leState
 {
     const leStringTable* stringTable; // the string table for the instance
@@ -41,11 +55,8 @@ typedef struct leState
     
     leLanguageChangedCallback_FnPtr languageChangedCB; // language changed callback
 
-    leWidget rootWidget[LE_LAYER_COUNT];
+    leWidget rootWidget[LE_LAYER_COUNT]; // root widgets of the scene
 
-    //leScreen screens[LE_MAX_SCREENS];
-    //int32_t activeScreen;
-    
 #if LE_STREAMING_ENABLED == 1
     leStreamManager* activeStream; // active stream state
 #endif
@@ -339,8 +350,7 @@ LIB_EXPORT leEditWidget* leGetEditWidget();
    Precondition:
 
    Parameters:
-    leEditWidget* - a widget that inherits the edit widget API and has its
-                   'editable' flag set to true.
+    leEditWidget* - a widget that inherits the edit widget API
 
   Returns:
     leResult
@@ -408,31 +418,229 @@ LIB_EXPORT void leRedrawAll();
         leResult    
 
 */
-
-
-
 LIB_EXPORT leBool leIsDrawing();
 
+/*  Function:
+        leResult leAddRootWidget(leWidget* wgt, uint32_t layer)
+
+    Summary:
+        Adds a custom widget to a static scene root widget.
+
+    Description:
+        The library maintains a static list of widgets that are considered
+        to be scene roots.  The library treats these roots as layers and
+        the display driver may configure itself to render these roots
+        to different hardware layers.
+
+        This API adds a child widget to one of the static roots.
+
+    Returns:
+        leResult
+
+*/
 LIB_EXPORT leResult leAddRootWidget(leWidget* wgt,
                                     uint32_t layer);
 
+/*  Function:
+        leResult leRemoveRootWidget(leWidget* wgt, uint32_t layer)
+
+    Summary:
+        Removes a custom widget from a static scene root widget.
+
+    Description:
+        The library maintains a static list of widgets that are considered
+        to be scene roots.  This API removes a child widget from one of the
+        static roots.
+
+    Returns:
+        leResult
+
+*/
 LIB_EXPORT leResult leRemoveRootWidget(leWidget* wgt,
                                        uint32_t layer);
 
+/*  Function:
+        leBool leWidgetIsInScene(const leWidget* wgt)
+
+    Summary:
+        Searches the active scene for a given widget.
+
+    Description:
+        Searches the active scene for a given widget.
+
+    Returns:
+        leResult - LE_TRUE if the widget is in the current scene
+
+*/
 LIB_EXPORT leBool leWidgetIsInScene(const leWidget* wgt);
 
 
+/*  Function:
+        leResult leEdit_StartEdit(const leWidget* wgt)
+
+    Summary:
+        Passes a 'start edit' command to the current edit widget,
+        if one exists
+
+    Description:
+        The edit widget is the widget in the scene that is currently receiving
+        edit events.
+
+    Returns:
+        leResult - LE_TRUE the command was processed successfully
+
+*/
 leResult leEdit_StartEdit();
+
+/*  Function:
+        leResult leEdit_EndEdit(const leWidget* wgt)
+
+    Summary:
+        Passes an 'end edit' command to the current edit widget,
+        if one exists
+
+    Description:
+        Passes an 'end edit' command to the current edit widget,
+        if one exists
+
+    Returns:
+        leResult - LE_TRUE the command was processed successfully
+
+*/
 void leEdit_EndEdit();
+
+/*  Function:
+        leResult leEdit_Clear(const leWidget* wgt)
+
+    Summary:
+        Passes a 'clear' command to the current edit widget,
+        if one exists
+
+    Description:
+        Passes a 'clear' command to the current edit widget,
+        if one exists
+
+    Returns:
+
+
+*/
 void leEdit_Clear();
+
+/*  Function:
+        leResult leEdit_Accept(const leWidget* wgt)
+
+    Summary:
+        Passes an 'accept' command to the current edit widget,
+        if one exists
+
+    Description:
+        Passes an 'accept' command to the current edit widget,
+        if one exists
+
+    Returns:
+
+
+*/
 void leEdit_Accept();
+
+/*  Function:
+        leResult leEdit_Accept(const leWidget* wgt)
+
+    Summary:
+        Passes a 'set' command and a string to the current edit widget,
+        if one exists
+
+    Description:
+        Passes a 'set' command and a string to the current edit widget,
+        if one exists
+
+    Returns:
+
+*/
 void leEdit_Set(leString* str);
+
+/*  Function:
+        leResult leEdit_Append(const leWidget* wgt)
+
+    Summary:
+        Passes an 'append' command and a string to the current edit widget,
+        if one exists
+
+    Description:
+        Passes an 'append' command and a string to the current edit widget,
+        if one exists
+
+    Returns:
+
+*/
 void leEdit_Append(leString* str);
+
+/*  Function:
+        leResult leEdit_Append(const leWidget* wgt)
+
+    Summary:
+        Passes a 'backspace' command to the current edit widget,
+        if one exists
+
+    Description:
+        Passes a 'backspace' command to the current edit widget,
+        if one exists
+
+    Returns:
+
+*/
 void leEdit_Backspace();
 
 #if LE_STREAMING_ENABLED == 1
+/*  Function:
+        leStreamManager* leGetActiveStream()
+
+    Summary:
+        Gets the global active data stream manager for the library.
+
+    Description:
+        A data stream manager is a state machine that is currently
+        attempting to stream data from a source that is external
+        to the library and possibly local memory.  This stream must
+        be handled to completion before any further rendering can take place.
+
+    Returns:
+
+*/
 leStreamManager* leGetActiveStream();
+
+/*  Function:
+        leResult leRunActiveStream()
+
+    Summary:
+        Allows the current active data stream to run until it preempts or
+        completes.
+
+    Description:
+        Allows the current active data stream to run until it preempts or
+        completes.
+
+    Returns:
+
+*/
 leResult leRunActiveStream();
+
+/*  Function:
+        void leAbortActiveStream
+
+    Summary:
+        Terminates the current active data stream regardless of whether
+        it still has data to receive.
+
+    Description:
+        Terminates the current active data stream regardless of whether
+        it still has data to receive.  It will likely attempt to clean itself up
+        as best it can.  Care should be taken in the application to not send data
+        to the stream after it has been aborted.
+
+    Returns:
+
+*/
 void leAbortActiveStream();
 #endif
 

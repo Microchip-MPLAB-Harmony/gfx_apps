@@ -429,8 +429,6 @@ typedef struct leWidget leWidget;
     leResult           (*setBorderType)(THIS_TYPE* _this, leBorderType type); \
     leBackgroundType   (*getBackgroundType)(const THIS_TYPE* _this); \
     leResult           (*setBackgroundType)(THIS_TYPE* _this, leBackgroundType type); \
-    /*uint32_t           (*getOptimizationFlags)(const THIS_TYPE* _this);*/ \
-    /*leResult           (*setOptimizationFlags)(THIS_TYPE* _this, uint32_t flgs);*/ \
     leHAlignment       (*getHAlignment)(const THIS_TYPE* _this); \
     leResult           (*setHAlignment)(THIS_TYPE* _this, leHAlignment halgn); \
     leVAlignment       (*getVAlignment)(const THIS_TYPE* _this); \
@@ -441,9 +439,8 @@ typedef struct leWidget leWidget;
     leResult           (*setCornerRadius)(THIS_TYPE* _this, uint32_t rad); \
     leBool             (*hasFocus)(const THIS_TYPE* _this); \
     leResult           (*setFocus)(THIS_TYPE* _this); \
-    /*leResult           (*setExternalInputHandler)(THIS_TYPE* _this, leWidgetInputHandler hndlr);*/ \
+    /* internal functions follow */ \
     void               (*invalidate)(const THIS_TYPE* _this); \
-    /*void             (*invalidateRect)(const THIS_TYPE* _this, const leRect* rect);*/ \
     void               (*invalidateContents)(const THIS_TYPE* _this); \
     leResult           (*installEventFilter)(THIS_TYPE* _this, leWidgetEventFilter fltr); \
     leResult           (*removeEventFilter)(THIS_TYPE* _this, leWidgetEventFilter fltr); \
@@ -572,6 +569,24 @@ typedef struct leWidget
 */
 LIB_EXPORT leWidget* leWidget_New();
 
+/* Function:
+    void leWidget_Constructor(leWidget* wgt)
+
+  Summary:
+    Initializes an leWidget widget pointer.
+
+  Description:
+    Initializes an leWidget widget pointer.
+
+  Parameters:
+    leWidget* wgt - the pointer to initialize
+
+  Returns:
+    void
+
+  Remarks:
+
+*/
 LIB_EXPORT void leWidget_Constructor(leWidget* wgt);
 
 /*    Function:
@@ -586,1074 +601,1231 @@ LIB_EXPORT void leWidget_Constructor(leWidget* wgt);
         destructed and freed.
 
     Parameters:
-        lawidget*
+        leWidget* wgt - the widget to be freed
 
     Returns:
         void
+
+    Remarks:
+        All widgets that are dynamically allocated using should be freed using
+        this function regardless of widget type.  This ensures tha all widget
+        destructors are properly called.
 
 */
 LIB_EXPORT void leWidget_Delete(leWidget* wgt);
 
-#if 0
-
-/*    Function:
-        int32_t leWidget_GetX(leWidget* wgt)
-
-    Summary:
-        Returns the widget rectangles upper left corner x-coordinate
-
-    Description:
-        Returns the widget rectangles upper left corner x-coordinate
-
-    Parameters:
-        lawidget* wgt - the widget
-
-    Returns:
-        uint32_t
-
-*/
-LIB_EXPORT int32_t leWidget_GetX(leWidget* wgt);
-
-/*    Function:
-        leResult leWidget_SetX(leWidget* wgt, int32_t x)
-
-    Summary:
-        Sets the widget's x coordinate position
-
-    Description:
-        Sets the widget's x coordinate position
-
-    Parameters:
-        lawidget* wgt - the widget
-        int32_t x - the desired x value
-
-    Returns:
-        leResult - result of the operation
-
-*/
-LIB_EXPORT leResult leWidget_SetX(leWidget* wgt, int32_t x);
-
-/*    Function:
-        int32_t leWidget_GetY(leWidget* wgt)
-
-    Summary:
-        Returns the widget rectangles upper left corner y-coordinate
-
-    Description:
-        Returns the widget rectangles upper left corner y-coordinate
-
-    Parameters:
-        lawidget* wgt - the widget
-
-    Returns:
-        uint32_t - the y value
-
-*/
-LIB_EXPORT int32_t leWidget_GetY(leWidget* wgt);
-
-/*    Function:
-        leResult leWidget_SetY(leWidget* wgt, int32_t y)
-
-    Summary:
-        Sets the widget's y coordinate position
-
-    Description:
-        Sets the widget's y coordinate position
-
-    Parameters:
-        lawidget* wgt - the widget
-        int32_t y - the desired y value
-
-    Returns:
-        leResult - result of the operation
-
-*/
-LIB_EXPORT leResult leWidget_SetY(leWidget* wgt, int32_t y);
-
-/*    Function:
-        int32_t leWidget_GetWidth(leWidget* wgt)
-
-    Summary:
-        Returns the widget rectangles width
-
-    Description:
-        Returns the widget rectangles width
-
-    Parameters:
-        lawidget* wgt - the widget
-
-    Returns:
-        uint32_t - the widget's y coordinate value
-
-*/
-LIB_EXPORT int32_t leWidget_GetWidth(leWidget* wgt);
-
-/*    Function:
-        leResult leWidget_SetWidth(leWidget* wgt, int32_t width)
-
-    Summary:
-        Sets the widget's width value
-
-    Description:
-        Sets the widget's width value
-
-    Parameters:
-        lawidget* wgt - the widget
-        int32_t width - the desired width value, must be > 0
-
-    Returns:
-        leResult - result of the operation
-
-*/
-LIB_EXPORT leResult leWidget_SetWidth(leWidget* wgt, int32_t width);
-
-/*    Function:
-        int32_t leWidget_GetHeight(leWidget* wgt)
-
-    Summary:
-        Returns the widget rectangles height
-
-    Description:
-        Returns the widget rectangles height
-
-    Parameters:
-        lawidget* wgt - the widget
-
-    Returns:
-        uint32_t - the widget's width value
-
-*/
-LIB_EXPORT int32_t leWidget_GetHeight(leWidget* wgt);
-
-/*    Function:
-        leResult leWidget_SetHeight(leWidget* wgt, int32_t height)
-
-    Summary:
-        Sets the widget's height value
-
-    Description:
-        Sets the widget's height value
-
-    Parameters:
-        lawidget* wgt - the widget
-        int32_t height - the desired height value, must be > 0
-
-    Returns:
-        leResult - result of the operation
-
-*/
-LIB_EXPORT leResult leWidget_SetHeight(leWidget* wgt, int32_t height);
-
 // *****************************************************************************
-/* Function:
-    leBool leWidget_GetAlphaEnable(leWidget* wgt)
+/* Virtual Member Function:
+    leWidgetType getType(const leWidgetWidget* _this)
 
   Summary:
-    Return the alpha enable property of the widget
+     Gets the widget type
 
   Description:
-    Return the alpha enable property of the widget
+     Gets the widget type
 
   Parameters:
-    lawidget* wgt - the widget
-
-  Returns:
-    leBool - the widget's alpha enable flag value
+    const leWidgetWidget* _this - The widget to operate on
 
   Remarks:
-
-*/
-LIB_EXPORT leBool leWidget_GetAlphaEnable(leWidget* wgt);
-
-// *****************************************************************************
-/* Function:
-    leBool leWidget_GetCumulativeAlphaEnable(leWidget* wgt)
-
-  Summary:
-    Determines if this or any ancestor widget has alpha enabled
-
-  Description:
-
-
-  Parameters:
-    lawidget* wgt - the widget
+    Usage - _this->fn->getType(_this);
 
   Returns:
-    leBool - whether the widget has alpha enabled
-
-  Remarks:
-
+    leWidgetType - the type
 */
-LIB_EXPORT leBool leWidget_GetCumulativeAlphaEnable(leWidget* wgt);
 
 // *****************************************************************************
-/* Function:
-    leResult leWidget_SetAlphaEnable(leWidget* wgt, leBool enable)
+/* Virtual Member Function:
+    int32_t getX(const leWidgetWidget* _this)
 
   Summary:
-    Set the alpha enable property of the widget with the boolean
-    value specified
+     Gets the widget X position
 
   Description:
-    Set the alpha enable property of the widget with the boolean
-    value specified
+     Gets the widget X position
 
   Parameters:
-    lawidget* wgt - the widget
-    leBool enable - the desired alpha enable flag value
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getX(_this);
+
+  Returns:
+    int32_t - the x value
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setX(leWidgetWidget* _this,
+                  int32_t x)
+
+  Summary:
+     Sets the widget X position
+
+  Description:
+     Sets the widget X position
+
+  Parameters:
+    leWidgetWidget* _this - The widget to operate on
+    int32_t x - the X value
+
+  Remarks:
+    Usage - _this->fn->setX(_this, x);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leWidget_SetAlphaEnable(leWidget* wgt, leBool enable);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leWidget_GetAlphaAmount(leWidget* wgt)
+/* Virtual Member Function:
+    int32_t getY(const leWidgetWidget* _this)
 
   Summary:
-    Return the widget's global alpha amount
+     Gets the widget Y position
 
   Description:
-    Return the widget's global alpha amount
+     Gets the widget Y position
 
   Parameters:
-    lawidget* wgt - the widget
+    const leWidgetWidget* _this - The widget to operate on
 
+  Remarks:
+    Usage - _this->fn->getY(_this);
 
   Returns:
-    uint32_t - the widget's global alpha amount
-
-  Remarks:
-
+    int32_t - the y value
 */
-LIB_EXPORT uint32_t leWidget_GetAlphaAmount(leWidget* wgt);
-
 
 // *****************************************************************************
-/* Function:
-    uint32_t leWidget_GetCumulativeAlphaAmount(leWidget* wgt)
+/* Virtual Member Function:
+    leResult setY(leWidgetWidget* _this,
+                  int32_t y)
 
   Summary:
-    Calculates the cumulative alpha amount for a hierarchy of widgets
+     Sets the widget Y position
 
   Description:
-    Alpha blending amounts are cumulative from parent to child.  If a parent
-    is blended at 50% then logically a child should also implicitely be
-    blended at 50%. If a child further explictely enables blending at 50% then
-    the cumulative amount is 25%.
+     Sets the widget Y position
 
   Parameters:
-    lawidget* wgt - the widget
-
-  Returns:
-    uint32_t - the cumulative blending amount
+    leWidgetWidget* _this - The widget to operate on
+    int32_t y - the Y value
 
   Remarks:
-
-*/
-LIB_EXPORT uint32_t leWidget_GetCumulativeAlphaAmount(leWidget* wgt);
-
-// *****************************************************************************
-/* Function:
-    leResult leWidget_SetAlphaAmount(leWidget* wgt, uint32_t alpha)
-
-  Summary:
-    Set the widget's global alpha amount to the specified alpha amount
-
-  Description:
-    Set the widget's global alpha amount to the specified alpha amount.  Widgets
-    may enable alpha blending even for color modes that don't support an alpha
-    channel.
-
-  Parameters:
-    leWidget* wgt - the widget
-    uint32_t alpha - the desired global alpha amount
+    Usage - _this->fn->setY(_this, y);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leWidget_SetAlphaAmount(leWidget* wgt, uint32_t alpha);
 
 // *****************************************************************************
-/* Function:
-    leBool leWidget_isOpaque(leWidget* wgt)
+/* Virtual Member Function:
+    leResult setPosition(leWidgetWidget* _this,
+                         int32_t x,
+                         int32_t y)
 
   Summary:
-    Returns true if the widget is considered opaque.
+     Sets the widget position
 
   Description:
-    Opacity is determined by a number of factors including: cumulative alpha
-    amount, background type, and the opaque optimization flag.
+     Sets the widget position
 
   Parameters:
-    leWidget* wgt - the widget
+    leWidgetWidget* _this - The widget to operate on
+    int32_t x - the X value
+    int32_t y - the Y value
+
+  Remarks:
+    Usage - _this->fn->setPosition(_this, x, y);
 
   Returns:
-    leBool - true if the widget is fully opaque
-
-  Remarks:
-
+    leResult - the result of the operation
 */
-LIB_EXPORT leBool leWidget_isOpaque(leWidget* wgt);
 
 // *****************************************************************************
-/* Function:
-    leRect leWidget_RectToParentSpace(leWidget* wgt)
+/* Virtual Member Function:
+    leResult translate(leWidgetWidget* _this,
+                       int32_t x,
+                       int32_t y)
 
   Summary:
-    Returns the rectangle containing the parent of the widget specified
+     Translate the widget position
 
   Description:
-    Returns the rectangle containing the parent of the widget specified
-    If the widget and the parent are not null, the rectangle defining
-    the parent widget with its upper left corner x and y coordinates is returned
+     Translate the widget position
 
   Parameters:
-    leWidget* wgt - the widget
+    leWidgetWidget* _this - The widget to operate on
+    int32_t x - the X value
+    int32_t y - the Y value
+
+  Remarks:
+    Usage - _this->fn->translate(_this, x, y);
 
   Returns:
-    leRect - the widget rectangle in parent space
-
-  Remarks:
-
+    leResult - the result of the operation
 */
-LIB_EXPORT leRect leWidget_RectToParentSpace(leWidget* wgt);
 
 // *****************************************************************************
-/* Function:
-    leRect leWidget_RectToScreenSpace(leWidget* wgt)
+/* Virtual Member Function:
+    uint32_t getWidth(const leWidgetWidget* _this)
 
   Summary:
-    Transforms a widget rectangle from local space to screen space coordinates.
+     Gets the widget width
 
   Description:
+     Gets the widget width
 
   Parameters:
-    leWidget* wgt - the widget
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getWidth(_this);
 
   Returns:
-    leRect - the transformed rectangle
-
-  Remarks:
-
+    uint32_t - the width value
 */
-LIB_EXPORT leRect leWidget_RectToScreenSpace(leWidget* wgt);
 
 // *****************************************************************************
-/* Function:
-    leResult leWidget_AddChild(leWidget* parent, leWidget* child)
+/* Virtual Member Function:
+    leResult setWidth(leWidgetWidget* _this,
+                      uint32_t w)
 
   Summary:
-    Adds the child to the parent widget specified in the argument
+     Sets the widget width
 
   Description:
-    The function checks to see if the child and parent are valid, removes the child from its current parents children list, and assigns the child to the parent widget specified.
-    The child is attached at the end of the list of the parent widgets children list.
+     Sets the widget width
 
   Parameters:
-    leWidget* parent - the parent widget
-    leWidget* child - the child to add
+    leWidgetWidget* _this - The widget to operate on
+    uint32_t w - the width value
+
+  Remarks:
+    Usage - _this->fn->setWidth(_this, w);
 
   Returns:
-    leResult - the operation result
-
-  Remarks:
-
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leWidget_AddChild(leWidget* parent, leWidget* child);
 
 // *****************************************************************************
-/* Function:
-    leResult leWidget_RemoveChild(leWidget* parent, leWidget* child)
+/* Virtual Member Function:
+    uint32_t getHeight(const leWidgetWidget* _this)
 
   Summary:
-    Removes the child from the parent widget specified in the argument
+     Gets the widget height
 
   Description:
-    The function checks to see if the child and parent are valid, removes the child from its current parents children list
+     Gets the widget height
 
   Parameters:
-    leWidget* parent - the parent widget
-    leWidget* child - the child to remove
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getHeight(_this);
 
   Returns:
-    leResult - the operation result
-
-  Remarks:
-
+    uint32_t - the height value
 */
-LIB_EXPORT leResult leWidget_RemoveChild(leWidget* parent, leWidget* child);
 
 // *****************************************************************************
-/* Function:
-    leResult leWidget_SetParent(leWidget* wgt, leWidget* parent)
+/* Virtual Member Function:
+    leResult setHeight(leWidgetWidget* _this,
+                       uint32_t h)
 
   Summary:
-    Sets the parent of the child widget to that specified in the argument list
+     Sets the widget height
 
   Description:
-    The function checks to see if the child and parent are valid, removes the child from its current parents children list, and assigns the child to the parent widget specified.
-    The child is attached at the end of the list of the parent widgets children list.
+     Sets the widget height
 
   Parameters:
-    leWidget* wgt - the widget
-    leWidget* parent - the desired parent widget
+    leWidgetWidget* _this - The widget to operate on
+    uint32_t h - the height value
+
+  Remarks:
+    Usage - _this->fn->setHeight(_this, h);
 
   Returns:
-    leResult - the operation result
-
-  Remarks:
-
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leWidget_SetParent(leWidget* wgt, leWidget* parent);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leWidget_GetChildCount(leWidget* parent)
+/* Virtual Member Function:
+    leResult setSize(leWidgetWidget* _this,
+                     uint32_t w,
+                     uint32_t h)
 
   Summary:
-    Returns the size of the children list of the specified parent widget
+     Sets the widget size
 
   Description:
-    Returns the size of the children list of the specified parent widget
+     Sets the widget size
 
   Parameters:
-    leWidget* wgt - the widget
+    leWidgetWidget* _this - The widget to operate on
+    uint32_t w - the width value
+    uint32_t h - the height value
+
+  Remarks:
+    Usage - _this->fn->setSize(_this, w, h);
 
   Returns:
-    uint32_t - the number of children of this widget
-
-  Remarks:
-
+    leResult - the result of the operation
 */
-LIB_EXPORT uint32_t leWidget_GetChildCount(leWidget* parent);
 
 // *****************************************************************************
-/* Function:
-    leWidget* leWidget_GetChildAtIndex(leWidget* parent, uint32_t idx)
+/* Virtual Member Function:
+    leResult resize(leWidgetWidget* _this,
+                    int32_t w,
+                    int32_t h)
 
   Summary:
-    Fetches the child at the specified index from the children list of the
-    specified parent widget
+     Resizes the widget
 
   Description:
-    Fetches the child at the specified index from the children list of the
-    specified parent widget
+     Resizes the widget
 
   Parameters:
-    leWidget* wgt - the widget
-    uint32_t idx - the desired child index
+    leWidgetWidget* _this - The widget to operate on
+    int32_t w - the width value
+    int32_t h - the height value
+
+  Remarks:
+    Usage - _this->fn->resize(_this, w, h);
 
   Returns:
-    leWidget* - a valid child pointer or NULL
-
-  Remarks:
-
+    leResult - the result of the operation
 */
-LIB_EXPORT leWidget* leWidget_GetChildAtIndex(leWidget* parent, uint32_t idx);
 
 // *****************************************************************************
-/* Function:
-    int32_t leWidget_GetIndexOfChild(leWidget* parent, leWidget* child)
+/* Virtual Member Function:
+    leBool getAlphaEnabled(const leWidgetWidget* _this)
 
   Summary:
-    Fetches the index of the child from the children list of the specified
-    parent widget
+     Gets the widget alpha enabled flag
 
   Description:
-    Traverses the children list of the specified parent widget and finds the
-    index of the child widget specified.
+     Gets the widget alpha enabled flag
 
   Parameters:
-    leWidget* parent - the parent widget
-    leWidget* child - the child widget
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getAlphaEnabled(_this);
 
   Returns:
-    int32_t - the index of the given child pointer or -1 if not found
-
-  Remarks:
-
+    leBool - true if alpha blending is enabled
 */
-LIB_EXPORT int32_t leWidget_GetIndexOfChild(leWidget* parent, leWidget* child);
-
-/*    Function:
-        void leWidget_DeleteAllDescendants(leWidget* wgt)
-
-    Summary:
-        Deletes all of the descendants of the given widget.
-
-    Description:
-        All descendants of this widget are removed and deleted.
-
-    Parameters:
-        lawidget*
-
-    Returns:
-        void
-
-*/
-LIB_EXPORT void leWidget_DeleteAllDescendants(leWidget* wgt);
 
 // *****************************************************************************
-/* Function:
-    leBool leWidget_GetEnabled(leWidget* wgt)
+/* Virtual Member Function:
+    leBool getCumulativeAlphaEnabled(const leWidgetWidget* _this)
 
   Summary:
-    Returns the boolean value of the widget enabled property
+     Determines if any widget in this widget's hierarchy has its alpha flag
+     enabled
 
   Description:
-    Returns the boolean value of the widget enabled property.  The widget enable
-    flag often governs things like appearing 'greyed out' and prohibits user
-    interactiong if it is false.  Widgets must individually support this flag.
+     Determines if any widget in this widget's hierarchy has its alpha flag
+     enabled
 
   Parameters:
-    leWidget* wgt - the widget
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getCumulativeAlphaEnabled(_this);
 
   Returns:
-    leBool - the value of the enabled flag
-
-  Remarks:
-
+    leBool - true if alpha blending is enabled
 */
-LIB_EXPORT leBool leWidget_GetEnabled(leWidget* wgt);
 
 // *****************************************************************************
-/* Function:
-    leResult leWidget_SetEnabled(leWidget* wgt, leBool enable)
+/* Virtual Member Function:
+    leResult setAlphaEnabled(leWidgetWidget* _this,
+                             leBool enbl)
 
   Summary:
-    Sets the boolean value of the widget enabled property
+     Sets the widget's alpha flag enable state
 
   Description:
-    Sets the boolean value of the widget enabled property
+     Sets the widget's alpha flag enable state
 
   Parameters:
-    leWidget* wgt - the widget
-    leBool - the desired enabled flag value
+    leWidgetWidget* _this - The widget to operate on
+    leBool enbl -
+
+  Remarks:
+    Usage - _this->fn->setAlphaEnabled(_this, enbl);
 
   Returns:
-    leResult - the operation result
-
-  Remarks:
-
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leWidget_SetEnabled(leWidget* wgt, leBool enable);
 
 // *****************************************************************************
-/* Function:
-    leBool leWidget_GetVisible(leWidget* wgt)
+/* Virtual Member Function:
+    uint32_t getAlphaAmount(const leWidgetWidget* _this)
 
   Summary:
-    Returns the boolean value of the widget visible property
+     Gets the widget alpha blending value
 
   Description:
-    Returns the boolean value of the widget visible property.  Widgets that are
-    invisible will be skipped during the rendering phase.  All descendants also
-    logically become invisible when an ancestor does.
+     Gets the widget alpha blending value
 
   Parameters:
-    leWidget* wgt - the widget
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getAlphaAmount(_this);
 
   Returns:
-    leBool - the flag value
-
-  Remarks:
-
+    uint32_t - the alpha amount
 */
-LIB_EXPORT leBool leWidget_GetVisible(leWidget* wgt);
 
 // *****************************************************************************
-/* Function:
-    leResult leWidget_SetVisible(leWidget* wgt, leBool visible)
+/* Virtual Member Function:
+    uint32_t getCumulativeAlphaAmount(const leWidgetWidget* _this)
 
   Summary:
-    Sets the boolean value of the widget visible property
+     Gets the cumulative amount of alpha blending applied to this widget
 
   Description:
-    Sets the boolean value of the widget visible property
+     Gets the cumulative amount of alpha blending applied to this widget
 
   Parameters:
-    leWidget* wgt - the widget
-    leBool - the desired setting
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getCumulativeAlphaAmount(_this);
 
   Returns:
-    leResult - the operation result
-
-  Remarks:
-    
+    uint32_t - the alpha amount
 */
-LIB_EXPORT leResult leWidget_SetVisible(leWidget* wgt, leBool visible);
 
 // *****************************************************************************
-/* Function:
-    leScheme* leWidget_GetScheme(leWidget* wgt)
+/* Virtual Member Function:
+    leResult setAlphaAmount(leWidgetWidget* _this,
+                            uint32_t a)
 
   Summary:
-    Returns the scheme associated with the specified widget
+     Sets this widget's alpha amount
 
   Description:
-    Returns the scheme associated with the specified widget
+     Sets this widget's alpha amount
 
   Parameters:
-    leWidget* wgt - the widget
+    leWidgetWidget* _this - The widget to operate on
+    uint32_t a - the alpha amount
+
+  Remarks:
+    Usage - _this->fn->setAlphaAmount(_this, a);
 
   Returns:
-    leScheme* - a pointer to the active scheme for a widget
-
-  Remarks:
-
+    leResult - the result of the operation
 */
-LIB_EXPORT leScheme* leWidget_GetScheme(leWidget* wgt);
 
 // *****************************************************************************
-/* Function:
-    void leWidget_SetScheme(leWidget* wgt, leScheme* scheme)
+/* Virtual Member Function:
+    leBool isOpaque(const leWidgetWidget* _this)
 
   Summary:
-    Sets the scheme variable for the specified widget
+     Determines if this widget is opaque
 
   Description:
-    Sets the scheme variable for the specified widget.  The scheme defines the
-    appearance of the widget.  Setting this to NULL may result in undefined
-    behavior if the widget doesn't properly support a NULL scheme.
+     Determines if this widget is opaque
 
   Parameters:
-    leWidget* wgt - the widget
-    leScheme* scheme - a pointer to a scheme or NULL
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->isOpaque(_this);
 
   Returns:
-    leResult - the operation result
-
-  Remarks:
-
+    leBool - true if opaque
 */
-LIB_EXPORT leResult leWidget_SetScheme(leWidget* wgt,
-                                       leScheme* scheme);
 
 // *****************************************************************************
-/* Function:
-    void leWidget_SetPosition(leWidget* wgt, int32_t x, int32_t y)
+/* Virtual Member Function:
+    leBool getEnabled(const leWidgetWidget* _this)
 
   Summary:
-    Changes the widget position to the new defined x and y coordinates.
+     Gets this widget's enabled flag
 
   Description:
-    Changes the widget position to the new defined x and y coordinates.  Moving
-    widgets can be expensive as it needs to repaint multiple areas of its
-    parent widget.
+     Gets this widget's enabled flag
 
   Parameters:
-    leWidget* wgt - the widget
-    int32_t x - the new x coordinate
-    int32_t y - the new y coordinate
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getEnabled(_this);
 
   Returns:
-    leResult - the operation result
-
-  Remarks:
-
+    leBool - the setting value
 */
-LIB_EXPORT leResult leWidget_SetPosition(leWidget* wgt,
-                                         int32_t x,
-                                         int32_t y);
 
 // *****************************************************************************
-/* Function:
-    void leWidget_Translate(leWidget* wgt, int32_t x, int32_t y)
+/* Virtual Member Function:
+    leResult setEnabled(leWidgetWidget* _this,
+                        leBool enbl)
 
   Summary:
-    Changes the widget position by moving the widget by the defined
-    x and y increments.
+     Sets this widget's enabled flag
 
   Description:
-    Changes the widget position by moving the widget by the defined
-    x and y increments.Moving widgets can be expensive as it needs to
-    repaint multiple areas of its parent widget.
-
+     Sets this widget's enabled flag
 
   Parameters:
-    leWidget* wgt - the widget
-    int32_t x - the amount to move in x
-    int32_t y - the amount to move in y
+    leWidgetWidget* _this - The widget to operate on
+    leBool enbl - the setting value
+
+  Remarks:
+    Usage - _this->fn->setEnabled(_this, enbl);
 
   Returns:
-    leResult - the operation result
-
-  Remarks:
-
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leWidget_Translate(leWidget* wgt,
-                                       int32_t x,
-                                       int32_t y);
 
 // *****************************************************************************
-/* Function:
-    void leWidget_SetSize(leWidget* wgt, uint32_t width, uint32_t height)
+/* Virtual Member Function:
+    leBool getVisible(const leWidgetWidget* _this)
 
   Summary:
-    Changes the widget size to the new defined width and height dimensions.
+     Gets this widget's visible flag
 
   Description:
-    Changes the widget size to the new width and height dimensions.
+     Gets this widget's visible flag
 
   Parameters:
-    leWidget* wgt - the widget
-    int32_t width - the new width size
-    int32_t height - the new height size
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getVisible(_this);
 
   Returns:
-    leResult - the operation result
-
-  Remarks:
-
+    leBool - the visibility setting
 */
-LIB_EXPORT leResult leWidget_SetSize(leWidget* wgt,
-                                     uint32_t width,
-                                     uint32_t height);
 
 // *****************************************************************************
-/* Function:
-    void leWidget_Resize(leWidget* wgt, int32_t width, int32_t height)
+/* Virtual Member Function:
+    leResult setVisible(leWidgetWidget* _this,
+                        leBool vis)
 
   Summary:
-    Changes the widget size by the new defined width and height increments.
+     Sets this widget's visible flag
 
   Description:
-    Changes the widget size by the new defined width and height increments.
+     Sets this widget's visible flag
 
   Parameters:
-    leWidget* wgt - the widget
-    int32_t width - the amount to change the width by
-    int32_t height - the amount ot change the height by
+    leWidgetWidget* _this - The widget to operate on
+    leBool vis - the visibility setting
+
+  Remarks:
+    Usage - _this->fn->setVisible(_this, vis);
 
   Returns:
-    leResult - the operation result
-
-  Remarks:
-
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leWidget_Resize(leWidget* wgt, int32_t width, int32_t height);
 
 // *****************************************************************************
-/* Function:
-    leBorderType leWidget_GetBorderType(leWidget* wgt)
+/* Virtual Member Function:
+    leRect localRect(const leWidgetWidget* _this)
 
   Summary:
-    Return the border type associated with the widget object
+     Gets the widget's bounding rectangle in local space
 
   Description:
-    Return the border type associated with the widget object
+     Gets the widget's bounding rectangle in local space
 
   Parameters:
-    leWidget* wgt - the widget
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->localRect(_this);
 
   Returns:
-    leBorderType - the current widget border type
-
-  Remarks:
-
+    leRect - the bounding rectangle
 */
-LIB_EXPORT leBorderType leWidget_GetBorderType(leWidget* wgt);
 
 // *****************************************************************************
-/* Function:
-    leResult leWidget_SetBorderType(leWidget* wgt, leBorderType type)
+/* Virtual Member Function:
+    leRect rectToParent(const leWidgetWidget* _this)
 
   Summary:
-    Set the border type associated with the widget object
+     Gets the widget's bounding rectangle in parent space
 
   Description:
-    Set the border type associated with the widget object
+     Gets the widget's bounding rectangle in parent space
 
   Parameters:
-    leWidget* wgt - the widget
-    leBorderType type - the desired border type
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->rectToParent(_this);
 
   Returns:
-    leResult - the operation result
-
-  Remarks:
-
+    leRect - the bounding rectangle
 */
-LIB_EXPORT leResult leWidget_SetBorderType(leWidget* wgt, leBorderType type);
 
 // *****************************************************************************
-/* Function:
-    leBackgroundType leWidget_GetBackgroundType(leWidget* wgt)
+/* Virtual Member Function:
+    leRect rectToScreen(const leWidgetWidget* _this)
 
   Summary:
-    Return the property value 'background type' associated with the widget object
+     Gets the widget's bounding rectangle in screen space
 
   Description:
-    Return the property value 'background type' associated with the widget object
-    The background type property decides if the widget background is drawn and
-    re-drawn. If background is none, the entire parent widget will be re-drawn
-    in the event that the widget gets dirty and needs re-drawing.
+     Gets the widget's bounding rectangle in screen space
 
   Parameters:
-    leWidget* wgt - the widget
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->rectToScreen(_this);
 
   Returns:
-    leBackgroundType - the current background type
-
-  Remarks:
-
+    leRect - the bounding rectangle
 */
-LIB_EXPORT leBackgroundType leWidget_GetBackgroundType(leWidget* wgt);
 
 // *****************************************************************************
-/* Function:
-    leResult leWidget_SetBackgroundType(leWidget* wgt, leBackgroundType type)
+/* Virtual Member Function:
+    leResult addChild(leWidgetWidget* _this,
+                      leWidget* chld)
 
   Summary:
-    Set the property value 'background type' associated with the widget object
+     Adds a child widget to this widget
 
   Description:
-    Set the property value 'draw background' associated with the widget object
+     Adds a child widget to this widget
 
   Parameters:
-    leWidget* wgt - the widget
-    leBackgroundType type - the desired background type
+    leWidgetWidget* _this - The widget to operate on
+    leWidget* chld - the child widget
+
+  Remarks:
+    Usage - _this->fn->addChild(_this, chld);
 
   Returns:
-    leResult - the operation result
-
-  Remarks:
-
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leWidget_SetBackgroundType(leWidget* wgt,
-                                               leBackgroundType type);
 
 // *****************************************************************************
-/* Function:
-    leBool leWidget_GetOptimizationFlags(leWidget* wgt)
+/* Virtual Member Function:
+    leResult removeChild(leWidgetWidget* _this,
+                         leWidget* chld)
 
   Summary:
-    Returns the optimization flags for the widget
+     Removes a child widget from this widget
 
   Description:
-
+     Removes a child widget from this widget
 
   Parameters:
-    leWidget* wgt - the widget
+    leWidgetWidget* _this - The widget to operate on
+    leWidget* chld - the child widget
+
+  Remarks:
+    Usage - _this->fn->removeChild(_this, chld);
 
   Returns:
-    leBool - the flag value
-
-  Remarks:
-
+    leResult - the result of the operation
 */
-LIB_EXPORT leBool leWidget_GetOptimizationFlags(leWidget* wgt);
 
 // *****************************************************************************
-/* Function:
-    leResult leWidget_SetOptimizationFlags(leWidget* wgt, uint32_t flags)
+/* Virtual Member Function:
+    void removeAllChildren(leWidgetWidget* _this)
 
   Summary:
-    Sets the optimizations for a widget
+     Removes all children from this widget
 
   Description:
-    See the optimizations enum for a descriptions of the individual flags
+     Removes all children from this widget
 
   Parameters:
-    leWidget* wgt - the widget
-
-  Returns:
-    leResult - the operation result
+    leWidgetWidget* _this - The widget to operate on
 
   Remarks:
-
-*/
-LIB_EXPORT leResult leWidget_SetOptimizationFlags(leWidget* wgt, uint32_t flags);
-
-// *****************************************************************************
-/* Function:
-    leResult leWidget_GetMargin (leWidget* wgt, leMargin* mg)
-
-  Summary:
-    Returns the margin value associated with the widget in the leMargin pointer
-
-  Description:
-    Returns the margin value associated with the widget in the leMargin pointer
-
-  Parameters:
-    leWidget* wgt - the widget
-    leMargin* mg - a pointer to an leMargin object to store the margin values
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leWidget_GetMargin (leWidget* wgt, leMargin* mg);
-
-// *****************************************************************************
-/* Function:
-    leResult leWidget_SetMargins(leWidget* wgt,
-                                 uint32_t left,
-                                 uint32_t top,
-                                 uint32_t right,
-                                 uint32_t bottom)
-
-  Summary:
-    Set the margin value for left, right, top and bottom margins associated
-    with the widget
-
-  Description:
-    Set the margin value for left, right, top and bottom margins associated
-    with the widget.  Margins are a generic property and it is up to the
-    individual widget to implement them (or not).
-
-  Parameters:
-    leWidget* wgt - the widget
-    uint32_t left - the left margin value
-    uint32_t top - the top margin value
-    uint32_t right - the right margin value
-    uint32_t bottom - the bottom margin value
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leWidget_SetMargins(leWidget* wgt,
-                                        uint32_t left,
-                                        uint32_t top,
-                                        uint32_t right,
-                                        uint32_t bottom);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leWidget_GetCornerRadius(leWidget* wgt)
-
-  Summary:
-    Returns the corner radius of the widget
-
-  Description:
-    Returns the corner radius of the widget
-
-  Parameters:
-    leWidget* wgt - the widget
-
-  Returns:
-    uint32_t - the corner radius
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leWidget_GetCornerRadius(leWidget* wgt);
-
-// *****************************************************************************
-/* Function:
-    leResult leWidget_SetCornerRadius(leWidget* wgt,
-                                      uint32_t radius)
-
-  Summary:
-    Sets the widget corner radius.
-
-  Description:
-    Sets the widget corner radius. A widget with non-zero corner radius will have
-    round edges. This only supports widgets with non-beveled borders.
-
-  Parameters:
-    leWidget* wgt - the widget
-    uint32_t radius - the radius
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leWidget_SetCornerRadius(leWidget* wgt,
-                                            uint32_t radius);
-
-// *****************************************************************************
-/* Function:
-    leBool leWidget_HasFocus(leWidget* wgt)
-
-  Summary:
-    Checks if the widget specified has focus in the current context
-
-  Description:
-    Checks if the widget specified has focus in the current context
-
-  Parameters:
-    leWidget* wgt - the widget
-
-  Returns:
-    leBool - true of the widget currently has context focus
-
-  Remarks:
-
-*/
-LIB_EXPORT leBool leWidget_HasFocus(leWidget* wgt);
-
-// *****************************************************************************
-/* Function:
-    leResult leWidget_SetFocus(leWidget* wgt)
-
-  Summary:
-    Set the widget into focus for the current context.
-
-  Description:
-    Set the widget into focus for the current context.
-    The input events etc are received by the widget once it is in focus
-
-  Parameters:
-    leWidget* wgt - the widget
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leWidget_SetFocus(leWidget* wgt);
-
-// *****************************************************************************
-/* Function:
-    void leWidget_Invalidate(leWidget* wgt)
-
-  Summary:
-    Invalidates the specified widget.
-
-  Description:
-    This function invalidates the specified widget.  Invalid widgets are redrawn
-    during the next paint loop call.  This function may also invalidate the
-    widget's parent, siblings, ancestors, or cousins.
-
-  Parameters:
-    leWidget* wgt - the widget
+    Usage - _this->fn->removeAllChildren(_this);
 
   Returns:
     void
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leWidget* getRootWidget(const leWidgetWidget* _this)
+
+  Summary:
+     Gets the topmost ancestor for this widget
+
+  Description:
+     Gets the topmost ancestor for this widget
+
+  Parameters:
+    const leWidgetWidget* _this - The widget to operate on
 
   Remarks:
+    Usage - _this->fn->getRootWidget(_this);
 
+  Returns:
+    leWidget* - the root widget
 */
-LIB_EXPORT void leWidget_Invalidate(leWidget* wgt);
 
-// DOM-IGNORE-BEGIN
-// internal use only
-void _leWidget_Invalidate(leWidget* wgt, const leRect* rect);
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setParent(leWidgetWidget* _this,
+                       leWidget* pnt)
 
-void _leWidget_ValidateChildren(leWidget* wgt);
+  Summary:
+     Sets this widget's parent
 
-void _leWidget_IncreaseDirtyState(leWidget* wgt, uint32_t state);
-void _leWidget_SetDirtyState(leWidget* wgt, uint32_t state);
-void _leWidget_ClearDirtyState(leWidget* wgt);
-// DOM-IGNORE-END
+  Description:
+     Sets this widget's parent
 
-#endif
+  Parameters:
+    leWidgetWidget* _this - The widget to operate on
+    leWidget* pnt - the parent widget
+
+  Remarks:
+    Usage - _this->fn->setParent(_this, pnt);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    uint32_t getChildCount(const leWidgetWidget* _this)
+
+  Summary:
+     Gets the number of children this widget owns
+
+  Description:
+     Gets the number of children this widget owns
+
+  Parameters:
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getChildCount(_this);
+
+  Returns:
+    uint32_t - the child count
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leWidget* getChildAtIndex(const leWidgetWidget* _this,
+                              uint32_t idx)
+
+  Summary:
+     Gets a widget child at a given index
+
+  Description:
+     Gets a widget child at a given index
+
+  Parameters:
+    const leWidgetWidget* _this - The widget to operate on
+    uint32_t idx - the index
+
+  Remarks:
+    Usage - _this->fn->getChildAtIndex(_this, idx);
+
+  Returns:
+    leWidget* - the child widget
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    uint32_t getIndexOfChild(const leWidgetWidget* _this,
+                             const leWidget* chld)
+
+  Summary:
+     Get the index of a given child widget
+
+  Description:
+     Get the index of a given child widget
+
+  Parameters:
+    const leWidgetWidget* _this - The widget to operate on
+    const leWidget* chld - the child widget
+
+  Remarks:
+    Usage - _this->fn->getIndexOfChild(_this, chld);
+
+  Returns:
+    uint32_t -
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leBool containsDescendent(const leWidgetWidget* _this,
+                              const leWidget* wgt)
+
+  Summary:
+     Determines of a widget's descendent tree contains a given widget
+
+  Description:
+     Determines of a widget's descendent tree contains a given widget
+
+  Parameters:
+    const leWidgetWidget* _this - The widget to operate on
+    const leWidget* wgt - the widget
+
+  Remarks:
+    Usage - _this->fn->containsDescendent(_this, wgt);
+
+  Returns:
+    leBool - LE_TRUE if the widget is a descentdent of this
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leScheme* getScheme(const leWidgetWidget* _this)
+
+  Summary:
+     Gets this widget's scheme
+
+  Description:
+     Gets this widget's scheme
+
+  Parameters:
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getScheme(_this);
+
+  Returns:
+    leScheme* - the scheme pointer
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setScheme(leWidgetWidget* _this,
+                       leScheme* schm)
+
+  Summary:
+     Sets this widget's scheme
+
+  Description:
+     Sets this widget's scheme
+
+  Parameters:
+    leWidgetWidget* _this - The widget to operate on
+    leScheme* schm - the scheme pointer
+
+  Remarks:
+    Usage - _this->fn->setScheme(_this, schm);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leBorderType getBorderType(const leWidgetWidget* _this)
+
+  Summary:
+     Gets this widget's border type
+
+  Description:
+     Gets this widget's border type
+
+  Parameters:
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getBorderType(_this);
+
+  Returns:
+    leBorderType - the type
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setBorderType(leWidgetWidget* _this,
+                           leBorderType type)
+
+  Summary:
+     Sets this widget's border type
+
+  Description:
+     Sets this widget's border type
+
+  Parameters:
+    leWidgetWidget* _this - The widget to operate on
+    leBorderType type - the type
+
+  Remarks:
+    Usage - _this->fn->setBorderType(_this, type);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leBackgroundType getBackgroundType(const leWidgetWidget* _this)
+
+  Summary:
+     Gets this widget's background type
+
+  Description:
+     Gets this widget's background type
+
+  Parameters:
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getBackgroundType(_this);
+
+  Returns:
+    leBackgroundType - the type
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setBackgroundType(leWidgetWidget* _this,
+                               leBackgroundType type)
+
+  Summary:
+     Sets this widget's background type
+
+  Description:
+     Sets this widget's background type
+
+  Parameters:
+    leWidgetWidget* _this - The widget to operate on
+    leBackgroundType type - the type
+
+  Remarks:
+    Usage - _this->fn->setBackgroundType(_this, type);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leHAlignment getHAlignment(const leWidgetWidget* _this)
+
+  Summary:
+     Gets this widget's horizontal alignment setting
+
+  Description:
+     Gets this widget's horizontal alignment setting
+
+  Parameters:
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getHAlignment(_this);
+
+  Returns:
+    leHAlignment - the horizontal alignment
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setHAlignment(leWidgetWidget* _this,
+                           leHAlignment halgn)
+
+  Summary:
+     Sets this widget's horizontal alignment setting
+
+  Description:
+     Sets this widget's horizontal alignment setting
+
+  Parameters:
+    leWidgetWidget* _this - The widget to operate on
+    leHAlignment halgn - the horizontal alignment
+
+  Remarks:
+    Usage - _this->fn->setHAlignment(_this, halgn);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leVAlignment getVAlignment(const leWidgetWidget* _this)
+
+  Summary:
+     Gets this widget's vertical alignment setting
+
+  Description:
+     Gets this widget's vertical alignment setting
+
+  Parameters:
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getVAlignment(_this);
+
+  Returns:
+    leVAlignment - the vertical alignment
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setVAlignment(leWidgetWidget* _this,
+                           leVAlignment valgn)
+
+  Summary:
+     Sets this widget's vertical alignment setting
+
+  Description:
+     Sets this widget's vertical alignment setting
+
+  Parameters:
+    leWidgetWidget* _this - The widget to operate on
+    leVAlignment valgn - the vertical alignment
+
+  Remarks:
+    Usage - _this->fn->setVAlignment(_this, valgn);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leMargin getMargins(const leWidgetWidget* _this)
+
+  Summary:
+     Gets this widget's margins
+
+  Description:
+     Gets this widget's margins
+
+  Parameters:
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getMargins(_this);
+
+  Returns:
+    leMargin - the margin value
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setMargins(leWidgetWidget* _this,
+                        uint32_t l,
+                        uint32_t t,
+                        uint32_t r,
+                        uint32_t b)
+
+  Summary:
+     Sets this widget's margins
+
+  Description:
+     Sets this widget's margins
+
+  Parameters:
+    leWidgetWidget* _this - The widget to operate on
+    uint32_t l - the left margin value
+    uint32_t t - the top margin value
+    uint32_t r - the right margin value
+    uint32_t b - the bottom margin value
+
+  Remarks:
+    Usage - _this->fn->setMargins(_this, l, t, r, b);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    uint32_t getCornerRadius(const leWidgetWidget* _this)
+
+  Summary:
+     Gets this widget's corner radius value
+
+  Description:
+     Gets this widget's corner radius value
+
+  Parameters:
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getCornerRadius(_this);
+
+  Returns:
+    uint32_t - the radius value
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setCornerRadius(leWidgetWidget* _this,
+                             uint32_t rad)
+
+  Summary:
+     Sets this widget's corner radius value
+
+  Description:
+     Sets this widget's corner radius value
+
+  Parameters:
+    leWidgetWidget* _this - The widget to operate on
+    uint32_t rad - the radius value
+
+  Remarks:
+    Usage - _this->fn->setCornerRadius(_this, rad);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leBool hasFocus(const leWidgetWidget* _this)
+
+  Summary:
+     Indicates if this widget currently has input focus
+
+  Description:
+     Indicates if this widget currently has input focus
+
+  Parameters:
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->hasFocus(_this);
+
+  Returns:
+    leBool - true if focused
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setFocus(leWidgetWidget* _this)
+
+  Summary:
+     Attempts to focus this widget
+
+  Description:
+     Attempts to focus this widget
+
+  Parameters:
+    leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->setFocus(_this);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    void invalidate(const leWidgetWidget* _this)
+
+  Summary:
+     Invalidates this widget so it will redraw itself
+
+  Description:
+     Invalidates this widget so it will redraw itself
+
+  Parameters:
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->invalidate(_this);
+
+  Returns:
+    void
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    void invalidateContents(const leWidgetWidget* _this)
+
+  Summary:
+     Invalidates the contents of this widget
+
+  Description:
+     Invalidates the contents of this widget
+
+  Parameters:
+    const leWidgetWidget* _this - The widget to operate on
+
+  Remarks:
+    Usage - _this->fn->invalidateContents(_this);
+
+  Returns:
+    void
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult installEventFilter(leWidgetWidget* _this,
+                                leWidgetEventFilter fltr)
+
+  Summary:
+     Installs a widget event filter
+
+  Description:
+     Installs a widget event filter
+
+  Parameters:
+    leWidgetWidget* _this - The widget to operate on
+    leWidgetEventFilter fltr - the callback pointer
+
+  Remarks:
+    Usage - _this->fn->installEventFilter(_this, fltr);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult removeEventFilter(leWidgetWidget* _this,
+                               leWidgetEventFilter fltr)
+
+  Summary:
+     Removes a widget event filter
+
+  Description:
+     Removes a widget event filter
+
+  Parameters:
+    leWidgetWidget* _this - The widget to operate on
+    leWidgetEventFilter fltr - the callback pointer
+
+  Remarks:
+    Usage - _this->fn->removeEventFilter(_this, fltr);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    void update(leWidgetWidget* _this,
+                uint32_t dt)
+
+  Summary:
+     The widget update/tasks function
+
+  Description:
+     The widget update/tasks function
+
+  Parameters:
+    leWidgetWidget* _this - The widget to operate on
+    uint32_t dt -
+
+  Remarks:
+    Usage - _this->fn->update(_this, dt);
+
+  Returns:
+    void
+*/
+
+
 
 #endif /* LEGATO_WIDGET_H */

@@ -219,11 +219,26 @@ LIB_EXPORT leColor lePixelBufferGet_Unsafe(const lePixelBuffer* const buffer,
   Returns:
     leColor - the resultant value that was retrieved
 */                                        
-LIB_EXPORT leColor lePixelBufferGetIndex(const lePixelBuffer* const buffer,
-                                         const uint32_t idx);
-                                         
 LIB_EXPORT leColor lePixelBufferGetIndex_Unsafe(const lePixelBuffer* const buffer,
                                                 const uint32_t idx);
+
+// *****************************************************************************
+/* Function:
+    leColor lePixelBufferGetIndex_Unsafe(const lePixelBuffer* const buffer,
+                                     const uint32_t idx)
+
+  Summary:
+    A faster less-safe version of lePixelBufferGetIndex;
+
+  Parameters:
+    const lePixelBuffer* const - the input buffer
+    const int32_t - the index to retrieve
+
+  Returns:
+    leColor - the resultant value that was retrieved
+*/
+leColor lePixelBufferGetIndex_Unsafe(const lePixelBuffer* const buffer,
+                                     const uint32_t idx);
 
 // *****************************************************************************
 /* Function:
@@ -298,6 +313,29 @@ LIB_EXPORT leResult lePixelBufferSet_Unsafe(const lePixelBuffer* const buffer,
                                             uint32_t y,
                                             leColor color);
 
+// *****************************************************************************
+/* Function:
+    leResult lePixelBufferAreaFill(const lePixelBuffer* const buffer,
+                                   uint32_t x,
+                                   uint32_t y,
+                                   uint32_t w,
+                                   uint32_t h,
+                                   const leColor color)
+
+  Summary:
+    Fills a rectangular area of a pixel buffer with a solid color.
+
+  Parameters:
+    const lePixelBuffer* const buffer - the buffer to operate on
+    uint32_t x - the x coordinate of the rectangle to fill
+    uint32_t y - the y coordinate of the rectangle to fill
+    uint32_t w - the width of the rectangle area
+    uint32_t h - the height of the rectangle area
+    const leColor color
+
+  Returns:
+    leResult - the result of the operation
+*/
 leResult lePixelBufferAreaFill(const lePixelBuffer* const buffer,
                                uint32_t x,
                                uint32_t y,

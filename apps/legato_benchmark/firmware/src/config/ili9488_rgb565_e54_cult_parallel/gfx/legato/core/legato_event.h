@@ -170,7 +170,7 @@ typedef enum leEventResult
   Remarks:
     
 */
-LIB_EXPORT uint32_t leEvent_GetCount();
+uint32_t leEvent_GetCount();
 
 // *****************************************************************************
 /* Function:
@@ -238,14 +238,10 @@ leResult leEvent_ClearList();
     leResult leEvent_ProcessEvents()
 
   Summary:
-    Processes the screen change as well as touch events 
+    Processes any pending events
 
   Description:
-    When a screen change event occurs, the specific screen change event handler 
-    has to be called as well as some generic maintenance for the screen change 
-    like destroying or hiding screen resources needs to be done. This function 
-    handles these tasks. It also handles similarly the touch events for individual 
-    widgets in the same manner.
+    Processes any pending events
 
   Parameters:
     void

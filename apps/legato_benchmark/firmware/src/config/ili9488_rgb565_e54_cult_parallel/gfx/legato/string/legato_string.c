@@ -259,7 +259,7 @@ leResult _leString_GetCharRect(const leString* _this,
 
 // TODO does not support multiline
 leResult _leString_GetCharIndexAtPoint(const leString* _this,
-                                       lePoint* pt,
+                                       const lePoint* pt,
                                        uint32_t* charIdx)
 {
     uint32_t idx;

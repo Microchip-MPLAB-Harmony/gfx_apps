@@ -134,188 +134,283 @@ typedef struct leCircleWidget
     leCircleWidget*
 
   Remarks:
-
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leCircleWidget* leCircleWidget_New();
 
+/* Function:
+    void leCircleWidget_Constructor(leCircleWidget* wgt)
+
+  Summary:
+    Initializes an leCircleWidget widget pointer.
+
+  Description:
+    Initializes an leCircleWidget widget pointer.
+
+  Parameters:
+    leCircleWidget* wgt - the pointer to initialize
+
+  Returns:
+    void
+
+  Remarks:
+
+*/
 LIB_EXPORT void leCircleWidget_Constructor(leCircleWidget* cir);
 
-#if 0
 // *****************************************************************************
-/* Function:
-    leResult leCircleWidget_GetOrigin(leCircleWidget* cir, int32_t* x, int32_t* y)
+/* Virtual Member Function:
+    lePoint getOrigin(const leCircleWidget* _this)
 
   Summary:
-    Gets the origin coordiates of a circle widget
+     Gets the circle origin
 
   Description:
-
+     Gets the circle origin
 
   Parameters:
-    leCircleWidget* cir - the widget
-    int32_t* x - pointer to an integer pointer to store x
-    int32_t* y - pointer to an integer pointer to store y
-
-  Returns:
-    leResult - the operation result
+    const leCircleWidget* _this - The circle to operate on
 
   Remarks:
+    Usage - _this->fn->getOrigin(_this);
 
+  Returns:
+    lePoint - the origin
 */
-LIB_EXPORT leResult leCircleWidget_GetOrigin(leCircleWidget* cir, int32_t* x, int32_t* y);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircleWidget_SetOrigin(leCircleWidget* cir, int32_t x, int32_t y)
+/* Virtual Member Function:
+    leResult setOrigin(leCircleWidget* _this,
+                       const lePoint org)
 
   Summary:
-    Sets the origin coordiates of a circle widget
+     Sets the circle origin
 
   Description:
-
+     Sets the circle origin
 
   Parameters:
-    leCircleWidget* cir - the widget
-    int32_t x - the desired x origin coordinate
-    int32_t y - the desired y origin coordinate
-
-  Returns:
-    leResult - the operation result
+    leCircleWidget* _this - The circle to operate on
+    const lePoint org - the origin value
 
   Remarks:
+    Usage - _this->fn->setOrigin(_this, org);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leCircleWidget_SetOrigin(leCircleWidget* cir, int32_t x, int32_t y);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leCircleWidget_GetRadius(leCircleWidget* cir)
+/* Virtual Member Function:
+    int32_t getOriginX(const leCircleWidget* _this)
 
   Summary:
-    Gets the radius of a circle widget
+     Gets the X value of the circle origin
 
   Description:
-
+     Gets the X value of the circle origin
 
   Parameters:
-    leCircleWidget* cir - the widget
-
-  Returns:
-    uint32_t
+    const leCircleWidget* _this - The circle to operate on
 
   Remarks:
+    Usage - _this->fn->getOriginX(_this);
 
+  Returns:
+    int32_t - the origin X value
 */
-LIB_EXPORT uint32_t leCircleWidget_GetRadius(leCircleWidget* cir);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircleWidget_SetRadius(leCircleWidget* cir, uint32_t rad)
+/* Virtual Member Function:
+    leResult setOriginX(leCircleWidget* _this,
+                        const int32_t x)
 
   Summary:
-    Sets the radius of a circle widget
+     Sets the X value of the circle origin
 
   Description:
-
+     Sets the X value of the circle origin
 
   Parameters:
-    leCircleWidget* cir - the widget
-    uint32_t red - the desired radius value
-
-  Returns:
-    leResult - the operation result
+    leCircleWidget* _this - The circle to operate on
+    const int32_t x - the origin X value
 
   Remarks:
+    Usage - _this->fn->setOriginX(_this, x);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leCircleWidget_SetRadius(leCircleWidget* cir, uint32_t rad);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leCircleWidget_GetThickness(leCircleWidget* cir)
+/* Virtual Member Function:
+    int32_t getOriginY(const leCircleWidget* _this)
 
   Summary:
-    Gets the thickness of a circle widget
+     Gets the Y value of the circle origin
 
   Description:
-
+     Gets the Y value of the circle origin
 
   Parameters:
-    leCircleWidget* cir - the widget
-
-  Returns:
-    uint32_t
+    const leCircleWidget* _this - The circle to operate on
 
   Remarks:
+    Usage - _this->fn->getOriginY(_this);
 
+  Returns:
+    int32_t - the origin Y value
 */
-LIB_EXPORT uint32_t leCircleWidget_GetThickness(leCircleWidget* cir);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircleWidget_SetThickness(leCircleWidget* cir, uint32_t thickness)
+/* Virtual Member Function:
+    leResult setOriginY(leCircleWidget* _this,
+                        const int32_t y)
 
   Summary:
-    Sets the thickness of a circle widget
+     Sets the Y value of the circle origin
 
   Description:
-
+     Sets the Y value of the circle origin
 
   Parameters:
-    leCircleWidget* cir - the widget
-    uint32_t thickness - the desired thickness value
-
-  Returns:
-    leResult - the operation result
+    leCircleWidget* _this - The circle to operate on
+    const int32_t y - the origin Y value
 
   Remarks:
+    Usage - _this->fn->setOriginY(_this, y);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leCircleWidget_SetThickness(leCircleWidget* cir, uint32_t thickness);
 
 // *****************************************************************************
-/* Function:
-    leBool leCircleWidget_GetFilled(leCircleWidget* cir)
+/* Virtual Member Function:
+    uint32_t getRadius(const leCircleWidget* _this)
 
   Summary:
-    Gets the filled state of a circle widget
+     Gets the circle radius
 
   Description:
-
+     Gets the circle radius
 
   Parameters:
-    leCircleWidget* cir - the widget
-
-  Returns:
-    uint32_t
+    const leCircleWidget* _this - The circle to operate on
 
   Remarks:
+    Usage - _this->fn->getRadius(_this);
 
+  Returns:
+    uint32_t - the radius value
 */
-LIB_EXPORT uint32_t leCircleWidget_GetFilled(leCircleWidget* cir);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircleWidget_SetFilled(leCircleWidget* cir, leBool filled)
+/* Virtual Member Function:
+    leResult setRadius(leCircleWidget* _this,
+                       uint32_t rad)
 
   Summary:
-    Sets the filled state of a circle widget
+     Sets the circle radius
 
   Description:
-
+     Sets the circle radius
 
   Parameters:
-    leCircleWidget* cir - the widget
-    leBool thickness - filled or not
-
-  Returns:
-    leResult - the operation result
+    leCircleWidget* _this - The circle to operate on
+    uint32_t rad - the radius value
 
   Remarks:
+    Usage - _this->fn->setRadius(_this, rad);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leCircleWidget_SetFilled(leCircleWidget* cir, leBool filled);
-#endif
+
+// *****************************************************************************
+/* Virtual Member Function:
+    uint32_t getThickness(const leCircleWidget* _this)
+
+  Summary:
+     Gets the circle thickness
+
+  Description:
+     Gets the circle thickness
+
+  Parameters:
+    const leCircleWidget* _this - The circle to operate on
+
+  Remarks:
+    Usage - _this->fn->getThickness(_this);
+
+  Returns:
+    uint32_t - the thickness value
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setThickness(leCircleWidget* _this,
+                          uint32_t thk)
+
+  Summary:
+     Sets the circle thickness
+
+  Description:
+     Sets the circle thickness
+
+  Parameters:
+    leCircleWidget* _this - The circle to operate on
+    uint32_t thk - the thickness value
+
+  Remarks:
+    Usage - _this->fn->setThickness(_this, thk);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leBool getFilled(const leCircleWidget* _this)
+
+  Summary:
+     Gets the filled setting
+
+  Description:
+     Gets the filled setting
+
+  Parameters:
+    const leCircleWidget* _this - The circle to operate on
+
+  Remarks:
+    Usage - _this->fn->getFilled(_this);
+
+  Returns:
+    leBool - the filled setting
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setFilled(leCircleWidget* _this,
+                       leBool fill)
+
+  Summary:
+     Sets the filled setting
+
+  Description:
+     Sets the filled setting
+
+  Parameters:
+    leCircleWidget* _this - The circle to operate on
+    leBool fill - the filled setting
+
+  Remarks:
+    Usage - _this->fn->setFilled(_this, fill);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+
 
 #endif // LE_CIRCLE_WIDGET_ENABLED
 #endif /* LEGATO_CIRCLE_H */

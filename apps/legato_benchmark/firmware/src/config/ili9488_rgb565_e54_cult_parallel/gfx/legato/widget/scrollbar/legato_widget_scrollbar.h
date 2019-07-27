@@ -177,385 +177,367 @@ typedef struct leScrollBarWidget
     leScrollBarWidget*
 
   Remarks:
-
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leScrollBarWidget* leScrollBarWidget_New();
 
-LIB_EXPORT void leScrollBarWidget_Constructor(leScrollBarWidget* bar);
-
-#if 0
-// *****************************************************************************
 /* Function:
-    leOrientation leScrollBarWidget_GetOrientation(leScrollBarWidget* bar)
+    void leScrollBarWidget_Constructor(leScrollBarWidget* wgt)
 
   Summary:
-    Gets the orientation value for the scroll bar
+    Initializes an leScrollBarWidget widget pointer.
 
   Description:
-
+    Initializes an leScrollBarWidget widget pointer.
 
   Parameters:
-    leScrollBarWidget* bar - the widget
+    leScrollBarWidget* wgt - the pointer to initialize
+
+  Returns:
+    void
+
+  Remarks:
+
+*/
+LIB_EXPORT void leScrollBarWidget_Constructor(leScrollBarWidget* bar);
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leOrientation getOrientation(const leScrollBarWidget* _this)
+
+  Summary:
+     Gets the scroll bar orientation
+
+  Description:
+     Gets the scroll bar orientation
+
+  Parameters:
+    const leScrollBarWidget* _this - The scroll bar widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getOrientation(_this);
 
   Returns:
     leOrientation - the orientation value
-
-  Remarks:
-
 */
-LIB_EXPORT leOrientation leScrollBarWidget_GetOrientation(leScrollBarWidget* bar);
 
 // *****************************************************************************
-/* Function:
-    leResult leScrollBarWidget_SetOrientation(leScrollBarWidget* bar,
-                                              leOrientation align)
+/* Virtual Member Function:
+    leResult setOrientation(leScrollBarWidget* _this,
+                            leOrientation align,
+                            leBool swapDimensions)
 
   Summary:
-    Sets the orientation value of the scroll bar
+     Sets the scroll bar orientation
 
   Description:
-
+     Sets the scroll bar orientation
 
   Parameters:
-    leScrollBarWidget* bar - the widget
-    leOrientation - the desired orientation value
-
-  Returns:
-    leResult - the operation result
+    leScrollBarWidget* _this - The scroll bar widget to operate on
+    leOrientation align - the orientation value
+    leBool swapDimensions - swap the width and height values when changing this
 
   Remarks:
+    Usage - _this->fn->setOrientation(_this, align, swapDimensions);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leScrollBarWidget_SetOrientation(leScrollBarWidget* bar,
-                                                     leOrientation align,
-                                                     leBool swapDimensions);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leScrollBarWidget_GetMaxinumValue(leScrollBarWidget* bar)
+/* Virtual Member Function:
+    uint32_t getMaximumValue(const leScrollBarWidget* _this)
 
   Summary:
-    Gets the maximum scroll value
+     Gets the maximum scroll value
 
   Description:
-
+     Gets the maximum scroll value
 
   Parameters:
-    leScrollBarWidget* bar - the widget
-
-  Returns:
-    uint32_t - the maximum scroll value
+    const leScrollBarWidget* _this - The scroll bar widget to operate on
 
   Remarks:
+    Usage - _this->fn->getMaximumValue(_this);
 
+  Returns:
+    uint32_t - the value
 */
-LIB_EXPORT uint32_t leScrollBarWidget_GetMaxinumValue(leScrollBarWidget* bar);
 
 // *****************************************************************************
-/* Function:
-    leResult leScrollBarWidget_SetMaximumValue(leScrollBarWidget* bar,
-                                               uint32_t val)
+/* Virtual Member Function:
+    leResult setMaximumValue(leScrollBarWidget* _this,
+                             uint32_t val)
+
   Summary:
-    Sets the maximum scroll value
+     Sets the maximum scroll value
 
   Description:
-
+     Sets the maximum scroll value
 
   Parameters:
-    leScrollBarWidget* bar - the widget
-    uint32_t val - the desired maximum scroll value
-
-  Returns:
-    leResult - the operation result
+    leScrollBarWidget* _this - The scroll bar widget to operate on
+    uint32_t val - the value
 
   Remarks:
+    Usage - _this->fn->setMaximumValue(_this, val);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leScrollBarWidget_SetMaximumValue(leScrollBarWidget* bar,
-                                                      uint32_t val);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leScrollBarWidget_GetExtentValue(leScrollBarWidget* bar)
+/* Virtual Member Function:
+    uint32_t getExtentValue(const leScrollBarWidget* _this)
 
   Summary:
-    Gets the current scroll bar extent value
+     Gets the extent value
 
   Description:
-
+     Gets the extent value
 
   Parameters:
-    leScrollBarWidget* bar - the widget
-
-  Returns:
-    uint32_t - the extent value
+    const leScrollBarWidget* _this - The scroll bar widget to operate on
 
   Remarks:
+    Usage - _this->fn->getExtentValue(_this);
 
+  Returns:
+    uint32_t - the value
 */
-LIB_EXPORT uint32_t leScrollBarWidget_GetExtentValue(leScrollBarWidget* bar);
 
 // *****************************************************************************
-/* Function:
-    leResult leScrollBarWidget_SetExtentValue(leScrollBarWidget* bar,
-                                              uint32_t val)
+/* Virtual Member Function:
+    leResult setExtentValue(leScrollBarWidget* _this,
+                            uint32_t val)
+
   Summary:
-    Sets the scroll bar extent value
+     Sets the extent value
 
   Description:
-
+     Sets the extent value
 
   Parameters:
-    leScrollBarWidget* bar - the widget
-    uint32_t val - the extent value
-
-  Returns:
-    leResult - the operation result
+    leScrollBarWidget* _this - The scroll bar widget to operate on
+    uint32_t val - the value
 
   Remarks:
+    Usage - _this->fn->setExtentValue(_this, val);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leScrollBarWidget_SetExtentValue(leScrollBarWidget* bar,
-                                                     uint32_t val);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leScrollBarWidget_GetScrollValue(leScrollBarWidget* bar)
+/* Virtual Member Function:
+    uint32_t getScrollPercentage(const leScrollBarWidget* _this)
 
   Summary:
-    Gets the current scroll value
+     Gets the scroll value as a percentage
 
   Description:
-
+     Gets the scroll value as a percentage
 
   Parameters:
-    leScrollBarWidget* bar - the widget
-
-  Returns:
-    uint32_t - the scroll value
+    const leScrollBarWidget* _this - The scroll bar widget to operate on
 
   Remarks:
+    Usage - _this->fn->getScrollPercentage(_this);
 
+  Returns:
+    uint32_t - the scroll value percentage
 */
-LIB_EXPORT uint32_t leScrollBarWidget_GetScrollValue(leScrollBarWidget* bar);
 
 // *****************************************************************************
-/* Function:
-    leResult leScrollBarWidget_SetScrollValue(leScrollBarWidget* bar,
-                                                     uint32_t val)
+/* Virtual Member Function:
+    leResult setScrollPercentage(leScrollBarWidget* _this,
+                                 uint32_t val)
+
   Summary:
-    Sets the current scroll value
+     Sets the scroll value using a percentage
 
   Description:
-
+     Sets the scroll value using a percentage
 
   Parameters:
-    leScrollBarWidget* bar - the widget
-    uint32_t - the desired scroll value
-
-  Returns:
-    leResult - the operation result
+    leScrollBarWidget* _this - The scroll bar widget to operate on
+    uint32_t val - the percentage value
 
   Remarks:
+    Usage - _this->fn->setScrollPercentage(_this, val);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leScrollBarWidget_SetScrollValue(leScrollBarWidget* bar,
-                                                     uint32_t val);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leScrollBarWidget_GetScrollPercentage(leScrollBarWidget* bar)
+/* Virtual Member Function:
+    uint32_t getScrollValue(const leScrollBarWidget* _this)
 
   Summary:
-    Gets the current scroll value as a percentage
+     Gets the scroll value
 
   Description:
-
+     Gets the scroll value
 
   Parameters:
-    leScrollBarWidget* bar - the widget
-
-  Returns:
-    uint32_t - the scroll percentage
+    const leScrollBarWidget* _this - The scroll bar widget to operate on
 
   Remarks:
+    Usage - _this->fn->getScrollValue(_this);
 
+  Returns:
+    uint32_t - the value
 */
-LIB_EXPORT uint32_t leScrollBarWidget_GetScrollPercentage(leScrollBarWidget* bar);
 
 // *****************************************************************************
-/* Function:
-    leResult leScrollBarWidget_SetScrollPercentage(leScrollBarWidget* bar,
-                                                   uint32_t val)
+/* Virtual Member Function:
+    leResult setScrollValue(leScrollBarWidget* _this,
+                            uint32_t val)
+
   Summary:
-    Sets the current scroll value using a percentage.  Percentage should be a
-    value from 0 - 100
+     Sets the scroll value
 
   Description:
-
+     Sets the scroll value
 
   Parameters:
-    leScrollBarWidget* bar - the widget
-    uint32_t val - a value from 0 - 100
-
-  Returns:
-    leResult - the operation result
+    leScrollBarWidget* _this - The scroll bar widget to operate on
+    uint32_t val - the value
 
   Remarks:
+    Usage - _this->fn->setScrollValue(_this, val);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leScrollBarWidget_SetScrollPercentage(leScrollBarWidget* bar,
-                                                          uint32_t val);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leScrollBarWidget_GetStepSize(leScrollBarWidget* bar)
+/* Virtual Member Function:
+    uint32_t getStepSize(const leScrollBarWidget* _this)
 
   Summary:
-    Gets the current discreet step size
+     Gets the step size
 
   Description:
-
+     Gets the step size
 
   Parameters:
-    leScrollBarWidget* bar - the widget
-
-  Returns:
-    uint32_t - the current step size
+    const leScrollBarWidget* _this - The scroll bar widget to operate on
 
   Remarks:
+    Usage - _this->fn->getStepSize(_this);
 
+  Returns:
+    uint32_t - the step size
 */
-LIB_EXPORT uint32_t leScrollBarWidget_GetStepSize(leScrollBarWidget* bar);
 
 // *****************************************************************************
-/* Function:
-    leResult leScrollBarWidget_SetStepSize(leScrollBarWidget* bar,
-                                           uint32_t val)
+/* Virtual Member Function:
+    leResult setStepSize(leScrollBarWidget* _this,
+                         uint32_t val)
 
   Summary:
-    Sets the current step size
+     Sets the step size
 
   Description:
-
+     Sets the step size
 
   Parameters:
-    leScrollBarWidget* bar - the widget
-    uint32_t val - the desired step size
-
-  Returns:
-    leResult - the operation result
+    leScrollBarWidget* _this - The scroll bar widget to operate on
+    uint32_t val - the step size
 
   Remarks:
+    Usage - _this->fn->setStepSize(_this, val);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leScrollBarWidget_SetStepSize(leScrollBarWidget* bar,
-                                                  uint32_t val);
 
 // *****************************************************************************
-/* Function:
-    leResult leScrollBarWidget_StepBackward(leScrollBarWidget* bar)
+/* Virtual Member Function:
+    leResult stepBackward(leScrollBarWidget* _this)
 
   Summary:
-    Moves the scroll value back by the current step size
+     Steps the value backwards
 
   Description:
-
+     Steps the value backwards
 
   Parameters:
-    leScrollBarWidget* bar - the widget
-
-  Returns:
-    leResult - the operation result
+    leScrollBarWidget* _this - The scroll bar widget to operate on
 
   Remarks:
+    Usage - _this->fn->stepBackward(_this);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leScrollBarWidget_StepBackward(leScrollBarWidget* bar);
 
 // *****************************************************************************
-/* Function:
-    leResult leScrollBarWidget_StepForward(leScrollBarWidget* bar)
+/* Virtual Member Function:
+    leResult stepForward(leScrollBarWidget* _this)
 
   Summary:
-    Moves the scroll value forward by the current step size
+     Steps the value forwards
 
   Description:
-
+     Steps the value forwards
 
   Parameters:
-    leScrollBarWidget* bar - the widget
-
-  Returns:
-    leResult - the operation result
+    leScrollBarWidget* _this - The scroll bar widget to operate on
 
   Remarks:
+    Usage - _this->fn->stepForward(_this);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leScrollBarWidget_StepForward(leScrollBarWidget* bar);
 
 // *****************************************************************************
-/* Function:
-    leScrollBarWidget_ValueChangedEvent leScrollBarWidget_GetValueChangedEventCallback(leScrollBarWidget* bar)
+/* Virtual Member Function:
+    leScrollBarWidget_ValueChangedEvent getValueChangedEventCallback(const leScrollBarWidget* _this)
 
   Summary:
-    Gets the current value changed callback function pointer
+     Gets the value changed event callback pointer
 
   Description:
-
+     Gets the value changed event callback pointer
 
   Parameters:
-    leScrollBarWidget* bar - the widget
-
-  Returns:
-    leScrollBarWidget_ValueChangedEvent - a valid pointer or NULL
+    const leScrollBarWidget* _this - The scroll bar widget to operate on
 
   Remarks:
+    Usage - _this->fn->getValueChangedEventCallback(_this);
 
+  Returns:
+    leScrollBarWidget_ValueChangedEvent - the value
 */
-LIB_EXPORT leScrollBarWidget_ValueChangedEvent leScrollBarWidget_GetValueChangedEventCallback(leScrollBarWidget* bar);
 
 // *****************************************************************************
-/* Function:
-    leResult leScrollBarWidget_SetValueChangedEventCallback(leScrollBarWidget* bar,
-                                                            leScrollBarWidget_ValueChangedEvent cb)
+/* Virtual Member Function:
+    leResult setValueChangedEventCallback(leScrollBarWidget* _this,
+                                          leScrollBarWidget_ValueChangedEvent cb)
+
   Summary:
-    Sets the value changed event callback pointer
+     Sets the value changed event callback pointer
 
   Description:
-
+     Sets the value changed event callback pointer
 
   Parameters:
-    leScrollBarWidget* bar - the widget
-    leScrollBarWidget_ValueChangedEvent - a valid pointer or NULL
-
-  Returns:
-    leResult - the operation result
+    leScrollBarWidget* _this - The scroll bar widget to operate on
+    leScrollBarWidget_ValueChangedEvent cb - the callback pointer
 
   Remarks:
+    Usage - _this->fn->setValueChangedEventCallback(_this, cb);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leScrollBarWidget_SetValueChangedEventCallback(leScrollBarWidget* bar,
-                                                                   leScrollBarWidget_ValueChangedEvent cb);
 
-// DOM-IGNORE-BEGIN
-// internal use only
-void _leScrollBarWidget_TouchDownEvent(leScrollBarWidget* bar, gauge* evt);
-void _leScrollBarWidget_TouchUpEvent(leScrollBarWidget* bar, leWidgetEvent_TouchUp* evt);
-void _leScrollBarWidget_TouchMovedEvent(leScrollBarWidget* bar, leWidgetEvent_TouchMove* evt);
 
-void _leScrollBar_GetUpLeftButtonRect(leScrollBarWidget* bar, leRect* rect);
-void _leScrollBar_GetDownRightButtonRect(leScrollBarWidget* bar, leRect* rect);
-void _leScrollBar_GetScrollAreaRect(leScrollBarWidget* bar, leRect* rect);
-void _leScrollBar_GetHandleRect(leScrollBarWidget* bar, leRect* rect);
-
-uint32_t _leScrollWidget_GetExtent(leScrollBarWidget* bar);
-uint32_t _leScrollBar_GetPercentFromPoint(leScrollBarWidget* bar, lePoint* pnt);
-uint32_t _leScrollBar_GetValueFromPercent(leScrollBarWidget* bar, uint32_t per);
-
-void _leScrollBarWidget_InvalidateBorderAreas(leScrollBarWidget* bar);
-// DOM-IGNORE-END
-#endif
 
 #endif // LE_SCROLLBAR_WIDGET_ENABLED
 #endif /* LEGATO_SCROLLBAR_H */

@@ -131,157 +131,199 @@ typedef struct leWindowWidget
     leWindowWidget*
 
   Remarks:
-
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leWindowWidget* leWindowWidget_New();
 
+/* Function:
+    void leWindowWidget_Constructor(leWindowWidget* wgt)
+
+  Summary:
+    Initializes an leWindowWidget widget pointer.
+
+  Description:
+    Initializes an leWindowWidget widget pointer.
+
+  Parameters:
+    leWindowWidget* wgt - the pointer to initialize
+
+  Returns:
+    void
+
+  Remarks:
+
+*/
 LIB_EXPORT void leWindowWidget_Constructor(leWindowWidget* win);
 
-#if 0
-
 // *****************************************************************************
-/* Function:
-    leResult leWindowWidget_GetTitle(leWindowWidget* win, leString* str)
+/* Virtual Member Function:
+    uint32_t getTitleHeight(const leWindowWidget* _this)
 
   Summary:
-    Gets the title text for this window.
+     Get the title bar height
 
   Description:
-    This function allocates memory and initializes the input string pointer.  The
-    caller is responsible for managing the memory once this function returns.
+     Get the title bar height
 
   Parameters:
-    leWindowWidget* win - the widget
-    leString* str - a pointer to an leString object
-
-  Returns:
-    leResult - the operation result
+    const leWindowWidget* _this - The window widget to operate on
 
   Remarks:
+    Usage - _this->fn->getTitleHeight(_this);
 
+  Returns:
+    uint32_t - the height value
 */
-LIB_EXPORT leResult leWindowWidget_GetTitle(leWindowWidget* win, leString* str);
 
 // *****************************************************************************
-/* Function:
-    leResult leWindowWidget_SetTitle(leWindowWidget* win, leString str)
+/* Virtual Member Function:
+    leResult setTitleHeight(leWindowWidget* this,
+                            uint32_t ht)
 
   Summary:
-    Sets the title text for the window.
+     Set the title bar height
 
   Description:
-    This function copies the contents of the input string into its internal
-    string buffer.  The input string can then be freed or altered without
-    affecting the label's internal string value.
+     Set the title bar height
 
   Parameters:
-    leWindowWidget* win - the widget
-    leString str - an leString object
-
-  Returns:
-    leResult - the operation result
+    leWindowWidget* this - The window widget to operate on
+    uint32_t ht - the height value
 
   Remarks:
+    Usage - _this->fn->setTitleHeight(_this, ht);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leWindowWidget_SetTitle(leWindowWidget* win, leString str);
 
 // *****************************************************************************
-/* Function:
-    GFXU_ImageAsset* leWindowWidget_GetIcon(leWindowWidget* win)
+/* Virtual Member Function:
+    leString* getString(const leWindowWidget* _this)
 
   Summary:
-    Gets the currently used window icon
+     Get the title bar string
 
   Description:
-
+     Get the title bar string
 
   Parameters:
-    leWindowWidget* win - the widget
-
-  Returns:
-    GFXU_ImageAsset*
+    const leWindowWidget* _this - The window widget to operate on
 
   Remarks:
+    Usage - _this->fn->getString(_this);
 
+  Returns:
+    leString* - the string pointer
 */
-LIB_EXPORT GFXU_ImageAsset* leWindowWidget_GetIcon(leWindowWidget* win);
 
 // *****************************************************************************
-/* Function:
-    leResult leWindowWidget_SetIcon(leWindowWidget* win,
-                                    GFXU_ImageAsset* img)
+/* Virtual Member Function:
+    leResult setString(leWindowWidget* _this,
+                       const leString* str)
 
   Summary:
-    Sets the image to be used as a window icon
+     Set the title bar string
 
   Description:
-
+     Set the title bar string
 
   Parameters:
-    leWindowWidget* win - the widget
-    GFXU_ImageAsset* - pointer to an image asset
-
-  Returns:
-    leResult - the operation result
+    leWindowWidget* _this - The window widget to operate on
+    const leString* str - the string pointer
 
   Remarks:
+    Usage - _this->fn->setString(_this, str);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leWindowWidget_SetIcon(leWindowWidget* win,
-                                           GFXU_ImageAsset* img);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leWindowWidget_GetIconMargin(leWindowWidget* win)
+/* Virtual Member Function:
+    leImage* getIcon(const leWindowWidget* _this)
 
   Summary:
-    Gets the current image icon margin
+     Get the title bar icon
 
   Description:
-
+     Get the title bar icon
 
   Parameters:
-    leWindowWidget* win - the widget
-
-  Returns:
-    uint32_t - the icon margin
+    const leWindowWidget* _this - The window widget to operate on
 
   Remarks:
+    Usage - _this->fn->getIcon(_this);
 
+  Returns:
+    leImage* - the image pointer
 */
-LIB_EXPORT uint32_t leWindowWidget_GetIconMargin(leWindowWidget* win);
 
 // *****************************************************************************
-/* Function:
-    leResult leWindowWidget_SetIconMargin(leWindowWidget* win, uint32_t mg)
+/* Virtual Member Function:
+    leResult setIcon(leWindowWidget* _this,
+                     const leImage* img)
 
   Summary:
-    Sets the image icon margin
+     Set the title bar icon
 
   Description:
-
+     Set the title bar icon
 
   Parameters:
-    leWindowWidget* win - the widget
-    uint32_t mg - the image icon margin value
-
-  Returns:
-    leResult - the operation result
+    leWindowWidget* _this - The window widget to operate on
+    const leImage* img - the image pointer
 
   Remarks:
+    Usage - _this->fn->setIcon(_this, img);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leWindowWidget_SetIconMargin(leWindowWidget* win, uint32_t mg);
 
-// DOM-IGNORE-BEGIN
-// internal use only
-void leWindowWidget_GetTitleBarRect(leWindowWidget* win, leRect* barRect);
-void leWindowWidget_GetIconRect(leWindowWidget* win, leRect* imgRect, leRect* imgSrcRect);
-void leWindowWidget_GetTextRect(leWindowWidget* win, leRect* textRect, leRect* drawRect);
-// DOM-IGNORE-END
+// *****************************************************************************
+/* Virtual Member Function:
+    uint32_t getIconMargin(const leWindowWidget* this)
 
-#endif
+  Summary:
+     Get the title bar icon margin
+
+  Description:
+     Get the title bar icon margin
+
+  Parameters:
+    const leWindowWidget* this - The window widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getIconMargin(_this);
+
+  Returns:
+    uint32_t - the margin value
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setIconMargin(leWindowWidget* this,
+                           uint32_t mg)
+
+  Summary:
+     Set the title bar icon margin
+
+  Description:
+     Set the title bar icon margin
+
+  Parameters:
+    leWindowWidget* this - The window widget to operate on
+    uint32_t mg - the margin value
+
+  Remarks:
+    Usage - _this->fn->setIconMargin(_this, mg);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+
 
 #endif // LE_WINDOW_WIDGET_ENABLED
 #endif /* LEGATO_WINDOW_H */

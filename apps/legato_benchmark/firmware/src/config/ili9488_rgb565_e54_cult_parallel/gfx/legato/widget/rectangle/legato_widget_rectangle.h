@@ -114,56 +114,73 @@ typedef struct leRectangleWidget
     leRectangleWidget*
     
   Remarks:
-    
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leRectangleWidget* leRectangleWidget_New();
 
-#if 0
-// *****************************************************************************
 /* Function:
-    int32_t leRectangleWidget_GetThickness(leRectangleWidget* rect)
+    void leRectangleWidget_Constructor(leRectangleWidget* wgt)
 
   Summary:
-    Gets the rectangle border thickness setting
+    Initializes an leRectangleWidget widget pointer.
 
   Description:
-    
+    Initializes an leRectangleWidget widget pointer.
 
   Parameters:
-    leRectangleWidget* rect - the widget
-    
+    leRectangleWidget* wgt - the pointer to initialize
+
   Returns:
-    int32_t - the border thickness setting
-    
+    void
+
   Remarks:
-    
+
 */
-LIB_EXPORT int32_t leRectangleWidget_GetThickness(leRectangleWidget* rect);
+void leRectangleWidget_Constructor(leRectangleWidget* _this);
 
 // *****************************************************************************
-/* Function:
-    leResult leRectangleWidget_SetThickness(leRectangleWidget* rect,
-                                            int32_t thk)
+/* Virtual Member Function:
+    int32_t getThickness(const leRectangleWidget* _this)
 
   Summary:
-    Sets the rectangle border thickness setting
+     Gets the rectangle border thickness
 
   Description:
-    
+     Gets the rectangle border thickness
 
   Parameters:
-    leRectangleWidget* rect - the widget
-    int32_t thk - the thickness setting
-    
-  Returns:
-    leResult - the operation result
-    
+    const leRectangleWidget* _this - The rectangle widget to operate on
+
   Remarks:
-    
+    Usage - _this->fn->getThickness(_this);
+
+  Returns:
+    int32_t - the thickness value
 */
-LIB_EXPORT leResult leRectangleWidget_SetThickness(leRectangleWidget* rect,
-                                                   int32_t thk);
-#endif
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setThickness(leRectangleWidget* _this,
+                          int32_t thk)
+
+  Summary:
+     Sets the rectangle border thickness
+
+  Description:
+     Sets the rectangle border thickness
+
+  Parameters:
+    leRectangleWidget* _this - The rectangle widget to operate on
+    int32_t thk -
+
+  Remarks:
+    Usage - _this->fn->setThickness(_this, thk);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+
 
 #endif // LE_RECTANGLE_WIDGET_ENABLED
 #endif /* LEGATO_RECTANGLE_H */

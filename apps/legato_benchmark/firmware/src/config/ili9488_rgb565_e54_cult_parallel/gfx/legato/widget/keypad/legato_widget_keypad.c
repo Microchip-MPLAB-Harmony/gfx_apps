@@ -247,7 +247,7 @@ static leResult setKeyClickEventCallback(leKeyPadWidget* _this,
     return LE_SUCCESS;
 }
 
-static leResult setKeyEnabled(leKeyPadWidget* _this,
+static leResult setKeyVisible(leKeyPadWidget* _this,
                               uint32_t row,
                               uint32_t col,
                               leBool enabled)
@@ -355,7 +355,7 @@ void _leKeyPadWidget_GenerateVTable()
     keyPadWidgetVTable.setKeyPadActionTrigger = setKeyPadActionTrigger;
     keyPadWidgetVTable.getKeyClickEventCallback = getKeyClickEventCallback;
     keyPadWidgetVTable.setKeyClickEventCallback = setKeyClickEventCallback;
-    keyPadWidgetVTable.setKeyEnabled = setKeyEnabled;
+    keyPadWidgetVTable.setKeyVisible = setKeyVisible;
     keyPadWidgetVTable.getKeyAction = getKeyAction;
     keyPadWidgetVTable.setKeyAction = setKeyAction;
     keyPadWidgetVTable.getKeyValue = getKeyValue;
