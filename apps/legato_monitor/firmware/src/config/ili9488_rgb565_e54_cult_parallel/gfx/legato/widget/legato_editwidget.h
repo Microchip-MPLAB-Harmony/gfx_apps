@@ -91,6 +91,152 @@ typedef struct leEditWidget
     
 } leEditWidget;
 
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult editStart(leEditWidget* _this)
+
+  Summary:
+     Start editing command
+
+  Description:
+     Start editing command
+
+  Parameters:
+    leEditWidget* _this - The edit widget to operate on
+
+  Remarks:
+    Usage - _this->fn->editStart(_this);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    void editEnd(leEditWidget* _this)
+
+  Summary:
+     End editing command
+
+  Description:
+     End editing command
+
+  Parameters:
+    leEditWidget* _this - The edit widget to operate on
+
+  Remarks:
+    Usage - _this->fn->editEnd(_this);
+
+  Returns:
+    void
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    void editClear(leEditWidget* _this)
+
+  Summary:
+     Clear command
+
+  Description:
+     Clear command
+
+  Parameters:
+    leEditWidget* _this - The edit widget to operate on
+
+  Remarks:
+    Usage - _this->fn->editClear(_this);
+
+  Returns:
+    void
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    void editAccept(leEditWidget* _this)
+
+  Summary:
+     Accept command
+
+  Description:
+     Accept command
+
+  Parameters:
+    leEditWidget* _this - The edit widget to operate on
+
+  Remarks:
+    Usage - _this->fn->editAccept(_this);
+
+  Returns:
+    void
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    void editSet(leEditWidget* _this,
+                 const leString* str)
+
+  Summary:
+     Set command
+
+  Description:
+     Set command
+
+  Parameters:
+    leEditWidget* _this - The edit widget to operate on
+    const leString* str - the string pointer
+
+  Remarks:
+    Usage - _this->fn->editSet(_this, str);
+
+  Returns:
+    void
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    void editAppend(leEditWidget* _this,
+                    const leString* str)
+
+  Summary:
+     Append command
+
+  Description:
+     Append command
+
+  Parameters:
+    leEditWidget* _this - The edit widget to operate on
+    const leString* str - the string pointer
+
+  Remarks:
+    Usage - _this->fn->editAppend(_this, str);
+
+  Returns:
+    void
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    void editBackspace(leEditWidget* _this)
+
+  Summary:
+     Backspace command
+
+  Description:
+     Backspace command
+
+  Parameters:
+    leEditWidget* _this - The edit widget to operate on
+
+  Remarks:
+    Usage - _this->fn->editBackspace(_this);
+
+  Returns:
+    void
+*/
+
+
+
 // DOM-IGNORE-BEGIN
 leResult _leEditWidget_StartEdit();
 void _leEditWidget_EndEdit();

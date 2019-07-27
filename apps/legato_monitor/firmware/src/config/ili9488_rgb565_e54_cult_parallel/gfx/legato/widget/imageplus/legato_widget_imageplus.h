@@ -169,420 +169,427 @@ void _leImagePlusWidget_Paint(leImagePlusWidget* img);
     leImagePlusWidget* - the widget
 
   Remarks:
-
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leImagePlusWidget* leImagePlusWidget_New();
 
+/* Function:
+    void leImagePlusWidget_Constructor(leImagePlusWidget* wgt)
+
+  Summary:
+    Initializes an leImagePlusWidget widget pointer.
+
+  Description:
+    Initializes an leImagePlusWidget widget pointer.
+
+  Parameters:
+    leImagePlusWidget* wgt - the pointer to initialize
+
+  Returns:
+    void
+
+  Remarks:
+
+*/
 LIB_EXPORT void leImagePlusWidget_Constructor(leImagePlusWidget* img);
 
-#if 0
 // *****************************************************************************
-/* Function:
-    leImage* leImagePlusWidget_GetImage(leImagePlusWidget* img)
+/* Virtual Member Function:
+    leImage* getImage(const leImagePlusWidget* _this)
 
   Summary:
-    Gets the image asset pointer for the widget.
+     Gets the image pointer
 
   Description:
-
+     Gets the image pointer
 
   Parameters:
-    leImagePlusWidget* img - the widget
-
-  Returns:
-    leImage* - the image asset pointer
+    const leImagePlusWidget* _this - The image plus widget to operate on
 
   Remarks:
+    Usage - _this->fn->getImage(_this);
 
+  Returns:
+    leImage* - the image pointer
 */
-LIB_EXPORT leImage* leImagePlusWidget_GetImage(leImagePlusWidget* img);
 
 // *****************************************************************************
-/* Function:
-    leResult leImagePlusWidget_SetImage(leImagePlusWidget* img,
-                                        leImage* imgAst)
+/* Virtual Member Function:
+    leResult setImage(leImagePlusWidget* _this,
+                      const leImage* img)
 
   Summary:
-    Sets the image asset pointer for the widget.
+     Sets the image pointer
 
   Description:
-
+     Sets the image pointer
 
   Parameters:
-    leImagePlusWidget* img - the widget
-    leImage* imgAst - the image asset pointer
-
-  Returns:
-    leResult - the operation result
+    leImagePlusWidget* _this - The image plus widget to operate on
+    const leImage* img - the image pointer
 
   Remarks:
+    Usage - _this->fn->setImage(_this, img);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leImagePlusWidget_SetImage(leImagePlusWidget* img,
-                                               leImage* imgAst);
-
-
-/*    Function:
-        int32_t leImagePlusWidget_GetTransformX(leImagePlusWidget* img)
-
-    Summary:
-        Returns the image transform x coefficient
-
-    Description:
-        Returns the image transform x coefficient
-
-    Parameters:
-        leImagePlusWidget* img - the widget
-
-    Returns:
-        int32_t - the x translation coefficient
-
-*/
-LIB_EXPORT int32_t leImagePlusWidget_GetTransformX(leImagePlusWidget* img);
-
-/*    Function:
-        leResult leImagePlusWidget_SetTransformX(leImagePlusWidget* img, int32_t x)
-
-    Summary:
-        Sets the image transform x coefficient
-
-    Description:
-        Sets the image transform x coefficient
-
-    Parameters:
-        leImagePlusWidget* img - the widget
-        int32_t x - the desired x value
-
-    Returns:
-        leResult - result of the operation
-
-*/
-LIB_EXPORT leResult leImagePlusWidget_SetTransformX(leImagePlusWidget* img, int32_t x);
-
-/*    Function:
-        int32_t leImagePlusWidget_GetTransformY(leImagePlusWidget* img)
-
-    Summary:
-        Returns the image transform y coefficient
-
-    Description:
-        Returns the image transform y coefficient
-
-    Parameters:
-        leImagePlusWidget* img - the widget
-
-    Returns:
-        int32_t - the y translation coefficient
-
-*/
-LIB_EXPORT int32_t leImagePlusWidget_GetTransformY(leImagePlusWidget* img);
-
-/*    Function:
-        leResult leImagePlusWidget_SetTransformY(leImagePlusWidget* img, int32_t y)
-
-    Summary:
-        Sets the image transform y coefficient
-
-    Description:
-        Sets the image transform y coefficient
-
-    Parameters:
-        leImagePlusWidget* img - the widget
-        int32_t y - the desired y value
-
-    Returns:
-        leResult - result of the operation
-
-*/
-LIB_EXPORT leResult leImagePlusWidget_SetTransformY(leImagePlusWidget* img, int32_t y);
-
-/*    Function:
-        int32_t leImagePlusWidget_GetTransformWidth(leImagePlusWidget* img)
-
-    Summary:
-        Returns the image scale width coefficient
-
-    Description:
-        Returns the image scale width coefficient
-
-    Parameters:
-        leImagePlusWidget* img - the widget
-
-    Returns:
-        int32_t - the scale width coordinate value in pixels
-
-*/
-LIB_EXPORT int32_t leImagePlusWidget_GetTransformWidth(leImagePlusWidget* img);
-
-/*    Function:
-        leResult leImagePlusWidget_SetTransformWidth(leImagePlusWidget* img,
-                                                     int32_t width)
-
-    Summary:
-        Sets the image scale width coefficient.  This value is in pixels not
-        percentage
-
-    Description:
-        Sets the image scale width coefficient.  This value is in pixels not
-        percentage
-
-    Parameters:
-        leImagePlusWidget* img - the widget
-        int32_t width - the desired width value, must be > 0
-
-    Returns:
-        leResult - result of the operation
-
-*/
-LIB_EXPORT leResult leImagePlusWidget_SetTransformWidth(leImagePlusWidget* img, int32_t width);
-
-/*    Function:
-        int32_t leImagePlusWidget_GetTransformHeight(leImagePlusWidget* img)
-
-    Summary:
-        Returns the image scale height coefficient
-
-    Description:
-        Returns the image scale height coefficient
-
-    Parameters:
-        leImagePlusWidget* img - the widget
-
-    Returns:
-        int32_t - the scale width coordinate value in pixels
-
-*/
-LIB_EXPORT int32_t leImagePlusWidget_GetTransformHeight(leImagePlusWidget* img);
-
-/*    Function:
-        leResult leImagePlusWidget_SetTransformHeight(leImagePlusWidget* img,
-                                                      int32_t height)
-
-    Summary:
-        Sets the image scale height coefficient.  This value is in pixels not
-        percentage
-
-    Description:
-        Sets the image scale height coefficient.  This value is in pixels not
-        percentage
-
-    Parameters:
-        leImagePlusWidget* img - the widget
-        int32_t height - the desired height value, must be > 0
-
-    Returns:
-        leResult - result of the operation
-
-*/
-LIB_EXPORT leResult leImagePlusWidget_SetTransformHeight(leImagePlusWidget* img,
-                                                         int32_t height);
-
-
-/*    Function:
-        leResult leImagePlusWidget_ResetTransform(leImagePlusWidget* img)
-
-    Summary:
-        Resets the image transform values to zero
-
-    Description:
-        Resets the image transform values to zero
-
-    Parameters:
-        leImagePlusWidget* img - the widget
-
-    Returns:
-        leResult - result of the operation
-
-*/
-LIB_EXPORT leResult leImagePlusWidget_ResetTransform(leImagePlusWidget* img);
 
 // *****************************************************************************
-/* Function:
-    leBool leImagePlusWidget_GetStretchEnabled(leImagePlusWidget* img)
+/* Virtual Member Function:
+    int32_t getTransformX(const leImagePlusWidget* _this)
 
   Summary:
-    Returns the boolean value of the 'stretch to fit' property
+     Gets the X transform
 
   Description:
-    Returns the boolean value of the 'stretch to fit' property.  This flag will
-    cause the image to be stretched to fill the space of the container widget.
-    Widget margins are still considered.
+     Gets the X transform
 
   Parameters:
-    leWidget* wgt - the widget
-
-  Returns:
-    leBool - the value of the resize flag
+    const leImagePlusWidget* _this - The image plus widget to operate on
 
   Remarks:
+    Usage - _this->fn->getTransformX(_this);
 
+  Returns:
+    int32_t - the x value
 */
-LIB_EXPORT leBool leImagePlusWidget_GetStretchEnabled(leImagePlusWidget* img);
 
 // *****************************************************************************
-/* Function:
-    leResult leImagePlusWidget_SetStretchEnabled(leImagePlusWidget* img, leBool enable)
+/* Virtual Member Function:
+    leResult setTransformX(leImagePlusWidget* _this,
+                           int32_t x)
 
   Summary:
-    Sets the boolean value of the stretch property
+     Sets the X transform
 
   Description:
-    Sets the boolean value of the stretch property
+     Sets the X transform
 
   Parameters:
-    leImagePlusWidget* img - the widget
-    leBool - the desired flag value
-
-  Returns:
-    leResult - the operation result
+    leImagePlusWidget* _this - The image plus widget to operate on
+    int32_t x - the X value
 
   Remarks:
+    Usage - _this->fn->setTransformX(_this, x);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leImagePlusWidget_SetStretchEnabled(leImagePlusWidget* img,
-                                                        leBool enable);
-
 
 // *****************************************************************************
-/* Function:
-    leBool leImagePlusWidget_GetPreserveAspectEnabled(leImagePlusWidget* img)
+/* Virtual Member Function:
+    int32_t getTransformY(const leImagePlusWidget* _this)
 
   Summary:
-    Returns the boolean value of the 'preserve aspect' property
+     Gets the Y transform
 
   Description:
-    Returns the boolean value of the 'preserve aspect' property.  If the stretch
-    flag is enabled then this flag will cause the resized image to fill as much
-    of the container widget as possible while still preserving its original aspect
-    ratio.
+     Gets the Y transform
 
   Parameters:
-    leImagePlusWidget* img - the widget
-
-  Returns:
-    leBool - the value of the aspect flag
+    const leImagePlusWidget* _this - The image plus widget to operate on
 
   Remarks:
+    Usage - _this->fn->getTransformY(_this);
 
+  Returns:
+    int32_t - the y value
 */
-LIB_EXPORT leBool leImagePlusWidget_GetPreserveAspectEnabled(leImagePlusWidget* img);
 
 // *****************************************************************************
-/* Function:
-    leResult leImagePlusWidget_SetStretchEnabled(leImagePlusWidget* img, leBool enable)
+/* Virtual Member Function:
+    leResult setTransformY(leImagePlusWidget* _this,
+                           int32_t y)
 
   Summary:
-    Sets the boolean value of the 'preserve aspect' property
+     Sets the Y transform
 
   Description:
-    Sets the boolean value of the 'preserve aspect' property
+     Sets the Y transform
 
   Parameters:
-    leImagePlusWidget* img - the widget
-    leBool - the desired flag value
-
-  Returns:
-    leResult - the operation result
+    leImagePlusWidget* _this - The image plus widget to operate on
+    int32_t y - the Y value
 
   Remarks:
+    Usage - _this->fn->setTransformY(_this, y);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leImagePlusWidget_SetPreserveAspectEnabled(leImagePlusWidget* img,
-                                                               leBool enable);
-
 
 // *****************************************************************************
-/* Function:
-    leImagePlusWidget_ResizeFilter leImagePlusWidget_GetResizeFilter(leImagePlusWidget* img)
+/* Virtual Member Function:
+    int32_t getTransformWidth(const leImagePlusWidget* _this)
 
   Summary:
-    Returns the resize filter setting for this image widget
+     Gets the transform width
 
   Description:
-    Returns the resize filter setting for this image widget.  This flag affects
-    the speed and quality of the image resize operation.
+     Gets the transform width
 
   Parameters:
-    leImagePlusWidget* img - the widget
-
-  Returns:
-    leImagePlusWidget_ResizeFilter - the filter setting
+    const leImagePlusWidget* _this - The image plus widget to operate on
 
   Remarks:
+    Usage - _this->fn->getTransformWidth(_this);
 
+  Returns:
+    int32_t - the width value
 */
-LIB_EXPORT leImagePlusWidget_ResizeFilter leImagePlusWidget_GetResizeFilter(leImagePlusWidget* img);
 
 // *****************************************************************************
-/* Function:
-    leResult leImagePlusWidget_SetResizeFilter(leImagePlusWidget* img,
-                                               leImagePlusWidget_ResizeFilter filter)
+/* Virtual Member Function:
+    leResult setTransformWidth(leImagePlusWidget* _this,
+                               int32_t w)
 
   Summary:
-    Sets the resize filter value of the widget
+     Sets the transform width
 
   Description:
-    Sets the resize filter value of the widget
+     Sets the transform width
 
   Parameters:
-    leImagePlusWidget* img - the widget
-    leImagePlusWidget_ResizeFilter filter - the desired filter
-
-  Returns:
-    leResult - the operation result
+    leImagePlusWidget* _this - The image plus widget to operate on
+    int32_t w - the width value
 
   Remarks:
+    Usage - _this->fn->setTransformWidth(_this, w);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leImagePlusWidget_SetResizeFilter(leImagePlusWidget* img,
-                                                      leImagePlusWidget_ResizeFilter filter);
-
 
 // *****************************************************************************
-/* Function:
-    leBool leImagePlusWidget_GetInteractive(leImagePlusWidget* img)
+/* Virtual Member Function:
+    int32_t getTransformHeight(const leImagePlusWidget* _this)
 
   Summary:
-    Returns true if the widget is configured to respond to input events
+     Gets the transform height
 
   Description:
-    This widget can be configured to respond to input events.  It can react to
-    single and double touch events.  These events will directly modify the
-    transform state and cause the image to translate and resize as desired.
+     Gets the transform height
 
   Parameters:
-    leImagePlusWidget* img - the widget
-
-  Returns:
-    leBool - the value of the interactive flag
+    const leImagePlusWidget* _this - The image plus widget to operate on
 
   Remarks:
+    Usage - _this->fn->getTransformHeight(_this);
 
+  Returns:
+    int32_t - the height value
 */
-LIB_EXPORT leBool leImagePlusWidget_GetInteractive(leImagePlusWidget* img);
 
 // *****************************************************************************
-/* Function:
-    leResult leImagePlusWidget_SetInteractive(leImagePlusWidget* img, leBool interactive)
+/* Virtual Member Function:
+    leResult setTransformHeight(leImagePlusWidget* _this,
+                                int32_t h)
 
   Summary:
-    Sets the widget interactive flag
+     Sets the transform height
 
   Description:
-    Sets the widget interactive flag
+     Sets the transform height
 
   Parameters:
-    leImagePlusWidget* img - the widget
-    leBool - the desired flag value
-
-  Returns:
-    leResult - the operation result
+    leImagePlusWidget* _this - The image plus widget to operate on
+    int32_t h - the height value
 
   Remarks:
+    Usage - _this->fn->setTransformHeight(_this, h);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leImagePlusWidget_SetInteractive(leImagePlusWidget* img,
-                                                     leBool interactive);
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult resetTransform(leImagePlusWidget* _this)
+
+  Summary:
+     Resets the current transform state
+
+  Description:
+     Resets the current transform state
+
+  Parameters:
+    leImagePlusWidget* _this - The image plus widget to operate on
+
+  Remarks:
+    Usage - _this->fn->resetTransform(_this);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leBool getStretchEnabled(const leImagePlusWidget* _this)
+
+  Summary:
+     Gets the stretch mode value
+
+  Description:
+     Gets the stretch mode value
+
+  Parameters:
+    const leImagePlusWidget* _this - The image plus widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getStretchEnabled(_this);
+
+  Returns:
+    leBool - the flag value
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setStretchEnabled(leImagePlusWidget* _this,
+                               leBool b)
+
+  Summary:
+     Sets the stretch mode value
+
+  Description:
+     Sets the stretch mode value
+
+  Parameters:
+    leImagePlusWidget* _this - The image plus widget to operate on
+    leBool b - the flag value
+
+  Remarks:
+    Usage - _this->fn->setStretchEnabled(_this, b);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leBool getPreserveAspectEnabled(const leImagePlusWidget* _this)
+
+  Summary:
+     Gets the aspect preservation mode value
+
+  Description:
+     Gets the aspect preservation mode value
+
+  Parameters:
+    const leImagePlusWidget* _this - The image plus widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getPreserveAspectEnabled(_this);
+
+  Returns:
+    leBool - the flag value
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setPreserveAspectEnabled(leImagePlusWidget* _this,
+                                      leBool b)
+
+  Summary:
+     Sets the aspect preseration mode value
+
+  Description:
+     Sets the aspect preseration mode value
+
+  Parameters:
+    leImagePlusWidget* _this - The image plus widget to operate on
+    leBool b - the flag value
+
+  Remarks:
+    Usage - _this->fn->setPreserveAspectEnabled(_this, b);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leImagePlusWidget_ResizeFilter getResizeFilter(const leImagePlusWidget* _this)
+
+  Summary:
+     Gets the current resize filter
+
+  Description:
+     Gets the current resize filter
+
+  Parameters:
+    const leImagePlusWidget* _this - The image plus widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getResizeFilter(_this);
+
+  Returns:
+    leImagePlusWidget_ResizeFilter - the filter
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setResizeFilter(leImagePlusWidget* _this,
+                             leImagePlusWidget_ResizeFilter filter)
+
+  Summary:
+     Sets the current resize filter
+
+  Description:
+     Sets the current resize filter
+
+  Parameters:
+    leImagePlusWidget* _this - The image plus widget to operate on
+    leImagePlusWidget_ResizeFilter filter - the filter
+
+  Remarks:
+    Usage - _this->fn->setResizeFilter(_this, filter);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leBool getInteractive(const leImagePlusWidget* _this)
+
+  Summary:
+     Gets the interactive mode value
+
+  Description:
+     Gets the interactive mode value
+
+  Parameters:
+    const leImagePlusWidget* _this - The image plus widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getInteractive(_this);
+
+  Returns:
+    leBool - the flag value
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setInteractive(leImagePlusWidget* _this,
+                            leBool b)
+
+  Summary:
+     Sets the interactive mode value
+
+  Description:
+     Sets the interactive mode value
+
+  Parameters:
+    leImagePlusWidget* _this - The image plus widget to operate on
+    leBool b - the flag value
+
+  Remarks:
+    Usage - _this->fn->setInteractive(_this, b);
+
+  Returns:
+    leResult - the result of the operation
+*/
 
 // DOM-IGNORE-BEGIN
 // internal use only
@@ -590,8 +597,6 @@ void _leImagePlusWidget_GetImageRect(leImagePlusWidget* img,
                                      leRect* imgRect,
                                      leRect* imgSrcRect);
 // DOM-IGNORE-END
-
-#endif
 
 #endif // LE_IMAGE_WIDGET_ENABLED
 #endif /* LEGATO_IMAGE_H */

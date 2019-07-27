@@ -172,520 +172,507 @@ typedef struct lePieChartWidget
     lePieChartWidget*
 
   Remarks:
-
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT lePieChartWidget* lePieChartWidget_New();
 
+/* Function:
+    void lePieChartWidget_Constructor(lePieChartWidget* wgt)
+
+  Summary:
+    Initializes an lePieChartWidget widget pointer.
+
+  Description:
+    Initializes an lePieChartWidget widget pointer.
+
+  Parameters:
+    lePieChartWidget* wgt - the pointer to initialize
+
+  Returns:
+    void
+
+  Remarks:
+
+*/
 LIB_EXPORT void lePieChartWidget_Constructor(lePieChartWidget* chart);
 
-#if 0
 // *****************************************************************************
-/* Function:
-    leResult lePieChartWidget_GetOrigin(lePieChartWidget* chart, int32_t* x, int32_t* y)
+/* Virtual Member Function:
+    int32_t getStartAngle(const lePieChartWidget* _this)
 
   Summary:
-    Gets the origin coordinates of a chart widget
+     Gets the start angle
 
   Description:
-
+     Gets the start angle
 
   Parameters:
-    lePieChartWidget* chart - the widget
-    int32_t* x - pointer to an integer pointer to store x
-    int32_t* y - pointer to an integer pointer to store y
-
-  Returns:
-    leResult - the operation result
+    const lePieChartWidget* _this - The pie chart widget to operate on
 
   Remarks:
+    Usage - _this->fn->getStartAngle(_this);
 
+  Returns:
+    int32_t - the angle value
 */
-LIB_EXPORT leResult lePieChartWidget_GetOrigin(lePieChartWidget* chart, int32_t* x, int32_t* y);
 
 // *****************************************************************************
-/* Function:
-    leResult lePieChartWidget_SetOrigin(lePieChartWidget* chart, int32_t x, int32_t y)
+/* Virtual Member Function:
+    leResult setStartAngle(lePieChartWidget* _this,
+                           int32_t ang)
 
   Summary:
-    Sets the origin coordiates of a chart widget
+     Sets the start angle
 
   Description:
-
+     Sets the start angle
 
   Parameters:
-    lePieChartWidget* chart - the widget
-    int32_t x - the desired x origin coordinate
-    int32_t y - the desired y origin coordinate
-
-  Returns:
-    leResult - the operation result
+    lePieChartWidget* _this - The pie chart widget to operate on
+    int32_t ang - the angle value
 
   Remarks:
+    Usage - _this->fn->setStartAngle(_this, ang);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult lePieChartWidget_SetOrigin(lePieChartWidget* chart, int32_t x, int32_t y);
 
 // *****************************************************************************
-/* Function:
-    int32_t lePieChartWidget_GetStartAngle(lePieChartWidget* chart)
+/* Virtual Member Function:
+    int32_t getCenterAngle(const lePieChartWidget* _this)
 
   Summary:
-    Returns the start angle of a chart widget
+     Gets the center angle
 
   Description:
-
+     Gets the center angle
 
   Parameters:
-    lePieChartWidget* chart - the widget
-
-  Returns:
-    uint32_t
+    const lePieChartWidget* _this - The pie chart widget to operate on
 
   Remarks:
+    Usage - _this->fn->getCenterAngle(_this);
 
+  Returns:
+    int32_t - the angle value
 */
-LIB_EXPORT int32_t lePieChartWidget_GetStartAngle(lePieChartWidget* chart);
 
 // *****************************************************************************
-/* Function:
-    leResult lePieChartWidget_SetStartAngle(lePieChartWidget* chart, int32_t angle)
+/* Virtual Member Function:
+    leResult setCenterAngle(lePieChartWidget* _this,
+                            int32_t ang)
 
   Summary:
-    Sets the start angle of a chart widget
+     Sets the start angle
 
   Description:
-
+     Sets the start angle
 
   Parameters:
-    lePieChartWidget* chart - the widget
-    int32_t angle - the desired start angle value
-
-  Returns:
-    leResult - the operation result
+    lePieChartWidget* _this - The pie chart widget to operate on
+    int32_t ang - the angle value
 
   Remarks:
+    Usage - _this->fn->setCenterAngle(_this, ang);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult lePieChartWidget_SetStartAngle(lePieChartWidget* chart, int32_t angle);
 
 // *****************************************************************************
-/* Function:
-    int32_t lePieChartWidget_GetCenterAngle(lePieChartWidget* chart)
+/* Virtual Member Function:
+    int32_t addEntry(lePieChartWidget* _this)
 
   Summary:
-    Sets the center angle of the chart widget
+     Adds a pie entry
 
   Description:
-
+     Adds a pie entry
 
   Parameters:
-    lePieChartWidget* chart - the widget
-
-  Returns:
-    int32_t
+    lePieChartWidget* _this - The pie chart widget to operate on
 
   Remarks:
+    Usage - _this->fn->addEntry(_this);
 
+  Returns:
+    int32_t - the index of the new entry
 */
-LIB_EXPORT int32_t lePieChartWidget_GetCenterAngle(lePieChartWidget* chart);
 
 // *****************************************************************************
-/* Function:
-    leResult lePieChartWidget_SetCenterAngle(lePieChartWidget* chart, int32_t angle)
+/* Virtual Member Function:
+    leResult clear(lePieChartWidget* _this)
 
   Summary:
-    Sets the center angle of the chart widget
+     Clears all pie entries
 
   Description:
-
+     Clears all pie entries
 
   Parameters:
-    lePieChartWidget* chart - the widget
-    int32_t angle - the desired center angle value
-
-  Returns:
-    leResult - the operation result
+    lePieChartWidget* _this - The pie chart widget to operate on
 
   Remarks:
+    Usage - _this->fn->clear(_this);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult lePieChartWidget_SetCenterAngle(lePieChartWidget* chart, int32_t angle);
 
 // *****************************************************************************
-/* Function:
-    leResult lePieChartWidget_AddEntry(lePieChartWidget* chart, int32_t * index)
+/* Virtual Member Function:
+    uint32_t getEntryValue(const lePieChartWidget* _this,
+                           int32_t idx)
 
   Summary:
-    Adds an entry to the pie chart
+     Gets an entry value
 
   Description:
-    The entry is always added to the end of the set. The index of the new entry
-    is returned thru the index parameter.
+     Gets an entry value
 
   Parameters:
-    lePieChartWidget* chart - the widget
-    int32_t * index - returns the index of the entry
-
-  Returns:
-    leResult - the operation result
+    const lePieChartWidget* _this - The pie chart widget to operate on
+    int32_t idx - the index
 
   Remarks:
+    Usage - _this->fn->getEntryValue(_this, idx);
 
+  Returns:
+    uint32_t - the value
 */
-LIB_EXPORT leResult lePieChartWidget_AddEntry(lePieChartWidget* chart, int32_t * index);
 
 // *****************************************************************************
-/* Function:
-    leResult lePieChartWidget_DeleteEntries(lePieChartWidget* chart)
+/* Virtual Member Function:
+    leResult setEntryValue(lePieChartWidget* _this,
+                           int32_t idx,
+                           uint32_t val)
 
   Summary:
-    Deletes ALL the data in the pie chart
+     Sets an entry value
 
   Description:
+     Sets an entry value
 
   Parameters:
-    lePieChartWidget* chart - the widget
-
-  Returns:
-    leResult - the operation result
+    lePieChartWidget* _this - The pie chart widget to operate on
+    int32_t idx - the index
+    uint32_t val - the value
 
   Remarks:
+    Usage - _this->fn->setEntryValue(_this, idx, val);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult lePieChartWidget_DeleteEntries(lePieChartWidget* chart);
 
 // *****************************************************************************
-/* Function:
-    uint32_t lePieChartWidget_GetEntryValue(lePieChartWidget* chart, uint32_t index)
+/* Virtual Member Function:
+    uint32_t getEntryRadius(const lePieChartWidget* _this,
+                            int32_t idx)
 
   Summary:
-    Returns the value of the entry at the specified index
+     Gets an entry radius
 
   Description:
+     Gets an entry radius
 
   Parameters:
-    lePieChartWidget* chart - the widget
-    uint32_t index - the entry index
-
-  Returns:
-    uint32_t
+    const lePieChartWidget* _this - The pie chart widget to operate on
+    int32_t idx - the index
 
   Remarks:
+    Usage - _this->fn->getEntryRadius(_this, idx);
 
+  Returns:
+    uint32_t - the radius value
 */
-LIB_EXPORT uint32_t lePieChartWidget_GetEntryValue(lePieChartWidget* chart, uint32_t index);
 
 // *****************************************************************************
-/* Function:
-    leResult lePieChartWidget_SetEntryValue(lePieChartWidget* chart, uint32_t index, uint32_t value)
+/* Virtual Member Function:
+    leResult setEntryRadius(lePieChartWidget* _this,
+                            int32_t idx,
+                            uint32_t rad)
 
   Summary:
-    Sets the value of an entry at index
+     Sets an entry radius
 
   Description:
-
+     Sets an entry radius
 
   Parameters:
-    lePieChartWidget* chart - the widget
-    uint32_t index - entry index
-    uint32_t value - entry value
-
-  Returns:
-    leResult - the operation result
+    lePieChartWidget* _this - The pie chart widget to operate on
+    int32_t idx - the index
+    uint32_t rad - the radius value
 
   Remarks:
+    Usage - _this->fn->setEntryRadius(_this, idx, rad);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult lePieChartWidget_SetEntryValue(lePieChartWidget* chart, uint32_t index, uint32_t value);
 
 // *****************************************************************************
-/* Function:
-    uint32_t lePieChartWidget_GetEntryRadius(lePieChartWidget* chart, uint32_t index)
+/* Virtual Member Function:
+    uint32_t getEntryOffset(const lePieChartWidget* _this,
+                            int32_t idx)
 
   Summary:
-    Returns the radius of the entry at the specified index
+     Gets an entry offset
 
   Description:
-
+     Gets an entry offset
 
   Parameters:
-    lePieChartWidget* chart - the widget
-    uint32_t index - the entry index
-
-  Returns:
-    uint32_t
+    const lePieChartWidget* _this - The pie chart widget to operate on
+    int32_t idx - the index
 
   Remarks:
+    Usage - _this->fn->getEntryOffset(_this, idx);
 
+  Returns:
+    uint32_t - the offset value
 */
-LIB_EXPORT uint32_t lePieChartWidget_GetEntryRadius(lePieChartWidget* chart, uint32_t index);
 
 // *****************************************************************************
-/* Function:
-    leResult lePieChartWidget_SetEntryRadius(lePieChartWidget* chart, uint32_t index, uint32_t rad)
+/* Virtual Member Function:
+    leResult setEntryOffset(lePieChartWidget* _this,
+                            int32_t idx,
+                            uint32_t offs)
 
   Summary:
-    Sets the radius of an entry at index
+     Sets an entry offset
 
   Description:
-
+     Sets an entry offset
 
   Parameters:
-    lePieChartWidget* chart - the widget
-    uint32_t index - entry index
-    uint32_t rad - entry radius
-
-  Returns:
-    leResult - the operation result
+    lePieChartWidget* _this - The pie chart widget to operate on
+    int32_t idx - the index
+    uint32_t offs - the offset value
 
   Remarks:
+    Usage - _this->fn->setEntryOffset(_this, idx, offs);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult lePieChartWidget_SetEntryRadius(lePieChartWidget* chart, uint32_t index, uint32_t rad);
 
 // *****************************************************************************
-/* Function:
-    uint32_t lePieChartWidget_GetEntryOffset(lePieChartWidget* chart, uint32_t index)
+/* Virtual Member Function:
+    leScheme* getEntryScheme(const lePieChartWidget* _this,
+                             int32_t idx)
 
   Summary:
-    Returns the offset of the entry at the specified index
+     Gets an entry scheme
 
   Description:
-
+     Gets an entry scheme
 
   Parameters:
-    lePieChartWidget* chart - the widget
-    uint32_t index - the entry index
-
-  Returns:
-    uint32_t
+    const lePieChartWidget* _this - The pie chart widget to operate on
+    int32_t idx - the index
 
   Remarks:
+    Usage - _this->fn->getEntryScheme(_this, idx);
 
+  Returns:
+    leScheme* - the scheme pointer
 */
-LIB_EXPORT uint32_t lePieChartWidget_GetEntryOffset(lePieChartWidget* chart, uint32_t index);
 
 // *****************************************************************************
-/* Function:
-    leResult lePieChartWidget_SetEntryOffset(lePieChartWidget* chart, uint32_t index, uint32_t offset)
+/* Virtual Member Function:
+    leResult setEntryScheme(lePieChartWidget* _this,
+                            int32_t idx,
+                            const leScheme* schm)
 
   Summary:
-    Sets the offset of an entry at index
+     Sets an entry scheme
 
   Description:
-
+     Sets an entry scheme
 
   Parameters:
-    lePieChartWidget* chart - the widget
-    uint32_t offset - entry offset
-    uint32_t rad - entry radius
-
-  Returns:
-    leResult - the operation result
+    lePieChartWidget* _this - The pie chart widget to operate on
+    int32_t idx - the index
+    const leScheme* schm - the scheme pointer
 
   Remarks:
+    Usage - _this->fn->setEntryScheme(_this, idx, schm);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult lePieChartWidget_SetEntryOffset(lePieChartWidget* chart, uint32_t index, uint32_t offset);
 
 // *****************************************************************************
-/* Function:
-    leScheme * lePieChartWidget_GetEntryScheme(lePieChartWidget* chart, uint32_t index)
+/* Virtual Member Function:
+    lePieChartWidget_PressedEvent getPressedEventCallback(const lePieChartWidget* _this)
 
   Summary:
-    Returns the scheme of the entry at the specified index
+     Gets the pressed event callback pointer
 
   Description:
-
+     Gets the pressed event callback pointer
 
   Parameters:
-    lePieChartWidget* chart - the widget
-    uint32_t index - the entry index
-
-  Returns:
-    leScheme *
+    const lePieChartWidget* _this - The pie chart widget to operate on
 
   Remarks:
+    Usage - _this->fn->getPressedEventCallback(_this);
 
+  Returns:
+    lePieChartWidget_PressedEvent - the callback pointer
 */
-LIB_EXPORT leScheme * lePieChartWidget_GetEntryScheme(lePieChartWidget* chart, uint32_t index);
 
 // *****************************************************************************
-/* Function:
-    leResult lePieChartWidget_SetEntryScheme(lePieChartWidget* chart, uint32_t index, uint32_t scheme)
+/* Virtual Member Function:
+    leResult setPressedEventCallback(lePieChartWidget* _this,
+                                     lePieChartWidget_PressedEvent cb)
 
   Summary:
-    Sets the scheme of an entry at index
+     Sets the pressed event callback pointer
 
   Description:
-
+     Sets the pressed event callback pointer
 
   Parameters:
-    lePieChartWidget* chart - the widget
-    uint32_t scheme - entry scheme
-    uint32_t rad - entry radius
-
-  Returns:
-    leResult - the operation result
+    lePieChartWidget* _this - The pie chart widget to operate on
+    lePieChartWidget_PressedEvent cb - the callback pointer
 
   Remarks:
+    Usage - _this->fn->setPressedEventCallback(_this, cb);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult lePieChartWidget_SetEntryScheme(lePieChartWidget* chart, uint32_t index, leScheme * scheme);
 
 // *****************************************************************************
-/* Function:
-    aResult lePieChartWidget_SetPressedEventCallback(lePieChartWidget* chart, lePieChartWidget_PressedEvent cb)
+/* Virtual Member Function:
+    leFont* getLabelFont(const lePieChartWidget* _this)
 
   Summary:
-    Sets the function called when the chart is pressed/touched
+     Gets the label font
 
   Description:
-
+     Gets the label font
 
   Parameters:
-    lePieChartWidget* chart - the widget
-    lePieChartWidget_PressedEvent cb - callback function
-
-  Returns:
-    leResult - the operation result
+    const lePieChartWidget* _this - The pie chart widget to operate on
 
   Remarks:
+    Usage - _this->fn->getLabelFont(_this);
 
+  Returns:
+    leFont* - the font pointer
 */
-LIB_EXPORT leResult lePieChartWidget_SetPressedEventCallback(lePieChartWidget* chart, lePieChartWidget_PressedEvent cb);
 
 // *****************************************************************************
-/* Function:
-    leResult lePieChartWidget_SetStringTable(lePieChartWidget* chart, leStringTable * stringTable)
+/* Virtual Member Function:
+    leResult setLabelFont(lePieChartWidget* _this,
+                          const leFont* fnt)
 
   Summary:
-    Sets the string table for the labels
+     Sets the label font
 
   Description:
-
+     Sets the label font
 
   Parameters:
-    lePieChartWidget* chart - the widget
-    leStringTable * stringTable - the string table to use
-
-  Returns:
-    leResult - the operation result
+    lePieChartWidget* _this - The pie chart widget to operate on
+    const leFont* fnt - the font pointer
 
   Remarks:
+    Usage - _this->fn->setLabelFont(_this, fnt);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult lePieChartWidget_SetStringTable(lePieChartWidget * chart, leStringTable * stringTable);
 
 // *****************************************************************************
-/* Function:
-    lePieChartWidget_SetLabelsStringID(lePieChartWidget* chart, uint32_t stringID)
+/* Virtual Member Function:
+    leBool getLabelsVisible(const lePieChartWidget* _this)
 
   Summary:
-    Sets the string asset for the labels
+     Gets the label visible setting value
 
   Description:
-
+     Gets the label visible setting value
 
   Parameters:
-    lePieChartWidget* chart - the widget
-    uint32_t stringID - the ID of the string asset to use for labels
-
-  Returns:
-    leResult - the operation result
+    const lePieChartWidget* _this - The pie chart widget to operate on
 
   Remarks:
+    Usage - _this->fn->getLabelsVisible(_this);
 
+  Returns:
+    leBool - the visibility setting
 */
-LIB_EXPORT leResult lePieChartWidget_SetLabelsStringID(lePieChartWidget* chart, uint32_t stringID);
 
 // *****************************************************************************
-/* Function:
-    leBool lePieChartWidget_GetLabelsVisible(lePieChartWidget* chart)
+/* Virtual Member Function:
+    leResult setLabelsVisible(lePieChartWidget* _this,
+                              leBool vis)
 
   Summary:
-    Returns LE_TRUE if the labels are shown, LE_FALSE if hidden
+     Sets the label visible setting value
 
   Description:
-
+     Sets the label visible setting value
 
   Parameters:
-    lePieChartWidget* chart - the widget
-
-  Returns:
-    leBool
+    lePieChartWidget* _this - The pie chart widget to operate on
+    leBool vis - the visibility setting
 
   Remarks:
+    Usage - _this->fn->setLabelsVisible(_this, vis);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leBool lePieChartWidget_GetLabelsVisible(lePieChartWidget* chart);
 
 // *****************************************************************************
-/* Function:
-    leResult lePieChartWidget_SetLabelsVisible(lePieChartWidget* chart, leBool visible)
+/* Virtual Member Function:
+    uint32_t getLabelsOffset(const lePieChartWidget* _this)
 
   Summary:
-    Shows/hides the data entry labels
+     Gets the label offset value
 
   Description:
-
+     Gets the label offset value
 
   Parameters:
-    lePieChartWidget* chart - the widget
-    leBool visible
-
-  Returns:
-    leResult - the operation result
+    const lePieChartWidget* _this - The pie chart widget to operate on
 
   Remarks:
+    Usage - _this->fn->getLabelsOffset(_this);
 
+  Returns:
+    uint32_t - the offset value
 */
-LIB_EXPORT leResult lePieChartWidget_SetLabelsVisible(lePieChartWidget* chart, leBool visible);
 
 // *****************************************************************************
-/* Function:
-    uint32_t lePieChartWidget_GetLabelsOffset(lePieChartWidget* chart)
+/* Virtual Member Function:
+    leResult setLabelsOffset(lePieChartWidget* _this,
+                             uint32_t offs)
 
   Summary:
-    Gets the offsets of the labels from the center
+     Sets the label offset value
 
   Description:
-
-
-  Parameters:
-    lePieChartWidget* chart - the widget
-
-  Returns:
-    uint32_t - the offset
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t lePieChartWidget_GetLabelsOffset(lePieChartWidget* chart);
-
-// *****************************************************************************
-/* Function:
-    leResult lePieChartWidget_SetLabelsOffset(lePieChartWidget* chart, uint32_t offset)
-
-  Summary:
-    Sets the offsets of the labels from the center
-
-  Description:
-
+     Sets the label offset value
 
   Parameters:
-    lePieChartWidget* chart - the widget
-    uint32_t offset
-
-  Returns:
-    leResult - the operation result
+    lePieChartWidget* _this - The pie chart widget to operate on
+    uint32_t offs - the offset value
 
   Remarks:
+    Usage - _this->fn->setLabelsOffset(_this, offs);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult lePieChartWidget_SetLabelsOffset(lePieChartWidget* chart, uint32_t offset);
 
-#endif
+
 
 #endif // LE_PIECHART_WIDGET_ENABLED
 #endif /* LEGATO_WIDGET_PIE_CHART_H */

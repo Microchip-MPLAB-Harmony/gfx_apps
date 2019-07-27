@@ -19,6 +19,7 @@ static leTableString tableString_DefaultTime;
 // event handlers
 static void default_OnHide(void);
 
+
 static leBool showing = LE_FALSE;
 
 leResult screenInit_default()
@@ -170,8 +171,8 @@ leWidget* screenGetRoot_default(uint32_t lyrIdx)
 }
 
 // event handlers
-void default_OnHide(void)
-{
+void default_OnHide(void){
 }
+
 
 

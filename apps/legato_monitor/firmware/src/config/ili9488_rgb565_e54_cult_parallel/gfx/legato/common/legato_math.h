@@ -412,12 +412,94 @@ leBool leArcsOverlapQuadrant(int32_t startAngleArc0,
                              leArcDir dir, 
                              uint32_t quadrant);
 
+// *****************************************************************************
+/* Function:
+    void leSortPointsX(lePoint* p1, lePoint* p2)
+
+  Summary:
+    Sorts two points on the X axis.
+
+  Description:
+    Sorts two points on the X axis.
+
+  Parameters:
+    lePoint* p1 - the first point
+    lePoint* p2 - the second point
+
+  Returns:
+    The pointers are modified with the results of the sort
+
+  Remarks:
+
+*/
 void leSortPointsX(lePoint* p1, lePoint* p2);
 
+// *****************************************************************************
+/* Function:
+    void leSortPointsX(lePoint* p1, lePoint* p2)
+
+  Summary:
+    Sorts two points on the Y axis.
+
+  Description:
+    Sorts two points on the Y axis.
+
+  Parameters:
+    lePoint* p1 - the first point
+    lePoint* p2 - the second point
+
+  Returns:
+    The pointers are modified with the results of the sort
+
+  Remarks:
+
+*/
 void leSortPointsY(lePoint* p1, lePoint* p2);
 
+// *****************************************************************************
+/* Function:
+    int32_t leGetXGivenYOnLine(lePoint p1, lePoint p2, int32_t y)
+
+  Summary:
+    Projects a point onto another point given a y coordinate.
+
+  Description:
+    Projects a point onto another point given a y coordinate.
+
+  Parameters:
+    lePoint p1 - the first point
+    lePoint p2 - the second point
+    int32_t y - the y coordinate
+
+  Returns:
+    int32_t - the resultant x coordinate
+
+  Remarks:
+
+*/
 int32_t leGetXGivenYOnLine(lePoint p1, lePoint p2, int32_t y);
 
+// *****************************************************************************
+/* Function:
+    int32_t leGetYGivenXOnLine(lePoint p1, lePoint p2, int32_t x)
+
+  Summary:
+    Projects a point onto another point given a x coordinate.
+
+  Description:
+    Projects a point onto another point given a x coordinate.
+
+  Parameters:
+    lePoint p1 - the first point
+    lePoint p2 - the second point
+    int32_t x - the x coordinate
+
+  Returns:
+    int32_t - the resultant y coordinate
+
+  Remarks:
+
+*/
 int32_t leGetYGivenXOnLine(lePoint p1, lePoint p2, int32_t x);
 
 #endif /* LE_MATH_H */

@@ -126,106 +126,119 @@ typedef struct leLineWidget
     leLineWidget*
 
   Remarks:
-
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leLineWidget* leLineWidget_New();
 
+/* Function:
+    void leLineWidget_Constructor(leLineWidget* wgt)
+
+  Summary:
+    Initializes an leLineWidget widget pointer.
+
+  Description:
+    Initializes an leLineWidget widget pointer.
+
+  Parameters:
+    leLineWidget* wgt - the pointer to initialize
+
+  Returns:
+    void
+
+  Remarks:
+
+*/
 LIB_EXPORT void leLineWidget_Constructor(leLineWidget* line);
 
-#if 0
 // *****************************************************************************
-/* Function:
-    leResult leLineWidget_GetStartPoint(leLineWidget* line, int32_t* x, int32_t* y)
+/* Virtual Member Function:
+    lePoint getStartPoint(const leLineWidget* _this)
 
   Summary:
-    Gets the coordinates for the first point of the line.
+     Gets the line start point
 
   Description:
-
+     Gets the line start point
 
   Parameters:
-    leLineWidget* line - the widget
-    int32_t* x - pointer to an int to store the x coordinate
-    int32_t* y - pointer to tan int to store the y coordinate
+    const leLineWidget* _this - The line widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getStartPoint(_this);
+
+  Returns:
+    lePoint - the point
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setStartPoint(leLineWidget* _this,
+                           int32_t x,
+                           int32_t y)
+
+  Summary:
+     Sets the line start point
+
+  Description:
+     Sets the line start point
+
+  Parameters:
+    leLineWidget* _this - The line widget to operate on
+    int32_t x - the X value
+    int32_t y - the Y value
+
+  Remarks:
+    Usage - _this->fn->setStartPoint(_this, x, y);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leLineWidget_GetStartPoint(leLineWidget* line, int32_t* x, int32_t* y);
 
 // *****************************************************************************
-/* Function:
-    leResult leLineWidget_SetStartPoint(leLineWidget* line, int32_t x, int32_t y)
+/* Virtual Member Function:
+    lePoint getEndPoint(const leLineWidget* _this)
 
   Summary:
-    Sets the cooridnate for the first point of the line
+     Gets the line end point
 
   Description:
-
+     Gets the line end point
 
   Parameters:
-    leLineWidget* line - the widget
-    int32_t x - the x coordinate value
-    int32_t y - the y coordinate value
+    const leLineWidget* _this - The line widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getEndPoint(_this);
+
+  Returns:
+    lePoint - the point
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setEndPoint(leLineWidget* _this,
+                         int32_t x,
+                         int32_t y)
+
+  Summary:
+     Sets the line end point
+
+  Description:
+     Sets the line end point
+
+  Parameters:
+    leLineWidget* _this - The line widget to operate on
+    int32_t x - the X value
+    int32_t y - the Y value
+
+  Remarks:
+    Usage - _this->fn->setEndPoint(_this, x, y);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leLineWidget_SetStartPoint(leLineWidget* line, int32_t x, int32_t y);
-
-// *****************************************************************************
-/* Function:
-    leResult leLineWidget_GetEndPoint(leLineWidget* line, int32_t* x, int32_t* y)
-
-  Summary:
-    Gets the coordinates for the second point of the line.
-
-  Description:
 
 
-  Parameters:
-    leLineWidget* line - the widget
-    int32_t* x - pointer to an int to store the x coordinate
-    int32_t* y - pointer to tan int to store the y coordinate
-
-  Returns:
-    leResult - the result of the operation
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leLineWidget_GetEndPoint(leLineWidget* line, int32_t* x, int32_t* y);
-
-// *****************************************************************************
-/* Function:
-    leResult leLineWidget_SetEndPoint(leLineWidget* line, int32_t x, int32_t y)
-
-  Summary:
-    Sets the cooridnate for the second point of the line
-
-  Description:
-
-
-  Parameters:
-    leLineWidget* line - the widget
-    int32_t x - the x coordinate value
-    int32_t y - the y coordinate value
-
-  Returns:
-    leResult - the result of the operation
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leLineWidget_SetEndPoint(leLineWidget* line, int32_t x, int32_t y);
-
-#endif
 
 #endif // LE_LINE_WIDGET_ENABLED
 #endif /* LEGATO_LINE_H */

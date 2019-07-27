@@ -165,368 +165,389 @@ typedef struct leTextFieldWidget
     leTextFieldWidget*
 
   Remarks:
-
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leTextFieldWidget* leTextFieldWidget_New();
 
+/* Function:
+    void leTextFieldWidget_Constructor(leTextFieldWidget* wgt)
+
+  Summary:
+    Initializes an leTextFieldWidget widget pointer.
+
+  Description:
+    Initializes an leTextFieldWidget widget pointer.
+
+  Parameters:
+    leTextFieldWidget* wgt - the pointer to initialize
+
+  Returns:
+    void
+
+  Remarks:
+
+*/
 LIB_EXPORT void leTextFieldWidget_Constructor(leTextFieldWidget* txt);
 
-#if 0
 // *****************************************************************************
-/* Function:
-    leResult leTextFieldWidget_GetText(leTextFieldWidget* txt, leString* str)
+/* Virtual Member Function:
+    uint32_t getCursorDelay(const leTextFieldWidget* _this)
 
   Summary:
-    Gets the text value for the box.
+     Gets the cursor blink delay
 
   Description:
-    This function allocates memory and initializes the input string pointer.  The
-    caller is responsible for managing the memory once this function returns.
+     Gets the cursor blink delay
 
   Parameters:
-    leTextFieldWidget* txt - the widget
-    leString* str - a pointer to an leString object
-
-  Returns:
-    leResult - the operation result
+    const leTextFieldWidget* _this - The text field widget to operate on
 
   Remarks:
+    Usage - _this->fn->getCursorDelay(_this);
 
+  Returns:
+    uint32_t - the blink delay
 */
-LIB_EXPORT leResult leTextFieldWidget_GetText(leTextFieldWidget* txt, leString* str);
 
 // *****************************************************************************
-/* Function:
-    leResult leTextFieldWidget_SetText(leTextFieldWidget* txt, leString str)
+/* Virtual Member Function:
+    leResult setCursorDelay(leTextFieldWidget* _this,
+                            uint32_t dt)
 
   Summary:
-    Sets the text value for the box.
+     Sets the cursor blink delay
 
   Description:
-    This function copies the contents of the input string into its internal
-    string buffer.  The input string can then be freed or altered without
-    affecting the label's internal string value.
+     Sets the cursor blink delay
 
   Parameters:
-    leTextFieldWidget* txt - the widget
-    leString str - an leString object
-
-  Returns:
-    leResult - the operation result
+    leTextFieldWidget* _this - The text field widget to operate on
+    uint32_t dt - the blink delay
 
   Remarks:
+    Usage - _this->fn->setCursorDelay(_this, dt);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leTextFieldWidget_SetText(leTextFieldWidget* txt, leString str);
 
 // *****************************************************************************
-/* Function:
-    leHAlignment leTextFieldWidget_GetAlignment(leTextFieldWidget* txt)
+/* Virtual Member Function:
+    leBool getCursorEnabled(const leTextFieldWidget* _this)
 
   Summary:
-    Gets the text horizontal alignment value.
+     Gets the cursor enabled state
 
   Description:
-
+     Gets the cursor enabled state
 
   Parameters:
-    leTextFieldWidget* txt - the widget
-
-  Returns:
-    leHAlignment - the horizontal alignment value
+    const leTextFieldWidget* _this - The text field widget to operate on
 
   Remarks:
+    Usage - _this->fn->getCursorEnabled(_this);
 
+  Returns:
+    leBool - the enabled state
 */
-LIB_EXPORT leHAlignment leTextFieldWidget_GetAlignment(leTextFieldWidget* txt);
 
 // *****************************************************************************
-/* Function:
-    leResult leTextFieldWidget_SetAlignment(leTextFieldWidget* txt,
-                                            leHAlignment align)
+/* Virtual Member Function:
+    leResult setCursorEnabled(leTextFieldWidget* _this,
+                              leBool en)
 
   Summary:
-    Sets the text horizontal alignment value
+     Sets the cursor enabled state
 
   Description:
-
+     Sets the cursor enabled state
 
   Parameters:
-    leTextFieldWidget* txt - the widget
-    leHAlignment - the horizontal alignment value
-
-  Returns:
-    leResult - the operation result
+    leTextFieldWidget* _this - The text field widget to operate on
+    leBool en - the enabled state
 
   Remarks:
+    Usage - _this->fn->setCursorEnabled(_this, en);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leTextFieldWidget_SetAlignment(leTextFieldWidget* txt,
-                                                   leHAlignment align);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leTextFieldWidget_GetCursorDelay(leTextFieldWidget* txt)
+/* Virtual Member Function:
+    uint32_t getCursorPosition(const leTextFieldWidget* _this)
 
   Summary:
-    Gets the current cursor delay.
+     Gets the cursor position
 
   Description:
-
+     Gets the cursor position
 
   Parameters:
-    leTextFieldWidget* txt - the widget
-
-  Returns:
-    uint32_t - the current delay value
+    const leTextFieldWidget* _this - The text field widget to operate on
 
   Remarks:
+    Usage - _this->fn->getCursorPosition(_this);
 
+  Returns:
+    uint32_t - the cursor position
 */
-LIB_EXPORT uint32_t leTextFieldWidget_GetCursorDelay(leTextFieldWidget* txt);
 
 // *****************************************************************************
-/* Function:
-    leResult leTextFieldWidget_SetCursorDelay(leTextFieldWidget* txt,
-                                          uint32_t dt)
+/* Virtual Member Function:
+    leResult setCursorPosition(leTextFieldWidget* _this,
+                               uint32_t pos)
 
   Summary:
-    Sets the cursor delay value
+     Sets the cursor position
 
   Description:
-    This value is typically expressed in milliseconds
+     Sets the cursor position
 
   Parameters:
-    leTextFieldWidget* txt - the widget
-    uint32_t dt - the cursor delay value
-
-  Returns:
-    leResult - the operation result
+    leTextFieldWidget* _this - The text field widget to operate on
+    uint32_t pos - the cursor position
 
   Remarks:
+    Usage - _this->fn->setCursorPosition(_this, pos);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leTextFieldWidget_SetCursorDelay(leTextFieldWidget* txt,
-                                                     uint32_t dt);
 
 // *****************************************************************************
-/* Function:
-    leBool leTextFieldWidget_GetCursorEnabled(leTextFieldWidget* txt)
+/* Virtual Member Function:
+    const leString* getString(const leTextFieldWidget* txt)
 
   Summary:
-    Gets the cursor enabled value
+     Gets the pointer to the text field value string
 
   Description:
-
+     Gets the pointer to the text field value string
 
   Parameters:
-    leTextFieldWidget* txt - the widget
-
-  Returns:
-    leBool - the cursor enabled flag value
+    const leTextFieldWidget* txt - The text field widget to operate on
 
   Remarks:
+    Usage - _this->fn->getString(_this);
 
+  Returns:
+    const leString* - the string value pointer
 */
-LIB_EXPORT leBool leTextFieldWidget_GetCursorEnabled(leTextFieldWidget* txt);
 
 // *****************************************************************************
-/* Function:
-    leResult leTextFieldWidget_SetCursorEnabled(leTextFieldWidget* txt,
-                                                leBool en)
+/* Virtual Member Function:
+    leResult setString(leTextFieldWidget* _this,
+                       const leString* str)
 
   Summary:
-    Sets the cursor enabled value flag
+     Sets the text field value to a given string
 
   Description:
-    The cursor enabled flag controls whether the cursor will display or not
+     Sets the text field value to a given string
 
   Parameters:
-    leTextFieldWidget* txt - the widget
-    leBool en - the desired flag state
-
-  Returns:
-    leResult - the operation result
+    leTextFieldWidget* _this - The text field widget to operate on
+    const leString* str - the string pointer
 
   Remarks:
+    Usage - _this->fn->setString(_this, str);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leTextFieldWidget_SetCursorEnabled(leTextFieldWidget* txt,
-                                                       leBool en);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leTextFieldWidget_GetCursorPosition(leTextFieldWidget* txt)
+/* Virtual Member Function:
+    leFont* getFont(const leTextFieldWidget* _this)
 
   Summary:
-    Gets the current edit cursor position
+     Gets the text field font pointer
 
   Description:
-    This cursor will appear to the left of the character at index of the string
+     Gets the text field font pointer
 
   Parameters:
-    leTextFieldWidget* txt - the widget
-
-  Returns:
-    uint32_t - the index of the cursor
+    const leTextFieldWidget* _this - The text field widget to operate on
 
   Remarks:
+    Usage - _this->fn->getFont(_this);
 
+  Returns:
+    leFont* - the font pointer
 */
-LIB_EXPORT uint32_t leTextFieldWidget_GetCursorPosition(leTextFieldWidget* txt);
 
 // *****************************************************************************
-/* Function:
-    leResult leTextFieldWidget_SetCursorPosition(leTextFieldWidget* txt,
-                                                 uint32_t pos)
+/* Virtual Member Function:
+    leResult setFont(leTextFieldWidget* _this,
+                     const leFont* fnt)
 
   Summary:
-    Sets the position of the cursor
+     Sets the text field font pointer
 
   Description:
-    The cursor will appear to the left of the character at pos
+     Sets the text field font pointer
 
   Parameters:
-    leTextFieldWidget* txt - the widget
-    uint32_t pos - the position of the cursor in character indices
-
-  Returns:
-    leResult - the operation result
+    leTextFieldWidget* _this - The text field widget to operate on
+    const leFont* fnt - the font pointer
 
   Remarks:
+    Usage - _this->fn->setFont(_this, fnt);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leTextFieldWidget_SetCursorPosition(leTextFieldWidget* txt,
-                                                        uint32_t pos);
 
 // *****************************************************************************
-/* Function:
-    leTextFieldWidget_TextChangedCallback leTextFieldWidget_GetTextChangedEventCallback(leTextFieldWidget* txt)
+/* Virtual Member Function:
+    leString* getHintString(const leTextFieldWidget* txt)
 
   Summary:
-    Gets the current text changed event callback pointer
+     Gets the hint string
 
   Description:
-
+     Gets the hint string
 
   Parameters:
-    leTextFieldWidget* txt - the widget
-
-  Returns:
-    leTextFieldWidget_TextChangedCallback - a valid pointer or NULL
+    const leTextFieldWidget* txt - The text field widget to operate on
 
   Remarks:
+    Usage - _this->fn->getHintString(_this);
 
+  Returns:
+    leString* - the string pointer
 */
-LIB_EXPORT leTextFieldWidget_TextChangedCallback leTextFieldWidget_GetTextChangedEventCallback(leTextFieldWidget* txt);
 
 // *****************************************************************************
-/* Function:
-    leResult leTextFieldWidget_SetTextChangedEventCallback(leTextFieldWidget* txt,
-                                                           leTextFieldWidget_TextChangedCallback cb)
+/* Virtual Member Function:
+    leResult setHintString(leTextFieldWidget* _this,
+                           const leString* str)
 
   Summary:
-    Sets the text changed event callback pointer
+     Sets the hint string
 
   Description:
-
-
-  Parameters:
-    leTextFieldWidget* txt - the widget
-    leTextFieldWidget_TextChangedCallback - a valid pointer or NULL
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leTextFieldWidget_SetTextChangedEventCallback(leTextFieldWidget* txt,
-                                                                  leTextFieldWidget_TextChangedCallback cb);
-// *****************************************************************************
-/* Function:
-    leResult leTextFieldWidget_SetClearOnFirstEdit(leTextFieldWidget* txt,
-                                                   leBool clear)
-
-  Summary:
-    Sets the flag to indicate that the text field will be cleared on first edit.
-
-  Description:
-
+     Sets the hint string
 
   Parameters:
-    leTextFieldWidget* txt - the widget
-    leBool clear - the desired flag state
-
-  Returns:
-    leResult - the operation result
+    leTextFieldWidget* _this - The text field widget to operate on
+    const leString* str - the string pointer
 
   Remarks:
+    Usage - _this->fn->setHintString(_this, str);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leTextFieldWidget_SetClearOnFirstEdit(leTextFieldWidget* txt, leBool clear);
 
 // *****************************************************************************
-/* Function:
-    leTextFieldWidget_FocusChangedCallback leTextFieldWidget_GetFocusChangedEventCallback(leTextFieldWidget* txt)
+/* Virtual Member Function:
+    leResult setClearValueOnFirstEdit(leTextFieldWidget* _this,
+                                      leBool clr)
 
   Summary:
-    Gets the current focus changed event callback pointer
+     Clears the initial string value on first edit
 
   Description:
-
+     Clears the initial string value on first edit
 
   Parameters:
-    leTextFieldWidget* txt - the widget
-
-  Returns:
-    leTextFieldWidget_FocusChangedCallback - a valid pointer or NULL
+    leTextFieldWidget* _this - The text field widget to operate on
+    leBool clr -
 
   Remarks:
+    Usage - _this->fn->setClearValueOnFirstEdit(_this, clr);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leTextFieldWidget_FocusChangedCallback leTextFieldWidget_GetFocusChangedEventCallback(leTextFieldWidget* txt);
 
 // *****************************************************************************
-/* Function:
-    leResult leTextFieldWidget_SetFocusChangedEventCallback(leTextFieldWidget* txt,
-                                                           leTextFieldWidget_FocusChangedCallback cb)
+/* Virtual Member Function:
+    leTextFieldWidget_TextChangedCallback getTextChangedEventCallback(const leTextFieldWidget* _this)
 
   Summary:
-    Sets the focus changed event callback pointer
+     Gets the text changed event callback pointer
 
   Description:
-
+     Gets the text changed event callback pointer
 
   Parameters:
-    leTextFieldWidget* txt - the widget
-    leTextFieldWidget_FocusChangedCallback - a valid pointer or NULL
-
-  Returns:
-    leResult - the operation result
+    const leTextFieldWidget* _this - The text field widget to operate on
 
   Remarks:
+    Usage - _this->fn->getTextChangedEventCallback(_this);
 
+  Returns:
+    leTextFieldWidget_TextChangedCallback - the callback pointer
 */
-LIB_EXPORT leResult leTextFieldWidget_SetFocusChangedEventCallback(leTextFieldWidget* txt,
-                                                       leTextFieldWidget_FocusChangedCallback cb);
 
-// DOM-IGNORE-BEGIN
-// internal use only
-void _leTextFieldWidget_TouchDownEvent(leTextFieldWidget* txt, gauge* evt);
-void _leTextFieldWidget_TouchUpEvent(leTextFieldWidget* txt, leWidgetEvent_TouchUp* evt);
-void _leTextFieldWidget_TouchMovedEvent(leTextFieldWidget* txt, leWidgetEvent_TouchMove* evt);
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setTextChangedEventCallback(leTextFieldWidget* _this,
+                                         leTextFieldWidget_TextChangedCallback cb)
 
-void _leTextFieldWidget_FocusGained(leWidget* widget);
-void _leTextFieldWidget_FocusLost(leWidget* widget);
+  Summary:
+     Sets the text changed event callback pointer
 
-void _leTextFieldWidget_GetTextRect(leTextFieldWidget* txt,
-                                    leRect* textRect,
-                                    leRect* drawRect);
+  Description:
+     Sets the text changed event callback pointer
 
-void _leTextFieldWidget_GetCursorRect(leTextFieldWidget* txt, leRect* cursorRect);
-// DOM-IGNORE-END
-#endif
+  Parameters:
+    leTextFieldWidget* _this - The text field widget to operate on
+    leTextFieldWidget_TextChangedCallback cb - the callback pointer
+
+  Remarks:
+    Usage - _this->fn->setTextChangedEventCallback(_this, cb);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leTextFieldWidget_FocusChangedCallback getFocusChangedEventCallback(const leTextFieldWidget* _this)
+
+  Summary:
+     Gets the focus changed event callback pointer
+
+  Description:
+     Gets the focus changed event callback pointer
+
+  Parameters:
+    const leTextFieldWidget* _this - The text field widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getFocusChangedEventCallback(_this);
+
+  Returns:
+    leTextFieldWidget_FocusChangedCallback - the callback pointer
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setFocusChangedEventCallback(leTextFieldWidget* _this,
+                                          leTextFieldWidget_FocusChangedCallback cb)
+
+  Summary:
+     Sets the focus changed event callback pointer
+
+  Description:
+     Sets the focus changed event callback pointer
+
+  Parameters:
+    leTextFieldWidget* _this - The text field widget to operate on
+    leTextFieldWidget_FocusChangedCallback cb - the callback pointer
+
+  Remarks:
+    Usage - _this->fn->setFocusChangedEventCallback(_this, cb);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+
 
 #endif // LE_TEXTFIELD_WIDGET_ENABLED
 #endif /* LEGATO_TEXTFIELD_H */

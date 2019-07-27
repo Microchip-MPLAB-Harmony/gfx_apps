@@ -145,7 +145,7 @@ typedef struct leKeyPadCell
     leKeyPadWidget_KeyClickEvent (*getKeyClickEventCallback)(const THIS_TYPE* _this); \
     leResult              (*setKeyClickEventCallback)(THIS_TYPE* _this, leKeyPadWidget_KeyClickEvent cb); \
     leBool                (*getKeyEnabled)(const THIS_TYPE* _this, uint32_t row, uint32_t col); \
-    leResult              (*setKeyEnabled)(THIS_TYPE* _this, uint32_t row, uint32_t col, leBool b); \
+    leResult              (*setKeyVisible)(THIS_TYPE* _this, uint32_t row, uint32_t col, leBool b); \
     leKeyPadCellAction    (*getKeyAction)(const THIS_TYPE* _this, uint32_t row, uint32_t col); \
     leResult              (*setKeyAction)(THIS_TYPE* _this, uint32_t row, uint32_t col, leKeyPadCellAction action); \
     leString*             (*getKeyValue)(const THIS_TYPE* _this, uint32_t row, uint32_t col); \
@@ -217,647 +217,296 @@ typedef struct leKeyPadWidget
     leKeyPadWidget*
 
   Remarks:
-
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leKeyPadWidget* leKeyPadWidget_New(uint32_t rows,
                                               uint32_t cols);
 
+/* Function:
+    void leKeyPadWidget_Constructor(leKeyPadWidget* pad,
+                                    uint32_t rows,
+                                    uint32_t cols)
+
+  Summary:
+    Initializes an leKeyPadWidget widget pointer.
+
+  Description:
+    Initializes an leKeyPadWidget widget pointer.
+
+  Parameters:
+    leKeyPadWidget* wgt - the pointer to initialize
+    uint32_t rows - the number of rows in the keypad
+    uint32_t cols - the number of columns in the keypad
+
+  Returns:
+    void
+
+  Remarks:
+
+*/
 LIB_EXPORT void leKeyPadWidget_Constructor(leKeyPadWidget* pad,
                                            uint32_t rows,
                                            uint32_t cols);
 
-#if 0
 // *****************************************************************************
-/* Function:
-    leKeyPadActionTrigger leKeyPadWidget_SetKeyPadActionTrigger(leKeyPadWidget* pad)
+/* Virtual Member Function:
+    leKeyPadActionTrigger getKeyPadActionTrigger(const leKeyPadWidget* _this)
 
   Summary:
-    Gets the current trigger for keypad edit action and events
+     Gets the keypad trigger action
 
   Description:
+     Gets the keypad trigger action
 
   Parameters:
-    leKeyPadWidget* pad - the widget
-
-  Returns:
-    leKeyPadActionTrigger - the trigger
+    const leKeyPadWidget* _this - The keypad widget to operate on
 
   Remarks:
+    Usage - _this->fn->getKeyPadActionTrigger(_this);
 
+  Returns:
+    leKeyPadActionTrigger - the trigger action
 */
-LIB_EXPORT leKeyPadActionTrigger leKeyPadWidget_GetKeyPadActionTrigger(leKeyPadWidget* pad);
 
 // *****************************************************************************
-/* Function:
-    leResult leKeyPadWidget_SetKeyPadActionTrigger(leKeyPadWidget* pad,
-                                                   leKeyPadActionTrigger trigger)
+/* Virtual Member Function:
+    leResult setKeyPadActionTrigger(leKeyPadWidget* _this,
+                                    leKeyPadActionTrigger trg)
 
   Summary:
-    Sets the current trigger for keypad edit action and events
+     Sets the keypad trigger action
 
   Description:
-    Keypad actions and events callback will be called based on the trigger
+     Sets the keypad trigger action
 
   Parameters:
-    leKeyPadWidget* pad - the widget
-    leKeyPadActionTrigger trigger - the trigger
+    leKeyPadWidget* _this - The keypad widget to operate on
+    leKeyPadActionTrigger trg - the trigger action
+
+  Remarks:
+    Usage - _this->fn->setKeyPadActionTrigger(_this, trg);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leKeyPadWidget_SetKeyPadActionTrigger(leKeyPadWidget* pad,
-                                                          leKeyPadActionTrigger trigger);
-
 
 // *****************************************************************************
-/* Function:
-    leKeyPadWidget_KeyClickEvent leKeyPadWidget_GetKeyClickEventCallback(leKeyPadWidget* pad)
+/* Virtual Member Function:
+    leKeyPadWidget_KeyClickEvent getKeyClickEventCallback(const leKeyPadWidget* _this)
 
   Summary:
-    Gets the current key click event callback pointer
+     Gets the key click event callback
 
   Description:
-
+     Gets the key click event callback
 
   Parameters:
-    leKeyPadWidget* pad - the widget
+    const leKeyPadWidget* _this - The keypad widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getKeyClickEventCallback(_this);
 
   Returns:
     leKeyPadWidget_KeyClickEvent - the callback pointer
-
-  Remarks:
-
 */
-LIB_EXPORT leKeyPadWidget_KeyClickEvent leKeyPadWidget_GetKeyClickEventCallback(leKeyPadWidget* pad);
 
 // *****************************************************************************
-/* Function:
-    leResult leKeyPadWidget_SetKeyClickEventCallback(leKeyPadWidget* pad,
-                                                     leKeyPadWidget_KeyClickEvent cb)
+/* Virtual Member Function:
+    leResult setKeyClickEventCallback(leKeyPadWidget* _this,
+                                      leKeyPadWidget_KeyClickEvent cb)
 
   Summary:
-    Sets the current key click event callback pointer
+     Sets the key click event callback
 
   Description:
-    The key click event callback pointer is issued any time a button is
-    interacted with.
+     Sets the key click event callback
 
   Parameters:
-    leKeyPadWidget* pad - the widget
+    leKeyPadWidget* _this - The keypad widget to operate on
     leKeyPadWidget_KeyClickEvent cb - the callback pointer
 
-  Returns:
-    leResult - the result of the operation
-
   Remarks:
-
-*/
-LIB_EXPORT leResult leKeyPadWidget_SetKeyClickEventCallback(leKeyPadWidget* pad,
-                                                            leKeyPadWidget_KeyClickEvent cb);
-
-// *****************************************************************************
-/* Function:
-    leBool leKeyPadWidget_GetKeyEnabled(leKeyPadWidget* pad,
-                                        uint32_t row,
-                                        uint32_t col)
-
-  Summary:
-    Gets the enabled flag for a cell at a given row/column
-
-  Description:
-
-
-  Parameters:
-    leKeyPadWidget* pad - the widget
-    uint32_t row - the indicated row
-    uint32_t col - the indicated column
-
-  Returns:
-    leBool - the flag value
-
-  Remarks:
-
-*/
-LIB_EXPORT leBool leKeyPadWidget_GetKeyEnabled(leKeyPadWidget* pad,
-                                               uint32_t row,
-                                               uint32_t col);
-
-// *****************************************************************************
-/* Function:
-    leResult leKeyPadWidget_SetKeyEnabled(leKeyPadWidget* pad,
-                                          uint32_t row,
-                                          uint32_t col,
-                                          leBool enabled)
-
-  Summary:
-    Sets the enabled flag for a cell at the given row/column
-
-  Description:
-    The enabled flag controls the visibility and interactibility of a key pad
-    cell.  This enables the key pad to be configured to match such examples as
-    a phone dialer key pad with twelve buttons total but the buttons to the left
-    and right of the zero button not being drawn.
-
-  Parameters:
-    leKeyPadWidget* pad - the widget
-    uint32_t row - the indicated row
-    uint32_t col - the indicated column
-    leBool enabled - the flag value
+    Usage - _this->fn->setKeyClickEventCallback(_this, cb);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leKeyPadWidget_SetKeyEnabled(leKeyPadWidget* pad,
-                                                 uint32_t row,
-                                                 uint32_t col,
-                                                 leBool enabled);
 
 // *****************************************************************************
-/* Function:
-    leResult leKeyPadWidget_GetKeyText(leKeyPadWidget* pad,
-                                       uint32_t row,
-                                       uint32_t col,
-                                       leString* str)
+/* Virtual Member Function:
+    leBool getKeyEnabled(const leKeyPadWidget* _this,
+                         uint32_t row,
+                         uint32_t col)
 
   Summary:
-    Returns a copy of the display text for a given cell at row/column
+     Gets the enabled state of a key
 
   Description:
-    This function allocates memory for the input string argument.  The application
-    becomes responsible for the management of the memory after function
-    completion.
-
-    The input string does not need to be initialized in any fashion before
-    calling this function.
+     Gets the enabled state of a key
 
   Parameters:
-    leKeyPadWidget* pad - the widget
-    uint32_t row - the indicated row
-    uint32_t col - the indicated column
-    leString* str - a pointer to an leString object
+    const leKeyPadWidget* _this - The keypad widget to operate on
+    uint32_t row - the row index
+    uint32_t col - the column index
+
+  Remarks:
+    Usage - _this->fn->getKeyEnabled(_this, row, col);
+
+  Returns:
+    leBool -
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setKeyVisible(leKeyPadWidget* _this,
+                           uint32_t row,
+                           uint32_t col,
+                           leBool b)
+
+  Summary:
+     Sets the enabled state of a key
+
+  Description:
+     Sets the enabled state of a key
+
+  Parameters:
+    leKeyPadWidget* _this - The keypad widget to operate on
+    uint32_t row - the row index
+    uint32_t col - the column index
+    leBool b -
+
+  Remarks:
+    Usage - _this->fn->setKeyVisible(_this, row, col, b);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-*/
-LIB_EXPORT leResult leKeyPadWidget_GetKeyText(leKeyPadWidget* pad,
-                                              uint32_t row,
-                                              uint32_t col,
-                                              leString* str);
-
-// *****************************************************************************
-/* Function:
-    leResult leKeyPadWidget_SetKeyText(leKeyPadWidget* pad,
-                                       uint32_t row,
-                                       uint32_t col,
-                                       leString str)
-
-  Summary:
-    Sets the display text for a given cell at row/column
-
-  Description:
-    Sets the display text for a given cell at row/column
-
-  Parameters:
-    leKeyPadWidget* pad - the widget
-    uint32_t row - the indicated row
-    uint32_t col - the indicated column
-    leString str - an leString object
-
-  Returns:
-    leResult - the result of the operation
-
-  Remarks:
 */
 
-LIB_EXPORT leResult leKeyPadWidget_SetKeyText(leKeyPadWidget* pad,
-                                              uint32_t row,
-                                              uint32_t col,
-                                              leString str);
-
 // *****************************************************************************
-/* Function:
-    leImage* leKeyPadWidget_GetKeyPressedImage(leKeyPadWidget* pad,
-                                                              uint32_t row,
-                                                              uint32_t col)
+/* Virtual Member Function:
+    leKeyPadCellAction getKeyAction(const leKeyPadWidget* _this,
+                                    uint32_t row,
+                                    uint32_t col)
 
   Summary:
-    Gets the pressed icon image asset pointer for the display image for
-    a key pad cell
+     Gets the key action setting
 
   Description:
-
+     Gets the key action setting
 
   Parameters:
-    leKeyPadWidget* pad - the widget
-    uint32_t row - the indicated row
-    uint32_t col - the indicated column
-
-  Returns:
-    leImage* - pointer to the icon image asset
+    const leKeyPadWidget* _this - The keypad widget to operate on
+    uint32_t row - the row index
+    uint32_t col - the column index
 
   Remarks:
-
-*/
-LIB_EXPORT leImage* leKeyPadWidget_GetKeyPressedImage(leKeyPadWidget* pad,
-                                                              uint32_t row,
-                                                              uint32_t col);
-
-// *****************************************************************************
-/* Function:
-    leResult leKeyPadWidget_SetKeyPressedImage(leKeyPadWidget* pad,
-                                               uint32_t row,
-                                               uint32_t col,
-                                               leImage* img)
-
-  Summary:
-    Sets the pressed icon image asset pointer for a key pad cell
-
-  Description:
-
-
-  Parameters:
-    leKeyPadWidget* pad - the widget
-    uint32_t row - the indicated row
-    uint32_t col - the indicated column
-    leImage* img - pointer to an image asset
-
-  Returns:
-    leResult - the result of the operation
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leKeyPadWidget_SetKeyPressedImage(leKeyPadWidget* pad,
-                                                      uint32_t row,
-                                                      uint32_t col,
-                                                      leImage* img);
-
-// *****************************************************************************
-/* Function:
-    leImage* leKeyPadWidget_GetKeyReleasedImage(leKeyPadWidget* pad,
-                                                        uint32_t row,
-                                                        uint32_t col)
-
-  Summary:
-    Gets the released icon image asset pointer for the display image for
-    a key pad cell
-
-  Description:
-
-
-  Parameters:
-    leKeyPadWidget* pad - the widget
-    uint32_t row - the indicated row
-    uint32_t col - the indicated column
-
-  Returns:
-    leImage* - pointer to the icon image asset
-
-  Remarks:
-
-*/
-LIB_EXPORT leImage* leKeyPadWidget_GetKeyReleasedImage(leKeyPadWidget* pad,
-                                                               uint32_t row,
-                                                               uint32_t col);
-
-// *****************************************************************************
-/* Function:
-    leResult leKeyPadWidget_SetKeyReleasedImage(leKeyPadWidget* pad,
-                                                uint32_t row,
-                                                uint32_t col,
-                                                leImage* img)
-
-  Summary:
-    Sets the released icon image asset pointer for a key pad cell
-
-  Description:
-
-
-  Parameters:
-    leKeyPadWidget* pad - the widget
-    uint32_t row - the indicated row
-    uint32_t col - the indicated column
-    leImage* img - pointer to an image asset
-
-  Returns:
-    leResult - the result of the operation
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leKeyPadWidget_SetKeyReleasedImage(leKeyPadWidget* pad,
-                                                       uint32_t row,
-                                                       uint32_t col,
-                                                       leImage* img);
-
-// *****************************************************************************
-/* Function:
-    leRelativePosition leKeyPadWidget_GetKeyImagePosition(leKeyPadWidget* pad,
-                                                          uint32_t row,
-                                                          uint32_t col)
-
-  Summary:
-    Gets the image position for a key pad cell
-
-  Description:
-
-
-  Parameters:
-    leKeyPadWidget* pad - the widget
-    uint32_t row - the indicated row
-    uint32_t col - the indicated column
-
-  Returns:
-    leRelativePosition - the image position
-
-  Remarks:
-
-*/
-LIB_EXPORT leRelativePosition leKeyPadWidget_GetKeyImagePosition(leKeyPadWidget* pad,
-                                                                 uint32_t row,
-                                                                 uint32_t col);
-
-// *****************************************************************************
-/* Function:
-    leResult leKeyPadWidget_SetKeyImagePosition(leKeyPadWidget* pad,
-                                                uint32_t row,
-                                                uint32_t col,
-                                                leRelativePosition pos)
-
-  Summary:
-
-
-  Description:
-
-
-  Parameters:
-    leKeyPadWidget* pad - the widget
-    uint32_t row - the indicated row
-    uint32_t col - the indicated column
-    leRelativePosition pos - the desired image position
-
-  Returns:
-    leResult - the result of the operation
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leKeyPadWidget_SetKeyImagePosition(leKeyPadWidget* pad,
-                                                       uint32_t row,
-                                                       uint32_t col,
-                                                       leRelativePosition pos);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leKeyPadWidget_GetKeyImageMargin(leKeyPadWidget* pad,
-                                              uint32_t row,
-                                              uint32_t col)
-
-  Summary:
-    Gets the key pad cell image margin value
-
-  Description:
-    The image margin value is the space between the image and the text
-
-  Parameters:
-    leKeyPadWidget* pad - the widget
-    uint32_t row - the indicated row
-    uint32_t col - the indicated column
-
-  Returns:
-    uint32_t - the margin value
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leKeyPadWidget_GetKeyImageMargin(leKeyPadWidget* pad,
-                                                     uint32_t row,
-                                                     uint32_t col);
-
-// *****************************************************************************
-/* Function:
-    leResult leKeyPadWidget_SetKeyImageMargin(leKeyPadWidget* pad,
-                                              uint32_t row,
-                                              uint32_t col,
-                                              uint32_t mg)
-
-  Summary:
-    Sets the key pad cell image margin value for a given cell at row/column
-
-  Description:
-
-
-  Parameters:
-    leKeyPadWidget* pad - the widget
-    uint32_t row - the indicated row
-    uint32_t col - the indicated column
-    uint32_t mg - the desired margin value
-
-  Returns:
-    leResult - the result of the operation
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leKeyPadWidget_SetKeyImageMargin(leKeyPadWidget* pad,
-                                                     uint32_t row,
-                                                     uint32_t col,
-                                                     uint32_t mg);
-
-// *****************************************************************************
-/* Function:
-    leBackgroundType leKeyPadWidget_GetKeyBackgroundType(leKeyPadWidget* pad,
-                                                         uint32_t row,
-                                                         uint32_t col)
-
-  Summary:
-    Gets the background type for a key pad cell at row/column
-
-  Description:
-
-
-  Parameters:
-    leKeyPadWidget* pad - the widget
-    uint32_t row - the indicated row
-    uint32_t col - the indicated column
-
-  Returns:
-    leBackgroundType - the cell background type
-
-  Remarks:
-
-*/
-LIB_EXPORT leBackgroundType leKeyPadWidget_GetKeyDrawBackground(leKeyPadWidget* pad,
-                                                                uint32_t row,
-                                                                uint32_t col);
-
-// *****************************************************************************
-/* Function:
-    leResult leKeyPadWidget_SetKeyBackgroundType(leKeyPadWidget* pad,
-                                                 uint32_t row,
-                                                 uint32_t col,
-                                                 leBackgroundType type)
-
-  Summary:
-    Sets the background type for a key pad cell at row/column
-
-  Description:
-
-
-  Parameters:
-    leKeyPadWidget* pad - the widget
-    uint32_t row - the indicated row
-    uint32_t col - the indicated column
-    leBackgroundType type - the desired background type
-
-  Returns:
-    leResult - the result of the operation
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leKeyPadWidget_SetKeyBackgroundType(leKeyPadWidget* pad,
-                                                        uint32_t row,
-                                                        uint32_t col,
-                                                        leBackgroundType type);
-
-// *****************************************************************************
-/* Function:
-    leKeyPadCellAction leKeyPadWidget_GetKeyAction(leKeyPadWidget* pad,
-                                                   uint32_t row,
-                                                   uint32_t col)
-
-  Summary:
-    Gets the key pad cell action for a cell at row/column
-
-  Description:
-
-
-  Parameters:
-    leKeyPadWidget* pad - the widget
-    uint32_t row - the indicated row
-    uint32_t col - the indicated column
+    Usage - _this->fn->getKeyAction(_this, row, col);
 
   Returns:
     leKeyPadCellAction - the cell action value
-
-  Remarks:
-
 */
-LIB_EXPORT leKeyPadCellAction leKeyPadWidget_GetKeyAction(leKeyPadWidget* pad,
-                                                          uint32_t row,
-                                                          uint32_t col);
 
 // *****************************************************************************
-/* Function:
-    leResult leKeyPadWidget_SetKeyAction(leKeyPadWidget* pad,
-                                         uint32_t row,
-                                         uint32_t col,
-                                         leKeyPadCellAction action)
+/* Virtual Member Function:
+    leResult setKeyAction(leKeyPadWidget* _this,
+                          uint32_t row,
+                          uint32_t col,
+                          leKeyPadCellAction action)
 
   Summary:
-    Sets the cell action type for a key pad cell at row/column
+     Sets the key action setting
 
   Description:
-    The cell action is the action that is dispatched to the Legato edit event
-    system.  This event will then be received by the active edit event
-    receptor widget if one exists.
+     Sets the key action setting
 
   Parameters:
-    leKeyPadWidget* pad - the widget
-    uint32_t row - the indicated row
-    uint32_t col - the indicated column
-    leKeyPadCellAction action - the desired edit action
+    leKeyPadWidget* _this - The keypad widget to operate on
+    uint32_t row - the row index
+    uint32_t col - the column index
+    leKeyPadCellAction action - the cell action value
+
+  Remarks:
+    Usage - _this->fn->setKeyAction(_this, row, col, action);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leKeyPadWidget_SetKeyAction(leKeyPadWidget* pad,
-                                                uint32_t row,
-                                                uint32_t col,
-                                                leKeyPadCellAction action);
 
 // *****************************************************************************
-/* Function:
-    leString* leKeyPadWidget_GetKeyValue(leKeyPadWidget* pad,
-                                         uint32_t row,
-                                         uint32_t col)
+/* Virtual Member Function:
+    leString* getKeyValue(const leKeyPadWidget* _this,
+                          uint32_t row,
+                          uint32_t col)
 
   Summary:
-    Gets the edit text value for a given key pad cell.
+     Gets the key value
 
   Description:
-    This function allocates memory and returns a valid leString pointer.  The
-    caller is responsible for managing the memory once this function returns.
+     Gets the key value
 
   Parameters:
-    leKeyPadWidget* pad - the widget
-    uint32_t row - the indicated row
-    uint32_t col - the indicated column
+    const leKeyPadWidget* _this - The keypad widget to operate on
+    uint32_t row - the row index
+    uint32_t col - the column index
+
+  Remarks:
+    Usage - _this->fn->getKeyValue(_this, row, col);
 
   Returns:
-    leString* - an initialized string containing a copy of the key pad cell
-                edit value text
-
-  Remarks:
-
+    leString* - the string pointer
 */
-LIB_EXPORT leString* leKeyPadWidget_GetKeyValue(leKeyPadWidget* pad,
-                                                uint32_t row,
-                                                uint32_t col);
 
 // *****************************************************************************
-/* Function:
-    leResult leKeyPadWidget_SetKeyValue(leKeyPadWidget* pad,
-                                        uint32_t row,
-                                        uint32_t col,
-                                        leString str)
+/* Virtual Member Function:
+    leResult setKeyValue(leKeyPadWidget* _this,
+                         uint32_t row,
+                         uint32_t col,
+                         const leString* val)
 
   Summary:
-    Sets the edit value for a given key pad cell.
+     Sets the key value
 
   Description:
-    The edit value for a key pad cell is the value that is passed to the Legato
-    edit event management system.  This may be different than the displayed text
-    of the cell or when the cell is using a picture icon and has no display text.
-
-    An input string that references the string table is a valid use case and the
-    edit text will change as the active string table language changes.
+     Sets the key value
 
   Parameters:
-    leKeyPadWidget* pad - the widget
-    uint32_t row - the indicated row
-    uint32_t col - the indicated column
-    leString str - the string to set the key value to
+    leKeyPadWidget* _this - The keypad widget to operate on
+    uint32_t row - the row index
+    uint32_t col - the column index
+    const leString* val - the string pointer
+
+  Remarks:
+    Usage - _this->fn->setKeyValue(_this, row, col, val);
 
   Returns:
     leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leButtonWidget* getCellButton(const leKeyPadWidget* _this,
+                                  uint32_t row,
+                                  uint32_t col)
+
+  Summary:
+     Get a button widget pointer from the keypad
+
+  Description:
+     Get a button widget pointer from the keypad
+
+  Parameters:
+    const leKeyPadWidget* _this - The keypad widget to operate on
+    uint32_t row - the row index
+    uint32_t col - the column index
 
   Remarks:
+    Usage - _this->fn->getCellButton(_this, row, col);
 
+  Returns:
+    leButtonWidget* - pointer to the button widget
 */
-LIB_EXPORT leResult leKeyPadWidget_SetKeyValue(leKeyPadWidget* pad,
-                                               uint32_t row,
-                                               uint32_t col,
-                                               leString str);
 
-// DOM-IGNORE-BEGIN
-// internal use only
-void _leKeyPadWidget_InvalidateBorderAreas(leKeyPadWidget* pad);
-// DOM-IGNORE-END
 
-#endif
 
 #endif // LE_WIDGET_KEYPAD_ENABLED && LE_WIDGET_BUTTON_ENABLED
 #endif /* LEGATO_KEYPAD_H */

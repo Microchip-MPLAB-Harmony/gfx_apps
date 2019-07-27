@@ -161,151 +161,157 @@ typedef struct leProgressBarWidget
     leProgressBarWidget*
 
   Remarks:
-
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leProgressBarWidget* leProgressBarWidget_New();
 
+/* Function:
+    void leProgressBarWidget_Constructor(leProgressBarWidget* wgt)
+
+  Summary:
+    Initializes an leProgressBarWidget widget pointer.
+
+  Description:
+    Initializes an leProgressBarWidget widget pointer.
+
+  Parameters:
+    leProgressBarWidget* wgt - the pointer to initialize
+
+  Returns:
+    void
+
+  Remarks:
+
+*/
 LIB_EXPORT void leProgressBarWidget_Constructor(leProgressBarWidget* bar);
 
-#if 0
 // *****************************************************************************
-/* Function:
-    leProgressBarDirection leProgressBarWidget_GetDirection(leProgressBarWidget* bar)
+/* Virtual Member Function:
+    leProgressBarDirection getDirection(const leProgressBarWidget* _this)
 
   Summary:
-    Gets the fill direction value for a progress bar widget
+     Gets the progress bar fill direction
 
   Description:
-
+     Gets the progress bar fill direction
 
   Parameters:
-    leProgressBarWidget* bar - the widget
-
-  Returns:
-    leProgressBarDirection - the fill direction value
+    const leProgressBarWidget* _this - The progress bar widget to operate on
 
   Remarks:
+    Usage - _this->fn->getDirection(_this);
 
+  Returns:
+    leProgressBarDirection - the direction
 */
-LIB_EXPORT leProgressBarDirection leProgressBarWidget_GetDirection(leProgressBarWidget* bar);
 
 // *****************************************************************************
-/* Function:
-    leResult leProgressBarWidget_SetDirection(leProgressBarWidget* bar,
-                                              leProgressBarDirection dir)
+/* Virtual Member Function:
+    leResult setDirection(leProgressBarWidget* _this,
+                          leProgressBarDirection dir)
 
   Summary:
-    Sets the fill direction for a progress bar widget
+     Sets the progress bar fill direction
 
   Description:
-
+     Sets the progress bar fill direction
 
   Parameters:
-    leProgressBarWidget* bar - the widget
-    leProgressBarDirection dir - the desired fill direction
-
-  Returns:
-    leResult - the operation result
+    leProgressBarWidget* _this - The progress bar widget to operate on
+    leProgressBarDirection dir - the direction
 
   Remarks:
+    Usage - _this->fn->setDirection(_this, dir);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leProgressBarWidget_SetDirection(leProgressBarWidget* bar, leProgressBarDirection dir);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leProgressBarWidget_GetValue(leProgressBarWidget* bar)
+/* Virtual Member Function:
+    uint32_t getValue(const leProgressBarWidget* _this)
 
   Summary:
-    Gets the percentage value for a progress bar.
+     Gets the progress bar value
 
   Description:
+     Gets the progress bar value
 
   Parameters:
-    leProgressBarWidget* bar - the widget
-
-  Returns:
-    uint32_t
+    const leProgressBarWidget* _this - The progress bar widget to operate on
 
   Remarks:
+    Usage - _this->fn->getValue(_this);
 
+  Returns:
+    uint32_t - the value
 */
-LIB_EXPORT uint32_t leProgressBarWidget_GetValue(leProgressBarWidget* bar);
 
 // *****************************************************************************
-/* Function:
-    leResult leProgressBarWidget_SetValue(leProgressBarWidget* bar, uint32_t value)
+/* Virtual Member Function:
+    leResult setValue(leProgressBarWidget* _this,
+                      uint32_t value)
 
   Summary:
-    Sets the percentage value for a progress bar.  Valid values are 0 - 100.
+     Sets the progress bar value
 
   Description:
-
+     Sets the progress bar value
 
   Parameters:
-    leProgressBarWidget* bar - the widget
-    uint32_t value - the desired value
-
-  Returns:
-    leResult - the operation result
+    leProgressBarWidget* _this - The progress bar widget to operate on
+    uint32_t value - the value
 
   Remarks:
+    Usage - _this->fn->setValue(_this, value);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leProgressBarWidget_SetValue(leProgressBarWidget* bar, uint32_t value);
 
 // *****************************************************************************
-/* Function:
-    leProgressBar_ValueChangedEventCallback leProgressBarWidget_GetValueChangedEventCallback(leProgressBarWidget* bar)
+/* Virtual Member Function:
+    leProgressBar_ValueChangedEventCallback getValueChangedEventCallback(const leProgressBarWidget* _this)
 
   Summary:
-    Gets the currently set value changed event callback.
+     Gets the progress bar value changed event callback pointer
 
   Description:
-
+     Gets the progress bar value changed event callback pointer
 
   Parameters:
-    leProgressBarWidget* bar - the widget
-
-  Returns:
-    leProgressBar_ValueChangedEventCallback - the current callback pointer or NULL
+    const leProgressBarWidget* _this - The progress bar widget to operate on
 
   Remarks:
+    Usage - _this->fn->getValueChangedEventCallback(_this);
 
+  Returns:
+    leProgressBar_ValueChangedEventCallback - the value
 */
-LIB_EXPORT leProgressBar_ValueChangedEventCallback leProgressBarWidget_GetValueChangedEventCallback(leProgressBarWidget* bar);
 
 // *****************************************************************************
-/* Function:
-    leResult leProgressBarWidget_SetValueChangedCallback(leProgressBarWidget* bar, leProgressBar_ValueChangedEventCallback cb)
+/* Virtual Member Function:
+    leResult setValueChangedCallback(leProgressBarWidget* _this,
+                                     leProgressBar_ValueChangedEventCallback cb)
 
   Summary:
-    Sets the desired value changed event callback pointer
+     Sets the progress bar value changed event callback pointer
 
   Description:
-
+     Sets the progress bar value changed event callback pointer
 
   Parameters:
-    leProgressBarWidget* bar - the widget
-    leProgressBar_ValueChangedEventCallback - a valid callback pointer or NULL
-
-  Returns:
-    leResult - the operation result
+    leProgressBarWidget* _this - The progress bar widget to operate on
+    leProgressBar_ValueChangedEventCallback cb - the callback pointer
 
   Remarks:
+    Usage - _this->fn->setValueChangedCallback(_this, cb);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leProgressBarWidget_SetValueChangedCallback(leProgressBarWidget* bar, leProgressBar_ValueChangedEventCallback cb);
 
-// DOM-IGNORE-BEGIN
-// internal use only
-void _leProgressBarWidget_GetBarRect(leProgressBarWidget* bar,
-                                     int32_t val1,
-                                     int32_t val2,
-                                     leRect* barRect);
-// DOM-IGNORE-END
 
-#endif
 
 #endif // LE_PROGRESSBAR_WIDGET_ENABLED
 #endif /* LEGATO_PROGRESSBAR_H */
