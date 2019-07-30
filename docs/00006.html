@@ -18,7 +18,7 @@
 <!-- Begin Page Header -->
 <div class="Element710" id="areafixed">
 <div class="Element94">
-<a href="00000.html" target="topic">MPLAB® Harmony Graphics Suite Applications</a> &gt; <a href="00045.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00005.html" target="topic">aria_benchmark</a> &gt; <a href="00006.html" target="topic">Building the Application</a></div>
+<a href="00000.html" target="topic">MPLAB Harmony Graphics Suite Applications</a> &gt; <a href="00055.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00053.html" target="topic">Aria Applications</a> &gt; <a href="00005.html" target="topic">aria_benchmark</a> &gt; <a href="00006.html" target="topic">Building the Application</a></div>
 <div class="Element92">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="25%">
@@ -61,34 +61,52 @@ The following table lists and describes the supported configurations: </p><div c
 <div class="Element66">
 Project Name&nbsp;</div></td><td class="Element65" valign="top" width="12%">
 <div class="Element66">
-BSP Used&nbsp;</div></td><td class="Element65" valign="top" width="22%">
+BSP Used&nbsp;</div></td><td class="Element65" valign="top" width="23%">
 <div class="Element66">
 Graphics Template Used&nbsp;</div></td><td class="Element65" valign="top" width="40%">
 <div class="Element66">
 Description&nbsp;</div></td></tr><tr>
 <td class="Element67" valign="top" width="25%">
 <div class="Element68">
+aria_bm_e54_cu_cpro.X&nbsp;</div></td><td class="Element67" valign="top" width="12%">
+<div class="Element68">
+SAM E54 Curiosity Ultra BSP&nbsp;</div></td><td class="Element67" valign="top" width="23%">
+<div class="Element68">
+Aria Graphics w/ Xplained Pro Display (with manual updates)&nbsp;</div></td><td class="Element67" valign="top" width="40%">
+<div class="Element68">
+SAM E54 Curiosity Ultra w/ maXTouch Xplained Pro display via 8-bit parallel interface&nbsp;</div></td></tr><tr>
+<td class="Element67" valign="top" width="25%">
+<div class="Element68">
 aria_bm_e70_xu_tm4301b.X&nbsp;</div></td><td class="Element67" valign="top" width="12%">
 <div class="Element68">
-sam_e70_xplained_ultra&nbsp;</div></td><td class="Element67" valign="top" width="22%">
+aria_bm_e70_xu_tm4301b.X&nbsp;</div></td><td class="Element67" valign="top" width="23%">
 <div class="Element68">
 Aria Graphics w/ PDA TM4301B Display&nbsp;</div></td><td class="Element67" valign="top" width="40%">
 <div class="Element68">
 SAM E70 Xplained Ultra board with PDA TM4301B 480x272 (WQVGA) Display&nbsp;</div></td></tr><tr>
 <td class="Element67" valign="top" width="25%">
 <div class="Element68">
-aria_bm_a5d2_xu_tm4301b.eww&nbsp;</div></td><td class="Element67" valign="top" width="12%">
+aria_bm_a5d2_xu_tm4301b.IAR&nbsp;</div></td><td class="Element67" valign="top" width="12%">
 <div class="Element68">
-SAM A5D2 Xplained Pro&nbsp;</div></td><td class="Element67" valign="top" width="22%">
+SAM A5D2 Xplained Pro&nbsp;</div></td><td class="Element67" valign="top" width="23%">
 <div class="Element68">
 Aria Graphics w/ PDA TM4301B Display&nbsp;</div></td><td class="Element67" valign="top" width="40%">
 <div class="Element68">
 Aria GFX on SAM A5D2 Xplained Ultra with PDA TM4301B 480x272 (WQVGA) Display&nbsp;</div></td></tr><tr>
 <td class="Element67" valign="top" width="25%">
 <div class="Element68">
-aria_qs_mzda_intddr_sk_meb2_tm4301b.X&nbsp;</div></td><td class="Element67" valign="top" width="12%">
+aria_bm_9x60_ek_tm4301b.IAR&nbsp;</div></td><td class="Element67" valign="top" width="12%">
 <div class="Element68">
-PIC32MZ DA Starter Kit&nbsp;</div></td><td class="Element67" valign="top" width="22%">
+SAM 9x60 Evaluation Kit&nbsp;</div></td><td class="Element67" valign="top" width="23%">
+<div class="Element68">
+Aria Graphics w/ PDA TM401b Display&nbsp;</div></td><td class="Element67" valign="top" width="40%">
+<div class="Element68">
+Aria GFX on SAM 9x60 Evaluation Kit Board and PDA TM4301b WQVGA Display&nbsp;</div></td></tr><tr>
+<td class="Element67" valign="top" width="25%">
+<div class="Element68">
+aria_bm_mzda_intddr_sk_meb2_tm4301b.X&nbsp;</div></td><td class="Element67" valign="top" width="12%">
+<div class="Element68">
+PIC32MZ DA Starter Kit&nbsp;</div></td><td class="Element67" valign="top" width="23%">
 <div class="Element68">
 Aria Graphics w/ PDA TM4301b Display&nbsp;</div></td><td class="Element67" valign="top" width="40%">
 <div class="Element68">
@@ -100,9 +118,11 @@ For all SAMA5D2 configurations, see <span class="Element145">Getting Started wit
 <p class="Element10">
 &nbsp;</p>
 <p class="Element10">
-For, aria_bm_a5d2_xu_tm4301b.eww, the application requires the IAR Embedded Workbench to build. In the IAR workbench, open the workspace from gfx_apps/apps/aria_benchmark/firmware/aria_bm_a5d2_xu_tm4301b.IAR and build it. The build will generate a binary file harmony.bin. Copy harmony.bin to a FAT32-formatted SD card. The SD card must also contain the supplied bootloader binary needed to boot Harmony applications. Insert the card to the SDMMC1 port on the SAM A5D2 Xplained Ultra board.&nbsp;</p>
+For <strong>lcdc_rgba8888_mxt_a5d2</strong>, the application requires the IAR Embedded Workbench to build. In the IAR workbench, open the workspace from gfx_apps/apps/aria_benchmark/firmware/aria_bm_a5d2_xu_tm4301b.IAR and build it. The build will generate a binary file harmony.bin. Copy harmony.bin to a FAT32-formatted SD card. The SD card must also contain the supplied bootloader binary needed to boot Harmony applications. Insert the card to the SDMMC1 port on the SAM A5D2 Xplained Ultra board.&nbsp;</p>
 <p class="Element10">
-&nbsp;</p><div class="Element63">
+&nbsp;</p>
+<p class="Element10">
+For <strong>lcdc_rgba8888_mxt_9x60_wqvga</strong>, building the project will generate a binary file<strong> harmony.bin</strong>. Copy <strong>harmony.bin</strong> to a FAT32-formatted SD card. The SD card must also contain the supplied bootloader binary needed to boot Harmony applications on the SAM 9X60 Evaluation Kit. Insert the card to the SD Card port on the SAM 9X60 Evaluation Kit board. </p><div class="Element63">
 <div class="TableDiv">
 <table cellspacing="0" class="Table0">
 <tr>
@@ -113,12 +133,14 @@ For, aria_bm_a5d2_xu_tm4301b.eww, the application requires the IAR Embedded Work
 This application may contain custom code that is marked by the comments <span class="Element146">// START OF CUSTOM CODE ...</span> and <span class="Element146">// END OF CUSTOM CODE</span>. When using the MPLAB Harmony Configurator to regenerate the application code, use the &quot;ALL&quot; merging strategy and <i>do not</i> remove or replace the custom code.&nbsp;</div></td></tr></table></div></div>
 </div>
 </div>
+<div class="Element62">
+Created with a commercial version of <a href="#" onclick="openExternalLink('http://www.doc-o-matic.com');">Doc-O-Matic</a>. In order to make this message disappear you need to register this software. If you have problems registering this software please contact us at <a href="#" onclick="openExternalLink('mailto:support@toolsfactory.com');">support@toolsfactory.com</a>.</div>
 </div>
 <!-- End Page Content -->
 
 <!-- Begin Page Footer -->
 <div class="Element95">
-<a href="00000.html" target="topic">MPLAB® Harmony Graphics Suite Applications</a> &gt; <a href="00045.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00005.html" target="topic">aria_benchmark</a> &gt; <a href="00006.html" target="topic">Building the Application</a></div>
+<a href="00000.html" target="topic">MPLAB Harmony Graphics Suite Applications</a> &gt; <a href="00055.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00053.html" target="topic">Aria Applications</a> &gt; <a href="00005.html" target="topic">aria_benchmark</a> &gt; <a href="00006.html" target="topic">Building the Application</a></div>
 <div class="Element93">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="25%">

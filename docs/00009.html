@@ -18,7 +18,7 @@
 <!-- Begin Page Header -->
 <div class="Element710" id="areafixed">
 <div class="Element94">
-<a href="00000.html" target="topic">MPLAB® Harmony Graphics Suite Applications</a> &gt; <a href="00045.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00009.html" target="topic">aria_dashboard</a></div>
+<a href="00000.html" target="topic">MPLAB Harmony Graphics Suite Applications</a> &gt; <a href="00055.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00053.html" target="topic">Aria Applications</a> &gt; <a href="00009.html" target="topic">aria_dashboard</a></div>
 <div class="Element92">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="25%">
@@ -29,7 +29,7 @@ MPLAB® Harmony Graphics Suite Applications</div>
 <a href="contents.html" target="tocidx">Contents</a> | <a href="00000.html" target="topic">Home</a></div>
 </td><td width="25%">
 <div class="Element90">
-<a href="00008.html" target="topic">Previous</a> | <a href="00045.html" target="topic">Up</a> | <a href="00010.html" target="topic">Next</a></div>
+<a href="00008.html" target="topic">Previous</a> | <a href="00053.html" target="topic">Up</a> | <a href="00010.html" target="topic">Next</a></div>
 </td><td width="25%">
 <div class="Element96">
 <a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_dashboard Topic Title: aria_dashboard)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
@@ -95,6 +95,68 @@ User touch input on the display panel is received thru the PCAP capacitive touch
 <p class="Element10">
 &nbsp;</p>
 <p class="Element10">
+<strong>glcd_rgba8888_mxt_mzda_intddr_sk, glcd_rgba8888_mxt_mzda_intddr_sk_wvga</strong>&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="glcd_rgba8888_mxt_mzda_intddr_sk.png" border="0" alt="" title="">&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+&nbsp;</p><p class="Element10">
+<strong>Demonstration Features</strong>&nbsp;</p>
+<p class="Element10">
+• GLCD display controller with multiple HW layers&nbsp;</p>
+<p class="Element10">
+• Nano2D Graphics Processor Unit (GPU)&nbsp;</p>
+<p class="Element10">
+• Input system service and driver&nbsp;</p>
+<p class="Element10">
+• Time system service, timer-counter peripheral library and driver&nbsp;</p>
+<p class="Element10">
+• I2C driver&nbsp;</p>
+<p class="Element10">
+• 32-bit RGBA8888 color depth support&nbsp;</p>
+<p class="Element10">
+• Draw surface, image, label widgets&nbsp;</p>
+<p class="Element10">
+• Software-based image rotation&nbsp;</p>
+<p class="Element10">
+• Backlight PWM control&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+<strong>lcdc_rgba8888_mxt_9x60_wvga</strong>&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="glcd_rgba8888_mxt_mzda_intddr_sk_wvga.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
+<strong>Demonstration Features</strong>&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+aria_dashboard_9x60_sk_wvga&nbsp;</p>
+<p class="Element10">
+• LCDC display controller with multiple HW layers&nbsp;</p>
+<p class="Element10">
+• GFX2D Graphics Processor Unit (GPU)&nbsp;</p>
+<p class="Element10">
+• Input system service and driver&nbsp;</p>
+<p class="Element10">
+• Time system service, timer-counter peripheral library and driver&nbsp;</p>
+<p class="Element10">
+• I2C driver&nbsp;</p>
+<p class="Element10">
+• 32-bit RGBA8888 color depth support&nbsp;</p>
+<p class="Element10">
+• Draw surface, image, label widgets&nbsp;</p>
+<p class="Element10">
+• Software-based image rotation&nbsp;</p>
+<p class="Element10">
+• Backlight PWM control&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
 <strong>MPLAB Harmony Configurator Setup</strong>&nbsp;</p>
 <p class="Element10">
 The Project Graph diagram below shows the Harmony components that are included in this application. Lines between components are drawn to satisfy components that depend on a capability that another component provides.&nbsp;</p>
@@ -103,10 +165,28 @@ First, add the “SAM A5D2 XPlained Ultra BSP” into the project. Then, add “
 <p class="Element10">
 &nbsp;</p>
 <p class="Element10">
-<strong>lcdc_rgba8888_mxt_a5d2_wqvga</strong>&nbsp;</p>
+<strong>glcd_rgba8888_mxt_mzda_intddr_sk/glcd_rgba8888_mxt_mzda_intddr_sk_wvga</strong>&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+First, add the “PIC32MZ DA Starter Kit BSP” into the project. Then, add “Aria Graphics w/ PDA TM4301B Display” Graphics Template component to the project if using a 4.3” WQVGA TM4301b display or the “Aria Graphics w/ PDA TM4301B Display” Graphics Template component to the project if using a 5” or 7” WVGA TM4301b display. The template will automatically add the components needed for a graphics project and resolve their dependencies and configure the pins needed to drive the external peripherals like the display and the touch controller. </p><p class="Element10" style="text-align: center;">
+aria_dashboard_mzda_intddr_sk_meb2_wqvga&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+<img src="glcd_rgba8888_mxt_mzda_intddr_sk_pj.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
+&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+aria_dashboard_mzda_intddr_sk_meb2_wvga&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+<img src="glcd_rgba8888_mxt_mzda_intddr_sk_wvga_pj.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
+For this project, the GFX Core component has been configured to enable “Double Buffer Mode” for double-buffering.&nbsp;</p>
 <p class="Element10">
 &nbsp;</p><p class="Element10" style="text-align: center;">
-<img src="APP GFX aria_dash_config_wqvga.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
+<img src="APP GFX aria_dash config2 a5d2.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+<strong>lcdc_rgba8888_mxt_a5d2_wqvga</strong>&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+<img src="APP GFX aria_dash_config_wqvga.png" border="0" alt="" title=""></p><p class="Element10">
 &nbsp;</p>
 <p class="Element10">
 <strong>lcdc_rgba8888_mxt_a5d2_wvga</strong>&nbsp;</p>
@@ -153,12 +233,14 @@ This section describes how to configure the supported hardware.&nbsp;</div></td>
 This section provides information on how to run and use the application.&nbsp;</div></td></tr></table></div></div>
 </div>
 </div>
+<div class="Element62">
+Created with a commercial version of <a href="#" onclick="openExternalLink('http://www.doc-o-matic.com');">Doc-O-Matic</a>. In order to make this message disappear you need to register this software. If you have problems registering this software please contact us at <a href="#" onclick="openExternalLink('mailto:support@toolsfactory.com');">support@toolsfactory.com</a>.</div>
 </div>
 <!-- End Page Content -->
 
 <!-- Begin Page Footer -->
 <div class="Element95">
-<a href="00000.html" target="topic">MPLAB® Harmony Graphics Suite Applications</a> &gt; <a href="00045.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00009.html" target="topic">aria_dashboard</a></div>
+<a href="00000.html" target="topic">MPLAB Harmony Graphics Suite Applications</a> &gt; <a href="00055.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00053.html" target="topic">Aria Applications</a> &gt; <a href="00009.html" target="topic">aria_dashboard</a></div>
 <div class="Element93">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="25%">
@@ -169,7 +251,7 @@ MPLAB® Harmony Graphics Suite Applications</div>
 <a href="contents.html" target="tocidx">Contents</a> | <a href="00000.html" target="topic">Home</a></div>
 </td><td width="25%">
 <div class="Element91">
-<a href="00008.html" target="topic">Previous</a> | <a href="00045.html" target="topic">Up</a> | <a href="00010.html" target="topic">Next</a></div>
+<a href="00008.html" target="topic">Previous</a> | <a href="00053.html" target="topic">Up</a> | <a href="00010.html" target="topic">Next</a></div>
 </td><td width="25%">
 <div class="Element97">
 <a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_dashboard Topic Title: aria_dashboard)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
