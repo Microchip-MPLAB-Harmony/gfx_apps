@@ -18,6 +18,8 @@
 |      | aria_showcase_reloaded | Example of Aria Graphics Library Widgets| Beta |Beta | 
 |      | aria_thermostat | Example thermostat UI | Beta |
 |      | aria_weather_forecast | Example weather UI | Beta |
+|      | legato_monitor | Example blood pressure application| Beta |
+|      | legato_showcase | Example of Legato graphics library widgets| Beta |
 |  doc | API | Harmony Graphics Application API Documentation| Beta |
 |  docs| Help | Harmony Graphics Application Help Documentation| Beta |
 
