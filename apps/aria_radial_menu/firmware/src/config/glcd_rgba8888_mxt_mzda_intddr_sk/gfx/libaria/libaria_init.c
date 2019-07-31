@@ -1211,42 +1211,44 @@ static void ScreenCreate_PortraitScreen(laScreen* screen)
 
 int32_t libaria_preprocess_assets(void)
 {
-
-    // process images configured for preprocessing
-    laUtils_PreprocessImage(&Bar,0xA86B2000,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&question_button,0xA86CBC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&HomeButton,0xA87BBC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&audio_icons_01,0xA87BFC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&audio_icons_05,0xA87C3C80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&audio_icons_06,0xA87C7C80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&audio_icons_07,0xA87CBC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&portrait01,0xA8592000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&portrait02,0xA85B2000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&portrait03,0xA85D2000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&portrait07,0xA86DBC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&portrait05,0xA86EBC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&portrait04,0xA86FBC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&portrait06,0xA870BC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&ConcertBackground,0xA8100000,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&MoleculeBackground,0xA8187000,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&TouchBackground,0xA820E000,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover1,0xA871BC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover10,0xA872BC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover2,0xA873BC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover3,0xA874BC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover4,0xA875BC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover5,0xA876BC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover6,0xA877BC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover7,0xA878BC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover8,0xA879BC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&cover9,0xA87ABC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&card1,0xA85F2000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&card2,0xA8612000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&card3,0xA8632000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&card4,0xA8652000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&card5,0xA8672000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&card6,0xA8692000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&info_text,0xA8000000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+	// CUSTOM CODE - DO NOT REMOVE
+	// This custom code is here to keep preprocessed images at a specific memory location in the DDR
+	// process images configured for preprocessing
+    laUtils_PreprocessImage(&Bar,0xA83FD000,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&question_button,0xA8416C80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&HomeButton,0xA8426C80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&audio_icons_01,0xA842AC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&audio_icons_05,0xA842EC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&audio_icons_06,0xA8432C80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&audio_icons_07,0xA8436C80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&portrait01,0xA843AC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&portrait02,0xA845AC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&portrait03,0xA847AC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&portrait07,0xA849AC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&portrait05,0xA84AAC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&portrait04,0xA84BAC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&portrait06,0xA84CAC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&ConcertBackground,0xA84DAC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&MoleculeBackground,0xA8561C80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&TouchBackground,0xA85E8C80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover1,0xA866FC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover10,0xA867FC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover2,0xA868FC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover3,0xA869FC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover4,0xA86AFC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover5,0xA86BFC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover6,0xA86CFC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover7,0xA86DFC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover8,0xA86EFC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&cover9,0xA86FFC80,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&card1,0xA870FC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&card2,0xA872FC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&card3,0xA874FC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&card4,0xA876FC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&card5,0xA878FC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&card6,0xA87AFC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&info_text,0xA82FD000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+	// CUSTOM CODE ENDS
 
     return 0;
 }
