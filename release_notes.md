@@ -26,12 +26,13 @@
 | Application | Description | 
 | --- | --- |
 | aria_thermostat | Example thermostat demo for MZ EF|
-
+| legato_monitor | Example blood pressure application|
+| legato_showcase | Example of Legato graphics library widgets|
 
 - **Development kit and demo application support** - The following table provides the list of applications for different development kits.
 
 | Applications | [SAM C21N Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/PartNO/ATSAMC21-XPRO) | [SAM E54 Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/PartNO/ATSAME54-XPRO) | [SAM E70 Xplained Ultra Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/PartNO/ATSAME70-XPLD) | [SAM A5D2 Xplained Ultra Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/atsama5d2c-xult) |[Multimedia Expansion Board II](https://www.microchip.com/DevelopmentTools/ProductDetails/PartNO/DM320005-5) |SAM 9x60 Evaluation Kit |
-| --- | --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | --- | --- | --- |
 | aria_adventure          |  |   |   |   | x | |
 | aria_benchmark          |  | x | x | x | x | x |
 | aria_dashboard          |  |   |   | x | x | x |
