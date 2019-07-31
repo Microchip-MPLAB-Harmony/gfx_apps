@@ -53,7 +53,7 @@ aria_infotainment</div>
 <p class="Element10">
 This application showcases various widgets in a practical application: a car infotainment system.&nbsp;</p>
 <p class="Element10">
-The demonstration launches with a splash screen highlighting basic motion capability supported by Aria Graphics Library.&nbsp;</p>
+The demonstration launches with a splash screen highlighting basic motion capability supported by aria graphics library.&nbsp;</p>
 <p class="Element10">
 When running the application, the user can interface with it via capacitive single-fingered touch and swiping gestures.&nbsp;</p>
 <p class="Element10">
@@ -74,11 +74,11 @@ The block diagrams below show the various software and hardware blocks used in t
 <p class="Element10">
 <strong>aria_infotainment_mzda_intddr_sk_meb2_wqvga</strong>&nbsp;</p>
 <p class="Element10">
-For this configuration, the application uses the Graphics library to render graphics to the display. The Graphics library passes draw commands into the Nano2D GPU Library, which in-turn draws the widgets and images to the three individual write frame buffers (one for each layer) that are stored in an external DDR2. Via the DDR2 Memory Controller, the Graphics LCD (GLCD) display controller peripheral continuously transfers frame data from the all three read buffers onto to the LCD display. The write and read frame buffer pairs are swapped independently as required when the Graphics Library is done rendering to the write frame buffer and GLCD driver signals the GLCD peripheral to change its read location.&nbsp;</p>
+For this configuration, the application uses the graphics library to render graphics to the display. The graphics library passes draw commands into the Nano2D GPU Library, which in-turn draws the widgets and images to the three individual write frame buffers (one for each layer) that are stored in an external DDR2. Via the DDR2 Memory Controller, the Graphics LCD (GLCD) display controller peripheral continuously transfers frame data from the all three read buffers onto to the LCD display. The write and read frame buffer pairs are swapped independently as required when the graphics library is done rendering to the write frame buffer and GLCD driver signals the GLCD peripheral to change its read location.&nbsp;</p>
 <p class="Element10">
-The application also features user touch input through the integrated touch screen on the display panel. Touch input from the touch controller goes thru the I2C port, and the Touch System Service acquires the touch input information from the touch and I2C drivers. The Touch System Service sends touch events to the Graphics library which processes these events and updates the frame data accordingly.&nbsp;</p>
+The application also features user touch input through the integrated touch screen on the display panel. Touch input from the touch controller goes thru the I2C port, and the Touch System Service acquires the touch input information from the touch and I2C drivers. The Touch System Service sends touch events to the graphics library which processes these events and updates the frame data accordingly.&nbsp;</p>
 <p class="Element10">
-The core timer is used by the application and the Graphics library to manage the movement of the splash screen, the momentum decay of the radial menu and to trigger simulated input events for the Demo Mode.&nbsp;</p>
+The core timer is used by the application and the graphics library to manage the movement of the splash screen, the momentum decay of the radial menu and to trigger simulated input events for the Demo Mode.&nbsp;</p>
 <p class="Element10">
 &nbsp;</p><p class="Element10" style="text-align: center;">
 <img src="mada_intddr_sk_arch.png" border="0" alt="" title="">&nbsp;</p>

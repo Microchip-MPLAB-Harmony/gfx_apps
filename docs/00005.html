@@ -49,7 +49,7 @@ aria_benchmark</div>
 <a name="4465736372697074696F6E"></a><div class="Element11">
 <div class="Element10">
 <p class="Element10">
-This application shows the frame update rates for various operations in the Harmony graphics library, including string rendering, area fills, and image decode and rendering. The benchmarks can be configured for different text sizes, number and size of discrete area fills and different image formats. The instantaneous and averaged frame update rates are shown at real-time on the display.</p><div class="Element15">
+This application shows the frame update rates for various operations in the graphics library, including string rendering, area fills, and image decode and rendering. The benchmarks can be configured for different text sizes, number and size of discrete area fills and different image formats. The instantaneous and averaged frame update rates are shown at real-time on the display.</p><div class="Element15">
 Architecture</div>
 <p class="Element10">
 The application continuously uses the graphics library to render text, fill areas, and draw images to the screen. Once a layer is completely rendered to, the graphics library increments a layer swap counter. The application periodically (at 1 second intervals) samples the layer swap counter and calculates the difference from the previous sample. This difference is shown as the Frame Update Rate (Hz).&nbsp;</p>
@@ -147,7 +147,7 @@ In this configuration, the Aria Graphics library renders the frame to a 32-bit f
 <p class="Element10">
 &nbsp;</p>
 <p class="Element10">
-User touch input on the display panel is received thru the PCAP capacitive touch controller, which sends a notification to the Touch Input Driver. The Touch Input Driver reads the touch information over I2C and sends the touch event to the Graphics Library thru the Input System Service.<strong></strong>&nbsp;</p>
+User touch input on the display panel is received thru the PCAP capacitive touch controller, which sends a notification to the Touch Input Driver. The Touch Input Driver reads the touch information over I2C and sends the touch event to the Graphics Library thru the Input System Service.&nbsp;</p>
 <p class="Element10">
 &nbsp;</p>
 <p class="Element10">

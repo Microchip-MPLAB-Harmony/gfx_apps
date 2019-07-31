@@ -49,9 +49,7 @@ aria_mxt_configure</div>
 <a name="4465736372697074696F6E"></a><div class="Element11">
 <div class="Element10">
 <p class="Element10">
- &nbsp;</p>
-<p class="Element10">
-This application demonstrates a method of updating the maXTouch runtime configuration register set. It uses capabilities of the Graphics Suite’s UI components and Harmony maxTouch driver API. It offers an easy to use menu interface to demonstrate the staging, loading, testing, and saving of configuration content. It accepts two file formats: maXTouch XCFG and RAW. The application employs USB/CDC serial, ProgramFlash, and SDCard source input. If offers a screen to select the load source, screen for touch testing, and capability to store configration to NVM non-volatile memory.&nbsp;</p>
+This application demonstrates a method of updating the maXTouch runtime configuration register set. It uses capabilities of the aria graphics library UI components and Harmony maxTouch driver API. It offers an easy to use menu interface to demonstrate the staging, loading, testing, and saving of configuration content. It accepts two file formats: maXTouch XCFG and RAW. The application employs USB/CDC serial, ProgramFlash, and SDCard source input. If offers a screen to select the load source, screen for touch testing, and capability to store configration to NVM non-volatile memory.&nbsp;</p>
 <p class="Element10">
 &nbsp;</p>
 <p class="Element10">
@@ -71,7 +69,7 @@ The key points are:</p>
 <div class="Element15">
 Architecture</div>
 <p class="Element10">
-The aria_mxt_configuration application uses the MPLAB Harmony Graphics Library to render graphics to the display. The graphics library draws the widgets and images to a frame buffer. The contents of the frame buffer are continuously transferred to refresh the contents of the LCD display. The application also features user touch input through the integrated touch screen on the display panel. Touch input from the touch controller goes through the I2C port, and the Input System Service acquires the touch input information from the Touch and I2C Drivers. Touch configuration uses the same I2C port as Touch input. Touch is disabled during configuration and re-enabled after completion. The Input System Service sends touch events to the Graphics Library, which processes these events and updates the frame data accordingly.&nbsp;</p>
+The aria_mxt_configuration application uses the aria graphics library to render graphics to the display. The graphics library draws the widgets and images to a frame buffer. The contents of the frame buffer are continuously transferred to refresh the contents of the LCD display. The application also features user touch input through the integrated touch screen on the display panel. Touch input from the touch controller goes through the I2C port, and the Input System Service acquires the touch input information from the Touch and I2C Drivers. Touch configuration uses the same I2C port as Touch input. Touch is disabled during configuration and re-enabled after completion. The Input System Service sends touch events to the Graphics Library, which processes these events and updates the frame data accordingly.&nbsp;</p>
 <p class="Element10">
 &nbsp;</p>
 <p class="Element10">
