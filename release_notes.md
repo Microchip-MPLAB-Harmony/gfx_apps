@@ -59,7 +59,7 @@ In gfx.c, the variable args is falsely detected in violation of Code 530: &quot;
 
 * Applications for PIC32MZ DA using external DDR are only supported on Rev A1 silicon.
 * When using MHC v3.3.1 to re-generate aria_dashboard, aria_infotainment, and aria_radial_menu
-applications, keep "//CUSTOM CODE", do not except recommended changes for file: libaria_init.c.
+applications, keep "//CUSTOM CODE", do not accept recommended changes for file: libaria_init.c.
 
 ### DEVELOPMENT TOOLS
 
