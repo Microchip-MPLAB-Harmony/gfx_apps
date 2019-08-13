@@ -1,0 +1,37 @@
+#ifndef LEGATO_INIT_SCHEME_H
+#define LEGATO_INIT_SCHEME_H
+
+#include "gfx/legato/legato.h"
+
+extern leScheme BlackFillScheme;
+extern leScheme BlueFillScheme;
+extern leScheme BrownFillScheme;
+extern leScheme defaultScheme;
+extern leScheme LightBlueBackgroundScheme;
+extern leScheme LightBlueFillScheme;
+extern leScheme LightGreenBackgroundScheme;
+extern leScheme LightPinkFillScheme;
+extern leScheme LightRedBackgroundScheme;
+extern leScheme OrangeFillScheme;
+extern leScheme PinkFillScheme;
+extern leScheme PurpleFillScheme;
+extern leScheme RedFillScheme;
+extern leScheme WhiteBackgroundScheme;
+extern leScheme WhiteFillScheme;
+extern leScheme YellowFillScheme;
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+extern "C" {
+#endif
+// DOM-IGNORE-END
+
+void legato_initialize_schemes();
+
+//DOM-IGNORE-BEGIN
+#ifdef __cplusplus
+}
+#endif
+//DOM-IGNORE-END
+
+#endif // LEGATO_INIT_SCHEME_H
