@@ -42,13 +42,26 @@ leWidget* screenGetRoot_FPSImages(uint32_t lyrIdx); // gets a root widget for th
 
 // event handlers
 void FPSImages_OnShow(void);
+
 void FPSImages_OnHide(void);
+
 void FPSImages_OnUpdate(void);
-void ImageNextButton_OnPressed(leButtonWidget* btn);
-void ImageSizeDownButton_OnPressed(leButtonWidget* btn);
-void ImageSizeUpButton_OnPressed(leButtonWidget* btn);
-void ImageTypePrevButton_OnPressed(leButtonWidget* btn);
-void ImageTypeNextButton_OnPressed(leButtonWidget* btn);
+
+void ImageNextButton_OnPressed(leButtonWidget* btn)
+;
+
+void ImageSizeDownButton_OnPressed(leButtonWidget* btn)
+;
+
+void ImageSizeUpButton_OnPressed(leButtonWidget* btn)
+;
+
+void ImageTypePrevButton_OnPressed(leButtonWidget* btn)
+;
+
+void ImageTypeNextButton_OnPressed(leButtonWidget* btn)
+;
+
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

@@ -463,7 +463,7 @@ leResult leStringUtils_GetCharRectCStr(const char* str,
 leResult leStringUtils_GetCharIndexAtPoint(const leChar* str,
                                            uint32_t size,
                                            const leFont* font,
-                                           lePoint pt,
+                                           const lePoint pt,
                                            uint32_t* charIdx)
 {
     uint32_t idx;
@@ -513,7 +513,7 @@ leResult leStringUtils_GetCharIndexAtPoint(const leChar* str,
 
 leResult leStringUtils_GetCharIndexAtPointCStr(const char* str,
                                                const leFont* font,
-                                               lePoint pt,
+                                               const lePoint pt,
                                                uint32_t* charIdx)
 {
     uint32_t idx;

@@ -23,7 +23,7 @@ typedef struct leFixedStringVTable
     leFixedString
 
   Summary:
-    String type that dynamically allocates internal memory to accomodate dynamic
+    String type that dynamically allocates internal memory to accommodate dynamic
     string operations.
 
   Remarks:
@@ -31,9 +31,9 @@ typedef struct leFixedStringVTable
 */
 typedef struct leFixedString
 {
-    leString base;
+    leString base; // string base data
     
-    leFixedStringVTable* fn;
+    leFixedStringVTable* fn; // function table
     
     leChar*  data;     // local string data storage
     uint16_t capacity; // actual memory capacity of the string
@@ -87,5 +87,31 @@ LIB_EXPORT leFixedString* leFixedString_New(leChar* buf,
 LIB_EXPORT void leFixedString_Constructor(leFixedString* str,
                                           leChar* buf,
                                           uint32_t size);
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setBuffer(leFixedString* str,
+                       leChar* buf,
+                       uint32_t size)
+
+  Summary:
+    Sets a fixed buffer to this string
+
+  Description:
+    Sets a fixed buffer to this string
+
+  Parameters:
+    leFixedString* str - The string to operate on
+    leChar* buf - the buffer to set
+    uint32_t size - the size of the buffer
+
+  Remarks:
+    Usage - _this->fn->setBuffer(_this, buf, size);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+
 
 #endif /* LEGATO_FIXEDSTRING_H */

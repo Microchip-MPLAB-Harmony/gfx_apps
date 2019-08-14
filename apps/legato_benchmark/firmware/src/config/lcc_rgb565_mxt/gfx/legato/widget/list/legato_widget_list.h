@@ -222,785 +222,673 @@ typedef struct leListWidget
     leListWidget* lst - the widget
 
   Remarks:
-
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leListWidget* leListWidget_New();
 
+/* Function:
+    void leListWidget_Constructor(leListWidget* wgt)
+
+  Summary:
+    Initializes an leListWidget widget pointer.
+
+  Description:
+    Initializes an leListWidget widget pointer.
+
+  Parameters:
+    leListWidget* wgt - the pointer to initialize
+
+  Returns:
+    void
+
+  Remarks:
+
+*/
 LIB_EXPORT void leListWidget_Constructor(leListWidget* lst);
 
-#if 0
-
 // *****************************************************************************
-/* Function:
-    leListWidget_SelectionMode leListWidget_GetSelectionMode(leListWidget* lst)
+/* Virtual Member Function:
+    leListWidget_SelectionMode getSelectionMode(const leListWidget* _this)
 
   Summary:
-    Gets the selection mode for the list
+     Gets the current selection mode
 
   Description:
-
+     Gets the current selection mode
 
   Parameters:
-    leListWidget* lst - the widget
-
-  Returns:
-    leListWidget_SelectionMode - the list selection mode
+    const leListWidget* _this - The list widget to operate on
 
   Remarks:
-
-*/
-LIB_EXPORT leListWidget_SelectionMode leListWidget_GetSelectionMode(leListWidget* lst);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWidget_SetSelectionMode(leListWidget* lst,
-                                           leListWidget_SelectionMode mode)
-
-  Summary:
-    Set the list selection mode
-
-  Description:
-
-
-  Parameters:
-    leListWidget* lst - the widget
-    leListWidget_SelectionMode mode - the desired list selection mode
+    Usage - _this->fn->getSelectionMode(_this);
 
   Returns:
-    leResult - the operation result
-
-  Remarks:
-
+    leListWidget_SelectionMode -
 */
-LIB_EXPORT leResult leListWidget_SetSelectionMode(leListWidget* lst,
-                                                  leListWidget_SelectionMode mode);
 
 // *****************************************************************************
-/* Function:
-    leBool leListWidget_GetAllowEmptySelection(leListWidget* lst)
+/* Virtual Member Function:
+    leResult setSelectionMode(leListWidget* _this,
+                              leListWidget_SelectionMode mode)
 
   Summary:
-    Returns true of the list allows an empty selection set
+     Sets the current selection mode
 
   Description:
-
+     Sets the current selection mode
 
   Parameters:
-    leListWidget* lst - the widget
-
-  Returns:
-    leBool - true if the list allows an empty selection set
+    leListWidget* _this - The list widget to operate on
+    leListWidget_SelectionMode mode -
 
   Remarks:
-
-*/
-LIB_EXPORT leBool leListWidget_GetAllowEmptySelection(leListWidget* lst);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWidget_SetAllowEmptySelection(leListWidget* lst,
-                                                 leBool allow)
-
-  Summary:
-    Configures the list to allow an empty selection set.
-
-  Description:
-
-
-  Parameters:
-    leListWidget* lst - the widget
-    leBool allow - the desired empty selection set mode
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leListWidget_SetAllowEmptySelection(leListWidget* lst,
-                                                        leBool allow);
-
-// *****************************************************************************
-/* Function:
-    leHAlignment leListWidget_GetAlignment(leListWidget* lst)
-
-  Summary:
-    Gets the horizontal alignment for the list widget
-
-  Description:
-
-
-  Parameters:
-    leListWidget* lst - the widget
-
-  Returns:
-    leHAlignment - the current list halign mode
-
-  Remarks:
-
-*/
-LIB_EXPORT leHAlignment leListWidget_GetAlignment(leListWidget* lst);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWidget_SetAlignment(leListWidget* lst,
-                                       leHAlignment align)
-
-  Summary:
-    Sets the horizontal alignment mode for the list widget.
-
-  Description:
-
-
-  Parameters:
-    leListWidget* lst - the widget
-    leHAlignment align - the desired halign mode
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leListWidget_SetAlignment(leListWidget* lst,
-                                              leHAlignment align);
-
-// *****************************************************************************
-/* Function:
-    leRelativePosition leListWidget_GetIconPosition(leListWidget* lst)
-
-  Summary:
-    Gets the icon position for the list
-
-  Description:
-
-
-  Parameters:
-    leListWidget* lst - the widget
-
-  Returns:
-    leRelativePosition - the current icon position
-
-  Remarks:
-
-*/
-LIB_EXPORT leRelativePosition leListWidget_GetIconPosition(leListWidget* lst);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWidget_SetIconPosition(leListWidget* lst,
-                                          leRelativePosition pos)
-
-  Summary:
-    Sets the icon position for the list widget
-
-  Description:
-
-
-  Parameters:
-    leListWidget* lst - the widget
-    leRelativePosition pos - the relative position setting
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leListWidget_SetIconPosition(leListWidget* lst,
-                                                 leRelativePosition pos);
-// *****************************************************************************
-/* Function:
-    uint32_t leListWidget_GetIconMargin(leListWidget* lst)
-
-  Summary:
-    Gets the icon margin value for the list widget
-
-  Description:
-
-
-  Parameters:
-    leListWidget* lst - the widget
-
-  Returns:
-    uint32_t - the icon margin value
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leListWidget_GetIconMargin(leListWidget* lst);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWidget_SetIconMargin(leListWidget* lst, uint32_t mg)
-
-  Summary:
-    Sets the icon margin value for the list widget.
-
-  Description:
-    The icon margin value is the distance between the icon image and the text.
-
-  Parameters:
-    leListWidget* lst - the widget
-    uint32_t mg - the margin value
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leListWidget_SetIconMargin(leListWidget* lst, uint32_t mg);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leListWidget_GetItemCount(leListWidget* lst)
-
-  Summary:
-    Gets the number of items currently contained in the list
-
-  Description:
-
-
-  Parameters:
-    leListWidget* lst - the widget
-
-  Returns:
-    uint32_t - the number of items in the list
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leListWidget_GetItemCount(leListWidget* lst);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leListWidget_AppendItem(leListWidget* lst)
-
-  Summary:
-    Appends a new item entry to the list.  The initial value of the item
-    will be empty.
-
-  Description:
-
-
-  Parameters:
-    leListWidget* lst - the widget
-
-  Returns:
-    uint32_t - the index of the newly appended item
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leListWidget_AppendItem(leListWidget* lst);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leListWidget_InsertItem(leListWidget* lst, uint32_t idx)
-
-  Summary:
-    Attempts to insert a new item at the desired index.  Existing items at
-    idx or greater will be shuffled one index to the right.
-
-  Description:
-
-
-  Parameters:
-    leListWidget* lst - the widget
-    uint32_t idx - the desired index of the new item
-
-  Returns:
-    uint32_t - the index of the inserted item
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leListWidget_InsertItem(leListWidget* lst, uint32_t idx);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWidget_RemoveItem(leListWidget* lst, uint32_t idx)
-
-  Summary:
-    Attempts to remove an item from the list.
-
-  Description:
-
-
-  Parameters:
-    leListWidget* lst - the widget
-    uint32_t idx - the index to remove from the list
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-    The memory owned by the string item will be freed automatically.
-*/
-LIB_EXPORT leResult leListWidget_RemoveItem(leListWidget* lst, uint32_t idx);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWidget_RemoveAllItems(leListWidget* lst)
-
-  Summary:
-    Attempts to remove all items from the list.
-
-  Description:
-
-
-  Parameters:
-    leListWidget* lst - the widget
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-    All memory owned by each item string will be freed automatically.
-*/
-LIB_EXPORT leResult leListWidget_RemoveAllItems(leListWidget* lst);
-
-// *****************************************************************************
-/* Function:
-    leBool leListWidget_GetItemSelected(leListWidget* lst,
-                                        uint32_t idx)
-
-  Summary:
-    Returns true if the item at the given index is currently selected.
-
-  Description:
-
-
-  Parameters:
-    leListWidget* lst - the widget
-    uint32_t idx - the index to consider
-
-  Returns:
-    leBool - the selection state of the item
-
-  Remarks:
-
-*/
-LIB_EXPORT leBool leListWidget_GetItemSelected(leListWidget* lst,
-                                               uint32_t idx);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWidget_SetItemSelected(leListWidget* lst,
-                                          uint32_t idx,
-                                          leBool selected)
-
-  Summary:
-    Attempts to set the item at idx as selected.
-
-  Description:
-
-
-  Parameters:
-    leListWidget* lst - the widget
-    uint32_t idx - the index to consider
-    leBool - the select state to set to the item
+    Usage - _this->fn->setSelectionMode(_this, mode);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leListWidget_SetItemSelected(leListWidget* lst,
-                                                 uint32_t idx,
-                                                 leBool selected);
 
 // *****************************************************************************
-/* Function:
-    leResult leListWidget_ToggleItemSelected(leListWidget* lst,
-                                             uint32_t idx)
+/* Virtual Member Function:
+    leBool getAllowEmptySelection(const leListWidget* _this)
 
   Summary:
-    Attempts to toggle the selected state of the item at idx.
+     Gets the allow empty setting value
 
   Description:
-
+     Gets the allow empty setting value
 
   Parameters:
-    leListWidget* lst - the widget
-    uint32_t idx - the index to consider
+    const leListWidget* _this - The list widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getAllowEmptySelection(_this);
 
   Returns:
-    leResult - the operation result
-
-  Remarks:
-
+    leBool - the setting value
 */
-LIB_EXPORT leResult leListWidget_ToggleItemSelected(leListWidget* lst,
-                                                    uint32_t idx);
 
 // *****************************************************************************
-/* Function:
-    leResult leListWidget_SelectAll(leListWidget* lst)
+/* Virtual Member Function:
+    leResult setAllowEmptySelection(leListWidget* _this,
+                                    leBool allow)
 
   Summary:
-    Attempts to set all item states to selected.
+     Sets the allow empty setting value
 
   Description:
-
+     Sets the allow empty setting value
 
   Parameters:
-    leListWidget* lst - the widget
+    leListWidget* _this - The list widget to operate on
+    leBool allow - the setting value
+
+  Remarks:
+    Usage - _this->fn->setAllowEmptySelection(_this, allow);
 
   Returns:
-    leResult - the operation result
-
-  Remarks:
-
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leListWidget_SelectAll(leListWidget* lst);
 
 // *****************************************************************************
-/* Function:
-    leResult leListWidget_DeselectAll(leListWidget* lst)
+/* Virtual Member Function:
+    leRelativePosition getIconPosition(const leListWidget* _this)
 
   Summary:
-    Attempts to set all item states as not selected.
+     Gets the image icon position
 
   Description:
-
+     Gets the image icon position
 
   Parameters:
-    leListWidget* lst - the widget
+    const leListWidget* _this - The list widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getIconPosition(_this);
 
   Returns:
-    leResult - the operation result
-
-  Remarks:
-
+    leRelativePosition - the position
 */
-LIB_EXPORT leResult leListWidget_DeselectAll(leListWidget* lst);
-
 
 // *****************************************************************************
-/* Function:
-    uint32_t leListWidget_GetFirstSelectedItem(leListWidget* lst)
+/* Virtual Member Function:
+    leResult setIconPosition(leListWidget* _this,
+                             leRelativePosition pos)
 
   Summary:
-    Returns the lowest selected item index.
+     Sets the image icon position
 
   Description:
-
+     Sets the image icon position
 
   Parameters:
-    leListWidget* lst - the widget
+    leListWidget* _this - The list widget to operate on
+    leRelativePosition pos - the position value
+
+  Remarks:
+    Usage - _this->fn->setIconPosition(_this, pos);
 
   Returns:
-    uint32_t - the lowest selected item index or -1 if nothing is selected.
-
-  Remarks:
-
+    leResult - the result of the operation
 */
-LIB_EXPORT uint32_t leListWidget_GetFirstSelectedItem(leListWidget* lst);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leListWidget_GetLastSelectedItem(leListWidget* lst)
+/* Virtual Member Function:
+    uint32_t getIconMargin(const leListWidget* _this)
 
   Summary:
-    Returns the highest selected item index.
+     Gets the icon margin
 
   Description:
-
+     Gets the icon margin
 
   Parameters:
-    leListWidget* lst - the widget
+    const leListWidget* _this - The list widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getIconMargin(_this);
 
   Returns:
-    uint32_t - the highest selected item index or -1 if nothing is selected.
-
-  Remarks:
-
+    uint32_t - the margin value
 */
-LIB_EXPORT uint32_t leListWidget_GetLastSelectedItem(leListWidget* lst);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leListWidget_GetSelectionCount(leListWidget* lst)
+/* Virtual Member Function:
+    leResult setIconMargin(leListWidget* _this,
+                           uint32_t mg)
 
   Summary:
-    Returns the number of selected items in the list.
+     Sets the icon margin
 
   Description:
-
+     Sets the icon margin
 
   Parameters:
-    leListWidget* lst - the widget
+    leListWidget* _this - The list widget to operate on
+    uint32_t mg - the margin value
+
+  Remarks:
+    Usage - _this->fn->setIconMargin(_this, mg);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    uint32_t getItemCount(const leListWidget* _this)
+
+  Summary:
+     Gets the item count
+
+  Description:
+     Gets the item count
+
+  Parameters:
+    const leListWidget* _this - The list widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getItemCount(_this);
+
+  Returns:
+    uint32_t - the item count
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    int32_t appendItem(leListWidget* _this)
+
+  Summary:
+     Appends an item to the list
+
+  Description:
+     Appends an item to the list
+
+  Parameters:
+    leListWidget* _this - The list widget to operate on
+
+  Remarks:
+    Usage - _this->fn->appendItem(_this);
+
+  Returns:
+    int32_t - the index of the new item
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    int32_t insertItem(leListWidget* _this,
+                       int32_t idx)
+
+  Summary:
+     Inserts an item into the list
+
+  Description:
+     Inserts an item into the list
+
+  Parameters:
+    leListWidget* _this - The list widget to operate on
+    int32_t idx - the index
+
+  Remarks:
+    Usage - _this->fn->insertItem(_this, idx);
+
+  Returns:
+    int32_t - the index of the new item
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult removeItem(leListWidget* _this,
+                        int32_t idx)
+
+  Summary:
+     Removes an item from the list
+
+  Description:
+     Removes an item from the list
+
+  Parameters:
+    leListWidget* _this - The list widget to operate on
+    int32_t idx - the index
+
+  Remarks:
+    Usage - _this->fn->removeItem(_this, idx);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult removeAllItems(leListWidget* _this)
+
+  Summary:
+     Removes all items from the list
+
+  Description:
+     Removes all items from the list
+
+  Parameters:
+    leListWidget* _this - The list widget to operate on
+
+  Remarks:
+    Usage - _this->fn->removeAllItems(_this);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leBool getItemSelected(const leListWidget* _this,
+                           int32_t idx)
+
+  Summary:
+     Gets the currently selected item
+
+  Description:
+     Gets the currently selected item
+
+  Parameters:
+    const leListWidget* _this - The list widget to operate on
+    int32_t idx - the index
+
+  Remarks:
+    Usage - _this->fn->getItemSelected(_this, idx);
+
+  Returns:
+    leBool - the selected state
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setItemSelected(leListWidget* _this,
+                             int32_t idx,
+                             leBool selected)
+
+  Summary:
+     Sets the currently selected item
+
+  Description:
+     Sets the currently selected item
+
+  Parameters:
+    leListWidget* _this - The list widget to operate on
+    int32_t idx - the index
+    leBool selected - the selected state
+
+  Remarks:
+    Usage - _this->fn->setItemSelected(_this, idx, selected);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult toggleItemSelected(leListWidget* _this,
+                                int32_t idx)
+
+  Summary:
+     Toggles an item selection
+
+  Description:
+     Toggles an item selection
+
+  Parameters:
+    leListWidget* _this - The list widget to operate on
+    int32_t idx - the index
+
+  Remarks:
+    Usage - _this->fn->toggleItemSelected(_this, idx);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult selectAll(leListWidget* _this)
+
+  Summary:
+     Selects all items
+
+  Description:
+     Selects all items
+
+  Parameters:
+    leListWidget* _this - The list widget to operate on
+
+  Remarks:
+    Usage - _this->fn->selectAll(_this);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult deselectAll(leListWidget* _this)
+
+  Summary:
+     Deselects all items
+
+  Description:
+     Deselects all items
+
+  Parameters:
+    leListWidget* _this - The list widget to operate on
+
+  Remarks:
+    Usage - _this->fn->deselectAll(_this);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    int32_t getFirstSelectedItem(const leListWidget* _this)
+
+  Summary:
+     Gets the first selected item
+
+  Description:
+     Gets the first selected item
+
+  Parameters:
+    const leListWidget* _this - The list widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getFirstSelectedItem(_this);
+
+  Returns:
+    int32_t - the selected item index
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    int32_t getLastSelectedItem(const leListWidget* _this)
+
+  Summary:
+     Gets the last selected item
+
+  Description:
+     Gets the last selected item
+
+  Parameters:
+    const leListWidget* _this - The list widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getLastSelectedItem(_this);
+
+  Returns:
+    int32_t - the selected item index
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    uint32_t getSelectionCount(const leListWidget* _this)
+
+  Summary:
+     Gets the number of selected items
+
+  Description:
+     Gets the number of selected items
+
+  Parameters:
+    const leListWidget* _this - The list widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getSelectionCount(_this);
 
   Returns:
     uint32_t - the number of selected items
-
-  Remarks:
-
 */
-LIB_EXPORT uint32_t leListWidget_GetSelectionCount(leListWidget* lst);
-
 
 // *****************************************************************************
-/* Function:
-    leResult leListWidget_GetItemString(leListWidget* lst,
-                                      uint32_t idx,
-                                      leString* str)
+/* Virtual Member Function:
+    leString* getItemString(const leListWidget* _this,
+                            int32_t idx)
 
   Summary:
-    Gets the text value for an item in the list.
+     Gets the string pointer for an item
 
   Description:
-    This function allocates memory and initializes the input string pointer.  The
-    caller is responsible for managing the memory once this function returns.
+     Gets the string pointer for an item
 
   Parameters:
-    leListWidget* lst - the widget
-    uint32_t idx - the index to consider
-    leString* str - a pointer to an leString object
+    const leListWidget* _this - The list widget to operate on
+    int32_t idx - the index
+
+  Remarks:
+    Usage - _this->fn->getItemString(_this, idx);
 
   Returns:
-    leResult - the operation result
-
-  Remarks:
-
+    leString* - the string pointer
 */
-LIB_EXPORT leResult leListWidget_GetItemString(leListWidget* lst,
-                                             uint32_t idx,
-                                             leString* str);
 
 // *****************************************************************************
-/* Function:
-    leResult leListWidget_SetItemString(leListWidget* lst,
-                                      uint32_t index,
-                                      leString str)
+/* Virtual Member Function:
+    leResult setItemString(leListWidget* _this,
+                           int32_t idx,
+                           const leString* str)
 
   Summary:
-    Sets the text value for an item in the list.
+     Sets the string pointer for an item
 
   Description:
-    This function copies the contents of the input string into its internal
-    string buffer.  The input string can then be freed or altered without
-    affecting the label's internal string value.
+     Sets the string pointer for an item
 
   Parameters:
-    leListWidget* lst - the widget
-    uint32_t idx - the index to consider
-    leString str - an leString object
-
-  Returns:
-    leResult - the operation result
+    leListWidget* _this - The list widget to operate on
+    int32_t idx - the index
+    const leString* str - the string pointer
 
   Remarks:
-
-*/
-LIB_EXPORT leResult leListWidget_SetItemString(leListWidget* lst,
-                                             uint32_t index,
-                                             leString str);
-
-// *****************************************************************************
-/* Function:
-    leImage* leListWidget_GetItemIcon(leListWidget* lst,
-                                              uint32_t idx)
-
-  Summary:
-    Gets the pointer to the image asset for the icon for the item at the given
-    index.
-
-  Description:
-
-
-  Parameters:
-    leListWidget* lst - the widget
-    uint32_t idx - the index to consider
-
-  Returns:
-    leImage* - the image asset pointer or NULL
-
-  Remarks:
-
-*/
-LIB_EXPORT leImage* leListWidget_GetItemIcon(leListWidget* lst,
-                                                     uint32_t idx);
-
-// *****************************************************************************
-/* Function:
-    leResult leListWidget_SetItemIcon(leListWidget* lst,
-                                      uint32_t idx,
-                                      leImage* img)
-
-  Summary:
-    Sets the icon pointer for a given index.
-
-  Description:
-
-
-  Parameters:
-    leListWidget* lst - the widget
-    uint32_t idx - the index to configure
-    leImage* - the image asset pointer to use as the icon
+    Usage - _this->fn->setItemString(_this, idx, str);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leListWidget_SetItemIcon(leListWidget* lst,
-                                             uint32_t idx,
-                                              leImage* img);
 
 // *****************************************************************************
-/* Function:
-    leResult leListWidget_SetItemVisible(leListWidget* lst,
-                                         uint32_t index)
+/* Virtual Member Function:
+    leImage* getItemIcon(const leListWidget* _this,
+                         int32_t idx)
 
   Summary:
-
+     Gets the image pointer for an item
 
   Description:
-
+     Gets the image pointer for an item
 
   Parameters:
-    leListWidget* lst - the widget
-    uint32_t index - the index to modify
+    const leListWidget* _this - The list widget to operate on
+    int32_t idx - the index
+
+  Remarks:
+    Usage - _this->fn->getItemIcon(_this, idx);
+
+  Returns:
+    leImage* - the image pointer
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setItemIcon(leListWidget* _this,
+                         int32_t idx,
+                         const leImage* img)
+
+  Summary:
+     Sets the image pointer for an item
+
+  Description:
+     Sets the image pointer for an item
+
+  Parameters:
+    leListWidget* _this - The list widget to operate on
+    int32_t idx - the index
+    const leImage* img - the image pointer
+
+  Remarks:
+    Usage - _this->fn->setItemIcon(_this, idx, img);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leListWidget_SetItemVisible(leListWidget* lst,
-                                                uint32_t idx);
 
 // *****************************************************************************
-/* Function:
-    leBool leListWidget_GetItemEnable(leListWidget* lst,
-                                  uint32_t idx)
+/* Virtual Member Function:
+    leBool getItemEnable(const leListWidget* _this,
+                         int32_t idx)
 
   Summary:
-    Returns the enable state of the item in the list widget
+     Gets an item enable state
 
   Description:
-
+     Gets an item enable state
 
   Parameters:
-    leListWidget* lst - the widget
-    uint32_t index - the index of the item in the list
+    const leListWidget* _this - The list widget to operate on
+    int32_t idx - the index
+
+  Remarks:
+    Usage - _this->fn->getItemEnable(_this, idx);
 
   Returns:
-    leBool - the enable state of the item
-
-  Remarks:
-
+    leBool - the enable state
 */
-LIB_EXPORT leBool leListWidget_GetItemEnable(leListWidget* lst,
-                                               uint32_t idx);
 
 // *****************************************************************************
-/* Function:
-    leResult leListWidget_SetItemEnable(leListWidget* lst,
-                                  uint32_t idx,
-                                  leBool newEnableState)
+/* Virtual Member Function:
+    leResult setItemEnable(leListWidget* _this,
+                           int32_t idx,
+                           leBool b)
 
   Summary:
-    Enables or disables an item in the list. A disable item becomes
-    un-selectable.
+     Sets an item enable state
 
   Description:
-
+     Sets an item enable state
 
   Parameters:
-    leListWidget* lst - the widget
-    uint32_t index - the index of the item in the list
-    leBool enable - enable/disable the item
+    leListWidget* _this - The list widget to operate on
+    int32_t idx - the index
+    leBool b - the enable state
+
+  Remarks:
+    Usage - _this->fn->setItemEnable(_this, idx, b);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leListWidget_SetItemEnable(leListWidget* lst,
-                                               uint32_t idx,
-                                               leBool enable);
 
 // *****************************************************************************
-/* Function:
-    leListWidget_SelectedItemChangedEvent leListWidget_GetSelectedItemChangedEventCallback(leListWidget* lst)
+/* Virtual Member Function:
+    leResult setItemVisible(leListWidget* _this,
+                            int32_t idx)
 
   Summary:
-    Gets the callback for the item selected changed event
+     Sets an item's visibility state
 
   Description:
+     Sets an item's visibility state
 
   Parameters:
-    leListWidget* lst - the widget
-
-  Returns:
-    leListWidget_SelectedItemChangedEvent - the current pointer to callback or NULL
+    leListWidget* _this - The list widget to operate on
+    int32_t idx - the index
 
   Remarks:
+    Usage - _this->fn->setItemVisible(_this, idx);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leListWidget_SelectedItemChangedEvent leListWidget_GetSelectedItemChangedEventCallback(leListWidget* lst);
 
 // *****************************************************************************
-/* Function:
-    leResult leListWidget_SetSelectedItemChangedEventCallback(leListWidget* lst,
-                                                              leListWidget_SelectedItemChangedEvent cb)
+/* Virtual Member Function:
+    leListWidget_SelectedItemChangedEvent getSelectedItemChangedEventCallback(const leListWidget* _this)
 
   Summary:
-    Sets the callback for the item selected changed event
+     Gets the selected item changed event callback pointer
 
   Description:
-    This callback is called whenver an items selected state is modified.
+     Gets the selected item changed event callback pointer
 
   Parameters:
-    leListWidget* lst - the widget
-    leListWidget_SelectedItemChangedEvent - the desired pointer to callback or NULL
-
-  Returns:
-    leResult - the operation result
+    const leListWidget* _this - The list widget to operate on
 
   Remarks:
+    Usage - _this->fn->getSelectedItemChangedEventCallback(_this);
 
+  Returns:
+    leListWidget_SelectedItemChangedEvent - the callback pointer
 */
-LIB_EXPORT leResult leListWidget_SetSelectedItemChangedEventCallback(leListWidget* lst,
-                                                                     leListWidget_SelectedItemChangedEvent cb);
 
-// DOM-IGNORE-BEGIN
-// internal use only
-void _leListWidget_GetListRect(leListWidget* lst,
-                               leRect* rect);
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setSelectedItemChangedEventCallback(leListWidget* _this,
+                                                 leListWidget_SelectedItemChangedEvent cb)
 
-void _leListWidget_GetRowRect(leListWidget* lst,
-                              uint32_t idx,
-                              leRect* rect);
+  Summary:
+     Sets the selected item changed event callback pointer
 
-// internal use only
-int32_t _leListWidget_GetRowY(leListWidget* lst, uint32_t idx);
+  Description:
+     Sets the selected item changed event callback pointer
 
-// internal use only
-void _leListWidget_GetLogicalRect(leListWidget* lst, leRect* rect);
+  Parameters:
+    leListWidget* _this - The list widget to operate on
+    leListWidget_SelectedItemChangedEvent cb - the callback pointer
 
-void _leListWidget_GetTextRect(leListWidget* lst,
-                               uint32_t idx,
-                               leRect* textRect,
-                               leRect* drawRect);
+  Remarks:
+    Usage - _this->fn->setSelectedItemChangedEventCallback(_this, cb);
 
-void _leListWidget_GetIconRect(leListWidget* lst,
-                               uint32_t idx,
-                               leRect* iconRect,
-                               leRect* imgSrcRect);
+  Returns:
+    leResult - the result of the operation
+*/
 
-void _leListWidget_recalculateRowRect(leListWidget* lst,
-                                     uint32_t idx);
-// DOM-IGNORE-END
-#endif
+
 
 #endif // LE_LIST_WIDGET_ENABLED && LE_SCROLLBAR_WIDGET_ENABLED
 #endif /* LEGATO_LISTWIDGET_H */

@@ -84,21 +84,6 @@ LIB_EXPORT leWidget* leUtils_PickFromWidget(const leWidget* wgt,
                                             int32_t x,
                                             int32_t y);
 
-/*  Function:
-        void leUtils_PickRect(leLayer* layer, leRect rect, leList* list)
- 
-    Summary:
-        Finds all of the visible widgets in the given rectangular area.
-        
-    Parameters:
-        leLayer* layer - the layer to analyze
-        leRect - the rectangle pick area
-        leList* list - the result list
-        
-    Returns:
-        void
-*/
-//void leUtils_PickRect(leLayer* layer, leRect rect, leList* list);
 
 /*  Function:
         void leUtils_PointToScreenSpace(leWidget* widget, lePoint* pnt)
@@ -337,60 +322,5 @@ void leUtils_ArrangeRectangleRelative(leRect* sub,
                                       uint8_t rightMargin,
                                       uint8_t bottomMargin,
                                       uint16_t rectMargin);
-
-#if 0
-/*  Function:
-        leBool leUtils_OcclusionCullTest(leWidget* widget)
- 
-    Summary:
-        Performs an occlusion test for a widget in the tree.  A widget is
-        occluded if it is completely covered by one or more widgets.  This
-        is useful for culling widgets before the rasterizing phase.
-        
-    Parameters:
-        leWidget* widget - the widget to test
-        
-    Returns:
-        leBool - result of the occlusion test
-*/                                     
-leBool leUtils_OcclusionCullTest(const leWidget* widget);
-
-/*  Function:
-        void leUtils_ListOcclusionCullTest(leList* list, leRect rect)
- 
-    Summary:
-        Performs an occlusion test on a list of widgets an a rectangular
-        area.  This attempts to find only the topmost widgets for the given
-        area.  If a widget is completely occluded then it is removed from
-        the list.  Any widgets that remain in the list should be redrawn
-        by the rasterizer.
-        
-    Parameters:
-        leList* list - the widget list to test
-        leRect rect - the occlusion area
-        
-    Returns:
-        void
-*/    
-void leUtils_ListOcclusionCullTest(const leList* list,
-                                   leRect rect);
-
-/*  Function:
-        leBool leUtils_WidgetIsOccluded(leWidget* wgt, const leRect* rect)
- 
-    Summary:
-        Returns LE_TRUE if the specified widget is occluded in the 
-        specified rectangle area.
-        
-    Parameters:
-        leWidget* wgt - the widget to test
-        leRect * rect - the occlusion area
-        
-    Returns:
-        void
-*/   
-leBool leUtils_WidgetIsOccluded(const leWidget* wgt,
-                                const leRect* rect);
-#endif
 
 #endif // LEGATO_UTILS_H

@@ -51,13 +51,26 @@ leWidget* screenGetRoot_FPSMotion(uint32_t lyrIdx); // gets a root widget for th
 
 // event handlers
 void FPSMotion_OnShow(void);
+
 void FPSMotion_OnHide(void);
+
 void FPSMotion_OnUpdate(void);
-void MotionNextButton_OnPressed(leButtonWidget* btn);
-void MotionMinusButton_OnPressed(leButtonWidget* btn);
-void MotionPlusButton_OnPressed(leButtonWidget* btn);
-void MotionSizeDownButton_OnPressed(leButtonWidget* btn);
-void MotionSizeUpButton_OnPressed(leButtonWidget* btn);
+
+void MotionNextButton_OnPressed(leButtonWidget* btn)
+;
+
+void MotionMinusButton_OnPressed(leButtonWidget* btn)
+;
+
+void MotionPlusButton_OnPressed(leButtonWidget* btn)
+;
+
+void MotionSizeDownButton_OnPressed(leButtonWidget* btn)
+;
+
+void MotionSizeUpButton_OnPressed(leButtonWidget* btn)
+;
+
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

@@ -138,62 +138,71 @@ typedef struct leDrawSurfaceWidget
     leDrawSurfaceWidget*
 
   Remarks:
-
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leDrawSurfaceWidget* leDrawSurfaceWidget_New();
 
-LIB_EXPORT void leDrawSurfaceWidget_Constructor(leDrawSurfaceWidget* sfc);
-
-#if 0
-// *****************************************************************************
 /* Function:
-    leDrawSurfaceWidget_DrawCallback leDrawSurfaceWidget_GetDrawCallback(leDrawSurfaceWidget* sfc)
+    void leDrawSurfaceWidget_Constructor(leCircularSliderWidget* wgt)
 
   Summary:
-    Returns the pointer to the currently set draw callback.
+    Initializes an leDrawSurfaceWidget widget pointer.
 
   Description:
-
+    Initializes an leDrawSurfaceWidget widget pointer.
 
   Parameters:
-    leDrawSurfaceWidget* sfc - the widget
+    leDrawSurfaceWidget* wgt - the pointer to initialize
 
   Returns:
-    leDrawSurfaceWidget_DrawCallback - a valid callback pointer or NULL
+    void
 
   Remarks:
 
 */
-LIB_EXPORT leDrawSurfaceWidget_DrawCallback leDrawSurfaceWidget_GetDrawCallback(leDrawSurfaceWidget* sfc);
+LIB_EXPORT void leDrawSurfaceWidget_Constructor(leDrawSurfaceWidget* sfc);
 
 // *****************************************************************************
-/* Function:
-    leResult leDrawSurfaceWidget_SetDrawCallback(leDrawSurfaceWidget* sfc,
-                                                    leDrawSurfaceWidget_DrawCallback cb)
+/* Virtual Member Function:
+    leDrawSurfaceWidget_DrawCallback getDrawCallback(const leDrawSurfaceWidget* _this)
 
   Summary:
-    Sets the draw callback pointer for the draw surface widget.
+     Gets the draw callback pointer
 
   Description:
-    Sets the draw callback pointer for the draw surface widget.  This callback will
-    be called during Legato's paint loop and allows the application to perform
-    HAL draw calls.  The application should not adjust HAL layer, buffer, or context
-    options in any way during this phase.
-
-    The callback should return LE_TRUE if it has completed drawing.  Returning
-    LE_FALSE will indicate to the renderer that the DrawSurface requires more
-    time to draw and will call it again during the next paint loop.
+     Gets the draw callback pointer
 
   Parameters:
-    leDrawSurfaceWidget* sfc - the widget
-    leDrawSurfaceWidget_DrawCallback - a valid callback pointer or NULL
+    const leDrawSurfaceWidget* _this - The surface to operate on
+
+  Remarks:
+    Usage - _this->fn->getDrawCallback(_this);
+
+  Returns:
+    leDrawSurfaceWidget_DrawCallback - the callback pointer
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setDrawCallback(leDrawSurfaceWidget* _this,
+                             leDrawSurfaceWidget_DrawCallback cb)
+
+  Summary:
+     Sets the draw callback pointer
+
+  Description:
+     Sets the draw callback pointer
+
+  Parameters:
+    leDrawSurfaceWidget* _this - The surface to operate on
+    leDrawSurfaceWidget_DrawCallback cb - the callback pointer
+
+  Remarks:
+    Usage - _this->fn->setDrawCallback(_this, cb);
 
   Returns:
     leResult - the result of the operation
 */
-LIB_EXPORT leResult leDrawSurfaceWidget_SetDrawCallback(leDrawSurfaceWidget* sfc,
-                                                           leDrawSurfaceWidget_DrawCallback cb);
-#endif
 
 #endif // LE_DRAWSURFACE_WIDGET_ENABLED
 #endif /* LEGATO_DRAWSURFACE_H */

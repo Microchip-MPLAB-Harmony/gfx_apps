@@ -314,1012 +314,889 @@ typedef struct leCircularGaugeLabel
     leCircularGaugeWidget*
 
   Remarks:
-
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leCircularGaugeWidget* leCircularGaugeWidget_New();
 
+
+/* Function:
+    void leCircularGaugeWidget_Constructor(leCircularGaugeWidget* wgt)
+
+  Summary:
+    Initializes an leCircularGaugeWidget widget pointer.
+
+  Description:
+    Initializes an leCircularGaugeWidget widget pointer.
+
+  Parameters:
+    leCircularGaugeWidget* wgt - the pointer to initialize
+
+  Returns:
+    void
+
+  Remarks:
+
+*/
 LIB_EXPORT void leCircularGaugeWidget_Constructor(leCircularGaugeWidget* gauge);
 
-#if 0
 // *****************************************************************************
-/* Function:
-    uint32_t leCircularGaugeWidget_GetRadius(leCircularGaugeWidget* gauge)
+/* Virtual Member Function:
+    uint32_t getRadius(const leCircularGaugeWidget* _this)
 
   Summary:
-    Gets the radius of a gauge widget
+     Gets the radius
 
   Description:
-
+     Gets the radius
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-
-  Returns:
-    uint32_t
+    const leCircularGaugeWidget* _this - The gauge to operate on
 
   Remarks:
+    Usage - _this->fn->getRadius(_this);
 
+  Returns:
+    uint32_t - the radius
 */
-LIB_EXPORT uint32_t leCircularGaugeWidget_GetRadius(leCircularGaugeWidget* gauge);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_SetRadius(leCircularGaugeWidget* gauge, uint32_t rad)
+/* Virtual Member Function:
+    leResult setRadius(leCircularGaugeWidget* _this,
+                       uint32_t rad)
 
   Summary:
-    Sets the radius of a gauge widget
+     Sets the radius
 
   Description:
-
+     Sets the radius
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    uint32_t red - the desired radius value
-
-  Returns:
-    leResult - the operation result
+    leCircularGaugeWidget* _this - The gauge to operate on
+    uint32_t rad - the radius value
 
   Remarks:
+    Usage - _this->fn->setRadius(_this, rad);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leCircularGaugeWidget_SetRadius(leCircularGaugeWidget* gauge, uint32_t rad);
 
 // *****************************************************************************
-/* Function:
-    int32_t leCircularGaugeWidget_GetStartAngle(leCircularGaugeWidget* gauge)
+/* Virtual Member Function:
+    int32_t getStartAngle(const leCircularGaugeWidget* _this)
 
   Summary:
-    Returns the start angle of the circular gauge
+     Gets the start angle
 
   Description:
-
+     Gets the start angle
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-
-  Returns:
-    int32_t
+    const leCircularGaugeWidget* _this - The gauge to operate on
 
   Remarks:
+    Usage - _this->fn->getStartAngle(_this);
 
+  Returns:
+    int32_t - the start angle
 */
-LIB_EXPORT int32_t leCircularGaugeWidget_GetStartAngle(leCircularGaugeWidget* gauge);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_SetStartAngle(leCircularGaugeWidget* gauge, int32_t angle)
+/* Virtual Member Function:
+    leResult setStartAngle(leCircularGaugeWidget* _this,
+                           int32_t ang)
 
   Summary:
-    Sets the start angle of the gauge.
+     Sets the start angle
 
   Description:
-
+     Sets the start angle
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    int32_t angle - start angle of the gauge
-
-  Returns:
-    leResult
+    leCircularGaugeWidget* _this - The gauge to operate on
+    int32_t ang - the angle value
 
   Remarks:
+    Usage - _this->fn->setStartAngle(_this, ang);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leCircularGaugeWidget_SetStartAngle(leCircularGaugeWidget* gauge, int32_t angle);
 
 // *****************************************************************************
-/* Function:
-    int32_t leCircularGaugeWidget_GetCenterAngle(leCircularGaugeWidget* gauge)
+/* Virtual Member Function:
+    int32_t getCenterAngle(const leCircularGaugeWidget* _this)
 
   Summary:
-    Returns the center angle of the circular gauge
+     Gets the center angle
 
   Description:
-
+     Gets the center angle
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-
-  Returns:
-    int32_t
+    const leCircularGaugeWidget* _this - The gauge to operate on
 
   Remarks:
+    Usage - _this->fn->getCenterAngle(_this);
 
+  Returns:
+    int32_t - the center angle
 */
-LIB_EXPORT int32_t leCircularGaugeWidget_GetCenterAngle(leCircularGaugeWidget* gauge);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_SetCenterAngle(leCircularGaugeWidget* gauge, int32_t angle)
+/* Virtual Member Function:
+    leResult setCenterAngle(leCircularGaugeWidget* _this,
+                            int32_t ang)
 
   Summary:
-    Sets the center angle of the gauge.
+     Sets the center angle
 
   Description:
-    A positive center angle draws the gauge, ticks, and hand in CCW, while a negative center
-    angle draws in CW.
+     Sets the center angle
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    int32_t angle - center angle of the gauge
-
-  Returns:
-    leResult
+    leCircularGaugeWidget* _this - The gauge to operate on
+    int32_t ang - the angle value
 
   Remarks:
+    Usage - _this->fn->setCenterAngle(_this, ang);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leCircularGaugeWidget_SetCenterAngle(leCircularGaugeWidget* gauge, int32_t angle);
 
 // *****************************************************************************
-/* Function:
-    leCircularGaugeWidgetDir leCircularGaugeWidget_GetDirection(leCircularGaugeWidget* gauge)
+/* Virtual Member Function:
+    leResult addValueArc(leCircularGaugeWidget* _this,
+                         int32_t startVal,
+                         int32_t endVal,
+                         uint32_t rad,
+                         uint32_t thk,
+                         leScheme* schm)
 
   Summary:
-    Returns the direction of the gauge.
+     Adds a value arc to the gauge
 
   Description:
-    The direction is automatically set to CW if the center angle is negative, and CCW if the
-    center angle is positive.
-
+     Adds a value arc to the gauge
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-
-  Returns:
-    leCircularGaugeWidgetDir
+    leCircularGaugeWidget* _this - The gauge to operate on
+    int32_t startVal - the start value
+    int32_t endVal - the end value
+    uint32_t rad - the radius value
+    uint32_t thk - the thickness value
+    leScheme* schm - the scheme pointer
 
   Remarks:
+    Usage - _this->fn->addValueArc(_this, startVal, endVal, rad, thk, schm);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leCircularGaugeWidgetDir leCircularGaugeWidget_GetDirection(leCircularGaugeWidget* gauge);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_AddValueArc(leCircularGaugeWidget* gauge,
-                                               int32_t startValue,
-                                               int32_t endValue,
-                                               uint32_t radius,
-                                               uint32_t thickness,
-                                               leScheme* scheme)
+/* Virtual Member Function:
+    leResult addAngularArc(leCircularGaugeWidget* _this,
+                           int32_t startAng,
+                           int32_t endAng,
+                           uint32_t rad,
+                           uint32_t thk,
+                           leScheme* schm)
 
   Summary:
-    Adds a 'value arc' in the gauge.
+     Adds an angular arc to the gauge
 
   Description:
-    Value arcs are drawn inside the gauge from the same origin/center but are
-    bound by the start and end value of the gauge. A value arc that exceeds the start or
-    end value of the gauge will not be drawn.
+     Adds an angular arc to the gauge
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    int32_t startAngle - the start angle of the arc (relative to gauge starting angle)
-    int32_t endAngle - the end angle of the arc (relative to gauge starting angle)
-    uint32_t radius - the radius of the arc
-    uint32_t thickness - the fill thickness of the arc
-    leScheme* scheme - scheme used for drawing the arc
-
-
-  Returns:
-    leResult
+    leCircularGaugeWidget* _this - The gauge to operate on
+    int32_t startAng - the start angle value
+    int32_t endAng - the end angle value
+    uint32_t rad - the radius value
+    uint32_t thk - the thickness value
+    leScheme* schm - the scheme pointer
 
   Remarks:
+    Usage - _this->fn->addAngularArc(_this, startAng, endAng, rad, thk, schm);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leCircularGaugeWidget_AddValueArc(leCircularGaugeWidget* gauge,
-                                                      int32_t startValue,
-                                                      int32_t endValue,
-                                                      uint32_t radius,
-                                                      uint32_t thickness,
-                                                      leScheme* scheme);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_AddAngularArc(leCircularGaugeWidget* gauge,
-                                                 int32_t startAngle,
-                                                 int32_t endAngle,
-                                                 uint32_t radius,
-                                                 uint32_t thickness,
-                                                 leScheme* scheme)
+/* Virtual Member Function:
+    leResult deleteArcs(leCircularGaugeWidget* _this)
 
   Summary:
-    Adds an 'angular arc' in the gauge.
+     Deletes all arcs from the gauge
 
   Description:
-    Angular arcs are drawn inside the gauge from the same origin/center but are
-    not bound by the start/end angle/value of the gauge.
+     Deletes all arcs from the gauge
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    int32_t startAngle - the start angle of the arc (relative to gauge starting angle)
-    int32_t endAngle - the end angle of the arc (relative to gauge starting angle)
-    uint32_t radius - the radius of the arc
-    uint32_t thickness - the fill thickness of the arc
-    leScheme* scheme - scheme used for drawing the arc
-
-
-  Returns:
-    leResult
+    leCircularGaugeWidget* _this - The gauge to operate on
 
   Remarks:
+    Usage - _this->fn->deleteArcs(_this);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leCircularGaugeWidget_AddAngularArc(leCircularGaugeWidget* gauge,
-                                                        int32_t startAngle,
-                                                        int32_t endAngle,
-                                                        uint32_t radius,
-                                                        uint32_t thickness,
-                                                        leScheme* scheme);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_DeleteArcs(leCircularGaugeWidget* gauge)
+/* Virtual Member Function:
+    leResult addMinorTicks(leCircularGaugeWidget* _this,
+                           int32_t startVal,
+                           int32_t endVal,
+                           uint32_t rad,
+                           uint32_t len,
+                           uint32_t interval,
+                           leScheme* schm)
 
   Summary:
-    Deletes all arcs in the gauge widget
+     Adds a series of minor ticks
 
   Description:
-    Deletes all arcs in the gauge widget
+     Adds a series of minor ticks
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-
-  Returns:
-    leResult
+    leCircularGaugeWidget* _this - The gauge to operate on
+    int32_t startVal - the start value
+    int32_t endVal - the end value
+    uint32_t rad - the radius value
+    uint32_t len - the length value
+    uint32_t interval - the value
+    leScheme* schm - the scheme pointer
 
   Remarks:
+    Usage - _this->fn->addMinorTicks(_this, startVal, endVal, rad, len, interval, schm);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leCircularGaugeWidget_DeleteArcs(leCircularGaugeWidget* gauge);
 
 // *****************************************************************************
-/* Function:
-    leCircularGaugeWidget_AddMinorTicks(leCircularGaugeWidget* gauge,
-                                      int32_t startValue,
-                                      int32_t endValue,
-                                      uint32_t radius,
-                                      uint32_t length,
-                                      uint32_t interval,
-                                      leScheme* scheme)
+/* Virtual Member Function:
+    leResult deleteMinorTicks(leCircularGaugeWidget* _this)
 
   Summary:
-    Adds minor ticks in the gauge.
+     Deletes all minor ticks
 
   Description:
+     Deletes all minor ticks
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    int32_t startValue - the start value of the ticks (must be within gauge range)
-    int32_t endValue - the end value of the ticks (must be within gauge range)
-    uint32_t radius - the radius of the ticks
-    uint32_t length - the length of the ticks (drawn inward towards center)
-    uint32_t interval - the interval between ticks
-    leScheme* scheme - scheme used for drawing the tick (uses foreground)
-
-
-  Returns:
-    leResult
+    leCircularGaugeWidget* _this - The gauge to operate on
 
   Remarks:
+    Usage - _this->fn->deleteMinorTicks(_this);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leCircularGaugeWidget_AddMinorTicks(leCircularGaugeWidget* gauge,
-                                                        int32_t startValue,
-                                                        int32_t endValue,
-                                                        uint32_t radius,
-                                                        uint32_t length,
-                                                        uint32_t interval,
-                                                        leScheme* scheme);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_DeleteMinorTicks(leCircularGaugeWidget* gauge)
+/* Virtual Member Function:
+    leResult addMinorTickLabels(leCircularGaugeWidget* _this,
+                                int32_t startVal,
+                                int32_t endVal,
+                                uint32_t rad,
+                                leCircularGaugeWidgetLabelPosition pos,
+                                uint32_t interval,
+                                leScheme* schm)
 
   Summary:
-    Deletes all the minor ticks in the gauge widget
+     Adds minor tick labels
 
   Description:
-    Deletes all the minor ticks in the gauge widget
+     Adds minor tick labels
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-
-  Returns:
-    leResult
+    leCircularGaugeWidget* _this - The gauge to operate on
+    int32_t startVal - the start value
+    int32_t endVal - the end value
+    uint32_t rad - the radius value
+    leCircularGaugeWidgetLabelPosition pos -
+    uint32_t interval - the value
+    leScheme* schm - the scheme pointer
 
   Remarks:
+    Usage - _this->fn->addMinorTickLabels(_this, startVal, endVal, rad, pos, interval, schm);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leCircularGaugeWidget_DeleteMinorTicks(leCircularGaugeWidget* gauge);
 
 // *****************************************************************************
-/* Function:
-    lleResult leCircularGaugeWidget_AddMinorTickLabels(leCircularGaugeWidget* gauge,
-                                      int32_t startValue,
-                                      int32_t endValue,
-                                      uint32_t radius,
-                                      leCircularGaugeWidgetLabelPosition position,
-                                      uint32_t interval,
-                                      leScheme* scheme)
+/* Virtual Member Function:
+    leResult deleteMinorTickLabels(leCircularGaugeWidget* _this)
 
   Summary:
-    Adds minor tick labels in the gauge.
+     Deletes all minor tick labels
 
   Description:
+     Deletes all minor tick labels
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    int32_t startValue - the start value of the reference tick points (must be within gauge range)
-    int32_t endValue - the end value of the reference tick points (must be within gauge range)
-    uint32_t radius - the radius of the reference tick points
-    uint32_t position - the position of the label relative to the tick points
-    uint32_t interval - the interval between ticks
-    leScheme* scheme - scheme used for drawing the tick (uses foreground)
-
-
-  Returns:
-    leResult
+    leCircularGaugeWidget* _this - The gauge to operate on
 
   Remarks:
+    Usage - _this->fn->deleteMinorTickLabels(_this);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leCircularGaugeWidget_AddMinorTickLabels(leCircularGaugeWidget* gauge,
-                                                             int32_t startValue,
-                                                             int32_t endValue,
-                                                             uint32_t radius,
-                                                             leCircularGaugeWidgetLabelPosition position,
-                                                             uint32_t interval,
-                                                             leScheme* scheme);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_DeleteMinorTickLabels(leCircularGaugeWidget* gauge)
+/* Virtual Member Function:
+    int32_t getValue(const leCircularGaugeWidget* _this)
 
   Summary:
-    Deletes all the minor tick labels in the gauge widget
+     Gets the gauge value
 
   Description:
-    Deletes all the tick labels in the gauge widget
+     Gets the gauge value
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-
-  Returns:
-    leResult
+    const leCircularGaugeWidget* _this - The gauge to operate on
 
   Remarks:
+    Usage - _this->fn->getValue(_this);
 
+  Returns:
+    int32_t - the gauge value
 */
-LIB_EXPORT leResult leCircularGaugeWidget_DeleteMinorTickLabels(leCircularGaugeWidget* gauge);
 
 // *****************************************************************************
-/* Function:
-    int32_t leCircularGaugeWidget_GetValue(leCircularGaugeWidget* gauge)
+/* Virtual Member Function:
+    leResult setValue(leCircularGaugeWidget* _this,
+                      int32_t val)
 
   Summary:
-    Returns the value of the gauge hand
+     Sets the gauge value
 
   Description:
-
+     Sets the gauge value
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-
-  Returns:
-    int32_t
+    leCircularGaugeWidget* _this - The gauge to operate on
+    int32_t val - the value
 
   Remarks:
+    Usage - _this->fn->setValue(_this, val);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT int32_t leCircularGaugeWidget_GetValue(leCircularGaugeWidget* gauge);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_SetValue(leCircularGaugeWidget* gauge,
-                                            int32_t value)
+/* Virtual Member Function:
+    int32_t getStartValue(const leCircularGaugeWidget* _this)
 
   Summary:
-    Sets the value of the gauge hand
+     Gets the start value
 
   Description:
-
+     Gets the start value
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    int32_t value - value of the gauge hand
-
-
-  Returns:
-    leResult
+    const leCircularGaugeWidget* _this - The gauge to operate on
 
   Remarks:
+    Usage - _this->fn->getStartValue(_this);
 
+  Returns:
+    int32_t - the start value
 */
-LIB_EXPORT leResult leCircularGaugeWidget_SetValue(leCircularGaugeWidget* gauge,
-                                                   int32_t value);
 
 // *****************************************************************************
-/* Function:
-    int32_t leCircularGaugeWidget_GetStartValue(leCircularGaugeWidget* gauge)
+/* Virtual Member Function:
+    leResult setStartValue(leCircularGaugeWidget* _this,
+                           int32_t val)
 
   Summary:
-    Returns the start value of the gauge
+     Sets the start value
 
   Description:
-
+     Sets the start value
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-
-  Returns:
-    int32_t
+    leCircularGaugeWidget* _this - The gauge to operate on
+    int32_t val - the value
 
   Remarks:
+    Usage - _this->fn->setStartValue(_this, val);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT int32_t leCircularGaugeWidget_GetStartValue(leCircularGaugeWidget* gauge);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_SetStartValue(leCircularGaugeWidget* gauge,
-                                               int32_t value)
+/* Virtual Member Function:
+    int32_t getEndValue(const leCircularGaugeWidget* _this)
 
   Summary:
-    Sets the start value of the gauge
+     Gets the end value
 
   Description:
-
+     Gets the end value
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    int32_t value - start value of the gauge
-
-
-  Returns:
-    leResult
+    const leCircularGaugeWidget* _this - The gauge to operate on
 
   Remarks:
+    Usage - _this->fn->getEndValue(_this);
 
+  Returns:
+    int32_t - the end value
 */
-LIB_EXPORT leResult leCircularGaugeWidget_SetStartValue(leCircularGaugeWidget* gauge,
-                                                        int32_t value);
 
 // *****************************************************************************
-/* Function:
-    int32_t leCircularGaugeWidget_GetEndValue(leCircularGaugeWidget* gauge)
+/* Virtual Member Function:
+    leResult setEndValue(leCircularGaugeWidget* _this,
+                         int32_t val)
 
   Summary:
-    Returns the end value of the gauge
+     Sets the end value
 
   Description:
-
+     Sets the end value
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-
-  Returns:
-    int32_t
+    leCircularGaugeWidget* _this - The gauge to operate on
+    int32_t val - the value
 
   Remarks:
+    Usage - _this->fn->setEndValue(_this, val);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT int32_t leCircularGaugeWidget_GetEndValue(leCircularGaugeWidget* gauge);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_SetEndValue(leCircularGaugeWidget* gauge,
-                                               int32_t value)
+/* Virtual Member Function:
+    leBool getTicksVisible(const leCircularGaugeWidget* _this)
 
   Summary:
-    Sets the end value of the gauge
+     Gets the ticks visible setting
 
   Description:
-
+     Gets the ticks visible setting
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    int32_t value - end value of the gauge
-
-
-  Returns:
-    leResult
+    const leCircularGaugeWidget* _this - The gauge to operate on
 
   Remarks:
+    Usage - _this->fn->getTicksVisible(_this);
 
+  Returns:
+    leBool - the visible value
 */
-LIB_EXPORT leResult leCircularGaugeWidget_SetEndValue(leCircularGaugeWidget* gauge,
-                                                      int32_t value);
 
 // *****************************************************************************
-/* Function:
-    leBool leCircularGaugeWidget_GetTicksVisible(leCircularGaugeWidget* gauge)
+/* Virtual Member Function:
+    leResult setTicksVisible(leCircularGaugeWidget* _this,
+                             leBool vis)
 
   Summary:
-    Returns LE_TRUE if the ticks in the gauge are visible
+     Sets the ticks visible setting
 
   Description:
-
+     Sets the ticks visible setting
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-
-  Returns:
-    leBool
+    leCircularGaugeWidget* _this - The gauge to operate on
+    leBool vis - the visibility setting
 
   Remarks:
+    Usage - _this->fn->setTicksVisible(_this, vis);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leBool leCircularGaugeWidget_GetTicksVisible(leCircularGaugeWidget* gauge);
 
 // *****************************************************************************
-/* Function:
-    leCircularGaugeWidget_SetTicksVisible(leCircularGaugeWidget* gauge,
-                                       leBool visible)
+/* Virtual Member Function:
+    int32_t getTickValue(const leCircularGaugeWidget* _this)
 
   Summary:
-    Sets the increments/distance between ticks
+     Gets the current tick value
 
   Description:
-
+     Gets the current tick value
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    int32_t value - the distance between ticks
-
-
-  Returns:
-    leResult
+    const leCircularGaugeWidget* _this - The gauge to operate on
 
   Remarks:
+    Usage - _this->fn->getTickValue(_this);
 
+  Returns:
+    int32_t - the tick value
 */
-LIB_EXPORT leResult leCircularGaugeWidget_SetTicksVisible(leCircularGaugeWidget* gauge,
-                                                          leBool visible);
 
 // *****************************************************************************
-/* Function:
-    int32_t leCircularGaugeWidget_GetTickValue(leCircularGaugeWidget* gauge)
+/* Virtual Member Function:
+    leResult setTickValue(leCircularGaugeWidget* _this,
+                          int32_t val)
 
   Summary:
-    Returns the tick increment value in the gauge
+     Sets the tick value
 
   Description:
-
+     Sets the tick value
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-
-  Returns:
-    int32_t
+    leCircularGaugeWidget* _this - The gauge to operate on
+    int32_t val - the value
 
   Remarks:
+    Usage - _this->fn->setTickValue(_this, val);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT int32_t leCircularGaugeWidget_GetTickValue(leCircularGaugeWidget* gauge);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_SetTickValue(leCircularGaugeWidget* gauge,
-                                       int32_t value)
+/* Virtual Member Function:
+    uint32_t getTickLength(const leCircularGaugeWidget* _this)
 
   Summary:
-    Sets the increments/distance between ticks
+     Gets the current tick length
 
   Description:
-
+     Gets the current tick length
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    int32_t value - the distance between ticks
-
-
-  Returns:
-    leResult
+    const leCircularGaugeWidget* _this - The gauge to operate on
 
   Remarks:
+    Usage - _this->fn->getTickLength(_this);
 
+  Returns:
+    uint32_t - the tick length
 */
-LIB_EXPORT leResult leCircularGaugeWidget_SetTickValue(leCircularGaugeWidget* gauge,
-                                                       int32_t value);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leCircularGaugeWidget_GetTickLength(leCircularGaugeWidget* gauge)
+/* Virtual Member Function:
+    leResult setTickLength(leCircularGaugeWidget* _this,
+                           uint32_t len)
 
   Summary:
-    Returns the length of the ticks in the gauge in pixels
+     Sets the tick length
 
   Description:
-
+     Sets the tick length
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-
-  Returns:
-    uint32_t
+    leCircularGaugeWidget* _this - The gauge to operate on
+    uint32_t len - the length value
 
   Remarks:
+    Usage - _this->fn->setTickLength(_this, len);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT uint32_t leCircularGaugeWidget_GetTickLength(leCircularGaugeWidget* gauge);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_SetTickLength(leCircularGaugeWidget* gauge,
-                                         uint32_t length)
+/* Virtual Member Function:
+    leBool getTickLabelsVisible(const leCircularGaugeWidget* _this)
 
   Summary:
-    Sets the length of the ticks
+     Gets the visibility setting for the tick labels
 
   Description:
-
+     Gets the visibility setting for the tick labels
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    uint32_t length - length of the ticks in pixels
-
-
-  Returns:
-    leResult
+    const leCircularGaugeWidget* _this - The gauge to operate on
 
   Remarks:
+    Usage - _this->fn->getTickLabelsVisible(_this);
 
+  Returns:
+    leBool - the visible setting
 */
-LIB_EXPORT leResult leCircularGaugeWidget_SetTickLength(leCircularGaugeWidget* gauge,
-                                                        uint32_t length);
 
 // *****************************************************************************
-/* Function:
-    leBool leCircularGaugeWidget_GetTickLabelsVisible(leCircularGaugeWidget* gauge)
+/* Virtual Member Function:
+    leResult setTickLabelsVisible(leCircularGaugeWidget* _this,
+                                  leBool vis)
 
   Summary:
-    Returns LE_TRUE if the tick labels are visible
+     Sets the visibility setting for the tick labels
 
   Description:
-
+     Sets the visibility setting for the tick labels
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-
-  Returns:
-    leBool
+    leCircularGaugeWidget* _this - The gauge to operate on
+    leBool vis - the visibility setting
 
   Remarks:
+    Usage - _this->fn->setTickLabelsVisible(_this, vis);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leBool leCircularGaugeWidget_GetTickLabelsVisible(leCircularGaugeWidget* gauge);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_SetTickLabelsVisible(leCircularGaugeWidget* gauge,
-                                               leBool visible)
+/* Virtual Member Function:
+    leBool getHandVisible(const leCircularGaugeWidget* _this)
 
   Summary:
-    Sets the tick labels visible/invisible
+     Gets hand visibility setting
 
   Description:
-
+     Gets hand visibility setting
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    leBool visible - tick labels are visible if LE_TRUE
-
-
-  Returns:
-    leResult
+    const leCircularGaugeWidget* _this - The gauge to operate on
 
   Remarks:
+    Usage - _this->fn->getHandVisible(_this);
 
+  Returns:
+    leBool - the visible setting
 */
-LIB_EXPORT leResult leCircularGaugeWidget_SetTickLabelsVisible(leCircularGaugeWidget* gauge,
-                                                               leBool visible);
 
 // *****************************************************************************
-/* Function:
-    leBool leCircularGaugeWidget_GetHandVisible(leCircularGaugeWidget* gauge)
+/* Virtual Member Function:
+    leResult setHandVisible(leCircularGaugeWidget* _this,
+                            leBool vis)
 
   Summary:
-    Returns LE_TRUE if the gauge hand is visible
+     Sets the hand visibility setting
 
   Description:
-
+     Sets the hand visibility setting
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-
-  Returns:
-    leBool
+    leCircularGaugeWidget* _this - The gauge to operate on
+    leBool vis - the visibility setting
 
   Remarks:
+    Usage - _this->fn->setHandVisible(_this, vis);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leBool leCircularGaugeWidget_GetHandVisible(leCircularGaugeWidget* gauge);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_SetHandVisible(leCircularGaugeWidget* gauge,
-                                         leBool visible)
+/* Virtual Member Function:
+    uint32_t getHandRadius(const leCircularGaugeWidget* _this)
 
   Summary:
-    Sets the hand visible/invisible
+     Gets the hand radius
 
   Description:
-
+     Gets the hand radius
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    leBool visible - hand is visible if LE_TRUE
-
-
-  Returns:
-    leResult
+    const leCircularGaugeWidget* _this - The gauge to operate on
 
   Remarks:
+    Usage - _this->fn->getHandRadius(_this);
 
+  Returns:
+    uint32_t - the radius
 */
-LIB_EXPORT leResult leCircularGaugeWidget_SetHandVisible(leCircularGaugeWidget* gauge,
-                                                         leBool visible);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leCircularGaugeWidget_GetHandRadius(leCircularGaugeWidget* gauge)
+/* Virtual Member Function:
+    leResult setHandRadius(leCircularGaugeWidget* _this,
+                           uint32_t rad)
 
   Summary:
-    Returns the radius/length of the gauge hand in pixels
+     Sets the hand radius
 
   Description:
-
+     Sets the hand radius
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-
-  Returns:
-    uint32_t
+    leCircularGaugeWidget* _this - The gauge to operate on
+    uint32_t rad - the radius value
 
   Remarks:
+    Usage - _this->fn->setHandRadius(_this, rad);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT uint32_t leCircularGaugeWidget_GetHandRadius(leCircularGaugeWidget* gauge);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_SetHandRadius(leCircularGaugeWidget* gauge,
-                                        uint32_t length)
+/* Virtual Member Function:
+    leBool getCenterCircleVisible(const leCircularGaugeWidget* _this)
 
   Summary:
-    Sets the radius/length of the hand
+     Gets the center circle visibility setting
 
   Description:
-
+     Gets the center circle visibility setting
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    uint32_t length - length of the hand in pixels
-
-
-  Returns:
-    leResult
+    const leCircularGaugeWidget* _this - The gauge to operate on
 
   Remarks:
+    Usage - _this->fn->getCenterCircleVisible(_this);
 
+  Returns:
+    leBool - the visible setting
 */
-LIB_EXPORT leResult leCircularGaugeWidget_SetHandRadius(leCircularGaugeWidget* gauge,
-                                                        uint32_t rad);
 
 // *****************************************************************************
-/* Function:
-    leBool leCircularGaugeWidget_GetCenterCircleVisible(leCircularGaugeWidget* gauge)
+/* Virtual Member Function:
+    leResult setCenterCircleVisible(leCircularGaugeWidget* _this,
+                                    leBool vis)
 
   Summary:
-    Returns LE_TRUE if the center circle is visible
+     Sets the center circle visibility setting
 
   Description:
-
+     Sets the center circle visibility setting
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-
-  Returns:
-    leBool
+    leCircularGaugeWidget* _this - The gauge to operate on
+    leBool vis - the visibility setting
 
   Remarks:
+    Usage - _this->fn->setCenterCircleVisible(_this, vis);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leBool leCircularGaugeWidget_GetCenterCircleVisible(leCircularGaugeWidget* gauge);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_SetCenterCircleVisible(leCircularGaugeWidget* gauge,
-                                                 leBool visible)
+/* Virtual Member Function:
+    uint32_t getCenterCircleRadius(const leCircularGaugeWidget* _this)
 
   Summary:
-    Sets the center circle visible/invisible
+     Gets the center circle radius
 
   Description:
-
+     Gets the center circle radius
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    leBool visible - sets visible if LE_TRUE
-
-
-  Returns:
-    leResult
+    const leCircularGaugeWidget* _this - The gauge to operate on
 
   Remarks:
+    Usage - _this->fn->getCenterCircleRadius(_this);
 
+  Returns:
+    uint32_t - the radius
 */
-LIB_EXPORT leResult leCircularGaugeWidget_SetCenterCircleVisible(leCircularGaugeWidget* gauge,
-                                                                 leBool visible);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leCircularGaugeWidget_GetCenterCircleRadius(leCircularGaugeWidget* gauge)
+/* Virtual Member Function:
+    leResult setCenterCircleRadius(leCircularGaugeWidget* _this,
+                                   uint32_t rad)
 
   Summary:
-    Returns radius of the center circle
+     Sets the center circle radius
 
   Description:
-
+     Sets the center circle radius
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-
-  Returns:
-    uint32_t
+    leCircularGaugeWidget* _this - The gauge to operate on
+    uint32_t rad - the radius value
 
   Remarks:
+    Usage - _this->fn->setCenterCircleRadius(_this, rad);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT uint32_t leCircularGaugeWidget_GetCenterCircleRadius(leCircularGaugeWidget* gauge);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_SetCenterCircleRadius(leCircularGaugeWidget* gauge,
-                                                            uint32_t rad)
+/* Virtual Member Function:
+    uint32_t getCenterCircleThickness(const leCircularGaugeWidget* _this)
 
   Summary:
-    Sets the center radius of the center circle
+     Gets the center circle thickness
 
   Description:
-
+     Gets the center circle thickness
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    uint32_t rad - radius of the center circle
-
-
-  Returns:
-    leResult
+    const leCircularGaugeWidget* _this - The gauge to operate on
 
   Remarks:
+    Usage - _this->fn->getCenterCircleThickness(_this);
 
+  Returns:
+    uint32_t - the thickness value
 */
-LIB_EXPORT leResult leCircularGaugeWidget_SetCenterCircleRadius(leCircularGaugeWidget* gauge,
-                                                                uint32_t rad);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leCircularGaugeWidget_GetCenterCircleThickness(leCircularGaugeWidget* gauge)
+/* Virtual Member Function:
+    leResult setCenterCircleThickness(leCircularGaugeWidget* _this,
+                                      uint32_t thk)
 
   Summary:
-    Returns thickness of the center circle
+     Sets the center circle thickness
 
   Description:
-
+     Sets the center circle thickness
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-
-  Returns:
-    uint32_t
+    leCircularGaugeWidget* _this - The gauge to operate on
+    uint32_t thk - the thickness value
 
   Remarks:
+    Usage - _this->fn->setCenterCircleThickness(_this, thk);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT uint32_t leCircularGaugeWidget_GetCenterCircleThickness(leCircularGaugeWidget* gauge);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_SetCenterCircleThickness(leCircularGaugeWidget* gauge,
-                                                            uint32_t thickness)
+/* Virtual Member Function:
+    leResult setTickLabelFont(leCircularGaugeWidget* _this,
+                              const leFont* font)
 
   Summary:
-    Sets the thickness of the center circle
+     Sets the tick label font
 
   Description:
-
+     Sets the tick label font
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    uint32_t thickness - thickness of the center circle
-
-
-  Returns:
-    leResult
+    leCircularGaugeWidget* _this - The gauge to operate on
+    const leFont* font - the font pointer
 
   Remarks:
+    Usage - _this->fn->setTickLabelFont(_this, font);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leCircularGaugeWidget_SetCenterCircleThickness(leCircularGaugeWidget* gauge,
-                                                                   uint32_t thickness);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_SetStringTable(leCircularGaugeWidget* gauge,
-                                                  leStringTable * stringTable)
+/* Virtual Member Function:
+    leResult setValueChangedEventCallback(leCircularGaugeWidget* _this,
+                                          leCircularGaugeWidget_ValueChangedEvent cb)
 
   Summary:
-    Sets the string table to be used for the tick labels
+     Sets the value changed callback
 
   Description:
-
-
-  Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    leStringTable * stringTable - pointer to the string table
-
-
-  Returns:
-    leResult
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leCircularGaugeWidget_SetStringTable(leCircularGaugeWidget* gauge,
-                                                         leStringTable * stringTable);
-
-// *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_SetTicksLabelsStringID(leCircularGaugeWidget* gauge,
-                                                          uint32_t stringID)
-
-  Summary:
-    Sets the ID of the string character superset to be used for the tick labels
-
-  Description:
-
+     Sets the value changed callback
 
   Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    uint32_t stringID - string ID
-
-
-  Returns:
-    leResult
+    leCircularGaugeWidget* _this - The gauge to operate on
+    leCircularGaugeWidget_ValueChangedEvent cb - the callback pointer
 
   Remarks:
-
-*/
-LIB_EXPORT leResult leCircularGaugeWidget_SetTicksLabelsStringID(leCircularGaugeWidget* gauge,
-                                                                 uint32_t stringID);
-
-
-// *****************************************************************************
-/* Function:
-    leResult leCircularGaugeWidget_SetValueChangedEventCallback(leCircularGaugeWidget* gauge,
-                                                                 leCircularGaugeWidget_ValueChangedEvent cb)
-
-  Summary:
-    Sets the function to be called back when the gauge value changes.
-
-  Description:
-
-
-  Parameters:
-    leCircularGaugeWidget* gauge - the widget
-    leCircularGaugeWidget_ValueChangedEvent cb - callback function
-
+    Usage - _this->fn->setValueChangedEventCallback(_this, cb);
 
   Returns:
-    leResult
-
-  Remarks:
-
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leCircularGaugeWidget_SetValueChangedEventCallback(leCircularGaugeWidget* gauge,
-                                                                        leCircularGaugeWidget_ValueChangedEvent cb);
 
-#endif
+
 #endif // LE_CIRCULARGAUGE_WIDGET_ENABLED
 #endif /* LEGATO_WIDGET_CIRCULAR_GAUGE_H */

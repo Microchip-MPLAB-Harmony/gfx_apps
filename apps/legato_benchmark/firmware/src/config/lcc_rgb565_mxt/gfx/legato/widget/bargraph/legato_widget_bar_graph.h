@@ -230,917 +230,997 @@ typedef struct leBarGraphWidget
     void
 
   Returns:
-    leBarGraphWidget*
+    leBarGraphWidget* - the allocated widget pointer
 
   Remarks:
+    Use leWidget_Delete() to free this pointer.
 
 */
 LIB_EXPORT leBarGraphWidget* leBarGraphWidget_New();
 
-LIB_EXPORT leResult leBarGraphWidget_Constructor(leBarGraphWidget* wgt);
-
-#if 0
-// *****************************************************************************
 /* Function:
-    uint32_t leBarGraphWidget_GetTickLength(leBarGraphWidget* graph)
+    void leBarGraphWidget_Constructor(leBarGraphWidget* wgt)
 
   Summary:
-    Returns the length of the ticks
+    Initializes a leBarGraphWidget widget pointer.
 
   Description:
+    Initializes a leBarGraphWidget widget pointer.
 
   Parameters:
-    leBarGraphWidget* graph - the widget
+    leBarGraphWidget* wgt - the pointer to initialize
 
   Returns:
-    uint32_t - tick length
+    void
 
   Remarks:
 
 */
-LIB_EXPORT uint32_t leBarGraphWidget_GetTickLength(leBarGraphWidget* graph);
+LIB_EXPORT void leBarGraphWidget_Constructor(leBarGraphWidget* wgt);
 
 // *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_SetTickLength(leBarGraphWidget* graph, uint32_t length)
+/* Virtual Member Function:
+    uint32_t getTickLength(const leBarGraphWidget* _this)
 
   Summary:
-    Sets the length of the ticks
+     Gets the tick length
 
   Description:
+     Gets the tick length
 
   Parameters:
-    leBarGraphWidget* graph - the widget
-    uint32_t length - length in pixels
-
-  Returns:
-    leResult - the result of the operation
+    const leBarGraphWidget* _this - The string to operate on
 
   Remarks:
-
-*/
-LIB_EXPORT leResult leBarGraphWidget_SetTickLength(leBarGraphWidget* graph, uint32_t length);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leBarGraphWidget_GetMaxValue(leBarGraphWidget* graph, leBarGraphValueAxis axis)
-
-  Summary:
-    Returns the max value of the axis
-
-  Description:
-
-  Parameters:
-    leBarGraphWidget* graph - the widget
+    Usage - _this->fn->getTickLength(_this);
 
   Returns:
-    uint32_t - max value
-
-  Remarks:
-
+    uint32_t - the tick length
 */
-LIB_EXPORT uint32_t leBarGraphWidget_GetMaxValue(leBarGraphWidget* graph, leBarGraphValueAxis axis);
 
 // *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_SetMaxValue(leBarGraphWidget* graph, leBarGraphValueAxis axis, int32_t value)
+/* Virtual Member Function:
+    leResult setTickLength(leBarGraphWidget* _this,
+                           uint32_t len)
 
   Summary:
-    Sets the max value of the axis
+     Sets the tick length
 
   Description:
+     Sets the tick length
 
   Parameters:
-    leBarGraphWidget* graph - the widget
-    leBarGraphValueAxis axis - the value axis index
-    int32_t value - max value
+    leBarGraphWidget* _this - The string to operate on
+    uint32_t len - the tick length
+
+  Remarks:
+    Usage - _this->fn->setTickLength(_this, len);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leBarGraphWidget_SetMaxValue(leBarGraphWidget* graph, leBarGraphValueAxis axis, int32_t value);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leBarGraphWidget_GetMinValue(leBarGraphWidget* graph, leBarGraphValueAxis axis)
+/* Virtual Member Function:
+    uint32_t getMinValue(const leBarGraphWidget* _this,
+                         leBarGraphValueAxis axis)
 
   Summary:
-    Returns the min value of the axis
+     Gets the minimum value
 
   Description:
+     Gets the minimum value
 
   Parameters:
-    leBarGraphWidget* graph - the widget
+    const leBarGraphWidget* _this - The string to operate on
+    leBarGraphValueAxis axis - the axis to modify
+
+  Remarks:
+    Usage - _this->fn->getMinValue(_this, axis);
 
   Returns:
-    uint32_t - min value
-
-  Remarks:
-
+    uint32_t - the minimum value
 */
-LIB_EXPORT uint32_t leBarGraphWidget_GetMinValue(leBarGraphWidget* graph, leBarGraphValueAxis axis);
 
 // *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_SetMinValue(leBarGraphWidget* graph, leBarGraphValueAxis axis, int32_t value)
+/* Virtual Member Function:
+    leResult setMinValue(leBarGraphWidget* _this,
+                         leBarGraphValueAxis axis,
+                         int32_t min)
 
   Summary:
-    Sets the min value of the axis
+     Sets the minimum value
 
   Description:
+     Sets the minimum value
 
   Parameters:
-    leBarGraphWidget* graph - the widget
-    leBarGraphValueAxis axis - the value axis index
-    int32_t value - min value
-
-  Returns:
-    leResult - the result of the operation
+    leBarGraphWidget* _this - The string to operate on
+    leBarGraphValueAxis axis - the axis to modify
+    int32_t min - the minimum value
 
   Remarks:
-
-*/
-LIB_EXPORT leResult leBarGraphWidget_SetMinValue(leBarGraphWidget* graph, leBarGraphValueAxis axis, int32_t value);
-
-// *****************************************************************************
-/* Function:
-    leBool leBarGraphWidget_GetValueAxisLabelsVisible(leBarGraphWidget* graph, leBarGraphValueAxis axis)
-
-  Summary:
-    Returns LE_TRUE if the value axis labels are visible
-
-  Description:
-
-  Parameters:
-    leBarGraphWidget* graph - the widget
-
-  Returns:
-    leBool - LE_TRUE if the value axis labels are visible
-
-  Remarks:
-
-*/
-LIB_EXPORT leBool leBarGraphWidget_GetValueAxisLabelsVisible(leBarGraphWidget* graph, leBarGraphValueAxis axis);
-
-// *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_SetValueAxisLabelsVisible(leBarGraphWidget* graph, leBarGraphValueAxis axis, leBool visible)
-
-  Summary:
-    Shows/Hides the labels in the value axis
-
-  Description:
-
-  Parameters:
-    leBarGraphWidget* graph - the widget
-    leBarGraphValueAxis axis - the value axis index
-    leBool visible - shows the labels if LE_TRUE
+    Usage - _this->fn->setMinValue(_this, axis, min);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leBarGraphWidget_SetValueAxisLabelsVisible(leBarGraphWidget* graph, leBarGraphValueAxis axis, leBool visible);
 
 // *****************************************************************************
-/* Function:
-    leBool leBarGraphWidget_GetValueAxisTicksVisible(leBarGraphWidget* graph, leBarGraphValueAxis axis)
+/* Virtual Member Function:
+    uint32_t getMaxValue(const leBarGraphWidget* _this,
+                         leBarGraphValueAxis axis)
 
   Summary:
-    Returns LE_TRUE if the value axis ticks are visible
+     Gets the maximum value
 
   Description:
+     Gets the maximum value
 
   Parameters:
-    leBarGraphWidget* graph - the widget
+    const leBarGraphWidget* _this - The string to operate on
+    leBarGraphValueAxis axis - the axis to modify
+
+  Remarks:
+    Usage - _this->fn->getMaxValue(_this, axis);
 
   Returns:
-    leBool - LE_TRUE if the value axis ticks are visible
-
-  Remarks:
-
+    uint32_t - the maximum value
 */
-LIB_EXPORT leBool leBarGraphWidget_GetValueAxisTicksVisible(leBarGraphWidget* graph, leBarGraphValueAxis axis);
 
 // *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_SetValueAxisTicksVisible(leBarGraphWidget* graph, leBarGraphValueAxis axis, leBool visible)
+/* Virtual Member Function:
+    leResult setMaxValue(leBarGraphWidget* _this,
+                         leBarGraphValueAxis axis,
+                         int32_t max)
 
   Summary:
-    Shows/Hides the ticks in the value axis
+     Sets the maximum value
 
   Description:
+     Sets the maximum value
 
   Parameters:
-    leBarGraphWidget* graph - the widget
-    leBarGraphValueAxis axis - the value axis index
-    leBool visible - shows the ticks if LE_TRUE
-
-  Returns:
-    leResult - the result of the operation
+    leBarGraphWidget* _this - The string to operate on
+    leBarGraphValueAxis axis - the axis to modify
+    int32_t max - the maximum value
 
   Remarks:
-
-*/
-LIB_EXPORT leResult leBarGraphWidget_SetValueAxisTicksVisible(leBarGraphWidget* graph, leBarGraphValueAxis axis, leBool visible);
-
-// *****************************************************************************
-/* Function:
-    leBool leBarGraphWidget_GetValueAxisSubticksVisible(leBarGraphWidget* graph, leBarGraphValueAxis axis)
-
-  Summary:
-    Returns LE_TRUE if the value axis subticks are visible
-
-  Description:
-
-  Parameters:
-    leBarGraphWidget* graph - the widget
-
-  Returns:
-    leBool - LE_TRUE if the value axis subticks are visible
-
-  Remarks:
-
-*/
-LIB_EXPORT leBool leBarGraphWidget_GetValueAxisSubticksVisible(leBarGraphWidget* graph, leBarGraphValueAxis axis);
-
-// *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_SetValueAxisSubticksVisible(leBarGraphWidget* graph, leBarGraphValueAxis axis, leBool visible)
-
-  Summary:
-    Shows/Hides the subticks in the value axis
-
-  Description:
-
-  Parameters:
-    leBarGraphWidget* graph - the widget
-    leBarGraphValueAxis axis - the value axis index
-    leBool visible - shows the subticks if LE_TRUE
+    Usage - _this->fn->setMaxValue(_this, axis, max);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leBarGraphWidget_SetValueAxisSubticksVisible(leBarGraphWidget* graph, leBarGraphValueAxis axis, leBool visible);
 
 // *****************************************************************************
-/* Function:
-    uint32_t leBarGraphWidget_GetValueAxisTickInterval(leBarGraphWidget* graph, leBarGraphValueAxis axis)
+/* Virtual Member Function:
+    leBool getValueAxisLabelsVisible(const leBarGraphWidget* _this,
+                                     leBarGraphValueAxis axis)
 
   Summary:
-    Returns the interval between major ticks in the value axis
+     Gets the visible value axis label setting
 
   Description:
+     Gets the visible value axis label setting
 
   Parameters:
-    leBarGraphWidget* graph - the widget
-    leBarGraphValueAxis axis - the value axis index
+    const leBarGraphWidget* _this - The string to operate on
+    leBarGraphValueAxis axis - the axis to modify
+
+  Remarks:
+    Usage - _this->fn->getValueAxisLabelsVisible(_this, axis);
 
   Returns:
-    uint32_t - ticks in pixels
-
-  Remarks:
-
+    leBool - the visibility setting
 */
-LIB_EXPORT uint32_t leBarGraphWidget_GetValueAxisTickInterval(leBarGraphWidget* graph, leBarGraphValueAxis axis);
 
 // *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_SetValueAxisTickInterval(leBarGraphWidget* graph, leBarGraphValueAxis axis, uint32_t interval)
+/* Virtual Member Function:
+    leResult setValueAxisLabelsVisible(leBarGraphWidget* _this,
+                                       leBarGraphValueAxis axis,
+                                       leBool vis)
 
   Summary:
-    Sets the tick interval in the value axis
+     Sets the visibility of the value axis labels
 
   Description:
+     Sets the visibility of the value axis labels
 
   Parameters:
-    leBarGraphWidget* graph - the widget
-    leBarGraphValueAxis axis - the value axis index
-    uint32_t interval - tick interval in pixels
-
-  Returns:
-    leResult - the result of the operation
+    leBarGraphWidget* _this - The string to operate on
+    leBarGraphValueAxis axis - the axis to modify
+    leBool vis - the visbility setting
 
   Remarks:
-
-*/
-LIB_EXPORT leResult leBarGraphWidget_SetValueAxisTickInterval(leBarGraphWidget* graph, leBarGraphValueAxis axis, uint32_t interval);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leBarGraphWidget_GetValueAxisSubtickInterval(leBarGraphWidget* graph, leBarGraphValueAxis axis)
-
-  Summary:
-    Returns the interval between minor ticks in the value axis
-
-  Description:
-
-  Parameters:
-    leBarGraphWidget* graph - the widget
-    leBarGraphValueAxis axis - the value axis index
-
-  Returns:
-    uint32_t - ticks in pixels
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leBarGraphWidget_GetValueAxisSubtickInterval(leBarGraphWidget* graph, leBarGraphValueAxis axis);
-
-// *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_SetValueAxisSubtickInterval(leBarGraphWidget* graph, leBarGraphValueAxis axis, uint32_t interval)
-
-  Summary:
-    Sets the minor tick interval in the value axis
-
-  Description:
-
-  Parameters:
-    leBarGraphWidget* graph - the widget
-    leBarGraphValueAxis axis - the value axis index
-    uint32_t interval - tick interval in pixels
+    Usage - _this->fn->setValueAxisLabelsVisible(_this, axis, vis);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leBarGraphWidget_SetValueAxisSubtickInterval(leBarGraphWidget* graph, leBarGraphValueAxis axis, uint32_t interval);
-
-
 
 // *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_AddSeries(leBarGraphWidget* graph, uint32_t * seriesID)
+/* Virtual Member Function:
+    leBool getValueAxisTicksVisible(const leBarGraphWidget* _this,
+                                    leBarGraphValueAxis axis)
 
   Summary:
-    Adds a series to the graph
+     Gets the visible value ticks setting
 
   Description:
+     Gets the visible value ticks setting
 
   Parameters:
-    leBarGraphWidget* graph - the widget
-    uint32_t * seriesID - destination of the returned series ID
+    const leBarGraphWidget* _this - The string to operate on
+    leBarGraphValueAxis axis - the axis to modify
+
+  Remarks:
+    Usage - _this->fn->getValueAxisTicksVisible(_this, axis);
+
+  Returns:
+    leBool - the visibility setting
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setValueAxisTicksVisible(leBarGraphWidget* _this,
+                                      leBarGraphValueAxis axis,
+                                      leBool vis)
+
+  Summary:
+     Sets the visibility of the value axis ticks
+
+  Description:
+     Sets the visibility of the value axis ticks
+
+  Parameters:
+    leBarGraphWidget* _this - The string to operate on
+    leBarGraphValueAxis axis - the axis to modify
+    leBool vis - the visbility setting
+
+  Remarks:
+    Usage - _this->fn->setValueAxisTicksVisible(_this, axis, vis);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leBarGraphWidget_AddSeries(leBarGraphWidget* graph, uint32_t * seriesID);
 
 // *****************************************************************************
-/* Function:
-    leScheme * leBarGraphWidget_GetSeriesScheme(leBarGraphWidget* graph, uint32_t seriesID)
+/* Virtual Member Function:
+    uint32_t getValueAxisTicksInterval(const leBarGraphWidget* _this,
+                                       leBarGraphValueAxis axis)
 
   Summary:
-    Returns scheme of the specified series
+     Gets the value axis ticks interval setting
 
   Description:
+     Gets the value axis ticks interval setting
 
   Parameters:
-    leBarGraphWidget* graph - the widget
+    const leBarGraphWidget* _this - The string to operate on
+    leBarGraphValueAxis axis - the axis to modify
+
+  Remarks:
+    Usage - _this->fn->getValueAxisTicksInterval(_this, axis);
 
   Returns:
-    leScheme * - scheme of the specified series
-
-  Remarks:
-
+    uint32_t - the interval value
 */
-LIB_EXPORT leScheme * leBarGraphWidget_GetSeriesScheme(leBarGraphWidget* graph, uint32_t seriesID);
 
 // *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_SetSeriesScheme(leBarGraphWidget* graph, uint32_t seriesID, leScheme * scheme)
+/* Virtual Member Function:
+    leResult setValueAxisTicksInterval(leBarGraphWidget* _this,
+                                       leBarGraphValueAxis axis,
+                                       uint32_t itv)
 
   Summary:
-    Sets the color scheme of the series
+     Sets the inverval of the value axis ticks
 
   Description:
+     Sets the inverval of the value axis ticks
 
   Parameters:
-    leBarGraphWidget* graph - the widget
-    int32_t seriesID - the series ID, if negative the last series is referenced
-    leScheme * scheme - the color scheme
-
-  Returns:
-    leResult - the result of the operation
+    leBarGraphWidget* _this - The string to operate on
+    leBarGraphValueAxis axis - the axis to modify
+    uint32_t itv - the interval value
 
   Remarks:
-
-*/
-LIB_EXPORT leResult leBarGraphWidget_SetSeriesScheme(leBarGraphWidget* graph, int32_t seriesID, leScheme * scheme);
-
-// *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_AddDataToSeries(leBarGraphWidget* graph, uint32_t seriesID, uint32_t categoryID, int32_t value)
-
-  Summary:
-    Adds a data (value) to the specified series at categoryID index
-
-  Description:
-
-  Parameters:
-    leBarGraphWidget* graph - the widget
-    uint32_t seriesID - the series ID
-    int32_t value - the value
-    uint32_t * index - the destination to return the index of the added data
+    Usage - _this->fn->setValueAxisTicksInterval(_this, axis, itv);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leBarGraphWidget_AddDataToSeries(leBarGraphWidget* graph, uint32_t seriesID, int32_t value, uint32_t * index);
 
 // *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_SetDataInSeries(leBarGraphWidget* graph,
-                                              uint32_t seriesID,
-                                              uint32_t index,
-                                              int32_t value);
+/* Virtual Member Function:
+    leBarGraphTickPosition getValueAxisTicksPosition(const leBarGraphWidget* _this,
+                                                     leBarGraphValueAxis axis)
+
   Summary:
-    Sets the value of the entry in the series index. The entry should have
-    been previously
+     Gets the value axis ticks position
 
   Description:
+     Gets the value axis ticks position
 
   Parameters:
-    leBarGraphWidget* graph - the widget
-    uint32_t seriesID - the series ID
-    uint32_t index - the index of the data
-    int32_t value - the value
+    const leBarGraphWidget* _this - The string to operate on
+    leBarGraphValueAxis axis - the axis to modify
+
+  Remarks:
+    Usage - _this->fn->getValueAxisTicksPosition(_this, axis);
+
+  Returns:
+    leBarGraphTickPosition - the position value
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setValueAxisTicksPosition(leBarGraphWidget* _this,
+                                       leBarGraphValueAxis axis,
+                                       leBarGraphTickPosition pos)
+
+  Summary:
+     Sets the value axis ticks position
+
+  Description:
+     Sets the value axis ticks position
+
+  Parameters:
+    leBarGraphWidget* _this - the widget to operate on
+    leBarGraphValueAxis axis - the axis to modify
+    leBarGraphTickPosition pos - the position value
+
+  Remarks:
+    Usage - _this->fn->setValueAxisTicksPosition(_this, axis, pos);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leBarGraphWidget_SetDataInSeries(leBarGraphWidget* graph,
-                                          uint32_t seriesID,
-                                          uint32_t index,
-                                          int32_t value);
-
 
 // *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_DestroyAll(leBarGraphWidget* graph)
+/* Virtual Member Function:
+    leBool getValueAxisSubticksVisible(const leBarGraphWidget* _this,
+                                       leBarGraphValueAxis axis)
 
   Summary:
-    Destroys data, series and categories and frees the memory allocated
+     Gets the value axis subticks position
 
   Description:
+     Gets the value axis subticks position
 
   Parameters:
-    leBarGraphWidget* graph - the widget
+    const leBarGraphWidget* _this - the widget to operate on
+    leBarGraphValueAxis axis - the axis to modify
+
+  Remarks:
+    Usage - _this->fn->getValueAxisSubticksVisible(_this, axis);
+
+  Returns:
+    leBool - the visibility setting
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setValueAxisSubticksVisible(leBarGraphWidget* _this,
+                                         leBarGraphValueAxis axis,
+                                         leBool vis)
+
+  Summary:
+     Sets the value axis subticks position
+
+  Description:
+     Sets the value axis subticks position
+
+  Parameters:
+    leBarGraphWidget* _this - the widget to operate on
+    leBarGraphValueAxis axis - the axis to modify
+    leBool vis - the visbility setting
+
+  Remarks:
+    Usage - _this->fn->setValueAxisSubticksVisible(_this, axis, vis);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leBarGraphWidget_DestroyAll(leBarGraphWidget* graph);
 
 // *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_SetTicksLabelsStringID(leBarGraphWidget* graph, uint32_t stringID)
+/* Virtual Member Function:
+    uint32_t getValueAxisSubticksInterval(const leBarGraphWidget* _this,
+                                          leBarGraphValueAxis axis)
 
   Summary:
-    Sets the ID of the superset string used for the value axis tick labels
+     Gets the value axis subticks interval
 
   Description:
+     Gets the value axis subticks interval
 
   Parameters:
-    leBarGraphWidget* graph - the widget
-    uint32_t stringID - the string ID
+    const leBarGraphWidget* _this - the widget to operate on
+    leBarGraphValueAxis axis - the axis to modify
+
+  Remarks:
+    Usage - _this->fn->getValueAxisSubticksInterval(_this, axis);
+
+  Returns:
+    uint32_t - the interval value
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setValueAxisSubticksInterval(leBarGraphWidget* _this,
+                                          leBarGraphValueAxis axis,
+                                          uint32_t itv)
+
+  Summary:
+     Sets the value axis subticks interval
+
+  Description:
+     Sets the value axis subticks interval
+
+  Parameters:
+    leBarGraphWidget* _this - the widget to operate on
+    leBarGraphValueAxis axis - the axis to modify
+    uint32_t itv - the interval value
+
+  Remarks:
+    Usage - _this->fn->setValueAxisSubticksInterval(_this, axis, itv);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leBarGraphWidget_SetTicksLabelsStringID(leBarGraphWidget* graph, uint32_t stringID);
 
 // *****************************************************************************
-/* Function:
-    leBool leBarGraphWidget_GetGridLinesVisible(leBarGraphWidget* graph, leBarGraphValueAxis axis)
+/* Virtual Member Function:
+    leBarGraphTickPosition getValueAxisSubticksPosition(const leBarGraphWidget* _this,
+                                                        leBarGraphValueAxis axis)
 
   Summary:
-    Returns LE_TRUE if the axis gridlines are visible
+     Gets the value axis subticks position
 
   Description:
+     Gets the value axis subticks position
 
   Parameters:
-    leBarGraphWidget* graph - the widget
-    leBarGraphValueAxis axis - the value axis index
+    const leBarGraphWidget* _this - the widget to operate on
+    leBarGraphValueAxis axis - the axis to modify
+
+  Remarks:
+    Usage - _this->fn->getValueAxisSubticksPosition(_this, axis);
 
   Returns:
-    leBool - LE_TRUE if the axis gridlines are visible
-
-  Remarks:
-
+    leBarGraphTickPosition - the position value
 */
-LIB_EXPORT leBool leBarGraphWidget_GetGridLinesVisible(leBarGraphWidget* graph, leBarGraphValueAxis axis);
 
 // *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_SetGridLinesVisible(leBarGraphWidget* graph, leBarGraphValueAxis axis, leBool visible)
+/* Virtual Member Function:
+    leResult setValueAxisSubticksPosition(leBarGraphWidget* _this,
+                                          leBarGraphValueAxis axis,
+                                          leBarGraphTickPosition pos)
 
   Summary:
-    Shows/Hides the gridlines
+     Sets the value axis subticks position
 
   Description:
+     Sets the value axis subticks position
 
   Parameters:
-    leBarGraphWidget* graph - the widget
-    leBarGraphValueAxis axis - category ID
-    leBool visible - shows the gridlines if LE_TRUE
-
-  Returns:
-    leResult - the result of the operation
+    leBarGraphWidget* _this - the widget to operate on
+    leBarGraphValueAxis axis - the axis to modify
+    leBarGraphTickPosition pos - the position value
 
   Remarks:
-
-*/
-LIB_EXPORT leResult leBarGraphWidget_SetGridLinesVisible(leBarGraphWidget* graph, leBarGraphValueAxis axis, leBool visible);
-
-// *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_AddCategory(leBarGraphWidget* graph, uint32_t * id)
-
-  Summary:
-    Adds a category to the graph
-
-  Description:
-
-  Parameters:
-    leBarGraphWidget* graph - the widget
-    uint32_t * id - destination of the ID of the new category
+    Usage - _this->fn->setValueAxisSubticksPosition(_this, axis, pos);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leBarGraphWidget_AddCategory(leBarGraphWidget* graph, uint32_t * id);
 
 // *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_GetCategoryText(leBarGraphWidget* graph, uint32_t categoryID, leString * str)
+/* Virtual Member Function:
+    leBool getCategoryAxisTicksVisible(const leBarGraphWidget* _this)
 
   Summary:
-    Gets a copy of the string used to label the category
+     Gets the category axis ticks visible setting
 
   Description:
+     Gets the category axis ticks visible setting
 
   Parameters:
-    leBarGraphWidget* graph - the widget
-    uint32_t categoryID - category ID
-    leString * str - destination of the copied string
+    const leBarGraphWidget* _this - the widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getCategoryAxisTicksVisible(_this);
+
+  Returns:
+    leBool - the visibility setting
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setCategoryAxisTicksVisible(leBarGraphWidget* _this,
+                                         leBool vis)
+
+  Summary:
+     Sets the category axis ticks visible setting
+
+  Description:
+     Sets the category axis ticks visible setting
+
+  Parameters:
+    leBarGraphWidget* _this - the widget to operate on
+    leBool vis - the visbility setting
+
+  Remarks:
+    Usage - _this->fn->setCategoryAxisTicksVisible(_this, vis);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leBarGraphWidget_GetCategoryText(leBarGraphWidget* graph, uint32_t categoryID, leString * str);
 
 // *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_SetCategoryText(leBarGraphWidget* graph, uint32_t categoryID, leString str)
+/* Virtual Member Function:
+    leBarGraphTickPosition getCategoryAxisTicksPosition(const leBarGraphWidget* _this)
 
   Summary:
-    Sets the string used to label the category
+     Gets the category axis ticks position
 
   Description:
+     Gets the category axis ticks position
 
   Parameters:
-    leBarGraphWidget* graph - the widget
-    int32_t categoryID - category ID, if -1 the last category is assigned
-    leString str - the string to use
+    const leBarGraphWidget* _this - the widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getCategoryAxisTicksPosition(_this);
+
+  Returns:
+    leBarGraphTickPosition - the position value
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setCategoryAxisTicksPosition(leBarGraphWidget* _this,
+                                          leBarGraphTickPosition pos)
+
+  Summary:
+     Sets the category axis ticks position
+
+  Description:
+     Sets the category axis ticks position
+
+  Parameters:
+    leBarGraphWidget* _this - the widget to operate on
+    leBarGraphTickPosition pos - the position value
+
+  Remarks:
+    Usage - _this->fn->setCategoryAxisTicksPosition(_this, pos);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leBarGraphWidget_SetCategoryText(leBarGraphWidget* graph, int32_t categoryID, leString str);
 
 // *****************************************************************************
-/* Function:
-    leBool leBarGraphWidget_GetStacked(leBarGraphWidget* graph)
+/* Virtual Member Function:
+    leBool getCategoryAxisLabelsVisible(const leBarGraphWidget* _this)
 
   Summary:
-    Returns LE_TRUE if the bars are stacked
+     Gets the category axis labels visible setting
 
   Description:
+     Gets the category axis labels visible setting
 
   Parameters:
-    leBarGraphWidget* graph - the widget
+    const leBarGraphWidget* _this - the widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getCategoryAxisLabelsVisible(_this);
+
+  Returns:
+    leBool - the visibility setting
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setCategoryAxisLabelsVisible(leBarGraphWidget* _this,
+                                          leBool vis)
+
+  Summary:
+     Sets the category axis labels visible setting
+
+  Description:
+     Sets the category axis labels visible setting
+
+  Parameters:
+    leBarGraphWidget* _this - the widget to operate on
+    leBool vis - the visbility setting
+
+  Remarks:
+    Usage - _this->fn->setCategoryAxisLabelsVisible(_this, vis);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leBool leBarGraphWidget_GetStacked(leBarGraphWidget* graph);
 
 // *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_SetStacked(leBarGraphWidget* graph, leBool stacked)
+/* Virtual Member Function:
+    leResult addSeries(leBarGraphWidget* _this,
+                       uint32_t* seriesID)
 
   Summary:
-    Stacks the bar graph
+     Adds a data series to the graph
 
   Description:
+     Adds a data series to the graph
 
   Parameters:
-    leBarGraphWidget* graph - the widget
-    leBool stacked - if LE_TRUE, the bars are stacked
+    leBarGraphWidget* _this - the widget to operate on
+    uint32_t* seriesID - the ID of the new data series
+
+  Remarks:
+    Usage - _this->fn->addSeries(_this, seriesID);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leBarGraphWidget_SetStacked(leBarGraphWidget* graph, leBool stacked);
 
 // *****************************************************************************
-/* Function:
-    leBool leBarGraphWidget_GetCategoryAxisTicksVisible(leBarGraphWidget* graph)
+/* Virtual Member Function:
+    leScheme* getSeriesScheme(const leBarGraphWidget* _this,
+                              uint32_t seriesID)
 
   Summary:
-    Returns LE_TRUE if the category axis ticks are visible
+     Gets the scheme for a data series
 
   Description:
+     Gets the scheme for a data series
 
   Parameters:
-    leBarGraphWidget* graph - the widget
+    const leBarGraphWidget* _this - the widget to operate on
+    uint32_t seriesID - the series ID to modify
+
+  Remarks:
+    Usage - _this->fn->getSeriesScheme(_this, seriesID);
 
   Returns:
-    leBool - LE_TRUE if the category axis ticks are visible
-
-  Remarks:
-
+    leScheme* - the scheme in use
 */
-LIB_EXPORT leBool leBarGraphWidget_GetCategoryAxisTicksVisible(leBarGraphWidget* graph);
 
 // *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_SetCategoryAxisTicksVisible(leBarGraphWidget* graph, leBool visible)
+/* Virtual Member Function:
+    leResult setSeriesScheme(leBarGraphWidget* _this,
+                             uint32_t seriesID,
+                             const leScheme* schm)
 
   Summary:
-    Shows/Hides the category axis ticks
+     Sets a data series' scheme pointer
 
   Description:
+     Sets a data series' scheme pointer
 
   Parameters:
-    leBarGraphWidget* graph - the widget
-    leBool visible - if LE_TRUE, the axis ticks are shown
-
-  Returns:
-    leResult - the result of the operation
+    leBarGraphWidget* _this - the widget to operate on
+    uint32_t seriesID - the series ID to modify
+    const leScheme* schm - the scheme to use
 
   Remarks:
-
-*/
-LIB_EXPORT leResult leBarGraphWidget_SetCategoryAxisTicksVisible(leBarGraphWidget* graph, leBool visible);
-
-// *****************************************************************************
-/* Function:
-    leBool leBarGraphWidget_GetCategoryAxisLabelsVisible(leBarGraphWidget* graph)
-
-  Summary:
-    Returns LE_TRUE if the category axis labels are visible
-
-  Description:
-
-  Parameters:
-    leBarGraphWidget* graph - the widget
-
-  Returns:
-    leBool - LE_TRUE if the category axis labels are visible
-
-  Remarks:
-
-*/
-LIB_EXPORT leBool leBarGraphWidget_GetCategoryAxisLabelsVisible(leBarGraphWidget* graph);
-
-// *****************************************************************************
-/* Function:
-    LIB_EXPORT leResult leBarGraphWidget_SetCategoryAxisLabelsVisible(leBarGraphWidget* graph, leBool visible)
-
-  Summary:
-    Shows/Hides the category axis labels
-
-  Description:
-
-  Parameters:
-    leBarGraphWidget* graph - the widget
-    leBool visible - if LE_TRUE, the axis labels are shown
+    Usage - _this->fn->setSeriesScheme(_this, seriesID, schm);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leBarGraphWidget_SetCategoryAxisLabelsVisible(leBarGraphWidget* graph, leBool visible);
 
 // *****************************************************************************
-/* Function:
-    leBool leBarGraphWidget_GetFillGraphArea(leBarGraphWidget* graph)
+/* Virtual Member Function:
+    leResult addDataToSeries(leBarGraphWidget* _this,
+                             uint32_t seriesID,
+                             int32_t val,
+                             uint32_t* idx)
 
   Summary:
-    Returns LE_TRUE if the category axis labels are visible
+     Adds data to an existing series
 
   Description:
+     Adds data to an existing series
 
   Parameters:
-    leBarGraphWidget* graph - the widget
-
-  Returns:
-    leBool - LE_TRUE if the category axis labels are visible
+    leBarGraphWidget* _this - the widget to operate on
+    uint32_t seriesID - the series index to modify
+    uint32_t val - value to add
+    uint32_t* idx - the index of the new data value
 
   Remarks:
-
-*/
-LIB_EXPORT leBool leBarGraphWidget_GetFillGraphArea(leBarGraphWidget* graph);
-
-// *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_SetFillGraphArea(leBarGraphWidget* graph, leBool fill)
-
-  Summary:
-    Sets the graph area filled or not
-
-  Description:
-
-  Parameters:
-    leBarGraphWidget* graph - the widget
-    leBool fill - if LE_TRUE, fills the graph area
+    Usage - _this->fn->addDataToSeries(_this, seriesID, val, idx);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leBarGraphWidget_SetFillGraphArea(leBarGraphWidget* graph, leBool fill);
 
 // *****************************************************************************
-/* Function:
-    leBarGraphTickPosition leBarGraphWidget_GetValueAxisTicksPosition(leBarGraphWidget* graph, leBarGraphValueAxis axis)
+/* Virtual Member Function:
+    leResult setDataInSeries(leBarGraphWidget* _this,
+                             uint32_t seriesID,
+                             uint32_t index,
+                             int32_t value)
 
   Summary:
-    Returns the position of the ticks in the axis
+     Sets data in an existing series
 
   Description:
+     Sets data in an existing series
 
   Parameters:
-    leBarGraphWidget* graph - the widget
-    leBarGraphValueAxis axis - the index of the value axis
-
-  Returns:
-    leBarGraphTickPosition - the tick position
+    leBarGraphWidget* _this - the widget to operate on
+    uint32_t seriesID - the series index to modify
+    uint32_t index - the index value to modify
+    int32_t value - the value to set
 
   Remarks:
-
-*/
-LIB_EXPORT leBarGraphTickPosition leBarGraphWidget_GetValueAxisTicksPosition(leBarGraphWidget* graph, leBarGraphValueAxis axis);
-
-// *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_SetValueAxisTicksPosition(leBarGraphWidget* graph, leBarGraphValueAxis axis, leBarGraphTickPosition position)
-
-  Summary:
-    Sets the position of the ticks in the value axis
-
-  Description:
-
-  Parameters:
-    leBarGraphWidget* graph - the widget
-    leBarGraphValueAxis axis - the value axis index
-    leBarGraphTickPosition position - the tick position
+    Usage - _this->fn->setDataInSeries(_this, seriesID, index, value);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leBarGraphWidget_SetValueAxisTicksPosition(leBarGraphWidget* graph, leBarGraphValueAxis axis, leBarGraphTickPosition position);
 
 // *****************************************************************************
-/* Function:
-    leBarGraphTickPosition leBarGraphWidget_GetValueAxisSubticksPosition(leBarGraphWidget* graph, leBarGraphValueAxis axis)
+/* Virtual Member Function:
+    leResult clearData(leBarGraphWidget* _this)
 
   Summary:
-    Returns the position of the subticks in the axis
+     Clears all series data from the table
 
   Description:
+     Clears all series data from the table
 
   Parameters:
-    leBarGraphWidget* graph - the widget
-    leBarGraphValueAxis axis - the index of the value axis
-
-  Returns:
-    leBarGraphTickPosition - the subtick position
+    leBarGraphWidget* _this - the widget to operate on
 
   Remarks:
-
-*/
-LIB_EXPORT leBarGraphTickPosition leBarGraphWidget_GetValueAxisSubticksPosition(leBarGraphWidget* graph, leBarGraphValueAxis axis);
-
-// *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_SetValueAxisSubticksPosition(leBarGraphWidget* graph, leBarGraphValueAxis axis, leBarGraphTickPosition position)
-
-  Summary:
-    Sets the position of the subticks in the value axis
-
-  Description:
-
-  Parameters:
-    leBarGraphWidget* graph - the widget
-    leBarGraphValueAxis axis - the value axis index
-    leBarGraphTickPosition position  - position of the subticks
+    Usage - _this->fn->clearData(_this);
 
   Returns:
     leResult - the result of the operation
-
-  Remarks:
-
 */
-LIB_EXPORT leResult leBarGraphWidget_SetValueAxisSubticksPosition(leBarGraphWidget* graph, leBarGraphValueAxis axis, leBarGraphTickPosition position);
 
 // *****************************************************************************
-/* Function:
-    leBarGraphTickPosition leBarGraphWidget_GetCategoryAxisTicksPosition(leBarGraphWidget* graph)
+/* Virtual Member Function:
+    leFont* getTicksLabelFont(leBarGraphWidget* _this)
 
   Summary:
-    Returns the position of the ticks in the category axis
+     Gets the font to use for rendering tick labels
 
   Description:
+     Gets the font to use for rendering tick labels
 
   Parameters:
-    leBarGraphWidget* graph - the widget
+    leBarGraphWidget* _this - the widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getTicksLabelFont(_this);
 
   Returns:
-    leBarGraphTickPosition - position of the ticks in the category axis
-
-  Remarks:
-
+    leFont* - the font in use
 */
-LIB_EXPORT leBarGraphTickPosition leBarGraphWidget_GetCategoryAxisTicksPosition(leBarGraphWidget* graph);
 
 // *****************************************************************************
-/* Function:
-    leResult leBarGraphWidget_SetCategoryAxisTicksPosition(leBarGraphWidget* graph, leBarGraphTickPosition position)
+/* Virtual Member Function:
+    leResult setTicksLabelFont(leBarGraphWidget* _this,
+                               const leFont* font)
 
   Summary:
-    Sets the position of the ticks in the category axis
+     Sets the font to use for rendering tick labels
 
   Description:
+     Sets the font to use for rendering tick labels
 
   Parameters:
-    leBarGraphWidget* graph - the widget
-    leBarGraphTickPosition position  - position of the ticks
+    leBarGraphWidget* _this - the widget to operate on
+    const leFont* font - the font to use
+
+  Remarks:
+    Usage - _this->fn->setTicksLabelFont(_this, font);
 
   Returns:
     leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leBool getGridLinesVisible(const leBarGraphWidget* _this,
+                               leBarGraphValueAxis axis)
+
+  Summary:
+     Gets the visible grid lines setting
+
+  Description:
+     Gets the visible grid lines setting
+
+  Parameters:
+    const leBarGraphWidget* _this - the widget to operate on
+    leBarGraphValueAxis axis - the axis to modify
 
   Remarks:
+    Usage - _this->fn->getGridLinesVisible(_this, axis);
 
+  Returns:
+    leBool - the visibility setting
 */
-LIB_EXPORT leResult leBarGraphWidget_SetCategoryAxisTicksPosition(leBarGraphWidget* graph, leBarGraphTickPosition position);
 
-// DOM-IGNORE-BEGIN
-//Internal use only
-void _leBarGraphWidget_GetGraphRect(leBarGraphWidget* graph,
-                                           leRect * graphRect);
-// DOM-IGNORE-END
-#endif
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setGridLinesVisible(leBarGraphWidget* _this,
+                                 leBarGraphValueAxis axis,
+                                 leBool vis)
+
+  Summary:
+     Sets the visibility of the grid lines
+
+  Description:
+     Sets the visibility of the grid lines
+
+  Parameters:
+    leBarGraphWidget* _this - the widget to operate on
+    leBarGraphValueAxis axis - the axis to modify
+    leBool vis - the visbility setting
+
+  Remarks:
+    Usage - _this->fn->setGridLinesVisible(_this, axis, vis);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult addCategory(leBarGraphWidget* _this,
+                         uint32_t* id)
+
+  Summary:
+     Adds a data category
+
+  Description:
+     Adds a data category
+
+  Parameters:
+    leBarGraphWidget* _this - the widget to operate on
+    uint32_t* id - will contain the ID of the newly added category
+
+  Remarks:
+    Usage - _this->fn->addCategory(_this, id);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leString* getCategoryString(const leBarGraphWidget* _this,
+                                uint32_t id)
+
+  Summary:
+     Gets the string currently assigned to a category
+
+  Description:
+     Gets the string currently assigned to a category
+
+  Parameters:
+    const leBarGraphWidget* _this - the widget to operate on
+    uint32_t id - the ID of the category to query
+
+  Remarks:
+    Usage - _this->fn->getCategoryString(_this, id);
+
+  Returns:
+    leString* - the string in use
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setCategoryString(leBarGraphWidget* _this,
+                               uint32_t id,
+                               const leString* str)
+
+  Summary:
+     Assigns a string to a category
+
+  Description:
+     Assigns a string to a category
+
+  Parameters:
+    leBarGraphWidget* _this - the widget to operate on
+    uint32_t id - the ID of the category to modify
+    const leString* str - the string to use
+
+  Remarks:
+    Usage - _this->fn->setCategoryString(_this, id, str);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leBool getStacked(const leBarGraphWidget* _this)
+
+  Summary:
+     Gets the stacked setting
+
+  Description:
+     Gets the stacked setting
+
+  Parameters:
+    const leBarGraphWidget* _this - the widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getStacked(_this);
+
+  Returns:
+    leBool - the stacked setting
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setStacked(leBarGraphWidget* _this,
+                        leBool stk)
+
+  Summary:
+     Sets the stacked setting
+
+  Description:
+     Sets the stacked setting
+
+  Parameters:
+    leBarGraphWidget* _this - the widget to operate on
+    leBool stk - the stacked setting
+
+  Remarks:
+    Usage - _this->fn->setStacked(_this, stk);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leBool getFillGraphArea(const leBarGraphWidget* _this)
+
+  Summary:
+     Gets the graph fill setting
+
+  Description:
+     Gets the graph fill setting
+
+  Parameters:
+    const leBarGraphWidget* _this - the widget to operate on
+
+  Remarks:
+    Usage - _this->fn->getFillGraphArea(_this);
+
+  Returns:
+    leBool - the fill setting
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setFillGraphArea(leBarGraphWidget* _this,
+                              leBool fill)
+
+  Summary:
+     Sets the graph fill setting
+
+  Description:
+     Sets the graph fill setting
+
+  Parameters:
+    leBarGraphWidget* _this - the widget to operate on
+    leBool fill - the fill setting
+
+  Remarks:
+    Usage - _this->fn->setFillGraphArea(_this, fill);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+
 
 #endif // LE_BARGRAPH_WIDGET_ENABLED
 #endif /* LEGATO_WIDGET_BAR_GRAPH_H */

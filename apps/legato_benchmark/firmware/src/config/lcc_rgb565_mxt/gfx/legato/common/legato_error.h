@@ -8,10 +8,10 @@
     legato_error.h
 
   Summary:
-    Defines an interface to get and store a global error message.
+    Defines library assert macros.
 
   Description:
-    Error message interface.
+    Defines library assert macros.
 *******************************************************************************/
 
 // DOM-IGNORE-BEGIN
@@ -53,6 +53,7 @@
 #include <assert.h>
 #endif
 
+/* controls whether library-wide asserts are enabled */
 #if LE_ASSERT_ENABLE == 1
 #define LE_ASSERT(val)          assert(val)
 #define LE_ASSERT_MSG(val, msg) for ( ; !(val) ; assert(val) ) { leSetErrorMessage(msg); }
@@ -73,9 +74,66 @@
 
 #if LE_ASSERT_ENABLE == 1
 
-LIB_EXPORT const char* leGetErrorMessage();
+// *****************************************************************************
+/* Function:
+    const char* leGetErrorMessage()
 
+  Summary:
+    Gets the library global error message.
+
+  Description:
+    Gets the library global error message.
+
+  Parameters:
+
+  Returns:
+    const char* msg - the error message
+
+  Remarks:
+
+*/
+
+const char* leGetErrorMessage();
+
+// *****************************************************************************
+/* Function:
+    void leSetErrorMessage(const char* msg)
+
+  Summary:
+    Sets the library global error message.
+
+  Description:
+    Sets the library global error message.
+
+  Parameters:
+    const char* msg - the error message
+
+  Returns:
+
+  Remarks:
+
+*/
 void leSetErrorMessage(const char* msg);
+
+// *****************************************************************************
+/* Function:
+    void leSetErrorMessage(const char* fmt, ...)
+
+  Summary:
+    Sets the library global error message using a formatted string.
+
+  Description:
+    Sets the library global error message using a formatted string.
+
+  Parameters:
+    const char* fmt - the formatted error message string
+    varargs - the arguments to the formatted string
+
+  Returns:
+
+  Remarks:
+
+*/
 void leSprintfErrorMessage(const char* fmt, ...);
 
 #endif     

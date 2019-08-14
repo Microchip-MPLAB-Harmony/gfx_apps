@@ -30,8 +30,11 @@ leWidget* screenGetRoot_SplashScreen(uint32_t lyrIdx); // gets a root widget for
 
 // event handlers
 void SplashScreen_OnShow(void);
+
 void SplashScreen_OnHide(void);
+
 void SplashScreen_OnUpdate(void);
+
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

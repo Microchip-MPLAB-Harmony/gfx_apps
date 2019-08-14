@@ -428,36 +428,5 @@ leResult lePixelBufferAreaFill_Unsafe(const lePixelBuffer* const buffer,
         memcpy(destIdx, srcIdx, rowSize);
     }
 
-    // fill the first row
-    /*for(col = 0; col < col_max; col++)
-    {
-        drawX = x + col;
-
-        // set dest pixel
-        lePixelBufferSet_Unsafe(buffer, drawX, y, color);
-    }
-
-    for(row = 1; row < row_max; row++)
-    {
-        idx = (uint8_t*)buffer->pixels + (rowSize * row);
-
-        memcpy(idx, buffer->pixels, rowSize);
-    }*/
-
-    /*uint32_t drawY;
-    
-    for(row = 0; row < row_max; row++)
-    {
-        drawY = y + row;
-        
-        for(col = 0; col < col_max; col++)
-        {
-            drawX = x + col;
-            
-            // set dest pixel
-            lePixelBufferSet_Unsafe(buffer, drawX, drawY, color);
-        }
-    }*/
-
     return LE_SUCCESS;
 }

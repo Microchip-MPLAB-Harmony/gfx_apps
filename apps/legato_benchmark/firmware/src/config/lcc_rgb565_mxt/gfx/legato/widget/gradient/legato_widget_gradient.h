@@ -120,57 +120,73 @@ typedef struct leGradientWidget
     leGradientWidget*
 
   Remarks:
-
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leGradientWidget* leGradientWidget_New();
 
+/* Function:
+    void leGradientWidget_Constructor(leGradientWidget* wgt)
+
+  Summary:
+    Initializes an leGradientWidget widget pointer.
+
+  Description:
+    Initializes an leGradientWidget widget pointer.
+
+  Parameters:
+    leGradientWidget* wgt - the pointer to initialize
+
+  Returns:
+    void
+
+  Remarks:
+
+*/
 LIB_EXPORT void leGradientWidget_Constructor(leGradientWidget* grad);
 
-#if 0
 // *****************************************************************************
-/* Function:
-    leDirection leGradientWidget_GetDirection(leGradientWidget* grad)
+/* Virtual Member Function:
+    leDirection getDirection(const leGradientWidget* _this)
 
   Summary:
-    Gets the gradient direction value for this widget.
+     Gets the gradient direction
 
   Description:
-
+     Gets the gradient direction
 
   Parameters:
-    leGradientWidget* grad - the widget
-
-  Returns:
-    leDirection - the current gradient direction
+    const leGradientWidget* _this - The gradient to operate on
 
   Remarks:
+    Usage - _this->fn->getDirection(_this);
 
+  Returns:
+    leDirection - the direction
 */
-LIB_EXPORT leDirection leGradientWidget_GetDirection(leGradientWidget* grad);
 
 // *****************************************************************************
-/* Function:
-    leResult leGradientWidget_SetDirection(leGradientWidget* grad, leDirection dir)
+/* Virtual Member Function:
+    leResult setDirection(leGradientWidget* _this,
+                          leDirection dir)
 
   Summary:
-    Sets the gradient direction value for this widget.
+     Sets the gradient direction
 
   Description:
-
+     Sets the gradient direction
 
   Parameters:
-    leGradientWidget* grad - the widget
-    leDirection dir - the desired gradient direction
-
-  Returns:
-    leResult - the operation result
+    leGradientWidget* _this - The gradient to operate on
+    leDirection dir - the direction
 
   Remarks:
+    Usage - _this->fn->setDirection(_this, dir);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leGradientWidget_SetDirection(leGradientWidget* grad, leDirection dir);
 
-#endif
+
 
 #endif // LE_GRADIENT_WIDGET_ENABLED
 #endif /* LEGATO_RECTANGLE_H */

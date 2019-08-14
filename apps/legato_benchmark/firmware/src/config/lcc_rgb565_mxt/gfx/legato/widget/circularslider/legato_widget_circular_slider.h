@@ -265,731 +265,659 @@ typedef struct leCircularSliderWidget
     leCircularSliderWidget*
 
   Remarks:
-
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leCircularSliderWidget* leCircularSliderWidget_New();
 
+/* Function:
+    void leCircularSliderWidget_Constructor(leCircularSliderWidget* wgt)
+
+  Summary:
+    Initializes an leCircularSliderWidget widget pointer.
+
+  Description:
+    Initializes an leCircularSliderWidget widget pointer.
+
+  Parameters:
+    leCircularSliderWidget* wgt - the pointer to initialize
+
+  Returns:
+    void
+
+  Remarks:
+
+*/
 LIB_EXPORT void leCircularSliderWidget_Constructor(leCircularSliderWidget* slider);
 
-#if 0
 // *****************************************************************************
-/* Function:
-    leResult leCircularSliderWidget_GetOrigin(leCircularSliderWidget* slider, int32_t* x, int32_t* y)
+/* Virtual Member Function:
+    uint32_t getRadius(const leCircularSliderWidget* _this)
 
   Summary:
-    Gets the origin coordinates of a slider widget
+     Gets the radius value
 
   Description:
-
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-    int32_t* x - pointer to an integer pointer to store x
-    int32_t* y - pointer to an integer pointer to store y
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leCircularSliderWidget_GetOrigin(leCircularSliderWidget* slider, int32_t* x, int32_t* y);
-
-// *****************************************************************************
-/* Function:
-    leResult leCircularSliderWidget_SetOrigin(leCircularSliderWidget* slider, int32_t x, int32_t y)
-
-  Summary:
-    Sets the origin coordiates of a slider widget
-
-  Description:
-
+     Gets the radius value
 
   Parameters:
-    leCircularSliderWidget* slider - the widget
-    int32_t x - the desired x origin coordinate
-    int32_t y - the desired y origin coordinate
-
-  Returns:
-    leResult - the operation result
+    const leCircularSliderWidget* _this - The slider to operate on
 
   Remarks:
-
-*/
-LIB_EXPORT leResult leCircularSliderWidget_SetOrigin(leCircularSliderWidget* slider, int32_t x, int32_t y);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leCircularSliderWidget_GetRadius(leCircularSliderWidget* slider)
-
-  Summary:
-    Gets the radius of a slider widget
-
-  Description:
-
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
+    Usage - _this->fn->getRadius(_this);
 
   Returns:
-    uint32_t
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leCircularSliderWidget_GetRadius(leCircularSliderWidget* slider);
-
-// *****************************************************************************
-/* Function:
-    leResult leCircularSliderWidget_SetRadius(leCircularSliderWidget* slider, uint32_t rad)
-
-  Summary:
-    Sets the radius of a slider widget
-
-  Description:
-
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-    uint32_t red - the desired radius value
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leCircularSliderWidget_SetRadius(leCircularSliderWidget* slider, uint32_t rad);
-
-// *****************************************************************************
-/* Function:
-    int32_t leCircularSliderWidget_GetStartAngle(leCircularSliderWidget* slider)
-
-  Summary:
-    Returns the start angle of a slider widget
-
-  Description:
-
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-
-  Returns:
-    uint32_t
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leCircularSliderWidget_GetStartAngle(leCircularSliderWidget* slider);
-
-// *****************************************************************************
-/* Function:
-    leResult leCircularSliderWidget_SetStartAngle(leCircularSliderWidget* slider, int32_t angle)
-
-  Summary:
-    Sets the start angle of a slider widget
-
-  Description:
-
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-    int32_t angle - the desired start angle value
-
-  Returns:
-    leResult - the operation result
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leCircularSliderWidget_SetStartAngle(leCircularSliderWidget* slider, uint32_t angle);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leCircularSliderWidget_GetArcThickness(leCircularSliderWidget* slider, leCircularSliderWidgetArcType type)
-
-  Summary:
-    Returns the thickness of an arc in the slider widget
-
-  Description:
-
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-    leCircularSliderWidgetArcType type - the type of arc
-
-  Returns:
-    uint32_t
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leCircularSliderWidget_GetArcThickness(leCircularSliderWidget* slider,
-                                                           leCircularSliderWidgetArcType type);
-
-// *****************************************************************************
-/* Function:
-    leResult leCircularSliderWidget_SetArcThickness(leCircularSliderWidget* slider,
-                                                    leCircularSliderWidgetArcType type,
-                                                    uint32_t thickness)
-
-  Summary:
-    Sets the thickness of an arc in the slider widget
-
-  Description:
-
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-    leCircularSliderWidgetArcType type - the type of arc
-    uint32_t thickness - the thickness of the arc
-
-  Returns:
-    leResult
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leCircularSliderWidget_SetArcThickness(leCircularSliderWidget* slider,
-                                                           leCircularSliderWidgetArcType type,
-                                                           uint32_t thickness);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leCircularSliderWidget_GetArcRadius(leCircularSliderWidget* slider, leCircularSliderWidgetArcType type)
-
-  Summary:
-    Returns the radius of an arc in the slider widget
-
-  Description:
-
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-    leCircularSliderWidgetArcType type - the type of arc
-
-  Returns:
-    uint32_t
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leCircularSliderWidget_GetArcRadius(leCircularSliderWidget* slider,
-                                                        leCircularSliderWidgetArcType type);
-
-// *****************************************************************************
-/* Function:
-    leResult leCircularSliderWidget_SetStartValue(leCircularSliderWidget* slider, uint32_t value)
-
-  Summary:
-    Sets the start value of the slider widget
-
-  Description:
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-    uint32_t value
-
-  Returns:
-    leResult
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leCircularSliderWidget_SetArcRadius(leCircularSliderWidget* slider,
-                                                        leCircularSliderWidgetArcType type,
-                                                        uint32_t radius);
-
-// *****************************************************************************
-/* Function:
-    leScheme * leCircularSliderWidget_GetArcScheme(leCircularSliderWidget* slider, leCircularSliderWidgetArcType type)
-
-  Summary:
-    Returns the scheme of an arc in the slider widget
-
-  Description:
-
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-    leCircularSliderWidgetArcType type - the type of arc
-
-  Returns:
-    leScheme *
-
-  Remarks:
-
-*/
-LIB_EXPORT leScheme * leCircularSliderWidget_GetArcScheme(leCircularSliderWidget* slider,
-                                                          leCircularSliderWidgetArcType type);
-
-// *****************************************************************************
-/* Function:
-    leResult leCircularSliderWidget_SetArcScheme(leCircularSliderWidget* slider,
-                                                        leCircularSliderWidgetArcType type,
-                                                        leScheme * scheme)
-
-  Summary:
-    Sets the scheme of the specified arc
-
-  Description:
-
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-    leCircularSliderWidgetArcType type - the type of arc
-    leScheme * scheme - scheme
-
-  Returns:
-    leBool
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leCircularSliderWidget_SetArcScheme(leCircularSliderWidget* slider,
-                                                        leCircularSliderWidgetArcType type,
-                                                        leScheme * scheme);
-
-// *****************************************************************************
-/* Function:
-    leBool leCircularSliderWidget_GetArcVisible(leCircularSliderWidget* slider, leCircularSliderWidgetArcType type)
-
-  Summary:
-    Returns true if the specified arc is visible
-
-  Description:
-
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-    leCircularSliderWidgetArcType type - the type of arc
-
-  Returns:
-    leBool
-
-  Remarks:
-
-*/
-LIB_EXPORT leBool leCircularSliderWidget_GetArcVisible(leCircularSliderWidget* slider,
-                                                         leCircularSliderWidgetArcType type);
-
-// *****************************************************************************
-/* Function:
-    leResult leCircularSliderWidget_SetArcVisible(leCircularSliderWidget* slider,
-                                                         leCircularSliderWidgetArcType type,
-                                                         leBool visible)
-
-  Summary:
-    Shows/Hides the specified arc visible
-
-  Description:
-
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-    leCircularSliderWidgetArcType type - the type of arc
-    leBool visible - show/hide
-
-  Returns:
-    leBool
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leCircularSliderWidget_SetArcVisible(leCircularSliderWidget* slider,
-                                                         leCircularSliderWidgetArcType type,
-                                                         leBool visible);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leCircularSliderWidget_GetStartValue(leCircularSliderWidget* slider)
-
-  Summary:
-    Gets the start value of the slider widget
-
-  Description:
-
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-
-  Returns:
-    uint32_t
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leCircularSliderWidget_GetStartValue(leCircularSliderWidget* slider);
-
-// *****************************************************************************
-/* Function:
-    leResult leCircularSliderWidget_SetStartValue(leCircularSliderWidget* slider, uint32_t value)
-
-  Summary:
-    Sets the start value of the slider widget
-
-  Description:
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-    uint32_t value
-
-  Returns:
-    leResult
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leCircularSliderWidget_SetStartValue(leCircularSliderWidget* slider, uint32_t value);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leCircularSliderWidget_GetEndValue(leCircularSliderWidget* slider)
-
-  Summary:
-    Gets the end value of the slider widget
-
-  Description:
-
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-
-  Returns:
-    uint32_t
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leCircularSliderWidget_GetEndValue(leCircularSliderWidget* slider);
-
-// *****************************************************************************
-/* Function:
-    leResult leCircularSliderWidget_SetEndValue(leCircularSliderWidget* slider, uint32_t value)
-
-  Summary:
-    Sets the end value of the slider widget
-
-  Description:
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-    uint32_t value
-
-  Returns:
-    leResult
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leCircularSliderWidget_SetEndValue(leCircularSliderWidget* slider, uint32_t value);
-
-// *****************************************************************************
-/* Function:
-    uint32_t leCircularSliderWidget_GetValue(leCircularSliderWidget* slider)
-
-  Summary:
-    Gets the value of the slider widget
-
-  Description:
-
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-
-  Returns:
-    uint32_t
-
-  Remarks:
-
-*/
-LIB_EXPORT uint32_t leCircularSliderWidget_GetValue(leCircularSliderWidget* slider);
-
-// *****************************************************************************
-/* Function:
-    leResult leCircularSliderWidget_SetValue(leCircularSliderWidget* slider, uint32_t value)
-
-  Summary:
-    Sets the value of the slider widget
-
-  Description:
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-    uint32_t value
-
-  Returns:
-    leResult
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leCircularSliderWidget_SetValue(leCircularSliderWidget* slider, uint32_t value);
-
-// *****************************************************************************
-/* Function:
-    leBool leCircularSliderWidget_GetRoundEdges(leCircularSliderWidget* slider)
-
-  Summary:
-    Returns true if the slider has rounded edges
-
-  Description:
-
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-
-  Returns:
-    leBool
-
-  Remarks:
-
-*/
-LIB_EXPORT leBool leCircularSliderWidget_GetRoundEdges(leCircularSliderWidget* slider);
-
-// *****************************************************************************
-/* Function:
-    leResult leCircularSliderWidget_SetRoundEdges(leCircularSliderWidget* slider, leBool round)
-
-  Summary:
-    If round = true, the slider active area edges are round
-
-  Description:
-
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-    leBool round
-
-  Returns:
-    leResult
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leCircularSliderWidget_SetRoundEdges(leCircularSliderWidget* slider, leBool round);
-
-// *****************************************************************************
-/* Function:
-    leBool leCircularSliderWidget_GetStickyButton(leCircularSliderWidget* slider)
-
-  Summary:
-    Returns true if the slider button sticks to the start/end value
-
-  Description:
-
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-
-  Returns:
-    leBool
-
-  Remarks:
-
-*/
-LIB_EXPORT leBool leCircularSliderWidget_GetStickyButton(leCircularSliderWidget* slider);
-
-// *****************************************************************************
-/* Function:
-    leResult leCircularSliderWidget_SetStickyButton(leCircularSliderWidget* slider, leBool c)
-
-  Summary:
-    If snap = true, the slider button sticks to the start/end value of the slider
-
-  Description:
-    When sticky is enabled, the slider button will not immediately wrap past the start or end value
-    if the button is dragged past the start angle. If the button is dragged past the threshold of 90 degrees
-    beyond the start angle, only then will the slider value wrap around.
-
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-    leBool sticky - set button as sticky
-
-  Returns:
-    leResult
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leCircularSliderWidget_SetStickyButton(leCircularSliderWidget* slider, leBool sticky);
-
-
-// *****************************************************************************
-/* Function:
-    leCircularSliderWidgetDir leCircularSliderWidget_GetDirection(leCircularSliderWidget* slider)
-
-  Summary:
-    Returns direction of the slider widget
-
-  Description:
-
-
-  Parameters:
-    leCircularSliderWidget* slider - the widget
-
-  Returns:
-    leCircularSliderWidgetDir
-
-  Remarks:
-
+    uint32_t - the radius value
 */
 
 // *****************************************************************************
-/* Function:
-    leBool leCircularSliderWidget_GetTouchOnButtonOnly(leCircularSliderWidget* slider)
+/* Virtual Member Function:
+    leResult setRadius(leCircularSliderWidget* _this,
+                       uint32_t rad)
 
   Summary:
-    Returns true if the slider slider only responds to touch inside the button area
+     Sets the radius value
 
   Description:
-
+     Sets the radius value
 
   Parameters:
-    leCircularSliderWidget* slider - the widget
-
-  Returns:
-    leBool
+    leCircularSliderWidget* _this - The slider to operate on
+    uint32_t rad - the radius value
 
   Remarks:
+    Usage - _this->fn->setRadius(_this, rad);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leBool leCircularSliderWidget_GetTouchOnButtonOnly(leCircularSliderWidget* slider);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularSliderWidget_SetTouchOnButtonOnly(leCircularSliderWidget* slider, leBool buttonOnly)
+/* Virtual Member Function:
+    uint32_t getStartAngle(const leCircularSliderWidget* _this)
 
   Summary:
-    If buttonOnly = true, the slider will only respond to touches inside the button area
+     Gets the start angle
 
   Description:
+     Gets the start angle
 
   Parameters:
-    leCircularSliderWidget* slider - the widget
-    leBool buttonOnly - set touch to button only
-
-  Returns:
-    leResult
+    const leCircularSliderWidget* _this - The slider to operate on
 
   Remarks:
+    Usage - _this->fn->getStartAngle(_this);
 
+  Returns:
+    uint32_t - the angle value
 */
-LIB_EXPORT leResult leCircularSliderWidget_SetTouchOnButtonOnly(leCircularSliderWidget* slider, leBool buttonOnly);
-
 
 // *****************************************************************************
-/* Function:
-    leCircularSliderWidgetDir leCircularSliderWidget_GetDirection(leCircularSliderWidget* slider)
+/* Virtual Member Function:
+    leResult setStartAngle(leCircularSliderWidget* _this,
+                           uint32_t ang)
 
   Summary:
-    Returns direction of the slider widget
+     Sets the start angle
 
   Description:
-
+     Sets the start angle
 
   Parameters:
-    leCircularSliderWidget* slider - the widget
-
-  Returns:
-    leCircularSliderWidgetDir
+    leCircularSliderWidget* _this - The slider to operate on
+    uint32_t ang - the angle value
 
   Remarks:
+    Usage - _this->fn->setStartAngle(_this, ang);
 
+  Returns:
+    leResult - the result of the operation
 */
-
-LIB_EXPORT leCircularSliderWidgetDir leCircularSliderWidget_GetDirection(leCircularSliderWidget* slider);
 
 // *****************************************************************************
-/* Function:
-    leResult leCircularSliderWidget_SetDirection(leCircularSliderWidget* slider, leCircularSliderWidgetDir dir)
+/* Virtual Member Function:
+    uint32_t getArcThickness(const leCircularSliderWidget* _this,
+                             leCircularSliderWidgetArcType type)
 
   Summary:
-    Sets the direction of the slider widget
+     Gets the arc thickness value
 
   Description:
-
+     Gets the arc thickness value
 
   Parameters:
-    leCircularSliderWidget* slider - the widget
-    leCircularSliderWidgetDir dir - direction
-
-  Returns:
-    leResult
+    const leCircularSliderWidget* _this - The slider to operate on
+    leCircularSliderWidgetArcType type - the type
 
   Remarks:
+    Usage - _this->fn->getArcThickness(_this, type);
 
+  Returns:
+    uint32_t - the thickness value
 */
-LIB_EXPORT leResult leCircularSliderWidget_SetDirection(leCircularSliderWidget* slider, leCircularSliderWidgetDir dir);
-
 
 // *****************************************************************************
-/* Function:
-    leCircularSliderWidget_SetPressedEventCallback(leCircularSliderWidget* slider, leCircularSliderWidget_ValueChangedEvent cb)
+/* Virtual Member Function:
+    leResult setArcThickness(leCircularSliderWidget* _this,
+                             leCircularSliderWidgetArcType type,
+                             uint32_t thck)
 
   Summary:
-    Sets the function that gets called when the slider button is pressed
+     Sets the arc thickness value
 
   Description:
-
+     Sets the arc thickness value
 
   Parameters:
-    leCircularSliderWidget* slider - the widget
-    leCircularSliderWidget_PressedEvent cb - the callback function
-
-  Returns:
-    leResult
+    leCircularSliderWidget* _this - The slider to operate on
+    leCircularSliderWidgetArcType type - the type
+    uint32_t thck - the thickness value
 
   Remarks:
+    Usage - _this->fn->setArcThickness(_this, type, thck);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leCircularSliderWidget_SetPressedEventCallback(leCircularSliderWidget* slider, leCircularSliderWidget_PressedEvent cb);
 
 // *****************************************************************************
-/* Function:
-    leCircularSliderWidget_SetValueChangedEventCallback(leCircularSliderWidget* slider, leCircularSliderWidget_ValueChangedEvent cb)
+/* Virtual Member Function:
+    uint32_t getArcRadius(const leCircularSliderWidget* _this,
+                          leCircularSliderWidgetArcType type)
 
   Summary:
-    Sets the function that gets called when the slider value changes
+     Gets the arc radius
 
   Description:
-
+     Gets the arc radius
 
   Parameters:
-    leCircularSliderWidget* slider - the widget
-    leCircularSliderWidget_ValueChangedEvent cb - the callback function
-
-  Returns:
-    leResult
+    const leCircularSliderWidget* _this - The slider to operate on
+    leCircularSliderWidgetArcType type - the type
 
   Remarks:
+    Usage - _this->fn->getArcRadius(_this, type);
 
+  Returns:
+    uint32_t - the radius value
 */
-LIB_EXPORT leResult leCircularSliderWidget_SetValueChangedEventCallback(leCircularSliderWidget* slider, leCircularSliderWidget_ValueChangedEvent cb);
 
 // *****************************************************************************
-/* Function:
-    leCircularSliderWidget_SetReleasedEventCallback(leCircularSliderWidget* slider, leCircularSliderWidget_ReleasedEvent cb)
+/* Virtual Member Function:
+    leResult setArcRadius(leCircularSliderWidget* _this,
+                          leCircularSliderWidgetArcType type,
+                          uint32_t rad)
 
   Summary:
-    Sets the function that gets called when the slider button is released
+     Sets the arc radius
 
   Description:
-
+     Sets the arc radius
 
   Parameters:
-    leCircularSliderWidget* slider - the widget
-    leCircularSliderWidget_ReleasedEvent cb - the callback function
-
-  Returns:
-    leResult
+    leCircularSliderWidget* _this - The slider to operate on
+    leCircularSliderWidgetArcType type - the type
+    uint32_t rad - the radius value
 
   Remarks:
+    Usage - _this->fn->setArcRadius(_this, type, rad);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leCircularSliderWidget_SetReleasedEventCallback(leCircularSliderWidget* slider, leCircularSliderWidget_ReleasedEvent cb);
-#endif
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leScheme* getArcScheme(const leCircularSliderWidget* _this,
+                           leCircularSliderWidgetArcType type)
+
+  Summary:
+     Gets the arc scheme
+
+  Description:
+     Gets the arc scheme
+
+  Parameters:
+    const leCircularSliderWidget* _this - The slider to operate on
+    leCircularSliderWidgetArcType type - the type
+
+  Remarks:
+    Usage - _this->fn->getArcScheme(_this, type);
+
+  Returns:
+    leScheme* - the scheme pointer
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setArcScheme(leCircularSliderWidget* _this,
+                          leCircularSliderWidgetArcType type,
+                          const leScheme* schm)
+
+  Summary:
+     Sets the arc scheme
+
+  Description:
+     Sets the arc scheme
+
+  Parameters:
+    leCircularSliderWidget* _this - The slider to operate on
+    leCircularSliderWidgetArcType type - the type
+    const leScheme* schm - the scheme pointer
+
+  Remarks:
+    Usage - _this->fn->setArcScheme(_this, type, schm);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leBool getArcVisible(const leCircularSliderWidget* _this,
+                         leCircularSliderWidgetArcType type)
+
+  Summary:
+     Gets the arc visibility setting
+
+  Description:
+     Gets the arc visibility setting
+
+  Parameters:
+    const leCircularSliderWidget* _this - The slider to operate on
+    leCircularSliderWidgetArcType type - the type
+
+  Remarks:
+    Usage - _this->fn->getArcVisible(_this, type);
+
+  Returns:
+    leBool - the visibility setting
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setArcVisible(leCircularSliderWidget* _this,
+                           leCircularSliderWidgetArcType type,
+                           leBool vis)
+
+  Summary:
+     Sets the arc visibility setting
+
+  Description:
+     Sets the arc visibility setting
+
+  Parameters:
+    leCircularSliderWidget* _this - The slider to operate on
+    leCircularSliderWidgetArcType type - the type
+    leBool vis - the visibility setting
+
+  Remarks:
+    Usage - _this->fn->setArcVisible(_this, type, vis);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    uint32_t getStartValue(const leCircularSliderWidget* _this)
+
+  Summary:
+     Gets the start value
+
+  Description:
+     Gets the start value
+
+  Parameters:
+    const leCircularSliderWidget* _this - The slider to operate on
+
+  Remarks:
+    Usage - _this->fn->getStartValue(_this);
+
+  Returns:
+    uint32_t - the start value
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setStartValue(leCircularSliderWidget* _this,
+                           uint32_t val)
+
+  Summary:
+     Sets the start value
+
+  Description:
+     Sets the start value
+
+  Parameters:
+    leCircularSliderWidget* _this - The slider to operate on
+    uint32_t val - the value
+
+  Remarks:
+    Usage - _this->fn->setStartValue(_this, val);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    uint32_t getEndValue(const leCircularSliderWidget* _this)
+
+  Summary:
+     Gets the end value
+
+  Description:
+     Gets the end value
+
+  Parameters:
+    const leCircularSliderWidget* _this - The slider to operate on
+
+  Remarks:
+    Usage - _this->fn->getEndValue(_this);
+
+  Returns:
+    uint32_t - the end value
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setEndValue(leCircularSliderWidget* _this,
+                         uint32_t val)
+
+  Summary:
+     Sets the end value
+
+  Description:
+     Sets the end value
+
+  Parameters:
+    leCircularSliderWidget* _this - The slider to operate on
+    uint32_t val - the value
+
+  Remarks:
+    Usage - _this->fn->setEndValue(_this, val);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    uint32_t getValue(const leCircularSliderWidget* _this)
+
+  Summary:
+     Gets the current value
+
+  Description:
+     Gets the current value
+
+  Parameters:
+    const leCircularSliderWidget* _this - The slider to operate on
+
+  Remarks:
+    Usage - _this->fn->getValue(_this);
+
+  Returns:
+    uint32_t - the value
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setValue(leCircularSliderWidget* _this,
+                      uint32_t val)
+
+  Summary:
+     Sets the current value
+
+  Description:
+     Sets the current value
+
+  Parameters:
+    leCircularSliderWidget* _this - The slider to operate on
+    uint32_t val - the value
+
+  Remarks:
+    Usage - _this->fn->setValue(_this, val);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leBool getRoundEdges(const leCircularSliderWidget* _this)
+
+  Summary:
+     Gets the rounded edge setting
+
+  Description:
+     Gets the rounded edge setting
+
+  Parameters:
+    const leCircularSliderWidget* _this - The slider to operate on
+
+  Remarks:
+    Usage - _this->fn->getRoundEdges(_this);
+
+  Returns:
+    leBool -
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setRoundEdges(leCircularSliderWidget* _this,
+                           leBool rnd)
+
+  Summary:
+     Sets the rounded edge setting
+
+  Description:
+     Sets the rounded edge setting
+
+  Parameters:
+    leCircularSliderWidget* _this - The slider to operate on
+    leBool rnd -
+
+  Remarks:
+    Usage - _this->fn->setRoundEdges(_this, rnd);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leBool getStickyButton(const leCircularSliderWidget* _this)
+
+  Summary:
+     Gets the sticky button setting
+
+  Description:
+     Gets the sticky button setting
+
+  Parameters:
+    const leCircularSliderWidget* _this - The slider to operate on
+
+  Remarks:
+    Usage - _this->fn->getStickyButton(_this);
+
+  Returns:
+    leBool -
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setStickyButton(leCircularSliderWidget* _this,
+                             leBool stk)
+
+  Summary:
+     Sets the sticky button setting
+
+  Description:
+     Sets the sticky button setting
+
+  Parameters:
+    leCircularSliderWidget* _this - The slider to operate on
+    leBool stk -
+
+  Remarks:
+    Usage - _this->fn->setStickyButton(_this, stk);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leBool getTouchOnButtonOnly(const leCircularSliderWidget* _this)
+
+  Summary:
+     Gets the touch on button setting
+
+  Description:
+     Gets the touch on button setting
+
+  Parameters:
+    const leCircularSliderWidget* _this - The slider to operate on
+
+  Remarks:
+    Usage - _this->fn->getTouchOnButtonOnly(_this);
+
+  Returns:
+    leBool -
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setTouchOnButtonOnly(leCircularSliderWidget* _this,
+                                  leBool tch)
+
+  Summary:
+     Sets the touch on button setting
+
+  Description:
+     Sets the touch on button setting
+
+  Parameters:
+    leCircularSliderWidget* _this - The slider to operate on
+    leBool tch -
+
+  Remarks:
+    Usage - _this->fn->setTouchOnButtonOnly(_this, tch);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leRotationDirection getDirection(const leCircularSliderWidget* _this)
+
+  Summary:
+     Gets the current direction
+
+  Description:
+     Gets the current direction
+
+  Parameters:
+    const leCircularSliderWidget* _this - The slider to operate on
+
+  Remarks:
+    Usage - _this->fn->getDirection(_this);
+
+  Returns:
+    leRotationDirection - the direction
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setDirection(leCircularSliderWidget* _this,
+                          leRotationDirection dir)
+
+  Summary:
+     Sets the current direction
+
+  Description:
+     Sets the current direction
+
+  Parameters:
+    leCircularSliderWidget* _this - The slider to operate on
+    leRotationDirection dir - the direction
+
+  Remarks:
+    Usage - _this->fn->setDirection(_this, dir);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setPressedEventCallback(leCircularSliderWidget* _this,
+                                     leCircularSliderWidget_PressedEvent cb)
+
+  Summary:
+     Sets the pressed event callback
+
+  Description:
+     Sets the pressed event callback
+
+  Parameters:
+    leCircularSliderWidget* _this - The slider to operate on
+    leCircularSliderWidget_PressedEvent cb - the callback pointer
+
+  Remarks:
+    Usage - _this->fn->setPressedEventCallback(_this, cb);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setValueChangedEventCallback(leCircularSliderWidget* _this,
+                                          leCircularSliderWidget_ValueChangedEvent cb)
+
+  Summary:
+     Sets the value changed event callback
+
+  Description:
+     Sets the value changed event callback
+
+  Parameters:
+    leCircularSliderWidget* _this - The slider to operate on
+    leCircularSliderWidget_ValueChangedEvent cb - the callback pointer
+
+  Remarks:
+    Usage - _this->fn->setValueChangedEventCallback(_this, cb);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+// *****************************************************************************
+/* Virtual Member Function:
+    leResult setReleasedEventCallback(leCircularSliderWidget* _this,
+                                      leCircularSliderWidget_ReleasedEvent cb)
+
+  Summary:
+     Sets the released event callback
+
+  Description:
+     Sets the released event callback
+
+  Parameters:
+    leCircularSliderWidget* _this - The slider to operate on
+    leCircularSliderWidget_ReleasedEvent cb - the callback pointer
+
+  Remarks:
+    Usage - _this->fn->setReleasedEventCallback(_this, cb);
+
+  Returns:
+    leResult - the result of the operation
+*/
+
+
 
 #endif // LE_CIRCULARSLIDER_WIDGET_ENABLED
 #endif /* LEGATO_WIDGET_CIRCULAR_SLIDER_H */

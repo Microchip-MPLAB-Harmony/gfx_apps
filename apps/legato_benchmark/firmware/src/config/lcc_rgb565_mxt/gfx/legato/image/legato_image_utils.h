@@ -45,16 +45,70 @@
 
 // DOM-IGNORE-BEGIN
 
+// *****************************************************************************
+/* Function:
+    uint32_t leGetRLEDataAtIndex(uint8_t* data,
+                                 uint32_t max,
+                                 uint32_t idx,
+                                 uint32_t* startBlock,
+                                 uint32_t* startOffset)
+
+  Summary:
+    Gets an RLE data value at the given index.
+
+  Parameters:
+    uint8_t* data - the data buffer to query
+    uint32_t max - the maximum size of the buffer
+    uint32_t idx - the index to query for
+    uint32_t* startBlock - the block to start at, initialize to zero
+    uint32_t* startOffset - the offset to start at, initialize to zero
+
+  Returns:
+    leResult
+*/
 uint32_t leGetRLEDataAtIndex(uint8_t* data,
                              uint32_t max,
                              uint32_t idx,
                              uint32_t* startBlock,
                              uint32_t* startOffset);
 
+// *****************************************************************************
+/* Function:
+    uint32_t lleGetDiscreteValueAtIndex(uint32_t index,
+                                        uint32_t value,
+                                        leColorMode mode)
+
+  Summary:
+    Gets a discrete color value from an index.  Capable of doing sub-byte
+    value retrieval.
+
+  Parameters:
+    uint32_t index - the index value
+    uint32_t value - the data value to query
+    leColorMode mode - the color mode of the data
+
+  Returns:
+    leResult
+*/
 uint32_t leGetDiscreteValueAtIndex(uint32_t index,
                                    uint32_t value,
                                    leColorMode mode);
 
+// *****************************************************************************
+/* Function:
+    uint32_t leGetOffsetFromIndexAndBPP(uint32_t index,
+                                       leBitsPerPixel bpp)
+
+  Summary:
+    Gets an offset in bytes of a pixel index and a BPP mode.
+
+  Parameters:
+    uint32_t index - the index value
+    leBitsPerPixel bpp - the bpp value of the data
+
+  Returns:
+    leResult
+*/
 uint32_t leGetOffsetFromIndexAndBPP(uint32_t index,
                                     leBitsPerPixel bpp);
 

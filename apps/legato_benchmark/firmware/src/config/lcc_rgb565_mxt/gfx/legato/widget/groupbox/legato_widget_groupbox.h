@@ -122,51 +122,21 @@ typedef struct leGroupBoxWidget
     leGroupBoxWidget*
 
   Remarks:
-
+    Use leWidget_Delete() to free this pointer.
 */
 LIB_EXPORT leGroupBoxWidget* leGroupBoxWidget_New();
 
-void leGroupBoxWidget_Constructor(leGroupBoxWidget* box);
-
-#if 0
-// *****************************************************************************
 /* Function:
-    leResult leGroupBoxWidget_GetText(leGroupBoxWidget* lbl, leString* str)
+    void leGroupBoxWidget_Constructor(leGroupBoxWidget* wgt)
 
   Summary:
-    Gets the text value for the group box.
+    Initializes an leGroupBoxWidget widget pointer.
 
   Description:
-    This function allocates memory and initializes the input string pointer.  The
-    caller is responsible for managing the memory once this function returns.
+    Initializes an leGroupBoxWidget widget pointer.
 
   Parameters:
-    leGroupBoxWidget* box - the widget
-    leString* str - a pointer to an leString object
-
-  Returns:
-    leResult
-
-  Remarks:
-
-*/
-LIB_EXPORT leResult leGroupBoxWidget_GetText(leGroupBoxWidget* box, leString* str);
-
-// *****************************************************************************
-/* Function:
-    void leGroupBoxWidget_SetText(leGroupBoxWidget* box, leString str)
-
-  Summary:
-    Sets the text value for the group box.
-
-  Description:
-    This function copies the contents of the input string into its internal
-    string buffer.  The input string can then be freed or altered without
-    affecting the label's internal string value.
-
-  Parameters:
-    leGroupBoxWidget* box - the widget
-    leString str - an leString object
+    leGroupBoxWidget* wgt - the pointer to initialize
 
   Returns:
     void
@@ -174,60 +144,51 @@ LIB_EXPORT leResult leGroupBoxWidget_GetText(leGroupBoxWidget* box, leString* st
   Remarks:
 
 */
-LIB_EXPORT leResult leGroupBoxWidget_SetText(leGroupBoxWidget* box, leString str);
+void leGroupBoxWidget_Constructor(leGroupBoxWidget* box);
 
 // *****************************************************************************
-/* Function:
-    leHAlignment leGroupBoxWidget_GetAlignment(leGroupBoxWidget* box)
+/* Virtual Member Function:
+    leString* getString(const leGroupBoxWidget* _this)
 
   Summary:
-    Gets the horizontal alignmnet for the group box title text
+     Gets the box title string
 
   Description:
-
+     Gets the box title string
 
   Parameters:
-    leGroupBoxWidget* box - the widget
-
-  Returns:
-    leHAlignment - the current halign value
+    const leGroupBoxWidget* _this - The group box to operate on
 
   Remarks:
+    Usage - _this->fn->getString(_this);
 
+  Returns:
+    leString* - the string pointer
 */
-LIB_EXPORT leHAlignment leGroupBoxWidget_GetAlignment(leGroupBoxWidget* box);
 
 // *****************************************************************************
-/* Function:
-    leResult leGroupBoxWidget_SetAlignment(leGroupBoxWidget* box,
-                                           leHAlignment align)
+/* Virtual Member Function:
+    leResult setString(leGroupBoxWidget* _this,
+                       const leString* str)
 
   Summary:
-    Sets the alignment for the group box title text
+     Sets the box title string
 
   Description:
-
+     Sets the box title string
 
   Parameters:
-    leGroupBoxWidget* box - the widget
-    leHAlignment - the desired halign value
-
-  Returns:
-    leResult - the operation result
+    leGroupBoxWidget* _this - The group box to operate on
+    const leString* str - the string pointer
 
   Remarks:
+    Usage - _this->fn->setString(_this, str);
 
+  Returns:
+    leResult - the result of the operation
 */
-LIB_EXPORT leResult leGroupBoxWidget_SetAlignment(leGroupBoxWidget* box,
-                                                  leHAlignment align);
 
-// DOM-IGNORE-BEGIN
-// internal use only
-void _leGroupBoxWidget_GetTextRect(leGroupBoxWidget* box,
-                                   leRect* textRect,
-                                   leRect* drawRect);
-// DOM-IGNORE-END
-#endif
+
 
 #endif // LE_GROUPBOX_WIDGET_ENABLED
 #endif /* LEGATO_GROUPBOX_H */
