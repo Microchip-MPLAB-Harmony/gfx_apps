@@ -1012,6 +1012,7 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
             
             pDrvObject->apiEvent = APP_DRV_MAXTOUCH_ResetCallback;
             pDrvObject->deviceState = DEVICE_STATE_WAIT;
+            TEST_GPIO_Clear();
 
             break;
         }
@@ -1020,7 +1021,7 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
 #ifdef DEBUG_ENABLE           
             SYS_DEBUG_Print("MXT State Init\n");
 #endif           
-			
+			TEST_GPIO_Set();
             /* set information block address read */
             buf[0] = 0;
             buf[1] = 0;

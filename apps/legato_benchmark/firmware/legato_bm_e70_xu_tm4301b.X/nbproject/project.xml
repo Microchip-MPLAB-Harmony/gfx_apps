@@ -11,16 +11,13 @@
             <header-extensions>h</header-extensions>
             <asminc-extensions/>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
-            <formatting>
-                <project-formatting-style>false</project-formatting-style>
-            </formatting>
             <make-dep-projects/>
             <sourceRootList>
                 <sourceRootElem>../src</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>
-                    <name>lcc_rgb565_mxt</name>
+                    <name>lcc_rgb565_mxt_e70</name>
                     <type>2</type>
                 </confElem>
             </confList>
