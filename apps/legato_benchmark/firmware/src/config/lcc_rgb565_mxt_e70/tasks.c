@@ -74,7 +74,7 @@ void SYS_Tasks ( void )
     
 
     /* Maintain Device Drivers */
-    DRV_LCC_Update();
+        DRV_LCC_Update();
 
 
     DRV_MAXTOUCH_Tasks(sysObj.drvMAXTOUCH);

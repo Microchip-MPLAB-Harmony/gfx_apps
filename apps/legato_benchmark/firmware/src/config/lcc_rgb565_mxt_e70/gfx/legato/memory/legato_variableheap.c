@@ -146,7 +146,7 @@ static leResult _validateList(leVariableHeapBlockHeader* blk)
 #endif
 
 #if LE_USE_DEBUG_ALLOCATOR == 1
-#if 0
+#if LE_VARIABLEHEAP_DEBUGLEVEL >= 1
 static uint32_t _countList(leVariableHeapBlockHeader* blk)
 {
     uint32_t count = 0;
@@ -484,82 +484,91 @@ void* leVariableHeap_Alloc(leVariableHeap* heap,
 
     LE_ASSERT(block != NULL);
 
-    // did we find some memory
-    if (block != NULL)
+    if(block == NULL)
+        return NULL;
+
+    if(block->capacity == capacity)
     {
-        if(block->capacity == capacity)
-        {
-            block->size = size;
+        block->size = size;
 
 #if LE_VARIABLEHEAP_DEBUGLEVEL >= 1
-            _writeFooter(block);
+        _writeFooter(block);
 #endif
-        }
-        // break up the block if need be
-        else if (block->capacity > capacity)
-        {
+    }
+    // break up the block if need be
+    else if (block->capacity > capacity)
+    {
 #if LE_VARIABLEHEAP_DEBUGLEVEL >= 1
-            if(_splitBlock(block, capacity, size) == LE_SUCCESS)
-                heap->freeBlockCount++;
+        if(_splitBlock(block, capacity, size) == LE_SUCCESS)
+            heap->freeBlockCount++;
 #else
-            _splitBlock(block, capacity, size);
+        _splitBlock(block, capacity, size);
 #endif
-        }
+    }
 
-        // adjust free list pointers
-        if(block->prev != NULL)
-            block->prev->next = block->next;
-        else
-            heap->freeList = block->next;
+    // adjust free list pointers
+    if(block->prev != NULL)
+    {
+        block->prev->next = block->next;
+    }
+    else
+    {
+        heap->freeList = block->next;
+    }
 
-        if(block->next != NULL)
-            block->next->prev = block->prev;
+    if(block->next != NULL)
+    {
+        block->next->prev = block->prev;
+    }
 
 #if LE_VARIABLEHEAP_DEBUGLEVEL >= 1
-        heap->freeBlockCount--;
+    heap->freeBlockCount--;
 #endif
 
 #if LE_VARIABLEHEAP_DEBUGLEVEL >= 2
-        leVariableHeap_Validate(heap);
+    leVariableHeap_Validate(heap);
 #endif
 
-        block->prev = NULL;
-        block->next = NULL;
+    block->prev = NULL;
+    block->next = NULL;
 
-        // adjust alloc list pointers
-        slot = _findSlot(heap->allocList, block);
+    // adjust alloc list pointers
+    slot = _findSlot(heap->allocList, block);
 
-        if(slot == NULL)
+    if(slot == NULL)
+    {
+        // block is the new list head
+        block->next = heap->allocList;
+
+        if(block->next != NULL)
         {
-            // block is the new list head
-            block->next = heap->allocList;
-
-            if(block->next != NULL)
-                block->next->prev = block;
-
-            heap->allocList = block;
+            block->next->prev = block;
         }
-        else
+
+        heap->allocList = block;
+    }
+    else
+    {
+        block->prev = slot;
+        block->next = slot->next;
+
+        if(slot->next != NULL)
         {
-            block->prev = slot;
-            block->next = slot->next;
-
-            if(slot->next != NULL)
-                slot->next->prev = block;
-
-            slot->next = block;
+            slot->next->prev = block;
         }
+
+        slot->next = block;
+    }
 
 #if LE_VARIABLEHEAP_DEBUGLEVEL >= 1
-        heap->allocBlockCount++;
+    heap->allocBlockCount++;
 
 #if LE_USE_ALLOCATION_TRACKING == 1
-        block->lineNumber = lineNum;
-        block->funcName = funcName;
-        block->fileName = fileName;
+    block->lineNumber = lineNum;
+    block->funcName = funcName;
+    block->fileName = fileName;
 #endif
 #endif
-    }
 
     block->free = LE_FALSE;
 

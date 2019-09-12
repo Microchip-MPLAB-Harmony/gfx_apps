@@ -1503,37 +1503,67 @@
             <Dynamic dnOrder="0" id="le_gfx_driver_lcc" value="true"/>
           </Values>
         </Boolean>
-        <Integer dnOrder="2" id="EBIChipSelectIndex">
-          <Values dnOrder="0">
-            <Dynamic dnOrder="0" id="le_gfx_driver_lcc" value="0"/>
-          </Values>
-        </Integer>
-        <Integer dnOrder="3" id="OldDMAChannel">
-          <Values dnOrder="0">
-            <Dynamic dnOrder="0" id="le_gfx_driver_lcc" value="0"/>
-          </Values>
-        </Integer>
-        <Combo dnOrder="4" id="PeripheralControl">
-          <Values dnOrder="0">
-            <Dynamic dnOrder="0" id="legato_gfx_pda_tm4301b" value="TC"/>
-          </Values>
-        </Combo>
-        <Integer dnOrder="5" id="TCChannel">
-          <Values dnOrder="0">
-            <Dynamic dnOrder="0" id="legato_gfx_pda_tm4301b" value="1"/>
-          </Values>
-        </Integer>
-        <Combo dnOrder="6" id="TCChannelCompare">
-          <Values dnOrder="0">
-            <Dynamic dnOrder="0" id="legato_gfx_pda_tm4301b" value="B"/>
-          </Values>
-        </Combo>
-        <Integer dnOrder="7" id="TCInstance">
+        <Integer dnOrder="2" id="DisplayHorzBackPorch">
           <Values dnOrder="0">
             <Dynamic dnOrder="0" id="le_gfx_driver_lcc" value="2"/>
           </Values>
         </Integer>
-        <Menu dnOrder="8" id="TCPeripheralSettings">
+        <Integer dnOrder="3" id="DisplayHorzFrontPorch">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0" id="le_gfx_driver_lcc" value="2"/>
+          </Values>
+        </Integer>
+        <Integer dnOrder="4" id="DisplayHorzPulseWidth">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0" id="le_gfx_driver_lcc" value="41"/>
+          </Values>
+        </Integer>
+        <Integer dnOrder="5" id="DisplayVertBackPorch">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0" id="le_gfx_driver_lcc" value="2"/>
+          </Values>
+        </Integer>
+        <Integer dnOrder="6" id="DisplayVertFrontPorch">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0" id="le_gfx_driver_lcc" value="2"/>
+          </Values>
+        </Integer>
+        <Integer dnOrder="7" id="DisplayVertPulseWidth">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0" id="le_gfx_driver_lcc" value="10"/>
+          </Values>
+        </Integer>
+        <Integer dnOrder="8" id="EBIChipSelectIndex">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0" id="le_gfx_driver_lcc" value="0"/>
+          </Values>
+        </Integer>
+        <Integer dnOrder="9" id="OldDMAChannel">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0" id="le_gfx_driver_lcc" value="0"/>
+          </Values>
+        </Integer>
+        <Combo dnOrder="10" id="PeripheralControl">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0" id="legato_gfx_pda_tm4301b" value="TC"/>
+          </Values>
+        </Combo>
+        <Integer dnOrder="11" id="TCChannel">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0" id="legato_gfx_pda_tm4301b" value="1"/>
+          </Values>
+        </Integer>
+        <Combo dnOrder="12" id="TCChannelCompare">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0" id="legato_gfx_pda_tm4301b" value="B"/>
+          </Values>
+        </Combo>
+        <Integer dnOrder="13" id="TCInstance">
+          <Values dnOrder="0">
+            <Dynamic dnOrder="0" id="le_gfx_driver_lcc" value="2"/>
+          </Values>
+        </Integer>
+        <Menu dnOrder="14" id="TCPeripheralSettings">
           <Attributes dnOrder="0">
             <Boolean dnOrder="0" id="visible">
               <Value dnOrder="0">true</Value>
@@ -2034,10 +2064,11 @@
     </UniqueComponent>
   </Components>
   <UserData>
-    <ComponentGraph dnOrder="0" id="__ROOTVIEW">
+    <GraphSettings canvasHeight="400" canvasWidth="400" dnOrder="0"/>
+    <ComponentGraph dnOrder="1" id="__ROOTVIEW">
       <ElementPositions dnOrder="0">
         <ElementPosition dnOrder="0" id="BSP_SAM_E70_Xplained_Ultra" x="624" y="22"/>
-        <ElementPosition dnOrder="1" id="HarmonyCore" x="288" y="57"/>
+        <ElementPosition dnOrder="1" id="HarmonyCore" x="287" y="56"/>
         <ElementPosition dnOrder="2" id="cmsis" x="340" y="20"/>
         <ElementPosition dnOrder="3" id="core" x="240" y="20"/>
         <ElementPosition dnOrder="4" id="dfp" x="20" y="20"/>
@@ -2049,13 +2080,12 @@
         <ElementPosition dnOrder="10" id="le_gfx_driver_lcc" x="305" y="299"/>
         <ElementPosition dnOrder="11" id="legato_gfx_pda_tm4301b" x="491" y="197"/>
         <ElementPosition dnOrder="12" id="smc" x="140" y="320"/>
-        <ElementPosition dnOrder="13" id="sys_input" x="484" y="96"/>
+        <ElementPosition dnOrder="13" id="sys_input" x="484" y="95"/>
         <ElementPosition dnOrder="14" id="sys_time" x="488" y="411"/>
         <ElementPosition dnOrder="15" id="tc0" x="335" y="469"/>
         <ElementPosition dnOrder="16" id="tc2" x="142" y="465"/>
         <ElementPosition dnOrder="17" id="twihs0" x="5" y="76"/>
       </ElementPositions>
     </ComponentGraph>
-    <GraphSettings canvasHeight="400" canvasWidth="400" dnOrder="1"/>
   </UserData>
 </Configuration>

@@ -27,55 +27,70 @@
 #include "gfx/legato/image/legato_palette.h"
 #include "gfx/legato/renderer/legato_renderer.h"
 
+void _leRawImageDecoder_InjectStage(leRawDecodeState* state,
+                                    leRawDecodeStage* stage);
+
 static struct InternalPaletteStage
 {
     leRawDecodeStage base;
+
+    leColor lookupIndex;
 
     uint32_t paletteSize;
 } paletteStage;
 
 static leResult stage_lookup(struct InternalPaletteStage* stage)
 {
-    // look up the actual color from the palette
-    memcpy(&stage->base.state->sourceColor,
-           (void*)((uint8_t*)stage->base.state->source->palette->header.address + (stage->base.state->sourceColor * paletteStage.paletteSize)),
-           paletteStage.paletteSize);
+    paletteStage.lookupIndex = stage->base.state->writeColor;
 
-    stage->base.state->currentStage = stage->base.state->convertStage;
+    // look up the actual color from the palette
+    memcpy(&stage->base.state->writeColor,
+           (void*)((uint8_t*)stage->base.state->source->palette->header.address + (paletteStage.lookupIndex * paletteStage.paletteSize)),
+           paletteStage.paletteSize);
 
     return LE_SUCCESS;
 }
 
-uint32_t _leRawImageDecoder_PaletteStreamInit(leRawDecodeState* state);
-
-void _leRawImageDecoder_PaletteInternalInit(leRawDecodeState* state)
+void _leRawImageDecoder_LookupStage_Internal(leRawDecodeState* state)
 {
     memset(&paletteStage, 0, sizeof(paletteStage));
 
     paletteStage.base.state = state;
 
-    if(LE_COLOR_MODE_IS_INDEX(state->source->buffer.mode) == LE_FALSE ||
-       state->source->palette == NULL)
-    {
-        return;
-    }
-
-#if LE_STREAMING_ENABLED == 1
-    if(state->source->palette->header.location != LE_STREAM_LOCATION_ID_INTERNAL)
-    {
-        _leRawImageDecoder_PaletteStreamInit(state);
-
-        return;
-    }
-#endif
-
     paletteStage.base.exec = (void*)stage_lookup;
     paletteStage.paletteSize = leColorInfoTable[state->source->palette->colorMode].size;
 
-    state->paletteStage = (void*)&paletteStage;
+    _leRawImageDecoder_InjectStage(state, (void*)&paletteStage);
+}
 
-    if(state->maskStage == NULL)
+static struct ImageRenderPostLookupStage
+{
+    leRawDecodeStage base;
+} imageRenderPostLookupStage;
+
+static leResult stage_imageRenderPostLookup(leRawDecodeStage* stage)
+{
+    if(stage->state->needToLookupMaskColor == LE_TRUE &&
+       paletteStage.lookupIndex == stage->state->target->mask.color)
     {
-        state->maskStage = state->paletteStage;
+        stage->state->target->mask.color = stage->state->writeColor;
+
+        stage->state->needToLookupMaskColor = LE_FALSE;
     }
+
+    return LE_SUCCESS;
+}
+
+leResult _leRawImageDecoder_ImageRenderPostLookupStage(leRawDecodeState* state)
+{
+    memset(&imageRenderPostLookupStage, 0, sizeof(imageRenderPostLookupStage));
+
+    state->needToLookupMaskColor = LE_TRUE;
+
+    imageRenderPostLookupStage.base.state = state;
+    imageRenderPostLookupStage.base.exec = (void*)stage_imageRenderPostLookup;
+
+    _leRawImageDecoder_InjectStage(state, (void*)&imageRenderPostLookupStage);
+
+    return LE_SUCCESS;
 }

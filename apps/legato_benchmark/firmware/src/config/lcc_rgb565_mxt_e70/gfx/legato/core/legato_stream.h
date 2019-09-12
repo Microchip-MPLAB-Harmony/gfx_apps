@@ -60,6 +60,28 @@ typedef void (*leStream_DataReadyCallback)(struct leStream* strm);
 
 // *****************************************************************************
 /* Structure:
+    enum leStreamFlag
+
+  Summary:
+    Defines the base description of an stream reader.  Specific reader
+    implementations will build on this foundation for each decoder type.
+
+  Description:
+    SF_NONE - no flags
+
+    SF_BLOCKING - indicates that this stream can operate in blocking mode
+                  this method is much faster than non-blocking as it can
+                  stream data without having to self-preempt
+*/
+
+enum leStreamFlag
+{
+    SF_NONE     = 0,
+    SF_BLOCKING = 1 << 0
+};
+
+// *****************************************************************************
+/* Structure:
     struct leStream
 
   Summary:
@@ -73,6 +95,8 @@ typedef void (*leStream_DataReadyCallback)(struct leStream* strm);
 
     dataReady - signals that the requested data is ready.  if NULL then the stream
                 is a blocking-type stream and cannot preempt itself
+
+    flags - configuration flags for the stream
 
     userData - any kind of user or application data attached to this reader
 
@@ -99,6 +123,8 @@ typedef struct leStream
         uint32_t logicalSize;
         uint8_t* ptr;
     } cache;
+
+    enum leStreamFlag flags;
 
     void* userData;
 } leStream;
@@ -201,6 +227,27 @@ leResult leStream_Read(leStream* stream,
 
 // *****************************************************************************
 /* Function:
+    leBool leStream_IsBlocking(leStream* stream)
+
+  Summary:
+    Indicates of this stream is capable of operating in blocking mode.
+
+  Description:
+    Indicates of this stream is capable of operating in blocking mode.
+
+  Parameters:
+    leStream* stream - the stream to query
+
+  Returns:
+    leBool - LE_TRUE if the stream can block
+
+  Remarks:
+
+*/
+leBool leStream_IsBlocking(leStream* stream);
+
+// *****************************************************************************
+/* Function:
     leBool leStream_IsDataReady(leStream* stream)
 
   Summary:
@@ -292,10 +339,13 @@ typedef struct leStreamManager
     leResult (*exec)(struct leStreamManager* mgr);
     leBool (*isDone)(struct leStreamManager* mgr);
     void (*abort)(struct leStreamManager* mgr);
+    void (*cleanup)(struct leStreamManager* mgr);
 
     void (*onDone)(struct leStreamManager* mgr);
     void* userData;
 } leStreamManager;
+
+
 
 // *****************************************************************************
 /* typedef:
