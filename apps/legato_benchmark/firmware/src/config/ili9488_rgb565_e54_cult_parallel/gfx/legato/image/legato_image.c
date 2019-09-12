@@ -23,13 +23,12 @@
 
 #include "gfx/legato/image/legato_image.h"
 
+#include "gfx/legato/common/legato_color.h"
 #include "gfx/legato/common/legato_rect.h"
 #include "gfx/legato/memory/legato_memory.h"
 #include "gfx/legato/renderer/legato_renderer.h"
 
 #define MAX_IMAGE_DECODER_COUNT 10
-
-
 
 static leImageDecoder* decoders[MAX_IMAGE_DECODER_COUNT];
 
@@ -128,46 +127,25 @@ leResult leImage_Draw(const leImage* img,
                       int32_t y,
                       uint32_t a)
 {
-    leRect imgRect, sourceClipRect, drawRect, clipRect;
-    leRect dmgRect = leRenderer_GetDrawRect();
+
     uint32_t decIdx;
-    
-    if(img == NULL)
+
+    if(img == NULL || sourceRect == NULL)
         return LE_FAILURE;
 
-    imgRect.x = 0;
-    imgRect.y = 0;
-    imgRect.width = img->buffer.size.width;
-    imgRect.height = img->buffer.size.height;
-    
-    /* make sure the source rect is within the source bounds */
-    if(leRectIntersects(&imgRect, sourceRect) == LE_FALSE)
-        return LE_FAILURE;
-        
-    leRectClip(&imgRect, sourceRect, &sourceClipRect);
-    
-    drawRect.x = x;
-    drawRect.y = y;
-    drawRect.width = sourceClipRect.width;
-    drawRect.height = sourceClipRect.height;
-    
-    /* make sure the dest rect is within the damaged rect area */   
-    clipRect = leRectClipAdj(&drawRect, &dmgRect, &sourceClipRect);
-    
-    if(sourceClipRect.width < 0 || sourceClipRect.height < 0)
-        return LE_FAILURE;
-        
     for(decIdx = 0; decIdx < MAX_IMAGE_DECODER_COUNT; decIdx++)
     {
         if(decoders[decIdx] != NULL && decoders[decIdx]->supportsImage(img) == LE_TRUE)
         {
             if(decoders[decIdx]->draw(img,
-                                      &sourceClipRect,
-                                      clipRect.x,
-                                      clipRect.y,
+                                      sourceRect,
+                                      x,
+                                      y,
                                       a) == LE_SUCCESS)
             {
                 decoders[decIdx]->exec();
+
+                break;
             }
         }
     }
@@ -175,60 +153,9 @@ leResult leImage_Draw(const leImage* img,
     return LE_SUCCESS;
 }
 
-leResult leImage_Copy(const leImage* src,
-                      leImage* dst,
-                      leRect* sourceRect)
-{
-#if 0
-    leRect imgRect, sourceClipRect, drawRect, clipRect;
-    leRect dmgRect = leRenderer_GetDrawRect();
-    uint32_t decIdx;
 
-    if(src == NULL || dst == NULL)
-        return LE_FAILURE;
 
-    imgRect.x = 0;
-    imgRect.y = 0;
-    imgRect.width = src->buffer.size.width;
-    imgRect.height = src->buffer.size.height;
-
-    /* make sure the source rect is within the source bounds */
-    if(leRectIntersects(&imgRect, sourceRect) == LE_FALSE)
-        return LE_FAILURE;
-
-    leRectClip(&imgRect, sourceRect, &sourceClipRect);
-
-    drawRect.x = x;
-    drawRect.y = y;
-    drawRect.width = sourceClipRect.width;
-    drawRect.height = sourceClipRect.height;
-
-    /* make sure the dest rect is within the damaged rect area */
-    clipRect = leRectClipAdj(&drawRect, &dmgRect, &sourceClipRect);
-
-    if(sourceClipRect.width < 0 || sourceClipRect.height < 0)
-        return LE_FAILURE;
-
-    for(decIdx = 0; decIdx < MAX_IMAGE_DECODER_COUNT; decIdx++)
-    {
-        if(decoders[decIdx] != NULL && decoders[decIdx]->supportsImage(img) == LE_TRUE)
-        {
-            decoders[decIdx]->draw(img,
-                                   &sourceClipRect,
-                                   clipRect.x,
-                                   clipRect.y,
-                                   a);
-
-            decoders[decIdx]->exec();
-            decoders[decIdx]->free();
-        }
-    }
-#endif
-
-    return LE_FAILURE;
-}
-
-leResult leImage_Render(const leImage* img,
+/*leResult leImage_Render(const leImage* img,
                         leImage* dst,
                         leRect* sourceRect,
                         leBool applyAlpha)
@@ -239,29 +166,204 @@ leResult leImage_Render(const leImage* img,
     (void)applyAlpha;
 
     return LE_FAILURE;
-}
+}*/
 
 leResult leImage_Resize(const leImage* src,
-                        leImage* dst,
-                        leRect* sourceRect,
-                        uint32_t width,
-                        uint32_t height,
-                        leImageFilterMode mode)
+                        const leRect* sourceRect,
+                        leImageFilterMode mode,
+                        uint32_t sizeX,
+                        uint32_t sizeY,
+                        leImage* target)
 {
-    (void)src;
-    (void)dst;
-    (void)sourceRect;
-    (void)width;
-    (void)height;
-    (void)mode;
+    uint32_t decIdx;
+
+    if(src == NULL || sourceRect == NULL || target == NULL)
+        return LE_FAILURE;
+
+    if(target->buffer.size.width == 0 ||
+       target->buffer.size.height == 0 ||
+       target->buffer.pixels == NULL ||
+       sizeX == 0 ||
+       sizeY == 0)
+    {
+        return LE_FAILURE;
+    }
+
+    for(decIdx = 0; decIdx < MAX_IMAGE_DECODER_COUNT; decIdx++)
+    {
+        if(decoders[decIdx] != NULL && decoders[decIdx]->supportsImage(src) == LE_TRUE)
+        {
+            if(decoders[decIdx]->resize(src,
+                                        sourceRect,
+                                        mode,
+                                        sizeX,
+                                        sizeY,
+                                        target) == LE_SUCCESS)
+            {
+                decoders[decIdx]->exec();
+
+                break;
+            }
+        }
+    }
 
     return LE_FAILURE;
 }
 
-leImage* leImage_Decompress(const leImage* img)
+leResult leImage_ResizeDraw(const leImage* src,
+                            const leRect* sourceRect,
+                            leImageFilterMode mode,
+                            uint32_t sizeX,
+                            uint32_t sizeY,
+                            int32_t x,
+                            int32_t y,
+                            uint32_t a)
 {
-    if(img == NULL || img->format == LE_IMAGE_FORMAT_RAW)
-        return NULL;
-        
-    return NULL;
+    uint32_t decIdx;
+
+    for(decIdx = 0; decIdx < MAX_IMAGE_DECODER_COUNT; decIdx++)
+    {
+        if(decoders[decIdx] != NULL && decoders[decIdx]->supportsImage(src) == LE_TRUE)
+        {
+            if(decoders[decIdx]->resizeDraw(src,
+                                            sourceRect,
+                                            mode,
+                                            sizeX,
+                                            sizeY,
+                                            x,
+                                            y,
+                                            a) == LE_SUCCESS)
+            {
+                decoders[decIdx]->exec();
+
+                break;
+            }
+        }
+    }
+
+    return LE_FAILURE;
+}
+
+leResult leImage_Copy(const leImage* src,
+                      const leRect* sourceRect,
+                      int32_t x,
+                      int32_t y,
+                      leImage* dst)
+{
+    uint32_t decIdx;
+
+    for(decIdx = 0; decIdx < MAX_IMAGE_DECODER_COUNT; decIdx++)
+    {
+        if(decoders[decIdx] != NULL && decoders[decIdx]->supportsImage(src) == LE_TRUE)
+        {
+            if(decoders[decIdx]->copy(src,
+                                      sourceRect,
+                                      x,
+                                      y,
+                                      dst) == LE_SUCCESS)
+            {
+                decoders[decIdx]->exec();
+
+                break;
+            }
+        }
+    }
+
+    return LE_FAILURE;
+}
+
+leResult leImage_Render(const leImage* src,
+                        const leRect* sourceRect,
+                        int32_t x,
+                        int32_t y,
+                        leBool ignoreMask,
+                        leBool ignoreAlpha,
+                        leImage* dst)
+{
+    uint32_t decIdx;
+
+    for(decIdx = 0; decIdx < MAX_IMAGE_DECODER_COUNT; decIdx++)
+    {
+        if(decoders[decIdx] != NULL && decoders[decIdx]->supportsImage(src) == LE_TRUE)
+        {
+            if(decoders[decIdx]->render(src,
+                                        sourceRect,
+                                        x,
+                                        y,
+                                        ignoreMask,
+                                        ignoreAlpha,
+                                        dst) == LE_SUCCESS)
+            {
+                decoders[decIdx]->exec();
+
+                break;
+            }
+        }
+    }
+
+    return LE_FAILURE;
+}
+
+leResult leImage_Rotate(const leImage* src,
+                        const leRect* sourceRect,
+                        leImageFilterMode mode,
+                        const lePoint* origin,
+                        int32_t angle,
+                        leImage* dst)
+{
+    uint32_t decIdx;
+
+    for(decIdx = 0; decIdx < MAX_IMAGE_DECODER_COUNT; decIdx++)
+    {
+        if(decoders[decIdx] != NULL && decoders[decIdx]->supportsImage(src) == LE_TRUE)
+        {
+            if(decoders[decIdx]->rotate(src,
+                                        sourceRect,
+                                        mode,
+                                        origin,
+                                        angle,
+                                        dst) == LE_SUCCESS)
+            {
+                decoders[decIdx]->exec();
+
+                break;
+            }
+        }
+    }
+
+    return LE_FAILURE;
+}
+
+leResult leImage_RotateDraw(const leImage* src,
+                            const leRect* sourceRect,
+                            leImageFilterMode mode,
+                            const lePoint* origin,
+                            int32_t angle,
+                            int32_t x,
+                            int32_t y,
+                            uint32_t a)
+{
+    uint32_t decIdx;
+
+    for(decIdx = 0; decIdx < MAX_IMAGE_DECODER_COUNT; decIdx++)
+    {
+        if(decoders[decIdx] != NULL && decoders[decIdx]->supportsImage(src) == LE_TRUE)
+        {
+            if(decoders[decIdx]->rotateDraw(src,
+                                            sourceRect,
+                                            mode,
+                                            origin,
+                                            angle,
+                                            x,
+                                            y,
+                                            a) == LE_SUCCESS)
+            {
+                decoders[decIdx]->exec();
+
+                break;
+            }
+        }
+    }
+
+    return LE_FAILURE;
 }

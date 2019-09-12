@@ -148,8 +148,7 @@ void* leMalloc(size_t size)
                                func,
                                file);
 #else
-    ptr = leVariableHeap_Alloc(&variableHeap,
-                               size);
+    ptr = leVariableHeap_Alloc(&variableHeap, size);
 #endif
     
     LE_ASSERT(ptr != NULL);

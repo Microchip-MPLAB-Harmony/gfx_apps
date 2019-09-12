@@ -112,11 +112,11 @@ void EIC_EXTINT_15_Handler      ( void ) __attribute__((weak, alias("Dummy_Handl
 void FREQM_Handler              ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void NVMCTRL_0_Handler          ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void NVMCTRL_1_Handler          ( void ) __attribute__((weak, alias("Dummy_Handler")));
-void DMAC_0_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
-void DMAC_1_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
-void DMAC_2_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
-void DMAC_3_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
-void DMAC_OTHER_Handler         ( void ) __attribute__((weak, alias("Dummy_Handler")));
+void DMAC_0_InterruptHandler    ( void ) __attribute__((weak, alias("Dummy_Handler")));
+void DMAC_1_InterruptHandler    ( void ) __attribute__((weak, alias("Dummy_Handler")));
+void DMAC_2_InterruptHandler    ( void ) __attribute__((weak, alias("Dummy_Handler")));
+void DMAC_3_InterruptHandler    ( void ) __attribute__((weak, alias("Dummy_Handler")));
+void DMAC_OTHER_InterruptHandler ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void EVSYS_0_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void EVSYS_1_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void EVSYS_2_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler")));
@@ -266,11 +266,11 @@ const DeviceVectors exception_table=
     .pfnFREQM_Handler              = ( void * ) FREQM_Handler,
     .pfnNVMCTRL_0_Handler          = ( void * ) NVMCTRL_0_Handler,
     .pfnNVMCTRL_1_Handler          = ( void * ) NVMCTRL_1_Handler,
-    .pfnDMAC_0_Handler             = ( void * ) DMAC_0_Handler,
-    .pfnDMAC_1_Handler             = ( void * ) DMAC_1_Handler,
-    .pfnDMAC_2_Handler             = ( void * ) DMAC_2_Handler,
-    .pfnDMAC_3_Handler             = ( void * ) DMAC_3_Handler,
-    .pfnDMAC_OTHER_Handler         = ( void * ) DMAC_OTHER_Handler,
+    .pfnDMAC_0_Handler             = ( void * ) DMAC_0_InterruptHandler,
+    .pfnDMAC_1_Handler             = ( void * ) DMAC_1_InterruptHandler,
+    .pfnDMAC_2_Handler             = ( void * ) DMAC_2_InterruptHandler,
+    .pfnDMAC_3_Handler             = ( void * ) DMAC_3_InterruptHandler,
+    .pfnDMAC_OTHER_Handler         = ( void * ) DMAC_OTHER_InterruptHandler,
     .pfnEVSYS_0_Handler            = ( void * ) EVSYS_0_Handler,
     .pfnEVSYS_1_Handler            = ( void * ) EVSYS_1_Handler,
     .pfnEVSYS_2_Handler            = ( void * ) EVSYS_2_Handler,

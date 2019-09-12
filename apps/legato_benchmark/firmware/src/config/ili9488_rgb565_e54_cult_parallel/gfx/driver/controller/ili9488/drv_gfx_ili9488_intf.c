@@ -55,6 +55,37 @@
 //Width of data bus
 typedef uint8_t DBUS_WIDTH_T;
 
+uint8_t ContextHandle = 0;
+typedef enum
+{
+	LCDEBI_STATUS_NO_TRANSFER = 0,
+	LCDEBI_STATUS_SERVICE_TRANSFER,
+	LCDEBI_STATUS_DATA_TRANSFER_REGISTERS_PHASE,
+	LCDEBI_STATUS_DATA_TRANSFER_DATA_PHASE
+}LCDEBI_TRANSFER_STATUS_TYPE;
+
+typedef struct
+{
+	uint32_t data_buffer_size;
+	uint8_t *data_buffer_ptr;
+	uint8_t partial_frames;
+} EBI_TRANSFER_FIFO_TYPE;
+
+static volatile LCDEBI_TRANSFER_STATUS_TYPE Ebi_Transfer_Status;
+static EBI_TRANSFER_FIFO_TYPE Ebi_Transfer_Fifo;
+#define DMA_LCD_CHANNEL_DATA_TRANSFER DMAC_CHANNEL_0
+#define DATABUS_PTR (&(PORT_REGS->GROUP[2].PORT_OUT))
+
+static void LcdEbi_TransferCompleteCallback(DMAC_TRANSFER_EVENT event, uintptr_t contextHandle);
+void LcdEbi_SendOnlyDataBuffer(uint8_t * data_buffer, uint32_t data_buffer_size);
+void LcdEbi_SendServiceAndDataBuffer(uint8_t *service_buffer,
+                                     uint8_t service_buffer_size,
+                                     uint8_t * data_buffer,
+                                     uint32_t data_buffer_size);
+void LcdEBi_DisableWRnPin(void);
+void LcdEBi_EnableWRnPin(void);
+
+
 /** 
   Function:
     static int ILI9488_Intf_Read(struct ILI9488_DRV *drv, 
@@ -143,21 +174,19 @@ int ILI9488_Intf_WriteCmd(struct ILI9488_DRV *drv,
                           uint8_t *parms,
                           int num_parms) 
 {
-    int returnValue = -1;
-    GFX_Disp_Intf intf;
+    int returnValue = 0;
+//    GFX_Disp_Intf intf;
 
     if (!drv)
         return -1;
 
-    intf = (GFX_Disp_Intf ) drv->port_priv;
+//    intf = (GFX_Disp_Intf ) drv->port_priv;
     
-    ILI9488_NCSAssert(intf);
-
     // Write the command and parameters
-    returnValue = GFX_Disp_Intf_WriteCommandParm(intf, cmd, parms, num_parms);
+//    returnValue = GFX_Disp_Intf_WriteCommandParm(intf, cmd, parms, num_parms);
+    
+    LcdEbi_SendServiceAndDataBuffer(&cmd, 1, parms, num_parms);
    
-    ILI9488_NCSDeassert(intf);
-
     return returnValue;
 }
 
@@ -194,53 +223,64 @@ int ILI9488_Intf_WritePixels(struct ILI9488_DRV *drv,
                              uint8_t *data,
                              unsigned int num_pixels)
 {
-    int returnValue = -1;
-    GFX_Disp_Intf intf;
+    int returnValue = 0;
+//    GFX_Disp_Intf intf;
     uint8_t buf[4];
+    uint8_t cmd;
     
     if (!drv)
         return -1;
     
-    intf = (GFX_Disp_Intf) drv->port_priv;
+//    intf = (GFX_Disp_Intf) drv->port_priv;
     
-    ILI9488_NCSAssert(intf);
+//    ILI9488_NCSAssert(intf);
     
     //Set column
     buf[0] = (start_x >> 8);
     buf[1] = (start_x & 0xff);
     buf[2] = (((DRV_ILI9488_GetDisplayWidth() - 1) & 0xff00) >> 8);
     buf[3] = ((DRV_ILI9488_GetDisplayWidth() - 1) & 0xff);
-    returnValue = GFX_Disp_Intf_WriteCommandParm(intf,
-                                       ILI9488_CMD_COLUMN_ADDRESS_SET,
-                                       buf,
-                                       4);
-    if (0 != returnValue)
-    {
-        ILI9488_NCSDeassert(intf);
-        return -1;
-    }
+//    returnValue = GFX_Disp_Intf_WriteCommandParm(intf,
+//                                       ILI9488_CMD_COLUMN_ADDRESS_SET,
+//                                       buf,
+//                                       4);
+//    if (0 != returnValue)
+//    {
+//        ILI9488_NCSDeassert(intf);
+//        return -1;
+//    }
+    
+    cmd = ILI9488_CMD_COLUMN_ADDRESS_SET;
+    LcdEbi_SendServiceAndDataBuffer(&cmd, 1, buf, 4);
 
     //Set page
     buf[0] = (start_y >> 8);
     buf[1] = (start_y & 0xff);
     buf[2] = (((DRV_ILI9488_GetDisplayHeight() - 1) & 0xff00) >> 8);
     buf[3] = ((DRV_ILI9488_GetDisplayHeight() - 1) & 0xff);
-    returnValue = GFX_Disp_Intf_WriteCommandParm(intf,
-                                       ILI9488_CMD_PAGE_ADDRESS_SET,
-                                       buf,
-                                       4);
-    if (0 != returnValue)
-    {
-        ILI9488_NCSDeassert(intf);
-        return -1;
-    }
 
-    returnValue = GFX_Disp_Intf_WriteCommandParm(intf,
-                                       ILI9488_CMD_MEMORY_WRITE,
-                                       (uint8_t *) data,
-                                       num_pixels * 2);
+    //    returnValue = GFX_Disp_Intf_WriteCommandParm(intf,
+//                                       ILI9488_CMD_PAGE_ADDRESS_SET,
+//                                       buf,
+//                                       4);
+//    if (0 != returnValue)
+//    {
+//        ILI9488_NCSDeassert(intf);
+//        return -1;
+//    }
+    
+    cmd = ILI9488_CMD_PAGE_ADDRESS_SET;
+    LcdEbi_SendServiceAndDataBuffer(&cmd, 1, buf, 4);
 
-    ILI9488_NCSDeassert(intf);
+//    returnValue = GFX_Disp_Intf_WriteCommandParm(intf,
+//                                       ILI9488_CMD_MEMORY_WRITE,
+//                                       (uint8_t *) data,
+//                                       num_pixels * 2);
+    
+    cmd = ILI9488_CMD_MEMORY_WRITE;
+    LcdEbi_SendServiceAndDataBuffer(&cmd, 1, data, num_pixels * 2);
+
+//    ILI9488_NCSDeassert(intf);
 
     return returnValue;
 }
@@ -440,6 +480,15 @@ int ILI9488_Intf_Open(ILI9488_DRV *drv)
     if (!drv)
         return -1;
     
+    DMAC_ChannelCallbackRegister(DMA_LCD_CHANNEL_DATA_TRANSFER,
+                                 LcdEbi_TransferCompleteCallback,
+                                 (uintptr_t) &ContextHandle);
+    
+    //Set GPIO control for WR to high
+    PORT_REGS->GROUP[1].PORT_DIRSET = (1 << 9);
+    PORT_REGS->GROUP[1].PORT_OUTSET = (1 << 9);
+    LcdEBi_DisableWRnPin();
+    
     drv->port_priv = (void *) GFX_Disp_Intf_Open();
     
     intf = (GFX_Disp_Intf) drv->port_priv;
@@ -481,6 +530,127 @@ void ILI9488_Intf_Close(ILI9488_DRV *drv)
     GFX_Disp_Intf_Close((GFX_Disp_Intf) drv->port_priv);
 
     drv->port_priv = NULL;
+}
+
+LCDEBI_TRANSFER_STATUS_TYPE Ebi_GetTransferStatus(void)
+{
+	return Ebi_Transfer_Status;
+}
+
+void LcdEbi_SendServiceAndDataBuffer(uint8_t *service_buffer,
+                                     uint8_t service_buffer_size,
+                                     uint8_t * data_buffer,
+                                     uint32_t data_buffer_size)
+{
+    while (Ebi_GetTransferStatus() != LCDEBI_STATUS_NO_TRANSFER);
+    
+	/* Connect D/C pin to TC4 timer peripheral */
+    GFX_DISP_INTF_PIN_RSDC_Clear();
+
+	Ebi_Transfer_Status = LCDEBI_STATUS_DATA_TRANSFER_REGISTERS_PHASE;
+	
+	Ebi_Transfer_Fifo.data_buffer_ptr = data_buffer;
+	Ebi_Transfer_Fifo.partial_frames = 1;
+				
+	for (uint8_t idx = 2; data_buffer_size > 0xFFFF; idx *= 2)
+	{
+		data_buffer_size /= 2;
+		Ebi_Transfer_Fifo.partial_frames = idx;
+	}
+	
+	Ebi_Transfer_Fifo.data_buffer_size = data_buffer_size;
+
+    GFX_DISP_INTF_PIN_CS_Clear();
+    GFX_DISP_INTF_PIN_RSDC_Clear();
+    LcdEBi_EnableWRnPin();	
+    
+    DMAC_ChannelTransfer(DMA_LCD_CHANNEL_DATA_TRANSFER, (void*)service_buffer, (void*)DATABUS_PTR, service_buffer_size);        
+    
+    while (Ebi_GetTransferStatus() != LCDEBI_STATUS_NO_TRANSFER);
+    
+    GFX_DISP_INTF_PIN_CS_Set();
+    LcdEBi_DisableWRnPin();    
+}
+
+void LcdEbi_SendOnlyDataBuffer(uint8_t * data_buffer, uint32_t data_buffer_size)
+{
+    while (Ebi_GetTransferStatus() != LCDEBI_STATUS_NO_TRANSFER)
+    {}
+    
+	Ebi_Transfer_Status = LCDEBI_STATUS_DATA_TRANSFER_DATA_PHASE;
+	
+	Ebi_Transfer_Fifo.data_buffer_ptr = data_buffer;
+	Ebi_Transfer_Fifo.partial_frames = 0;
+	
+	for (uint8_t idx = 2; data_buffer_size > 0xFFFF; idx *= 2)
+	{
+		data_buffer_size /= 2;
+		Ebi_Transfer_Fifo.partial_frames = idx;
+	}
+	
+	Ebi_Transfer_Fifo.data_buffer_size = data_buffer_size;
+
+    /* Set D/C pin output value high to prepare data transfer */
+    GFX_DISP_INTF_PIN_CS_Clear();
+    GFX_DISP_INTF_PIN_RSDC_Set();
+    LcdEBi_EnableWRnPin();	
+    
+    DMAC_ChannelTransfer(DMA_LCD_CHANNEL_DATA_TRANSFER, (void*)(Ebi_Transfer_Fifo.data_buffer_ptr), (void*)DATABUS_PTR, Ebi_Transfer_Fifo.data_buffer_size);  
+    
+    while (Ebi_GetTransferStatus() != LCDEBI_STATUS_NO_TRANSFER){}
+    
+    GFX_DISP_INTF_PIN_CS_Set();
+    LcdEBi_DisableWRnPin();
+}
+
+static void LcdEbi_TransferCompleteCallback(DMAC_TRANSFER_EVENT event, uintptr_t contextHandle)
+{	
+	switch(Ebi_Transfer_Status)
+	{
+		default:
+		case LCDEBI_STATUS_NO_TRANSFER:
+			break;
+			
+		case LCDEBI_STATUS_SERVICE_TRANSFER:
+			Ebi_Transfer_Status = LCDEBI_STATUS_NO_TRANSFER;
+			break;
+		
+		case LCDEBI_STATUS_DATA_TRANSFER_REGISTERS_PHASE:
+            /* Set D/C pin output value high to prepare data transfer */
+            GFX_DISP_INTF_PIN_RSDC_Set();
+            
+			Ebi_Transfer_Fifo.partial_frames--;
+            DMAC_ChannelTransfer(DMA_LCD_CHANNEL_DATA_TRANSFER, (void*)(Ebi_Transfer_Fifo.data_buffer_ptr), (void*)DATABUS_PTR, Ebi_Transfer_Fifo.data_buffer_size); 
+			Ebi_Transfer_Status = LCDEBI_STATUS_DATA_TRANSFER_DATA_PHASE;
+			break;
+					
+		case LCDEBI_STATUS_DATA_TRANSFER_DATA_PHASE:
+			if (Ebi_Transfer_Fifo.partial_frames > 0)
+			{
+				Ebi_Transfer_Fifo.partial_frames--;
+				Ebi_Transfer_Fifo.data_buffer_ptr += Ebi_Transfer_Fifo.data_buffer_size;
+                DMAC_ChannelTransfer(DMA_LCD_CHANNEL_DATA_TRANSFER, (void*)(Ebi_Transfer_Fifo.data_buffer_ptr), (void*)DATABUS_PTR, Ebi_Transfer_Fifo.data_buffer_size); 
+			}
+			else
+			{				
+				Ebi_Transfer_Status = LCDEBI_STATUS_NO_TRANSFER;
+                //Set pin to high
+			}
+			break;
+	}
+}
+
+void LcdEBi_DisableWRnPin(void)
+{
+    //Disable MUXing
+    PORT_REGS->GROUP[1].PORT_PINCFG[9] &= ~(0x1);
+    //Output High
+}
+
+void LcdEBi_EnableWRnPin(void)
+{
+    //Enable MUXing
+    PORT_REGS->GROUP[1].PORT_PINCFG[9] |= (0x1);
 }
 /* *****************************************************************************
  End of File

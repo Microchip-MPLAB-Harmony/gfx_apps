@@ -65,7 +65,8 @@ void _leDrawSurfaceWidget_GenerateVTable();
 void _leGradientWidget_GenerateVTable();
 void _leGroupBoxWidget_GenerateVTable();
 void _leImageWidget_GenerateVTable();
-void _leImagePlusWidget_GenerateVTable();
+void _leImageRotateWidget_GenerateVTable();
+void _leImageScaleWidget_GenerateVTable();
 void _leImageSequenceWidget_GenerateVTable();
 void _leKeyPadWidget_GenerateVTable();
 void _leLabelWidget_GenerateVTable();
@@ -138,8 +139,12 @@ vtableFn vtableFnTable[] =
     _leImageWidget_GenerateVTable,
 #endif
 
-#if LE_IMAGEPLUS_WIDGET_ENABLED == 1
-    _leImagePlusWidget_GenerateVTable,
+#if LE_IMAGEROTATE_WIDGET_ENABLED == 1
+    _leImageRotateWidget_GenerateVTable,
+#endif
+
+#if LE_IMAGESCALE_WIDGET_ENABLED == 1
+    _leImageScaleWidget_GenerateVTable,
 #endif
 
 #if LE_IMAGESEQUENCE_WIDGET_ENABLED == 1
@@ -318,8 +323,6 @@ static void updateWidgets(uint32_t dt)
 leResult leUpdate(uint32_t dt)
 {
     leEvent_ProcessEvents();
-    
-    updateWidgets(dt);
 
 #if LE_STREAMING_ENABLED == 1
     // there is an active stream in progress, service that to completion
@@ -338,6 +341,8 @@ leResult leUpdate(uint32_t dt)
         }
     }
 #endif
+
+    updateWidgets(dt);
 
     leRenderer_Paint();
 
@@ -548,9 +553,22 @@ leResult leRunActiveStream()
 {
     if(_state.activeStream != NULL)
     {
-        _state.activeStream->exec(_state.activeStream);
+        if(_state.activeStream->exec(_state.activeStream) == LE_FAILURE)
+        {
+            leAbortActiveStream();
+        }
+        else
+        {
+            if(_state.activeStream != NULL &&
+               _state.activeStream->isDone(_state.activeStream) == LE_TRUE)
+            {
+                _state.activeStream->cleanup(_state.activeStream);
 
-        return LE_SUCCESS;
+                _state.activeStream = NULL;
+            }
+
+            return LE_SUCCESS;
+        }
     }
 
     return LE_FAILURE;
@@ -561,6 +579,14 @@ void leAbortActiveStream()
     if(_state.activeStream != NULL)
     {
         _state.activeStream->abort(_state.activeStream);
+
+        if(_state.activeStream != NULL &&
+           _state.activeStream->isDone(_state.activeStream) == LE_TRUE)
+        {
+            _state.activeStream->cleanup(_state.activeStream);
+
+            _state.activeStream = NULL;
+        }
     }
 }
 

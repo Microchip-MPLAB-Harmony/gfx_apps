@@ -538,39 +538,59 @@ void FPSMotion_OnUpdate()
     {
         case SCREEN_DO_NOTHING:
         {
-            moveRectangles();
+            if(leGetRenderState()->frameState == LE_FRAME_READY &&
+               leEvent_GetCount() == 0)
+            {            
+                moveRectangles();
+            }
             
             break;
         }
         case SCREEN_RECT_SIZE_UP:
         {
-            increaseRectSize();
-            
-            screenState = SCREEN_DO_NOTHING;
+            if(leGetRenderState()->frameState == LE_FRAME_READY &&
+               leEvent_GetCount() == 0)
+            {            
+                increaseRectSize();
+
+                screenState = SCREEN_DO_NOTHING;
+            }
 
             break;
         }
         case SCREEN_RECT_SIZE_DOWN:
         {
-            decreaseRectSize();
-            
-            screenState = SCREEN_DO_NOTHING;
+            if(leGetRenderState()->frameState == LE_FRAME_READY &&
+               leEvent_GetCount() == 0)
+            {            
+                decreaseRectSize();
+
+                screenState = SCREEN_DO_NOTHING;
+            }
 
             break;                    
         }
         case SCREEN_RECT_COUNT_UP:
         {
-            addRect();
-            
-            screenState = SCREEN_DO_NOTHING;
+            if(leGetRenderState()->frameState == LE_FRAME_READY &&
+               leEvent_GetCount() == 0)
+            {            
+                addRect();
+
+                screenState = SCREEN_DO_NOTHING;
+            }
 
             break;
         }
         case SCREEN_RECT_COUNT_DOWN:
         {
-            removeRect();
-            
-            screenState = SCREEN_DO_NOTHING;
+            if(leGetRenderState()->frameState == LE_FRAME_READY &&
+               leEvent_GetCount() == 0)
+            {            
+                removeRect();
+
+                screenState = SCREEN_DO_NOTHING;
+            }
 
             break;                    
         }

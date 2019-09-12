@@ -25,6 +25,7 @@
 
 #include <string.h>
 
+#include "gfx/legato/common/legato_error.h"
 #include "gfx/legato/common/legato_rect.h"
 #include "gfx/legato/memory/legato_memory.h"
 
@@ -93,6 +94,8 @@ leResult leRectArray_Resize(leRectArray* arr, uint32_t sz)
         return LE_FAILURE;
 
     arr->rects = LE_REALLOC(arr->rects, sizeof(leRect) * sz);
+
+    LE_ASSERT(arr->rects != NULL);
 
     if(arr->rects == NULL)
     {
@@ -439,7 +442,7 @@ leResult leRectArray_CropToSize(leRectArray* arr, uint32_t size)
                 split.height -= arr->rects[rectItr].height;
                 split.y += arr->rects[rectItr].height;
             }
-            
+
             leRectArray_PushBack(arr, &split);
         }
     }

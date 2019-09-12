@@ -235,19 +235,31 @@ void SplashScreen_OnUpdate()
         }
         case SCREEN_MOVE_BAR:
         {
-            moveBar();
+            if(leGetRenderState()->frameState == LE_FRAME_READY &&
+               leEvent_GetCount() == 0)
+            {            
+                moveBar();
+            }
             
             break;
         }
         case SCREEN_SWAP_LOGO_ALPHA:
         {
-            swapLogoAlpha();
+            if(leGetRenderState()->frameState == LE_FRAME_READY &&
+               leEvent_GetCount() == 0)
+            {            
+                swapLogoAlpha();
+            }
             
             break;                    
         }
         case SCREEN_SHOW_SMALL_ICON:
         {
-            showSmallIcon();
+            if(leGetRenderState()->frameState == LE_FRAME_READY &&
+               leEvent_GetCount() == 0)
+            {            
+                showSmallIcon();
+            }
             
             break;
         }

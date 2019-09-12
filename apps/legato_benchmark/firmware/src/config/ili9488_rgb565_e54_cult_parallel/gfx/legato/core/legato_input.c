@@ -30,7 +30,10 @@
 
 #include <string.h>
 
-//#define INPUT_EVENT_DEBUG
+#ifdef LEGATO_SIM
+#undef LE_TOUCH_ORIENTATION
+#define LE_TOUCH_ORIENTATION 0
+#endif
 
 static leInputState _state; // the global input state
 

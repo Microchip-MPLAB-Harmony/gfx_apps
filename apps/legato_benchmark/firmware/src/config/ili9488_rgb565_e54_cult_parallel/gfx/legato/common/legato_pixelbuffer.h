@@ -55,6 +55,12 @@
 // *****************************************************************************
 // *****************************************************************************
 
+enum BufferFlags
+{
+    BF_NONE = 0,
+    BF_LOCKED = 1 << 0,
+};
+
 // *****************************************************************************
 /* Structure:
     lePixelBuffer
@@ -83,6 +89,8 @@ typedef struct lePixelBuffer
     
     uint32_t buffer_length;
     leBuffer pixels;
+
+    uint32_t flags;
 } lePixelBuffer;
 
 // *****************************************************************************
@@ -368,6 +376,39 @@ LIB_EXPORT leResult lePixelBufferAreaFill_Unsafe(const lePixelBuffer* const buff
                                                  uint32_t w,
                                                  uint32_t h,
                                                  leColor color);
+
+// *****************************************************************************
+/* Function:
+    leResult lePixelBuffer_IsLocked(const lePixelBuffer* const buffer)
+
+  Summary:
+    Returns true if the buffer's lock flag is on.
+
+  Parameters:
+    const lePixelBuffer* const buffer - the buffer to query
+
+  Returns:
+    leBool - true if the buffer is locked
+*/
+LIB_EXPORT leBool lePixelBuffer_IsLocked(const lePixelBuffer* const buffer);
+
+// *****************************************************************************
+/* Function:
+    leResult lePixelBuffer_SetLocked(lePixelBuffer* buffer,
+                                     leBool locked)
+
+  Summary:
+    Manipulates a buffer lock flag
+
+  Parameters:
+    const lePixelBuffer* const buffer - the buffer to query
+    leBool locked - the desired lock state
+
+  Returns:
+    leResult
+*/
+LIB_EXPORT leResult lePixelBuffer_SetLocked(lePixelBuffer* buffer,
+                                            leBool locked);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

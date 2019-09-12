@@ -312,23 +312,35 @@ void FPSCounters_OnUpdate()
     {
         case SCREEN_DO_NOTHING:
         {
-            decrementCount();
+            if(leGetRenderState()->frameState == LE_FRAME_READY &&
+               leEvent_GetCount() == 0)
+            {
+                decrementCount();
+            }
             
             break;
         }
         case SCREEN_COUNTER_SIZE_UP:
         {
-            increaseCounterSize();
+            if(leGetRenderState()->frameState == LE_FRAME_READY &&
+               leEvent_GetCount() == 0)
+            {
+                increaseCounterSize();
             
-            screenState = SCREEN_DO_NOTHING;
+                screenState = SCREEN_DO_NOTHING;
+            }
 
             break;
         }
         case SCREEN_COUNTER_SIZE_DOWN:
         {
-            decreaseCounterSize();
+            if(leGetRenderState()->frameState == LE_FRAME_READY &&
+               leEvent_GetCount() == 0)
+            {
+                decreaseCounterSize();
             
-            screenState = SCREEN_DO_NOTHING;
+                screenState = SCREEN_DO_NOTHING;
+            }
 
             break;                    
         }

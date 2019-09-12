@@ -581,33 +581,49 @@ void FPSImages_OnUpdate()
         }
         case SCREEN_IMAGE_SIZE_UP:
         {
-            increaseImageSize();
-            
-            screenState = SCREEN_DO_NOTHING;
+            if(leGetRenderState()->frameState == LE_FRAME_READY &&
+               leEvent_GetCount() == 0)
+            {
+                increaseImageSize();
+
+                screenState = SCREEN_DO_NOTHING;
+            }
 
             break;
         }
         case SCREEN_IMAGE_SIZE_DOWN:
         {
-            decreaseImageSize();
-            
-            screenState = SCREEN_DO_NOTHING;
+            if(leGetRenderState()->frameState == LE_FRAME_READY &&
+               leEvent_GetCount() == 0)
+            {            
+                decreaseImageSize();
+
+                screenState = SCREEN_DO_NOTHING;
+            }
 
             break;                    
         }
         case SCREEN_IMAGE_MODE_NEXT:
         {
-            nextImageType();
-            
-            screenState = SCREEN_DO_NOTHING;
+            if(leGetRenderState()->frameState == LE_FRAME_READY &&
+               leEvent_GetCount() == 0)
+            {
+                nextImageType();
+
+                screenState = SCREEN_DO_NOTHING;
+            }
 
             break;
         }
         case SCREEN_IMAGE_MODE_PREV:
         {
-            prevImageType();
-            
-            screenState = SCREEN_DO_NOTHING;
+            if(leGetRenderState()->frameState == LE_FRAME_READY &&
+               leEvent_GetCount() == 0)
+            {            
+                prevImageType();
+
+                screenState = SCREEN_DO_NOTHING;
+            }
 
             break;                    
         }

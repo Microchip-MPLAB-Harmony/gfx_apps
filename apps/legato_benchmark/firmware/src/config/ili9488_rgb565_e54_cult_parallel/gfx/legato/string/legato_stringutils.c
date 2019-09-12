@@ -65,7 +65,7 @@ leResult leStringUtils_GetRect(const leChar* str,
 {
     uint32_t idx;
     uint32_t lines;
-    leRect lineRect;
+    leRect lineRect = leRect_Zero;
     leRasterFont* rasFnt = (leRasterFont*)font;
 
     *rect = leRect_Zero;

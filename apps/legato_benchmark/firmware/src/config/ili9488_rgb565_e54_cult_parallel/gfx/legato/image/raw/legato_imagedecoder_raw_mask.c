@@ -23,6 +23,9 @@
 
 #include "gfx/legato/image/raw/legato_imagedecoder_raw.h"
 
+void _leRawImageDecoder_InjectStage(leRawDecodeState* state,
+                                    leRawDecodeStage* stage);
+
 static struct InternalMaskStage
 {
     leRawDecodeStage base;
@@ -31,28 +34,21 @@ static struct InternalMaskStage
 static leResult stage_rejectMaskedColor(leRawDecodeStage* stage)
 {
     // compare color to mask
-    if(stage->state->sourceColor == stage->state->source->mask.color)
+    if(stage->state->writeColor == stage->state->source->mask.color)
     {
-        stage->state->currentStage = stage->state->readStage;
-    }
-    else
-    {
-        stage->state->currentStage = stage->state->paletteStage;
+        // reset stage index
+        stage->state->currentStage = -1;
     }
 
     return LE_SUCCESS;
 }
 
-void _leRawImageDecoder_MaskInternalInit(leRawDecodeState* state)
+void _leRawImageDecoder_MaskStage_Internal(leRawDecodeState* state)
 {
     memset(&maskStage, 0, sizeof(maskStage));
 
     maskStage.base.state = state;
+    maskStage.base.exec = (void*)stage_rejectMaskedColor;
 
-    if((state->source->flags & LE_IMAGE_USE_MASK_COLOR) > 0)
-    {
-        maskStage.base.exec = (void*)stage_rejectMaskedColor;
-
-        state->maskStage = (leRawDecodeStage*)&maskStage;
-    }
+    _leRawImageDecoder_InjectStage(state, (void*)&maskStage);
 }

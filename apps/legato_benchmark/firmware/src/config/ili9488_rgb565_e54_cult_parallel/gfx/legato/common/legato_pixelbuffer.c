@@ -190,6 +190,7 @@ leResult lePixelBufferCreate(const int32_t width,
     buffer->size.width = width;
     buffer->size.height = height;
     buffer->pixel_count = width * height;
+    buffer->flags = BF_NONE;
 
     buffer->mode = mode;
 
@@ -426,6 +427,32 @@ leResult lePixelBufferAreaFill_Unsafe(const lePixelBuffer* const buffer,
         //idx = (uint8_t*)(((uint32_t)buffer->pixels) + ((y + row) * rowSize));
 
         memcpy(destIdx, srcIdx, rowSize);
+    }
+
+    return LE_SUCCESS;
+}
+
+leBool lePixelBuffer_IsLocked(const lePixelBuffer* const buffer)
+{
+    if(buffer == NULL)
+        return LE_FALSE;
+
+    return (buffer->flags & BF_LOCKED) > 0;
+}
+
+leResult lePixelBuffer_SetLocked(lePixelBuffer* buffer,
+                                 leBool locked)
+{
+    if(buffer == NULL)
+        return LE_FAILURE;
+
+    if(locked == LE_TRUE)
+    {
+        buffer->flags |= BF_LOCKED;
+    }
+    else
+    {
+        buffer->flags &= ~(BF_LOCKED);
     }
 
     return LE_SUCCESS;

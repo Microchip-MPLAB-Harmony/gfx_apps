@@ -87,6 +87,26 @@ static void drawDone(uint32_t codepoint)
     }
 }
 
+static void drawDone_blocking(uint32_t codepoint)
+{
+    renderState.charItr += 1;
+
+    renderState.lineX += renderState.glyphInfo.advance;
+
+    if(renderState.charItr >= renderState.endIdx)
+    {
+        renderState.state = SS_NEWLINE;
+    }
+    else
+    {
+        codepoint = renderState.string->fn->charAt(renderState.string, renderState.charItr);
+
+        leFont_GetGlyphInfo((leFont *) renderState.font, codepoint, &renderState.glyphInfo);
+
+        renderState.state = SS_DRAW;
+    }
+}
+
 static leResult draw()
 {
     renderState.state = SS_WAITING;
@@ -99,12 +119,37 @@ static leResult draw()
         return LE_SUCCESS;
     }
 
+    if(renderState.stream->drawGlyph(&renderState.glyphInfo,
+                                     renderState.x + renderState.lineX + renderState.glyphInfo.bearingX,
+                                     renderState.stringY + (renderState.font->baseline - renderState.glyphInfo.bearingY),
+                                     renderState.color,
+                                     renderState.alpha,
+                                     drawDone) == LE_FAILURE)
+    {
+        drawDone(renderState.glyphInfo.codePoint);
+    }
+
+    return LE_SUCCESS;
+}
+
+static leResult draw_blocking()
+{
+    if(renderState.glyphInfo.codePoint == LE_STRING_SPACE ||
+       renderState.glyphInfo.codePoint == LE_STRING_LINEBREAK)
+    {
+        drawDone_blocking(renderState.glyphInfo.codePoint);
+
+        return LE_SUCCESS;
+    }
+
     renderState.stream->drawGlyph(&renderState.glyphInfo,
                                   renderState.x + renderState.lineX + renderState.glyphInfo.bearingX,
                                   renderState.stringY + (renderState.font->baseline - renderState.glyphInfo.bearingY),
                                   renderState.color,
                                   renderState.alpha,
-                                  drawDone);
+                                  NULL);
+
+    drawDone_blocking(renderState.glyphInfo.codePoint);
 
     return LE_SUCCESS;
 }
@@ -169,6 +214,11 @@ static void cleanup()
     renderState.stream->close();
 
     renderState.state = SS_DONE;
+
+    if(renderState.manager.onDone != NULL)
+    {
+        renderState.manager.onDone(&renderState.manager);
+    }
 }
 
 static leResult exec(leStreamManager* man)
@@ -200,7 +250,41 @@ static leResult exec(leStreamManager* man)
             }
             default:
             {
+                return LE_SUCCESS;
+            }
+        }
+    }
+
+    return LE_SUCCESS;
+}
+
+static leResult exec_blocking(leStreamManager* man)
+{
+    while(renderState.state != SS_DONE)
+    {
+        switch(renderState.state)
+        {
+            case SS_DRAW:
+            {
+                draw_blocking();
+
                 break;
+            }
+            case SS_NEWLINE:
+            {
+                newline();
+
+                break;
+            }
+            case SS_CLEANUP:
+            {
+                cleanup();
+
+                break;
+            }
+            default:
+            {
+                return LE_SUCCESS;
             }
         }
     }
@@ -215,10 +299,6 @@ static leBool isDone(leStreamManager* man)
 
 static void abortDraw(leStreamManager* man)
 {
-    leGetState()->activeStream = NULL;
-
-    renderState.stream->close();
-
     renderState.state = SS_CLEANUP;
 }
 
@@ -272,7 +352,7 @@ leResult _leStringStreamRenderer_Draw(leStringRenderRequest* req)
 
     leFont_GetGlyphInfo((leFont*)renderState.font, codepoint, &renderState.glyphInfo);
 
-    renderState.manager.exec = exec;
+
     renderState.manager.isDone = isDone;
     renderState.manager.abort = abortDraw;
 
@@ -281,7 +361,16 @@ leResult _leStringStreamRenderer_Draw(leStringRenderRequest* req)
     // execute draw
     leGetState()->activeStream = (leStreamManager*)&renderState;
 
-    renderState.manager.exec((leStreamManager*)&renderState);
+    if(leStream_IsBlocking((leStream*)renderState.stream) == LE_TRUE)
+    {
+        renderState.manager.exec = exec_blocking;
+    }
+    else
+    {
+        renderState.manager.exec = exec;
+    }
+
+    renderState.manager.exec((leStreamManager*) &renderState);
 
     return LE_SUCCESS;
 }
