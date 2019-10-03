@@ -48,7 +48,7 @@
 
 #define MCLK_FREQ_HZ 166000000
 #define PIXEL_CLOCK_FREQ_HZ 6006000
-#define LCDC_OUTPUT_COLOR_MODE LCDC_LCDCFG5_MODE_OUTPUT_24BPP
+#define LCDC_OUTPUT_COLOR_MODE LCDC_OUTPUT_COLOR_MODE_24BPP
 #define LCDC_DISPLAY_GUARD_NUM_FRAMES 30
 #define LCDC_SYNC_EDGE LCDC_SYNC_EDGE_FIRST
 #define LCDC_PWM_POLARITY LCDC_POLARITY_POSITIVE
@@ -59,10 +59,6 @@
 
 #define LCDC_DEFAULT_GFX_COLOR_MODE GFX_COLOR_MODE_RGBA_8888
 #define FRAMEBUFFER_PIXEL_TYPE    uint32_t
-
-
-#define __REGION__ @ ".region_nocache"
-#define CACHED_BUFFER_FLUSH(addr, size) //Do nothing
 
 #define LCDC_VSYNC_POLARITY LCDC_POLARITY_NEGATIVE
 
@@ -114,17 +110,17 @@ static LCDC_LAYER_ID lcdcLayerZOrder[LCDC_NUM_LAYERS] =
     LCDC_LAYER_OVR2,
 };
 
-FRAMEBUFFER_PIXEL_TYPE  __attribute__ ((aligned (64))) framebuffer_0[DISPLAY_WIDTH * DISPLAY_HEIGHT] __REGION__;
-FRAMEBUFFER_PIXEL_TYPE  __attribute__ ((aligned (64))) framebuffer_1[DISPLAY_WIDTH * DISPLAY_HEIGHT] __REGION__;
-FRAMEBUFFER_PIXEL_TYPE  __attribute__ ((aligned (64))) framebuffer_2[DISPLAY_WIDTH * DISPLAY_HEIGHT] __REGION__;
+FRAMEBUFFER_PIXEL_TYPE  __attribute__ ((section(".region_nocache"), aligned (32))) framebuffer_0[DISPLAY_WIDTH * DISPLAY_HEIGHT];
+FRAMEBUFFER_PIXEL_TYPE  __attribute__ ((section(".region_nocache"), aligned (32))) framebuffer_1[DISPLAY_WIDTH * DISPLAY_HEIGHT];
+FRAMEBUFFER_PIXEL_TYPE  __attribute__ ((section(".region_nocache"), aligned (32))) framebuffer_2[DISPLAY_WIDTH * DISPLAY_HEIGHT];
 
-FRAMEBUFFER_PIXEL_TYPE  __attribute__ ((aligned (64))) framebuffer1_0[DISPLAY_WIDTH * DISPLAY_HEIGHT] __REGION__;
-FRAMEBUFFER_PIXEL_TYPE  __attribute__ ((aligned (64))) framebuffer1_1[DISPLAY_WIDTH * DISPLAY_HEIGHT] __REGION__;
-FRAMEBUFFER_PIXEL_TYPE  __attribute__ ((aligned (64))) framebuffer1_2[DISPLAY_WIDTH * DISPLAY_HEIGHT] __REGION__;
+FRAMEBUFFER_PIXEL_TYPE  __attribute__ ((section(".region_nocache"), aligned (32))) framebuffer1_0[DISPLAY_WIDTH * DISPLAY_HEIGHT];
+FRAMEBUFFER_PIXEL_TYPE  __attribute__ ((section(".region_nocache"), aligned (32))) framebuffer1_1[DISPLAY_WIDTH * DISPLAY_HEIGHT];
+FRAMEBUFFER_PIXEL_TYPE  __attribute__ ((section(".region_nocache"), aligned (32))) framebuffer1_2[DISPLAY_WIDTH * DISPLAY_HEIGHT];
 
-LCDC_DMA_DESC __attribute__ ((aligned (32))) channelDesc0 __REGION__;
-LCDC_DMA_DESC __attribute__ ((aligned (32))) channelDesc1 __REGION__;
-LCDC_DMA_DESC __attribute__ ((aligned (32))) channelDesc2 __REGION__;
+LCDC_DMA_DESC __attribute__ ((section(".region_nocache"), aligned (64))) channelDesc0;
+LCDC_DMA_DESC __attribute__ ((section(".region_nocache"), aligned (64))) channelDesc1;
+LCDC_DMA_DESC __attribute__ ((section(".region_nocache"), aligned (64))) channelDesc2;
 
 const char* DRIVER_NAME = "LCDC";
 static uint32_t supported_color_format = GFX_COLOR_MASK_RGBA_8888;
@@ -153,8 +149,6 @@ static void LCDCUpdateDMADescriptor(LCDC_DMA_DESC * desc, uint32_t addr, uint32_
     desc->addr = addr;
     desc->ctrl = ctrl;
     desc->next = next;
-    
-    CACHED_BUFFER_FLUSH(desc, sizeof(LCDC_DMA_DESC));
 }
 
 // function that returns the information for this driver
@@ -238,8 +232,7 @@ static GFX_Result colorModeSet(GFX_ColorMode mode)
     GFX_Layer* layer;
     GFX_Context* context = GFX_ActiveContext();
     LCDC_INPUT_COLOR_MODE LCDCMode;
-    uint32_t stride = 0;
-    
+
     layer = context->layer.active;
 
     LCDCMode = convertColorModeGfxToLCDC(mode);
@@ -248,11 +241,11 @@ static GFX_Result colorModeSet(GFX_ColorMode mode)
 
     // use default implementation to initialize buffer struct
     defColorModeSet(mode);
-    
+
     //Update the active layer's color mode and stride
     drvLayer[layer->id].colorspace = LCDCMode;
     LCDC_SetRGBModeInput(drvLayer[layer->id].hwLayerID, drvLayer[layer->id].colorspace );
-    
+
     return GFX_SUCCESS;
 }
 
@@ -635,7 +628,7 @@ static GFX_Result LCDCInitialize(GFX_Context* context)
 
 
     //Register the interrupt handler
-    LCDC_IRQ_CallbackRegister(_IntHandlerVSync, NULL);
+    LCDC_IRQ_CallbackRegister(_IntHandlerVSync, (uintptr_t) NULL);
     
     return GFX_SUCCESS;
 }
@@ -712,7 +705,6 @@ GFX_Result driverLCDCContextInitialize(GFX_Context* context)
 
 void _IntHandlerVSync(uintptr_t context)
 {
-    GFX_Context* gfxContext= GFX_ActiveContext();
     uint32_t i, status;
     
     for (i = 0; i < LCDC_NUM_LAYERS; i++)
