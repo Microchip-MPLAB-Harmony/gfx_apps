@@ -289,9 +289,6 @@ leResult leFont_DrawGlyphData(const leFont* fnt,
     
     leRenderer_ClipDrawRect(&glyphRect, &clippedGlyph);
     
-    data = ((uint8_t*)fnt->header.address);
-    data += glyph->dataOffset;
-    
     if(x >= clippedGlyph.x)
     {
         colStart = 0;

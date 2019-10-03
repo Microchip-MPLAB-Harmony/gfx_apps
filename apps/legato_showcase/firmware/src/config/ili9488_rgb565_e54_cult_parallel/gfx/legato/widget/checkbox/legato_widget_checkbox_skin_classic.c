@@ -63,7 +63,7 @@ void _leCheckBoxWidget_GetImageRect(const leCheckBoxWidget* cbox,
 									leRect* imgRect,
 									leRect* imgSrcRect)
 {
-    leRect textRect;
+    leRect textRect = leRect_Zero;
     leRect bounds = cbox->fn->localRect(cbox);
     
     imgRect->x = 0;

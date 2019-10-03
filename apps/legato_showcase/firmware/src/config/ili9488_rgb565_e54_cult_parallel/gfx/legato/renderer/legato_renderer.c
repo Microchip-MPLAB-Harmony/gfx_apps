@@ -363,6 +363,7 @@ static void preRect()
     renderBuffer.mode = LE_GLOBAL_COLOR_MODE;
     renderBuffer.pixels = &scratchBuffer;
     renderBuffer.buffer_length = renderBuffer.pixel_count * leColorInfoTable[renderBuffer.mode].size;
+    renderBuffer.flags &= ~(BF_LOCKED); // clear any lock on the buffer
     
     _rendererState.frameState = LE_FRAME_PREWIDGET;
 }
@@ -589,16 +590,10 @@ static leBool paintWidget(leWidget* widget)
     return LE_TRUE;
 }
 
-static leResult postRect()
+static void _nextRect()
 {
-    leRect frameRect = _rendererState.frameRectList.rects[_rendererState.frameRectIdx];
-    
-    /* display driver may not be ready */
-    if(_rendererState.dispDriver->blitBuffer(frameRect.x, frameRect.y, &renderBuffer) == LE_FAILURE)
-        return LE_FAILURE;
-
     _rendererState.frameRectIdx += 1;
-    
+
     if(_rendererState.frameRectIdx < _rendererState.frameRectList.size)
     {
         _rendererState.frameState = LE_FRAME_PRERECT;
@@ -607,6 +602,26 @@ static leResult postRect()
     {
         _rendererState.frameState = LE_FRAME_POSTLAYER;
     }
+}
+
+static leResult postRect()
+{
+    leRect frameRect = _rendererState.frameRectList.rects[_rendererState.frameRectIdx];
+
+    /* render buffer may be locked by something or display driver may not be ready */
+    if(_rendererState.dispDriver->blitBuffer(frameRect.x, frameRect.y, &renderBuffer) == LE_FAILURE)
+    {
+        return LE_FAILURE;
+    }
+
+    if(lePixelBuffer_IsLocked(&renderBuffer) == LE_TRUE)
+    {
+        _rendererState.frameState = LE_FRAME_WAITFORBUFFER;
+
+        return LE_SUCCESS;
+    }
+
+    _nextRect();
     
     return LE_SUCCESS;
 }
@@ -719,6 +734,10 @@ void leRenderer_Paint()
                 {
                     _rendererState.frameState = LE_FRAME_POSTWIDGET;
                 }
+                else
+                {
+                    return;
+                }
                 
                 break;
             }
@@ -734,6 +753,16 @@ void leRenderer_Paint()
                 if(postRect() == LE_FAILURE)
                     return;
                 
+                break;
+            }
+            case LE_FRAME_WAITFORBUFFER:
+            {
+                /* may need to preempt to give some time to the rest of the system */
+                if(lePixelBuffer_IsLocked(&renderBuffer) == LE_TRUE)
+                    return;
+
+                _nextRect();
+
                 break;
             }
             case LE_FRAME_POSTLAYER:

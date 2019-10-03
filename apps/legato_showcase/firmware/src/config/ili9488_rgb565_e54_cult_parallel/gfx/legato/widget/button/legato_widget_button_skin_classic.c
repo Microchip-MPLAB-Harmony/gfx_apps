@@ -123,7 +123,7 @@ void _leButtonWidget_GetTextRect(const leButtonWidget* btn,
 {
     leRect bounds;
     
-    leRect imgRect = {0};
+    leRect imgRect = leRect_Zero;
     
     *textRect = leRect_Zero;
     

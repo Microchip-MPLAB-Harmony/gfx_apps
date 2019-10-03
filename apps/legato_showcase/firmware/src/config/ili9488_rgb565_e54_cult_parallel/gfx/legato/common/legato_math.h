@@ -339,40 +339,57 @@ LIB_EXPORT leResult lePolarToXY(int32_t r, int32_t a, lePoint* p);
 
 // *****************************************************************************
 /* Function:
-    int16_t leNormalizeAngle(int16_t t)
+    int32_t leNormalizeAngle(int32_t t)
 
   Summary:
      normalize an angle between 0 - 360
 
   Parameters:
-    int16_t t - angle (in degrees)
+    int32_t t - angle (in degrees)
 
   Returns:
-    int16_t - normalize an angle in degrees.
+    int32_t - normalize an angle in degrees.
               Example: t = -5, return value is 355
                        t = 450, return value is 90
 */
-LIB_EXPORT int16_t leNormalizeAngle(int16_t t);
+LIB_EXPORT int32_t leNormalizeAngle(int32_t t);
 
 
 // *****************************************************************************
 /* Function:
-    int16_t leSineCosineGet(int16_t v, LE_TRIG_FUNCTION_TYPE type)
+    int32_t leSin(int32_t v)
 
   Summary:
-    Performs a cosine lookup to determine the result of sine/cosine
+    Returns the sine of the value v * 256
 
   Parameters:
     v - angle (in degrees)
-    type - function type sine or cosine
 
   Returns:
-    int16_t - result of sine cosine fixed point value (times 256), calling function needs to divide
-              by 256 to get good result
+    int32_t - result of sine fixed point value (times 256), calling function needs
+              to divide by 256 to get good result
 
-              ex. "a * cos(v)" would be "a * leSineCosineGet(v, LE_TRIG_COSINE_TYPE) / 256";
+              ex. "a * sin(v)" would be "a * leSin(v) / 256";
 */
-LIB_EXPORT int16_t leSineCosineGet(int16_t v, LE_TRIG_FUNCTION_TYPE type);
+LIB_EXPORT int32_t leSin(int32_t v);
+
+// *****************************************************************************
+/* Function:
+    int32_t leCos(int32_t v)
+
+  Summary:
+    Returns the cosine of the value v
+
+  Parameters:
+    v - angle (in degrees)
+
+  Returns:
+    int32_t - result of cosine fixed point value (times 256), calling function
+              needs to divide by 256 to get good result
+
+              ex. "a * cos(v)" would be "a * leCos(v) / 256";
+*/
+LIB_EXPORT int32_t leCos(int32_t v);
 
 /************************************************************************************************
   Function:
@@ -501,5 +518,61 @@ int32_t leGetXGivenYOnLine(lePoint p1, lePoint p2, int32_t y);
 
 */
 int32_t leGetYGivenXOnLine(lePoint p1, lePoint p2, int32_t x);
+
+// *****************************************************************************
+/* Function:
+    lePoint leRotatePoint(lePoint pos,
+                          lePoint org,
+                          int32_t ang)
+
+  Summary:
+    Rotates a point given an origin and an angle in degrees.
+
+  Description:
+    Rotates a point given an origin and an angle in degrees.
+
+  Parameters:
+    lePoint pos - the point to rotate
+    lePoint org - the origin of the rotation
+    int32_t ang - the angle in degrees
+
+  Returns:
+    lePoint - the rotated point
+
+  Remarks:
+
+*/
+lePoint leRotatePoint(lePoint pos,
+                      lePoint org,
+                      int32_t ang);
+
+// *****************************************************************************
+/* Function:
+    leRect leRotatedRectBounds(leRect rect,
+                               lePoint org,
+                               int32_t ang)
+
+  Summary:
+    Calculates the bounding rectangle of an area rotated around
+    an anchor point.
+
+  Description:
+    Calculates the bounding rectangle of an area rotated around
+    an anchor point.
+
+  Parameters:
+    leRect rect - the area to rotate
+    lePoint org - the origin of the rotation
+    int32_t ang - the angle in degrees
+
+  Returns:
+    leRect - the rectangle that completely contains the rotated area
+
+  Remarks:
+
+*/
+leRect leRotatedRectBounds(leRect rect,
+                           lePoint org,
+                           int32_t ang);
 
 #endif /* LE_MATH_H */

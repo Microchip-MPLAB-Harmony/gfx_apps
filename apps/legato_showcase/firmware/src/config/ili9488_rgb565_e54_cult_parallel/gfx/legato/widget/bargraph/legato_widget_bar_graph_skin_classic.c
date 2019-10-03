@@ -395,8 +395,8 @@ static void drawMinMaxLabels(leBarGraphWidget* bar)
 
 static void drawTicks(leBarGraphWidget* bar)
 {
-    lePoint drawPoint;
-    lePoint drawEndPoint;
+    lePoint drawPoint = lePoint_Zero;
+    lePoint drawEndPoint = lePoint_Zero;
     int32_t value;
     
     // draw the ticks

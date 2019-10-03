@@ -53,7 +53,7 @@ void _leProgressBarWidget_GetBarRect(const leProgressBarWidget* bar,
                                      leRect* barRect)
 {
     leRect rect;
-    leRect fill = {0};
+    leRect fill = leRect_Zero;
     int32_t i;
     uint32_t p1, p2;
     
