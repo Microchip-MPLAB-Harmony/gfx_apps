@@ -79,7 +79,6 @@
 #define DEFAULT_YRES               271
 
 #define DRV_MAXTOUCH_NUM_QUEUE      2
-#define DRV_MAXTOUCH_RESET_TIMER_PERIOD_MS 38
 
 /* MXT_GEN_COMMAND_T6 field */
 #define MXT_COMMAND_RESET       0
@@ -564,6 +563,7 @@ return(BSP_MAXTOUCH_CHG_Get());
 #endif
 }
 
+
 static void _handleTouchMessage(uint8_t touchID, MAXTOUCH_TouchEvent* tchEvt);
 static bool mxt_init_t7_power_cfg(struct DEVICE_OBJECT* pDeviceObject);
 static bool mxt_load_xcfg_file(struct DEVICE_OBJECT* pDeviceObject, const char *filename);
@@ -588,7 +588,7 @@ struct DEVICE_OBJECT sMAXTOUCHDriverInstances[DRV_MAXTOUCH_INDEX_COUNT];
 
 static SYS_TIME_HANDLE resetTimer;
 
-static void _DelayMS(int ms)
+static void _mxt_DelayMS(int ms)
 {
 	SYS_TIME_HANDLE timer = SYS_TIME_HANDLE_INVALID;
 
@@ -806,6 +806,7 @@ SYS_MODULE_OBJ DRV_MAXTOUCH_Initialize(const SYS_MODULE_INDEX index,
     pDrvInstance->data.progress = 0;
     pDrvInstance->apiEvent = APP_DRV_MAXTOUCH_None;
 
+    
     return (SYS_MODULE_OBJ)pDrvInstance;
 }
 
@@ -931,7 +932,7 @@ void DRV_MAXTOUCH_ConfigParse ( SYS_MODULE_OBJ object, DRV_MAXTOUCH_Firmware * f
 
     resetTimer = SYS_TIME_CallbackRegisterMS(resetTimer_Callback, 
                         (uintptr_t)pDrvObject,
-                        DRV_MAXTOUCH_RESET_TIMER_PERIOD_MS,
+                        MXT_RESET_INVALID_CHG,
                         SYS_TIME_SINGLE);
     
     pDrvObject->deviceState = DEVICE_STATE_WAIT;
@@ -955,7 +956,7 @@ void DRV_MAXTOUCH_ConfigLoad ( SYS_MODULE_OBJ object, DRV_MAXTOUCH_Firmware * fi
 
     resetTimer = SYS_TIME_CallbackRegisterMS(resetTimer_Callback, 
                         (uintptr_t)pDrvObject,
-                        DRV_MAXTOUCH_RESET_TIMER_PERIOD_MS,
+                        MXT_RESET_INVALID_CHG,
                         SYS_TIME_SINGLE);
 
     pDrvObject->deviceState = DEVICE_STATE_WAIT;
@@ -970,7 +971,7 @@ void DRV_MAXTOUCH_ConfigSave (SYS_MODULE_OBJ object, DRV_MAXTOUCH_ConfigProgress
 
     resetTimer = SYS_TIME_CallbackRegisterMS(resetTimer_Callback, 
                         (uintptr_t)pDrvObject,
-                        DRV_MAXTOUCH_RESET_TIMER_PERIOD_MS,
+                        MXT_RESET_INVALID_CHG,
                         SYS_TIME_SINGLE);
     
     pDrvObject->callback = ptr;
@@ -1007,7 +1008,7 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
 
             resetTimer = SYS_TIME_CallbackRegisterMS(resetTimer_Callback, 
                                 (uintptr_t)pDrvObject,
-                                DRV_MAXTOUCH_RESET_TIMER_PERIOD_MS,
+                                MXT_RESET_INVALID_CHG,
                                 SYS_TIME_SINGLE);
             
             pDrvObject->apiEvent = APP_DRV_MAXTOUCH_ResetCallback;
@@ -1209,7 +1210,7 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
     
         case DEVICE_STATE_CONFIG_LOAD:
         {
-            _DelayMS(MXT_PROGRAM_DELAY);
+            _mxt_DelayMS(MXT_PROGRAM_DELAY);
 
             int index = mxt_upload_cfg_mem(pDrvObject);
             if ( index == 0 ) {
@@ -1236,7 +1237,7 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
                 
                 case CONFIG_STATE_MXT_COMMAND_BACKUPNV_READ:
                 {
-                    _DelayMS(MXT_PROGRAM_DELAY);
+                    _mxt_DelayMS(MXT_PROGRAM_DELAY);
                     _RegRead(pDrvObject, pDrvObject->data.msg_buf, 1, &pDrvObject->hBackupNVRead);
                     pDrvObject->deviceState = DEVICE_STATE_WAIT;
                     break;
@@ -1279,7 +1280,7 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
                 {
                     /* Ignore CHG line for 100ms after reset */
                     /* no need to read response - go to ready state */
-                    _DelayMS(MXT_PROGRAM_DELAY);
+                    _mxt_DelayMS(MXT_PROGRAM_DELAY);
                     pDrvObject->callback(100);
 //                    _RegRead(pDrvObject, pDrvObject->data.msg_buf, 1, &pDrvObject->hResetRead);
 //                    pDrvObject->deviceState = DEVICE_STATE_WAIT;
@@ -1328,12 +1329,12 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
         case DEVICE_STATE_READ_RESET:
         {
             uint8_t command_register;
-            _DelayMS(MXT_PROGRAM_DELAY);
+            _mxt_DelayMS(MXT_PROGRAM_DELAY);
 
             DRV_I2C_ReadTransferAdd(pDrvObject->drvI2CHandle, I2C_MASTER_READ_ID, &command_register, 1, &pDrvObject->hResetRead);
 
             /* Ignore CHG line for 100ms after reset */
-            _DelayMS(MXT_RESET_INVALID_CHG);
+            _mxt_DelayMS(MXT_RESET_INVALID_CHG);
             pDrvObject->deviceState = DEVICE_STATE_WAIT;
             break;
         }
@@ -1584,7 +1585,7 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
                 pDrvObject->deviceState = DEVICE_STATE_READY;
                 val = 1;
             }
-            _DelayMS(MXT_RESET_GPIO_TIME);
+            _mxt_DelayMS(MXT_RESET_GPIO_TIME);
             break;
         }
         
@@ -1942,7 +1943,7 @@ static bool mxt_t6_command(struct DEVICE_OBJECT *pDrvObject, uint16_t cmd_offset
 		return true;
 
 	do {
-		_DelayMS(MXT_RESET_GPIO_TIME);
+		_mxt_DelayMS(MXT_RESET_GPIO_TIME);
 		__mxt_read_reg(pDrvObject->data.client, reg, 1, &command_register);
 
 	} while (command_register != 0 && timeout_counter++ <= 100);
@@ -1978,7 +1979,7 @@ bool mxt_soft_reset(struct DEVICE_OBJECT *pDrvObject)
 		return false;
 
 	/* Ignore CHG line for 100ms after reset */
-	_DelayMS(MXT_RESET_INVALID_CHG);
+	_mxt_DelayMS(MXT_RESET_INVALID_CHG);
 
 //	mxt_acquire_irq(data);
 
