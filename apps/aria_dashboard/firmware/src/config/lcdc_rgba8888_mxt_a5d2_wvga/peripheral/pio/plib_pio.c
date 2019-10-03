@@ -59,25 +59,29 @@
 */
 void PIO_Initialize ( void )
 {
+ /* Port B Peripheral function GPIO configuration */
+	PIOB_REGS->PIO_MSKR = 0x2e1;
+	PIOB_REGS->PIO_CFGR = 0x0;
+	
  /* Port B Pin 0 configuration */
 	PIOB_REGS->PIO_MSKR = 0x1;
-	PIOB_REGS->PIO_CFGR |= 0x100;
+	PIOB_REGS->PIO_CFGR = (PIOB_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x100;
 	
  /* Port B Pin 5 configuration */
 	PIOB_REGS->PIO_MSKR = 0x20;
-	PIOB_REGS->PIO_CFGR |= 0x100;
+	PIOB_REGS->PIO_CFGR = (PIOB_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x100;
 	
  /* Port B Pin 6 configuration */
 	PIOB_REGS->PIO_MSKR = 0x40;
-	PIOB_REGS->PIO_CFGR |= 0x100;
+	PIOB_REGS->PIO_CFGR = (PIOB_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x100;
 	
  /* Port B Pin 7 configuration */
 	PIOB_REGS->PIO_MSKR = 0x80;
-	PIOB_REGS->PIO_CFGR |= 0x100;
+	PIOB_REGS->PIO_CFGR = (PIOB_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x100;
 	
  /* Port B Pin 9 configuration */
 	PIOB_REGS->PIO_MSKR = 0x200;
-	PIOB_REGS->PIO_CFGR |= 0x200;
+	PIOB_REGS->PIO_CFGR = (PIOB_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x200;
 	
  /* Port B Latch configuration */
 	PIOB_REGS->PIO_SODR = 0x61;
@@ -85,30 +89,6 @@ void PIO_Initialize ( void )
  /* Port C Peripheral function A configuration */
 	PIOC_REGS->PIO_MSKR = 0xfffffc00L;
 	PIOC_REGS->PIO_CFGR = 0x1;
-	
- /* Port C Peripheral function B configuration */
-	PIOC_REGS->PIO_MSKR = 0x0L;
-	PIOC_REGS->PIO_CFGR = 0x2;
-	
- /* Port C Peripheral function C configuration */
-	PIOC_REGS->PIO_MSKR = 0x0L;
-	PIOC_REGS->PIO_CFGR = 0x3;
-	
- /* Port C Peripheral function D configuration */
-	PIOC_REGS->PIO_MSKR = 0x0L;
-	PIOC_REGS->PIO_CFGR = 0x4;
-	
- /* Port C Peripheral function E configuration */
-	PIOC_REGS->PIO_MSKR = 0x0L;
-	PIOC_REGS->PIO_CFGR = 0x5;
-	
- /* Port C Peripheral function F configuration */
-	PIOC_REGS->PIO_MSKR = 0x0L;
-	PIOC_REGS->PIO_CFGR = 0x6;
-	
- /* Port C Peripheral function G configuration */
-	PIOC_REGS->PIO_MSKR = 0x0L;
-	PIOC_REGS->PIO_CFGR = 0x7;
 	
  /* Port D Peripheral function A configuration */
 	PIOD_REGS->PIO_MSKR = 0x33;
