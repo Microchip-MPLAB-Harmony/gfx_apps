@@ -355,49 +355,8 @@ bool APP_StateReset(void)
  ***************************************************************************/
 void _APP_SetLineCodingHandler(void)
 {
-    USART_SERIAL_SETUP UsartSetup;
-
-    UsartSetup.baudRate = appData.setLineCodingData.dwDTERate;
-    UsartSetup.parity = appData.setLineCodingData.bParityType;
-    UsartSetup.dataWidth = appData.setLineCodingData.bDataBits;
-    UsartSetup.stopBits = appData.setLineCodingData.bCharFormat;
-
-//    USART0_SerialSetup(&UsartSetup, CHIP_FREQ_CPU_MAX);
-
-
-//    resultUsartBaurateSet = DRV_USART_BaudSet(appData.usartHandle, appData.setLineCodingData.dwDTERate);
-
-    if (true == USART0_SerialSetup(&UsartSetup, CHIP_FREQ_CPU_MAX))
-    {
-        /* Baudrate is changed successfully. Update Baudrate info in the
-         * Get line coding structure. */
-        appData.getLineCodingData.dwDTERate = appData.setLineCodingData.dwDTERate;
-
-        /* Acknowledge the Status stage of the Control transfer */
-        USB_DEVICE_ControlStatus(appData.usbDevHandle, USB_DEVICE_CONTROL_STATUS_OK);
-    }
-    else
-    {
-        /* Baudrate was not set. There are two ways that an unsupported
-         * baud rate could be handled.  The first is just to ignore the
-         * request and ACK the control transfer.  That is what is currently
-         * implemented below. */
-         USB_DEVICE_ControlStatus(appData.usbDevHandle, USB_DEVICE_CONTROL_STATUS_OK);
-
-
-        /* The second possible method is to stall the STATUS stage of the
-         * request. STALLing the STATUS stage will cause an exception to be
-         * thrown in the requesting application. Some programs, like
-         * HyperTerminal, handle the exception properly and give a pop-up
-         * box indicating that the request settings are not valid.  Any
-         * application that does not handle the exception correctly will
-         * likely crash when this request fails.  For the sake of example
-         * the code required to STALL the status stage of the request is
-         * provided below.  It has been left out so that this demo does not
-         * cause applications without the required exception handling to
-         * crash.*/
-         //USB_DEVICE_ControlStatus(appData.usbDevHandle, USB_DEVICE_CONTROL_STATUS_ERROR);
-    }
+    /* Acknowledge the Status stage of the Control transfer */
+    USB_DEVICE_ControlStatus(appData.usbDevHandle, USB_DEVICE_CONTROL_STATUS_OK);
 }
 
 // *****************************************************************************

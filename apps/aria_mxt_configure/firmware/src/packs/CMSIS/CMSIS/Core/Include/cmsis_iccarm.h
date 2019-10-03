@@ -151,7 +151,7 @@
 
 #ifndef   __RESTRICT
   #if __ICCARM_V8
-  #define __RESTRICT            __restrict
+    #define __RESTRICT            __restrict
   #else
     /* Needs IAR language extensions */
     #define __RESTRICT            restrict

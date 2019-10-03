@@ -144,7 +144,7 @@ static void CLK_USBClockInitialize ( void )
 /*********************************************************************************
 Clock Initialize
 *********************************************************************************/
-void CLK_Initialize( void )
+void CLOCK_Initialize( void )
 {
 
 
@@ -166,6 +166,6 @@ void CLK_Initialize( void )
 
 
     /* Enable Peripheral Clock */
-    PMC_REGS->PMC_PCER0=0x8f3e00;
+    PMC_REGS->PMC_PCER0=0x8f1e00;
     PMC_REGS->PMC_PCER1=0x4000004;
 }

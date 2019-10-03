@@ -309,7 +309,7 @@ static int DRV_GFX_LCC_Start()
     lccDMAStartTransfer(frameBuffer, 
                         FRAMEBUFFER_PIXEL_BYTES,
                         (const void *) EBI_BASE_ADDR);
-    
+
     return 0;
 }
 

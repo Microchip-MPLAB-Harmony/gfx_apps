@@ -2167,6 +2167,7 @@ __NO_RETURN __STATIC_INLINE void __NVIC_SystemReset(void)
 
 /*@} end of CMSIS_Core_NVICFunctions */
 
+
 /* ##########################  MPU functions  #################################### */
 
 #if defined (__MPU_PRESENT) && (__MPU_PRESENT == 1U)
@@ -2174,6 +2175,7 @@ __NO_RETURN __STATIC_INLINE void __NVIC_SystemReset(void)
 #include "mpu_armv7.h"
 
 #endif
+
 
 /* ##########################  FPU functions  #################################### */
 /**
@@ -2209,7 +2211,6 @@ __STATIC_INLINE uint32_t SCB_GetFPUType(void)
     return 0U;           /* No FPU */
   }
 }
-
 
 /*@} end of CMSIS_Core_FpuFunctions */
 
@@ -2408,7 +2409,7 @@ __STATIC_FORCEINLINE void SCB_CleanDCache (void)
     uint32_t ways;
 
     SCB->CSSELR = 0U;                       /* select Level 1 data cache */
-   __DSB();
+    __DSB();
 
     ccsidr = SCB->CCSIDR;
 
@@ -2480,8 +2481,8 @@ __STATIC_FORCEINLINE void SCB_InvalidateDCache_by_Addr (void *addr, int32_t dsiz
     if ( dsize > 0 ) { 
        int32_t op_size = dsize + (((uint32_t)addr) & (__SCB_DCACHE_LINE_SIZE - 1U));
       uint32_t op_addr = (uint32_t)addr /* & ~(__SCB_DCACHE_LINE_SIZE - 1U) */;
-
-    __DSB();
+    
+      __DSB();
 
       do {
         SCB->DCIMVAC = op_addr;             /* register accepts only 32byte aligned values, only bits 31..5 are valid */
@@ -2489,8 +2490,8 @@ __STATIC_FORCEINLINE void SCB_InvalidateDCache_by_Addr (void *addr, int32_t dsiz
         op_size -= __SCB_DCACHE_LINE_SIZE;
       } while ( op_size > 0 );
 
-    __DSB();
-    __ISB();
+      __DSB();
+      __ISB();
     }
   #endif
 }
@@ -2510,8 +2511,8 @@ __STATIC_FORCEINLINE void SCB_CleanDCache_by_Addr (uint32_t *addr, int32_t dsize
     if ( dsize > 0 ) { 
        int32_t op_size = dsize + (((uint32_t)addr) & (__SCB_DCACHE_LINE_SIZE - 1U));
       uint32_t op_addr = (uint32_t)addr /* & ~(__SCB_DCACHE_LINE_SIZE - 1U) */;
-
-    __DSB();
+    
+      __DSB();
 
       do {
         SCB->DCCMVAC = op_addr;             /* register accepts only 32byte aligned values, only bits 31..5 are valid */
@@ -2519,8 +2520,8 @@ __STATIC_FORCEINLINE void SCB_CleanDCache_by_Addr (uint32_t *addr, int32_t dsize
         op_size -= __SCB_DCACHE_LINE_SIZE;
       } while ( op_size > 0 );
 
-    __DSB();
-    __ISB();
+      __DSB();
+      __ISB();
     }
   #endif
 }
@@ -2540,8 +2541,8 @@ __STATIC_FORCEINLINE void SCB_CleanInvalidateDCache_by_Addr (uint32_t *addr, int
     if ( dsize > 0 ) { 
        int32_t op_size = dsize + (((uint32_t)addr) & (__SCB_DCACHE_LINE_SIZE - 1U));
       uint32_t op_addr = (uint32_t)addr /* & ~(__SCB_DCACHE_LINE_SIZE - 1U) */;
-
-    __DSB();
+    
+      __DSB();
 
       do {
         SCB->DCCIMVAC = op_addr;            /* register accepts only 32byte aligned values, only bits 31..5 are valid */
@@ -2549,12 +2550,11 @@ __STATIC_FORCEINLINE void SCB_CleanInvalidateDCache_by_Addr (uint32_t *addr, int
         op_size -=          __SCB_DCACHE_LINE_SIZE;
       } while ( op_size > 0 );
 
-    __DSB();
-    __ISB();
+      __DSB();
+      __ISB();
     }
   #endif
 }
-
 
 /*@} end of CMSIS_Core_CacheFunctions */
 

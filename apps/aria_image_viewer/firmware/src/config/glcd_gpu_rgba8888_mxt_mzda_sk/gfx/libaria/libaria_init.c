@@ -321,9 +321,9 @@ int32_t libaria_preprocess_assets(void)
 {
 
     // process images configured for preprocessing
-    laUtils_PreprocessImage(&bubbles,0xA83FC000,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&goldengate,0xA82FD000,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&leopard,0xA837C800,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&bubbles,0xA82FD000,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&goldengate,0xA837C800,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&leopard,0xA83FC000,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
 
     return 0;
 }

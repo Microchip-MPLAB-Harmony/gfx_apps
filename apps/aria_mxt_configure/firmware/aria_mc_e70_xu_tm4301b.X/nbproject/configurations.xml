@@ -151,23 +151,23 @@
             <itemPath>../src/config/lcc_rgb565_mxt/gfx/gfx_assets.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f3" displayName="peripheral" projectFiles="true">
-            <logicalFolder name="f5" displayName="clk" projectFiles="true">
+            <logicalFolder name="f4" displayName="clk" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/clk/plib_clk.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f1" displayName="efc" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/efc/plib_efc.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f10" displayName="hsmci" projectFiles="true">
+            <logicalFolder name="f9" displayName="hsmci" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/hsmci/plib_hsmci_common.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/hsmci/plib_hsmci.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f7" displayName="nvic" projectFiles="true">
+            <logicalFolder name="f6" displayName="nvic" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/nvic/plib_nvic.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f6" displayName="pio" projectFiles="true">
+            <logicalFolder name="f5" displayName="pio" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/pio/plib_pio.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f9" displayName="smc" projectFiles="true">
+            <logicalFolder name="f8" displayName="smc" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/smc/plib_smc.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f2" displayName="tc" projectFiles="true">
@@ -178,11 +178,7 @@
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/twihs/plib_twihs_master.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/twihs/plib_twihs0.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="usart" projectFiles="true">
-              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/usart/plib_usart_common.h</itemPath>
-              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/usart/plib_usart0.h</itemPath>
-            </logicalFolder>
-            <logicalFolder name="f8" displayName="xdmac" projectFiles="true">
+            <logicalFolder name="f7" displayName="xdmac" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/xdmac/plib_xdmac_common.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/xdmac/plib_xdmac.h</itemPath>
             </logicalFolder>
@@ -319,6 +315,9 @@
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_iccarm.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armcc.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/tz_context.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm7.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv7.h</itemPath>
@@ -523,22 +522,22 @@
             <itemPath>../src/config/lcc_rgb565_mxt/gfx/gfx_assets.c</itemPath>
           </logicalFolder>
           <logicalFolder name="f3" displayName="peripheral" projectFiles="true">
-            <logicalFolder name="f5" displayName="clk" projectFiles="true">
+            <logicalFolder name="f4" displayName="clk" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/clk/plib_clk.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f1" displayName="efc" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/efc/plib_efc.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f10" displayName="hsmci" projectFiles="true">
+            <logicalFolder name="f9" displayName="hsmci" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/hsmci/plib_hsmci.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f7" displayName="nvic" projectFiles="true">
+            <logicalFolder name="f6" displayName="nvic" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/nvic/plib_nvic.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f6" displayName="pio" projectFiles="true">
+            <logicalFolder name="f5" displayName="pio" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/pio/plib_pio.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f9" displayName="smc" projectFiles="true">
+            <logicalFolder name="f8" displayName="smc" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/smc/plib_smc.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f2" displayName="tc" projectFiles="true">
@@ -547,10 +546,7 @@
             <logicalFolder name="f3" displayName="twihs" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/twihs/plib_twihs0.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f4" displayName="usart" projectFiles="true">
-              <itemPath>../src/config/lcc_rgb565_mxt/peripheral/usart/plib_usart0.c</itemPath>
-            </logicalFolder>
-            <logicalFolder name="f8" displayName="xdmac" projectFiles="true">
+            <logicalFolder name="f7" displayName="xdmac" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt/peripheral/xdmac/plib_xdmac.c</itemPath>
             </logicalFolder>
           </logicalFolder>
@@ -627,8 +623,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CMSIS" vendor="ARM" version="5.0.1"/>
-        <pack name="SAME70_DFP" vendor="Microchip" version="3.0.10"/>
+        <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
+        <pack name="SAME70_DFP" vendor="Microchip" version="4.0.40"/>
       </packs>
       <compileType>
         <linkerTool>
@@ -728,6 +724,9 @@
         <property key="preprocessor-macros" value=""/>
         <property key="warning-level" value=""/>
       </C32-AS>
+      <C32-CO>
+        <property key="coverage-enable" value=""/>
+      </C32-CO>
       <C32-LD>
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
@@ -810,9 +809,13 @@
       </C32Global>
       <EdbgTool>
         <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="communication.activationmode" value="nohv"/>
         <property key="communication.interface" value="swd"/>
         <property key="communication.speed" value="2.000"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="firmware.path"
+                  value="Press to browse for a specific firmware version"/>
+        <property key="firmware.update.action" value="firmware.update.use.latest"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
         <property key="memories.configurationmemory" value="true"/>
@@ -826,13 +829,20 @@
                   value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0x400000-0x5fffff"/>
+        <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/Harmony3/gfx_apps/apps/aria_mxt_configure/firmware/aria_mc_e70_xu_tm4301b.X/debug/lcc_rgb565_mxt/aria_mc_e70_xu_tm4301b_ptg"/>
+        <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
+        <property key="programoptions.preservedataflash.ranges"
+                  value="${memories.dataflash.default}"/>
         <property key="programoptions.preserveeeprom" value="false"/>
         <property key="programoptions.preserveeeprom.ranges" value=""/>
         <property key="programoptions.preserveprogram.ranges" value=""/>
         <property key="programoptions.preserveprogramrange" value="false"/>
         <property key="programoptions.preserveuserid" value="false"/>
         <property key="programoptions.programuserotp" value="false"/>
+        <property key="voltagevalue" value=""/>
       </EdbgTool>
       <ICD4Tool>
         <property key="AutoSelectMemRanges" value="auto"/>

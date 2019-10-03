@@ -207,9 +207,10 @@ typedef struct __attribute__ ((packed))
 {
     uint8_t bLength;
     uint8_t bDescriptorType;
-    union 
+
+    union
     {
-          struct __attribute__ ((packed))
+        struct __attribute__ ((packed))
          {
             uint8_t epAddress:4;
             uint8_t :3;

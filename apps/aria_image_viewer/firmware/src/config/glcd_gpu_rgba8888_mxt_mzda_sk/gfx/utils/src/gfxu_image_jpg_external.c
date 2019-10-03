@@ -52,7 +52,9 @@ GFX_Result GFXU_DrawImageJpgExternal(GFXU_ImageAsset* img,
     static uint16_t whblocks, wvblocks;
     static uint16_t wi, wj;
     static JPEGDECODER JPEG_JpegDecoder;
-    static enum
+	GFX_Rect rect;
+
+	static enum
     {
         INITIAL,
         HEADER_DECODED,
@@ -67,11 +69,30 @@ GFX_Result GFXU_DrawImageJpgExternal(GFXU_ImageAsset* img,
     //JPEG masking is not supported
     GFX_Set(GFXF_DRAW_MASK_ENABLE, GFX_FALSE);
 
-    // jpeg decoder doesn't handle clipped images
-    if(src_x != 0 || src_y != 0)
-        return GFX_FAILURE;
-        
-    // open the media
+	// jpeg decoder doesn't handle clipped images, enable clipping
+	// and draw the entire image
+	if (src_x != 0 ||
+		src_y != 0 ||
+		src_width <= img->width ||
+		src_height <= img->height)
+	{
+		rect.x = dest_x;
+		rect.y = dest_y;
+		rect.width = src_width;
+		rect.height = src_height;
+
+		GFX_Set(GFXF_DRAW_CLIP_RECT, &rect);
+		GFX_Set(GFXF_DRAW_CLIP_ENABLE, GFX_TRUE);
+
+		dest_x -= src_x;
+		dest_y -= src_y;
+		src_x = 0;
+		src_y = 0;
+		src_width = img->width;
+		src_height = img->height;
+	}
+
+	// open the media
     if(memIntf->open((GFXU_AssetHeader*)img) == GFX_FAILURE)
         return GFX_FAILURE;
     

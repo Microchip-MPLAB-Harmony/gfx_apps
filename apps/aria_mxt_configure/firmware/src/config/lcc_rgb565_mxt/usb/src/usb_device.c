@@ -2228,6 +2228,7 @@ void _USB_DEVICE_ForwardControlXfrToFunction
                  * control transfer handler.*/
 
                 controlTransfer->handler = (void (*)(unsigned short, USB_DEVICE_EVENT, void *))driver->controlTransferNotification;
+
                 controlTransfer->handlerIndex = lFuncDriverRegTable->funcDriverIndex;
 
                 /* Forward the SETUP packet to the function driver */

@@ -59,7 +59,6 @@
 #include "usb/usb_cdc.h"
 #include "bsp/bsp.h"
 #include "peripheral/twihs/plib_twihs0.h"
-#include "peripheral/usart/plib_usart0.h"
 #include "driver/input/drv_maxtouch.h"
 #include "system/int/sys_int.h"
 #include "system/cache/sys_cache.h"
