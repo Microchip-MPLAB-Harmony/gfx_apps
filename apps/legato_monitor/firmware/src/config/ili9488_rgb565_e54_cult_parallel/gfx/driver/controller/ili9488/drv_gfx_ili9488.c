@@ -41,11 +41,8 @@
 #include "definitions.h"
 
 #include "drv_gfx_ili9488_cmd_defs.h"
-#include "drv_gfx_ili9488_common.h"
 #include "drv_gfx_ili9488.h"
-
-// Number of layers
-#define LAYER_COUNT     1
+#include "gfx/interface/drv_gfx_disp_intf.h"
 
 // Default max width/height of ILI9488 frame
 #define DISPLAY_DEFAULT_WIDTH   320
@@ -54,13 +51,85 @@
 #define DISPLAY_WIDTH   320
 #define DISPLAY_HEIGHT  480
 
-#define BYTES_PER_PIXEL_BUFFER 2
 #define PIXEL_BUFFER_COLOR_MODE LE_COLOR_MODE_RGB_565
+
 #define SCREEN_WIDTH DISPLAY_WIDTH
 #define SCREEN_HEIGHT DISPLAY_HEIGHT
 
-ILI9488_DRV drv;
+#define ILI9488_NCSAssert(intf)   GFX_Disp_Intf_PinControl(intf, \
+                                    GFX_DISP_INTF_PIN_CS, \
+                                    GFX_DISP_INTF_PIN_CLEAR)
 
+#define ILI9488_NCSDeassert(intf) GFX_Disp_Intf_PinControl(intf, \
+                                    GFX_DISP_INTF_PIN_CS, \
+                                    GFX_DISP_INTF_PIN_SET)
+
+#ifdef GFX_DISP_INTF_PIN_RESET_Set
+#define ILI9488_Reset_Assert()      GFX_DISP_INTF_PIN_RESET_Clear()
+#define ILI9488_Reset_Deassert()    GFX_DISP_INTF_PIN_RESET_Set()
+#else
+#error "ILI9488 reset pin is not configured. Please define GFX_DISP_INTF_PIN_RESET in Pin Settings"
+#endif
+
+/** ILI9488_DRV_STATE
+
+  Summary:
+    Enum of ILI9488 driver states.
+    
+*/
+typedef enum
+{
+    INIT = 0,
+    IDLE,
+    BLIT_COLUMN_CMD,
+    BLIT_COLUMN_DATA,
+    BLIT_PAGE_CMD,
+    BLIT_PAGE_DATA,
+    BLIT_WRITE_CMD,
+    BLIT_WRITE_DATA,
+    BLIT_WAIT,
+    ERROR,
+} ILI9488_DRV_STATE;
+
+
+typedef struct 
+{
+    /* Command */
+    uint8_t cmd;
+    
+    /* Number of command parameters */
+    uint8_t parmCount;
+    
+    /* Command parameters, max of 4 */
+    uint8_t parms[4];
+} ILI9488_CMD_PARAM;
+
+/** ILI9488_DRV
+
+  Summary:
+    Structure contains driver-specific data and ops pointers.
+    
+*/
+typedef struct ILI9488_DRV 
+{   
+    /* Driver state */
+    ILI9488_DRV_STATE state;
+
+    /* Port-specific private data */
+    void *port_priv;
+
+    struct
+    {
+        int32_t x;
+        int32_t y;
+        lePixelBuffer* buf;
+    } blitParms;
+
+} ILI9488_DRV;
+
+#define BYTES_PER_PIXEL_BUFFER 2
+static uint8_t pixelBuffer[SCREEN_WIDTH * BYTES_PER_PIXEL_BUFFER];
+static ILI9488_DRV drv;
 static uint32_t swapCount = 0;
 
 /** initCmdParm
@@ -151,52 +220,47 @@ static int ILI9488_Init(ILI9488_DRV *drv,
                         int numVals)
 {
     int returnValue;
-    uint8_t buf[5];
     unsigned int i;
+    GFX_Disp_Intf intf; 
+    
+    intf = (GFX_Disp_Intf) drv->port_priv;
+    
+    ILI9488_NCSAssert(intf);    
 
     for (i = 0; i < numVals; i++, initVals++)
     {
-        returnValue = ILI9488_Intf_WriteCmd(drv,
-                                         initVals->cmd,
-                                         initVals->parms,
-                                         initVals->parmCount);
+        returnValue = GFX_Disp_Intf_WriteCommand(intf, initVals->cmd);
         if (0 != returnValue)
-            return -1;
+            break;
+        
+        while (GFX_Disp_Intf_Ready(intf) == false);
+        
+        if (initVals->parms != NULL &&
+            initVals->parmCount > 0)
+        {
+            returnValue = GFX_Disp_Intf_WriteData(intf, initVals->parms, initVals->parmCount);
+            if (0 != returnValue)
+                break;
+        
+            while (GFX_Disp_Intf_Ready(intf) == false);
+        }
+        
     }
-
-    buf[0] = 0;
-    buf[1] = 0;
-    buf[2] = (((DISPLAY_WIDTH - 1)  & 0xFF00) >> 8);
-    buf[3] = ((DISPLAY_WIDTH - 1)  & 0xFF);
+    ILI9488_NCSDeassert(intf); 
     
-    returnValue = ILI9488_Intf_WriteCmd(drv,
-                                     ILI9488_CMD_COLUMN_ADDRESS_SET,
-                                     buf,
-                                     4);
-    if (0 != returnValue)
-        return -1;
-
-    buf[0] = 0;
-    buf[1] = 0;
-    buf[2] = (((DISPLAY_HEIGHT - 1)  & 0xFF00) >> 8);
-    buf[3] = ((DISPLAY_HEIGHT - 1)  & 0xFF);
-    
-    returnValue = ILI9488_Intf_WriteCmd(drv,
-                                  ILI9488_CMD_PAGE_ADDRESS_SET,
-                                  buf,
-                                  4);
-    if (0 != returnValue)
-        return -1;
-
     return returnValue;
 }
 
 leResult DRV_ILI9488_Initialize(void)
 {
-    drv.bytesPerPixelBuffer = BYTES_PER_PIXEL_BUFFER;
+    drv.state = INIT;
 
     //Open interface to ILI9488 controller
-    return ILI9488_Intf_Open(&drv);
+    drv.port_priv = (void*) GFX_Disp_Intf_Open();
+    if (drv.port_priv == 0)
+        return LE_FAILURE;
+            
+    return LE_SUCCESS;
 }
 
 leColorMode DRV_ILI9488_GetColorMode(void)
@@ -221,18 +285,139 @@ uint32_t DRV_ILI9488_GetDisplayHeight(void)
 
 void DRV_ILI9488_Update(void)
 {
-    if(drv.state == INIT)
+    static GFX_Disp_Intf intf; 
+    static int row;
+    int col, dataIdx;
+    uint16_t clr;
+    uint16_t* ptr;
+    uint8_t parm[4];
+    
+    switch (drv.state)
     {
-        // perform driver initialization here
-        ILI9488_Reset();
+        case INIT:
+        {
+            // perform driver initialization here
+            ILI9488_Reset();
 
-        ILI9488_Init(&drv,
-                     initCmdParm,
-                     sizeof(initCmdParm)/sizeof(ILI9488_CMD_PARAM));
+            ILI9488_Init(&drv,
+                         initCmdParm,
+                         sizeof(initCmdParm)/sizeof(ILI9488_CMD_PARAM));
 
-        ILI9488_Backlight_On();
+            drv.state = IDLE;
+            
+            intf = (GFX_Disp_Intf) drv.port_priv;
 
-        drv.state = RUN;
+            while (GFX_Disp_Intf_Ready(intf) == false);
+            break;
+        }
+        case BLIT_COLUMN_CMD:
+        {
+            if (GFX_Disp_Intf_Ready(intf) == false)
+                break;
+            
+            ILI9488_NCSAssert(intf);
+                    
+            GFX_Disp_Intf_WriteCommand(intf, ILI9488_CMD_COLUMN_ADDRESS_SET);
+                   
+            drv.state = BLIT_COLUMN_DATA;
+            
+            while (GFX_Disp_Intf_Ready(intf) == false);
+            //Fall through, no break
+        }
+        case BLIT_COLUMN_DATA:
+        {
+            if (GFX_Disp_Intf_Ready(intf) == false)
+                break;
+            
+            //Write X/Column Address
+            parm[0] = drv.blitParms.x>>8;
+            parm[1] = drv.blitParms.x;
+            parm[2] = (drv.blitParms.x + drv.blitParms.buf->size.width - 1)>>8;
+            parm[3] = (drv.blitParms.x + drv.blitParms.buf->size.width - 1);
+            GFX_Disp_Intf_WriteData(intf, parm, 4);
+            
+            drv.state = BLIT_PAGE_CMD;
+            
+            while (GFX_Disp_Intf_Ready(intf) == false);
+            //Fall through, no break
+        }
+        case BLIT_PAGE_CMD:
+        {
+            if (GFX_Disp_Intf_Ready(intf) == false)
+                break;
+                        
+            GFX_Disp_Intf_WriteCommand(intf, ILI9488_CMD_PAGE_ADDRESS_SET);
+                   
+            drv.state = BLIT_PAGE_DATA;
+            
+            while (GFX_Disp_Intf_Ready(intf) == false);
+            //Fall through, no break
+        }
+        case BLIT_PAGE_DATA:
+        {
+            if (GFX_Disp_Intf_Ready(intf) == false)
+                break;
+
+            //Write Y/Page Address
+            parm[0] = drv.blitParms.y>>8;
+            parm[1] = drv.blitParms.y;
+            parm[2] = (drv.blitParms.y + drv.blitParms.buf->size.height - 1)>>8;
+            parm[3] = (drv.blitParms.y + drv.blitParms.buf->size.height - 1);
+            GFX_Disp_Intf_WriteData(intf, parm, 4);
+            
+            drv.state = BLIT_WRITE_CMD;
+                        
+            while (GFX_Disp_Intf_Ready(intf) == false);
+            //Fall through, no break
+        }
+        case BLIT_WRITE_CMD:
+        {
+            if (GFX_Disp_Intf_Ready(intf) == false)
+                break;
+            
+            //Start Memory Write
+            GFX_Disp_Intf_WriteCommand(intf, ILI9488_CMD_MEMORY_WRITE);
+                        
+            drv.state = BLIT_WRITE_DATA;
+            
+            row = 0;
+                                
+            while (GFX_Disp_Intf_Ready(intf) == false);
+            //Fall through, no break
+        }
+        case BLIT_WRITE_DATA:
+        {
+            drv.state = IDLE;
+                
+            while (row < drv.blitParms.buf->size.height)
+            {
+                ptr = lePixelBufferOffsetGet_Unsafe(drv.blitParms.buf, 0, row);
+
+                for(col = 0, dataIdx = 0; col < drv.blitParms.buf->size.width; col++)
+                {
+                    clr = ptr[col];
+
+                    pixelBuffer[dataIdx++] = (uint8_t) (clr >> 8);
+                    pixelBuffer[dataIdx++] = (uint8_t) (uint8_t) (clr & 0xff);
+                }
+
+                GFX_Disp_Intf_WriteData(intf,
+                                        pixelBuffer,
+                                        BYTES_PER_PIXEL_BUFFER *
+                                        drv.blitParms.buf->size.width);
+                
+                row++;
+                while (GFX_Disp_Intf_Ready(intf) == false);
+            }
+            break;
+             
+        }
+        case IDLE:
+        case ERROR:            
+        default:
+        {
+            break;
+        }        
     }
 }
 
@@ -255,38 +440,19 @@ leResult DRV_ILI9488_BlitBuffer(int32_t x,
                                 int32_t y,
                                 lePixelBuffer* buf)
 {
-    int row, col, dataIdx;
-    uint16_t* ptr;
-    uint16_t clr;
+    if(drv.state != IDLE)
+        return LE_FAILURE;
 
-    uint8_t data[SCREEN_WIDTH * BYTES_PER_PIXEL_BUFFER];
-    
-    drv.lineX_Start = x;
-    drv.lineX_End = x + buf->size.width;
-    
-    for(row = 0; row < buf->size.height; row++)
+    drv.blitParms.x = x;
+    drv.blitParms.y = y;
+    drv.blitParms.buf = buf;
+    drv.state = BLIT_COLUMN_CMD;
+
+    while (drv.state != IDLE)
     {
-        drv.currentLine = y + row;
-        
-        ptr = lePixelBufferOffsetGet_Unsafe(buf, 0, row);
-
-        dataIdx = 0;
-
-        for(col = 0; col < buf->size.width; col++)
-        {
-            clr = ptr[col];
-
-            data[dataIdx++] = (uint8_t) (clr >> 8);
-            data[dataIdx++] = (uint8_t) (uint8_t) (clr & 0xff);
-        }
-
-        ILI9488_Intf_WritePixels(&drv,
-                                 drv.lineX_Start,
-                                 drv.currentLine,
-                                 data, 
-                                 buf->size.width);
+        DRV_ILI9488_Update();
     }
-
+    
     return LE_SUCCESS;
 }
 

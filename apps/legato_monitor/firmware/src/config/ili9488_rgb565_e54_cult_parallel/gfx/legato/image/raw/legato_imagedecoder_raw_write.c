@@ -25,26 +25,33 @@
 
 #include "gfx/legato/renderer/legato_renderer.h"
 
-static struct WriteStage
+void _leRawImageDecoder_InjectStage(leRawDecodeState* state,
+                                    leRawDecodeStage* stage);
+
+static struct FrameBufferWriteStage
 {
     leRawDecodeStage base;
-} writeStage;
+} frameBufferWriteStage;
+
+//#include <stdio.h>
 
 #if LE_ALPHA_BLENDING_ENABLED == 1
-static leResult stage_Write(leRawDecodeStage* stage)
+static leResult stage_FrameBufferWrite(leRawDecodeStage* stage)
 {
     // write color
-    leRenderer_BlendPixel(stage->state->drawX,
-                          stage->state->drawY,
-                          stage->state->sourceColor,
+    leRenderer_BlendPixel(stage->state->targetX,
+                          stage->state->targetY,
+                          stage->state->writeColor,
                           stage->state->globalAlpha);
 
-    stage->state->currentStage = stage->state->readStage;
+    /*printf("%i, %i, %u\n", stage->state->targetX,
+                           stage->state->targetY,
+                           stage->state->writeColor);*/
 
     return LE_SUCCESS;
 }
 #else
-static void stage_Write(leRawDecodeStage* stage)
+static void stage_FrameBufferWrite(leRawDecodeStage* stage)
 {
     // write color
     leRenderer_PutPixel(stage->state->drawX,
@@ -55,51 +62,42 @@ static void stage_Write(leRawDecodeStage* stage)
 }
 #endif
 
-void _leRawImageDecoder_WriteInit(leRawDecodeState* state,
-                                  leBool ignoreAlpha)
+leResult _leRawImageDecoder_FrameBufferWriteStage(leRawDecodeState* state)
 {
-    memset(&writeStage, 0, sizeof(writeStage));
+    memset(&frameBufferWriteStage, 0, sizeof(frameBufferWriteStage));
 
-    writeStage.base.state = state;
+    frameBufferWriteStage.base.state = state;
+    frameBufferWriteStage.base.exec = (void*)stage_FrameBufferWrite;
 
-    /*if(ignoreAlpha == LE_FALSE &&
-       LE_COLOR_MODE_IS_ALPHA(state->source->buffer.mode) == LE_TRUE)
-    {
-        if(state->source->buffer.mode == LE_COLOR_MODE_RGBA_5551)
-        {
-            writeStage.base.exec = (void*)stage_WriteNonAlpha;
-        }
-        else
-        {
-            writeStage.base.exec = (void*)stage_WriteAlpha;
-        }
-    }
-    else
-    {
-        writeStage.base.exec = (void*)stage_WriteNonAlpha;
-    }*/
+    _leRawImageDecoder_InjectStage(state, (void*) &frameBufferWriteStage);
 
-    writeStage.base.exec = (void*)stage_Write;
+    return LE_SUCCESS;
+}
 
-    state->writeStage = (void*)&writeStage;
+static struct ImageWriteStage
+{
+    leRawDecodeStage base;
+} imageWriteStage;
 
-    if(state->maskStage == NULL)
-    {
-        state->maskStage = (void*)&writeStage;
-    }
+static leResult stage_ImageWrite(leRawDecodeStage* stage)
+{
+    // write color
+    lePixelBufferSet_Unsafe(&stage->state->target->buffer,
+                            stage->state->targetX,
+                            stage->state->targetY,
+                            stage->state->writeColor);
 
-    if(state->paletteStage == NULL)
-    {
-        state->paletteStage = (void*)&writeStage;
-    }
+    return LE_SUCCESS;
+}
 
-    if(state->convertStage == NULL)
-    {
-        state->convertStage = (leRawDecodeStage*)&writeStage;
-    }
+leResult _leRawImageDecoder_ImageWriteStage(leRawDecodeState* state)
+{
+    memset(&imageWriteStage, 0, sizeof(imageWriteStage));
 
-    if(state->blendStage == NULL)
-    {
-        state->blendStage = (void*)&writeStage;
-    }
+    imageWriteStage.base.state = state;
+    imageWriteStage.base.exec = (void*)stage_ImageWrite;
+
+    _leRawImageDecoder_InjectStage(state, (void*)&imageWriteStage);
+
+    return LE_SUCCESS;
 }

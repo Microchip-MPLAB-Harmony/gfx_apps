@@ -194,8 +194,12 @@ static void drawImage(leImageWidget* img)
     _leImageWidget_GetImageRect(img, &imgRect);
     
     leUtils_RectToScreenSpace((leWidget*)img, &imgRect);
-    
-    leImage_Draw(img->image, &imgSrcRect, imgRect.x, imgRect.y, paintState.alpha);
+
+    leImage_Draw(img->image,
+                 &imgSrcRect,
+                 imgRect.x,
+                 imgRect.y,
+                 paintState.alpha);
 
 #if LE_STREAMING_ENABLED == 1
     if(leGetActiveStream() != NULL)

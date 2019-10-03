@@ -143,7 +143,7 @@ typedef enum leColorMode
 #define LE_COLOR_MODE_LAST_COLOR     (LE_COLOR_MODE_ARGB_8888)
 #define LE_COLOR_MODE_COUNT          (LE_COLOR_MODE_LAST + 1)
 
-#define LE_COLOR_MODE_IS_PIXEL(mode) ((mode >= LE_COLOR_MODE_GS_8) && (mode <= LE_COLOR_MODE_YUV))
+#define LE_COLOR_MODE_IS_PIXEL(mode) ((mode >= LE_COLOR_MODE_GS_8) && (mode <= LE_COLOR_MODE_ARGB_8888))
 #define LE_COLOR_MODE_IS_INDEX(mode) ((mode >= LE_COLOR_MODE_INDEX_1) && (mode <= LE_COLOR_MODE_INDEX_8))
 
 #define LE_COLOR_MODE_IS_ALPHA(mode) ((mode == LE_COLOR_MODE_RGBA_5551) || (mode == LE_COLOR_MODE_RGBA_8888) || (mode == LE_COLOR_MODE_ARGB_8888))

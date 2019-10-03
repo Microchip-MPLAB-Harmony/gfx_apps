@@ -54,6 +54,7 @@
 #include "definitions.h"
 
 
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: System "Tasks" Routine
@@ -67,14 +68,13 @@
   Remarks:
     See prototype in system/common/sys_module.h.
 */
-
 void SYS_Tasks ( void )
 {
     /* Maintain system services */
     
 
     /* Maintain Device Drivers */
-    DRV_ILI9488_Update();
+        DRV_ILI9488_Update();
 
 
     DRV_MAXTOUCH_Tasks(sysObj.drvMAXTOUCH);
@@ -97,7 +97,6 @@ void SYS_Tasks ( void )
 
 
 }
-
 
 /*******************************************************************************
  End of File

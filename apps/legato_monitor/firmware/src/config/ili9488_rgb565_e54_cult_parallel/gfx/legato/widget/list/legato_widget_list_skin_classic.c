@@ -544,6 +544,17 @@ static void drawString(leListWidget* lst)
     paintState.nextItem++;
 }
 
+#if LE_STREAMING_ENABLED == 1
+static void onImageStreamFinished(leStreamManager* strm)
+{
+    leListWidget* lst = (leListWidget*)strm->userData;
+
+    lst->widget.drawState = DRAW_ICON;
+
+    nextState(lst);
+}
+#endif
+
 static void drawIcon(leListWidget* lst)
 {
     leRect imgRect, imgSrcRect;
@@ -578,39 +589,20 @@ static void drawIcon(leListWidget* lst)
                  imgRect.y,
                  paintState.alpha);
     
-#if LE_EXTERNAL_STREAMING_ENABLED == 1                               
-    if(lst->reader != NULL)
+#if LE_STREAMING_ENABLED == 1
+    if(leGetActiveStream() != NULL)
     {
-        lst->widget.drawState = WAIT_ICON;
-        lst->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&waitIcon;
-        
-        return;
-    }
-#endif
-    
-    paintState.nextItem++;
-}
+        leGetActiveStream()->onDone = onImageStreamFinished;
+        leGetActiveStream()->userData = lst;
 
-#if LE_EXTERNAL_STREAMING_ENABLED == 1    
-static void waitIcon(leListWidget* lst)
-{
-    if(lst->reader->status != leREADER_STATUS_FINISHED)
-    {
-        lst->reader->run(lst->reader);
-        
+        lst->widget.drawState = WAIT_ICON;
+
         return;
     }
-    
-    // free the reader
-    lst->reader->memIntf->heap.free(lst->reader);
-    lst->reader = NULL;
+#endif
     
     paintState.nextItem++;
-    
-    lst->widget.drawState = DRAW_ICON;
-    lst->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawIcon;
 }
-#endif
 
 static void drawBorder(leListWidget* lst)
 {

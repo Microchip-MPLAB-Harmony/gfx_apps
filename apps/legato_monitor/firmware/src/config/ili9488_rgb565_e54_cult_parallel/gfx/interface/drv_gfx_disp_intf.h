@@ -50,6 +50,8 @@
 
 #define GFX_Disp_Intf    uint32_t
 
+#define DRV_GFX_DEPRECATED __attribute__ ((deprecated))
+
 /** GFX_DISP_INTF_PIN
 
   Summary:
@@ -346,6 +348,24 @@ int GFX_Disp_Intf_Read(GFX_Disp_Intf intf, uint8_t * data, int bytes);
     * -1       - Operation failed
 */
 int GFX_Disp_Intf_WriteDataByte(GFX_Disp_Intf intf, uint8_t data);
+
+/** 
+  Function:
+    int GFX_Disp_Intf_Ready(GFX_Disp_Intf intf)
+
+  Summary:
+    Checks if the interface is ready
+
+  Description:
+
+  Parameters:
+    intf - the interface handle
+ 
+  Returns:
+    * 1      - Interface is idle and ready for transfer
+    * 0      - Interface is busy and unavailable
+*/
+int GFX_Disp_Intf_Ready(GFX_Disp_Intf intf);
 
     /* Provide C++ Compatibility */
 #ifdef __cplusplus

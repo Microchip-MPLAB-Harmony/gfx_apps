@@ -26,6 +26,8 @@
 #include "gfx/legato/image/legato_palette.h"
 #include "gfx/legato/renderer/legato_renderer.h"
 
+void _leRawImageDecoder_InjectStage(leRawDecodeState* state,
+                                    leRawDecodeStage* stage);
 
 static struct ConvertStage
 {
@@ -37,51 +39,34 @@ static struct ConvertStage
 static leResult stage_convertColor(leRawDecodeStage* stage)
 {
     // convert the pixel to the destination format if necessary
-    stage->state->sourceColor = leRenderer_ConvertColor(stage->state->sourceColor,
-                                                        convertStage.sourceMode);
-
-    stage->state->currentStage = stage->state->writeStage;
+    stage->state->writeColor = leRenderer_ConvertColor(stage->state->writeColor,
+                                                       convertStage.sourceMode);
 
     return LE_SUCCESS;
 }
 
-void _leRawImageDecoder_ConvertInit(leRawDecodeState* state)
+leResult _leRawImageDecoder_ConvertStage(leRawDecodeState* state)
 {
-    if((state->source->palette != NULL && state->source->palette->colorMode == LE_GLOBAL_COLOR_MODE) ||
-        (state->source->buffer.mode == LE_GLOBAL_COLOR_MODE))
+    // translate the source color mode to the destination color mode
+    if((state->source->palette != NULL && state->source->palette->colorMode != state->targetMode) ||
+        (state->source->buffer.mode != state->targetMode))
     {
-        return;
+        memset(&convertStage, 0, sizeof(convertStage));
+
+        if(state->source->palette != NULL)
+        {
+            convertStage.sourceMode = state->source->palette->colorMode;
+        }
+        else
+        {
+            convertStage.sourceMode = state->source->buffer.mode;
+        }
+
+        convertStage.base.state = state;
+        convertStage.base.exec = (void*)stage_convertColor;
+
+        _leRawImageDecoder_InjectStage(state, (void*)&convertStage);
     }
 
-    memset(&convertStage, 0, sizeof(convertStage));
-
-    if(state->source->palette != NULL)
-    {
-        convertStage.sourceMode = state->source->palette->colorMode;
-    }
-    else
-    {
-        convertStage.sourceMode = state->source->buffer.mode;
-    }
-
-    convertStage.base.state = state;
-
-    convertStage.base.exec = (void*)stage_convertColor;
-
-    state->convertStage = (leRawDecodeStage*)&convertStage;
-
-    if(state->maskStage == NULL)
-    {
-        state->maskStage = (leRawDecodeStage*)&convertStage;
-    }
-
-    if(state->paletteStage == NULL)
-    {
-        state->paletteStage = (leRawDecodeStage*)&convertStage;
-    }
-
-    if(state->blendStage == NULL)
-    {
-        state->blendStage = (leRawDecodeStage*)&convertStage;
-    }
+    return LE_SUCCESS;
 }

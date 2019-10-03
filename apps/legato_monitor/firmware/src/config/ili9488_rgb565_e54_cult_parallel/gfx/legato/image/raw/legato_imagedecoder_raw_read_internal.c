@@ -23,8 +23,12 @@
 
 #include "gfx/legato/image/raw/legato_imagedecoder_raw.h"
 
+#include "gfx/legato/common/legato_error.h"
 #include "gfx/legato/image/legato_image_utils.h"
 #include "gfx/legato/renderer/legato_renderer.h"
+
+void _leRawImageDecoder_InjectStage(leRawDecodeState* state,
+                                    leRawDecodeStage* stage);
 
 static struct InternalReadStage
 {
@@ -37,35 +41,59 @@ static struct InternalReadStage
     uint32_t imgBPP;
 } internalReadStage;
 
+#include <stdio.h>
+
 static void colorDecode()
 {
+    leRawSourceReadOperation* op = &internalReadStage.base.state->readOperation[internalReadStage.base.state->readIndex];
+
     // get a pixel from the sourced image
-    internalReadStage.base.state->sourceColor = lePixelBufferGet_Unsafe(&internalReadStage.base.state->source->buffer,
-                                                                        internalReadStage.base.state->sourceX,
-                                                                        internalReadStage.base.state->sourceY);
+    op->data = lePixelBufferGet_Unsafe(&internalReadStage.base.state->source->buffer,
+                                       op->x,
+                                       op->y);
 }
 
 static void indexDecode()
 {
-    internalReadStage.base.state->sourceColor = lePixelBufferGetIndex_Unsafe(&internalReadStage.base.state->source->buffer,
-                                                                             internalReadStage.base.state->bufferIdx);
+    leRawSourceReadOperation* op = &internalReadStage.base.state->readOperation[internalReadStage.base.state->readIndex];
+
+    op->data = lePixelBufferGetIndex_Unsafe(&internalReadStage.base.state->source->buffer,
+                                            op->bufferIndex);
 }
 
-static void rleDecode()
+static void rleSequentialDecode()
 {
-    internalReadStage.base.state->sourceColor = leGetRLEDataAtIndex(internalReadStage.base.state->source->buffer.pixels,
-                                                                    internalReadStage.base.state->source->buffer.pixel_count,
-                                                                    internalReadStage.base.state->bufferIdx,
-                                                                    &internalReadStage.lastBlock,
-                                                                    &internalReadStage.lastOffset);
+    leRawSourceReadOperation* op = &internalReadStage.base.state->readOperation[internalReadStage.base.state->readIndex];
+
+    op->data = leGetRLEDataAtIndex(internalReadStage.base.state->source->buffer.pixels,
+                                   internalReadStage.base.state->source->buffer.pixel_count,
+                                   op->bufferIndex,
+                                   &internalReadStage.lastBlock,
+                                   &internalReadStage.lastOffset);
 }
 
-static void indexRLEDecode()
+static void rleRandomDecode()
+{
+    leRawSourceReadOperation* op = &internalReadStage.base.state->readOperation[internalReadStage.base.state->readIndex];
+
+    internalReadStage.lastBlock = 0;
+    internalReadStage.lastOffset = 0;
+
+    op->data = leGetRLEDataAtIndex(internalReadStage.base.state->source->buffer.pixels,
+                                   internalReadStage.base.state->source->buffer.pixel_count,
+                                   op->bufferIndex,
+                                   &internalReadStage.lastBlock,
+                                   &internalReadStage.lastOffset);
+}
+
+static void indexRLESequentialDecode()
 {
     uint32_t srcClr;
 
+    leRawSourceReadOperation* op = &internalReadStage.base.state->readOperation[internalReadStage.base.state->readIndex];
+
     // get the offset into the index table
-    srcClr = leGetOffsetFromIndexAndBPP(internalReadStage.base.state->bufferIdx,
+    srcClr = leGetOffsetFromIndexAndBPP(op->bufferIndex,
                                         internalReadStage.imgBPP);
 
     // perform RLE lookup
@@ -76,102 +104,104 @@ static void indexRLEDecode()
                                  &internalReadStage.lastOffset);
 
     // get the value from the RLE block
-    srcClr = leGetDiscreteValueAtIndex(internalReadStage.base.state->bufferIdx,
+    srcClr = leGetDiscreteValueAtIndex(op->bufferIndex,
                                        srcClr,
                                        internalReadStage.base.state->source->buffer.mode);
 
-    internalReadStage.base.state->sourceColor = srcClr;
+    op->data = srcClr;
+}
+
+static void indexRLERandomDecode()
+{
+    uint32_t srcClr;
+
+    leRawSourceReadOperation* op = &internalReadStage.base.state->readOperation[internalReadStage.base.state->readIndex];
+
+    // get the offset into the index table
+    srcClr = leGetOffsetFromIndexAndBPP(op->bufferIndex,
+                                        internalReadStage.imgBPP);
+
+    internalReadStage.lastBlock = 0;
+    internalReadStage.lastOffset = 0;
+
+    // perform RLE lookup
+    srcClr = leGetRLEDataAtIndex(internalReadStage.base.state->source->buffer.pixels,
+                                 internalReadStage.base.state->source->buffer.pixel_count,
+                                 srcClr,
+                                 &internalReadStage.lastBlock,
+                                 &internalReadStage.lastOffset);
+
+    // get the value from the RLE block
+    srcClr = leGetDiscreteValueAtIndex(op->bufferIndex,
+                                       srcClr,
+                                       internalReadStage.base.state->source->buffer.mode);
+
+    op->data = srcClr;
 }
 
 static leResult stage_decode(struct InternalReadStage* stage)
 {
-    leRawDecodeState* state = stage->base.state;
+    stage->base.state->readIndex = 0;
 
-    if(state->imageRow >= (uint32_t)state->sourceRect.height)
+    for(stage->base.state->readIndex = 0;
+        stage->base.state->readIndex < stage->base.state->readCount;
+        stage->base.state->readIndex++)
     {
-        state->currentStage = NULL;
-
-        return LE_SUCCESS;
-    }
-
-    // calculate dest offset
-    state->drawY = state->renderY + state->imageRow;
-    state->sourceY = state->sourceRect.y + state->imageRow;
-
-    state->drawX = state->renderX + state->imageCol;
-    state->sourceX = state->sourceRect.x + state->imageCol;
-
-    // calculate buffer index
-    internalReadStage.base.state->bufferIdx = internalReadStage.base.state->sourceX +
-                                              (internalReadStage.base.state->sourceY *
-                                               internalReadStage.base.state->source->buffer.size.width);
-
-    internalReadStage.decode();
-
-    state->currentStage = state->maskStage;
-
-    if(state->imageCol < (uint32_t)state->sourceRect.width - 1)
-    {
-        state->imageCol += 1;
-    }
-    else
-    {
-        state->imageCol = 0;
-        state->imageRow += 1;
+        internalReadStage.decode();
     }
 
     return LE_SUCCESS;
 }
 
-void _leRawImageDecoder_ReadStreamInit(leRawDecodeState* state);
-void _leRawImageDecoder_PaletteInternalInit(leRawDecodeState* state);
-
-void _leRawImageDecoder_ReadInternalInit(leRawDecodeState* state)
+leResult _leRawImageDecoder_ReadStage_Internal(leRawDecodeState* state)
 {
-#if LE_STREAMING_ENABLED == 1
-    if(state->source->header.location == LE_STREAM_LOCATION_ID_INTERNAL)
+    memset(&internalReadStage, 0, sizeof(internalReadStage));
+
+    internalReadStage.dataSize = leColorInfoTable[state->source->buffer.mode].size;
+    internalReadStage.imgBPP = leColorInfoTable[state->source->buffer.mode].bppOrdinal;
+
+    internalReadStage.base.state = state;
+
+    if(LE_COLOR_MODE_IS_INDEX(state->source->buffer.mode) == LE_TRUE)
     {
-#endif
-        memset(&internalReadStage, 0, sizeof(internalReadStage));
-
-        state->imageRow = 0;
-        state->imageCol = 0;
-        internalReadStage.dataSize = leColorInfoTable[state->source->buffer.mode].size;
-        internalReadStage.imgBPP = leColorInfoTable[state->source->buffer.mode].bppOrdinal;
-
-        internalReadStage.base.state = state;
-
-        if(LE_COLOR_MODE_IS_INDEX(state->source->buffer.mode) == LE_TRUE)
+        if(state->source->format == LE_IMAGE_FORMAT_RAW)
         {
-            if(state->source->format == LE_IMAGE_FORMAT_RAW)
-            {
-                internalReadStage.decode = indexDecode;
-            }
-            else
-            {
-                internalReadStage.decode = indexRLEDecode;
-            }
+            internalReadStage.decode = indexDecode;
         }
         else
         {
-            if(state->source->format == LE_IMAGE_FORMAT_RAW)
+            if(state->randomRLE == LE_FALSE)
             {
-                internalReadStage.decode = colorDecode;
+                internalReadStage.decode = indexRLESequentialDecode;
             }
             else
             {
-                internalReadStage.decode = rleDecode;
+                internalReadStage.decode = indexRLERandomDecode;
             }
         }
-
-        internalReadStage.base.exec = (void *) stage_decode;
-
-        state->readStage = (leRawDecodeStage*)&internalReadStage;
-#if LE_STREAMING_ENABLED == 1
     }
     else
     {
-        return _leRawImageDecoder_ReadStreamInit(state);
+        if(state->source->format == LE_IMAGE_FORMAT_RAW)
+        {
+            internalReadStage.decode = colorDecode;
+        }
+        else
+        {
+            if(state->randomRLE == LE_FALSE)
+            {
+                internalReadStage.decode = rleSequentialDecode;
+            }
+            else
+            {
+                internalReadStage.decode = rleRandomDecode;
+            }
+        }
     }
-#endif
+
+    internalReadStage.base.exec = (void *) stage_decode;
+
+    _leRawImageDecoder_InjectStage(state, (void*)&internalReadStage);
+
+    return LE_SUCCESS;
 }

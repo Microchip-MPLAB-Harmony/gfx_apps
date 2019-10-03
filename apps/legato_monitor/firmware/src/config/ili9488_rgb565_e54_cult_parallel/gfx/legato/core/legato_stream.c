@@ -28,6 +28,8 @@ leResult leStream_Open(leStream* stream)
         return LE_FAILURE;
     }
 
+    stream->flags = SF_NONE;
+
     if(stream->desc->location != LE_STREAM_LOCATION_ID_INTERNAL)
     {
         if(leApplication_MediaOpenRequest(stream) == LE_FAILURE)
@@ -119,13 +121,21 @@ leResult leStream_Read(leStream* stream,
             stream->readRequest.dataReadyCB = cb;
 
             if(leApplication_MediaReadRequest(stream, addr, size, buf) == LE_FAILURE)
-            {
                 return LE_FAILURE;
+
+            if((stream->flags & SF_BLOCKING) > 0)
+            {
+                leStream_DataReady(stream);
             }
         }
     }
 
     return LE_SUCCESS;
+}
+
+leBool leStream_IsBlocking(leStream* stream)
+{
+    return stream != NULL && (stream->flags & SF_BLOCKING) > 0;
 }
 
 leBool leStream_IsDataReady(leStream* stream)

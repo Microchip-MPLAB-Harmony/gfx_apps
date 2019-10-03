@@ -90,8 +90,9 @@ typedef enum leImageFlags
 */
 typedef enum leImageFilterMode
 {
-    LE_IMAGE_NEAREST_NEIGHBOR,
-    LE_IMAGE_BILINEAR,
+    LE_IMAGEFILTER_NONE,
+    LE_IMAGEFILTER_NEAREST_NEIGHBOR,
+    LE_IMAGEFILTER_BILINEAR,
 } leImageFilterMode;
 
 // *****************************************************************************
@@ -257,10 +258,11 @@ LIB_EXPORT leResult leImage_Free(leImage* img);
     will implement this in their own way.
 
     supportsImage - queries the decoder to see if it supports a given image
-    draw - initializes the decoder to draw an image to the render buffer
+    draw - initializes the decoder to draw an image to the frame buffer
     copy - intiailizes the decoder to perform an image copy operation
-    render - initializes the decoder to perform a direct memory render operation
-    resize - initialies the decoder to perform an image resize operation
+    render - initializes the decoder to perform a direct image render operation
+    resize - initialies the decoder to perform an direct image resize operation
+    resize - initialies the decoder to perform an image resize operation draw to the frame buffer
     exec - run the decoder
     isDone - query the decoder for completion
     free - frees the decoder to cleanup any allocated resources
@@ -269,10 +271,13 @@ typedef struct leImageDecoder
 {
     leBool   (*supportsImage)(const leImage* img);
     leResult (*draw)(const leImage* img, const leRect* srcRect, int32_t x, int32_t y, uint32_t a);
-    leResult (*copy)(const leImage* src, leImage* dst, const leRect* srcRect);
-    leResult (*render)(const leImage* src, leImage* dst, const leRect* srcRect, leBool applyAlpha);
-    leResult (*resize)(const leImage* src, leImage* dest, const leRect* srcRect, uint32_t width, uint32_t height);
-    void     (*exec)(void);
+    leResult (*copy)(const leImage* src, const leRect* srcRect, int32_t x, int32_t y, leImage* dst);
+    leResult (*render)(const leImage* src, const leRect* srcRect, int32_t x, int32_t y, leBool ignoreMask, leBool ignoreAlpha, leImage* dst);
+    leResult (*resize)(const leImage* src, const leRect* srcRect, leImageFilterMode mode, uint32_t sizeX, uint32_t sizeY, leImage* dst);
+    leResult (*resizeDraw)(const leImage* src, const leRect* srcRect, leImageFilterMode mode, uint32_t sizeX, uint32_t sizeY, int32_t x, int32_t y, uint32_t a);
+    leResult (*rotate)(const leImage* src, const leRect* srcRect, leImageFilterMode mode, const lePoint* origin, int32_t angle, leImage* dst);
+    leResult (*rotateDraw)(const leImage* src, const leRect* srcRect, leImageFilterMode mode, const lePoint* origin, int32_t angle, int32_t x, int32_t y, uint32_t a);
+    leResult (*exec)(void);
     leBool   (*isDone)(void);
     void     (*free)(void);
 } leImageDecoder;
@@ -332,22 +337,201 @@ LIB_EXPORT leResult leImage_Draw(const leImage* img,
                                  int32_t y,
                                  uint32_t a);
 
-#ifdef NOT_IMPLEMENTED
-LIB_EXPORT  leResult leImage_Copy(const leImage* src,
-                                  leImage* dst,
-                                  leRect* sourceRect);
-                                 
-LIB_EXPORT leResult leImage_Render(const leImage* img,
-                                   leImage* dst,
-                                   leRect* sourceRect,
-                                   leBool applyAlpha);
 
+// *****************************************************************************
+/* Function:
+    leResult leImage_Resize(const leImage* src,
+                            const leRect* sourceRect,
+                            leImageFilterMode mode,
+                            leImage* dst);
+
+  Summary:
+    Decodes a portion of the given image at the specified coordinates and
+    scales it to the given dimensions using the specified filter mode.  The
+    result is stored into the provided destination image pointer.
+
+  Parameters:
+    leImage* src - pointer to source image asset to draw
+    leRect* sourceRect - the source rectangle of the image to decode
+    leImageFilterMode mode - the filter to use when resizing
+    leImage* dst - pointer to destination image asset
+
+  Returns:
+    leResult
+*/
 LIB_EXPORT leResult leImage_Resize(const leImage* src,
-                                   leImage* dst,
-                                   leRect* sourceRect,
-                                   uint32_t width,
-                                   uint32_t height,
-                                   leImageFilterMode mode);
-#endif
+                                   const leRect* sourceRect,
+                                   leImageFilterMode mode,
+                                   uint32_t sizeX,
+                                   uint32_t sizeY,
+                                   leImage* target);
+
+// *****************************************************************************
+/* Function:
+    leResult leImage_ResizeDraw(const leImage* src,
+                                const leRect* sourceRect,
+                                leImageFilterMode mode,
+                                const leRect* destRect);
+
+  Summary:
+    Decodes a portion of the given image at the specified coordinates and
+    scales it to the given dimensions using the specified filter mode.  The
+    result is written to the active scratch buffer.
+
+  Parameters:
+    leImage* src - pointer to source image asset to draw
+    const leRect* sourceRect - the source rectangle of the image to decode
+    leImageFilterMode mode - the filter to use when resizing
+    int32_t x - the X coordinate to draw to
+    int32_t y - the Y coordinate to draw to
+    uint32_t a - the alpha value to use
+
+  Returns:
+    leResult
+*/
+LIB_EXPORT leResult leImage_ResizeDraw(const leImage* src,
+                                       const leRect* sourceRect,
+                                       leImageFilterMode mode,
+                                       uint32_t sizeX,
+                                       uint32_t sizeY,
+                                       int32_t x,
+                                       int32_t y,
+                                       uint32_t a);
+
+// *****************************************************************************
+/* Function:
+    leResult leImage_Copy(const leImage* src,
+                          const leRect* sourceRect,
+                          int32_t x,
+                          int32_t y,
+                          leImage* dst);
+
+  Summary:
+    Copies the data from one image to another.
+
+  Parameters:
+    leImage* src - pointer to source image asset to draw
+    const leRect* sourceRect - the source rectangle of the image to decode
+    int32_t x - the x position of the destination image to write to
+    int32_t y - the y position of the desgination image to write to,
+    leImage* dst - the destination image to fill
+
+  Returns:
+    leResult
+*/
+LIB_EXPORT leResult leImage_Copy(const leImage* src,
+                                 const leRect* sourceRect,
+                                 int32_t x,
+                                 int32_t y,
+                                 leImage* dst);
+
+// *****************************************************************************
+/* Function:
+    leResult leImage_Render(const leImage* src,
+                            const leRect* sourceRect,
+                            int32_t x,
+                            int32_t y,
+                            leBool ignoreMask,
+                            leBool ignoreAlpha,
+                            leImage* dst);
+
+  Summary:
+    Renders an image into another image.  Source data will be decoded,
+    transformed, and written into the destination image.  The source image
+    mask and alpha data may be optionally ignored.
+
+  Parameters:
+    leImage* src - pointer to source image asset to draw
+    const leRect* sourceRect - the source rectangle of the image to decode
+    int32_t x - the x position of the destination image to write to
+    int32_t y - the y position of the desgination image to write to
+    leBool ignoreMask - set to true to skip the mask stage for the source image
+    leBool ignoreAlpha - set to true to skip the blend stage for the source image
+    leImage* dst - the destination image to fill
+
+  Returns:
+    leResult
+*/
+LIB_EXPORT leResult leImage_Render(const leImage* src,
+                                   const leRect* sourceRect,
+                                   int32_t x,
+                                   int32_t y,
+                                   leBool ignoreMask,
+                                   leBool ignoreAlpha,
+                                   leImage* dst);
+
+// *****************************************************************************
+/* Function:
+    leResult leImage_Rotate(const leImage* src,
+                            const leRect* sourceRect,
+                            leImageFilterMode mode,
+                            const lePoint* origin,
+                            int32_t angle,
+                            leImage* dst);
+
+  Summary:
+    Decodes a portion of the given image at the specified coordinates and
+    rotates it by the given angle in degrees, around the origin point,
+    using the specified filter mode.
+
+    The result is stored into the provided destination image pointer.
+
+  Parameters:
+    leImage* src - pointer to source image asset to draw
+    leRect* sourceRect - the source rectangle of the image to decode
+    leImageFilterMode mode - the filter to use when rotating
+    const lePoint* origin - the point to rotate around in image space
+    int32_t angle - the angle (degrees) to rotate by
+    leImage* dst - pointer to destination image asset
+
+  Returns:
+    leResult
+*/
+LIB_EXPORT leResult leImage_Rotate(const leImage* src,
+                                   const leRect* sourceRect,
+                                   leImageFilterMode mode,
+                                   const lePoint* origin,
+                                   int32_t angle,
+                                   leImage* dst);
+
+// *****************************************************************************
+/* Function:
+    leResult leImage_Rotate(const leImage* src,
+                            const leRect* sourceRect,
+                            leImageFilterMode mode,
+                            const lePoint* origin,
+                            int32_t angle,
+                            int32_t x,
+                            int32_t y,
+                            uint32_t a);
+
+  Summary:
+    Decodes a portion of the given image at the specified coordinates and
+    rotates it by the given angle in degrees, around the origin point,
+    using the specified filter mode.
+
+    The result is rendered directly into the frame buffer.
+
+  Parameters:
+    leImage* src - pointer to source image asset to draw
+    leRect* sourceRect - the source rectangle of the image to decode
+    leImageFilterMode mode - the filter to use when rotating
+    const lePoint* origin - the point to rotate around in image space
+    int32_t angle - the angle (degrees) to rotate by
+    int32_t x - the X coordinate to draw to
+    int32_t y - the Y coordinate to draw to
+    uint32_t a - the alpha value to use
+
+  Returns:
+    leResult
+*/
+LIB_EXPORT leResult leImage_RotateDraw(const leImage* src,
+                                       const leRect* sourceRect,
+                                       leImageFilterMode mode,
+                                       const lePoint* origin,
+                                       int32_t angle,
+                                       int32_t x,
+                                       int32_t y,
+                                       uint32_t a);
 
 #endif /* LE_IMAGE_H */

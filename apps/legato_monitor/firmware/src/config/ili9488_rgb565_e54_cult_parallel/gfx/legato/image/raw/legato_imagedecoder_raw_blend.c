@@ -25,6 +25,9 @@
 
 #include "gfx/legato/renderer/legato_renderer.h"
 
+void _leRawImageDecoder_InjectStage(leRawDecodeState* state,
+                                    leRawDecodeStage* stage);
+
 static struct InternalBlendStage
 {
     leRawDecodeStage base;
@@ -34,13 +37,10 @@ static struct InternalBlendStage
 static leResult stage_BlendRGBA5551(leRawDecodeStage* stage)
 {
     // completely transparent, discard
-    if((blendStage.base.state->sourceColor & RGBA_5551_ALPHA_MASK) == 0)
+    if((stage->state->writeColor & RGBA_5551_ALPHA_MASK) == 0)
     {
-        stage->state->currentStage = stage->state->readStage;
-    }
-    else
-    {
-        stage->state->currentStage = stage->state->writeStage;
+        // reset stage index
+        stage->state->currentStage = -1;
     }
 
     return LE_SUCCESS;
@@ -51,22 +51,21 @@ static leResult stage_BlendRGBA8888(leRawDecodeStage* stage)
     leColor resultClr;
 
     // completely transparent, discard
-    if((blendStage.base.state->sourceColor & RGBA_8888_ALPHA_MASK) == 0)
+    if((stage->state->writeColor & RGBA_8888_ALPHA_MASK) == 0)
     {
-        stage->state->currentStage = stage->state->readStage;
+        // reset stage index
+        stage->state->currentStage = -1;
     }
     else
     {
-        resultClr = leRenderer_GetPixel(blendStage.base.state->drawX,
-                                        blendStage.base.state->drawY);
+        resultClr = leRenderer_GetPixel(blendStage.base.state->targetX,
+                                        blendStage.base.state->targetY);
 
         resultClr = leColorConvert(LE_GLOBAL_COLOR_MODE,
                                    LE_COLOR_MODE_RGBA_8888,
                                    resultClr);
 
-        blendStage.base.state->sourceColor = leColorBlend_RGBA_8888(blendStage.base.state->sourceColor, resultClr);
-
-        stage->state->currentStage = stage->state->convertStage;
+        stage->state->writeColor = leColorBlend_RGBA_8888(stage->state->writeColor, resultClr);
     }
 
     return LE_SUCCESS;
@@ -77,28 +76,27 @@ static leResult stage_BlendARGB8888(leRawDecodeStage* stage)
     leColor resultClr;
 
     // completely transparent, discard
-    if((blendStage.base.state->sourceColor & ARGB_8888_ALPHA_MASK) == 0)
+    if((stage->state->writeColor & ARGB_8888_ALPHA_MASK) == 0)
     {
-        stage->state->currentStage = stage->state->readStage;
+        // reset stage index
+        stage->state->currentStage = -1;
     }
     else
     {
-        resultClr = leRenderer_GetPixel(blendStage.base.state->drawX,
-                                        blendStage.base.state->drawY);
+        resultClr = leRenderer_GetPixel(blendStage.base.state->targetX,
+                                        blendStage.base.state->targetY);
 
         resultClr = leColorConvert(LE_GLOBAL_COLOR_MODE,
                                    LE_COLOR_MODE_ARGB_8888,
                                    resultClr);
 
-        blendStage.base.state->sourceColor = leColorBlend_ARGB_8888(blendStage.base.state->sourceColor, resultClr);
-
-        stage->state->currentStage = stage->state->convertStage;
+        stage->state->writeColor = leColorBlend_ARGB_8888(stage->state->writeColor, resultClr);
     }
 
     return LE_SUCCESS;
 }
 
-void _leRawImageDecoder_BlendInternalInit(leRawDecodeState* state)
+void _leRawImageDecoder_BlendStage_Internal(leRawDecodeState* state)
 {
     memset(&blendStage, 0, sizeof(blendStage));
 
@@ -125,17 +123,7 @@ void _leRawImageDecoder_BlendInternalInit(leRawDecodeState* state)
     }
 
     blendStage.base.state = state;
-    state->blendStage = (void*)&blendStage;
-
     blendStage.renderer = leGetRenderState();
 
-    if(state->maskStage == NULL)
-    {
-        state->maskStage = state->blendStage;
-    }
-
-    if(state->paletteStage == NULL)
-    {
-        state->paletteStage = state->blendStage;
-    }
+    _leRawImageDecoder_InjectStage(state, (void*)&blendStage);
 }
