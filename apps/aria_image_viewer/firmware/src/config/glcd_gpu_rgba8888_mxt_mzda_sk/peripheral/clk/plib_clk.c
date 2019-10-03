@@ -121,13 +121,10 @@ void CLK_Initialize( void )
     while(!(CFGMPLLbits.MPLLRDY));
 
     /* Peripheral Module Disable Configuration */
-    //CUSTOM CODE - DO NOT MODIFY OR REMOVE
-    //See release notes for explanation
-    PMD1 = 0xefffffff;
-    //END OF CUSTOM CODE
-    PMD2 = 0xffffffff;
-    PMD3 = 0xffffffff;
-    PMD4 = 0xffffffff;
+    PMD1 = 0x101101;
+    PMD2 = 0x3;
+    PMD3 = 0x1ff01ff;
+    PMD4 = 0x1ff;
     PMD5 = 0xfefeffff;
     PMD6 = 0xffe9e0ff;
     PMD7 = 0xefffffef;
