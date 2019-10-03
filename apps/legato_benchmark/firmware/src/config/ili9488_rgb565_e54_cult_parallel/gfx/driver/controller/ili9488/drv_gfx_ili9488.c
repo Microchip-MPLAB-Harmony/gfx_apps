@@ -444,18 +444,12 @@ leResult DRV_ILI9488_BlitBuffer(int32_t x,
     if(drv.state != IDLE)
         return LE_FAILURE;
 
-    lePixelBuffer_SetLocked(buf, LE_TRUE);
-    
     drv.blitParms.x = x;
     drv.blitParms.y = y;
     drv.blitParms.buf = buf;
     drv.state = BLIT_COLUMN_CMD;
 
-    //TODO: Remove when buffer lock is supported
-//    while (drv.state != IDLE)
-//    {
-//        DRV_ILI9488_Update();
-//    }
+    lePixelBuffer_SetLocked(buf, LE_TRUE);
     
     return LE_SUCCESS;
 }
