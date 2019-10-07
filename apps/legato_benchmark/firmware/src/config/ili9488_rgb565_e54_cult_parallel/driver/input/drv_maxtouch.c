@@ -563,6 +563,7 @@ return(BSP_MAXTOUCH_CHG_Get());
 #endif
 }
 
+
 static void _handleTouchMessage(uint8_t touchID, MAXTOUCH_TouchEvent* tchEvt);
 static bool mxt_init_t7_power_cfg(struct DEVICE_OBJECT* pDeviceObject);
 static bool mxt_load_xcfg_file(struct DEVICE_OBJECT* pDeviceObject, const char *filename);
@@ -805,6 +806,7 @@ SYS_MODULE_OBJ DRV_MAXTOUCH_Initialize(const SYS_MODULE_INDEX index,
     pDrvInstance->data.progress = 0;
     pDrvInstance->apiEvent = APP_DRV_MAXTOUCH_None;
 
+    
     return (SYS_MODULE_OBJ)pDrvInstance;
 }
 

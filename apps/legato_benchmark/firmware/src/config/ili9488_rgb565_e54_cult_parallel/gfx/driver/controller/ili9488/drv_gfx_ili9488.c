@@ -220,7 +220,7 @@ static int ILI9488_Init(ILI9488_DRV *drv,
                         ILI9488_CMD_PARAM *initVals,
                         int numVals)
 {
-    int returnValue;
+    int returnValue = -1;
     unsigned int i;
     GFX_Disp_Intf intf; 
     
@@ -401,7 +401,7 @@ void DRV_ILI9488_Update(void)
                                         pixelBuffer,
                                         BYTES_PER_PIXEL_BUFFER *
                                         drv.blitParms.buf->size.width);
-
+                
                 row++;
             }
             else if (row >= drv.blitParms.buf->size.height)
