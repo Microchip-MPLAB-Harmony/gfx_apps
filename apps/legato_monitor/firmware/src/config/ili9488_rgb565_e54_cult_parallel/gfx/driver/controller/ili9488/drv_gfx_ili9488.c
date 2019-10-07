@@ -219,7 +219,7 @@ static int ILI9488_Init(ILI9488_DRV *drv,
                         ILI9488_CMD_PARAM *initVals,
                         int numVals)
 {
-    int returnValue;
+    int returnValue = -1;
     unsigned int i;
     GFX_Disp_Intf intf; 
     
