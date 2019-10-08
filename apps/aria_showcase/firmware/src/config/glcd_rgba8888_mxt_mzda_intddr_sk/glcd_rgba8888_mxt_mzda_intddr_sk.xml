@@ -1007,32 +1007,32 @@
         </Boolean>
         <String dnOrder="1" id="Layer0Buffer0">
           <Values dnOrder="0">
-            <User dnOrder="0" value="0xA827D800"/>
+            <User dnOrder="0" value="0xA867D800"/>
           </Values>
         </String>
         <String dnOrder="2" id="Layer0Buffer1">
           <Values dnOrder="0">
-            <User dnOrder="0" value="0xA81FE000"/>
+            <User dnOrder="0" value="0xA85FE000"/>
           </Values>
         </String>
         <String dnOrder="3" id="Layer1Buffer0">
           <Values dnOrder="0">
-            <User dnOrder="0" value="0xA817E800"/>
+            <User dnOrder="0" value="0xA857E800"/>
           </Values>
         </String>
         <String dnOrder="4" id="Layer1Buffer1">
           <Values dnOrder="0">
-            <User dnOrder="0" value="0xA80FF000"/>
+            <User dnOrder="0" value="0xA84FF000"/>
           </Values>
         </String>
         <String dnOrder="5" id="Layer2Buffer0">
           <Values dnOrder="0">
-            <User dnOrder="0" value="0xA807F800"/>
+            <User dnOrder="0" value="0xA847F800"/>
           </Values>
         </String>
         <String dnOrder="6" id="Layer2Buffer1">
           <Values dnOrder="0">
-            <User dnOrder="0" value="0xA8000000"/>
+            <User dnOrder="0" value="0xA8400000"/>
           </Values>
         </String>
         <Integer dnOrder="7" id="PixelClock">
