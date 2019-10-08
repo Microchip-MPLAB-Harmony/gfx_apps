@@ -394,15 +394,14 @@ int32_t libaria_preprocess_assets(void)
 {
 
     // process images configured for preprocessing
-//CUSTOM CODE - DO NOT MODIFY OR REMOVE!!!
-    laUtils_PreprocessImage(&Bar,0xA8000000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&view,0xA831E000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&view1,0xA835E000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&view2,0xA839E000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&view3,0xA83DE000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-    laUtils_PreprocessImage(&TurnLeft,0xA831D000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&Bar,0xA83FD000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&view,0xA82FD000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&view1,0xA833D000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&view2,0xA837D000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&view3,0xA83BD000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
+    laUtils_PreprocessImage(&TurnLeft,0xA841D000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
     laUtils_PreprocessImage(&TurnRight,0xA841E000,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
-//END OF CUSTOM CODE
+
     return 0;
 }
 
