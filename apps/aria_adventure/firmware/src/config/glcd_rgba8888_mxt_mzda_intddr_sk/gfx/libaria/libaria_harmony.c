@@ -43,6 +43,7 @@
 #include "gfx/libaria/libaria_init.h"
 
 #include "gfx/libaria/libaria.h"
+#include "gfx/libaria/libaria_demo_mode.h"
 
 
 #include "system/input/sys_input.h"
@@ -163,6 +164,7 @@ void LibAria_Tasks(void)
         {
             laContext_SetActive(libariaObj.context);
 
+            LibAria_DemoModeProcessEvents();
 
             laUpdate(0);
 

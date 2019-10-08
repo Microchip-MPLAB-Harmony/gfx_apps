@@ -60,6 +60,7 @@
               <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/gfx_config.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f5" displayName="libaria" projectFiles="true">
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_demo_mode.h</itemPath>
               <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_harmony.h</itemPath>
               <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_config.h</itemPath>
               <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_init.h</itemPath>
@@ -277,6 +278,7 @@
               <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/hal/src/gfx_math.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f5" displayName="libaria" projectFiles="true">
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_demo_mode.c</itemPath>
               <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_harmony.c</itemPath>
               <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/libaria_init.c</itemPath>
               <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk/gfx/libaria/src/libaria.c</itemPath>

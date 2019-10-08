@@ -127,7 +127,7 @@ extern GFXU_ImageAsset PIC32Logo;
  * GFX Image Asset
  * Name:   info_text
  * Size:   384x288 pixels
- * Mode:   RGB_565
+ * Mode:   GS_8
  * Format: RAW
  ***********************************/
 extern GFXU_ImageAsset info_text;
