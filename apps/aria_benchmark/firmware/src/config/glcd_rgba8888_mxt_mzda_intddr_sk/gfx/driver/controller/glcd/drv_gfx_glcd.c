@@ -73,10 +73,10 @@ SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
 #define  GFX_GLCD_LAYER0_BASEADDR                      0xA8000000
 #define  GFX_GLCD_LAYER0_DBL_BASEADDR                  0xA8465000
 /*** GLCD Layer 1 Configuration ***/
-#define  GFX_GLCD_LAYER1_BASEADDR                      0xA80FF000
+#define  GFX_GLCD_LAYER1_BASEADDR                      0xA807F800
 #define  GFX_GLCD_LAYER1_DBL_BASEADDR                  0xA85DC000
 /*** GLCD Layer 2 Configuration ***/
-#define  GFX_GLCD_LAYER2_BASEADDR                      0xA807F800
+#define  GFX_GLCD_LAYER2_BASEADDR                      0xA803FC00
 #define  GFX_GLCD_LAYER2_DBL_BASEADDR                  0xA8753000
 
 #define LCDC_DEFAULT_GFX_COLOR_MODE GFX_COLOR_MODE_RGBA_8888
