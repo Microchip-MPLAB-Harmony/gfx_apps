@@ -484,9 +484,9 @@ void DRV_USBHSV1_DEVICE_Detach(DRV_HANDLE handle)
             /* Disable all interrupts */
             usbID->USBHS_DEVIDR = USBHS_DEVIDR_Msk;
             
-        /* Detach the device */
-        usbID->USBHS_DEVCTRL |= USBHS_DEVCTRL_DETACH_Msk;
-    }
+            /* Detach the device */
+            usbID->USBHS_DEVCTRL |= USBHS_DEVCTRL_DETACH_Msk;
+        }
         if(false == hDriver->isInInterruptContext)
         {
             if(true == interruptWasEnabled)

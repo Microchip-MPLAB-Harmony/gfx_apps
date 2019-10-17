@@ -59,16 +59,16 @@
 #if  !defined(SYS_DEBUG_ENABLE) 
 
     #if  !defined(SYS_DEBUG_PRINT)
-	#define SYS_DEBUG_PRINT(level, format, ...) 
-#endif 
+        #define SYS_DEBUG_PRINT(level, format, ...) 
+    #endif
 
     #if  !defined(SYS_DEBUG_MESSAGE)
-	#define SYS_DEBUG_MESSAGE(a,b, ...)
-#endif 
+        #define SYS_DEBUG_MESSAGE(a,b, ...)   
+    #endif
 
     #if  !defined(SYS_DEBUG)
-	#define SYS_DEBUG(a,b)
-#endif 
+        #define SYS_DEBUG(a,b)
+    #endif 
 #endif 
 #endif /* End of #ifndef _DRV_USB_EXTERNAL_DEPENDENCIES_H */ 
 /*******************************************************************************
