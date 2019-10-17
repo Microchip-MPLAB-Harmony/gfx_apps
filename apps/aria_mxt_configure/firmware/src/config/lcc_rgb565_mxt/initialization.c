@@ -83,6 +83,7 @@ const DRV_I2C_PLIB_INTERFACE drvI2C0PLibAPI = {
     /* I2C PLib Transfer Write Add function */
     .write = (DRV_I2C_PLIB_WRITE)TWIHS0_Write,
 
+
     /* I2C PLib Transfer Write Read Add function */
     .writeRead = (DRV_I2C_PLIB_WRITE_READ)TWIHS0_WriteRead,
 
@@ -320,7 +321,6 @@ void SYS_Initialize ( void* data )
     
 	BSP_Initialize();
 	TWIHS0_Initialize();
-
 
     XDMAC_Initialize();
 
