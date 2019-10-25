@@ -1,30 +1,33 @@
 # Microchip MPLAB® Harmony 3 Graphics Release Notes
 ## Graphics Apps Release v3.5.0
 
-- **Graphics Contents** - This Graphics release consist of applications. The following table lists the contents in this Graphics release.
+- **Graphics Contents** - This Graphics release consists of applications. The following table lists the contents in this Graphics release.
 
-### Aria Graphics Library
+**Aria graphics library** - the standard graphics library within MPLAB Harmony Graphics Suite. Supports PIC32 and SAM microcontrollers and microprocessors.
+
 | Category | Item | Description | Release Type |
 | --- | --- | ---- |---- |
-| apps | aria_benchmark | Metrics on Aria Graphics Library | Production |
-| | aria_dashboard | Example automobile dashboard demo| Production |
+| apps | aria_benchmark | Metrics on Aria graphics library | Production |
+| | aria_dashboard | Example automobile dashboard demonstration| Production |
 | | aria_image_viewer| Image viewing and gesture movements| Production |
 | | aria_infotainment| Example vehicle infotainment system| Beta |
 | | aria_mxt_configure | Example maXTouch configuration | Production |
-| | aria_oven_controller | Example SRAM-only GPU demo| Production |
-| | aria_showcase | Example of Aria Graphics Library Widgets| Production |
-| | aria_showcase_reloaded | Example of Aria Graphics Library Widgets| Beta |Production |
-| | aria_thermostat | Example thermostat UI | Beta |
-| | aria_weather_forecast | Example weather UI | Beta |
+| | aria_oven_controller | Example SRAM-only GPU demonstration| Production |
+| | aria_showcase | Example of Aria graphics library widgets| Production |
+| | aria_showcase_reloaded | Example of Aria graphics library widgets| Beta |Production |
+| | aria_thermostat | Example thermostat UI demonstration | Beta |
+| | aria_weather_forecast | Example weather UI demonstration| Beta |
 
-### Legato Graphics Library
+**Legato graphics library** - the performance improved graphics library for MPLAB Harmony Graphics Suite. Supports PIC32 and SAM microcontrollers.
+
 | Category | Item | Description | Release Type |
 | --- | --- | ---- |---- |
-| apps | legato_benchmark | Metrics on Legato Graphics Library | Beta |
+| apps | legato_benchmark | Metrics on Legato graphics library | Beta |
 | | legato_monitor | Example blood pressure application| Beta |
 | | legato_showcase | Example of Legato graphics library widgets| Beta |
 
-### Misc
+**Misc items** - items associated with the entire library.
+
 | Category | Item | Description | Release Type |
 | --- | --- | ---- |---- |
 | doc | Help | Application Help Documentation| Beta |
@@ -34,13 +37,13 @@
 
 - **New Applications** - The following table provides the list of new applications.
 
-| Application | Description | 
+| Application | Description |
 | --- | --- |
-| legato_benchmark | Metrics on Legato Graphics Library |
+| legato_benchmark | Metrics on Legato graphics library |
 
 - **Development kit and demo application support** - The following table provides the list of applications for different development kits.
 
-| Applications | [SAM E54 Xplained Pro Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/PartNO/ATSAME54-XPRO) | [SAM E70 Xplained Ultra Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/PartNO/ATSAME70-XPLD) | [SAM A5D2 Xplained Ultra Evaluation Kit](https://www.microchip.com/developmenttools/ProductDetails/atsama5d2c-xult) |[Multimedia Expansion Board II](https://www.microchip.com/DevelopmentTools/ProductDetails/PartNO/DM320005-5) |SAM 9x60 Evaluation Kit |PIC32MZ EF Curiosity Kit |
+| Applications | [SAM E54 Xplained Pro](https://www.microchip.com/developmenttools/ProductDetails/PartNO/ATSAME54-XPRO) | [SAM E70 Xplained Ultra](https://www.microchip.com/developmenttools/ProductDetails/PartNO/ATSAME70-XPLD) | [SAM A5D2 Xplained Ultra](https://www.microchip.com/developmenttools/ProductDetails/atsama5d2c-xult) |[Multimedia Expansion Board II](https://www.microchip.com/DevelopmentTools/ProductDetails/PartNO/DM320005-5) |SAM 9x60|[Curiosity PIC32MZ EF 2.0](https://www.microchip.com/Developmenttools/ProductDetails/DM320209) |
 | --- | --- | --- | --- | --- | --- | --- |
 | aria_adventure          |   |   |   | x | | |
 | aria_benchmark          | x | x | x | x | x | |
@@ -62,7 +65,7 @@
 
 The current known issues are as follows:
 
-* Code is compliant to MISRA C 2012 Mandatory guidelines, with the exception of Rule 9.1 (Code 530). 
+* Code is compliant to MISRA C 2012 Mandatory guidelines, with the exception of Rule 9.1 (Code 530).
 In gfx.c, the variable args is falsely detected in violation of Code 530: &quot;Symbol not initialized&quot; at line 358.  In fact, va_start at line 358 is exactly where args is initialized.
 
 * When regenerating demo applications, keep all code between comments “//CUSTOM CODE…” and “//END OF CUSTOM CODE…”. Custom code is added to perform specific functionality.
