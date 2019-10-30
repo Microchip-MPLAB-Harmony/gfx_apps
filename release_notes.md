@@ -3,7 +3,7 @@
 
 - **Graphics Contents** - This Graphics release consists of applications. The following table lists the contents in this Graphics release.
 
-**Aria graphics library** - the standard graphics library within MPLAB Harmony Graphics Suite. Supports PIC32 and SAM microcontrollers and microprocessors.
+**Aria graphics library** - the current production library within MPLAB Harmony Graphics Suite. Supports PIC32 and SAM microcontrollers and microprocessors.
 
 | Category | Item | Description | Release Type |
 | --- | --- | ---- |---- |
@@ -14,9 +14,9 @@
 | | aria_mxt_configure | Example maXTouch configuration | Production |
 | | aria_oven_controller | Example SRAM-only GPU demonstration| Production |
 | | aria_showcase | Example of Aria graphics library widgets| Production |
-| | aria_showcase_reloaded | Example of Aria graphics library widgets| Beta |Production |
+| | aria_showcase_reloaded | Example of Aria graphics library widgets| Production |
 | | aria_thermostat | Example thermostat UI demonstration | Beta |
-| | aria_weather_forecast | Example weather UI demonstration| Beta |
+| | aria_weather_forecast | Example weather UI demonstration| Production |
 
 **Legato graphics library** - the performance improved graphics library for MPLAB Harmony Graphics Suite. Supports PIC32 and SAM microcontrollers.
 
@@ -26,7 +26,7 @@
 | | legato_monitor | Example blood pressure application| Beta |
 | | legato_showcase | Example of Legato graphics library widgets| Beta |
 
-**Misc items** - items associated with the entire library.
+**Misc items** - items associated with the entire graphics suite.
 
 | Category | Item | Description | Release Type |
 | --- | --- | ---- |---- |
@@ -69,6 +69,7 @@ The current known issues are as follows:
 In gfx.c, the variable args is falsely detected in violation of Code 530: &quot;Symbol not initialized&quot; at line 358.  In fact, va_start at line 358 is exactly where args is initialized.
 
 * When regenerating demo applications, keep all code between comments “//CUSTOM CODE…” and “//END OF CUSTOM CODE…”. Custom code is added to perform specific functionality.
+* Applications running on SAM E70 in combination with LCC will observe visual rendering artifacts on display during SD card R/W access. There is no loss in SD Card data.
 
 ### DEVELOPMENT TOOLS
 
