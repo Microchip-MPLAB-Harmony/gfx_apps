@@ -94,7 +94,6 @@ void TC4_CompareStop( void );
 
 uint32_t TC4_CompareFrequencyGet( void );
 
-
 void TC4_Compare8bitPeriodSet( uint8_t period );
 
 uint8_t TC4_Compare8bitPeriodGet( void );
@@ -103,7 +102,9 @@ uint8_t TC4_Compare8bitCounterGet( void );
 
 void TC4_Compare8bitCounterSet( uint8_t count );
 
-void TC4_Compare8bitSet( uint8_t compareValue );
+void TC4_Compare8bitMatch0Set( uint8_t compareValue );
+
+void TC4_Compare8bitMatch1Set( uint8_t compareValue );
 
 
 TC_COMPARE_STATUS TC4_CompareStatusGet( void );

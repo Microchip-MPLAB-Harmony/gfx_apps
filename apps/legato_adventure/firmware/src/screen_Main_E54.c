@@ -135,11 +135,16 @@ static void MainScreen_HandleLocomotion(uintptr_t context)
 
 static void MainScreen_HandleAnimation(uintptr_t context)
 {
+    uint32_t offset = PositionWidget->fn->getWidth(PositionWidget) / 2;
+    uint32_t leftButtonWidth = ButtonWidget_RunLeft->fn->getWidth(ButtonWidget_RunLeft);
+    
     if(leGetRenderState()->frameState == LE_FRAME_READY &&
        leEvent_GetCount() == 0)
     {
         PositionWidget->fn->setX(PositionWidget, spritePosX);
-
+        ButtonWidget_RunLeft->fn->setX(ButtonWidget_RunLeft, spritePosX + offset - leftButtonWidth);
+        ButtonWidget_RunRight->fn->setX(ButtonWidget_RunRight, spritePosX + offset);
+        
         if (spriteState == IDLE)
         {
             if (spriteFacing == FACE_RIGHT)
@@ -288,7 +293,8 @@ void MainScreen_OnUpdate()
 
 void ButtonWidget_RunRight_OnPressed(leButtonWidget *btn)
 {
-    if (spriteState == IDLE)
+    if ( ( spriteState != JUMP && spriteState != DIZZY && spriteFacing != FACE_RIGHT )
+            || spriteState == IDLE)
     {
         spriteFacing = FACE_RIGHT;
         spriteState = RUN;
@@ -300,16 +306,11 @@ void ButtonWidget_RunRight_OnPressed(leButtonWidget *btn)
 
 void ButtonWidget_RunRight_OnReleased(leButtonWidget *btn)
 {
-    if (spriteState == DIZZY)
-        return;
-    
-    spriteState = IDLE;
-    tickDelay = APP_IDLE_SPRITE_DELAY;
 }
 
 void ButtonWidget_RunLeft_OnPressed(leButtonWidget *btn)
 {
-    if (spriteState == IDLE)
+    if (spriteState != JUMP && spriteState != DIZZY && spriteFacing != FACE_LEFT)
     {
         spriteFacing = FACE_LEFT;
         spriteState = RUN;
@@ -321,16 +322,11 @@ void ButtonWidget_RunLeft_OnPressed(leButtonWidget *btn)
 
 void ButtonWidget_RunLeft_OnReleased(leButtonWidget *btn)
 {
-    if (spriteState == DIZZY)
-        return;
-    
-    spriteState = IDLE;
-    tickDelay = APP_IDLE_SPRITE_DELAY;
 }
 
 void ButtonWidget_Jump_OnPressed(leButtonWidget *btn)
 {
-    if (spriteState == IDLE)
+    if (spriteState != JUMP && spriteState != DIZZY)
     {
         spriteState = JUMP;
 

@@ -18,7 +18,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -351,7 +351,7 @@ extern leImage RunToLeft2;
  * Name:   MHGSLogo
  * Size:   180x169 pixels
  * Format: RLE
- * Mode: INDEX_8
+ * Mode: RGB_565
  ***********************************/
 extern leImage MHGSLogo;
 

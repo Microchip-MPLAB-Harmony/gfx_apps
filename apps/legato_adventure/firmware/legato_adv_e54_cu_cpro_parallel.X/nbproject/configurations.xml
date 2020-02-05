@@ -82,7 +82,6 @@
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/memory/legato_variableheap.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f7" displayName="renderer" projectFiles="true">
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/renderer/legato_driver.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/renderer/legato_renderer.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f8" displayName="string" projectFiles="true">
@@ -220,9 +219,9 @@
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/port/plib_port.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f8" displayName="sercom" projectFiles="true">
-              <logicalFolder name="f1" displayName="i2cm" projectFiles="true">
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/sercom/i2cm/plib_sercom_i2c_master.h</itemPath>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/sercom/i2cm/plib_sercom4_i2c.h</itemPath>
+              <logicalFolder name="f1" displayName="i2c_master" projectFiles="true">
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/sercom/i2c_master/plib_sercom_i2c_master_common.h</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/sercom/i2c_master/plib_sercom4_i2c_master.h</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="f9" displayName="tc" projectFiles="true">
@@ -321,23 +320,15 @@
           <logicalFolder name="f1" displayName="CMSIS" projectFiles="true">
             <logicalFolder name="f1" displayName="Core" projectFiles="true">
               <logicalFolder name="f1" displayName="Include" projectFiles="true">
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_iccarm.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armcc.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/tz_context.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm4.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv7.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h</itemPath>
-              </logicalFolder>
-            </logicalFolder>
-            <logicalFolder name="f2" displayName="DSP" projectFiles="true">
-              <logicalFolder name="f1" displayName="Include" projectFiles="true">
-                <itemPath>../src/packs/CMSIS/CMSIS/DSP/Include/arm_common_tables.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/DSP/Include/arm_const_structs.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/DSP/Include/arm_math.h</itemPath>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
@@ -660,8 +651,8 @@
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/port/plib_port.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f8" displayName="sercom" projectFiles="true">
-              <logicalFolder name="f1" displayName="i2cm" projectFiles="true">
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/sercom/i2cm/plib_sercom4_i2c.c</itemPath>
+              <logicalFolder name="f1" displayName="i2c_master" projectFiles="true">
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/sercom/i2c_master/plib_sercom4_i2c_master.c</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="f9" displayName="tc" projectFiles="true">
@@ -931,7 +922,7 @@
         <property key="memories.programmemory.ranges" value="0-fffff"/>
         <property key="poweroptions.powerenable" value="false"/>
         <property key="programmerToGoFilePath"
-                  value="C:/harmony3_work/gfx_apps/apps/legato_adventure/firmware/legato_adv_e54_cu_cpro_parallel.X/debug/ili9488_rgb565_e54_cult_parallel/legato_adv_e54_cu_cpro_parallel_ptg"/>
+                  value="C:/harmony3_dev/gfx_apps/apps/legato_adventure/firmware/legato_adv_e54_cu_cpro_parallel.X/debug/ili9488_rgb565_e54_cult_parallel/legato_adv_e54_cu_cpro_parallel_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"

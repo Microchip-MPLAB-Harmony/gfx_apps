@@ -154,8 +154,8 @@ leResult screenShow_MainScreen()
     PositionWidget->fn->addChild(PositionWidget, (leWidget*)ImageSequenceWidget_DizzieLeft);
 
     ButtonWidget_RunLeft = leButtonWidget_New();
-    ButtonWidget_RunLeft->fn->setPosition(ButtonWidget_RunLeft, 0, 160);
-    ButtonWidget_RunLeft->fn->setSize(ButtonWidget_RunLeft, 240, 160);
+    ButtonWidget_RunLeft->fn->setPosition(ButtonWidget_RunLeft, -240, 220);
+    ButtonWidget_RunLeft->fn->setSize(ButtonWidget_RunLeft, 480, 100);
     ButtonWidget_RunLeft->fn->setBackgroundType(ButtonWidget_RunLeft, LE_WIDGET_BACKGROUND_NONE);
     ButtonWidget_RunLeft->fn->setBorderType(ButtonWidget_RunLeft, LE_WIDGET_BORDER_NONE);
     ButtonWidget_RunLeft->fn->setPressedEventCallback(ButtonWidget_RunLeft, ButtonWidget_RunLeft_OnPressed);
@@ -163,8 +163,8 @@ leResult screenShow_MainScreen()
     root0->fn->addChild(root0, (leWidget*)ButtonWidget_RunLeft);
 
     ButtonWidget_RunRight = leButtonWidget_New();
-    ButtonWidget_RunRight->fn->setPosition(ButtonWidget_RunRight, 240, 160);
-    ButtonWidget_RunRight->fn->setSize(ButtonWidget_RunRight, 240, 160);
+    ButtonWidget_RunRight->fn->setPosition(ButtonWidget_RunRight, 240, 220);
+    ButtonWidget_RunRight->fn->setSize(ButtonWidget_RunRight, 480, 100);
     ButtonWidget_RunRight->fn->setBackgroundType(ButtonWidget_RunRight, LE_WIDGET_BACKGROUND_NONE);
     ButtonWidget_RunRight->fn->setBorderType(ButtonWidget_RunRight, LE_WIDGET_BORDER_NONE);
     ButtonWidget_RunRight->fn->setPressedEventCallback(ButtonWidget_RunRight, ButtonWidget_RunRight_OnPressed);
