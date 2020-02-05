@@ -107,15 +107,15 @@ void _leRawImageDecoder_BlendStage_Internal(leRawDecodeState* state)
     }
     else if(state->source->buffer.mode == LE_COLOR_MODE_RGBA_5551)
     {
-        blendStage.base.exec = (void*)stage_BlendRGBA5551;
+        blendStage.base.exec = stage_BlendRGBA5551;
     }
     else if(state->source->buffer.mode == LE_COLOR_MODE_RGBA_8888)
     {
-        blendStage.base.exec = (void*)stage_BlendRGBA8888;
+        blendStage.base.exec = stage_BlendRGBA8888;
     }
     else if(state->source->buffer.mode == LE_COLOR_MODE_ARGB_8888)
     {
-        blendStage.base.exec = (void*)stage_BlendARGB8888;
+        blendStage.base.exec = stage_BlendARGB8888;
     }
     else
     {

@@ -68,7 +68,7 @@ leResult _leRawImageDecoder_ScaleNearestNeighborPreReadStage(leRawDecodeState* s
     memset(&scaledNearestNeighborPreReadStage, 0, sizeof(scaledNearestNeighborPreReadStage));
 
     scaledNearestNeighborPreReadStage.base.state = state;
-    scaledNearestNeighborPreReadStage.base.exec = (void*)stage_scaledNearestNeighborPreRead;
+    scaledNearestNeighborPreReadStage.base.exec = (leResult(*)(struct leRawDecodeStage *))stage_scaledNearestNeighborPreRead;
 
     // calculate stretching ratios
     scaledNearestNeighborPreReadStage.stretchRatioX = lePercent(state->source->buffer.size.width, state->sizeX);
@@ -177,7 +177,7 @@ leResult _leRawImageDecoder_ScaleBilinearPreReadStage(leRawDecodeState* state)
     memset(&scaledBilinearPreReadStage, 0, sizeof(scaledBilinearPreReadStage));
 
     scaledBilinearPreReadStage.base.state = state;
-    scaledBilinearPreReadStage.base.exec = (void*)stage_bilinearPreRead;
+    scaledBilinearPreReadStage.base.exec = (leResult(*)(struct leRawDecodeStage *))stage_bilinearPreRead;
 
     // calculate stretching ratios
     scaledBilinearPreReadStage.stretchRatioX = lePercent(state->source->buffer.size.width, state->sizeX);
@@ -205,7 +205,7 @@ leResult _leRawImageDecoder_PostReadStage(leRawDecodeState* state)
     memset(&postReadStage, 0, sizeof(postReadStage));
 
     postReadStage.base.state = state;
-    postReadStage.base.exec = (void*)stage_postRead;
+    postReadStage.base.exec = stage_postRead;
 
     _leRawImageDecoder_InjectStage(state, (void*)&postReadStage);
 
@@ -235,7 +235,7 @@ leResult _leRawImageDecoder_ScaleBilinearPostReadStage(leRawDecodeState* state)
     memset(&scaledBilinearPostReadStage, 0, sizeof(scaledBilinearPostReadStage));
 
     scaledBilinearPostReadStage.base.state = state;
-    scaledBilinearPostReadStage.base.exec = (void*)stage_scaledBilinearPostRead;
+    scaledBilinearPostReadStage.base.exec = stage_scaledBilinearPostRead;
 
     _leRawImageDecoder_InjectStage(state, (void*)&scaledBilinearPostReadStage);
 

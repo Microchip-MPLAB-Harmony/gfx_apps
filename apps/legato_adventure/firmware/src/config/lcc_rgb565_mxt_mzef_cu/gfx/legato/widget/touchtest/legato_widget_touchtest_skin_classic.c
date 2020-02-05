@@ -43,7 +43,7 @@ enum
     DRAW_BORDER,
 };
 
-struct
+static struct
 {
     uint32_t alpha;
 } paintState;

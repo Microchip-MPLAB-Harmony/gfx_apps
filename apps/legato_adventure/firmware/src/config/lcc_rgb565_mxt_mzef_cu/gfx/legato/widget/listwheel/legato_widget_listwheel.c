@@ -1194,11 +1194,11 @@ static leResult setItemString(leListWheelWidget* _this,
     item->string = str;
 
     item->string->fn->setPreInvalidateCallback((leString*)item->string,
-                                               (void*)stringPreinvalidate,
+                                               (leString_InvalidateCallback)stringPreinvalidate,
                                                _this);
 
     item->string->fn->setInvalidateCallback((leString*)item->string,
-                                            (void*)stringInvalidate,
+                                            (leString_InvalidateCallback)stringInvalidate,
                                             _this);
     
     _this->fn->invalidate(_this);

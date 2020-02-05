@@ -177,11 +177,11 @@ static leResult setString(leWindowWidget* _this,
     _this->title = str;
 
     _this->title->fn->setPreInvalidateCallback((leString*)_this->title,
-                                               (void*)stringPreinvalidate,
+                                               (leString_InvalidateCallback)stringPreinvalidate,
                                                _this);
 
     _this->title->fn->setInvalidateCallback((leString*)_this->title,
-                                            (void*)stringInvalidate,
+                                            (leString_InvalidateCallback)stringInvalidate,
                                             _this);
 
     _invalidateTitleBar(_this);

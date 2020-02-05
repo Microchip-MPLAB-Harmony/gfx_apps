@@ -199,7 +199,7 @@ leResult _leRawImageDecoder_ReadStage_Internal(leRawDecodeState* state)
         }
     }
 
-    internalReadStage.base.exec = (void *) stage_decode;
+    internalReadStage.base.exec = (leResult(*)(struct leRawDecodeStage*)) stage_decode;
 
     _leRawImageDecoder_InjectStage(state, (void*)&internalReadStage);
 

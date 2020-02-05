@@ -225,11 +225,11 @@ leResult _leRawImageDecoder_ReadStage_StreamIndex(leRawDecodeState* state)
 
     if(leStream_IsBlocking(&streamReadStage.stream) == LE_TRUE)
     {
-        streamReadStage.base.exec = (void*)exec_blocking;
+        streamReadStage.base.exec = exec_blocking;
     }
     else
     {
-        streamReadStage.base.exec = (void*)exec_nonblocking;
+        streamReadStage.base.exec = exec_nonblocking;
     }
 
     lePixelBufferCreate(leColorInfoTable[state->source->buffer.mode].size,

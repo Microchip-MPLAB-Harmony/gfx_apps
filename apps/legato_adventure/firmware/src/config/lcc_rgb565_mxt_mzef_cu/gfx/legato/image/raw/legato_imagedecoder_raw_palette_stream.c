@@ -180,11 +180,11 @@ leResult _leRawImageDecoder_LookupStage_Stream(leRawDecodeState* state)
 
     if(leStream_IsBlocking(&streamPaletteStage.stream) == LE_TRUE)
     {
-        streamPaletteStage.base.exec = (void*)exec_blocking;
+        streamPaletteStage.base.exec = exec_blocking;
     }
     else
     {
-        streamPaletteStage.base.exec = (void*)exec_nonblocking;
+        streamPaletteStage.base.exec = exec_nonblocking;
     }
 
     _leRawImageDecoder_InjectStage(state, (void*)&streamPaletteStage);
@@ -217,7 +217,7 @@ leResult _leRawImageDecoder_ImageRenderPostLookupStage_Stream(leRawDecodeState* 
     state->needToLookupMaskColor = LE_TRUE;
 
     imageRenderPostLookupStage.base.state = state;
-    imageRenderPostLookupStage.base.exec = (void*)stage_imageRenderPostLookup;
+    imageRenderPostLookupStage.base.exec = stage_imageRenderPostLookup;
 
     _leRawImageDecoder_InjectStage(state, (void*)&imageRenderPostLookupStage);
 

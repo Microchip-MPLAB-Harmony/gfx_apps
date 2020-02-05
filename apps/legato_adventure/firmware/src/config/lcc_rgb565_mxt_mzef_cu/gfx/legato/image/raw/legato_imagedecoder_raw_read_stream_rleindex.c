@@ -86,7 +86,7 @@ static void rleHeaderDataReady(leStream* strm)
     streamReadStage.rleDataSize = (streamReadStage.rleLengthSize & 0xFF00) >> 8;
     streamReadStage.rleLengthSize = (streamReadStage.rleLengthSize & 0xFF);
 
-    streamReadStage.base.exec = (void*)exec;
+    streamReadStage.base.exec = exec;
 
     streamReadStage.stalled = LE_FALSE;
 }
@@ -347,7 +347,7 @@ leResult _leRawImageDecoder_ReadStage_StreamRLEIndex(leRawDecodeState* state)
 
     if(leStream_IsBlocking(&streamReadStage.stream) == LE_TRUE)
     {
-        streamReadStage.base.exec = (void*)exec_blocking;
+        streamReadStage.base.exec = exec_blocking;
 
         // read the header data
         leStream_Read(&streamReadStage.stream,
@@ -362,7 +362,7 @@ leResult _leRawImageDecoder_ReadStage_StreamRLEIndex(leRawDecodeState* state)
     }
     else
     {
-        streamReadStage.base.exec = (void*)rleHeaderDecode;
+        streamReadStage.base.exec = rleHeaderDecode;
     }
 
     streamReadStage.imgBPP = leColorInfoTable[state->source->buffer.mode].bppOrdinal;

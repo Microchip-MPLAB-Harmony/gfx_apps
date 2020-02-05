@@ -337,11 +337,11 @@ static leResult setHintString(leTextFieldWidget* _this,
     _this->hintText = str;
 
     _this->hintText->fn->setPreInvalidateCallback((leString*)_this->hintText,
-                                                  (void*)stringPreinvalidate,
+                                                  (leString_InvalidateCallback)stringPreinvalidate,
                                                   _this);
 
     _this->hintText->fn->setInvalidateCallback((leString*)_this->hintText,
-                                               (void*)stringInvalidate,
+                                               (leString_InvalidateCallback)stringInvalidate,
                                                _this);
 
     _invalidateText(_this);

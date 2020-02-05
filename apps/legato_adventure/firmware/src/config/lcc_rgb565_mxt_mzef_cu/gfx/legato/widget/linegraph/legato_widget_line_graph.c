@@ -595,11 +595,11 @@ static leResult setCategoryString(leLineGraphWidget* _this,
     category->text = str;
 
     category->text->fn->setPreInvalidateCallback((leString*)category->text,
-                                                 (void*)stringPreinvalidate,
+                                                 (leString_InvalidateCallback)stringPreinvalidate,
                                                  _this);
 
     category->text->fn->setInvalidateCallback((leString*)category->text,
-                                              (void*)stringInvalidate,
+                                              (leString_InvalidateCallback)stringInvalidate,
                                               _this);
     
     _this->fn->invalidate(_this);

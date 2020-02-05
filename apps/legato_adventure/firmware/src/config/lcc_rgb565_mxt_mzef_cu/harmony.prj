@@ -35,16 +35,16 @@
           <Name dnOrder="1">drv_i2c.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/driver/i2c/</LogicalPath>
           <PhysicalPath dnOrder="3">/driver/i2c/src/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">6076FC7677C4756E36D944DCBDB0A998</GeneratedChecksum>
-          <UserChecksum dnOrder="5">6076FC7677C4756E36D944DCBDB0A998</UserChecksum>
+          <GeneratedChecksum dnOrder="4">F8F67559DCD0F596A25E40B898976144</GeneratedChecksum>
+          <UserChecksum dnOrder="5">F8F67559DCD0F596A25E40B898976144</UserChecksum>
         </File>
         <File dnOrder="4">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">drv_i2c_local.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/driver/i2c/</LogicalPath>
           <PhysicalPath dnOrder="3">/driver/i2c/src/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">5EB905590CA7087C5CC181ABFFFB5765</GeneratedChecksum>
-          <UserChecksum dnOrder="5">5EB905590CA7087C5CC181ABFFFB5765</UserChecksum>
+          <GeneratedChecksum dnOrder="4">37780F17759DED907A0F36E28BFB3136</GeneratedChecksum>
+          <UserChecksum dnOrder="5">37780F17759DED907A0F36E28BFB3136</UserChecksum>
         </File>
         <File dnOrder="5">
           <Type dnOrder="0">SOURCE</Type>
@@ -67,8 +67,8 @@
           <Name dnOrder="1">initialization.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/</LogicalPath>
           <PhysicalPath dnOrder="3">/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">F3DD6EA8DF5D063574495A4118A1A991</GeneratedChecksum>
-          <UserChecksum dnOrder="5">F3DD6EA8DF5D063574495A4118A1A991</UserChecksum>
+          <GeneratedChecksum dnOrder="4">753AD73F9E1157D89E9A9737A7BEF927</GeneratedChecksum>
+          <UserChecksum dnOrder="5">753AD73F9E1157D89E9A9737A7BEF927</UserChecksum>
         </File>
         <File dnOrder="8">
           <Type dnOrder="0">SOURCE</Type>
@@ -531,8 +531,8 @@
           <Name dnOrder="1">le_gen_screen_MainScreen.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/screen/</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">13237E38BB0722624C0078E37A5125E6</GeneratedChecksum>
-          <UserChecksum dnOrder="5">13237E38BB0722624C0078E37A5125E6</UserChecksum>
+          <GeneratedChecksum dnOrder="4">AD80E2B438CDABC3A5E1571A060D7D8B</GeneratedChecksum>
+          <UserChecksum dnOrder="5">AD80E2B438CDABC3A5E1571A060D7D8B</UserChecksum>
         </File>
         <File dnOrder="66">
           <Type dnOrder="0">SOURCE</Type>
@@ -715,112 +715,112 @@
           <Name dnOrder="1">legato_imagedecoder_raw_blend.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/raw</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/image/raw/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">22F39E7E1B9FC798E6013C23AD5A7029</GeneratedChecksum>
-          <UserChecksum dnOrder="5">22F39E7E1B9FC798E6013C23AD5A7029</UserChecksum>
+          <GeneratedChecksum dnOrder="4">B8E85BC516652B9F6B21CE7FA3F87EDB</GeneratedChecksum>
+          <UserChecksum dnOrder="5">B8E85BC516652B9F6B21CE7FA3F87EDB</UserChecksum>
         </File>
         <File dnOrder="89">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">legato_imagedecoder_raw_convert.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/raw</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/image/raw/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">A3DB411322D8E3C064E1D96D88DA4A03</GeneratedChecksum>
-          <UserChecksum dnOrder="5">A3DB411322D8E3C064E1D96D88DA4A03</UserChecksum>
+          <GeneratedChecksum dnOrder="4">C4616886DB58073088601FF2C901C01E</GeneratedChecksum>
+          <UserChecksum dnOrder="5">C4616886DB58073088601FF2C901C01E</UserChecksum>
         </File>
         <File dnOrder="90">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">legato_imagedecoder_raw_mask.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/raw</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/image/raw/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">78B5A560026C382340F8C1423A5B0C0B</GeneratedChecksum>
-          <UserChecksum dnOrder="5">78B5A560026C382340F8C1423A5B0C0B</UserChecksum>
+          <GeneratedChecksum dnOrder="4">0BA02EDCE3FFBEFC0D291E724D421749</GeneratedChecksum>
+          <UserChecksum dnOrder="5">0BA02EDCE3FFBEFC0D291E724D421749</UserChecksum>
         </File>
         <File dnOrder="91">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">legato_imagedecoder_raw_palette_internal.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/raw</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/image/raw/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">C47FD11930F8EF0B92370C0CB90B7918</GeneratedChecksum>
-          <UserChecksum dnOrder="5">C47FD11930F8EF0B92370C0CB90B7918</UserChecksum>
+          <GeneratedChecksum dnOrder="4">5EDF38F786247C70394692ED94CD8B0C</GeneratedChecksum>
+          <UserChecksum dnOrder="5">5EDF38F786247C70394692ED94CD8B0C</UserChecksum>
         </File>
         <File dnOrder="92">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">legato_imagedecoder_raw_palette_stream.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/raw</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/image/raw/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">1DB61B1E1AE25B5AA671BB303D1634DA</GeneratedChecksum>
-          <UserChecksum dnOrder="5">1DB61B1E1AE25B5AA671BB303D1634DA</UserChecksum>
+          <GeneratedChecksum dnOrder="4">D36A78CB7F398FAD4DE53024A432760F</GeneratedChecksum>
+          <UserChecksum dnOrder="5">D36A78CB7F398FAD4DE53024A432760F</UserChecksum>
         </File>
         <File dnOrder="93">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">legato_imagedecoder_raw_read_internal.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/raw</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/image/raw/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">E7AAB6A9489BC178A66AF146F71C385E</GeneratedChecksum>
-          <UserChecksum dnOrder="5">E7AAB6A9489BC178A66AF146F71C385E</UserChecksum>
+          <GeneratedChecksum dnOrder="4">FC13B337DCB3FFA5B21DD497F19D668C</GeneratedChecksum>
+          <UserChecksum dnOrder="5">FC13B337DCB3FFA5B21DD497F19D668C</UserChecksum>
         </File>
         <File dnOrder="94">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">legato_imagedecoder_raw_read_stream_color.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/raw</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/image/raw/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">120B363BF26A264B3C726A425D8B1099</GeneratedChecksum>
-          <UserChecksum dnOrder="5">120B363BF26A264B3C726A425D8B1099</UserChecksum>
+          <GeneratedChecksum dnOrder="4">00087A9AE547DC7D6D2AA074A410470A</GeneratedChecksum>
+          <UserChecksum dnOrder="5">00087A9AE547DC7D6D2AA074A410470A</UserChecksum>
         </File>
         <File dnOrder="95">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">legato_imagedecoder_raw_read_stream_index.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/raw</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/image/raw/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">ED77FA10C5C6CBA1B7689332725D3BF0</GeneratedChecksum>
-          <UserChecksum dnOrder="5">ED77FA10C5C6CBA1B7689332725D3BF0</UserChecksum>
+          <GeneratedChecksum dnOrder="4">C78E84079A9AB0E41BE074200EC122F2</GeneratedChecksum>
+          <UserChecksum dnOrder="5">C78E84079A9AB0E41BE074200EC122F2</UserChecksum>
         </File>
         <File dnOrder="96">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">legato_imagedecoder_raw_read_stream_rlecolor.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/raw</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/image/raw/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">397E33C116EC2BF25737482B4FC12C90</GeneratedChecksum>
-          <UserChecksum dnOrder="5">397E33C116EC2BF25737482B4FC12C90</UserChecksum>
+          <GeneratedChecksum dnOrder="4">4DF3C62CEB7C221D13AE5ED895E7930C</GeneratedChecksum>
+          <UserChecksum dnOrder="5">4DF3C62CEB7C221D13AE5ED895E7930C</UserChecksum>
         </File>
         <File dnOrder="97">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">legato_imagedecoder_raw_read_stream_rleindex.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/raw</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/image/raw/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">628D7AAB064F7DE4585C8E8393158A41</GeneratedChecksum>
-          <UserChecksum dnOrder="5">628D7AAB064F7DE4585C8E8393158A41</UserChecksum>
+          <GeneratedChecksum dnOrder="4">54C8C5B5BD3CB171EA82651E6750F127</GeneratedChecksum>
+          <UserChecksum dnOrder="5">54C8C5B5BD3CB171EA82651E6750F127</UserChecksum>
         </File>
         <File dnOrder="98">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">legato_imagedecoder_raw_rotate.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/raw</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/image/raw/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">04D4616BB12CE78DFC5DC9DCC6B3B9E4</GeneratedChecksum>
-          <UserChecksum dnOrder="5">04D4616BB12CE78DFC5DC9DCC6B3B9E4</UserChecksum>
+          <GeneratedChecksum dnOrder="4">A4E3699F7282EB6003BF1202269BA446</GeneratedChecksum>
+          <UserChecksum dnOrder="5">A4E3699F7282EB6003BF1202269BA446</UserChecksum>
         </File>
         <File dnOrder="99">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">legato_imagedecoder_raw_scale.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/raw</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/image/raw/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">69AFB4C1998BBC9786CFAB812358FD36</GeneratedChecksum>
-          <UserChecksum dnOrder="5">69AFB4C1998BBC9786CFAB812358FD36</UserChecksum>
+          <GeneratedChecksum dnOrder="4">3FF9138DC93008B19A317EC17759275D</GeneratedChecksum>
+          <UserChecksum dnOrder="5">3FF9138DC93008B19A317EC17759275D</UserChecksum>
         </File>
         <File dnOrder="100">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">legato_imagedecoder_raw_setup.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/raw</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/image/raw/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">9395F9E560B9CEFB3D960F9AB8A15CAE</GeneratedChecksum>
-          <UserChecksum dnOrder="5">9395F9E560B9CEFB3D960F9AB8A15CAE</UserChecksum>
+          <GeneratedChecksum dnOrder="4">1FD268CD14509587BC8D56778B59DE01</GeneratedChecksum>
+          <UserChecksum dnOrder="5">1FD268CD14509587BC8D56778B59DE01</UserChecksum>
         </File>
         <File dnOrder="101">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">legato_imagedecoder_raw_write.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/raw</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/image/raw/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">418988F4BF6729C85D6DA7BA9FCAEC8F</GeneratedChecksum>
-          <UserChecksum dnOrder="5">418988F4BF6729C85D6DA7BA9FCAEC8F</UserChecksum>
+          <GeneratedChecksum dnOrder="4">F46CCCB84766B7A06BFE3595E2074E52</GeneratedChecksum>
+          <UserChecksum dnOrder="5">F46CCCB84766B7A06BFE3595E2074E52</UserChecksum>
         </File>
         <File dnOrder="102">
           <Type dnOrder="0">SOURCE</Type>
@@ -1059,8 +1059,8 @@
           <Name dnOrder="1">legato_widget_button.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/button</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/widget/button/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">EF09E7598E778017F77A0956920A6847</GeneratedChecksum>
-          <UserChecksum dnOrder="5">EF09E7598E778017F77A0956920A6847</UserChecksum>
+          <GeneratedChecksum dnOrder="4">DF02DAC7C115BB40B576D9B28E8590E0</GeneratedChecksum>
+          <UserChecksum dnOrder="5">DF02DAC7C115BB40B576D9B28E8590E0</UserChecksum>
         </File>
         <File dnOrder="132">
           <Type dnOrder="0">SOURCE</Type>
@@ -1075,8 +1075,8 @@
           <Name dnOrder="1">legato_widget_checkbox.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/checkbox</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/widget/checkbox/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">71853B7FE60F2523C929D2FE4809BF42</GeneratedChecksum>
-          <UserChecksum dnOrder="5">71853B7FE60F2523C929D2FE4809BF42</UserChecksum>
+          <GeneratedChecksum dnOrder="4">340CAA784C41AABF9EABE2A95AD1E589</GeneratedChecksum>
+          <UserChecksum dnOrder="5">340CAA784C41AABF9EABE2A95AD1E589</UserChecksum>
         </File>
         <File dnOrder="134">
           <Type dnOrder="0">SOURCE</Type>
@@ -1171,8 +1171,8 @@
           <Name dnOrder="1">legato_widget_groupbox.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/groupbox</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/widget/groupbox/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">E5659E317C30948A968FDA1C44C907FF</GeneratedChecksum>
-          <UserChecksum dnOrder="5">E5659E317C30948A968FDA1C44C907FF</UserChecksum>
+          <GeneratedChecksum dnOrder="4">B5E65865FDD83B8CF5E420CE3C2FCF2D</GeneratedChecksum>
+          <UserChecksum dnOrder="5">B5E65865FDD83B8CF5E420CE3C2FCF2D</UserChecksum>
         </File>
         <File dnOrder="146">
           <Type dnOrder="0">SOURCE</Type>
@@ -1267,8 +1267,8 @@
           <Name dnOrder="1">legato_widget_label.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/label</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/widget/label/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">CEE2C5C0CE4425C6E850F4247AEA2BFF</GeneratedChecksum>
-          <UserChecksum dnOrder="5">CEE2C5C0CE4425C6E850F4247AEA2BFF</UserChecksum>
+          <GeneratedChecksum dnOrder="4">C81B378EA605A05E8BAC11459988CA8B</GeneratedChecksum>
+          <UserChecksum dnOrder="5">C81B378EA605A05E8BAC11459988CA8B</UserChecksum>
         </File>
         <File dnOrder="158">
           <Type dnOrder="0">SOURCE</Type>
@@ -1291,8 +1291,8 @@
           <Name dnOrder="1">legato_widget_line_graph.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/linegraph</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/widget/linegraph/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">F5AEFFBAA050758DEA8BD494C51A0C2D</GeneratedChecksum>
-          <UserChecksum dnOrder="5">F5AEFFBAA050758DEA8BD494C51A0C2D</UserChecksum>
+          <GeneratedChecksum dnOrder="4">28071FF1CE516D5C2855A982F17D9048</GeneratedChecksum>
+          <UserChecksum dnOrder="5">28071FF1CE516D5C2855A982F17D9048</UserChecksum>
         </File>
         <File dnOrder="161">
           <Type dnOrder="0">SOURCE</Type>
@@ -1315,8 +1315,8 @@
           <Name dnOrder="1">legato_widget_list.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/list</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/widget/list/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">20B6014A87377A597AE94CAAE2CB4610</GeneratedChecksum>
-          <UserChecksum dnOrder="5">20B6014A87377A597AE94CAAE2CB4610</UserChecksum>
+          <GeneratedChecksum dnOrder="4">2108E6498060046C67953B9AF08A21B4</GeneratedChecksum>
+          <UserChecksum dnOrder="5">2108E6498060046C67953B9AF08A21B4</UserChecksum>
         </File>
         <File dnOrder="164">
           <Type dnOrder="0">SOURCE</Type>
@@ -1331,8 +1331,8 @@
           <Name dnOrder="1">legato_widget_listwheel.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/listwheel</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/widget/listwheel/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">F7B1DB687D98FE237C6C9F91F3311D54</GeneratedChecksum>
-          <UserChecksum dnOrder="5">F7B1DB687D98FE237C6C9F91F3311D54</UserChecksum>
+          <GeneratedChecksum dnOrder="4">FA665634B32951F21406893159CE21D1</GeneratedChecksum>
+          <UserChecksum dnOrder="5">FA665634B32951F21406893159CE21D1</UserChecksum>
         </File>
         <File dnOrder="166">
           <Type dnOrder="0">SOURCE</Type>
@@ -1395,8 +1395,8 @@
           <Name dnOrder="1">legato_widget_radiobutton.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/radiobutton</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/widget/radiobutton/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">3246A95F9993053A1352A84BD42742F9</GeneratedChecksum>
-          <UserChecksum dnOrder="5">3246A95F9993053A1352A84BD42742F9</UserChecksum>
+          <GeneratedChecksum dnOrder="4">9E0B0A63648D2ADB933D63F4C25A18C8</GeneratedChecksum>
+          <UserChecksum dnOrder="5">9E0B0A63648D2ADB933D63F4C25A18C8</UserChecksum>
         </File>
         <File dnOrder="174">
           <Type dnOrder="0">SOURCE</Type>
@@ -1443,8 +1443,8 @@
           <Name dnOrder="1">legato_widget_skin_classic.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/widget/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">2B1798274200C6F42D3C49B663EE4C59</GeneratedChecksum>
-          <UserChecksum dnOrder="5">2B1798274200C6F42D3C49B663EE4C59</UserChecksum>
+          <GeneratedChecksum dnOrder="4">545B24E7CA07E69EBF3BD1334BA2FADD</GeneratedChecksum>
+          <UserChecksum dnOrder="5">545B24E7CA07E69EBF3BD1334BA2FADD</UserChecksum>
         </File>
         <File dnOrder="180">
           <Type dnOrder="0">SOURCE</Type>
@@ -1467,24 +1467,24 @@
           <Name dnOrder="1">legato_widget_slider_skin_classic.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/slider</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/widget/slider/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">3400080B848AE25CEAC656AB2444B851</GeneratedChecksum>
-          <UserChecksum dnOrder="5">3400080B848AE25CEAC656AB2444B851</UserChecksum>
+          <GeneratedChecksum dnOrder="4">E1B54C67A89E0BE9F005973DCA27092C</GeneratedChecksum>
+          <UserChecksum dnOrder="5">E1B54C67A89E0BE9F005973DCA27092C</UserChecksum>
         </File>
         <File dnOrder="183">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">legato_widget_textfield.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/textfield</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/widget/textfield/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">802E3721C9C7A41AC796ED7D83FDD700</GeneratedChecksum>
-          <UserChecksum dnOrder="5">802E3721C9C7A41AC796ED7D83FDD700</UserChecksum>
+          <GeneratedChecksum dnOrder="4">19B1E1CA8D5394C14FD3EDA4E8038DB8</GeneratedChecksum>
+          <UserChecksum dnOrder="5">19B1E1CA8D5394C14FD3EDA4E8038DB8</UserChecksum>
         </File>
         <File dnOrder="184">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">legato_widget_textfield_skin_classic.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/textfield</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/widget/textfield/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">C4C20638AA15260375A39DACA3130929</GeneratedChecksum>
-          <UserChecksum dnOrder="5">C4C20638AA15260375A39DACA3130929</UserChecksum>
+          <GeneratedChecksum dnOrder="4">930FB9B431CA482CC686FD22DDC50FFC</GeneratedChecksum>
+          <UserChecksum dnOrder="5">930FB9B431CA482CC686FD22DDC50FFC</UserChecksum>
         </File>
         <File dnOrder="185">
           <Type dnOrder="0">SOURCE</Type>
@@ -1499,16 +1499,16 @@
           <Name dnOrder="1">legato_widget_touchtest_skin_classic.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/touchtest</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/widget/touchtest/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">5505BA2B92F52CA67B309719DA010B2C</GeneratedChecksum>
-          <UserChecksum dnOrder="5">5505BA2B92F52CA67B309719DA010B2C</UserChecksum>
+          <GeneratedChecksum dnOrder="4">093AE19F60657ABA62FCC5F2C5E535EE</GeneratedChecksum>
+          <UserChecksum dnOrder="5">093AE19F60657ABA62FCC5F2C5E535EE</UserChecksum>
         </File>
         <File dnOrder="187">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">legato_widget_window.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/window</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/widget/window/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">0BF9666F58708CD25E49DB6527355392</GeneratedChecksum>
-          <UserChecksum dnOrder="5">0BF9666F58708CD25E49DB6527355392</UserChecksum>
+          <GeneratedChecksum dnOrder="4">7708857DD15E1A67AB0D47F311A9642A</GeneratedChecksum>
+          <UserChecksum dnOrder="5">7708857DD15E1A67AB0D47F311A9642A</UserChecksum>
         </File>
         <File dnOrder="188">
           <Type dnOrder="0">SOURCE</Type>
@@ -1579,8 +1579,8 @@
           <Name dnOrder="1">plib_i2c2.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/peripheral/i2c/</LogicalPath>
           <PhysicalPath dnOrder="3">/peripheral/i2c/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">973C8698FA03C2CB354541FC514FFA7F</GeneratedChecksum>
-          <UserChecksum dnOrder="5">973C8698FA03C2CB354541FC514FFA7F</UserChecksum>
+          <GeneratedChecksum dnOrder="4">F8CF0421BB75A55B084FC0E188A6B6FA</GeneratedChecksum>
+          <UserChecksum dnOrder="5">F8CF0421BB75A55B084FC0E188A6B6FA</UserChecksum>
         </File>
         <File dnOrder="197">
           <Type dnOrder="0">SOURCE</Type>
@@ -1611,8 +1611,8 @@
           <Name dnOrder="1">sys_time.c</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/system/time/</LogicalPath>
           <PhysicalPath dnOrder="3">/system/time/src/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">70DAE413C209782D51F61D7C896593FB</GeneratedChecksum>
-          <UserChecksum dnOrder="5">70DAE413C209782D51F61D7C896593FB</UserChecksum>
+          <GeneratedChecksum dnOrder="4">28C868D3255F7D85CF4B31AA2A050AF6</GeneratedChecksum>
+          <UserChecksum dnOrder="5">28C868D3255F7D85CF4B31AA2A050AF6</UserChecksum>
         </File>
         <File dnOrder="201">
           <Type dnOrder="0">SOURCE</Type>
@@ -1699,8 +1699,8 @@
           <Name dnOrder="1">drv_i2c.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/driver/i2c/</LogicalPath>
           <PhysicalPath dnOrder="3">/driver/i2c/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">C57076A27820E4EDE93AD2DA070AA748</GeneratedChecksum>
-          <UserChecksum dnOrder="5">C57076A27820E4EDE93AD2DA070AA748</UserChecksum>
+          <GeneratedChecksum dnOrder="4">3C6689B8800C6234028EC2FBE82E25CF</GeneratedChecksum>
+          <UserChecksum dnOrder="5">3C6689B8800C6234028EC2FBE82E25CF</UserChecksum>
         </File>
         <File dnOrder="212">
           <Type dnOrder="0">HEADER</Type>
@@ -1723,8 +1723,8 @@
           <Name dnOrder="1">le_gen_assets.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato\generated\</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">9E13DCB17C7ED12196BE30037F132A6D</GeneratedChecksum>
-          <UserChecksum dnOrder="5">9E13DCB17C7ED12196BE30037F132A6D</UserChecksum>
+          <GeneratedChecksum dnOrder="4">01C62705AF9C76B0DF6B520088AD3D77</GeneratedChecksum>
+          <UserChecksum dnOrder="5">01C62705AF9C76B0DF6B520088AD3D77</UserChecksum>
         </File>
         <File dnOrder="215">
           <Type dnOrder="0">HEADER</Type>
@@ -1816,21 +1816,13 @@
         </File>
         <File dnOrder="226">
           <Type dnOrder="0">HEADER</Type>
-          <Name dnOrder="1">legato_driver.h</Name>
-          <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/renderer</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato/renderer/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">3F479059C59BD55B2BC96500F3A75D6B</GeneratedChecksum>
-          <UserChecksum dnOrder="5">3F479059C59BD55B2BC96500F3A75D6B</UserChecksum>
-        </File>
-        <File dnOrder="227">
-          <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_dynamicstring.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/string</LogicalPath>
           <PhysicalPath dnOrder="3">/gfx/legato/string/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">7752719BE44E5317D587EB2B29A5E3EC</GeneratedChecksum>
           <UserChecksum dnOrder="5">7752719BE44E5317D587EB2B29A5E3EC</UserChecksum>
         </File>
-        <File dnOrder="228">
+        <File dnOrder="227">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_editwidget.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget</LogicalPath>
@@ -1838,7 +1830,7 @@
           <GeneratedChecksum dnOrder="4">2A088CD7DC63C2B73DCD06F716B0AF7A</GeneratedChecksum>
           <UserChecksum dnOrder="5">2A088CD7DC63C2B73DCD06F716B0AF7A</UserChecksum>
         </File>
-        <File dnOrder="229">
+        <File dnOrder="228">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_error.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/common</LogicalPath>
@@ -1846,7 +1838,7 @@
           <GeneratedChecksum dnOrder="4">C0FF98DB536EEF69102D0EDE02E6169C</GeneratedChecksum>
           <UserChecksum dnOrder="5">C0FF98DB536EEF69102D0EDE02E6169C</UserChecksum>
         </File>
-        <File dnOrder="230">
+        <File dnOrder="229">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_event.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/core</LogicalPath>
@@ -1854,7 +1846,7 @@
           <GeneratedChecksum dnOrder="4">C824CAA1180DE314FBFAB3AAC083341C</GeneratedChecksum>
           <UserChecksum dnOrder="5">C824CAA1180DE314FBFAB3AAC083341C</UserChecksum>
         </File>
-        <File dnOrder="231">
+        <File dnOrder="230">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_fixedheap.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/memory</LogicalPath>
@@ -1862,7 +1854,7 @@
           <GeneratedChecksum dnOrder="4">5CF9A6F7D342AD911227483C1FEDF6E4</GeneratedChecksum>
           <UserChecksum dnOrder="5">5CF9A6F7D342AD911227483C1FEDF6E4</UserChecksum>
         </File>
-        <File dnOrder="232">
+        <File dnOrder="231">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_fixedstring.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/string</LogicalPath>
@@ -1870,7 +1862,7 @@
           <GeneratedChecksum dnOrder="4">0A3E31804D1985D0D35BA255E81CEC61</GeneratedChecksum>
           <UserChecksum dnOrder="5">0A3E31804D1985D0D35BA255E81CEC61</UserChecksum>
         </File>
-        <File dnOrder="233">
+        <File dnOrder="232">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_font.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/font</LogicalPath>
@@ -1878,7 +1870,7 @@
           <GeneratedChecksum dnOrder="4">610CC4CED67269D7575239FE30094114</GeneratedChecksum>
           <UserChecksum dnOrder="5">610CC4CED67269D7575239FE30094114</UserChecksum>
         </File>
-        <File dnOrder="234">
+        <File dnOrder="233">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_image.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image</LogicalPath>
@@ -1886,7 +1878,7 @@
           <GeneratedChecksum dnOrder="4">04C8F0E9B6A2A94861E6F8BBDB4AC779</GeneratedChecksum>
           <UserChecksum dnOrder="5">04C8F0E9B6A2A94861E6F8BBDB4AC779</UserChecksum>
         </File>
-        <File dnOrder="235">
+        <File dnOrder="234">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_image_utils.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image</LogicalPath>
@@ -1894,7 +1886,7 @@
           <GeneratedChecksum dnOrder="4">51660370D4209EDCA6D9B9F9CB7D70C9</GeneratedChecksum>
           <UserChecksum dnOrder="5">51660370D4209EDCA6D9B9F9CB7D70C9</UserChecksum>
         </File>
-        <File dnOrder="236">
+        <File dnOrder="235">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_imagedecoder_raw.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/raw</LogicalPath>
@@ -1902,7 +1894,7 @@
           <GeneratedChecksum dnOrder="4">29895ECD31EDCBD24FC9203CCF953AB7</GeneratedChecksum>
           <UserChecksum dnOrder="5">29895ECD31EDCBD24FC9203CCF953AB7</UserChecksum>
         </File>
-        <File dnOrder="237">
+        <File dnOrder="236">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_input.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/core</LogicalPath>
@@ -1910,7 +1902,7 @@
           <GeneratedChecksum dnOrder="4">EB9F77ED91A08C1E6114EA8BCC5833AF</GeneratedChecksum>
           <UserChecksum dnOrder="5">EB9F77ED91A08C1E6114EA8BCC5833AF</UserChecksum>
         </File>
-        <File dnOrder="238">
+        <File dnOrder="237">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_list.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/datastructure</LogicalPath>
@@ -1918,7 +1910,7 @@
           <GeneratedChecksum dnOrder="4">AAC0326F50ED1EA0B717A668D574CB2A</GeneratedChecksum>
           <UserChecksum dnOrder="5">AAC0326F50ED1EA0B717A668D574CB2A</UserChecksum>
         </File>
-        <File dnOrder="239">
+        <File dnOrder="238">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_math.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/common</LogicalPath>
@@ -1926,7 +1918,7 @@
           <GeneratedChecksum dnOrder="4">C253B94FB026286A4D39E75D14A7B51D</GeneratedChecksum>
           <UserChecksum dnOrder="5">C253B94FB026286A4D39E75D14A7B51D</UserChecksum>
         </File>
-        <File dnOrder="240">
+        <File dnOrder="239">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_memory.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/memory</LogicalPath>
@@ -1934,7 +1926,7 @@
           <GeneratedChecksum dnOrder="4">EB5E35A941FEE4BE8037B5DA2F0529DB</GeneratedChecksum>
           <UserChecksum dnOrder="5">EB5E35A941FEE4BE8037B5DA2F0529DB</UserChecksum>
         </File>
-        <File dnOrder="241">
+        <File dnOrder="240">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_palette.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image</LogicalPath>
@@ -1942,7 +1934,7 @@
           <GeneratedChecksum dnOrder="4">293962A1B5F24284FE1AE7A29F8B6BCC</GeneratedChecksum>
           <UserChecksum dnOrder="5">293962A1B5F24284FE1AE7A29F8B6BCC</UserChecksum>
         </File>
-        <File dnOrder="242">
+        <File dnOrder="241">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_pixelbuffer.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/common</LogicalPath>
@@ -1950,7 +1942,7 @@
           <GeneratedChecksum dnOrder="4">45AAE5BC7227BB11F062A51972631405</GeneratedChecksum>
           <UserChecksum dnOrder="5">45AAE5BC7227BB11F062A51972631405</UserChecksum>
         </File>
-        <File dnOrder="243">
+        <File dnOrder="242">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_radiobutton_group.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/radiobutton</LogicalPath>
@@ -1958,7 +1950,7 @@
           <GeneratedChecksum dnOrder="4">DC25B263E81EDEA2AAF5B6641CC53EDA</GeneratedChecksum>
           <UserChecksum dnOrder="5">DC25B263E81EDEA2AAF5B6641CC53EDA</UserChecksum>
         </File>
-        <File dnOrder="244">
+        <File dnOrder="243">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_rect.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/common</LogicalPath>
@@ -1966,7 +1958,7 @@
           <GeneratedChecksum dnOrder="4">F0DBAC1EC1E1A8F5CEC5B3188C84DFA5</GeneratedChecksum>
           <UserChecksum dnOrder="5">F0DBAC1EC1E1A8F5CEC5B3188C84DFA5</UserChecksum>
         </File>
-        <File dnOrder="245">
+        <File dnOrder="244">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_rectarray.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/datastructure</LogicalPath>
@@ -1974,7 +1966,7 @@
           <GeneratedChecksum dnOrder="4">3DB5ED25110AA8003A5F570B2B3D455F</GeneratedChecksum>
           <UserChecksum dnOrder="5">3DB5ED25110AA8003A5F570B2B3D455F</UserChecksum>
         </File>
-        <File dnOrder="246">
+        <File dnOrder="245">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_renderer.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/renderer</LogicalPath>
@@ -1982,7 +1974,7 @@
           <GeneratedChecksum dnOrder="4">B19DE61F4BA6CA4753AB77C65050C331</GeneratedChecksum>
           <UserChecksum dnOrder="5">B19DE61F4BA6CA4753AB77C65050C331</UserChecksum>
         </File>
-        <File dnOrder="247">
+        <File dnOrder="246">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_scheme.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/core</LogicalPath>
@@ -1990,7 +1982,7 @@
           <GeneratedChecksum dnOrder="4">278B1260AAB29C652B4BE587877CBCA3</GeneratedChecksum>
           <UserChecksum dnOrder="5">278B1260AAB29C652B4BE587877CBCA3</UserChecksum>
         </File>
-        <File dnOrder="248">
+        <File dnOrder="247">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_state.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/core</LogicalPath>
@@ -1998,7 +1990,7 @@
           <GeneratedChecksum dnOrder="4">AA66F016D7F7A5CE957D1A4307E1ACDC</GeneratedChecksum>
           <UserChecksum dnOrder="5">AA66F016D7F7A5CE957D1A4307E1ACDC</UserChecksum>
         </File>
-        <File dnOrder="249">
+        <File dnOrder="248">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_stream.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/core</LogicalPath>
@@ -2006,7 +1998,7 @@
           <GeneratedChecksum dnOrder="4">77786735DCCA6C16DAB1F3EEC78DD862</GeneratedChecksum>
           <UserChecksum dnOrder="5">77786735DCCA6C16DAB1F3EEC78DD862</UserChecksum>
         </File>
-        <File dnOrder="250">
+        <File dnOrder="249">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_string.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/string</LogicalPath>
@@ -2014,7 +2006,7 @@
           <GeneratedChecksum dnOrder="4">6BE69C7730A463B33D747BAC2D2BDA0D</GeneratedChecksum>
           <UserChecksum dnOrder="5">6BE69C7730A463B33D747BAC2D2BDA0D</UserChecksum>
         </File>
-        <File dnOrder="251">
+        <File dnOrder="250">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_string_renderer.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/string</LogicalPath>
@@ -2022,7 +2014,7 @@
           <GeneratedChecksum dnOrder="4">F10496AD2D52BFC44CF416B1BC52D4DF</GeneratedChecksum>
           <UserChecksum dnOrder="5">F10496AD2D52BFC44CF416B1BC52D4DF</UserChecksum>
         </File>
-        <File dnOrder="252">
+        <File dnOrder="251">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_stringtable.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/string</LogicalPath>
@@ -2030,7 +2022,7 @@
           <GeneratedChecksum dnOrder="4">FD9175597A3A112A7BEDC079AB2B0CC1</GeneratedChecksum>
           <UserChecksum dnOrder="5">FD9175597A3A112A7BEDC079AB2B0CC1</UserChecksum>
         </File>
-        <File dnOrder="253">
+        <File dnOrder="252">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_stringutils.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/string</LogicalPath>
@@ -2038,7 +2030,7 @@
           <GeneratedChecksum dnOrder="4">9A9F0B95F2EE26054156D6848E3066F6</GeneratedChecksum>
           <UserChecksum dnOrder="5">9A9F0B95F2EE26054156D6848E3066F6</UserChecksum>
         </File>
-        <File dnOrder="254">
+        <File dnOrder="253">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_tablestring.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/string</LogicalPath>
@@ -2046,7 +2038,7 @@
           <GeneratedChecksum dnOrder="4">8557BD2F86C5E8B6C41509230DA90FFD</GeneratedChecksum>
           <UserChecksum dnOrder="5">8557BD2F86C5E8B6C41509230DA90FFD</UserChecksum>
         </File>
-        <File dnOrder="255">
+        <File dnOrder="254">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_utils.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/common</LogicalPath>
@@ -2054,7 +2046,7 @@
           <GeneratedChecksum dnOrder="4">3B8BA21136F2F041D187003107437AE8</GeneratedChecksum>
           <UserChecksum dnOrder="5">3B8BA21136F2F041D187003107437AE8</UserChecksum>
         </File>
-        <File dnOrder="256">
+        <File dnOrder="255">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_variableheap.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/memory</LogicalPath>
@@ -2062,7 +2054,7 @@
           <GeneratedChecksum dnOrder="4">1B1D20B629BBF197C9BB4BDFE27287B1</GeneratedChecksum>
           <UserChecksum dnOrder="5">1B1D20B629BBF197C9BB4BDFE27287B1</UserChecksum>
         </File>
-        <File dnOrder="257">
+        <File dnOrder="256">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget</LogicalPath>
@@ -2070,7 +2062,7 @@
           <GeneratedChecksum dnOrder="4">C0C83426A924842FCFA4FBECA3B6173F</GeneratedChecksum>
           <UserChecksum dnOrder="5">C0C83426A924842FCFA4FBECA3B6173F</UserChecksum>
         </File>
-        <File dnOrder="258">
+        <File dnOrder="257">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_arc.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/arc</LogicalPath>
@@ -2078,7 +2070,7 @@
           <GeneratedChecksum dnOrder="4">709F5B7CB79B5E9E0CDC9CA00A4698CC</GeneratedChecksum>
           <UserChecksum dnOrder="5">709F5B7CB79B5E9E0CDC9CA00A4698CC</UserChecksum>
         </File>
-        <File dnOrder="259">
+        <File dnOrder="258">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_bar_graph.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/bargraph</LogicalPath>
@@ -2086,7 +2078,7 @@
           <GeneratedChecksum dnOrder="4">C195739BDEAC823A0DE42CA17DBD2B6A</GeneratedChecksum>
           <UserChecksum dnOrder="5">C195739BDEAC823A0DE42CA17DBD2B6A</UserChecksum>
         </File>
-        <File dnOrder="260">
+        <File dnOrder="259">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_button.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/button</LogicalPath>
@@ -2094,7 +2086,7 @@
           <GeneratedChecksum dnOrder="4">9BEE7AEB6CD96C1B2CB92328A9F3489E</GeneratedChecksum>
           <UserChecksum dnOrder="5">9BEE7AEB6CD96C1B2CB92328A9F3489E</UserChecksum>
         </File>
-        <File dnOrder="261">
+        <File dnOrder="260">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_checkbox.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/checkbox</LogicalPath>
@@ -2102,7 +2094,7 @@
           <GeneratedChecksum dnOrder="4">C5F74636659D131C6A70B2609DBEA65E</GeneratedChecksum>
           <UserChecksum dnOrder="5">C5F74636659D131C6A70B2609DBEA65E</UserChecksum>
         </File>
-        <File dnOrder="262">
+        <File dnOrder="261">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_circle.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/circle</LogicalPath>
@@ -2110,7 +2102,7 @@
           <GeneratedChecksum dnOrder="4">0E6A5CCB67D8BB8D7D907B8B50E29067</GeneratedChecksum>
           <UserChecksum dnOrder="5">0E6A5CCB67D8BB8D7D907B8B50E29067</UserChecksum>
         </File>
-        <File dnOrder="263">
+        <File dnOrder="262">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_circular_gauge.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/circulargauge</LogicalPath>
@@ -2118,7 +2110,7 @@
           <GeneratedChecksum dnOrder="4">B972B67FAD501C74FF9DA00901C88453</GeneratedChecksum>
           <UserChecksum dnOrder="5">B972B67FAD501C74FF9DA00901C88453</UserChecksum>
         </File>
-        <File dnOrder="264">
+        <File dnOrder="263">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_circular_slider.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/circularslider</LogicalPath>
@@ -2126,7 +2118,7 @@
           <GeneratedChecksum dnOrder="4">B30CA21E6846C46F698CD23DB54EE86A</GeneratedChecksum>
           <UserChecksum dnOrder="5">B30CA21E6846C46F698CD23DB54EE86A</UserChecksum>
         </File>
-        <File dnOrder="265">
+        <File dnOrder="264">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_drawsurface.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/drawsurface</LogicalPath>
@@ -2134,7 +2126,7 @@
           <GeneratedChecksum dnOrder="4">95F0154BEEDAE82BE63D921D1273FABD</GeneratedChecksum>
           <UserChecksum dnOrder="5">95F0154BEEDAE82BE63D921D1273FABD</UserChecksum>
         </File>
-        <File dnOrder="266">
+        <File dnOrder="265">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_gradient.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/gradient</LogicalPath>
@@ -2142,7 +2134,7 @@
           <GeneratedChecksum dnOrder="4">EE1D57D934918B15F6FB0BB52B286AED</GeneratedChecksum>
           <UserChecksum dnOrder="5">EE1D57D934918B15F6FB0BB52B286AED</UserChecksum>
         </File>
-        <File dnOrder="267">
+        <File dnOrder="266">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_groupbox.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/groupbox</LogicalPath>
@@ -2150,7 +2142,7 @@
           <GeneratedChecksum dnOrder="4">7928D143D2C3F575E01C99232CF03BC6</GeneratedChecksum>
           <UserChecksum dnOrder="5">7928D143D2C3F575E01C99232CF03BC6</UserChecksum>
         </File>
-        <File dnOrder="268">
+        <File dnOrder="267">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_image.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/image</LogicalPath>
@@ -2158,7 +2150,7 @@
           <GeneratedChecksum dnOrder="4">2FAF3E8750B878612B6F771E5091B4D9</GeneratedChecksum>
           <UserChecksum dnOrder="5">2FAF3E8750B878612B6F771E5091B4D9</UserChecksum>
         </File>
-        <File dnOrder="269">
+        <File dnOrder="268">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_imagerotate.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/imagerotate</LogicalPath>
@@ -2166,7 +2158,7 @@
           <GeneratedChecksum dnOrder="4">EF920E6E0BAAB6DCCE651DAC7EAC787B</GeneratedChecksum>
           <UserChecksum dnOrder="5">EF920E6E0BAAB6DCCE651DAC7EAC787B</UserChecksum>
         </File>
-        <File dnOrder="270">
+        <File dnOrder="269">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_imagescale.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/imagescale</LogicalPath>
@@ -2174,7 +2166,7 @@
           <GeneratedChecksum dnOrder="4">A597FE3E1611FF92D437E6BB7E7E6E7B</GeneratedChecksum>
           <UserChecksum dnOrder="5">A597FE3E1611FF92D437E6BB7E7E6E7B</UserChecksum>
         </File>
-        <File dnOrder="271">
+        <File dnOrder="270">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_imagesequence.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/imagesequence</LogicalPath>
@@ -2182,7 +2174,7 @@
           <GeneratedChecksum dnOrder="4">DB61274C19AB30862586D1EA3B463658</GeneratedChecksum>
           <UserChecksum dnOrder="5">DB61274C19AB30862586D1EA3B463658</UserChecksum>
         </File>
-        <File dnOrder="272">
+        <File dnOrder="271">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_keypad.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/keypad</LogicalPath>
@@ -2190,7 +2182,7 @@
           <GeneratedChecksum dnOrder="4">0A8EB12EAF3FF1AF91285E59BE7CB051</GeneratedChecksum>
           <UserChecksum dnOrder="5">0A8EB12EAF3FF1AF91285E59BE7CB051</UserChecksum>
         </File>
-        <File dnOrder="273">
+        <File dnOrder="272">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_label.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/label</LogicalPath>
@@ -2198,7 +2190,7 @@
           <GeneratedChecksum dnOrder="4">CB0799F3156CA52E7C9D6A2D09F86DC5</GeneratedChecksum>
           <UserChecksum dnOrder="5">CB0799F3156CA52E7C9D6A2D09F86DC5</UserChecksum>
         </File>
-        <File dnOrder="274">
+        <File dnOrder="273">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_line.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/line</LogicalPath>
@@ -2206,7 +2198,7 @@
           <GeneratedChecksum dnOrder="4">FDAD70E116FB80E6BCF5026A9D8D99E7</GeneratedChecksum>
           <UserChecksum dnOrder="5">FDAD70E116FB80E6BCF5026A9D8D99E7</UserChecksum>
         </File>
-        <File dnOrder="275">
+        <File dnOrder="274">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_line_graph.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/linegraph</LogicalPath>
@@ -2214,7 +2206,7 @@
           <GeneratedChecksum dnOrder="4">A2A73E9C3E4AE38AA7C509DAAF7CA16E</GeneratedChecksum>
           <UserChecksum dnOrder="5">A2A73E9C3E4AE38AA7C509DAAF7CA16E</UserChecksum>
         </File>
-        <File dnOrder="276">
+        <File dnOrder="275">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_list.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/list</LogicalPath>
@@ -2222,7 +2214,7 @@
           <GeneratedChecksum dnOrder="4">6F44FF588567E93502C3D4600EB3FC5C</GeneratedChecksum>
           <UserChecksum dnOrder="5">6F44FF588567E93502C3D4600EB3FC5C</UserChecksum>
         </File>
-        <File dnOrder="277">
+        <File dnOrder="276">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_listwheel.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/listwheel</LogicalPath>
@@ -2230,7 +2222,7 @@
           <GeneratedChecksum dnOrder="4">21876EFC6EC936DFD9D9F6BC0573488C</GeneratedChecksum>
           <UserChecksum dnOrder="5">21876EFC6EC936DFD9D9F6BC0573488C</UserChecksum>
         </File>
-        <File dnOrder="278">
+        <File dnOrder="277">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_pie_chart.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/piechart</LogicalPath>
@@ -2238,7 +2230,7 @@
           <GeneratedChecksum dnOrder="4">89CB11E20D7CB5D16AF6DBC2D31D7A9D</GeneratedChecksum>
           <UserChecksum dnOrder="5">89CB11E20D7CB5D16AF6DBC2D31D7A9D</UserChecksum>
         </File>
-        <File dnOrder="279">
+        <File dnOrder="278">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_progressbar.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/progressbar</LogicalPath>
@@ -2246,7 +2238,7 @@
           <GeneratedChecksum dnOrder="4">974624666C0191A6A34D60DEB7426882</GeneratedChecksum>
           <UserChecksum dnOrder="5">974624666C0191A6A34D60DEB7426882</UserChecksum>
         </File>
-        <File dnOrder="280">
+        <File dnOrder="279">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_radial_menu.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/radialmenu</LogicalPath>
@@ -2254,7 +2246,7 @@
           <GeneratedChecksum dnOrder="4">2EE93B3F0AA3D84AA789CE930E99BE40</GeneratedChecksum>
           <UserChecksum dnOrder="5">2EE93B3F0AA3D84AA789CE930E99BE40</UserChecksum>
         </File>
-        <File dnOrder="281">
+        <File dnOrder="280">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_radiobutton.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/radiobutton</LogicalPath>
@@ -2262,7 +2254,7 @@
           <GeneratedChecksum dnOrder="4">7E84A391202DD590BA10C1A5C53ED650</GeneratedChecksum>
           <UserChecksum dnOrder="5">7E84A391202DD590BA10C1A5C53ED650</UserChecksum>
         </File>
-        <File dnOrder="282">
+        <File dnOrder="281">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_rectangle.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/rectangle</LogicalPath>
@@ -2270,7 +2262,7 @@
           <GeneratedChecksum dnOrder="4">E20874640611EE500D75798108ACE461</GeneratedChecksum>
           <UserChecksum dnOrder="5">E20874640611EE500D75798108ACE461</UserChecksum>
         </File>
-        <File dnOrder="283">
+        <File dnOrder="282">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_scrollbar.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/scrollbar</LogicalPath>
@@ -2278,7 +2270,7 @@
           <GeneratedChecksum dnOrder="4">F1F8B4AB0BDC16778F444DE067B2587F</GeneratedChecksum>
           <UserChecksum dnOrder="5">F1F8B4AB0BDC16778F444DE067B2587F</UserChecksum>
         </File>
-        <File dnOrder="284">
+        <File dnOrder="283">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_skin_classic_common.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget</LogicalPath>
@@ -2286,7 +2278,7 @@
           <GeneratedChecksum dnOrder="4">4E7E093FE75584517B9C0C172E5626EA</GeneratedChecksum>
           <UserChecksum dnOrder="5">4E7E093FE75584517B9C0C172E5626EA</UserChecksum>
         </File>
-        <File dnOrder="285">
+        <File dnOrder="284">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_slider.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/slider</LogicalPath>
@@ -2294,7 +2286,7 @@
           <GeneratedChecksum dnOrder="4">B890249AC8734E979A58696A8E6F08D6</GeneratedChecksum>
           <UserChecksum dnOrder="5">B890249AC8734E979A58696A8E6F08D6</UserChecksum>
         </File>
-        <File dnOrder="286">
+        <File dnOrder="285">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_textfield.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/textfield</LogicalPath>
@@ -2302,7 +2294,7 @@
           <GeneratedChecksum dnOrder="4">B53E44A3DE1E125B416C6D6CD1279185</GeneratedChecksum>
           <UserChecksum dnOrder="5">B53E44A3DE1E125B416C6D6CD1279185</UserChecksum>
         </File>
-        <File dnOrder="287">
+        <File dnOrder="286">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_touchtest.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/touchtest</LogicalPath>
@@ -2310,7 +2302,7 @@
           <GeneratedChecksum dnOrder="4">AD2C5EDB85D7D30C86758E908CC93594</GeneratedChecksum>
           <UserChecksum dnOrder="5">AD2C5EDB85D7D30C86758E908CC93594</UserChecksum>
         </File>
-        <File dnOrder="288">
+        <File dnOrder="287">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_widget_window.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/widget/window</LogicalPath>
@@ -2318,7 +2310,7 @@
           <GeneratedChecksum dnOrder="4">AB33A7A5C1880345089157B07517E228</GeneratedChecksum>
           <UserChecksum dnOrder="5">AB33A7A5C1880345089157B07517E228</UserChecksum>
         </File>
-        <File dnOrder="289">
+        <File dnOrder="288">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">osal.h</Name>
           <LogicalPath dnOrder="2">/osal/</LogicalPath>
@@ -2326,7 +2318,7 @@
           <GeneratedChecksum dnOrder="4">F0AD88762263B7CB89B02AB4F5876059</GeneratedChecksum>
           <UserChecksum dnOrder="5">F0AD88762263B7CB89B02AB4F5876059</UserChecksum>
         </File>
-        <File dnOrder="290">
+        <File dnOrder="289">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">osal_definitions.h</Name>
           <LogicalPath dnOrder="2">/osal/</LogicalPath>
@@ -2334,7 +2326,7 @@
           <GeneratedChecksum dnOrder="4">0AC88C49E4585B606FD5AC6804F0C340</GeneratedChecksum>
           <UserChecksum dnOrder="5">0AC88C49E4585B606FD5AC6804F0C340</UserChecksum>
         </File>
-        <File dnOrder="291">
+        <File dnOrder="290">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">osal_impl_basic.h</Name>
           <LogicalPath dnOrder="2">/osal/</LogicalPath>
@@ -2342,7 +2334,7 @@
           <GeneratedChecksum dnOrder="4">63FBE37825657165B9EA584BF05DBA43</GeneratedChecksum>
           <UserChecksum dnOrder="5">63FBE37825657165B9EA584BF05DBA43</UserChecksum>
         </File>
-        <File dnOrder="292">
+        <File dnOrder="291">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">plib_clk.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/peripheral/clk/</LogicalPath>
@@ -2350,7 +2342,7 @@
           <GeneratedChecksum dnOrder="4">7066CC390335CF75126E2A50C46E3BDD</GeneratedChecksum>
           <UserChecksum dnOrder="5">7066CC390335CF75126E2A50C46E3BDD</UserChecksum>
         </File>
-        <File dnOrder="293">
+        <File dnOrder="292">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">plib_coretimer.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/peripheral/coretimer/</LogicalPath>
@@ -2358,7 +2350,7 @@
           <GeneratedChecksum dnOrder="4">77E2C83A700CD1F724CFD90ED3AA2B71</GeneratedChecksum>
           <UserChecksum dnOrder="5">77E2C83A700CD1F724CFD90ED3AA2B71</UserChecksum>
         </File>
-        <File dnOrder="294">
+        <File dnOrder="293">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">plib_dmac.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/peripheral/dmac/</LogicalPath>
@@ -2366,7 +2358,7 @@
           <GeneratedChecksum dnOrder="4">010E7C6872724F56A94D25C46D528ECA</GeneratedChecksum>
           <UserChecksum dnOrder="5">010E7C6872724F56A94D25C46D528ECA</UserChecksum>
         </File>
-        <File dnOrder="295">
+        <File dnOrder="294">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">plib_ebi.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/peripheral/ebi/</LogicalPath>
@@ -2374,7 +2366,7 @@
           <GeneratedChecksum dnOrder="4">2FB4AA3D9381D5DACF95B3338F5A3125</GeneratedChecksum>
           <UserChecksum dnOrder="5">2FB4AA3D9381D5DACF95B3338F5A3125</UserChecksum>
         </File>
-        <File dnOrder="296">
+        <File dnOrder="295">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">plib_evic.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/peripheral/evic/</LogicalPath>
@@ -2382,7 +2374,7 @@
           <GeneratedChecksum dnOrder="4">B38028A617FDD4D90B80660771629645</GeneratedChecksum>
           <UserChecksum dnOrder="5">B38028A617FDD4D90B80660771629645</UserChecksum>
         </File>
-        <File dnOrder="297">
+        <File dnOrder="296">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">plib_gpio.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/peripheral/gpio/</LogicalPath>
@@ -2390,7 +2382,7 @@
           <GeneratedChecksum dnOrder="4">C964977A5EFC33F5AFDEE588954CE346</GeneratedChecksum>
           <UserChecksum dnOrder="5">C964977A5EFC33F5AFDEE588954CE346</UserChecksum>
         </File>
-        <File dnOrder="298">
+        <File dnOrder="297">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">plib_i2c2.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/peripheral/i2c/</LogicalPath>
@@ -2398,7 +2390,7 @@
           <GeneratedChecksum dnOrder="4">DE11A22E8708454E290E1F0A33663B2C</GeneratedChecksum>
           <UserChecksum dnOrder="5">DE11A22E8708454E290E1F0A33663B2C</UserChecksum>
         </File>
-        <File dnOrder="299">
+        <File dnOrder="298">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">plib_i2c_master.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/peripheral/i2c/</LogicalPath>
@@ -2406,7 +2398,7 @@
           <GeneratedChecksum dnOrder="4">0CE7018D4B951DF14C45D3AC2E8F9B19</GeneratedChecksum>
           <UserChecksum dnOrder="5">0CE7018D4B951DF14C45D3AC2E8F9B19</UserChecksum>
         </File>
-        <File dnOrder="300">
+        <File dnOrder="299">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">sys_input.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/system/input</LogicalPath>
@@ -2414,7 +2406,7 @@
           <GeneratedChecksum dnOrder="4">E46CD03317E52EB0289EEDFD75955911</GeneratedChecksum>
           <UserChecksum dnOrder="5">E46CD03317E52EB0289EEDFD75955911</UserChecksum>
         </File>
-        <File dnOrder="301">
+        <File dnOrder="300">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">sys_input_gesture.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/system/input</LogicalPath>
@@ -2422,7 +2414,7 @@
           <GeneratedChecksum dnOrder="4">A863ECB93BE89231B0C73CF6EBBD8E8D</GeneratedChecksum>
           <UserChecksum dnOrder="5">A863ECB93BE89231B0C73CF6EBBD8E8D</UserChecksum>
         </File>
-        <File dnOrder="302">
+        <File dnOrder="301">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">sys_input_keyboard.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/system/input</LogicalPath>
@@ -2430,7 +2422,7 @@
           <GeneratedChecksum dnOrder="4">B849D1EDFFC06E0D56A93A80AE8A76D1</GeneratedChecksum>
           <UserChecksum dnOrder="5">B849D1EDFFC06E0D56A93A80AE8A76D1</UserChecksum>
         </File>
-        <File dnOrder="303">
+        <File dnOrder="302">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">sys_input_listener.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/system/input</LogicalPath>
@@ -2438,7 +2430,7 @@
           <GeneratedChecksum dnOrder="4">AADAC81B4AD8450C9E63F467185E6071</GeneratedChecksum>
           <UserChecksum dnOrder="5">AADAC81B4AD8450C9E63F467185E6071</UserChecksum>
         </File>
-        <File dnOrder="304">
+        <File dnOrder="303">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">sys_input_mouse.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/system/input</LogicalPath>
@@ -2446,7 +2438,7 @@
           <GeneratedChecksum dnOrder="4">6F84622A4CCDDC262324A8CBD73C8137</GeneratedChecksum>
           <UserChecksum dnOrder="5">6F84622A4CCDDC262324A8CBD73C8137</UserChecksum>
         </File>
-        <File dnOrder="305">
+        <File dnOrder="304">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">sys_input_touch.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/system/input</LogicalPath>
@@ -2454,7 +2446,7 @@
           <GeneratedChecksum dnOrder="4">B7CD2C89CC5063C931217935D7FA1460</GeneratedChecksum>
           <UserChecksum dnOrder="5">B7CD2C89CC5063C931217935D7FA1460</UserChecksum>
         </File>
-        <File dnOrder="306">
+        <File dnOrder="305">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">sys_int.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/system/int/</LogicalPath>
@@ -2462,7 +2454,7 @@
           <GeneratedChecksum dnOrder="4">47330C2D8F204B2B69F8A86240A564B6</GeneratedChecksum>
           <UserChecksum dnOrder="5">47330C2D8F204B2B69F8A86240A564B6</UserChecksum>
         </File>
-        <File dnOrder="307">
+        <File dnOrder="306">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">sys_int_mapping.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/system/int/</LogicalPath>
@@ -2470,23 +2462,23 @@
           <GeneratedChecksum dnOrder="4">FC7B55936A09E0CA1395AE4DFB1A188F</GeneratedChecksum>
           <UserChecksum dnOrder="5">FC7B55936A09E0CA1395AE4DFB1A188F</UserChecksum>
         </File>
-        <File dnOrder="308">
+        <File dnOrder="307">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">sys_time.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/system/time/</LogicalPath>
           <PhysicalPath dnOrder="3">/system/time/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">5B1C0201624F17531B457421E59F38CD</GeneratedChecksum>
-          <UserChecksum dnOrder="5">5B1C0201624F17531B457421E59F38CD</UserChecksum>
+          <GeneratedChecksum dnOrder="4">466D676839280C0E7FC2CC6F78BA6EE9</GeneratedChecksum>
+          <UserChecksum dnOrder="5">466D676839280C0E7FC2CC6F78BA6EE9</UserChecksum>
         </File>
-        <File dnOrder="309">
+        <File dnOrder="308">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">sys_time_definitions.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/system/time/</LogicalPath>
           <PhysicalPath dnOrder="3">/system/time/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">F8165EAB8A02643100386E92CD7EB3C6</GeneratedChecksum>
-          <UserChecksum dnOrder="5">F8165EAB8A02643100386E92CD7EB3C6</UserChecksum>
+          <GeneratedChecksum dnOrder="4">82C87C4CF49EE4D859363C15E9073333</GeneratedChecksum>
+          <UserChecksum dnOrder="5">82C87C4CF49EE4D859363C15E9073333</UserChecksum>
         </File>
-        <File dnOrder="310">
+        <File dnOrder="309">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">sys_time_local.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/system/time/</LogicalPath>
@@ -2494,7 +2486,7 @@
           <GeneratedChecksum dnOrder="4">62F39464265EC34979649F761FB4FE57</GeneratedChecksum>
           <UserChecksum dnOrder="5">62F39464265EC34979649F761FB4FE57</UserChecksum>
         </File>
-        <File dnOrder="311">
+        <File dnOrder="310">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">system.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/system/</LogicalPath>
@@ -2502,7 +2494,7 @@
           <GeneratedChecksum dnOrder="4">BE95B4F134C5C929787B9DA6FDBF3501</GeneratedChecksum>
           <UserChecksum dnOrder="5">BE95B4F134C5C929787B9DA6FDBF3501</UserChecksum>
         </File>
-        <File dnOrder="312">
+        <File dnOrder="311">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">system_common.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/system/</LogicalPath>
@@ -2510,7 +2502,7 @@
           <GeneratedChecksum dnOrder="4">C3F5136D520DAC4416512EBFCCA023C3</GeneratedChecksum>
           <UserChecksum dnOrder="5">C3F5136D520DAC4416512EBFCCA023C3</UserChecksum>
         </File>
-        <File dnOrder="313">
+        <File dnOrder="312">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">system_module.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/system/</LogicalPath>
@@ -2518,15 +2510,15 @@
           <GeneratedChecksum dnOrder="4">1C75A8A6B60598A2FD0D533F57839B72</GeneratedChecksum>
           <UserChecksum dnOrder="5">1C75A8A6B60598A2FD0D533F57839B72</UserChecksum>
         </File>
-        <File dnOrder="314">
+        <File dnOrder="313">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">toolchain_specifics.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/</LogicalPath>
           <PhysicalPath dnOrder="3">/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">F7924D60AC5CC08996AB2DAEC62D3C54</GeneratedChecksum>
-          <UserChecksum dnOrder="5">F7924D60AC5CC08996AB2DAEC62D3C54</UserChecksum>
+          <GeneratedChecksum dnOrder="4">9D344CAF1743381AA0EA1641ABCDE373</GeneratedChecksum>
+          <UserChecksum dnOrder="5">9D344CAF1743381AA0EA1641ABCDE373</UserChecksum>
         </File>
-        <File dnOrder="315">
+        <File dnOrder="314">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">user.h</Name>
           <LogicalPath dnOrder="2">config/lcc_rgb565_mxt_mzef_cu/</LogicalPath>
@@ -2539,16 +2531,16 @@
         <Setting append="true" category="C32" delimiter=";" dnOrder="0" key="extra-include-directories" value="../src;../src/config/lcc_rgb565_mxt_mzef_cu;../src/packs/PIC32MZ2048EFM144_DFP;;../src/mips"/>
         <Setting category="C32-LD" dnOrder="1" key="heap-size" value="8192"/>
         <Setting category="C32-LD" dnOrder="2" key="no-device-startup-code" value="true"/>
-        <Setting category="C32-LD" dnOrder="3" key="preprocessor-macros" value=""/>
+        <Setting append="true" category="C32-LD" delimiter=";" dnOrder="3" key="preprocessor-macros" value=""/>
       </Settings>
     </Manifest>
     <Settings dnOrder="4">
-      <Setting dnOrder="0" key="CMSISPath" value=".\dev_packs\arm\CMSIS\5.5.1"/>
-      <Setting dnOrder="1" key="DFPPath" value=".\dev_packs\Microchip\PIC32MZ_EF_DFP\1.0.39\atdf\PIC32MZ2048EFM144.atdf"/>
+      <Setting dnOrder="0" key="CMSISPath" value=".\dev_packs\arm\CMSIS\5.6.0"/>
+      <Setting dnOrder="1" key="DFPPath" value=".\dev_packs\Microchip\PIC32MZ_EF_DFP\1.1.45\atdf\PIC32MZ2048EFM144.atdf"/>
       <Setting dnOrder="2" key="FORCE_OPTIMIZATION" value="false"/>
       <Setting dnOrder="3" key="GENERATE_BACKUP" value="true"/>
       <Setting dnOrder="4" key="MERGE_STRATEGY" value="USER_ALL"/>
-      <Setting dnOrder="5" key="PackageFilter" value="bsp;core;csp;gfx;"/>
+      <Setting dnOrder="5" key="PackageFilter" value="audio;bsp;core;csp;gfx;gfx_apps;touch;usb;"/>
     </Settings>
   </Configurator>
 </Configuration>

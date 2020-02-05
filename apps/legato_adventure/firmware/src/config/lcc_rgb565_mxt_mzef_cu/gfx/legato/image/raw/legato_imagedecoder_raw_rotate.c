@@ -80,7 +80,7 @@ leResult _leRawImageDecoder_RotateNearestNeighborPreReadStage(leRawDecodeState* 
     memset(&rotateNearestNeighborPreReadStage, 0, sizeof(rotateNearestNeighborPreReadStage));
 
     rotateNearestNeighborPreReadStage.base.state = state;
-    rotateNearestNeighborPreReadStage.base.exec = (void*)stage_rotateNearestNeighborPreRead;
+	rotateNearestNeighborPreReadStage.base.exec = (leResult(*)(struct leRawDecodeStage *))stage_rotateNearestNeighborPreRead;
 
     _leRawImageDecoder_InjectStage(state, (void*)&rotateNearestNeighborPreReadStage);
 
@@ -192,7 +192,7 @@ leResult _leRawImageDecoder_RotateBilinearPreReadStage(leRawDecodeState* state)
     memset(&rotateBilinearPreReadStage, 0, sizeof(rotateBilinearPreReadStage));
 
     rotateBilinearPreReadStage.base.state = state;
-    rotateBilinearPreReadStage.base.exec = (void*)stage_bilinearPreRead;
+    rotateBilinearPreReadStage.base.exec = (leResult(*)(struct leRawDecodeStage *))stage_bilinearPreRead;
 
     _leRawImageDecoder_InjectStage(state, (void*)&rotateBilinearPreReadStage);
 
@@ -229,7 +229,7 @@ leResult _leRawImageDecoder_RotateBilinearPostReadStage(leRawDecodeState* state)
     memset(&rotateBilinearPostReadStage, 0, sizeof(rotateBilinearPostReadStage));
 
     rotateBilinearPostReadStage.base.state = state;
-    rotateBilinearPostReadStage.base.exec = (void*)stage_rotateBilinearPostRead;
+    rotateBilinearPostReadStage.base.exec = stage_rotateBilinearPostRead;
 
     _leRawImageDecoder_InjectStage(state, (void*)&rotateBilinearPostReadStage);
 

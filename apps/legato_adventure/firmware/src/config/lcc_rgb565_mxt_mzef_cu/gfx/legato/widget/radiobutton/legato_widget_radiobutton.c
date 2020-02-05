@@ -274,11 +274,11 @@ static leResult setString(leRadioButtonWidget* _this,
     _this->string = str;
 
     _this->string->fn->setPreInvalidateCallback((leString*)_this->string,
-                                                (void*)stringPreinvalidate,
+                                                (leString_InvalidateCallback)stringPreinvalidate,
                                                 _this);
 
     _this->string->fn->setInvalidateCallback((leString*)_this->string,
-                                             (void*)stringInvalidate,
+                                             (leString_InvalidateCallback)stringInvalidate,
                                              _this);
     
     _invalidateContents(_this);

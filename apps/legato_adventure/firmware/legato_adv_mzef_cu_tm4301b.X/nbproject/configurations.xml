@@ -78,7 +78,6 @@
                 <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/memory/legato_variableheap.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f7" displayName="renderer" projectFiles="true">
-                <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/renderer/legato_driver.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/renderer/legato_renderer.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f8" displayName="string" projectFiles="true">
@@ -601,9 +600,9 @@
         </logicalFolder>
       </logicalFolder>
       <itemPath>../src/screen_Splash.c</itemPath>
+      <itemPath>../src/screen_Main_EF.c</itemPath>
       <itemPath>../src/main.c</itemPath>
       <itemPath>../src/app.c</itemPath>
-      <itemPath>../src/screen_Main_EF.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -663,7 +662,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/lcc_rgb565_mxt_mzef_cu;../src/packs/PIC32MZ2048EFM144_DFP;../src/mips"/>
+                  value="../src;../src/config/lcc_rgb565_mxt_mzef_cu;../src/packs/PIC32MZ2048EFM144_DFP;;../src/mips"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
