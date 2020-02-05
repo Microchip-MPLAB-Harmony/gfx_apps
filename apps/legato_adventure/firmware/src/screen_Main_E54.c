@@ -138,8 +138,7 @@ static void MainScreen_HandleAnimation(uintptr_t context)
     uint32_t offset = PositionWidget->fn->getWidth(PositionWidget) / 2;
     uint32_t leftButtonWidth = ButtonWidget_RunLeft->fn->getWidth(ButtonWidget_RunLeft);
     
-    if(leGetRenderState()->frameState == LE_FRAME_READY &&
-       leEvent_GetCount() == 0)
+    if(leGetRenderState()->frameState == LE_FRAME_READY)
     {
         PositionWidget->fn->setX(PositionWidget, spritePosX);
         ButtonWidget_RunLeft->fn->setX(ButtonWidget_RunLeft, spritePosX + offset - leftButtonWidth);
