@@ -32,8 +32,8 @@ typedef struct leFixedStringVTable
 typedef struct leFixedString
 {
     leString base; // string base data
-    
-    leFixedStringVTable* fn; // function table
+
+    const leFixedStringVTable* fn; // function table
     
     leChar*  data;     // local string data storage
     uint16_t capacity; // actual memory capacity of the string

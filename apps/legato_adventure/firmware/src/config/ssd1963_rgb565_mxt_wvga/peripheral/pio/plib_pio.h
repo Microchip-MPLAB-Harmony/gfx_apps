@@ -62,15 +62,6 @@
 // *****************************************************************************
 
 
-/*** Macros for GFX_DISP_INTF_PIN_RSDC pin ***/
-#define GFX_DISP_INTF_PIN_RSDC_Set()               (PIOC_REGS->PIO_SODR = (1<<30))
-#define GFX_DISP_INTF_PIN_RSDC_Clear()             (PIOC_REGS->PIO_CODR = (1<<30))
-#define GFX_DISP_INTF_PIN_RSDC_Toggle()            (PIOC_REGS->PIO_ODSR ^= (1<<30))
-#define GFX_DISP_INTF_PIN_RSDC_Get()               ((PIOC_REGS->PIO_PDSR >> 30) & 0x1)
-#define GFX_DISP_INTF_PIN_RSDC_OutputEnable()      (PIOC_REGS->PIO_OER = (1<<30))
-#define GFX_DISP_INTF_PIN_RSDC_InputEnable()       (PIOC_REGS->PIO_ODR = (1<<30))
-#define GFX_DISP_INTF_PIN_RSDC_PIN                  PIO_PIN_PC30
-
 /*** Macros for GFX_DISP_INTF_PIN_RESET pin ***/
 #define GFX_DISP_INTF_PIN_RESET_Set()               (PIOC_REGS->PIO_SODR = (1<<13))
 #define GFX_DISP_INTF_PIN_RESET_Clear()             (PIOC_REGS->PIO_CODR = (1<<13))
@@ -98,15 +89,6 @@
 #define BSP_MAXTOUCH_CHG_InputEnable()       (PIOD_REGS->PIO_ODR = (1<<28))
 #define BSP_MAXTOUCH_CHG_PIN                  PIO_PIN_PD28
 
-/*** Macros for GFX_DISP_INTF_PIN_WR pin ***/
-#define GFX_DISP_INTF_PIN_WR_Set()               (PIOC_REGS->PIO_SODR = (1<<8))
-#define GFX_DISP_INTF_PIN_WR_Clear()             (PIOC_REGS->PIO_CODR = (1<<8))
-#define GFX_DISP_INTF_PIN_WR_Toggle()            (PIOC_REGS->PIO_ODSR ^= (1<<8))
-#define GFX_DISP_INTF_PIN_WR_Get()               ((PIOC_REGS->PIO_PDSR >> 8) & 0x1)
-#define GFX_DISP_INTF_PIN_WR_OutputEnable()      (PIOC_REGS->PIO_OER = (1<<8))
-#define GFX_DISP_INTF_PIN_WR_InputEnable()       (PIOC_REGS->PIO_ODR = (1<<8))
-#define GFX_DISP_INTF_PIN_WR_PIN                  PIO_PIN_PC8
-
 /*** Macros for GFX_DISP_INTF_PIN_BACKLIGHT pin ***/
 #define GFX_DISP_INTF_PIN_BACKLIGHT_Set()               (PIOC_REGS->PIO_SODR = (1<<9))
 #define GFX_DISP_INTF_PIN_BACKLIGHT_Clear()             (PIOC_REGS->PIO_CODR = (1<<9))
@@ -115,15 +97,6 @@
 #define GFX_DISP_INTF_PIN_BACKLIGHT_OutputEnable()      (PIOC_REGS->PIO_OER = (1<<9))
 #define GFX_DISP_INTF_PIN_BACKLIGHT_InputEnable()       (PIOC_REGS->PIO_ODR = (1<<9))
 #define GFX_DISP_INTF_PIN_BACKLIGHT_PIN                  PIO_PIN_PC9
-
-/*** Macros for GFX_DISP_INTF_PIN_RD pin ***/
-#define GFX_DISP_INTF_PIN_RD_Set()               (PIOC_REGS->PIO_SODR = (1<<11))
-#define GFX_DISP_INTF_PIN_RD_Clear()             (PIOC_REGS->PIO_CODR = (1<<11))
-#define GFX_DISP_INTF_PIN_RD_Toggle()            (PIOC_REGS->PIO_ODSR ^= (1<<11))
-#define GFX_DISP_INTF_PIN_RD_Get()               ((PIOC_REGS->PIO_PDSR >> 11) & 0x1)
-#define GFX_DISP_INTF_PIN_RD_OutputEnable()      (PIOC_REGS->PIO_OER = (1<<11))
-#define GFX_DISP_INTF_PIN_RD_InputEnable()       (PIOC_REGS->PIO_ODR = (1<<11))
-#define GFX_DISP_INTF_PIN_RD_PIN                  PIO_PIN_PC11
 
 
 // *****************************************************************************

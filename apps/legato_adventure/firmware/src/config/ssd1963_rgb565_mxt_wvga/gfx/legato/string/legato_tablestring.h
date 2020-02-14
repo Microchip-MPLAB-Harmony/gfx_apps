@@ -34,8 +34,8 @@ typedef struct leTableStringVTable
 typedef struct leTableString
 {
     leString base;
-    
-    leTableStringVTable* fn;
+
+    const leTableStringVTable* fn;
     
     int32_t index; // an index into a string table or LE_STRING_NULLIDX
 } leTableString;

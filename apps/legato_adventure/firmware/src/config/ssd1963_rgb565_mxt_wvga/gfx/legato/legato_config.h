@@ -129,6 +129,7 @@ extern "C" {
 #define LE_SCRATCH_BUFFER_SIZE_KB          128
 #define LE_USE_ARC_SCAN_FILL               1
 #define LE_ARC_SMOOTH_EDGE                 LE_FALSE
+#define LE_RENDER_LEFTRIGHT                0
 
 
 //DOM-IGNORE-BEGIN

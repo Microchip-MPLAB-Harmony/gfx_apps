@@ -6,20 +6,19 @@
 typedef struct leStringTableHeader
 {
     uint16_t indexCount;
-    uint8_t indexSize;
-    uint8_t languageCount;
+    uint16_t languageCount;
 } leStringTableHeader;
 
 typedef struct leStringTableIndex
 {
     uint8_t fontID;
-    uint8_t offset;
+    uint8_t offset[3];
 } leStringTableIndex;
 
 typedef struct leStringTableEntry
 {
-    uint16_t length;
-    uint8_t  data;
+    uint32_t length;
+    uint8_t* data;
 } leStringTableEntry;
 
 uint32_t leStringTable_GetStringCount(const leStringTable* table)
@@ -51,8 +50,7 @@ uint32_t leStringTable_GetStringOffset(const leStringTable* table,
                                        uint32_t languageID)
 {
     leStringTableHeader* hdr;
-    leStringTableIndex* idx;
-    uint32_t strItr, langItr;
+    leStringTableIndex* idxTable;
     uint32_t offs = 0;
 
     if(table == NULL)
@@ -63,24 +61,9 @@ uint32_t leStringTable_GetStringOffset(const leStringTable* table,
     if(stringID >= hdr->indexCount || languageID >= hdr->languageCount)
         return 0;
 
-    idx = (leStringTableIndex*)(table->stringTableData + sizeof(leStringTableHeader));
+    idxTable = (leStringTableIndex*)(table->stringTableData + sizeof(leStringTableHeader));
 
-    for(strItr = 0; strItr < hdr->indexCount; strItr++)
-    {
-        for(langItr = 0; langItr < hdr->languageCount; langItr++)
-        {
-            if(strItr == stringID && langItr == languageID)
-            {
-                strItr = hdr->indexCount;
-
-                break;
-            }
-
-            idx = (leStringTableIndex*)((uint8_t*)idx + 1 + hdr->indexSize);
-        }
-    }
-
-    memcpy(&offs, &idx->offset, hdr->indexSize);
+    memcpy(&offs, &idxTable[stringID + languageID].offset, 3);
 
     return offs;
 }
@@ -96,8 +79,7 @@ leFont* leStringTable_GetStringFont(const leStringTable* table,
                                     uint32_t languageID)
 {
     leStringTableHeader* hdr;
-    leStringTableIndex* idx;
-    uint32_t strItr, langItr;
+    leStringTableIndex* idxTable;
 
     if(table == NULL)
         return 0;
@@ -107,27 +89,12 @@ leFont* leStringTable_GetStringFont(const leStringTable* table,
     if(stringID >= hdr->indexCount || languageID >= hdr->languageCount)
         return 0;
 
-    idx = (leStringTableIndex*)(table->stringTableData + sizeof(leStringTableHeader));
+    idxTable = (leStringTableIndex*)(table->stringTableData + sizeof(leStringTableHeader));
 
-    for(strItr = 0; strItr < hdr->indexCount; strItr++)
-    {
-        for(langItr = 0; langItr < hdr->languageCount; langItr++)
-        {
-            if(strItr == stringID && langItr == languageID)
-            {
-                strItr = hdr->indexCount;
-
-                break;
-            }
-
-            idx = (leStringTableIndex*)((uint8_t*)idx + 1 + hdr->indexSize);
-        }
-    }
-
-    if(idx->fontID == 0xFF)
+    if(idxTable[stringID + languageID].fontID == 0xFF)
         return NULL;
     
-    return table->fontTable[idx->fontID];
+    return table->fontTable[idxTable[stringID + languageID].fontID];
 }
 
 #if 0
@@ -181,7 +148,9 @@ static uint16_t stringIndexLookup(const leStringTable* table,
 leResult leStringTable_StringLookup(const leStringTable* table,
                                     leStringInfo* info)
 {
-    leStringTableEntry* entry;
+    leStringTableEntry entry;
+    entry.length = 0;
+    entry.data = NULL;
     
     if(table == NULL || info == NULL)
         return LE_FAILURE;
@@ -190,10 +159,11 @@ leResult leStringTable_StringLookup(const leStringTable* table,
                                                  info->stringIndex,
                                                  info->languageID);
 
-    entry = (leStringTableEntry*)((uint8_t*)table->stringTableData + info->offset);
+    memcpy(&entry.length, (uint8_t*)table->stringTableData + info->offset, 2);
+    entry.data = (uint8_t*)table->stringTableData + info->offset + 2;
 
-    info->data = (void*)&entry->data;
-    info->dataSize = entry->length;
+    info->data = entry.data;
+    info->dataSize = entry.length;
     info->length = 0;
 
     return LE_SUCCESS;
