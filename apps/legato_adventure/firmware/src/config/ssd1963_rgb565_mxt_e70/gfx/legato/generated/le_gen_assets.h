@@ -18,7 +18,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -514,33 +514,36 @@ extern leImage mchp_logo;
 /*********************************
  * Legato Font Asset
  * Name:         NotoSans_Regular
- * Height:       16
+ * Height:       21
  * Baseline:     15
  * Style:        Antialias
- * Glyph Count:  16
- * Range Count:  10
- * Glyph Ranges: 0x20
-                 0x44
-                 0x46
-                 0x48
-                 0x50
-                 0x52
-                 0x61
-                 0x64-0x65
-                 0x6D-0x6F
-                 0x72-0x75
+ * Glyph Count:  96
+ * Range Count:  1
+ * Glyph Ranges: 0x20-0x7F
 ***********************************/
 extern leRasterFont NotoSans_Regular;
 
 /*********************************
  * Legato Font Asset
  * Name:         NotoSans_Regular_Small
- * Height:       18
- * Baseline:     13
+ * Height:       17
+ * Baseline:     12
  * Style:        Antialias
- * Glyph Count:  96
- * Range Count:  1
- * Glyph Ranges: 0x20-0x7F
+ * Glyph Count:  57
+ * Range Count:  13
+ * Glyph Ranges: 0x20
+                 0x28-0x29
+                 0x2C-0x2E
+                 0x30-0x38
+                 0x3A
+                 0x41-0x49
+                 0x4C-0x4E
+                 0x50-0x53
+                 0x56-0x57
+                 0x5A
+                 0x61-0x69
+                 0x6C-0x75
+                 0x77-0x79
 ***********************************/
 extern leRasterFont NotoSans_Regular_Small;
 

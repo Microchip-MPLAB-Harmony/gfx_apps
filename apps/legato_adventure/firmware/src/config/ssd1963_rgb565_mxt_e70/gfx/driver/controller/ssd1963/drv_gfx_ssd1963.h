@@ -40,7 +40,7 @@
 #ifndef DRV_GFX_SSD1963_H
 #define DRV_GFX_SSD1963_H
 
-#include "gfx/legato/renderer/legato_driver.h"
+#include "gfx/driver/gfx_driver.h"
 
 #ifdef __cplusplus
     extern "C" {
@@ -49,22 +49,25 @@
 
 //DOM-IGNORE-END
 
-leResult DRV_SSD1963_Initialize(void);
+gfxResult DRV_SSD1963_Initialize(void);
 
-leColorMode DRV_SSD1963_GetColorMode(void);
+gfxColorMode DRV_SSD1963_GetColorMode(void);
 uint32_t DRV_SSD1963_GetBufferCount(void);
 uint32_t DRV_SSD1963_GetDisplayWidth(void);
 uint32_t DRV_SSD1963_GetDisplayHeight(void);
 void DRV_SSD1963_Update(void);
 uint32_t DRV_SSD1963_GetLayerCount();
 uint32_t DRV_SSD1963_GetActiveLayer();
-leResult DRV_SSD1963_SetActiveLayer(uint32_t idx);
-leResult DRV_SSD1963_BlitBuffer(int32_t x, int32_t y, lePixelBuffer* buf);
+gfxResult DRV_SSD1963_SetActiveLayer(uint32_t idx);
+gfxResult DRV_SSD1963_BlitBuffer(int32_t x,
+                                 int32_t y,
+                                 gfxPixelBuffer* buf,
+                                 gfxBlend gfx);
 void DRV_SSD1963_Swap(void);
 uint32_t DRV_SSD1963_GetSwapCount(void);
 
 
-static const leDisplayDriver ssd1963DisplayDriver =
+static const gfxDisplayDriver ssd1963DisplayDriver =
 {
     DRV_SSD1963_GetColorMode,
     DRV_SSD1963_GetBufferCount,

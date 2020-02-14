@@ -6,8 +6,11 @@
 #include "gfx/legato/string/legato_stringtable.h"
 #include "gfx/legato/string/legato_stringutils.h"
 
+#if LE_DYNAMIC_VTABLES == 1
 static leTableStringVTable tableStringVTable;
-
+#else
+static const leTableStringVTable tableStringVTable;
+#endif
 
 void _leString_Constructor(leString* _this);
 void _leString_Destructor(leString* _this);
@@ -322,6 +325,7 @@ uint32_t _leTableString_SizeInBytes(leTableString* _this)
     return info.dataSize;
 }
 
+#if LE_DYNAMIC_VTABLES == 1
 void _leString_FillVTable(leStringVTable* vt);
 
 void _leTableString_GenerateVTable()
@@ -350,3 +354,56 @@ void _leTableString_GenerateVTable()
     tableStringVTable.setID = _leTableString_SetID;
     tableStringVTable.sizeInBytes = _leTableString_GetID;
 }
+#else
+leResult _leString_GetRect(const leString*, leRect*);
+uint32_t _leString_GetLineCount(const leString*);
+leResult _leString_GetLineRect(const leString*, uint32_t, leRect*);
+leResult _leString_GetLineIndices(const leString*, uint32_t, uint32_t*, uint32_t*);
+leResult _leString_GetCharRect(const leString*, uint32_t, leRect*);
+leResult _leString_GetCharIndexAtPoint(const leString*, const lePoint*, uint32_t*);
+leResult _leString_Draw(const leString*, int32_t, int32_t, leHAlignment, leColor, uint32_t);
+void _leString_PreInvalidate(leString*);
+void _leString_Invalidate(leString*);
+leResult _leString_SetPreInvalidateCallback(leString*, leString_InvalidateCallback, void*);
+leResult _leString_SetInvalidateCallback(leString*, leString_InvalidateCallback, void*);
+
+static const leTableStringVTable tableStringVTable =
+{
+    // base class funcs
+    .getRect = (void*)_leString_GetRect,
+    .getLineCount = (void*)_leString_GetLineCount,
+    .getLineRect = (void*)_leString_GetLineRect,
+    .getLineIndices = (void*)_leString_GetLineIndices,
+    .getCharRect = (void*)_leString_GetCharRect,
+    .getCharIndexAtPoint = (void*)_leString_GetCharIndexAtPoint,
+    .getCharIndexAtPoint = (void*)_leString_GetCharIndexAtPoint,
+    ._draw = (void*)_leString_Draw,
+    .preinvalidate = (void*)_leString_PreInvalidate,
+    .invalidate = (void*)_leString_Invalidate,
+    .setPreInvalidateCallback = (void*)_leString_SetPreInvalidateCallback,
+    .setInvalidateCallback = (void*)_leString_SetInvalidateCallback,
+
+    // member funcs
+    /* base functions */
+    .destructor = _leTableString_Destructor,
+    .getFont = _leTableString_GetFont,
+    .setFont = _leTableString_SetFont,
+    .setFromString = _leTableString_SetFromString,
+	.setFromChar = _leTableString_SetFromChar,
+	.setFromCStr = _leTableString_SetFromCStr,
+    .charAt = _leTableString_CharAt,
+    .length = _leTableString_Length,
+    .isEmpty = _leTableString_IsEmpty,
+    .compare = _leTableString_Compare,
+    .append = _leTableString_Append,
+    .insert = _leTableString_Insert,
+    .remove = _leTableString_Remove,
+    .clear = _leTableString_Clear,
+    //_draw = _leTableString_Draw,
+
+    /* member functions */
+    .getID = _leTableString_GetID,
+    .setID = _leTableString_SetID,
+    .sizeInBytes = _leTableString_GetID,
+};
+#endif

@@ -77,7 +77,7 @@ leResult screenShow_InfoScreen()
 
     LabelWidget1 = leLabelWidget_New();
     LabelWidget1->fn->setPosition(LabelWidget1, 10, 40);
-    LabelWidget1->fn->setSize(LabelWidget1, 189, 40);
+    LabelWidget1->fn->setSize(LabelWidget1, 200, 40);
     LabelWidget1->fn->setBackgroundType(LabelWidget1, LE_WIDGET_BACKGROUND_NONE);
     LabelWidget1->fn->setString(LabelWidget1, (leString*)&tableString_String_Device);
     root0->fn->addChild(root0, (leWidget*)LabelWidget1);

@@ -25,6 +25,7 @@
           <logicalFolder name="f1" displayName="gfx" projectFiles="true">
             <logicalFolder name="f3" displayName="driver" projectFiles="true">
               <logicalFolder name="f1" displayName="ssd1963" projectFiles="true">
+                <itemPath>../src/config/ssd1963_rgb565_mxt_e70/gfx/driver/gfx_driver.h</itemPath>
                 <itemPath>../src/config/ssd1963_rgb565_mxt_e70/gfx/driver/controller/ssd1963/drv_gfx_ssd1963.h</itemPath>
                 <itemPath>../src/config/ssd1963_rgb565_mxt_e70/gfx/driver/controller/ssd1963/drv_gfx_ssd1963_common.h</itemPath>
                 <itemPath>../src/config/ssd1963_rgb565_mxt_e70/gfx/driver/controller/ssd1963/drv_gfx_ssd1963_cmd_defs.h</itemPath>
@@ -83,7 +84,6 @@
                 <itemPath>../src/config/ssd1963_rgb565_mxt_e70/gfx/legato/memory/legato_variableheap.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f7" displayName="renderer" projectFiles="true">
-                <itemPath>../src/config/ssd1963_rgb565_mxt_e70/gfx/legato/renderer/legato_driver.h</itemPath>
                 <itemPath>../src/config/ssd1963_rgb565_mxt_e70/gfx/legato/renderer/legato_renderer.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f8" displayName="string" projectFiles="true">
@@ -311,23 +311,15 @@
           <logicalFolder name="f1" displayName="CMSIS" projectFiles="true">
             <logicalFolder name="f1" displayName="Core" projectFiles="true">
               <logicalFolder name="f1" displayName="Include" projectFiles="true">
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_iccarm.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armcc.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/tz_context.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm7.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv7.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h</itemPath>
-              </logicalFolder>
-            </logicalFolder>
-            <logicalFolder name="f2" displayName="DSP" projectFiles="true">
-              <logicalFolder name="f1" displayName="Include" projectFiles="true">
-                <itemPath>../src/packs/CMSIS/CMSIS/DSP/Include/arm_common_tables.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/DSP/Include/arm_const_structs.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/DSP/Include/arm_math.h</itemPath>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
@@ -361,6 +353,7 @@
           <logicalFolder name="f1" displayName="gfx" projectFiles="true">
             <logicalFolder name="f3" displayName="driver" projectFiles="true">
               <logicalFolder name="f1" displayName="ssd1963" projectFiles="true">
+                <itemPath>../src/config/ssd1963_rgb565_mxt_e70/gfx/driver/gfx_driver.c</itemPath>
                 <itemPath>../src/config/ssd1963_rgb565_mxt_e70/gfx/driver/controller/ssd1963/drv_gfx_ssd1963.c</itemPath>
               </logicalFolder>
             </logicalFolder>
@@ -720,8 +713,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CMSIS" vendor="ARM" version="5.0.1"/>
-        <pack name="SAME70_DFP" vendor="Microchip" version="3.0.10"/>
+        <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
+        <pack name="SAME70_DFP" vendor="Microchip" version="4.1.50"/>
       </packs>
       <compileType>
         <linkerTool>
@@ -785,7 +778,7 @@
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
         <property key="make-warnings-into-errors" value="true"/>
-        <property key="optimization-level" value="-O1"/>
+        <property key="optimization-level" value="-O3"/>
         <property key="place-data-into-section" value="true"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>

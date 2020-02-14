@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -31,7 +31,9 @@
 #include "gfx/legato/renderer/legato_renderer.h"
 #include "gfx/legato/string/legato_string_renderer.h"
 
+#if LE_DYNAMIC_VTABLES == 1
 static leStringVTable stringVTable;
+#endif
 
 #define LE_STRING_SPACE     0x20 // ' '
 #define LE_STRING_LINEBREAK 0xA // '\n'
@@ -396,6 +398,9 @@ leResult _leString_SetInvalidateCallback(leString* _this,
     return LE_SUCCESS;
 }
 
+#if LE_DYNAMIC_VTABLES == 1
+static leStringVTable stringVTable;
+
 void _leString_GenerateVTable()
 {
     stringVTable.getRect = _leString_GetRect;
@@ -415,3 +420,23 @@ void _leString_FillVTable(leStringVTable* vt)
 {
     *vt = stringVTable;
 }
+#else
+#if 0
+static const leStringVTable stringVTable =
+{
+    // base class funcs
+    .getRect = _leString_GetRect,
+    .getLineCount = _leString_GetLineCount,
+    .getLineRect = _leString_GetLineRect,
+    .getLineIndices = _leString_GetLineIndices,
+    .getCharRect = _leString_GetCharRect,
+    .getCharIndexAtPoint = _leString_GetCharIndexAtPoint,
+    .getCharIndexAtPoint = _leString_GetCharIndexAtPoint,
+    ._draw = _leString_Draw,
+    .preinvalidate = _leString_PreInvalidate,
+    .invalidate = _leString_Invalidate,
+    .setPreInvalidateCallback = _leString_SetPreInvalidateCallback,
+    .setInvalidateCallback = _leString_SetInvalidateCallback,
+};
+#endif
+#endif

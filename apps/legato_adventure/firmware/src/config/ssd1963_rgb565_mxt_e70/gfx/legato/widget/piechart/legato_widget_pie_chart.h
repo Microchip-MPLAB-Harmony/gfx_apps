@@ -16,7 +16,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -132,7 +132,7 @@ typedef struct lePieChartWidget
 {
     leWidget widget; // base widget header
 
-    lePieChartWidgetVTable* fn;
+    const lePieChartWidgetVTable* fn;
 
     uint32_t startAngle;                    //the start angle of the chart
     int32_t centerAngle;                    //the center angle of the chart

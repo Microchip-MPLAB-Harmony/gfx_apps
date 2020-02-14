@@ -63,7 +63,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #define APP_SPRITE_STEP_X  16
 #define APP_SPRITE_OFFSET 8
 #define APP_IDLE_SPRITE_DELAY 100
-#define APP_JUMP_SPRITE_DELAY 2
+#define APP_JUMP_SPRITE_DELAY 0
 #define APP_HURT_SPRITE_DELAY 10
 #define APP_RUN_SPRITE_DELAY 0
 #define APP_DIZZY_SPRITE_DELAY 40
@@ -135,10 +135,14 @@ static void MainScreen_HandleLocomotion(uintptr_t context)
 
 static void MainScreen_HandleAnimation(uintptr_t context)
 {
-    if(leGetRenderState()->frameState == LE_FRAME_READY &&
-       leEvent_GetCount() == 0)
+    uint32_t offset = PositionWidget->fn->getWidth(PositionWidget) / 2;
+    uint32_t leftButtonWidth = ButtonWidget_RunLeft->fn->getWidth(ButtonWidget_RunLeft);
+    
+    if(leGetRenderState()->frameState == LE_FRAME_READY)
     {
         PositionWidget->fn->setX(PositionWidget, spritePosX);
+        ButtonWidget_RunLeft->fn->setX(ButtonWidget_RunLeft, spritePosX + offset - leftButtonWidth);
+        ButtonWidget_RunRight->fn->setX(ButtonWidget_RunRight, spritePosX + offset);
 
         if (spriteState == IDLE)
         {
@@ -308,7 +312,10 @@ void MainScreen_OnUpdate()
 
 void ButtonWidget_RunRight_OnPressed(leButtonWidget *btn)
 {
-    if (spriteState == IDLE)
+    if (spriteState == RUN && spriteFacing == FACE_RIGHT)
+    {      
+    }
+    else
     {
         spriteFacing = FACE_RIGHT;
         spriteState = RUN;
@@ -320,16 +327,14 @@ void ButtonWidget_RunRight_OnPressed(leButtonWidget *btn)
 
 void ButtonWidget_RunRight_OnReleased(leButtonWidget *btn)
 {
-    if (spriteState == HURT || spriteState == DIZZY)
-        return;
-    
-    spriteState = IDLE;
-    tickDelay = APP_IDLE_SPRITE_DELAY;
 }
 
 void ButtonWidget_RunLeft_OnPressed(leButtonWidget *btn)
 {
-    if (spriteState == IDLE)
+    if (spriteState == RUN && spriteFacing == FACE_LEFT)
+    {      
+    }
+    else
     {
         spriteFacing = FACE_LEFT;
         spriteState = RUN;
@@ -341,16 +346,11 @@ void ButtonWidget_RunLeft_OnPressed(leButtonWidget *btn)
 
 void ButtonWidget_RunLeft_OnReleased(leButtonWidget *btn)
 {
-    if (spriteState == HURT || spriteState == DIZZY)
-        return;
-    
-    spriteState = IDLE;
-    tickDelay = APP_IDLE_SPRITE_DELAY;
 }
 
 void ButtonWidget_Jump_OnPressed(leButtonWidget *btn)
 {
-    if (spriteState == IDLE)
+    if (spriteState != JUMP && spriteState != DIZZY)
     {
         spriteState = JUMP;
 

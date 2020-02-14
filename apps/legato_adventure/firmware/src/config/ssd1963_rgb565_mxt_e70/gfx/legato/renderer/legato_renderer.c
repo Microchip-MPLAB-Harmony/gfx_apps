@@ -7,13 +7,13 @@
 #include "gfx/legato/common/legato_utils.h"
 #include "gfx/legato/core/legato_state.h"
 #include "gfx/legato/datastructure/legato_rectarray.h"
-#include "gfx/legato/renderer/legato_driver.h"
+#include "device.h"
 
 leRenderState _rendererState;
 
 #define SCRACH_BUFFER_SZ (LE_SCRATCH_BUFFER_SIZE_KB * 1024)
 
-static uint8_t scratchBuffer[SCRACH_BUFFER_SZ];
+static uint8_t CACHE_ALIGN scratchBuffer[SCRACH_BUFFER_SZ];
 static uint32_t maxScratchPixels;
 
 static lePixelBuffer renderBuffer;
@@ -89,7 +89,7 @@ void leRenderer_ClipDrawRect(const leRect* rect,
     leRectClip(rect, &_rendererState.drawRect, res);
 }
 
-leResult leRenderer_Initialize(const leDisplayDriver* dispDriver)
+leResult leRenderer_Initialize(const gfxDisplayDriver* dispDriver)
 {
     memset(&_rendererState, 0, sizeof(leRenderState));
  
@@ -285,10 +285,15 @@ static leResult preFrame()
         
         addRectToFrameList(&rect);
     }
-    
+
+#if LE_RENDER_LEFTRIGHT == 0
     // sort frame rects by Y
     leRectArray_SortByY(&_rendererState.frameRectList);
-    
+#else
+    // sort frame rects by X
+    leRectArray_SortByX(&_rendererState.frameRectList);
+#endif
+
     _rendererState.frameRectIdx = 0;
     _rendererState.frameDrawCount = 0;
     _rendererState.renderBuffer = &renderBuffer;
@@ -609,7 +614,7 @@ static leResult postRect()
     leRect frameRect = _rendererState.frameRectList.rects[_rendererState.frameRectIdx];
 
     /* render buffer may be locked by something or display driver may not be ready */
-    if(_rendererState.dispDriver->blitBuffer(frameRect.x, frameRect.y, &renderBuffer) == LE_FAILURE)
+    if(_rendererState.dispDriver->blitBuffer(frameRect.x, frameRect.y, (gfxPixelBuffer*)&renderBuffer, GFX_BLEND_NONE) == GFX_FAILURE)
     {
         return LE_FAILURE;
     }
