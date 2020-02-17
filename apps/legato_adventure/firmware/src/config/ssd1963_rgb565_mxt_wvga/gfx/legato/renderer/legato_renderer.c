@@ -11,9 +11,10 @@
 
 leRenderState _rendererState;
 
-#define SCRACH_BUFFER_SZ (LE_SCRATCH_BUFFER_SIZE_KB * 1024)
+#define SCRACH_BUFFER_SZ     (LE_SCRATCH_BUFFER_SIZE_KB * 1024)
+#define MAX_RECTARRAYS_SZ    8
 
-static uint8_t CACHE_ALIGN scratchBuffer[SCRACH_BUFFER_SZ];
+static uint8_t scratchBuffer[SCRACH_BUFFER_SZ];
 static uint32_t maxScratchPixels;
 
 static lePixelBuffer renderBuffer;
@@ -666,7 +667,14 @@ static void postFrame()
     //rects. This avoids a full redraw of the frame later
     if (_rendererState.drawCount == 1 && _rendererState.bufferCount > 1)
     {
-        leRectArray_Clear(&_rendererState.prevDamageRects);
+        if(_rendererState.prevDamageRects.size > MAX_RECTARRAYS_SZ)
+        {
+            leRectArray_Destroy(&_rendererState.prevDamageRects);
+        }
+        else
+        {
+            leRectArray_Clear(&_rendererState.prevDamageRects);
+        }
     }
     
     _rendererState.drawCount++;
@@ -677,14 +685,28 @@ static void postFrame()
         leRectArray_Copy(&_rendererState.pendingDamageRects, 
                          &_rendererState.currentDamageRects);
 
-        leRectArray_Clear(&_rendererState.pendingDamageRects);
+        if(_rendererState.pendingDamageRects.size > MAX_RECTARRAYS_SZ)
+        {
+            leRectArray_Destroy(&_rendererState.pendingDamageRects);
+        }
+        else
+        {
+            leRectArray_Clear(&_rendererState.pendingDamageRects);
+        }
 
         _rendererState.frameState = LE_FRAME_PREFRAME;
     }
     else
     {
-        leRectArray_Clear(&_rendererState.currentDamageRects);
-        
+        if(_rendererState.currentDamageRects.size > MAX_RECTARRAYS_SZ)
+        {
+            leRectArray_Destroy(&_rendererState.currentDamageRects);
+        }
+        else
+        {
+            leRectArray_Clear(&_rendererState.currentDamageRects);
+        }
+
         _rendererState.frameState = LE_FRAME_READY;
     }
     

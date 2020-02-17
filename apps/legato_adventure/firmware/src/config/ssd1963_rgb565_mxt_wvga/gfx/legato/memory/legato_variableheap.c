@@ -30,7 +30,7 @@
 enum
 {
     MS_ALLOC   = 0xAC,
-    MS_FREE    = 0xFE, 
+    MS_FREE    = 0xFE,
     MS_PADDING = 0xAB
 };
 
@@ -127,15 +127,15 @@ static leResult _validateBlock(leVariableHeapBlockHeader* blk)
 
 static leResult _validateList(leVariableHeapBlockHeader* blk)
 {
-    leBool res;
+    leResult res;
 
     while(blk != NULL)
     {
         res = _validateBlock(blk);
 
-        LE_ASSERT(res == LE_TRUE);
+        LE_ASSERT(res == LE_SUCCESS);
 
-        if(res == LE_FALSE)
+        if(res == LE_FAILURE)
             return LE_FAILURE;
 
         blk = blk->next;
@@ -200,7 +200,7 @@ static void _writeFooter(leVariableHeapBlockHeader* blk)
 
     /* write the tail checksum */
     ptr = LE_VARIABLEHEAP_BLOCK_FOOTER_PTR(blk);
-    
+
     *((uint32_t*)ptr) = blk->checksum;
 
     pad = LE_VARIABLEHEAP_BLOCK_PADDING_SIZE(blk);
@@ -302,7 +302,7 @@ static leResult _splitBlock(leVariableHeapBlockHeader* blk, uint32_t capacity, u
         next = blk->next;
 
         _createBlock(blk, capacity, size);
-        
+
         newBlock = _createBlock((uint8_t*)blk + LE_VARIABLEHEAP_BLOCK_OVERHEAD_SIZE + capacity,
                                 rem - LE_VARIABLEHEAP_BLOCK_OVERHEAD_SIZE,
                                 rem - LE_VARIABLEHEAP_BLOCK_OVERHEAD_SIZE);
@@ -405,7 +405,7 @@ leResult leVariableHeap_Init(leVariableHeap* heap,
 #if LE_VARIABLEHEAP_DEBUGLEVEL >= 1
     leVariableHeapBlockHeader* hdr;
 #endif
-    
+
     if(size % LE_VARIABLEHEAP_ALIGNMENT != 0)
         return LE_FAILURE;
 
@@ -417,7 +417,7 @@ leResult leVariableHeap_Init(leVariableHeap* heap,
 #if LE_VARIABLEHEAP_DEBUGLEVEL >= 1
     hdr = _createBlock(heap->freeList,
                        heap->size - LE_VARIABLEHEAP_BLOCK_OVERHEAD_SIZE,
-                       heap->size - LE_VARIABLEHEAP_BLOCK_OVERHEAD_SIZE);  
+                       heap->size - LE_VARIABLEHEAP_BLOCK_OVERHEAD_SIZE);
 
 
     heap->freeBlockCount = 1;
@@ -471,7 +471,7 @@ void* leVariableHeap_Alloc(leVariableHeap* heap,
     {
         capacity += LE_VARIABLEHEAP_ALIGNMENT - (capacity % LE_VARIABLEHEAP_ALIGNMENT);
     }
-    
+
 #if LE_VARIABLEHEAP_BESTFIT == 1
     block = _findBestFit(heap, capacity);
 #else
@@ -495,7 +495,7 @@ void* leVariableHeap_Alloc(leVariableHeap* heap,
         _writeFooter(block);
 #endif
     }
-    // break up the block if need be
+        // break up the block if need be
     else if (block->capacity > capacity)
     {
 #if LE_VARIABLEHEAP_DEBUGLEVEL >= 1
@@ -582,7 +582,7 @@ void* leVariableHeap_Alloc(leVariableHeap* heap,
 #endif
 
     heap->used += LE_VARIABLEHEAP_BLOCK_TOTAL_SIZE(block);
-    
+
     if(heap->used > heap->maxUsage)
     {
         heap->maxUsage = heap->used;
@@ -649,7 +649,7 @@ void leVariableHeap_Free(leVariableHeap* heap,
         blk->prev = slot;
 
         slot->next = blk;
-        
+
         if(blk->next != NULL)
             blk->next->prev = blk;
     }
@@ -682,9 +682,9 @@ void leVariableHeap_Free(leVariableHeap* heap,
 size_t leVariableHeap_Used(leVariableHeap* heap)
 {
     leVariableHeapBlockHeader* blk = heap->allocList;
-    
+
     size_t used = 0;
-    
+
     while(blk != NULL)
     {
         used += LE_VARIABLEHEAP_BLOCK_TOTAL_SIZE(blk);
@@ -699,13 +699,13 @@ leBool leVariableHeap_Contains(leVariableHeap* heap, void* ptr)
 {
     void* heapEnd = (uint8_t*)heap->data + heap->size;
 
-    return ptr >= heap->data && ptr < heapEnd; 
+    return ptr >= heap->data && ptr < heapEnd;
 }
 
 uint32_t leVariableHeap_SizeOf(leVariableHeap* heap, void* ptr)
 {
     leVariableHeapBlockHeader* blk = (leVariableHeapBlockHeader*)((uint8_t*)ptr - LE_VARIABLEHEAP_BLOCK_HEADER_SIZE);
-    
+
     return blk->size;
 }
 
@@ -720,10 +720,10 @@ leResult leVariableHeap_Validate(leVariableHeap* heap)
     if(_countList((leVariableHeapBlockHeader*)heap->allocList) != heap->allocBlockCount)
         return LE_FAILURE;
 
-    LE_ASSERT(_countList((leVariableHeapBlockHeader*)heap->freeList) == heap->freeBlockCount);
+    //LE_ASSERT(_countList((leVariableHeapBlockHeader*)heap->freeList) == heap->freeBlockCount);
 
-    if(_countList((leVariableHeapBlockHeader*)heap->freeList) != heap->freeBlockCount)
-        return LE_FAILURE;
+    //if(_countList((leVariableHeapBlockHeader*)heap->freeList) != heap->freeBlockCount)
+    //    return LE_FAILURE;
 #endif
 
 #if LE_VARIABLEHEAP_DEBUGLEVEL >= 2

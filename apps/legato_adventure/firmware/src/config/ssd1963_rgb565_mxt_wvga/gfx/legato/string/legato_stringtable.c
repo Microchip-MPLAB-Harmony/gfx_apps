@@ -51,6 +51,7 @@ uint32_t leStringTable_GetStringOffset(const leStringTable* table,
 {
     leStringTableHeader* hdr;
     leStringTableIndex* idxTable;
+    uint8_t* ptr;
     uint32_t offs = 0;
 
     if(table == NULL)
@@ -63,7 +64,13 @@ uint32_t leStringTable_GetStringOffset(const leStringTable* table,
 
     idxTable = (leStringTableIndex*)(table->stringTableData + sizeof(leStringTableHeader));
 
-    memcpy(&offs, &idxTable[stringID + languageID].offset, 3);
+    ptr = (uint8_t*)(&idxTable[stringID + languageID].offset);
+
+    offs = ptr[0];
+    offs |= ptr[1] << 8;
+    offs |= ptr[2] << 16;
+
+    //memcpy(&offs, &idxTable[stringID + languageID].offset, 3);
 
     return offs;
 }
@@ -149,6 +156,8 @@ leResult leStringTable_StringLookup(const leStringTable* table,
                                     leStringInfo* info)
 {
     leStringTableEntry entry;
+    uint8_t* ptr;
+
     entry.length = 0;
     entry.data = NULL;
     
@@ -159,7 +168,12 @@ leResult leStringTable_StringLookup(const leStringTable* table,
                                                  info->stringIndex,
                                                  info->languageID);
 
-    memcpy(&entry.length, (uint8_t*)table->stringTableData + info->offset, 2);
+    ptr = (uint8_t*)(table->stringTableData + info->offset);
+
+    entry.length = ptr[0];
+    entry.length |= ptr[1] << 8;
+
+    //memcpy(&entry.length, (uint8_t*)table->stringTableData + info->offset, 2);
     entry.data = (uint8_t*)table->stringTableData + info->offset + 2;
 
     info->data = entry.data;

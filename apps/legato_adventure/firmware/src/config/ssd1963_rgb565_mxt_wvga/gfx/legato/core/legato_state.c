@@ -253,7 +253,7 @@ leResult leInitialize(const gfxDisplayDriver* dispDriver)
 #endif
     
     leImage_InitDecoders();
-    leScheme_Initialize(&_state.defaultScheme, dispDriver->getColorMode());
+    leScheme_Initialize(&_state.defaultScheme, LE_GLOBAL_COLOR_MODE);
 
     for(idx = 0; idx < LE_LAYER_COUNT; idx++)
     {
