@@ -50,14 +50,17 @@
 // *****************************************************************************
 
 #if LE_ASSERT_ENABLE == 1
-#include <assert.h>
+//#include <assert.h>
 #endif
 
 /* controls whether library-wide asserts are enabled */
 #if LE_ASSERT_ENABLE == 1
-#define LE_ASSERT(val)          assert(val)
-#define LE_ASSERT_MSG(val, msg) for ( ; !(val) ; assert(val) ) { leSetErrorMessage(msg); }
-#define LE_ASSERT_VAR(val, fmt, ...) for ( ; !(val) ; assert(val) ) { leSprintfErrorMessage(fmt, __VA_ARGS__); }
+//#define LE_ASSERT(val)          assert(val)
+//#define LE_ASSERT_MSG(val, msg) for ( ; !(val) ; assert(val) ) { leSetErrorMessage(msg); }
+//#define LE_ASSERT_VAR(val, fmt, ...) for ( ; !(val) ; assert(val) ) { leSprintfErrorMessage(fmt, __VA_ARGS__); }
+#define LE_ASSERT(val)          if((val) == 0) { leAssert(); }
+#define LE_ASSERT_MSG(val, msg) if((val) == 0) { leSetErrorMessage(msg); }
+#define LE_ASSERT_VAR(val, fmt, ...) if((val) == 0) { leSprintfErrorMessage(fmt, __VA_ARGS__); }
 #else
 #define LE_ASSERT(val)
 #define LE_ASSERT_MSG(val, msg)
@@ -73,6 +76,8 @@
 // *****************************************************************************
 
 #if LE_ASSERT_ENABLE == 1
+
+void leAssert();
 
 // *****************************************************************************
 /* Function:
@@ -136,6 +141,6 @@ void leSetErrorMessage(const char* msg);
 */
 void leSprintfErrorMessage(const char* fmt, ...);
 
-#endif     
+#endif
 
 #endif /* LE_ERROR_H */

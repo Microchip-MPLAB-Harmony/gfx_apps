@@ -1,22 +1,27 @@
 /*******************************************************************************
-  NVIC PLIB Implementation
+  CCL Peripheral Library Interface Header File
 
   Company:
     Microchip Technology Inc.
 
   File Name:
-    plib_nvic.c
+    plib_ccl.h
 
   Summary:
-    NVIC PLIB Source File
+    CAN PLIB interface declarations.
 
   Description:
-    None
+    The CAN plib provides a simple interface to manage the CAN modules on
+    Microchip microcontrollers. This file defines the interface declarations
+    for the CAN plib.
+
+  Remarks:
+    None.
 
 *******************************************************************************/
-
+//DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -37,50 +42,53 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+//DOM-IGNORE-END
+
+#ifndef PLIB_CCL_H
+#define PLIB_CCL_H
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Included Files
+// *****************************************************************************
+// *****************************************************************************
+
+/*
+ * This section lists the other files that are included in this file.
+ */
+#include <stdbool.h>
+#include <string.h>
 
 #include "device.h"
-#include "plib_nvic.h"
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+    extern "C" {
+#endif
+// DOM-IGNORE-END
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Data Types
+// *****************************************************************************
+// *****************************************************************************
 
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: NVIC Implementation
+// Section: Interface Routines
 // *****************************************************************************
 // *****************************************************************************
+void CCL_Initialize (void);
 
-void NVIC_Initialize( void )
-{
-    /* Priority 0 to 7 and no sub-priority. 0 is the highest priority */
-    NVIC_SetPriorityGrouping( 0x04 );
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+    }
+#endif
+// DOM-IGNORE-END
 
-    /* Enable NVIC Controller */
-    __DMB();
-    __enable_irq();
+#endif // PLIB_CCL_H
 
-    /* Enable the interrupt sources and configure the priorities as configured
-     * from within the "Interrupt Manager" of MHC. */
-    NVIC_SetPriority(DMAC_0_IRQn, 7);
-    NVIC_EnableIRQ(DMAC_0_IRQn);
-    NVIC_SetPriority(DMAC_1_IRQn, 7);
-    NVIC_EnableIRQ(DMAC_1_IRQn);
-    NVIC_SetPriority(DMAC_2_IRQn, 7);
-    NVIC_EnableIRQ(DMAC_2_IRQn);
-    NVIC_SetPriority(DMAC_3_IRQn, 7);
-    NVIC_EnableIRQ(DMAC_3_IRQn);
-    NVIC_SetPriority(DMAC_OTHER_IRQn, 7);
-    NVIC_EnableIRQ(DMAC_OTHER_IRQn);
-    NVIC_SetPriority(SERCOM4_0_IRQn, 7);
-    NVIC_EnableIRQ(SERCOM4_0_IRQn);
-    NVIC_SetPriority(SERCOM4_1_IRQn, 7);
-    NVIC_EnableIRQ(SERCOM4_1_IRQn);
-    NVIC_SetPriority(SERCOM4_2_IRQn, 7);
-    NVIC_EnableIRQ(SERCOM4_2_IRQn);
-    NVIC_SetPriority(SERCOM4_OTHER_IRQn, 7);
-    NVIC_EnableIRQ(SERCOM4_OTHER_IRQn);
-    NVIC_SetPriority(TC0_IRQn, 7);
-    NVIC_EnableIRQ(TC0_IRQn);
-
-
-
-    return;
-}
+/*******************************************************************************
+ End of File
+*/

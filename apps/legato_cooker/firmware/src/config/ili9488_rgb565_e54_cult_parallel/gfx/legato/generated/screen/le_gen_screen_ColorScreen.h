@@ -44,15 +44,16 @@ extern leRectangleWidget* Button4Rect;
 extern leImageWidget* Button4Image;
 extern leLabelWidget* MenuItem4Label;
 extern leButtonWidget* ButtonWidget4;
-extern leWidget* Screen2LabelPanel;
-extern leLabelWidget* Screen2GoodLabel;
-extern leLabelWidget* Screen2BytesLabel;
-extern leLabelWidget* Screen2SmartCookerLabel;
-extern leLabelWidget* Screen2ClockLabel;
 extern leWidget* Screen2MainClockPanel;
 extern leLabelWidget* Screen2HourLabel;
 extern leLabelWidget* Screen2ColonLabel;
 extern leLabelWidget* Screen2MinuteLabel;
+extern leWidget* Screen2LabelPanel;
+extern leLabelWidget* Screen2GoodLabel;
+extern leLabelWidget* Screen2BytesLabel;
+extern leLabelWidget* Screen2SmartCookerLabel;
+extern leButtonWidget* ButtonWidget6;
+extern leButtonWidget* SliderButton2;
 
 
 // screen lifecycle functions
@@ -91,6 +92,12 @@ void ButtonWidget3_OnPressed(leButtonWidget* btn)
 ;
 
 void ButtonWidget4_OnPressed(leButtonWidget* btn)
+;
+
+void ButtonWidget6_OnPressed(leButtonWidget* btn)
+;
+
+void ButtonWidget6_OnReleased(leButtonWidget* btn)
 ;
 
 

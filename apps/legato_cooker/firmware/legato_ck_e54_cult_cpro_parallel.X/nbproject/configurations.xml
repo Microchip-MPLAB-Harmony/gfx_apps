@@ -195,11 +195,17 @@
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f1" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="f10" displayName="ccl" projectFiles="true">
+              <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/ccl/plib_ccl.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="f4" displayName="clock" projectFiles="true">
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/clock/plib_clock.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f6" displayName="cmcc" projectFiles="true">
+            <logicalFolder name="f7" displayName="cmcc" projectFiles="true">
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/cmcc/plib_cmcc.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f6" displayName="dmac" projectFiles="true">
+              <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/dmac/plib_dmac.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f2" displayName="evsys" projectFiles="true">
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/evsys/plib_evsys.h</itemPath>
@@ -213,15 +219,16 @@
             <logicalFolder name="f3" displayName="port" projectFiles="true">
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/port/plib_port.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f7" displayName="sercom" projectFiles="true">
+            <logicalFolder name="f8" displayName="sercom" projectFiles="true">
               <logicalFolder name="f1" displayName="i2c_master" projectFiles="true">
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/sercom/i2c_master/plib_sercom_i2c_master_common.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/sercom/i2c_master/plib_sercom4_i2c_master.h</itemPath>
               </logicalFolder>
             </logicalFolder>
-            <logicalFolder name="f8" displayName="tc" projectFiles="true">
+            <logicalFolder name="f9" displayName="tc" projectFiles="true">
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/tc/plib_tc_common.h</itemPath>
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/tc/plib_tc0.h</itemPath>
+              <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/tc/plib_tc4.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f5" displayName="system" projectFiles="true">
@@ -362,7 +369,7 @@
             </logicalFolder>
             <logicalFolder name="f2" displayName="interface" projectFiles="true">
               <logicalFolder name="f1" displayName="parallel_portgroup" projectFiles="true">
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/interface/parallel_portgroup/drv_gfx_disp_intf_parallel_portgroup.c</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/interface/parallel_portgroup/drv_gfx_disp_intf_parallel_portgroup_dma.c</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="f1" displayName="legato" projectFiles="true">
@@ -412,8 +419,12 @@
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_bacon70.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_bake100.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_broil100.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_cancel2.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_cancel_80.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_cook100.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_cook2.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_DemoOff.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_DemoOn.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_gscalesmall.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_hotdog70.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_kabobs70.c</itemPath>
@@ -422,11 +433,13 @@
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_meat70.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_MHGC_120x120.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_Microchip_logo_150x30.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_ok2.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_ok_80.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_pasta_photo_70.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_pizza_photo70.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_progress_needle.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_reheat100.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_reheat2.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_rgbsmall.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_salmon_photo_70.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_smartstart2.c</itemPath>
@@ -620,11 +633,17 @@
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f1" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="f10" displayName="ccl" projectFiles="true">
+              <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/ccl/plib_ccl.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="f4" displayName="clock" projectFiles="true">
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/clock/plib_clock.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f6" displayName="cmcc" projectFiles="true">
+            <logicalFolder name="f7" displayName="cmcc" projectFiles="true">
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/cmcc/plib_cmcc.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f6" displayName="dmac" projectFiles="true">
+              <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/dmac/plib_dmac.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f2" displayName="evsys" projectFiles="true">
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/evsys/plib_evsys.c</itemPath>
@@ -638,13 +657,14 @@
             <logicalFolder name="f3" displayName="port" projectFiles="true">
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/port/plib_port.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="f7" displayName="sercom" projectFiles="true">
+            <logicalFolder name="f8" displayName="sercom" projectFiles="true">
               <logicalFolder name="f1" displayName="i2c_master" projectFiles="true">
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/sercom/i2c_master/plib_sercom4_i2c_master.c</itemPath>
               </logicalFolder>
             </logicalFolder>
-            <logicalFolder name="f8" displayName="tc" projectFiles="true">
+            <logicalFolder name="f9" displayName="tc" projectFiles="true">
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/tc/plib_tc0.c</itemPath>
+              <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/tc/plib_tc4.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f3" displayName="stdio" projectFiles="true">
@@ -702,8 +722,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAME54_DFP" vendor="Microchip" version="3.0.27"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
+        <pack name="SAME54_DFP" vendor="Microchip" version="3.0.27"/>
       </packs>
       <compileType>
         <linkerTool>

@@ -949,7 +949,7 @@ leImage veggies70 =
         14700,
         (void*)veggies70_data
     },
-    0, // image flags
+    LE_IMAGE_USE_MASK_COLOR, // image flags
     {
         0x0, // color mask
     },

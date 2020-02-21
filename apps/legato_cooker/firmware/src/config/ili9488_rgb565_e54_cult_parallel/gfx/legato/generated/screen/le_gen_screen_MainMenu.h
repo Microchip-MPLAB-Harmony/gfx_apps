@@ -44,8 +44,10 @@ extern leLabelWidget* CookTimeLabel;
 extern leProgressBarWidget* ProgressBarWidget0;
 extern leButtonWidget* CancelButton;
 extern leButtonWidget* RestartButton;
+extern leButtonWidget* SliderButton0;
 extern leButtonWidget* ButtonWidget0;
-extern leImageWidget* MCHPLogo;
+extern leImageWidget* ImageWidget9;
+extern leButtonWidget* DemoModeOnButton;
 
 
 // screen lifecycle functions
@@ -90,6 +92,12 @@ void RestartButton_OnReleased(leButtonWidget* btn)
 ;
 
 void ButtonWidget0_OnReleased(leButtonWidget* btn)
+;
+
+void DemoModeOnButton_OnPressed(leButtonWidget* btn)
+;
+
+void DemoModeOnButton_OnReleased(leButtonWidget* btn)
 ;
 
 

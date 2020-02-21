@@ -57,6 +57,7 @@ typedef enum
     EVENT_PAUSE_COOKING,
     EVENT_CONTINUE_COOKING,
     EVENT_CHANGE_SCENE, 
+    EVENT_SET_COOK_TIME,
 } MAIN_EVENT;
 
 typedef struct
@@ -72,14 +73,13 @@ static leFixedString hrStr, minStr, progressStr;
 static leChar hrStrBuff[16] = {0};
 static leChar minStrBuff[16] = {0};
 static leChar progressStrBuff[16] = {0};
+char charBuff[16] = {0};    
 static int tick_count, sec_count = 0;
 static unsigned int width, x;
 static int tick_count_last = 0;
 static int cookSec = COOK_TIME_SECS;
 static MAIN_EVENT event = EVENT_NONE;
-static unsigned int idle_secs = 0;
-static unsigned int demo_mode_count_secs = 0;
-static unsigned int demo_mode_event_idx = 0;
+static uint32_t event_parm = 0;
 
 unsigned int clock_sec = 0;
 unsigned int clock_min = 0;
@@ -161,7 +161,8 @@ static void Timer_Callback ( uintptr_t context)
         sec_count++;
         idle_secs++;
         
-        if (idle_secs > DEMO_MODE_IDLE_TIMEOUT_SECS)
+        if (idle_secs > DEMO_MODE_IDLE_TIMEOUT_SECS && 
+            demo_mode_on == true)
         {
             demo_mode_count_secs++;
             if (demo_mode_count_secs > demo_mode_obj[demo_mode_event_idx].timeout)
@@ -172,6 +173,12 @@ static void Timer_Callback ( uintptr_t context)
                         (demo_mode_event_idx < sizeof(demo_mode_obj)/sizeof(DEMO_MODE_OBJ) - 1) ? 
                         demo_mode_event_idx + 1 : 0;
             }
+            
+            DemoModeOnButton->fn->setVisible(DemoModeOnButton, sec_count%2);
+        }
+        else
+        {
+            DemoModeOnButton->fn->setVisible(DemoModeOnButton, LE_TRUE);
         }
     
         if (clock_dot_visible == true)
@@ -192,10 +199,6 @@ static void Timer_Callback ( uintptr_t context)
 static void main_send_event(MAIN_EVENT evt)
 {
     event = evt;
-    
-    //reset demo mode
-    idle_secs = 0;
-    demo_mode_event_idx = 0;
 }
 
 void main_screen_show(void)
@@ -225,6 +228,56 @@ static bool show_main_menu(bool show)
     return true;
 }
 
+
+static leBool main_filterEvent(leWidget* target, leWidgetEvent* evt, void* data)
+{
+    switch(evt->id)
+    {
+        case LE_EVENT_TOUCH_DOWN:
+        case LE_EVENT_TOUCH_MOVE:            
+        {
+            int x;
+            uint32_t width = target->fn->getWidth(target);
+            int startx = target->fn->getX(target);
+            
+            if (evt->id == LE_EVENT_TOUCH_DOWN)
+            {
+                leWidgetEvent_TouchDown * down = (leWidgetEvent_TouchDown *) evt;
+                x = down->x;
+            }
+            else
+            {
+                leWidgetEvent_TouchMove * move = (leWidgetEvent_TouchMove *) evt;
+                x = move->x;
+            }
+
+            if (x < startx)
+                event_parm = 0;
+            else if (x > startx + width)
+                event_parm = 100;
+            else
+                event_parm = ((x - startx) * 100)/width;
+            
+            event = EVENT_SET_COOK_TIME;
+            
+            evt->accepted = LE_TRUE;
+            
+            break;
+        }
+        default:
+            break;
+    }
+    
+    return LE_FALSE;
+}
+
+static leWidgetEventFilter main_eventFilter =
+{
+    main_filterEvent,
+    NULL
+};
+
+
 // event handlers
 void MainMenu_OnShow(void)
 {
@@ -242,6 +295,10 @@ void MainMenu_OnShow(void)
     progressStr.fn->setFont(&progressStr, leStringTable_GetStringFont(leGetState()->stringTable,
                                                               string_DefaultCookTime,
                                                               0));
+    
+    DemoModeOnButton->fn->setPressed(DemoModeOnButton, (leBool) (demo_mode_on == false));
+    
+    SliderButton0->fn->installEventFilter(SliderButton0, main_eventFilter);
 }
 
 void MainMenu_OnHide(void)
@@ -253,6 +310,10 @@ void MainMenu_OnHide(void)
 
 void MainMenu_OnUpdate(void)
 {
+    //Wait for the library to be done drawing before processing events/animation
+    if(leGetRenderState()->frameState != LE_FRAME_READY || leEvent_GetCount() != 0)
+        return;
+    
     switch(main_menu_state)
     {
         case MAIN_MENU_INIT:
@@ -262,7 +323,6 @@ void MainMenu_OnUpdate(void)
             demo_mode_event_idx = 0;
             
             timer = SYS_TIME_CallbackRegisterMS(Timer_Callback, 1, MAIN_MENU_TIMER_PERIOD_MS, SYS_TIME_PERIODIC);
-            GFX_DISP_INTF_PIN_BACKLIGHT_Set();
             
             main_menu_state = MAIN_MENU_INIT2;
             
@@ -272,6 +332,8 @@ void MainMenu_OnUpdate(void)
         {
             main_menu_state = MAIN_MENU_PROCESS;
             
+            GFX_DISP_INTF_PIN_BACKLIGHT_Set();
+            
             break;
         }
         case MAIN_MENU_PROCESS:
@@ -279,18 +341,20 @@ void MainMenu_OnUpdate(void)
             switch(event)
             {
                 case EVENT_START_COOKING:
+                {
                     main_menu_state = MAIN_MENU_PREPARE_PROGRESS_SCENE1;
+                    event = EVENT_NONE;
                     break;
+                }
                 case EVENT_CHANGE_SCENE:
                 {
                     main_menu_state = MAIN_MENU_CHANGE_SCREEN;
+                    event = EVENT_NONE;
                     break;
                 }                    
                 default:
                     break;
             }
-            
-            event = EVENT_NONE;
             
             break;
         }
@@ -415,17 +479,49 @@ void MainMenu_OnUpdate(void)
         }        
         case MAIN_MENU_PROCESS_PROGRESS_SCENE:
         {
-            char localChar[16] = {0};            
+            switch(event)
+            {
+                case EVENT_STOP_COOKING:
+                {
+                    main_menu_state = MAIN_MENU_EXIT_PROGRESS_SCENE1;
             
-            //start progress bar
+                    event = EVENT_NONE;
+                    
+                    break;
+                }
+                case EVENT_PAUSE_COOKING:
+                {
+                    main_menu_state = MAIN_MENU_IDLE_PROGRESS_SCENE;
+                    
+                    event = EVENT_NONE;
+                    
+                    break;
+                }
+                case EVENT_SET_COOK_TIME:
+                {
+                    cookSec = COOK_TIME_SECS - (event_parm * COOK_TIME_SECS) / 100;
+            
+                    sprintf(charBuff, "%u:%02u", cookSec/60, cookSec%60); 
+                    progressStr.fn->setFromCStr(&progressStr, charBuff);    
+                    CookTimeLabel->fn->setString(CookTimeLabel, (leString*)&progressStr);    
+                    ProgressBarWidget0->fn->setValue(ProgressBarWidget0, event_parm);
+                    
+                    CookTimeLabel->fn->setVisible(CookTimeLabel, LE_TRUE);
+                    
+                    event = EVENT_NONE;
+                    
+                    break;
+                }                  
+                default:
+                {
             if (tick_count_last != tick_count)
             {
                 tick_count_last = tick_count;
                         
                 if (cookSec > 0)
                 {
-                    sprintf(localChar, "%u:%02u", cookSec/60, cookSec%60); 
-                    progressStr.fn->setFromCStr(&progressStr, localChar);    
+                            sprintf(charBuff, "%u:%02u", cookSec/60, cookSec%60); 
+                            progressStr.fn->setFromCStr(&progressStr, charBuff);    
                     CookTimeLabel->fn->setString(CookTimeLabel, (leString*)&progressStr);                       
                     
                     ProgressBarWidget0->fn->setValue(ProgressBarWidget0, 
@@ -439,35 +535,22 @@ void MainMenu_OnUpdate(void)
                     cookSec = COOK_TIME_SECS;
                     
                     ProgressBarWidget0->fn->setValue(ProgressBarWidget0, 100);
-                    sprintf(localChar, "Done"); 
-                    progressStr.fn->setFromCStr(&progressStr, localChar);    
+                            sprintf(charBuff, "Done"); 
+                            progressStr.fn->setFromCStr(&progressStr, charBuff);    
                     CookTimeLabel->fn->setString(CookTimeLabel, (leString*)&progressStr);   
                     CancelButton->fn->setPressedImage(CancelButton, &ok_80);
                     CancelButton->fn->setReleasedImage(CancelButton, &ok_80);
                     main_menu_state = MAIN_MENU_DONE_PROGRESS_SCENE; 
                 }
             }
-            
-            switch(event)
-            {
-                case EVENT_STOP_COOKING:
-                    main_menu_state = MAIN_MENU_EXIT_PROGRESS_SCENE1;
-                    break;
-                case EVENT_PAUSE_COOKING:
-                {
-                    main_menu_state = MAIN_MENU_IDLE_PROGRESS_SCENE;
                     break;
                 }
-                default:
-                    break;
             }
-            
-            event = EVENT_NONE;
             
             break;
         }
-        case MAIN_MENU_DONE_PROGRESS_SCENE:
         case MAIN_MENU_IDLE_PROGRESS_SCENE:
+        case MAIN_MENU_DONE_PROGRESS_SCENE:
         {
             static int last_sec_count = 0;
             
@@ -490,18 +573,43 @@ void MainMenu_OnUpdate(void)
                         main_menu_state = MAIN_MENU_PROCESS_PROGRESS_SCENE;
                         CookTimeLabel->fn->setVisible(CookTimeLabel, LE_TRUE);                        
                     }
+                    
+                    event = EVENT_NONE;
                     break;
                 }
                 case EVENT_STOP_COOKING:
                 {
                     main_menu_state = MAIN_MENU_EXIT_PROGRESS_SCENE1;
+                    
+                    event = EVENT_NONE;
+                    break;
+                }
+                case EVENT_SET_COOK_TIME:
+                {
+                    cookSec = COOK_TIME_SECS - (event_parm * COOK_TIME_SECS) / 100;
+            
+                    sprintf(charBuff, "%u:%02u", cookSec/60, cookSec%60); 
+                    progressStr.fn->setFromCStr(&progressStr, charBuff);    
+                    CookTimeLabel->fn->setString(CookTimeLabel, (leString*)&progressStr);    
+                    ProgressBarWidget0->fn->setValue(ProgressBarWidget0, event_parm);
+                    
+                    CookTimeLabel->fn->setVisible(CookTimeLabel, LE_TRUE);
+                    
+                    //cook time has been adjusted, switch back to idle/paused state
+                    if (main_menu_state == MAIN_MENU_DONE_PROGRESS_SCENE)
+                    {
+                        CancelButton->fn->setPressedImage(CancelButton, &cancel_80);
+                        CancelButton->fn->setReleasedImage(CancelButton, &cancel_80);  
+                        main_menu_state = MAIN_MENU_PROCESS_PROGRESS_SCENE;
+                    }
+                    
+                    event = EVENT_NONE;
+                    
                     break;
                 }
                 default:
                     break;
             }
-            
-            event = EVENT_NONE;
             
             break;
         }
@@ -526,13 +634,13 @@ void MainMenu_OnUpdate(void)
             }
             else
             {
-                char localChar[16] = {0}; 
+                char charBuff[16] = {0}; 
                 
                 ProgressBarWidget0->fn->setWidth(ProgressBarWidget0, 0);
                 ProgressBarWidget0->fn->setVisible(ProgressBarWidget0, LE_FALSE);
                 
-                sprintf(localChar, "2:00"); 
-                progressStr.fn->setFromCStr(&progressStr, localChar);    
+                sprintf(charBuff, "2:00"); 
+                progressStr.fn->setFromCStr(&progressStr, charBuff);    
                 CookTimeLabel->fn->setString(CookTimeLabel, (leString*)&progressStr);                       
                                     
                 CookTimeLabel->fn->setVisible(CookTimeLabel, LE_FALSE);   
@@ -593,9 +701,11 @@ void MainMenu_OnUpdate(void)
         }
         case MAIN_MENU_CHANGE_SCREEN:
         {
+    
+            SliderButton0->fn->removeEventFilter(SliderButton0, main_eventFilter);
+    
             SYS_TIME_TimerDestroy(timer);
 
-            MainMenu_OnHide();
 
             color_screen_show();
 
@@ -659,3 +769,11 @@ void ButtonWidget0_OnReleased(leButtonWidget* btn)
     main_send_event(EVENT_CHANGE_SCENE);
 }
 
+void DemoModeOnButton_OnPressed(leButtonWidget* btn)
+{
+    demo_mode_on = false;
+}
+void DemoModeOnButton_OnReleased(leButtonWidget* btn)
+{
+    demo_mode_on = true;
+}

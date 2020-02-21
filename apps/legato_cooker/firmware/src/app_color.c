@@ -1,3 +1,4 @@
+#include "app.h"
 #include "gfx/legato/generated/le_gen_init.h"
 #include "definitions.h"
 
@@ -50,6 +51,7 @@ typedef enum
     SELECT_ITEM_2,
     SELECT_ITEM_3,
     CHANGE_SCENE,
+    SET_COOK_TIME,
 } SCENE_EVENTS;
 
 typedef struct
@@ -64,12 +66,9 @@ static int tick_count, last_sec, last_min = 0;
 static int tick_count_last = 0;
 static int x, y;
 static SCENE_EVENTS event = NO_EVENTS;
+static uint32_t event_parm = 0;
 static int cookSec = COOK_TIME_SECS;
 static int startCookSec = COOK_TIME_SECS;
-
-static unsigned int idle_secs = 0;
-static unsigned int demo_mode_count_secs = 0;
-static unsigned int demo_mode_event_idx = 0;
 
 static leFixedString hrStr, minStr;
 static leChar hrStrBuff[16] = {0};
@@ -95,10 +94,6 @@ void color_screen_show(void)
 static void color_send_event(SCENE_EVENTS evt)
 {
     event = evt;
-    
-    //reset demo mode
-    idle_secs = 0;
-    demo_mode_event_idx = 0;
 }
 
 
@@ -123,7 +118,7 @@ static void Timer_Callback ( uintptr_t context)
     if (tick_count > NUM_COUNT_SEC_TICK)
     {
         tick_count = 0;
-        
+        idle_secs++;        
         clock_sec++;
         if (clock_sec == 60)
         {
@@ -142,9 +137,8 @@ static void Timer_Callback ( uintptr_t context)
             }
         }
         
-                idle_secs++;
-        
-        if (idle_secs > DEMO_MODE_IDLE_TIMEOUT_SECS)
+        if (idle_secs > DEMO_MODE_IDLE_TIMEOUT_SECS && 
+            demo_mode_on == true)
         {
             demo_mode_count_secs++;
             if (demo_mode_count_secs > demo_mode_obj[demo_mode_event_idx].timeout)
@@ -155,9 +149,13 @@ static void Timer_Callback ( uintptr_t context)
                         (demo_mode_event_idx < sizeof(demo_mode_obj)/sizeof(DEMO_MODE_OBJ) - 1) ? 
                         demo_mode_event_idx + 1 : 0;
             }
+            
+            ButtonWidget6->fn->setVisible(ButtonWidget6, clock_sec%2);
         }
-    
-        
+        else
+        {
+            ButtonWidget6->fn->setVisible(ButtonWidget6, LE_TRUE);
+        }
     }  
 }
 
@@ -265,6 +263,53 @@ static void Set_SelectedMenuItem(int index)
     }
 }
 
+static leBool color_filterEvent(leWidget* target, leWidgetEvent* evt, void* data)
+{
+    switch(evt->id)
+    {
+        case LE_EVENT_TOUCH_DOWN:
+        case LE_EVENT_TOUCH_MOVE:            
+        {
+            int x;
+            uint32_t width = target->fn->getWidth(target);
+            int startx = target->fn->getX(target);
+            
+            if (evt->id == LE_EVENT_TOUCH_DOWN)
+            {
+                leWidgetEvent_TouchDown * down = (leWidgetEvent_TouchDown *) evt;
+                x = down->x;
+            }
+            else
+            {
+                leWidgetEvent_TouchMove * move = (leWidgetEvent_TouchMove *) evt;
+                x = move->x;
+            }
+
+            if (x < startx)
+                event_parm = 0;
+            else if (x > startx + width)
+                event_parm = 100;
+            else
+                event_parm = ((x - startx) * 100)/width;
+            
+            event = SET_COOK_TIME;
+            
+            evt->accepted = LE_TRUE;
+            
+            break;
+        }
+        default:
+            break;
+    }
+    return LE_FALSE;
+}
+
+static leWidgetEventFilter color_eventFilter =
+{
+    color_filterEvent,
+    NULL
+};
+
 void ColorScreen_OnShow(void)
 {
     //Hide the other menu items
@@ -300,9 +345,6 @@ void ColorScreen_OnShow(void)
     CookButtonWidget->fn->setVisible(CookButtonWidget, LE_FALSE);
     ReheatButtonWidget->fn->setVisible(ReheatButtonWidget, LE_FALSE);
 
-    //Hide the clock label
-    Screen2ClockLabel->fn->setVisible(Screen2ClockLabel, LE_FALSE);
-    
     //Hide the progress rectangle
     ProgressRect->fn->setX(ProgressRect, -153);
     ProgressRect->fn->setY(ProgressRect, 30);
@@ -321,6 +363,10 @@ void ColorScreen_OnShow(void)
                                                               string_DefaultMinute,
                                                               0));
     
+    ButtonWidget6->fn->setPressed(ButtonWidget6, (leBool) (demo_mode_on == false));
+    
+    SliderButton2->fn->installEventFilter(SliderButton2, color_eventFilter);
+    
     color_scene_state = COLOR_SCENE_INIT;
     event = NO_EVENTS;
 }
@@ -333,6 +379,10 @@ void ColorScreen_OnHide(void)
 
 void ColorScreen_OnUpdate(void)
 {
+    //Wait for the library to be done drawing before processing events/animation
+    if(leGetRenderState()->frameState != LE_FRAME_READY || leEvent_GetCount() != 0)
+        return;
+    
     switch(color_scene_state)
     {
         case COLOR_SCENE_INIT:
@@ -557,10 +607,11 @@ void ColorScreen_OnUpdate(void)
         }
         case COLOR_SCENE_PREPARE:
         {
-            CookButtonWidget->fn->setPressedImage(CookButtonWidget, &cancel_80);
-            CookButtonWidget->fn->setReleasedImage(CookButtonWidget, &cancel_80);
+            CookButtonWidget->fn->setPressedImage(CookButtonWidget, &cancel2);
+            CookButtonWidget->fn->setReleasedImage(CookButtonWidget, &cancel2);
             ReheatButtonWidget->fn->setVisible(ReheatButtonWidget, LE_FALSE);
             Screen2ColonLabel->fn->setVisible(Screen2ColonLabel, LE_TRUE);
+            
             updateClock(cookSec/60, cookSec%60);
             
             color_scene_state = COLOR_SCENE_COOKING;
@@ -571,6 +622,29 @@ void ColorScreen_OnUpdate(void)
         }
         case COLOR_SCENE_COOKING:
         {
+            switch(event)
+            {
+                case STOP_COOKING:
+                {
+                    color_scene_state = COLOR_SCENE_RETURNING;
+                    event = NO_EVENTS;
+                    break;
+                }
+                case SET_COOK_TIME:
+                {
+                    cookSec = startCookSec - (event_parm * startCookSec) / 100;
+            
+                    updateClock(cookSec/60, cookSec%60);
+                    
+                    ProgressRect->fn->setX(ProgressRect, 
+                                               (-153 * cookSec) / startCookSec);                    
+                    
+                    event = NO_EVENTS;
+                    
+                    break;
+                }
+                default:
+                {
             //start progress bar
             if (tick_count_last != tick_count)
             {
@@ -581,10 +655,9 @@ void ColorScreen_OnUpdate(void)
                     updateClock(cookSec/60, cookSec%60);
                     
                     ProgressRect->fn->setX(ProgressRect, 
-                                       (-153 * cookSec) / COOK_TIME_SECS);
+                                               (-153 * cookSec) / startCookSec);
                     
                     cookSec--;
-                    
                 }
                 else
                 {
@@ -592,8 +665,8 @@ void ColorScreen_OnUpdate(void)
                     
                     ProgressRect->fn->setX(ProgressRect, 0);
                     
-                    CookButtonWidget->fn->setPressedImage(CookButtonWidget, &ok_80);
-                    CookButtonWidget->fn->setReleasedImage(CookButtonWidget, &ok_80);
+                            CookButtonWidget->fn->setPressedImage(CookButtonWidget, &ok2);
+                            CookButtonWidget->fn->setReleasedImage(CookButtonWidget, &ok2);
                     
                     updateClock(0, 0);
 
@@ -601,10 +674,8 @@ void ColorScreen_OnUpdate(void)
                 }
             }
             
-            if (event == STOP_COOKING)
-            {
-                color_scene_state = COLOR_SCENE_RETURNING;
-                event = NO_EVENTS;
+                    break;
+                }
             }
             
             break;
@@ -625,11 +696,37 @@ void ColorScreen_OnUpdate(void)
                 last_sec = clock_sec;
             }
             
-            if (event == STOP_COOKING)
+            switch(event)
+            {
+                case STOP_COOKING:
             {
                 Screen2MainClockPanel->fn->setVisible(Screen2MainClockPanel, LE_TRUE);
                 color_scene_state = COLOR_SCENE_RETURNING;
                 event = NO_EVENTS;
+                    
+                    break;
+                }
+                case SET_COOK_TIME:
+                {
+                    cookSec = startCookSec - (event_parm * startCookSec) / 100;
+            
+                    updateClock(cookSec/60, cookSec%60);
+                    
+                    ProgressRect->fn->setX(ProgressRect, 
+                                               (-153 * cookSec) / startCookSec);  
+                    
+                    Screen2MainClockPanel->fn->setVisible(Screen2MainClockPanel, LE_TRUE);
+                    CookButtonWidget->fn->setPressedImage(CookButtonWidget, &cancel2);
+                    CookButtonWidget->fn->setReleasedImage(CookButtonWidget, &cancel2);                    
+                    
+                    color_scene_state = COLOR_SCENE_COOKING;
+                    
+                    event = NO_EVENTS;
+                    
+                    break;
+                }
+                default:
+                    break;
             }
             
             break;
@@ -648,12 +745,12 @@ void ColorScreen_OnUpdate(void)
             {
                 updateClock(clock_hr, clock_min);
                 
-                ReheatButtonWidget->fn->setPressedImage(ReheatButtonWidget, &reheat100);
-                ReheatButtonWidget->fn->setReleasedImage(ReheatButtonWidget, &reheat100);
+                ReheatButtonWidget->fn->setPressedImage(ReheatButtonWidget, &reheat2);
+                ReheatButtonWidget->fn->setReleasedImage(ReheatButtonWidget, &reheat2);
                 ReheatButtonWidget->fn->setVisible(ReheatButtonWidget, LE_TRUE);                
 
-                CookButtonWidget->fn->setPressedImage(CookButtonWidget, &cook100);
-                CookButtonWidget->fn->setReleasedImage(CookButtonWidget, &cook100);
+                CookButtonWidget->fn->setPressedImage(CookButtonWidget, &cook2);
+                CookButtonWidget->fn->setReleasedImage(CookButtonWidget, &cook2);
                 CookButtonWidget->fn->setVisible(CookButtonWidget, LE_TRUE);                
                 
                 color_scene_state = COLOR_SCENE_PROCESS;
@@ -663,7 +760,11 @@ void ColorScreen_OnUpdate(void)
         }  
         case COLOR_SCENE_EXIT:
         {
+    
+            SliderButton2->fn->removeEventFilter(SliderButton2, color_eventFilter);
+    
             GFX_DISP_INTF_PIN_BACKLIGHT_Clear();
+            
             SYS_TIME_TimerDestroy(timer);
             
             main_screen_show();
@@ -717,4 +818,15 @@ void CookButtonWidget_OnPressed(leButtonWidget* btn)
 void ButtonWidget5_OnPressed(leButtonWidget* btn)
 {
     color_send_event(CHANGE_SCENE);
+}
+
+void ButtonWidget6_OnPressed(leButtonWidget* btn)
+{
+    demo_mode_on = false;
+}
+
+
+void ButtonWidget6_OnReleased(leButtonWidget* btn)
+{
+    demo_mode_on = true;
 }

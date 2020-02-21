@@ -29,6 +29,12 @@
 
 #include "app.h"
 
+static SYS_INP_InputListener app_inputListener;
+unsigned int idle_secs = 0;
+unsigned int demo_mode_count_secs = 0;
+unsigned int demo_mode_event_idx = 0;
+bool demo_mode_on = true;
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Global Data Definitions
@@ -67,10 +73,30 @@ APP_DATA appData;
 // *****************************************************************************
 // *****************************************************************************
 
+static void app_touchDownHandler(const SYS_INP_TouchStateEvent* const evt)
+{
+    
+    //reset demo mode
+    idle_secs = 0;
+    demo_mode_event_idx = 0;
+    
+}
 
-/* TODO:  Add any necessary local functions.
-*/
+static void app_touchUpHandler(const SYS_INP_TouchStateEvent* const evt)
+{
+    //reset demo mode
+    idle_secs = 0;
+    demo_mode_event_idx = 0;
+}
 
+static void app_touchMoveHandler(const SYS_INP_TouchMoveEvent* const evt)
+{
+    //reset demo mode
+    idle_secs = 0;
+    demo_mode_event_idx = 0;
+    
+    
+}
 
 // *****************************************************************************
 // *****************************************************************************
@@ -118,9 +144,13 @@ void APP_Tasks ( void )
         {
             bool appInitialized = true;
 
-
             if (appInitialized)
             {
+                app_inputListener.handleTouchDown = &app_touchDownHandler;
+                app_inputListener.handleTouchUp = &app_touchUpHandler;
+                app_inputListener.handleTouchMove = &app_touchMoveHandler;
+
+                SYS_INP_AddListener(&app_inputListener);
 
                 appData.state = APP_STATE_SERVICE_TASKS;
             }

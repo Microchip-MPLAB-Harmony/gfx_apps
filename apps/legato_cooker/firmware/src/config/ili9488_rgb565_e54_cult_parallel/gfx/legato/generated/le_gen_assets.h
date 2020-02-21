@@ -78,15 +78,6 @@ extern leImage start;
 
 /*********************************
  * Legato Image Asset
- * Name:   smartstart2
- * Size:   240x199 pixels
- * Format: RLE
- * Mode: RGBA_8888
- ***********************************/
-extern leImage smartstart2;
-
-/*********************************
- * Legato Image Asset
  * Name:   bake100
  * Size:   100x100 pixels
  * Format: Raw
@@ -198,7 +189,7 @@ extern leImage main_rect;
  * Name:   progress_needle
  * Size:   40x40 pixels
  * Format: Raw
- * Mode: ARGB_8888
+ * Mode: RGBA_8888
  ***********************************/
 extern leImage progress_needle;
 
@@ -288,9 +279,72 @@ extern leImage MHGC_120x120;
  * Name:   mchp_black
  * Size:   120x28 pixels
  * Format: Raw
- * Mode: RGB_888
+ * Mode: RGB_565
  ***********************************/
 extern leImage mchp_black;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   DemoOn
+ * Size:   75x30 pixels
+ * Format: Raw
+ * Mode: RGBA_8888
+ ***********************************/
+extern leImage DemoOn;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   DemoOff
+ * Size:   75x30 pixels
+ * Format: Raw
+ * Mode: RGBA_8888
+ ***********************************/
+extern leImage DemoOff;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   cook2
+ * Size:   115x100 pixels
+ * Format: RLE
+ * Mode: RGBA_8888
+ ***********************************/
+extern leImage cook2;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   reheat2
+ * Size:   105x91 pixels
+ * Format: RLE
+ * Mode: RGBA_8888
+ ***********************************/
+extern leImage reheat2;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   cancel2
+ * Size:   105x91 pixels
+ * Format: RLE
+ * Mode: RGBA_8888
+ ***********************************/
+extern leImage cancel2;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   ok2
+ * Size:   105x91 pixels
+ * Format: RLE
+ * Mode: RGBA_8888
+ ***********************************/
+extern leImage ok2;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   smartstart2
+ * Size:   240x199 pixels
+ * Format: RLE
+ * Mode: RGBA_8888
+ ***********************************/
+extern leImage smartstart2;
 
 /*****************************************************************************
 * MPLAB Harmony Graphics Font Assets

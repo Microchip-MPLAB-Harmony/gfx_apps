@@ -191,11 +191,11 @@ leResult _leRawImageDecoder_ReadStage_StreamColor(leRawDecodeState* state)
 
     if(leStream_IsBlocking(&streamReadStage.stream) == LE_TRUE)
     {
-        streamReadStage.base.exec = exec_blocking;
+        streamReadStage.base.exec = (void*)exec_blocking;
     }
     else
     {
-        streamReadStage.base.exec = exec_nonblocking;
+        streamReadStage.base.exec = (void*)exec_nonblocking;
     }
 
     _leRawImageDecoder_InjectStage(state, (void*)&streamReadStage);

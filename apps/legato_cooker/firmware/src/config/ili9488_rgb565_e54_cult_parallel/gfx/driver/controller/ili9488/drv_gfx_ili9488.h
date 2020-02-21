@@ -79,7 +79,9 @@ static const gfxDisplayDriver ili9488DisplayDriver =
     DRV_ILI9488_SetActiveLayer,
     DRV_ILI9488_BlitBuffer,
     DRV_ILI9488_Swap,
-    DRV_ILI9488_GetSwapCount
+    DRV_ILI9488_GetSwapCount,
+	NULL /* GetFrameBuffer not supported */
+	
 };
 
 #ifdef __cplusplus

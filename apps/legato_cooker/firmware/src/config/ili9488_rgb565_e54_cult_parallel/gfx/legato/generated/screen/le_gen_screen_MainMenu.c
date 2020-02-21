@@ -36,8 +36,10 @@ leLabelWidget* CookTimeLabel;
 leProgressBarWidget* ProgressBarWidget0;
 leButtonWidget* CancelButton;
 leButtonWidget* RestartButton;
+leButtonWidget* SliderButton0;
 leButtonWidget* ButtonWidget0;
-leImageWidget* MCHPLogo;
+leImageWidget* ImageWidget9;
+leButtonWidget* DemoModeOnButton;
 
 // string list for this screen
 static leTableString tableString_Hotdog;
@@ -371,6 +373,13 @@ leResult screenShow_MainMenu()
     RestartButton->fn->setReleasedEventCallback(RestartButton, RestartButton_OnReleased);
     PanelWidget0->fn->addChild(PanelWidget0, (leWidget*)RestartButton);
 
+    SliderButton0 = leButtonWidget_New();
+    SliderButton0->fn->setPosition(SliderButton0, 106, 88);
+    SliderButton0->fn->setSize(SliderButton0, 276, 70);
+    SliderButton0->fn->setBackgroundType(SliderButton0, LE_WIDGET_BACKGROUND_NONE);
+    SliderButton0->fn->setBorderType(SliderButton0, LE_WIDGET_BORDER_NONE);
+    PanelWidget0->fn->addChild(PanelWidget0, (leWidget*)SliderButton0);
+
     ButtonWidget0 = leButtonWidget_New();
     ButtonWidget0->fn->setPosition(ButtonWidget0, 360, 0);
     ButtonWidget0->fn->setSize(ButtonWidget0, 120, 30);
@@ -381,12 +390,24 @@ leResult screenShow_MainMenu()
     ButtonWidget0->fn->setReleasedEventCallback(ButtonWidget0, ButtonWidget0_OnReleased);
     root0->fn->addChild(root0, (leWidget*)ButtonWidget0);
 
-    MCHPLogo = leImageWidget_New();
-    MCHPLogo->fn->setPosition(MCHPLogo, 5, 2);
-    MCHPLogo->fn->setSize(MCHPLogo, 120, 28);
-    MCHPLogo->fn->setBackgroundType(MCHPLogo, LE_WIDGET_BACKGROUND_NONE);
-    MCHPLogo->fn->setImage(MCHPLogo, &mchp_black);
-    root0->fn->addChild(root0, (leWidget*)MCHPLogo);
+    ImageWidget9 = leImageWidget_New();
+    ImageWidget9->fn->setPosition(ImageWidget9, 0, 0);
+    ImageWidget9->fn->setSize(ImageWidget9, 132, 35);
+    ImageWidget9->fn->setBackgroundType(ImageWidget9, LE_WIDGET_BACKGROUND_NONE);
+    ImageWidget9->fn->setImage(ImageWidget9, &mchp_black);
+    root0->fn->addChild(root0, (leWidget*)ImageWidget9);
+
+    DemoModeOnButton = leButtonWidget_New();
+    DemoModeOnButton->fn->setPosition(DemoModeOnButton, 173, 0);
+    DemoModeOnButton->fn->setSize(DemoModeOnButton, 150, 35);
+    DemoModeOnButton->fn->setBackgroundType(DemoModeOnButton, LE_WIDGET_BACKGROUND_NONE);
+    DemoModeOnButton->fn->setBorderType(DemoModeOnButton, LE_WIDGET_BORDER_NONE);
+    DemoModeOnButton->fn->setToggleable(DemoModeOnButton, LE_TRUE);
+    DemoModeOnButton->fn->setPressedImage(DemoModeOnButton, &DemoOff);
+    DemoModeOnButton->fn->setReleasedImage(DemoModeOnButton, &DemoOn);
+    DemoModeOnButton->fn->setPressedEventCallback(DemoModeOnButton, DemoModeOnButton_OnPressed);
+    DemoModeOnButton->fn->setReleasedEventCallback(DemoModeOnButton, DemoModeOnButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)DemoModeOnButton);
 
     leAddRootWidget(root0, 0);
 
@@ -443,8 +464,10 @@ void screenHide_MainMenu()
     ProgressBarWidget0 = NULL;
     CancelButton = NULL;
     RestartButton = NULL;
+    SliderButton0 = NULL;
     ButtonWidget0 = NULL;
-    MCHPLogo = NULL;
+    ImageWidget9 = NULL;
+    DemoModeOnButton = NULL;
 
     tableString_Hotdog.fn->destructor(&tableString_Hotdog);
     tableString_Kabobs.fn->destructor(&tableString_Kabobs);

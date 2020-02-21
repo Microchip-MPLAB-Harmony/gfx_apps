@@ -99,14 +99,14 @@ extern "C" {
 // variable heap configuration
 #define LE_VARIABLEHEAP_DEBUGLEVEL         0
 #define LE_VARIABLEHEAP_SIZE               4096
-#define LE_VARIABLEHEAP_MINALLOCSIZE       32
+#define LE_VARIABLEHEAP_MINALLOCSIZE       4
 #define LE_VARIABLEHEAP_ALIGNMENT          4
 #define LE_VARIABLEHEAP_BESTFIT            1
 
 // fixed heap configuration
 #define LE_FIXEDHEAP_ENABLE                1
 #define LE_FIXEDHEAP_DEBUG                 0
-#define LE_FIXEDHEAP_SIZE_16               600
+#define LE_FIXEDHEAP_SIZE_16               400
 #define LE_FIXEDHEAP_SIZE_32               192
 #define LE_FIXEDHEAP_SIZE_64               192
 #define LE_FIXEDHEAP_SIZE_128              64

@@ -14,6 +14,7 @@ leScheme ListWheelScheme2;
 leScheme OffWhiteTextScheme;
 leScheme ProgressBarRemainScheme;
 leScheme ProgressBarScheme;
+leScheme RightPanelScheme;
 leScheme SquareButtonScheme;
 leScheme UnselectedItemTextScheme;
 leScheme VeryDarkGrayScheme;
@@ -167,7 +168,7 @@ void legato_initialize_schemes(void)
     InactiveBackgroundScheme.textDisabled = 0x8C92;
 
     leScheme_Initialize(&LabelBannerScheme, LE_COLOR_MODE_RGB_565);
-    LabelBannerScheme.base = 0xFEF7;
+    LabelBannerScheme.base = 0xFDF0;
     LabelBannerScheme.highlight = 0xC67A;
     LabelBannerScheme.highlightLight = 0xFFFF;
     LabelBannerScheme.shadow = 0x8410;
@@ -273,6 +274,24 @@ void legato_initialize_schemes(void)
     ProgressBarScheme.textHighlightText = 0xFFFF;
     ProgressBarScheme.textInactive = 0xD71C;
     ProgressBarScheme.textDisabled = 0x8C92;
+
+    leScheme_Initialize(&RightPanelScheme, LE_COLOR_MODE_RGB_565);
+    RightPanelScheme.base = 0x0841;
+    RightPanelScheme.highlight = 0xC67A;
+    RightPanelScheme.highlightLight = 0xFFFF;
+    RightPanelScheme.shadow = 0x8410;
+    RightPanelScheme.shadowDark = 0x4208;
+    RightPanelScheme.foreground = 0x0000;
+    RightPanelScheme.foregroundInactive = 0xD71C;
+    RightPanelScheme.foregroundDisabled = 0x8410;
+    RightPanelScheme.background = 0x000B;
+    RightPanelScheme.backgroundInactive = 0xD71C;
+    RightPanelScheme.backgroundDisabled = 0xC67A;
+    RightPanelScheme.text = 0x0000;
+    RightPanelScheme.textHighlight = 0x001F;
+    RightPanelScheme.textHighlightText = 0xFFFF;
+    RightPanelScheme.textInactive = 0xD71C;
+    RightPanelScheme.textDisabled = 0x8C92;
 
     leScheme_Initialize(&SquareButtonScheme, LE_COLOR_MODE_RGB_565);
     SquareButtonScheme.base = 0xC67A;

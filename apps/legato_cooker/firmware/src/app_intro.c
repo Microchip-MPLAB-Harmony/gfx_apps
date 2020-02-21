@@ -34,6 +34,9 @@ void Intro_OnUpdate(void)
 {
     static unsigned int alpha;
     
+    if(leGetRenderState()->frameState != LE_FRAME_READY || leEvent_GetCount() != 0)
+        return;
+    
     switch(intro_state)
     {
         case INTRO_STATE_0:

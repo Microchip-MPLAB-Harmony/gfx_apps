@@ -17,6 +17,7 @@ extern leScheme ListWheelScheme2;
 extern leScheme OffWhiteTextScheme;
 extern leScheme ProgressBarRemainScheme;
 extern leScheme ProgressBarScheme;
+extern leScheme RightPanelScheme;
 extern leScheme SquareButtonScheme;
 extern leScheme UnselectedItemTextScheme;
 extern leScheme VeryDarkGrayScheme;

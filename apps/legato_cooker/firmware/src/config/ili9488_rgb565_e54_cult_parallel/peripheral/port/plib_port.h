@@ -130,15 +130,6 @@
 #define GFX_DISP_INTF_PIN_RD_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = 1 << 8)
 #define GFX_DISP_INTF_PIN_RD_PIN                  PORT_PIN_PB08
 
-/*** Macros for GFX_DISP_INTF_PIN_RSDC pin ***/
-#define GFX_DISP_INTF_PIN_RSDC_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = 1 << 9)
-#define GFX_DISP_INTF_PIN_RSDC_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = 1 << 9)
-#define GFX_DISP_INTF_PIN_RSDC_Toggle()            (PORT_REGS->GROUP[1].PORT_OUTTGL = 1 << 9)
-#define GFX_DISP_INTF_PIN_RSDC_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 9)) & 0x01)
-#define GFX_DISP_INTF_PIN_RSDC_OutputEnable()      (PORT_REGS->GROUP[1].PORT_DIRSET = 1 << 9)
-#define GFX_DISP_INTF_PIN_RSDC_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = 1 << 9)
-#define GFX_DISP_INTF_PIN_RSDC_PIN                  PORT_PIN_PB09
-
 /*** Macros for GPIO_PC04 pin ***/
 #define GPIO_PC04_Set()               (PORT_REGS->GROUP[2].PORT_OUTSET = 1 << 4)
 #define GPIO_PC04_Clear()             (PORT_REGS->GROUP[2].PORT_OUTCLR = 1 << 4)
@@ -193,14 +184,14 @@
 #define GFX_DISP_INTF_PIN_RESET_InputEnable()       (PORT_REGS->GROUP[2].PORT_DIRCLR = 1 << 18)
 #define GFX_DISP_INTF_PIN_RESET_PIN                  PORT_PIN_PC18
 
-/*** Macros for GFX_DISP_INTF_PIN_WR pin ***/
-#define GFX_DISP_INTF_PIN_WR_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = 1 << 17)
-#define GFX_DISP_INTF_PIN_WR_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = 1 << 17)
-#define GFX_DISP_INTF_PIN_WR_Toggle()            (PORT_REGS->GROUP[1].PORT_OUTTGL = 1 << 17)
-#define GFX_DISP_INTF_PIN_WR_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 17)) & 0x01)
-#define GFX_DISP_INTF_PIN_WR_OutputEnable()      (PORT_REGS->GROUP[1].PORT_DIRSET = 1 << 17)
-#define GFX_DISP_INTF_PIN_WR_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = 1 << 17)
-#define GFX_DISP_INTF_PIN_WR_PIN                  PORT_PIN_PB17
+/*** Macros for GFX_DISP_INTF_PIN_RSDC pin ***/
+#define GFX_DISP_INTF_PIN_RSDC_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = 1 << 17)
+#define GFX_DISP_INTF_PIN_RSDC_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = 1 << 17)
+#define GFX_DISP_INTF_PIN_RSDC_Toggle()            (PORT_REGS->GROUP[1].PORT_OUTTGL = 1 << 17)
+#define GFX_DISP_INTF_PIN_RSDC_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 17)) & 0x01)
+#define GFX_DISP_INTF_PIN_RSDC_OutputEnable()      (PORT_REGS->GROUP[1].PORT_DIRSET = 1 << 17)
+#define GFX_DISP_INTF_PIN_RSDC_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = 1 << 17)
+#define GFX_DISP_INTF_PIN_RSDC_PIN                  PORT_PIN_PB17
 
 
 

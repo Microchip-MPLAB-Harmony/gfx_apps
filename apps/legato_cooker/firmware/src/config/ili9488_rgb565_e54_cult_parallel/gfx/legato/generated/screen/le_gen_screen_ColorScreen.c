@@ -36,15 +36,16 @@ leRectangleWidget* Button4Rect;
 leImageWidget* Button4Image;
 leLabelWidget* MenuItem4Label;
 leButtonWidget* ButtonWidget4;
-leWidget* Screen2LabelPanel;
-leLabelWidget* Screen2GoodLabel;
-leLabelWidget* Screen2BytesLabel;
-leLabelWidget* Screen2SmartCookerLabel;
-leLabelWidget* Screen2ClockLabel;
 leWidget* Screen2MainClockPanel;
 leLabelWidget* Screen2HourLabel;
 leLabelWidget* Screen2ColonLabel;
 leLabelWidget* Screen2MinuteLabel;
+leWidget* Screen2LabelPanel;
+leLabelWidget* Screen2GoodLabel;
+leLabelWidget* Screen2BytesLabel;
+leLabelWidget* Screen2SmartCookerLabel;
+leButtonWidget* ButtonWidget6;
+leButtonWidget* SliderButton2;
 
 // string list for this screen
 static leTableString tableString_SteakMenuItem;
@@ -52,13 +53,12 @@ static leTableString tableString_QuickItems;
 static leTableString tableString_SalmonMenuItem;
 static leTableString tableString_PizzaMenuItem;
 static leTableString tableString_Pasta;
-static leTableString tableString_GoodBytes;
-static leTableString tableString_Bytes;
-static leTableString tableString_SmartCooker;
-static leTableString tableString_DefaultTime2;
 static leTableString tableString_DefaultHour2;
 static leTableString tableString_Colon;
 static leTableString tableString_DefaultMinute2;
+static leTableString tableString_GoodBytes;
+static leTableString tableString_Bytes;
+static leTableString tableString_SmartCooker;
 
 static leBool showing = LE_FALSE;
 
@@ -78,13 +78,12 @@ leResult screenShow_ColorScreen()
     leTableString_Constructor(&tableString_SalmonMenuItem, string_SalmonMenuItem);
     leTableString_Constructor(&tableString_PizzaMenuItem, string_PizzaMenuItem);
     leTableString_Constructor(&tableString_Pasta, string_Pasta);
-    leTableString_Constructor(&tableString_GoodBytes, string_GoodBytes);
-    leTableString_Constructor(&tableString_Bytes, string_Bytes);
-    leTableString_Constructor(&tableString_SmartCooker, string_SmartCooker);
-    leTableString_Constructor(&tableString_DefaultTime2, string_DefaultTime2);
     leTableString_Constructor(&tableString_DefaultHour2, string_DefaultHour2);
     leTableString_Constructor(&tableString_Colon, string_Colon);
     leTableString_Constructor(&tableString_DefaultMinute2, string_DefaultMinute2);
+    leTableString_Constructor(&tableString_GoodBytes, string_GoodBytes);
+    leTableString_Constructor(&tableString_Bytes, string_Bytes);
+    leTableString_Constructor(&tableString_SmartCooker, string_SmartCooker);
 
     // layer 0
     root0 = leWidget_New();
@@ -115,29 +114,29 @@ leResult screenShow_ColorScreen()
     PanelWidget4 = leWidget_New();
     PanelWidget4->fn->setPosition(PanelWidget4, 365, 0);
     PanelWidget4->fn->setSize(PanelWidget4, 115, 320);
-    PanelWidget4->fn->setScheme(PanelWidget4, &BlackBackground);
+    PanelWidget4->fn->setScheme(PanelWidget4, &RightPanelScheme);
     root0->fn->addChild(root0, PanelWidget4);
 
     ReheatButtonWidget = leButtonWidget_New();
-    ReheatButtonWidget->fn->setPosition(ReheatButtonWidget, 8, 178);
-    ReheatButtonWidget->fn->setSize(ReheatButtonWidget, 100, 100);
+    ReheatButtonWidget->fn->setPosition(ReheatButtonWidget, 5, 173);
+    ReheatButtonWidget->fn->setSize(ReheatButtonWidget, 110, 91);
     ReheatButtonWidget->fn->setScheme(ReheatButtonWidget, &BlackBackground);
     ReheatButtonWidget->fn->setBackgroundType(ReheatButtonWidget, LE_WIDGET_BACKGROUND_NONE);
     ReheatButtonWidget->fn->setBorderType(ReheatButtonWidget, LE_WIDGET_BORDER_NONE);
-    ReheatButtonWidget->fn->setPressedImage(ReheatButtonWidget, &reheat100);
-    ReheatButtonWidget->fn->setReleasedImage(ReheatButtonWidget, &reheat100);
+    ReheatButtonWidget->fn->setPressedImage(ReheatButtonWidget, &reheat2);
+    ReheatButtonWidget->fn->setReleasedImage(ReheatButtonWidget, &reheat2);
     ReheatButtonWidget->fn->setPressedOffset(ReheatButtonWidget, 0);
     ReheatButtonWidget->fn->setPressedEventCallback(ReheatButtonWidget, ReheatButtonWidget_OnPressed);
     PanelWidget4->fn->addChild(PanelWidget4, (leWidget*)ReheatButtonWidget);
 
     CookButtonWidget = leButtonWidget_New();
-    CookButtonWidget->fn->setPosition(CookButtonWidget, 8, 72);
-    CookButtonWidget->fn->setSize(CookButtonWidget, 100, 100);
+    CookButtonWidget->fn->setPosition(CookButtonWidget, 0, 75);
+    CookButtonWidget->fn->setSize(CookButtonWidget, 115, 98);
     CookButtonWidget->fn->setScheme(CookButtonWidget, &BlackBackground);
     CookButtonWidget->fn->setBackgroundType(CookButtonWidget, LE_WIDGET_BACKGROUND_NONE);
     CookButtonWidget->fn->setBorderType(CookButtonWidget, LE_WIDGET_BORDER_NONE);
-    CookButtonWidget->fn->setPressedImage(CookButtonWidget, &cook100);
-    CookButtonWidget->fn->setReleasedImage(CookButtonWidget, &cook100);
+    CookButtonWidget->fn->setPressedImage(CookButtonWidget, &cook2);
+    CookButtonWidget->fn->setReleasedImage(CookButtonWidget, &cook2);
     CookButtonWidget->fn->setPressedOffset(CookButtonWidget, 0);
     CookButtonWidget->fn->setPressedEventCallback(CookButtonWidget, CookButtonWidget_OnPressed);
     PanelWidget4->fn->addChild(PanelWidget4, (leWidget*)CookButtonWidget);
@@ -336,6 +335,37 @@ leResult screenShow_ColorScreen()
     ButtonWidget4->fn->setPressedEventCallback(ButtonWidget4, ButtonWidget4_OnPressed);
     MenuItem4->fn->addChild(MenuItem4, (leWidget*)ButtonWidget4);
 
+    Screen2MainClockPanel = leWidget_New();
+    Screen2MainClockPanel->fn->setPosition(Screen2MainClockPanel, 212, 22);
+    Screen2MainClockPanel->fn->setSize(Screen2MainClockPanel, 153, 290);
+    Screen2MainClockPanel->fn->setBackgroundType(Screen2MainClockPanel, LE_WIDGET_BACKGROUND_NONE);
+    root0->fn->addChild(root0, Screen2MainClockPanel);
+
+    Screen2HourLabel = leLabelWidget_New();
+    Screen2HourLabel->fn->setPosition(Screen2HourLabel, 0, 64);
+    Screen2HourLabel->fn->setSize(Screen2HourLabel, 153, 75);
+    Screen2HourLabel->fn->setScheme(Screen2HourLabel, &WhiteTextScheme);
+    Screen2HourLabel->fn->setBackgroundType(Screen2HourLabel, LE_WIDGET_BACKGROUND_NONE);
+    Screen2HourLabel->fn->setHAlignment(Screen2HourLabel, LE_HALIGN_CENTER);
+    Screen2HourLabel->fn->setString(Screen2HourLabel, (leString*)&tableString_DefaultHour2);
+    Screen2MainClockPanel->fn->addChild(Screen2MainClockPanel, (leWidget*)Screen2HourLabel);
+
+    Screen2ColonLabel = leLabelWidget_New();
+    Screen2ColonLabel->fn->setPosition(Screen2ColonLabel, 26, 146);
+    Screen2ColonLabel->fn->setSize(Screen2ColonLabel, 26, 52);
+    Screen2ColonLabel->fn->setScheme(Screen2ColonLabel, &WhiteTextScheme);
+    Screen2ColonLabel->fn->setBackgroundType(Screen2ColonLabel, LE_WIDGET_BACKGROUND_NONE);
+    Screen2ColonLabel->fn->setString(Screen2ColonLabel, (leString*)&tableString_Colon);
+    Screen2MainClockPanel->fn->addChild(Screen2MainClockPanel, (leWidget*)Screen2ColonLabel);
+
+    Screen2MinuteLabel = leLabelWidget_New();
+    Screen2MinuteLabel->fn->setPosition(Screen2MinuteLabel, 51, 138);
+    Screen2MinuteLabel->fn->setSize(Screen2MinuteLabel, 101, 80);
+    Screen2MinuteLabel->fn->setScheme(Screen2MinuteLabel, &WhiteTextScheme);
+    Screen2MinuteLabel->fn->setBackgroundType(Screen2MinuteLabel, LE_WIDGET_BACKGROUND_NONE);
+    Screen2MinuteLabel->fn->setString(Screen2MinuteLabel, (leString*)&tableString_DefaultMinute2);
+    Screen2MainClockPanel->fn->addChild(Screen2MainClockPanel, (leWidget*)Screen2MinuteLabel);
+
     Screen2LabelPanel = leWidget_New();
     Screen2LabelPanel->fn->setPosition(Screen2LabelPanel, 205, 0);
     Screen2LabelPanel->fn->setSize(Screen2LabelPanel, 275, 76);
@@ -368,44 +398,24 @@ leResult screenShow_ColorScreen()
     Screen2SmartCookerLabel->fn->setString(Screen2SmartCookerLabel, (leString*)&tableString_SmartCooker);
     Screen2LabelPanel->fn->addChild(Screen2LabelPanel, (leWidget*)Screen2SmartCookerLabel);
 
-    Screen2ClockLabel = leLabelWidget_New();
-    Screen2ClockLabel->fn->setPosition(Screen2ClockLabel, 13, 26);
-    Screen2ClockLabel->fn->setSize(Screen2ClockLabel, 147, 22);
-    Screen2ClockLabel->fn->setBackgroundType(Screen2ClockLabel, LE_WIDGET_BACKGROUND_NONE);
-    Screen2ClockLabel->fn->setHAlignment(Screen2ClockLabel, LE_HALIGN_CENTER);
-    Screen2ClockLabel->fn->setString(Screen2ClockLabel, (leString*)&tableString_DefaultTime2);
-    Screen2LabelPanel->fn->addChild(Screen2LabelPanel, (leWidget*)Screen2ClockLabel);
+    ButtonWidget6 = leButtonWidget_New();
+    ButtonWidget6->fn->setPosition(ButtonWidget6, 0, 22);
+    ButtonWidget6->fn->setSize(ButtonWidget6, 160, 30);
+    ButtonWidget6->fn->setBackgroundType(ButtonWidget6, LE_WIDGET_BACKGROUND_NONE);
+    ButtonWidget6->fn->setBorderType(ButtonWidget6, LE_WIDGET_BORDER_NONE);
+    ButtonWidget6->fn->setToggleable(ButtonWidget6, LE_TRUE);
+    ButtonWidget6->fn->setPressedImage(ButtonWidget6, &DemoOff);
+    ButtonWidget6->fn->setReleasedImage(ButtonWidget6, &DemoOn);
+    ButtonWidget6->fn->setPressedEventCallback(ButtonWidget6, ButtonWidget6_OnPressed);
+    ButtonWidget6->fn->setReleasedEventCallback(ButtonWidget6, ButtonWidget6_OnReleased);
+    Screen2LabelPanel->fn->addChild(Screen2LabelPanel, (leWidget*)ButtonWidget6);
 
-    Screen2MainClockPanel = leWidget_New();
-    Screen2MainClockPanel->fn->setPosition(Screen2MainClockPanel, 213, 84);
-    Screen2MainClockPanel->fn->setSize(Screen2MainClockPanel, 153, 183);
-    Screen2MainClockPanel->fn->setBackgroundType(Screen2MainClockPanel, LE_WIDGET_BACKGROUND_NONE);
-    root0->fn->addChild(root0, Screen2MainClockPanel);
-
-    Screen2HourLabel = leLabelWidget_New();
-    Screen2HourLabel->fn->setPosition(Screen2HourLabel, 0, 14);
-    Screen2HourLabel->fn->setSize(Screen2HourLabel, 153, 75);
-    Screen2HourLabel->fn->setScheme(Screen2HourLabel, &WhiteTextScheme);
-    Screen2HourLabel->fn->setBackgroundType(Screen2HourLabel, LE_WIDGET_BACKGROUND_NONE);
-    Screen2HourLabel->fn->setHAlignment(Screen2HourLabel, LE_HALIGN_CENTER);
-    Screen2HourLabel->fn->setString(Screen2HourLabel, (leString*)&tableString_DefaultHour2);
-    Screen2MainClockPanel->fn->addChild(Screen2MainClockPanel, (leWidget*)Screen2HourLabel);
-
-    Screen2ColonLabel = leLabelWidget_New();
-    Screen2ColonLabel->fn->setPosition(Screen2ColonLabel, 26, 96);
-    Screen2ColonLabel->fn->setSize(Screen2ColonLabel, 26, 52);
-    Screen2ColonLabel->fn->setScheme(Screen2ColonLabel, &WhiteTextScheme);
-    Screen2ColonLabel->fn->setBackgroundType(Screen2ColonLabel, LE_WIDGET_BACKGROUND_NONE);
-    Screen2ColonLabel->fn->setString(Screen2ColonLabel, (leString*)&tableString_Colon);
-    Screen2MainClockPanel->fn->addChild(Screen2MainClockPanel, (leWidget*)Screen2ColonLabel);
-
-    Screen2MinuteLabel = leLabelWidget_New();
-    Screen2MinuteLabel->fn->setPosition(Screen2MinuteLabel, 51, 88);
-    Screen2MinuteLabel->fn->setSize(Screen2MinuteLabel, 101, 80);
-    Screen2MinuteLabel->fn->setScheme(Screen2MinuteLabel, &WhiteTextScheme);
-    Screen2MinuteLabel->fn->setBackgroundType(Screen2MinuteLabel, LE_WIDGET_BACKGROUND_NONE);
-    Screen2MinuteLabel->fn->setString(Screen2MinuteLabel, (leString*)&tableString_DefaultMinute2);
-    Screen2MainClockPanel->fn->addChild(Screen2MainClockPanel, (leWidget*)Screen2MinuteLabel);
+    SliderButton2 = leButtonWidget_New();
+    SliderButton2->fn->setPosition(SliderButton2, 212, 52);
+    SliderButton2->fn->setSize(SliderButton2, 153, 260);
+    SliderButton2->fn->setBackgroundType(SliderButton2, LE_WIDGET_BACKGROUND_NONE);
+    SliderButton2->fn->setBorderType(SliderButton2, LE_WIDGET_BORDER_NONE);
+    root0->fn->addChild(root0, (leWidget*)SliderButton2);
 
     leAddRootWidget(root0, 0);
 
@@ -462,28 +472,28 @@ void screenHide_ColorScreen()
     Button4Image = NULL;
     MenuItem4Label = NULL;
     ButtonWidget4 = NULL;
-    Screen2LabelPanel = NULL;
-    Screen2GoodLabel = NULL;
-    Screen2BytesLabel = NULL;
-    Screen2SmartCookerLabel = NULL;
-    Screen2ClockLabel = NULL;
     Screen2MainClockPanel = NULL;
     Screen2HourLabel = NULL;
     Screen2ColonLabel = NULL;
     Screen2MinuteLabel = NULL;
+    Screen2LabelPanel = NULL;
+    Screen2GoodLabel = NULL;
+    Screen2BytesLabel = NULL;
+    Screen2SmartCookerLabel = NULL;
+    ButtonWidget6 = NULL;
+    SliderButton2 = NULL;
 
     tableString_SteakMenuItem.fn->destructor(&tableString_SteakMenuItem);
     tableString_QuickItems.fn->destructor(&tableString_QuickItems);
     tableString_SalmonMenuItem.fn->destructor(&tableString_SalmonMenuItem);
     tableString_PizzaMenuItem.fn->destructor(&tableString_PizzaMenuItem);
     tableString_Pasta.fn->destructor(&tableString_Pasta);
-    tableString_GoodBytes.fn->destructor(&tableString_GoodBytes);
-    tableString_Bytes.fn->destructor(&tableString_Bytes);
-    tableString_SmartCooker.fn->destructor(&tableString_SmartCooker);
-    tableString_DefaultTime2.fn->destructor(&tableString_DefaultTime2);
     tableString_DefaultHour2.fn->destructor(&tableString_DefaultHour2);
     tableString_Colon.fn->destructor(&tableString_Colon);
     tableString_DefaultMinute2.fn->destructor(&tableString_DefaultMinute2);
+    tableString_GoodBytes.fn->destructor(&tableString_GoodBytes);
+    tableString_Bytes.fn->destructor(&tableString_Bytes);
+    tableString_SmartCooker.fn->destructor(&tableString_SmartCooker);
     showing = LE_FALSE;
 
     ColorScreen_OnHide();
