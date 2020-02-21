@@ -98,17 +98,17 @@ extern "C" {
 
 // variable heap configuration
 #define LE_VARIABLEHEAP_DEBUGLEVEL         0
-#define LE_VARIABLEHEAP_SIZE               8192
-#define LE_VARIABLEHEAP_MINALLOCSIZE       32
+#define LE_VARIABLEHEAP_SIZE               4096
+#define LE_VARIABLEHEAP_MINALLOCSIZE       4
 #define LE_VARIABLEHEAP_ALIGNMENT          4
 #define LE_VARIABLEHEAP_BESTFIT            1
 
 // fixed heap configuration
 #define LE_FIXEDHEAP_ENABLE                1
 #define LE_FIXEDHEAP_DEBUG                 0
-#define LE_FIXEDHEAP_SIZE_16               300
-#define LE_FIXEDHEAP_SIZE_32               96
-#define LE_FIXEDHEAP_SIZE_64               96
+#define LE_FIXEDHEAP_SIZE_16               400
+#define LE_FIXEDHEAP_SIZE_32               100
+#define LE_FIXEDHEAP_SIZE_64               100
 #define LE_FIXEDHEAP_SIZE_128              32
 #define LE_FIXEDHEAP_SIZE_196              48
 #define LE_FIXEDHEAP_SIZE_256              24
@@ -126,9 +126,10 @@ extern "C" {
 
 // renderer config
 #define LE_ALPHA_BLENDING_ENABLED          1
-#define LE_SCRATCH_BUFFER_SIZE_KB          128
+#define LE_SCRATCH_BUFFER_SIZE_KB          160
 #define LE_USE_ARC_SCAN_FILL               1
 #define LE_ARC_SMOOTH_EDGE                 LE_FALSE
+#define LE_RENDER_LEFTRIGHT                0
 
 
 //DOM-IGNORE-BEGIN

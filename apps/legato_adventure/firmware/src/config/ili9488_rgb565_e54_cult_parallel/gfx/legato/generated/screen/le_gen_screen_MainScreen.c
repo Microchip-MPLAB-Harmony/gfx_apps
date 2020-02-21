@@ -173,7 +173,7 @@ leResult screenShow_MainScreen()
 
     ButtonWidget_Jump = leButtonWidget_New();
     ButtonWidget_Jump->fn->setPosition(ButtonWidget_Jump, 0, 0);
-    ButtonWidget_Jump->fn->setSize(ButtonWidget_Jump, 480, 160);
+    ButtonWidget_Jump->fn->setSize(ButtonWidget_Jump, 480, 220);
     ButtonWidget_Jump->fn->setBackgroundType(ButtonWidget_Jump, LE_WIDGET_BACKGROUND_NONE);
     ButtonWidget_Jump->fn->setBorderType(ButtonWidget_Jump, LE_WIDGET_BORDER_NONE);
     ButtonWidget_Jump->fn->setPressedEventCallback(ButtonWidget_Jump, ButtonWidget_Jump_OnPressed);

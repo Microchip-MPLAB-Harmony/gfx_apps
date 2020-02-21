@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -180,11 +180,11 @@ leResult _leRawImageDecoder_LookupStage_Stream(leRawDecodeState* state)
 
     if(leStream_IsBlocking(&streamPaletteStage.stream) == LE_TRUE)
     {
-        streamPaletteStage.base.exec = exec_blocking;
+        streamPaletteStage.base.exec = (void*)exec_blocking;
     }
     else
     {
-        streamPaletteStage.base.exec = exec_nonblocking;
+        streamPaletteStage.base.exec = (void*)exec_nonblocking;
     }
 
     _leRawImageDecoder_InjectStage(state, (void*)&streamPaletteStage);
