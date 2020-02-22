@@ -234,7 +234,7 @@ void _leImageSequenceWidget_Paint(leImageSequenceWidget* img)
         break;
 #endif
         
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
         if(img->widget.drawState == WAIT_IMAGE)
             break;
 #endif

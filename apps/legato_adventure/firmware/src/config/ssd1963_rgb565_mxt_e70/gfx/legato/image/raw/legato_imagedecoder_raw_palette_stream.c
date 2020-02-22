@@ -180,11 +180,11 @@ leResult _leRawImageDecoder_LookupStage_Stream(leRawDecodeState* state)
 
     if(leStream_IsBlocking(&streamPaletteStage.stream) == LE_TRUE)
     {
-        streamPaletteStage.base.exec = exec_blocking;
+        streamPaletteStage.base.exec = (void*)exec_blocking;
     }
     else
     {
-        streamPaletteStage.base.exec = exec_nonblocking;
+        streamPaletteStage.base.exec = (void*)exec_nonblocking;
     }
 
     _leRawImageDecoder_InjectStage(state, (void*)&streamPaletteStage);
