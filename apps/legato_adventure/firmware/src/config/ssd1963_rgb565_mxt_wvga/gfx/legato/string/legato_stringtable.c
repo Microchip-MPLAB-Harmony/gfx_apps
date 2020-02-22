@@ -62,9 +62,10 @@ uint32_t leStringTable_GetStringOffset(const leStringTable* table,
     if(stringID >= hdr->indexCount || languageID >= hdr->languageCount)
         return 0;
 
-    idxTable = (leStringTableIndex*)(table->stringTableData + sizeof(leStringTableHeader));
+    idxTable = (leStringTableIndex*)((uint8_t*)table->stringTableData + sizeof(leStringTableHeader));
+    idxTable += ((stringID * hdr->languageCount) + languageID);
 
-    ptr = (uint8_t*)(&idxTable[stringID + languageID].offset);
+    ptr = (uint8_t*)(&idxTable->offset);
 
     offs = ptr[0];
     offs |= ptr[1] << 8;
@@ -87,6 +88,7 @@ leFont* leStringTable_GetStringFont(const leStringTable* table,
 {
     leStringTableHeader* hdr;
     leStringTableIndex* idxTable;
+    uint32_t fontID;
 
     if(table == NULL)
         return 0;
@@ -98,10 +100,12 @@ leFont* leStringTable_GetStringFont(const leStringTable* table,
 
     idxTable = (leStringTableIndex*)(table->stringTableData + sizeof(leStringTableHeader));
 
-    if(idxTable[stringID + languageID].fontID == 0xFF)
+    fontID = idxTable[(stringID * hdr->languageCount) + languageID].fontID;
+
+    if(fontID == 0xFF)
         return NULL;
     
-    return table->fontTable[idxTable[stringID + languageID].fontID];
+    return table->fontTable[fontID];
 }
 
 #if 0

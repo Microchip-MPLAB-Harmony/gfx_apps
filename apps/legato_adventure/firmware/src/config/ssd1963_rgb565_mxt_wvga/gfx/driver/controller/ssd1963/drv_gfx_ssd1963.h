@@ -14,7 +14,7 @@
 *******************************************************************************/
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2019-2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -79,7 +79,8 @@ static const gfxDisplayDriver ssd1963DisplayDriver =
     DRV_SSD1963_SetActiveLayer,
     DRV_SSD1963_BlitBuffer,
     DRV_SSD1963_Swap,
-    DRV_SSD1963_GetSwapCount
+    DRV_SSD1963_GetSwapCount,
+    NULL /* GetFrameBuffer not supported */
 };
 
 #ifdef __cplusplus

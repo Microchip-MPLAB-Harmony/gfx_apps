@@ -7,7 +7,7 @@
 #include "gfx/legato/common/legato_utils.h"
 #include "gfx/legato/core/legato_state.h"
 #include "gfx/legato/datastructure/legato_rectarray.h"
-#include "device.h"
+#include "gfx/driver/gfx_driver.h"
 
 leRenderState _rendererState;
 
