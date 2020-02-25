@@ -17,7 +17,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -59,7 +59,7 @@
 #include "gfx/legato/image/legato_image.h"
 #include "gfx/legato/image/legato_palette.h"
 #include "gfx/legato/memory/legato_memory.h"
-#include "gfx/legato/renderer/legato_driver.h"
+#include "gfx/driver/gfx_driver.h"
 #include "gfx/legato/renderer/legato_renderer.h"
 #include "gfx/legato/string/legato_dynamicstring.h"
 #include "gfx/legato/string/legato_fixedstring.h"

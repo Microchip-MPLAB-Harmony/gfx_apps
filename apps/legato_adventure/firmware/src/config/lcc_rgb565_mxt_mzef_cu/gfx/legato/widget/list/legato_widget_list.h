@@ -16,7 +16,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -179,8 +179,8 @@ typedef struct leListWidgetVTable
 typedef struct leListWidget
 {
     leWidget widget; // list base class
-    
-    leListWidgetVTable* fn;
+
+    const leListWidgetVTable* fn;
 
     leListWidget_SelectionMode mode; // list selection mode
     leBool allowEmpty; // indicates if the list must always have at least one

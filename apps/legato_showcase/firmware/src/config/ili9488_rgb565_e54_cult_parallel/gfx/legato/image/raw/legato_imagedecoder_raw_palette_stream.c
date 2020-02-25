@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -217,7 +217,7 @@ leResult _leRawImageDecoder_ImageRenderPostLookupStage_Stream(leRawDecodeState* 
     state->needToLookupMaskColor = LE_TRUE;
 
     imageRenderPostLookupStage.base.state = state;
-    imageRenderPostLookupStage.base.exec = (void*)stage_imageRenderPostLookup;
+    imageRenderPostLookupStage.base.exec = stage_imageRenderPostLookup;
 
     _leRawImageDecoder_InjectStage(state, (void*)&imageRenderPostLookupStage);
 

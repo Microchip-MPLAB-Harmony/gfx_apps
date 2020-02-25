@@ -81,7 +81,7 @@ leResult _leRawImageDecoder_SourceIterateSetupStage(leRawDecodeState* state)
     state->colIterator = 0;
 
     setupStage.base.state = state;
-    setupStage.base.exec = (void*)stage_sourceIterateSetup;
+    setupStage.base.exec = stage_sourceIterateSetup;
 
     _leRawImageDecoder_InjectStage(state, (void*)&setupStage);
 
@@ -128,7 +128,7 @@ leResult _leRawImageDecoder_TargetIterateSetupStage(leRawDecodeState* state)
     state->colIterator = 0;
 
     setupStage.base.state = state;
-    setupStage.base.exec = (void*)stage_targetIterateSetup;
+    setupStage.base.exec = stage_targetIterateSetup;
 
     _leRawImageDecoder_InjectStage(state, (void*)&setupStage);
 
@@ -172,7 +172,7 @@ leResult _leRawImageDecoder_RotatedTargetIterateSetupStage(leRawDecodeState* sta
     state->colIterator = 0;
 
     setupStage.base.state = state;
-    setupStage.base.exec = (void*)stage_rotatedTargetIterateSetup;
+    setupStage.base.exec = stage_rotatedTargetIterateSetup;
 
     _leRawImageDecoder_InjectStage(state, (void*)&setupStage);
 

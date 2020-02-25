@@ -38,6 +38,8 @@
 //DOM-IGNORE-END
 
 
+
+
 #include "gfx/driver/controller/lcc/drv_gfx_lcc.h"
 #include "definitions.h"
 
@@ -86,7 +88,7 @@ enum
     RUN
 };
 
-lePixelBuffer pixelBuffer;
+gfxPixelBuffer pixelBuffer;
 
 static int DRV_GFX_LCC_Start();
 static void DRV_GFX_LCC_DisplayRefresh(void);
@@ -120,9 +122,9 @@ unsigned int vsyncCount = 0;
 
 static uint32_t state;
 
-leColorMode DRV_LCC_GetColorMode()
+gfxColorMode DRV_LCC_GetColorMode()
 {
-    return LE_COLOR_MODE_RGB_565;
+    return GFX_COLOR_MODE_RGB_565;
 }
 
 uint32_t DRV_LCC_GetBufferCount()
@@ -163,9 +165,9 @@ uint32_t DRV_LCC_GetActiveLayer()
 	return 0;
 }
 
-leResult DRV_LCC_SetActiveLayer(uint32_t idx)
+gfxResult DRV_LCC_SetActiveLayer(uint32_t idx)
 {
-	return LE_SUCCESS;
+        return GFX_SUCCESS;
 }
 
 void DRV_LCC_Swap(void)
@@ -178,31 +180,37 @@ uint32_t DRV_LCC_GetVSYNCCount(void)
 	return vsyncCount;
 }
 
-leResult DRV_LCC_BlitBuffer(int32_t x,
+gfxPixelBuffer * DRV_LCC_GetFrameBuffer(int32_t idx)
+{
+        return &pixelBuffer;
+}
+
+gfxResult DRV_LCC_BlitBuffer(int32_t x,
                              int32_t y,
-                             lePixelBuffer* buf)
+                             gfxPixelBuffer* buf,
+                             gfxBlend gfx)
 {
     void* srcPtr;
     void* destPtr;
     uint32_t row, rowSize;
 
     if (state != RUN)
-        return LE_FAILURE;
+        return GFX_FAILURE;
     
-    rowSize = buf->size.width * leColorInfoTable[buf->mode].size;
+    rowSize = buf->size.width * gfxColorInfoTable[buf->mode].size;
     
     for(row = 0; row < buf->size.height; row++)
     {
-        srcPtr = lePixelBufferOffsetGet(buf, 0, row);
-        destPtr = lePixelBufferOffsetGet(&pixelBuffer, x, y + row);
+        srcPtr = gfxPixelBufferOffsetGet(buf, 0, row);
+        destPtr = gfxPixelBufferOffsetGet(&pixelBuffer, x, y + row);
         
         memcpy(destPtr, srcPtr, rowSize);
     }
     
-    return LE_SUCCESS;   
+    return GFX_SUCCESS;
 }
 
-static leResult lccBacklightBrightnessSet(uint32_t brightness)
+static gfxResult lccBacklightBrightnessSet(uint32_t brightness)
 {
     uint32_t value;
     brightness = (brightness <= 100) ? brightness : 100;
@@ -215,17 +223,17 @@ static leResult lccBacklightBrightnessSet(uint32_t brightness)
     
     TC2_CH1_CompareBSet(value);
 
-    return LE_SUCCESS;
+    return GFX_SUCCESS;
 
 }
 
-leResult DRV_LCC_Initialize(void)
+gfxResult DRV_LCC_Initialize(void)
 {
     state = INIT;
 
-    lePixelBufferCreate(DISP_HOR_RESOLUTION,
+    gfxPixelBufferCreate(DISP_HOR_RESOLUTION,
                         DISP_VER_RESOLUTION,
-                        LE_COLOR_MODE_RGB_565,
+                        GFX_COLOR_MODE_RGB_565,
                         frameBuffer,
                         &pixelBuffer);
     
@@ -246,7 +254,7 @@ leResult DRV_LCC_Initialize(void)
 
     lccBacklightBrightnessSet(100);
 
-    return LE_SUCCESS;
+    return GFX_SUCCESS;
 }
 
 /**** End Hardware Abstraction Interfaces ****/
@@ -276,8 +284,8 @@ static int DRV_GFX_LCC_Start()
 
 static void DRV_GFX_LCC_DisplayRefresh(void)
 {
-    lePoint drawPoint;
-    leBuffer* buffer_to_tx = (void*) frameBuffer;
+    gfxPoint drawPoint;
+    gfxBuffer* buffer_to_tx = (void*) frameBuffer;
 
     typedef enum
     {
@@ -401,7 +409,7 @@ static void DRV_GFX_LCC_DisplayRefresh(void)
 
                 //buffer = .pb;
 
-                buffer_to_tx = lePixelBufferOffsetGet_Unsafe(&pixelBuffer, drawPoint.x, drawPoint.y);
+                buffer_to_tx = gfxPixelBufferOffsetGet_Unsafe(&pixelBuffer, drawPoint.x, drawPoint.y);
 
             }
 

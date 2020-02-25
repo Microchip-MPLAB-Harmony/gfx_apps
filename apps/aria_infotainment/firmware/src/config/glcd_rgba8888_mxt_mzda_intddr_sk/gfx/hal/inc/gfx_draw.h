@@ -319,9 +319,9 @@ LIB_EXPORT GFX_Result GFX_DrawRect(int32_t x,
     GFX_Result - Returns GFX_TRUE if the circle was drawn
                  successfully. Otherwise returns GFX_FALSE.
 */
-LIB_EXPORT GFX_Result GFX_DrawCircle(int32_t x,
-                                     int32_t y,
-                                     int32_t radius);    
+LIB_EXPORT GFX_Result GFX_DEPRECATED GFX_DrawCircle(int32_t x,
+								                    int32_t y,
+								                    int32_t radius);    
 
 // *****************************************************************************
 /* Function:

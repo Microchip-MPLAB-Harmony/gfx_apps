@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -67,7 +67,7 @@ leResult _leRawImageDecoder_FrameBufferWriteStage(leRawDecodeState* state)
     memset(&frameBufferWriteStage, 0, sizeof(frameBufferWriteStage));
 
     frameBufferWriteStage.base.state = state;
-    frameBufferWriteStage.base.exec = (void*)stage_FrameBufferWrite;
+    frameBufferWriteStage.base.exec = stage_FrameBufferWrite;
 
     _leRawImageDecoder_InjectStage(state, (void*) &frameBufferWriteStage);
 
@@ -95,7 +95,7 @@ leResult _leRawImageDecoder_ImageWriteStage(leRawDecodeState* state)
     memset(&imageWriteStage, 0, sizeof(imageWriteStage));
 
     imageWriteStage.base.state = state;
-    imageWriteStage.base.exec = (void*)stage_ImageWrite;
+    imageWriteStage.base.exec = stage_ImageWrite;
 
     _leRawImageDecoder_InjectStage(state, (void*)&imageWriteStage);
 

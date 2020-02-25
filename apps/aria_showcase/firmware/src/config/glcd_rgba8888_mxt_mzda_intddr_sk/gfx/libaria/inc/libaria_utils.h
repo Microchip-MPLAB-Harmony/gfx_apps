@@ -157,6 +157,20 @@ void laUtils_PointScreenToLocalSpace(laWidget* widget, GFX_Point* pnt);
     Returns:
         void
 */
+GFX_Rect laUtils_ClipWidgetToAncestors(laWidget* wgt);
+
+/*  Function:
+        void laUtils_ClipRectToAncestors(laWidget* widget)
+ 
+    Summary:
+        Clips a widget to the all the parents of a widget
+        
+    Parameters:
+        laWidget* widget - the subject widget
+        
+    Returns:
+        GFX_Rect - the result
+*/
 void laUtils_ClipRectToParent(laWidget* widget, GFX_Rect* rect);
 
 /*  Function:
@@ -548,3 +562,4 @@ laResult laUtils_PreprocessImage(GFXU_ImageAsset* img,
                                 GFXU_MemoryIntf * memIntf);
 
 #endif // LIBARIA_UTILS_H
+

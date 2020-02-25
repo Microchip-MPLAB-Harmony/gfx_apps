@@ -83,15 +83,14 @@ void TC4_CompareInitialize( void )
     TC4_REGS->COUNT8.TC_CTRLA = TC_CTRLA_MODE_COUNT8 | TC_CTRLA_PRESCALER_DIV1 | TC_CTRLA_PRESCSYNC_PRESC ;
 
     /* Configure waveform generation mode */
-    TC4_REGS->COUNT8.TC_WAVE = TC_WAVE_WAVEGEN_MPWM;
+    TC4_REGS->COUNT8.TC_WAVE = TC_WAVE_WAVEGEN_MFRQ;
 
     /* Configure timer one shot mode & direction */
     TC4_REGS->COUNT8.TC_CTRLBSET = TC_CTRLBSET_LUPD_Msk;
 
     /* Configure timer one shot mode & direction */
     TC4_REGS->COUNT8.TC_DRVCTRL = TC_DRVCTRL_INVEN1_Msk;
-    TC4_REGS->COUNT8.TC_CC[0] = 3U;
-    TC4_REGS->COUNT8.TC_CC[1] = 2U;
+    TC4_REGS->COUNT8.TC_CC[0] = 24U;
 
     /* Clear all interrupt flags */
     TC4_REGS->COUNT8.TC_INTFLAG = TC_INTFLAG_Msk;
@@ -139,6 +138,11 @@ uint8_t TC4_Compare8bitCounterGet( void )
         /* Wait for Write Synchronization */
     }
 
+    while((TC4_REGS->COUNT8.TC_CTRLBSET & TC_CTRLBSET_CMD_Msk) != 0)
+    {
+        /* Wait for CMD to become zero */
+    }
+
     /* Read current count value */
     return (uint8_t)TC4_REGS->COUNT8.TC_COUNT;
 }
@@ -158,22 +162,41 @@ void TC4_Compare8bitCounterSet( uint8_t count )
 void TC4_Compare8bitPeriodSet( uint8_t period )
 {
     /* Configure period value */
-    TC4_REGS->COUNT8.TC_CC[0] = period;
+    TC4_REGS->COUNT8.TC_PER = period;
+    while((TC4_REGS->COUNT8.TC_SYNCBUSY))
+    {
+        /* Wait for Write Synchronization */
+    }
 }
 
 /* Read period value */
 uint8_t TC4_Compare8bitPeriodGet( void )
 {
     /* Get period value */
-    return (uint8_t)TC4_REGS->COUNT8.TC_CC[0];
+    return (uint8_t)TC4_REGS->COUNT8.TC_PER;
 }
 
 /* Configure duty cycle value */
-void TC4_Compare8bitSet( uint8_t compareValue )
+void TC4_Compare8bitMatch0Set( uint8_t compareValue )
+{
+    /* Set new compare value for compare channel 0 */
+    TC4_REGS->COUNT8.TC_CC[0] = compareValue;
+    while((TC4_REGS->COUNT8.TC_SYNCBUSY & TC_SYNCBUSY_CC0_Msk) == TC_SYNCBUSY_CC0_Msk)
+    {
+        /* Wait for Write Synchronization */
+    }
+}
+
+void TC4_Compare8bitMatch1Set( uint8_t compareValue )
 {
     /* Set new compare value for compare channel 1 */
     TC4_REGS->COUNT8.TC_CC[1] = compareValue;
+    while((TC4_REGS->COUNT8.TC_SYNCBUSY & TC_SYNCBUSY_CC1_Msk) == TC_SYNCBUSY_CC1_Msk)
+    {
+        /* Wait for Write Synchronization */
+    }
 }
+
 
 
 
@@ -182,7 +205,7 @@ void TC4_Compare8bitSet( uint8_t compareValue )
 TC_COMPARE_STATUS TC4_CompareStatusGet( void )
 {
     TC_COMPARE_STATUS compare_status;
-    compare_status = ((TC4_REGS->COUNT8.TC_INTFLAG) & TC_COMPARE_STATUS_MSK);
+    compare_status = ((TC_COMPARE_STATUS)(TC4_REGS->COUNT8.TC_INTFLAG));
     /* Clear timer overflow interrupt */
     TC4_REGS->COUNT8.TC_INTFLAG = compare_status;
     return compare_status;

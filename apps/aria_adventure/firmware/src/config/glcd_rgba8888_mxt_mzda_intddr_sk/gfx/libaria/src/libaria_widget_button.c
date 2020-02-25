@@ -131,6 +131,18 @@ void _laButtonWidget_Destructor(laButtonWidget* btn)
         
         btn->reader = NULL;
     }
+    
+    if (btn->drawObj.lineRect != NULL)
+    {
+        laContext_GetActive()->memIntf.heap.free(btn->drawObj.lineRect);
+        btn->drawObj.lineRect = NULL;
+    }
+        
+    if (btn->drawObj.offset != NULL)
+    {
+        laContext_GetActive()->memIntf.heap.free(btn->drawObj.offset);
+        btn->drawObj.offset = NULL;
+    }    
 
     _laWidget_Destructor((laWidget*)btn);
 }

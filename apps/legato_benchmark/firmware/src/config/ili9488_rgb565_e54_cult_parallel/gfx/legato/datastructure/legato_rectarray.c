@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -305,6 +305,36 @@ leResult leRectArray_SortBySize(leRectArray* arr)
     return LE_SUCCESS;
 }
 
+leResult leRectArray_SortByX(leRectArray* arr)
+{
+    leRect t;
+    int32_t i, j;
+
+    if(arr == NULL)
+        return LE_FAILURE;
+
+    i = 1;
+
+    while(i < (int32_t)arr->size)
+    {
+        t = arr->rects[i];
+        j = i - 1;
+
+        while(j >= 0 && t.x < arr->rects[j].x)
+        {
+            arr->rects[j + 1] = arr->rects[j];
+
+            j -= 1;
+        }
+
+        arr->rects[j + 1] = t;
+
+        i++;
+    }
+
+    return LE_SUCCESS;
+}
+
 leResult leRectArray_SortByY(leRectArray* arr)
 {
     leRect t;
@@ -426,7 +456,8 @@ leResult leRectArray_CropToSize(leRectArray* arr, uint32_t size)
               (uint32_t)arr->rects[rectItr].height > size)
         {
             split = arr->rects[rectItr];
-            
+
+#if LE_RENDER_LEFTRIGHT == 0
             // split favoring height if possible
             if((uint32_t)arr->rects[rectItr].height <= 2)
             {
@@ -442,6 +473,23 @@ leResult leRectArray_CropToSize(leRectArray* arr, uint32_t size)
                 split.height -= arr->rects[rectItr].height;
                 split.y += arr->rects[rectItr].height;
             }
+#else
+            // split favoring width if possible
+            if((uint32_t)arr->rects[rectItr].width <= 2)
+            {
+                arr->rects[rectItr].height >>= 1;
+
+                split.height -= arr->rects[rectItr].height;
+                split.y += arr->rects[rectItr].height;
+            }
+            else
+            {
+                arr->rects[rectItr].width >>= 1;
+
+                split.width -= arr->rects[rectItr].width;
+                split.x += arr->rects[rectItr].width;
+            }
+#endif
 
             leRectArray_PushBack(arr, &split);
         }

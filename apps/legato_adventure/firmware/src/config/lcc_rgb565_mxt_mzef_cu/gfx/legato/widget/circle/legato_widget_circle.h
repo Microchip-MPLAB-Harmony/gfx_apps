@@ -16,7 +16,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -99,8 +99,8 @@ typedef struct leCircleWidgetVTable
 typedef struct leCircleWidget
 {
     leWidget widget; // base widget header
-    
-    leCircleWidgetVTable* fn;
+
+    const leCircleWidgetVTable* fn;
 
     int32_t x; // the origin x cooridnate
     int32_t y; // the origin y coordinate

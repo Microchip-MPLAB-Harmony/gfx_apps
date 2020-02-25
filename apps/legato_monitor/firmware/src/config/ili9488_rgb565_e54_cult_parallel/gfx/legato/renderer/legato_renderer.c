@@ -7,11 +7,12 @@
 #include "gfx/legato/common/legato_utils.h"
 #include "gfx/legato/core/legato_state.h"
 #include "gfx/legato/datastructure/legato_rectarray.h"
-#include "gfx/legato/renderer/legato_driver.h"
+#include "gfx/driver/gfx_driver.h"
 
 leRenderState _rendererState;
 
-#define SCRACH_BUFFER_SZ (LE_SCRATCH_BUFFER_SIZE_KB * 1024)
+#define SCRACH_BUFFER_SZ     (LE_SCRATCH_BUFFER_SIZE_KB * 1024)
+#define MAX_RECTARRAYS_SZ    8
 
 static uint8_t scratchBuffer[SCRACH_BUFFER_SZ];
 static uint32_t maxScratchPixels;
@@ -89,7 +90,7 @@ void leRenderer_ClipDrawRect(const leRect* rect,
     leRectClip(rect, &_rendererState.drawRect, res);
 }
 
-leResult leRenderer_Initialize(const leDisplayDriver* dispDriver)
+leResult leRenderer_Initialize(const gfxDisplayDriver* dispDriver)
 {
     memset(&_rendererState, 0, sizeof(leRenderState));
  
@@ -285,10 +286,15 @@ static leResult preFrame()
         
         addRectToFrameList(&rect);
     }
-    
+
+#if LE_RENDER_LEFTRIGHT == 0
     // sort frame rects by Y
     leRectArray_SortByY(&_rendererState.frameRectList);
-    
+#else
+    // sort frame rects by X
+    leRectArray_SortByX(&_rendererState.frameRectList);
+#endif
+
     _rendererState.frameRectIdx = 0;
     _rendererState.frameDrawCount = 0;
     _rendererState.renderBuffer = &renderBuffer;
@@ -609,7 +615,7 @@ static leResult postRect()
     leRect frameRect = _rendererState.frameRectList.rects[_rendererState.frameRectIdx];
 
     /* render buffer may be locked by something or display driver may not be ready */
-    if(_rendererState.dispDriver->blitBuffer(frameRect.x, frameRect.y, &renderBuffer) == LE_FAILURE)
+    if(_rendererState.dispDriver->blitBuffer(frameRect.x, frameRect.y, (gfxPixelBuffer*)&renderBuffer, GFX_BLEND_NONE) == GFX_FAILURE)
     {
         return LE_FAILURE;
     }
@@ -661,7 +667,14 @@ static void postFrame()
     //rects. This avoids a full redraw of the frame later
     if (_rendererState.drawCount == 1 && _rendererState.bufferCount > 1)
     {
-        leRectArray_Clear(&_rendererState.prevDamageRects);
+        if(_rendererState.prevDamageRects.size > MAX_RECTARRAYS_SZ)
+        {
+            leRectArray_Destroy(&_rendererState.prevDamageRects);
+        }
+        else
+        {
+            leRectArray_Clear(&_rendererState.prevDamageRects);
+        }
     }
     
     _rendererState.drawCount++;
@@ -672,14 +685,28 @@ static void postFrame()
         leRectArray_Copy(&_rendererState.pendingDamageRects, 
                          &_rendererState.currentDamageRects);
 
-        leRectArray_Clear(&_rendererState.pendingDamageRects);
+        if(_rendererState.pendingDamageRects.size > MAX_RECTARRAYS_SZ)
+        {
+            leRectArray_Destroy(&_rendererState.pendingDamageRects);
+        }
+        else
+        {
+            leRectArray_Clear(&_rendererState.pendingDamageRects);
+        }
 
         _rendererState.frameState = LE_FRAME_PREFRAME;
     }
     else
     {
-        leRectArray_Clear(&_rendererState.currentDamageRects);
-        
+        if(_rendererState.currentDamageRects.size > MAX_RECTARRAYS_SZ)
+        {
+            leRectArray_Destroy(&_rendererState.currentDamageRects);
+        }
+        else
+        {
+            leRectArray_Clear(&_rendererState.currentDamageRects);
+        }
+
         _rendererState.frameState = LE_FRAME_READY;
     }
     

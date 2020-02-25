@@ -16,7 +16,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -87,7 +87,7 @@ typedef struct leEditWidget
 {
     leWidget widget;
     
-    leEditWidgetVTable* fn;
+    const leEditWidgetVTable* fn;
     
 } leEditWidget;
 
@@ -110,6 +110,7 @@ typedef struct leEditWidget
   Returns:
     leResult - the result of the operation
 */
+leResult _leEditWidget_EditStart(leEditWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -130,6 +131,7 @@ typedef struct leEditWidget
   Returns:
     void
 */
+void _leEditWidget_EditEnd(leEditWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -150,6 +152,7 @@ typedef struct leEditWidget
   Returns:
     void
 */
+void _leEditWidget_EditClear(leEditWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -170,6 +173,7 @@ typedef struct leEditWidget
   Returns:
     void
 */
+void _leEditWidget_EditAccept(leEditWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -192,6 +196,8 @@ typedef struct leEditWidget
   Returns:
     void
 */
+void _leEditWidget_EditSet(leEditWidget* _this,
+                           const leString* str);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -214,6 +220,8 @@ typedef struct leEditWidget
   Returns:
     void
 */
+void _leEditWidget_EditAppend(leEditWidget* _this,
+                              const leString* str);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -234,7 +242,7 @@ typedef struct leEditWidget
   Returns:
     void
 */
-
+void _leEditWidget_EditBackspace(leEditWidget* _this);
 
 
 // DOM-IGNORE-BEGIN

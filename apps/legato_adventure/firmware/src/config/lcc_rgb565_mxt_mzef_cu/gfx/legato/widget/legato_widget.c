@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -33,7 +33,11 @@
 #include "gfx/legato/renderer/legato_renderer.h"
 #include "gfx/legato/widget/legato_widget_skin_classic_common.h"
 
-static leWidgetVTable widgetVTable;
+static
+#if LE_DYNAMIC_VTABLES == 0
+const
+#endif
+leWidgetVTable widgetVTable;
 
 static leWidget_MoveEvent _moveEvent =
 {
@@ -168,7 +172,7 @@ void leWidget_Delete(leWidget* wgt)
     LE_FREE(wgt);
 }
 
-static leWidgetType getType(const leWidget* _this)
+leWidgetType _leWidget_GetType(const leWidget* _this)
 {
     LE_ASSERT_THIS();
 
@@ -1161,8 +1165,8 @@ void _leWidget_InvalidateRect(const leWidget* _this,
 void _leWidget_InvalidateContents(const leWidget* _this)
 { }
 
-static leResult _leWidget_InstallEventFilter(leWidget* _this,
-                                             leWidgetEventFilter fltr)
+leResult _leWidget_InstallEventFilter(leWidget* _this,
+                                      leWidgetEventFilter fltr)
 {
     uint32_t i;
     
@@ -1184,8 +1188,8 @@ static leResult _leWidget_InstallEventFilter(leWidget* _this,
     return LE_FAILURE;
 }
 
-static leResult _leWidget_RemoveEventFilter(leWidget* _this,
-                                            leWidgetEventFilter fltr)
+leResult _leWidget_RemoveEventFilter(leWidget* _this,
+                                     leWidgetEventFilter fltr)
 {
     uint32_t i;
     
@@ -1340,7 +1344,7 @@ void _leWidget_HandleEvent(leWidget* _this,
     }   
 }
 
-static void _leWidget_ValidateChildren(leWidget* _this)
+void _leWidget_ValidateChildren(leWidget* _this)
 {
     uint32_t i;
     leWidget* child;
@@ -1359,7 +1363,7 @@ static void _leWidget_ValidateChildren(leWidget* _this)
     }
 }
 
-static void _leWidget_IncreaseDirtyState(leWidget* _this, uint32_t state)
+void _leWidget_IncreaseDirtyState(leWidget* _this, uint32_t state)
 {
     LE_ASSERT_THIS();
     
@@ -1369,14 +1373,14 @@ static void _leWidget_IncreaseDirtyState(leWidget* _this, uint32_t state)
     }
 }
 
-static void _leWidget_SetDirtyState(leWidget* _this, uint32_t state)
+void _leWidget_SetDirtyState(leWidget* _this, uint32_t state)
 {
     LE_ASSERT_THIS();
     
     _this->dirtyState = state;
 }
 
-static void _leWidget_ClearDirtyState(leWidget* _this)
+void _leWidget_ClearDirtyState(leWidget* _this)
 {
     LE_ASSERT_THIS();
     
@@ -1387,7 +1391,7 @@ static void _leWidget_ClearDirtyState(leWidget* _this)
 void _leWidget_InvalidateBorderAreas(const leWidget* _this)
 { }
 
-static void _leWidget_DamageArea(const leWidget* _this, leRect* rect)
+void _leWidget_DamageArea(const leWidget* _this, leRect* rect)
 {
     LE_ASSERT_THIS();
     
@@ -1403,9 +1407,10 @@ void _leWidget_Update(leWidget* _this, uint32_t dt)
 {
 }
 
+#if LE_DYNAMIC_VTABLES == 1
 void _leWidget_GenerateVTable()
 {
-    widgetVTable.getType = getType;
+    widgetVTable.getType = _leWidget_GetType;
     widgetVTable.getX = _leWidget_GetX;
     widgetVTable.setX = _leWidget_SetX;
     widgetVTable.getY = _leWidget_GetY;
@@ -1491,3 +1496,86 @@ void _leWidget_FillVTable(leWidgetVTable* tbl)
 {
     *tbl = widgetVTable;
 }
+#else
+static const leWidgetVTable widgetVTable =
+{
+    .getType = _leWidget_GetType,
+    .getX = _leWidget_GetX,
+    .setX = _leWidget_SetX,
+    .getY = _leWidget_GetY,
+    .setY = _leWidget_SetY,
+    .setPosition = _leWidget_SetPosition,
+    .translate = _leWidget_Translate,
+    .getWidth = _leWidget_GetWidth,
+    .setWidth = _leWidget_SetWidth,
+    .getHeight = _leWidget_GetHeight,
+    .setHeight = _leWidget_SetHeight,
+    .setSize = _leWidget_SetSize,
+    .resize = _leWidget_Resize,
+    .getAlphaEnabled = _leWidget_GetAlphaEnabled,
+    .getCumulativeAlphaEnabled = _leWidget_GetCumulativeAlphaEnabled,
+    .setAlphaEnabled = _leWidget_SetAlphaEnabled,
+    .getAlphaAmount = _leWidget_GetAlphaAmount,
+    .getCumulativeAlphaAmount = _leWidget_GetCumulativeAlphaAmount,
+    .setAlphaAmount = _leWidget_SetAlphaAmount,
+    .isOpaque = _leWidget_IsOpaque,
+    .getEnabled = _leWidget_GetEnabled,
+    .setEnabled = _leWidget_SetEnabled,
+    .getVisible = _leWidget_GetVisible,
+    .setVisible = _leWidget_SetVisible,
+    .localRect = _leWidget_LocalRect,
+    .rectToParent = _leWidget_RectToParentSpace,
+    .rectToScreen = _leWidget_RectToScreenSpace,
+    .addChild = _leWidget_AddChild,
+    .removeChild = _leWidget_RemoveChild,
+    .removeAllChildren = _leWidget_RemoveAllChildren,
+    .getRootWidget = _leWidget_GetRootWidget,
+    .setParent = _leWidget_SetParent,
+    .getChildCount = _leWidget_GetChildCount,
+    .getChildAtIndex = _leWidget_GetChildAtIndex,
+    .getIndexOfChild = _leWidget_GetIndexOfChild,
+    .containsDescendent = _leWidget_ContainsDescendent,
+    .getScheme = _leWidget_GetScheme,
+    .setScheme = _leWidget_SetScheme,
+    .getBorderType = _leWidget_GetBorderType,
+    .setBorderType = _leWidget_SetBorderType,
+    .getBackgroundType = _leWidget_GetBackgroundType,
+    .setBackgroundType = _leWidget_SetBackgroundType,
+    .getHAlignment = _leWidget_GetHAlignment,
+    .setHAlignment = _leWidget_SetHAlignment,
+    .getVAlignment = _leWidget_GetVAlignment,
+    .setVAlignment = _leWidget_SetVAlignment,
+    .getMargins = _leWidget_GetMargins,
+    .setMargins = _leWidget_SetMargins,
+    .getCornerRadius = _leWidget_GetCornerRadius,
+    .setCornerRadius = _leWidget_SetCornerRadius,
+    .hasFocus = _leWidget_HasFocus,
+    .setFocus = _leWidget_SetFocus,
+    .invalidate = _leWidget_Invalidate,
+    .invalidateContents = _leWidget_InvalidateContents,
+    .installEventFilter = _leWidget_InstallEventFilter,
+    .removeEventFilter = _leWidget_RemoveEventFilter,
+
+    .update = _leWidget_Update,
+
+    .touchDownEvent = _leWidget_TouchDownEvent,
+    .touchUpEvent = _leWidget_TouchUpEvent,
+    .touchMoveEvent = _leWidget_TouchMoveEvent,
+    .moveEvent = _leWidget_MoveEvent,
+    .resizeEvent = _leWidget_ResizeEvent,
+    .focusLostEvent = _leWidget_FocusLostEvent,
+    .focusGainedEvent = _leWidget_FocusGainedEvent,
+    .languageChangeEvent = _leWidget_LanguageChangeEvent,
+
+    ._destructor = _leWidget_Destructor,
+    ._handleEvent = _leWidget_HandleEvent,
+    ._validateChildren = _leWidget_ValidateChildren,
+    ._increaseDirtyState = _leWidget_IncreaseDirtyState,
+    ._setDirtyState = _leWidget_SetDirtyState,
+    ._clearDirtyState = _leWidget_ClearDirtyState,
+    ._invalidateBorderAreas = _leWidget_InvalidateBorderAreas,
+    ._damageArea = _leWidget_DamageArea,
+
+    ._paint = _leWidget_Paint,
+};
+#endif

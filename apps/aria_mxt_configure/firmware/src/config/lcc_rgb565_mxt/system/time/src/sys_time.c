@@ -379,6 +379,12 @@ static uint32_t SYS_TIME_GetTotalElapsedCount(SYS_TIME_TIMER_OBJ* tmr)
     uint32_t elapsedCount = 0;
     uint32_t hwTimerCurrentValue;
 
+    if (tmr->active == false)
+    {
+        elapsedCount = 0;
+    }
+    else
+    {
     /* Add time from all timers in the front */
     while ((tmrActive != NULL) && (tmrActive != tmr))
     {
@@ -406,6 +412,7 @@ static uint32_t SYS_TIME_GetTotalElapsedCount(SYS_TIME_TIMER_OBJ* tmr)
     else
     {
         elapsedCount = 0;
+    }
     }
 
     return elapsedCount;
@@ -550,6 +557,8 @@ static void SYS_TIME_PLIBCallback(uint32_t status, uintptr_t context)
 
     elapsedCount = SYS_TIME_GetElapsedCount(counterObj->hwTimerCurrentValue);
 
+	SYS_TIME_Counter64Update(elapsedCount);
+
     if (tmrActive != NULL)
     {
         counterObj->interruptNestingCount++;
@@ -558,7 +567,6 @@ static void SYS_TIME_PLIBCallback(uint32_t status, uintptr_t context)
 
         counterObj->interruptNestingCount--;
     }
-    SYS_TIME_Counter64Update(elapsedCount);
 
     interruptState = SYS_INT_Disable();
     SYS_TIME_HwTimerCompareUpdate();

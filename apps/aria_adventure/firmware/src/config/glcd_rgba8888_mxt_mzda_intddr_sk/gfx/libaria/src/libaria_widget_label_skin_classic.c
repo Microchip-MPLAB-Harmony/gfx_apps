@@ -41,6 +41,7 @@ enum
     NOT_STARTED = LA_WIDGET_DRAW_STATE_READY,
     DONE = LA_WIDGET_DRAW_STATE_DONE,
     DRAW_BACKGROUND,
+    ANALYZE_STRING,
     DRAW_STRING,
     WAIT_STRING,
     DRAW_BORDER,
@@ -77,11 +78,10 @@ void _laLabelWidget_GetTextRect(laLabelWidget* lbl,
 }
 
 static void drawBackground(laLabelWidget* lbl);
-static void drawMultiLineString(laLabelWidget* lbl);
+static void drawALineOfString(laLabelWidget* lbl);
+static void analyzeMultiLineString(laLabelWidget* lbl);
 static void waitString(laLabelWidget* lbl);
 static void drawBorder(laLabelWidget* lbl);
-
-
 
 static void nextState(laLabelWidget* lbl)
 {
@@ -103,15 +103,32 @@ static void nextState(laLabelWidget* lbl)
         {
             if(laString_IsEmpty(&lbl->text) == LA_FALSE)
             {
-                lbl->widget.drawState = DRAW_STRING;
-                lbl->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&drawMultiLineString;
+                lbl->widget.drawState = ANALYZE_STRING;
+                lbl->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&analyzeMultiLineString;
 
                 return;
             }
         }
-        case DRAW_STRING:
+        case ANALYZE_STRING:
         {
-            if(lbl->widget.borderType != LA_WIDGET_BORDER_NONE)
+            if (lbl->drawObj.numlines > 0)
+            {            
+                lbl->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&drawALineOfString;
+                lbl->widget.drawState = DRAW_STRING;
+                
+                return;
+            }
+        }
+        case DRAW_STRING:
+        {   
+            if (lbl->drawObj.line < lbl->drawObj.numlines)
+            {
+                lbl->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&drawALineOfString;
+                lbl->widget.drawState = DRAW_STRING;
+                
+                return;
+            }
+            else if(lbl->widget.borderType != LA_WIDGET_BORDER_NONE)
             {
                 lbl->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&drawBorder;
                 lbl->widget.drawState = DRAW_BORDER;
@@ -134,71 +151,79 @@ static void drawBackground(laLabelWidget* lbl)
     nextState(lbl);
 }
 
-static void drawMultiLineString(laLabelWidget* lbl)
+static void analyzeMultiLineString(laLabelWidget* lbl)
 {
-    GFX_Rect textRect = {0}, clipRect = {0}, drawRect = {0};
-    laLayer* layer = laUtils_GetLayer((laWidget*)lbl);
-	uint32_t newoffset = 0;
-    uint32_t end = 0;
-	GFX_Rect bounds;
-	uint32_t numlines = 0;
-    uint32_t line = 0;
-    uint32_t lineY = 0;
+    GFX_Rect bounds = GFX_Rect_Zero;
     uint32_t maxLines = DEFAULT_NUM_LINES;
-    
-    GFX_Rect * lineRect = laContext_GetActive()->memIntf.heap.calloc(maxLines * sizeof(GFX_Rect), 1);
-    uint32_t * offset = laContext_GetActive()->memIntf.heap.calloc(maxLines * sizeof(uint32_t), 1);
+        
+    lbl->drawObj.drawRect = GFX_Rect_Zero;
+    lbl->drawObj.clipRect = GFX_Rect_Zero;
+    lbl->drawObj.textRect = GFX_Rect_Zero;
+    lbl->drawObj.newoffset = 0;
+
+    lbl->drawObj.numlines = 0;
+    lbl->drawObj.line = 0;
+    lbl->drawObj.lineY = 0;
+
+    lbl->drawObj.lineRect = laContext_GetActive()->memIntf.heap.calloc(maxLines * sizeof(GFX_Rect), 1);
+    lbl->drawObj.offset = laContext_GetActive()->memIntf.heap.calloc(maxLines * sizeof(uint32_t), 1);
     
 	bounds = laUtils_WidgetLocalRect((laWidget*)lbl);
 
-	while (lineRect != NULL && offset != NULL)
+	while (lbl->drawObj.lineRect != NULL && lbl->drawObj.offset != NULL)
 	{
-		offset[numlines] = newoffset;
+		lbl->drawObj.offset[lbl->drawObj.numlines] = lbl->drawObj.newoffset;
 
-		laString_GetLineRect(&lbl->text, offset[numlines], &lineRect[numlines], &newoffset);
+		laString_GetLineRect(&lbl->text,
+                             lbl->drawObj.offset[lbl->drawObj.numlines],
+                             &lbl->drawObj.lineRect[lbl->drawObj.numlines],
+                             &lbl->drawObj.newoffset);
 
-        if (offset[numlines] == newoffset)
+        if (lbl->drawObj.offset[lbl->drawObj.numlines] == lbl->drawObj.newoffset)
         {
             if (lbl->textLineSpace >= 0)
-                textRect.height += lbl->textLineSpace;
+                lbl->drawObj.textRect.height += lbl->textLineSpace;
             else
-                textRect.height += laString_GetHeight(&lbl->text) - 
+                lbl->drawObj.textRect.height += laString_GetHeight(&lbl->text) - 
                                laString_GetAscent(&lbl->text);            
             
             break;
         }
 
         if (lbl->textLineSpace >= 0)
-            textRect.height += lbl->textLineSpace;
+            lbl->drawObj.textRect.height += lbl->textLineSpace;
         else
-            textRect.height += laString_GetAscent(&lbl->text);        
+            lbl->drawObj.textRect.height += laString_GetAscent(&lbl->text);        
         
 
-		if (lineRect[numlines].width > textRect.width)
+		if (lbl->drawObj.lineRect[lbl->drawObj.numlines].width >
+            lbl->drawObj.textRect.width)
 		{
-			textRect.width = lineRect[numlines].width;
+			lbl->drawObj.textRect.width = lbl->drawObj.lineRect[lbl->drawObj.numlines].width;
 		}
 
-		numlines++;
+		lbl->drawObj.numlines++;
         
-        if (numlines >= maxLines)
+        if (lbl->drawObj.numlines >= maxLines)
         {
             maxLines += DEFAULT_NUM_LINES;
             
-            lineRect = laContext_GetActive()->memIntf.heap.realloc(lineRect, maxLines * sizeof(GFX_Rect));
-            offset = laContext_GetActive()->memIntf.heap.realloc(offset, maxLines * sizeof(uint32_t));
+            lbl->drawObj.lineRect = laContext_GetActive()->memIntf.heap.realloc(
+                            lbl->drawObj.lineRect, maxLines * sizeof(GFX_Rect));
+            lbl->drawObj.offset = laContext_GetActive()->memIntf.heap.realloc(
+                            lbl->drawObj.offset, maxLines * sizeof(uint32_t));
             
-            if (lineRect == NULL || offset == NULL)
+            if (lbl->drawObj.lineRect == NULL || lbl->drawObj.offset == NULL)
             {
                 //Unable to allocate for all lines
-                numlines = 0;
+                lbl->drawObj.numlines = 0;
                 break;
             }
         }
 	}
 
 	// arrange relative to image rect
-    laUtils_ArrangeRectangleRelative(&textRect,
+    laUtils_ArrangeRectangleRelative(&lbl->drawObj.textRect,
                                      GFX_Rect_Zero,
                                      bounds,
                                      lbl->halign,
@@ -211,84 +236,106 @@ static void drawMultiLineString(laLabelWidget* lbl)
                                      0);
 
     //Clip text to widget rectangle size
-    GFX_RectClip(&textRect, &bounds, &drawRect);
+    GFX_RectClip(&lbl->drawObj.textRect, &bounds, &lbl->drawObj.drawRect);
 
 	// move the rects to layer space
-	laUtils_RectToLayerSpace((laWidget*)lbl, &textRect);
-    laUtils_RectToLayerSpace((laWidget*)lbl, &drawRect);
+	laUtils_RectToLayerSpace((laWidget*)lbl, &lbl->drawObj.textRect);
+    laUtils_RectToLayerSpace((laWidget*)lbl, &lbl->drawObj.drawRect);
+    
+    nextState(lbl);
+}
 
-    for (line = 0; line < numlines; line++)
+static void drawALineOfString(laLabelWidget* lbl)
+{
+    uint32_t end = 0;
+    laLayer* layer = laUtils_GetLayer((laWidget*)lbl);
+    
+    switch(lbl->halign)
     {
-        //Horizonally align the line rectangle relative to textRect 
-        switch(lbl->halign)
-        {
-            case LA_HALIGN_LEFT:
-                //No break. Fall through
-            default:
-                lineRect[line].x = textRect.x;
-                break;
-            case LA_HALIGN_CENTER:
-                lineRect[line].x = textRect.x + textRect.width/2 - lineRect[line].width/2;
-                break;
-            case LA_HALIGN_RIGHT:
-                lineRect[line].x = textRect.x + textRect.width - lineRect[line].width;
-                break;
-        }
-
-        lineRect[line].y = textRect.y + lineY;
-
-        //Clip to the line rectangle 
-        GFX_RectClip(&textRect, &lineRect[line], &drawRect);
-
-        if(GFX_RectIntersects(&layer->clippedDrawingRect, &drawRect) == GFX_TRUE)
-        {
-            GFX_Set(GFXF_DRAW_MASK_ENABLE, GFX_FALSE);
-            GFX_Set(GFXF_DRAW_COLOR, lbl->widget.scheme->text);
-
-            GFX_RectClip(&drawRect, &layer->clippedDrawingRect, &clipRect);
-
-            if (line + 1 < numlines)
-            {
-                end = offset[line + 1];
-            }
-            else
-            {
-                end = newoffset;
-            }
-
-            laString_DrawSubStringClipped(&lbl->text,
-                                         offset[line],
-                                         end,
-                                         clipRect.x,
-                                         clipRect.y,
-                                         clipRect.width,
-                                         clipRect.height,
-                                         lineRect[line].x,
-                                         lineRect[line].y,
-                                         &lbl->reader);
-            if(lbl->reader != NULL)
-            {
-                lbl->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&waitString;
-                lbl->widget.drawState = WAIT_STRING;
-                
-                laContext_GetActive()->memIntf.heap.free(lineRect);
-                laContext_GetActive()->memIntf.heap.free(offset);
-                
-                return;
-            }
-        }
-
-        if (lbl->textLineSpace >= 0)
-            lineY += lbl->textLineSpace;
-        else
-            lineY += laString_GetAscent(&lbl->text);            
-            
+        case LA_HALIGN_LEFT:
+            //No break. Fall through
+        default:
+            lbl->drawObj.lineRect[lbl->drawObj.line].x = lbl->drawObj.textRect.x;
+            break;
+        case LA_HALIGN_CENTER:
+            lbl->drawObj.lineRect[lbl->drawObj.line].x = 
+                                lbl->drawObj.textRect.x +
+                                lbl->drawObj.textRect.width/2 -
+                                lbl->drawObj.lineRect[lbl->drawObj.line].width/2;
+            break;
+        case LA_HALIGN_RIGHT:
+            lbl->drawObj.lineRect[lbl->drawObj.line].x = 
+                                lbl->drawObj.textRect.x +
+                                lbl->drawObj.textRect.width -
+                                lbl->drawObj.lineRect[lbl->drawObj.line].width;
+            break;
     }
 
-    nextState(lbl);
+    lbl->drawObj.lineRect[lbl->drawObj.line].y = lbl->drawObj.textRect.y +
+                                                 lbl->drawObj.lineY;
+
+    //Clip to the line rectangle 
+    GFX_RectClip(&lbl->drawObj.textRect,
+                 &lbl->drawObj.lineRect[lbl->drawObj.line],
+                 &lbl->drawObj.drawRect);
+
+    if(GFX_RectIntersects(&layer->clippedDrawingRect,
+                          &lbl->drawObj.drawRect) == GFX_TRUE)
+    {
+        GFX_Set(GFXF_DRAW_MASK_ENABLE, GFX_FALSE);
+        GFX_Set(GFXF_DRAW_COLOR, lbl->widget.scheme->text);
+
+        GFX_RectClip(&lbl->drawObj.drawRect,
+                     &layer->clippedDrawingRect,
+                     &lbl->drawObj.clipRect);
+
+        if (lbl->drawObj.line + 1 < lbl->drawObj.numlines)
+        {
+            end = lbl->drawObj.offset[lbl->drawObj.line + 1];
+        }
+        else
+        {
+            end = lbl->drawObj.newoffset;
+        }
+
+        laString_DrawSubStringClipped(&lbl->text,
+                                     lbl->drawObj.offset[lbl->drawObj.line],
+                                     end,
+                                     lbl->drawObj.clipRect.x,
+                                     lbl->drawObj.clipRect.y,
+                                     lbl->drawObj.clipRect.width,
+                                     lbl->drawObj.clipRect.height,
+                                     lbl->drawObj.lineRect[lbl->drawObj.line].x,
+                                     lbl->drawObj.lineRect[lbl->drawObj.line].y,
+                                     &lbl->reader);
+    }
     
-    laContext_GetActive()->memIntf.heap.free(lineRect);
-    laContext_GetActive()->memIntf.heap.free(offset);
+    if (lbl->textLineSpace >= 0)
+        lbl->drawObj.lineY += lbl->textLineSpace;
+    else
+        lbl->drawObj.lineY += laString_GetAscent(&lbl->text);            
+
+    lbl->drawObj.line++;
+    
+    if (lbl->drawObj.line == lbl->drawObj.numlines)
+    {
+        laContext_GetActive()->memIntf.heap.free(lbl->drawObj.lineRect);
+        laContext_GetActive()->memIntf.heap.free(lbl->drawObj.offset);
+        
+        lbl->drawObj.lineRect = NULL;
+        lbl->drawObj.offset = NULL;
+        
+    }    
+
+    if(lbl->reader != NULL)
+    {
+        lbl->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&waitString;
+        lbl->widget.drawState = WAIT_STRING;
+    }
+    else
+    {
+        nextState(lbl);
+    }
 }
 
 static void waitString(laLabelWidget* lbl)

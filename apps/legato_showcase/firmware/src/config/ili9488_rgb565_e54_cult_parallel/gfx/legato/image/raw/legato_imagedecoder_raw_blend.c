@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -107,15 +107,15 @@ void _leRawImageDecoder_BlendStage_Internal(leRawDecodeState* state)
     }
     else if(state->source->buffer.mode == LE_COLOR_MODE_RGBA_5551)
     {
-        blendStage.base.exec = (void*)stage_BlendRGBA5551;
+        blendStage.base.exec = stage_BlendRGBA5551;
     }
     else if(state->source->buffer.mode == LE_COLOR_MODE_RGBA_8888)
     {
-        blendStage.base.exec = (void*)stage_BlendRGBA8888;
+        blendStage.base.exec = stage_BlendRGBA8888;
     }
     else if(state->source->buffer.mode == LE_COLOR_MODE_ARGB_8888)
     {
-        blendStage.base.exec = (void*)stage_BlendARGB8888;
+        blendStage.base.exec = stage_BlendARGB8888;
     }
     else
     {

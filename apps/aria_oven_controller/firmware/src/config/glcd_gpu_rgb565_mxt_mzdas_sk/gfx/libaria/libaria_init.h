@@ -56,14 +56,11 @@ extern "C" {
 #endif
 // DOM-IGNORE-END 
 
-#define LIBARIA_SCREEN_COUNT   5
+#define LIBARIA_SCREEN_COUNT   4
 
 // reference IDs for generated libaria screens
 // screen "SplashScreen"
 #define SplashScreen_ID    0
-
-// screen "assetLayout"
-#define assetLayout_ID    4
 
 // screen "controllerScreen"
 #define controllerScreen_ID    2

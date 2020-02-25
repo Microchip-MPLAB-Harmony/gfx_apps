@@ -16,7 +16,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -125,8 +125,8 @@ typedef struct leTouchTestWidgetVTable
 typedef struct leTouchTestWidget
 {
     leWidget widget; // widget base class
-    
-    leTouchTestWidgetVTable* fn;
+
+    const leTouchTestWidgetVTable* fn;
 
     leTouchTestState state; // touch test state
 

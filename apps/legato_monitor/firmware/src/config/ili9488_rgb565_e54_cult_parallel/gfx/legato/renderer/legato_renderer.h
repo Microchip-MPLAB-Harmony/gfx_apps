@@ -6,7 +6,7 @@
 #include "gfx/legato/common/legato_rect.h"
 #include "gfx/legato/datastructure/legato_rectarray.h"
 #include "gfx/legato/image/legato_palette.h"
-#include "gfx/legato/renderer/legato_driver.h"
+#include "gfx/driver/gfx_driver.h"
 #include "gfx/legato/widget/legato_widget.h"
 
 // DOM-IGNORE-BEGIN
@@ -41,7 +41,7 @@ typedef enum leFrameState
     Defines the global state of the renderer
 
   Description:
-    const leDisplayDriver* dispDriver - the display driver pointer
+    const gfxDisplayDriver* dispDriver - the display driver pointer
 
     uint32_t layerIdx - the current layer index
 
@@ -85,7 +85,7 @@ typedef enum leFrameState
 */
 typedef struct leRenderState
 {
-    const leDisplayDriver* dispDriver;  // the display driver pointer
+    const gfxDisplayDriver* dispDriver;  // the display driver pointer
     
     uint32_t layerIdx;           // the current layer index
     
@@ -140,7 +140,7 @@ typedef struct leGradient
 } leGradient;
 
 // internal use only
-leResult leRenderer_Initialize(const leDisplayDriver* dispDriver);
+leResult leRenderer_Initialize(const gfxDisplayDriver* dispDriver);
 
 // internal use only
 void leRenderer_Shutdown();

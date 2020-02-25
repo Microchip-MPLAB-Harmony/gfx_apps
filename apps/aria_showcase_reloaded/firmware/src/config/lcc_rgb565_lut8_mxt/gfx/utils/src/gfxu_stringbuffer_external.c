@@ -95,7 +95,7 @@ static GFX_Result prepareNextGlyph(GFXU_StringAssetReader* strReader)
                              &strReader->glyphOffset,
                              &strReader->glyphWidth) == GFX_FAILURE)
     {
-        return GFXU_DrawUnknownGlyph(strReader->x, 
+        GFXU_DrawUnknownGlyph(strReader->x, 
                                      strReader->y + (strReader->font->height - (strReader->font->ascent + strReader->font->descent)),
                                      strReader->font->ascent + strReader->font->descent,
                                      strReader->clipX,
@@ -299,6 +299,64 @@ GFX_Result GFXU_DrawStringBufferExternal(GFXU_CHAR* str,
     
     strReader->buffer = str;
     strReader->index = 0;
+    strReader->length = len;
+    strReader->font = fnt;
+    
+    strReader->x = x;
+    strReader->y = y;
+    strReader->clipX = clipX;
+    strReader->clipY = clipY;
+    strReader->clipWidth = clipWidth;
+    strReader->clipHeight = clipHeight;
+    
+    strReader->header.state = NEXT_GLYPH;
+    
+    memIntf->open((GFXU_AssetHeader*)fnt);
+    
+    // return the reader as a generic pointer
+    *reader = (GFXU_ExternalAssetReader*)strReader;
+
+    return GFX_SUCCESS;
+}
+
+GFX_Result GFXU_DrawSubStringBufferExternal(GFXU_CHAR* str,
+                                         GFXU_FontAsset* fnt,
+							             uint32_t start,
+                                         uint32_t end,        
+                                         int32_t clipX,
+                                         int32_t clipY,
+                                         int32_t clipWidth,
+                                         int32_t clipHeight,
+                                         int32_t x,
+                                         int32_t y,
+                                         GFXU_MemoryIntf* memIntf,
+                                         GFXU_ExternalAssetReader** reader)
+{
+    GFXU_StringAssetReader* strReader;
+    uint32_t len = 0;
+    
+    while(str[len] != '\0')
+        len++;
+        
+    if(len == 0)
+        return GFX_FAILURE;
+    
+    len = (end < len) ? end : len;
+    
+    // create the reader state manager object
+    strReader = (GFXU_StringAssetReader*)memIntf->heap.calloc(1, 
+                                             sizeof(GFXU_StringAssetReader));
+    
+    if(strReader == GFX_NULL)
+        return GFX_FAILURE;
+        
+    // set reader state manager member variables
+    strReader->header.memIntf = memIntf;
+    strReader->header.run = &run;
+    strReader->header.status = GFXU_READER_STATUS_READY;
+    
+    strReader->buffer = str;
+    strReader->index = start;
     strReader->length = len;
     strReader->font = fnt;
     

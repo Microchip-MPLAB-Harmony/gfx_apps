@@ -32,8 +32,8 @@ typedef struct leDynamicStringVTable
 typedef struct leDynamicString
 {
     leString base; // string base data
-    
-    leDynamicStringVTable* fn; // function table
+
+	const leDynamicStringVTable* fn; // function table
     
     leChar*     data;     // local string data storage
     

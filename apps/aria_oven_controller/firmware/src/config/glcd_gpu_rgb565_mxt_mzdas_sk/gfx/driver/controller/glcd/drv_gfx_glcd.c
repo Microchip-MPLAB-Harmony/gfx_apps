@@ -526,7 +526,7 @@ static GFX_Result glcdInitialize(GFX_Context* context)
         {
             for(j = 0; j < context->layer.layers[layerCount].rect.display.width; j++)
             {
-        *(uint16_t*)(drvLayer[layerCount].baseaddr[0] + i*context->layer.layers[layerCount].rect.display.width + j) = 0;
+			*(uint16_t*)(drvLayer[layerCount].baseaddr[0] + i*context->layer.layers[layerCount].rect.display.width + j) = 0;
             }
         }
         

@@ -43,6 +43,7 @@ enum
     DRAW_BACKGROUND,
     DRAW_IMAGE,
     WAIT_IMAGE,
+    ANALYZE_STRING,    
     DRAW_STRING,
     WAIT_STRING,
     DRAW_BORDER,
@@ -114,8 +115,8 @@ void _laButtonWidget_GetTextRect(laButtonWidget* btn,
 	imgRect.y = 0;
 	imgRect.width = 0;
 	imgRect.height = 0;
-
-	bounds = laUtils_WidgetLocalRect((laWidget*)btn);
+    
+    bounds = laUtils_WidgetLocalRect((laWidget*)btn);
     
     laString_GetMultiLineRect(&btn->text, textRect, btn->textLineSpace);
     
@@ -250,7 +251,8 @@ void _laButtonWidget_InvalidateBorderAreas(laButtonWidget* btn)
 }
 
 static void drawBackground(laButtonWidget* btn);
-static void drawMultiLineString(laButtonWidget* btn);
+static void analyzeMultiLineString(laButtonWidget* btn);
+static void drawALineOfString(laButtonWidget* btn);
 static void waitString(laButtonWidget* btn);
 static void drawImage(laButtonWidget* btn);
 static void waitImage(laButtonWidget* btn);
@@ -285,15 +287,32 @@ static void nextState(laButtonWidget* btn)
         {            
             if(laString_IsEmpty(&btn->text) == LA_FALSE)
             {
-                btn->widget.drawState = DRAW_STRING;
-                btn->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&drawMultiLineString;
+                btn->widget.drawState = ANALYZE_STRING;
+                btn->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&analyzeMultiLineString;
 
                 return;
             }
         }
+        case ANALYZE_STRING:
+        {
+            if (btn->drawObj.numlines > 0)
+            {
+                btn->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&drawALineOfString;
+                btn->widget.drawState = DRAW_STRING;
+                
+                return;
+            }
+        }        
         case DRAW_STRING:
         {
-            if(btn->widget.borderType != LA_WIDGET_BORDER_NONE)
+            if (btn->drawObj.line < btn->drawObj.numlines)
+            {
+                btn->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&drawALineOfString;
+                btn->widget.drawState = DRAW_STRING;
+                
+                return;
+            }
+            else if(btn->widget.borderType != LA_WIDGET_BORDER_NONE)
             {
                 btn->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&drawBorder;
                 btn->widget.drawState = DRAW_BORDER;
@@ -332,7 +351,7 @@ static void drawImage(laButtonWidget* btn)
     GFXU_ImageAsset* img = NULL;
     laLayer* layer = laUtils_GetLayer((laWidget*)btn);
 	GFX_Bool alphaEnable;
-
+    
     if(btn->state != LA_BUTTON_STATE_UP)
     {
         if(btn->pressedImage != NULL)
@@ -353,7 +372,7 @@ static void drawImage(laButtonWidget* btn)
 		GFX_Get(GFXF_DRAW_ALPHA_ENABLE, &alphaEnable);
 		GFX_Set(GFXF_DRAW_ALPHA_ENABLE, btn->widget.alphaEnabled);
 
-		GFXU_DrawImage(img,
+        GFXU_DrawImage(img,
                        imgSrcRect.x,
                        imgSrcRect.y,
                        imgSrcRect.width,
@@ -365,7 +384,7 @@ static void drawImage(laButtonWidget* btn)
                 
 		GFX_Set(GFXF_DRAW_ALPHA_ENABLE, alphaEnable);
 
-		if (btn->reader != NULL)
+        if(btn->reader != NULL)
         {  
             btn->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&waitImage;
             btn->widget.drawState = WAIT_IMAGE;
@@ -397,141 +416,165 @@ static void waitImage(laButtonWidget* btn)
     nextState(btn);
 }
 
-static void drawMultiLineString(laButtonWidget* btn)
+static void analyzeMultiLineString(laButtonWidget* btn)
 {
-    GFX_Rect textRect = {0}, clipRect = {0}, drawRect = {0};
-    laLayer* layer = laUtils_GetLayer((laWidget*)btn);
-	uint32_t newoffset = 0;
-    uint32_t end = 0;
-	uint32_t numlines = 0;
-    uint32_t line = 0;
-    uint32_t lineY = 0;
     uint32_t maxLines = DEFAULT_NUM_LINES;
     
-    GFX_Rect * lineRect = laContext_GetActive()->memIntf.heap.calloc(maxLines * sizeof(GFX_Rect), 1);
-    uint32_t * offset = laContext_GetActive()->memIntf.heap.calloc(maxLines * sizeof(uint32_t), 1);
-  
-	while (lineRect != NULL && offset != NULL)
+    btn->drawObj.textRect = GFX_Rect_Zero;
+    btn->drawObj.newoffset = 0;
+
+    btn->drawObj.numlines = 0;
+    btn->drawObj.line = 0;
+    btn->drawObj.lineY = 0;
+
+    btn->drawObj.lineRect = laContext_GetActive()->memIntf.heap.calloc(maxLines * sizeof(GFX_Rect), 1);
+    btn->drawObj.offset = laContext_GetActive()->memIntf.heap.calloc(maxLines * sizeof(uint32_t), 1);    
+    
+    while (btn->drawObj.lineRect != NULL && btn->drawObj.offset != NULL)
 	{
-		offset[numlines] = newoffset;
+		btn->drawObj.offset[btn->drawObj.numlines] = btn->drawObj.newoffset;
 
-		laString_GetLineRect(&btn->text, offset[numlines], &lineRect[numlines], &newoffset);
+		laString_GetLineRect(&btn->text,
+                             btn->drawObj.offset[btn->drawObj.numlines],
+                             &btn->drawObj.lineRect[btn->drawObj.numlines],
+                             &btn->drawObj.newoffset);
 
-        if (offset[numlines] == newoffset)
+        if (btn->drawObj.offset[btn->drawObj.numlines] == btn->drawObj.newoffset)
         {
             if (btn->textLineSpace >= 0)
-                textRect.height += btn->textLineSpace;
+                btn->drawObj.textRect.height += btn->textLineSpace;
             else
-                textRect.height += laString_GetHeight(&btn->text) - 
-                               laString_GetAscent(&btn->text);
+                btn->drawObj.textRect.height += laString_GetHeight(&btn->text) - 
+                                                laString_GetAscent(&btn->text);
             
             break;
         }
 
         if (btn->textLineSpace >= 0)
-            textRect.height += btn->textLineSpace;
+            btn->drawObj.textRect.height += btn->textLineSpace;
         else
-            textRect.height += laString_GetAscent(&btn->text);        
+            btn->drawObj.textRect.height += laString_GetAscent(&btn->text);        
 
-		if (lineRect[numlines].width > textRect.width)
+		if (btn->drawObj.lineRect[btn->drawObj.numlines].width >
+            btn->drawObj.textRect.width)
 		{
-			textRect.width = lineRect[numlines].width;
+			btn->drawObj.textRect.width = btn->drawObj.lineRect[btn->drawObj.numlines].width;
 		}
 
-		numlines++;
+		btn->drawObj.numlines++;
         
-        if (numlines >= maxLines)
+        if (btn->drawObj.numlines >= maxLines)
         {
             maxLines += DEFAULT_NUM_LINES;
             
-            lineRect = laContext_GetActive()->memIntf.heap.realloc(lineRect, maxLines * sizeof(GFX_Rect));
-            offset = laContext_GetActive()->memIntf.heap.realloc(offset, maxLines * sizeof(uint32_t));
+            btn->drawObj.lineRect = laContext_GetActive()->memIntf.heap.realloc(
+                            btn->drawObj.lineRect, maxLines * sizeof(GFX_Rect));
+            btn->drawObj.offset = laContext_GetActive()->memIntf.heap.realloc(
+                            btn->drawObj.offset, maxLines * sizeof(uint32_t));
             
-            if (lineRect == NULL || offset == NULL)
+            if (btn->drawObj.lineRect == NULL || btn->drawObj.offset == NULL)
             {
                 //Unable to allocate for all lines
-                numlines = 0;
+                btn->drawObj.numlines = 0;
                 break;
             }
         }
 	}
 
 	// arrange relative to image rect
-    _laButtonWidget_GetTextRect(btn, &textRect, &drawRect);
+    _laButtonWidget_GetTextRect(btn, &btn->drawObj.textRect, &btn->drawObj.drawRect);    
     
-    for (line = 0; line < numlines; line++)
+    nextState(btn);
+}
+static void drawALineOfString(laButtonWidget* btn)
+{
+    uint32_t end = 0;
+    laLayer* layer = laUtils_GetLayer((laWidget*)btn);
+    
+    //Horizonally align the line rectangle relative to textRect 
+    switch(btn->halign)
     {
-        //Horizonally align the line rectangle relative to textRect 
-        switch(btn->halign)
-        {
-            case LA_HALIGN_LEFT:
-                //No break. Fall through
-            default:
-                lineRect[line].x = textRect.x;
-                break;
-            case LA_HALIGN_CENTER:
-                lineRect[line].x = textRect.x + textRect.width/2 - lineRect[line].width/2;
-                break;
-            case LA_HALIGN_RIGHT:
-                lineRect[line].x = textRect.x + textRect.width - lineRect[line].width;
-                break;
-        }
-
-        lineRect[line].y = textRect.y + lineY;
-
-        //Clip to the line rectangle 
-        GFX_RectClip(&textRect, &lineRect[line], &drawRect);
-
-        if(GFX_RectIntersects(&layer->clippedDrawingRect, &drawRect) == GFX_TRUE)
-        {
-            GFX_Set(GFXF_DRAW_MASK_ENABLE, GFX_FALSE);
-            GFX_Set(GFXF_DRAW_COLOR, btn->widget.scheme->text);
-
-            GFX_RectClip(&drawRect, &layer->clippedDrawingRect, &clipRect);
-
-            if (line + 1 < numlines)
-            {
-                end = offset[line + 1];
-            }
-            else
-            {
-                end = newoffset;
-            }
-
-            laString_DrawSubStringClipped(&btn->text,
-                                         offset[line],
-                                         end,
-                                         clipRect.x,
-                                         clipRect.y,
-                                         clipRect.width,
-                                         clipRect.height,
-                                         lineRect[line].x,
-                                         lineRect[line].y,
-                                         &btn->reader);
-            if(btn->reader != NULL)
-            {
-                btn->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&waitString;
-                btn->widget.drawState = WAIT_STRING;
-                
-                laContext_GetActive()->memIntf.heap.free(lineRect);
-                laContext_GetActive()->memIntf.heap.free(offset);
-
-                return;
-            }
-        }
-        
-        if (btn->textLineSpace >= 0)
-            lineY += btn->textLineSpace;
-        else
-            lineY += laString_GetAscent(&btn->text);
-            
+        case LA_HALIGN_LEFT:
+            //No break. Fall through
+        default:
+            btn->drawObj.lineRect[btn->drawObj.line].x = btn->drawObj.textRect.x;
+            break;
+        case LA_HALIGN_CENTER:
+            btn->drawObj.lineRect[btn->drawObj.line].x = btn->drawObj.textRect.x +
+                        btn->drawObj.textRect.width/2 -
+                        btn->drawObj.lineRect[btn->drawObj.line].width/2;
+            break;
+        case LA_HALIGN_RIGHT:
+            btn->drawObj.lineRect[btn->drawObj.line].x = btn->drawObj.textRect.x +
+                        btn->drawObj.textRect.width -
+                        btn->drawObj.lineRect[btn->drawObj.line].width;
+            break;
     }
 
-    nextState(btn);
+    btn->drawObj.lineRect[btn->drawObj.line].y = btn->drawObj.textRect.y +
+                                                 btn->drawObj.lineY;
 
-    laContext_GetActive()->memIntf.heap.free(lineRect);
-    laContext_GetActive()->memIntf.heap.free(offset);
+    //Clip to the line rectangle 
+    GFX_RectClip(&btn->drawObj.textRect,
+                 &btn->drawObj.lineRect[btn->drawObj.line],
+                 &btn->drawObj.drawRect);
+
+    if(GFX_RectIntersects(&layer->clippedDrawingRect,
+                          &btn->drawObj.drawRect) == GFX_TRUE)
+    {
+        GFX_Set(GFXF_DRAW_MASK_ENABLE, GFX_FALSE);
+        GFX_Set(GFXF_DRAW_COLOR, btn->widget.scheme->text);
+
+        GFX_RectClip(&btn->drawObj.drawRect,
+                     &layer->clippedDrawingRect,
+                     &btn->drawObj.clipRect);
+
+        if (btn->drawObj.line + 1 < btn->drawObj.numlines)
+        {
+            end = btn->drawObj.offset[btn->drawObj.line + 1];
+        }
+        else
+        {
+            end = btn->drawObj.newoffset;
+        }
+
+        laString_DrawSubStringClipped(&btn->text,
+                                     btn->drawObj.offset[btn->drawObj.line],
+                                     end,
+                                     btn->drawObj.clipRect.x,
+                                     btn->drawObj.clipRect.y,
+                                     btn->drawObj.clipRect.width,
+                                     btn->drawObj.clipRect.height,
+                                     btn->drawObj.lineRect[btn->drawObj.line].x,
+                                     btn->drawObj.lineRect[btn->drawObj.line].y,
+                                     &btn->reader);
+    }
+
+    if (btn->textLineSpace >= 0)
+        btn->drawObj.lineY += btn->textLineSpace;
+    else
+        btn->drawObj.lineY += laString_GetAscent(&btn->text);
+
+    btn->drawObj.line++;
     
+    if (btn->drawObj.line >= btn->drawObj.numlines)
+    {
+        laContext_GetActive()->memIntf.heap.free(btn->drawObj.lineRect);
+        laContext_GetActive()->memIntf.heap.free(btn->drawObj.offset);
+        
+        btn->drawObj.lineRect = NULL;
+        btn->drawObj.offset = NULL;
+    }
+    
+    if(btn->reader != NULL)
+    {
+        btn->widget.drawFunc = (laWidget_DrawFunction_FnPtr)&waitString;
+        btn->widget.drawState = WAIT_STRING;
+    }
+    else
+    {
+        nextState(btn);
+    }
 }
 
 static void waitString(laButtonWidget* btn)

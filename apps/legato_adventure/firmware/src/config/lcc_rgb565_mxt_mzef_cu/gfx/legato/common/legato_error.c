@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -25,6 +25,7 @@
 
 #include <stdio.h>
 #include <stdarg.h>
+#include <stdlib.h>
 
 #if LE_ASSERT_ENABLE == 1
 
@@ -40,14 +41,14 @@ LIB_EXPORT const char* leGetErrorMessage()
 void leSetErrorMessage(const char* msg)
 {
     size_t len;
-    
+
     errorMsg[0] = '\0';
-    
+
     if(msg == NULL)
         return;
-    
+
     len = strlen(msg);
-    
+
     if(len >= LE_ERRORMSG_SIZE - 1)
     {
         memcpy(errorMsg, msg, LE_ERRORMSG_SIZE - 1);
@@ -57,24 +58,33 @@ void leSetErrorMessage(const char* msg)
     {
         strcpy(errorMsg, msg);
     }
-    
+
 #ifdef WIN32
     printf("%s\n", errorMsg);
 #endif
+
+    exit(0);
 }
 
 void leSprintfErrorMessage(const char* fmt, ...)
 {
     va_list(args);
     va_start(args, fmt);
-    
+
     vsnprintf(errorMsg, LE_ERRORMSG_SIZE, fmt, args);
-    
+
     va_end(args);
-    
+
 #ifdef WIN32
     printf("%s\n", errorMsg);
 #endif
+
+    exit(0);
+}
+
+void leAssert()
+{
+    exit(0);
 }
 
 #endif

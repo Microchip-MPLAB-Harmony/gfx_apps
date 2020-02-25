@@ -5,7 +5,7 @@
 
 #include "gfx/legato/common/legato_common.h"
 
-#include "gfx/legato/renderer/legato_driver.h"
+#include "gfx/driver/gfx_driver.h"
 #include "gfx/legato/core/legato_input.h"
 #include "gfx/legato/core/legato_scheme.h"
 #include "gfx/legato/string/legato_stringtable.h"
@@ -82,7 +82,7 @@ LIB_EXPORT leState* leGetState();
   Returns;
     leResult - the result of the initialization operation
 */
-LIB_EXPORT leResult leInitialize(const leDisplayDriver* dispDriver);
+LIB_EXPORT leResult leInitialize(const gfxDisplayDriver* dispDriver);
 
 // *****************************************************************************
 /* Type:

@@ -18,7 +18,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -277,6 +277,21 @@ LIB_EXPORT leResult leRectArray_RemoveDuplicates(leRectArray* arr);
     leResult - the result of the operation
 */
 LIB_EXPORT leResult leRectArray_SortBySize(leRectArray* arr);
+
+// *****************************************************************************
+/* Function:
+    leResult leRectArray_SortByX(leRectArray* arr)
+
+   Summary:
+    Sorts a given array in order of the X coordinate.
+
+   Parameters:
+    leRectArray* arr - the array to analyze
+
+   Returns:
+    leResult - the result of the operation
+*/
+LIB_EXPORT leResult leRectArray_SortByX(leRectArray* arr);
 
 // *****************************************************************************
 /* Function:

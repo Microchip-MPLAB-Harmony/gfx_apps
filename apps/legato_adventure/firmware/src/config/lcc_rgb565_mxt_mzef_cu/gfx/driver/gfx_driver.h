@@ -754,6 +754,9 @@ typedef struct gfxDisplayDriver
     void (*swap)(void);
 
     uint32_t (*getVSYNCCount)(void);
+
+    gfxPixelBuffer* (*getFrameBuffer)(int32_t idx);
+
 } gfxDisplayDriver;
 
 // *****************************************************************************

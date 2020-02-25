@@ -65,7 +65,7 @@ static void updateDirtyFlags(laWidget* widget)
 GFX_Result _laContext_PaintWidget(laWidget* widget)
 {
     laWidget* child;
-    GFX_Rect widgetRect, parentRect, clipRect, cacheRect;
+    GFX_Rect cacheRect;
     laBool alphaEnable;
     laBool shouldPaint = LA_FALSE;
     laBool painted = LA_FALSE;
@@ -144,35 +144,18 @@ GFX_Result _laContext_PaintWidget(laWidget* widget)
         // clip the damage rectangle to the child's parent
         if(widget->parent != NULL)
         {
-            widgetRect = laUtils_WidgetLayerRect(widget);
-            parentRect = laUtils_WidgetLayerRect(widget->parent);
-            
-            // child does not intersect parent at all, do not draw
-            if(GFX_RectIntersects(&widgetRect, &parentRect) == GFX_FALSE)
-            {
-                _laWidget_ValidateChildren(widget);
-        
-                return LA_SUCCESS;
-            }
-            
-            // get the delta area between the parent and child
-            GFX_RectClip(&widgetRect, &parentRect, &clipRect);
+            // get the delta area between the parent tree and child
+            layer->clippedDrawingRect = laUtils_ClipWidgetToAncestors(widget);
             
             // widget visible area does not intersect dirty area at all
             // do not draw
-            if(GFX_RectIntersects(&clipRect,
+            if(GFX_RectIntersects(&layer->clippedDrawingRect,
                                   &layer->frameRectList.rects[layer->frameRectIdx]) == GFX_FALSE)
             {
                 _laWidget_ValidateChildren(widget);
         
                 return LA_SUCCESS;
             }
-            
-            // get the delta area between the dirty area and the child/parent
-            // delta area
-            GFX_RectClip(&layer->frameRectList.rects[layer->frameRectIdx],
-                         &clipRect,
-                         &layer->clippedDrawingRect);
         }
         else
         {

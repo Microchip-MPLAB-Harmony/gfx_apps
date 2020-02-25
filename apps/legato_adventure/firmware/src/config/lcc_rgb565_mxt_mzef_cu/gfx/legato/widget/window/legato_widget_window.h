@@ -16,7 +16,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -96,8 +96,8 @@ typedef struct leWindowWidgetVTable
 typedef struct leWindowWidget
 {
     leWidget widget; // base widget class
-    
-    leWindowWidgetVTable* fn;
+
+    const leWindowWidgetVTable* fn;
 
     uint32_t titleHeight; // title height
     const leString* title; // title text

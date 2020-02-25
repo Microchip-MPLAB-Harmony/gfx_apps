@@ -2322,7 +2322,6 @@ static void ScreenCreate_LineGraphScreen(laScreen* screen)
     laLineGraphWidget_AddCategory(LineGraphWidget13, NULL);
     laLineGraphWidget_SetCategoryText(LineGraphWidget13, 15, laString_CreateFromID(string_pt15));
     laLineGraphWidget_AddSeries(LineGraphWidget13, NULL);
-    laLineGraphWidget_SetSeriesScheme(LineGraphWidget13, 0, &DataSeriesA);
     laLineGraphWidget_SetSeriesPointType(LineGraphWidget13, 0, LINE_GRAPH_DATA_POINT_CIRCLE);
     laLineGraphWidget_AddDataToSeries(LineGraphWidget13, 0, 0, NULL);
     laLineGraphWidget_AddDataToSeries(LineGraphWidget13, 0, 0, NULL);
@@ -2341,7 +2340,6 @@ static void ScreenCreate_LineGraphScreen(laScreen* screen)
     laLineGraphWidget_AddDataToSeries(LineGraphWidget13, 0, 0, NULL);
     laLineGraphWidget_AddDataToSeries(LineGraphWidget13, 0, 0, NULL);
     laLineGraphWidget_AddSeries(LineGraphWidget13, NULL);
-    laLineGraphWidget_SetSeriesScheme(LineGraphWidget13, 1, &DataSeriesB);
     laLineGraphWidget_SetSeriesPointType(LineGraphWidget13, 1, LINE_GRAPH_DATA_POINT_SQUARE);
     laLineGraphWidget_AddDataToSeries(LineGraphWidget13, 1, 0, NULL);
     laLineGraphWidget_AddDataToSeries(LineGraphWidget13, 1, 0, NULL);

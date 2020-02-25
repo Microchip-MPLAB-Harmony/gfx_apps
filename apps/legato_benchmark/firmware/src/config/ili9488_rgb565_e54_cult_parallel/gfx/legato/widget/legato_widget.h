@@ -16,7 +16,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -499,7 +499,7 @@ typedef void (*leWidget_DrawFunction_FnPtr)(void*);
 */
 typedef struct leWidget
 {
-    leWidgetVTable* fn;
+    const leWidgetVTable* fn;
     
     uint32_t id;  // the id of the widget
     leWidgetType type; // the type of the widget
@@ -636,6 +636,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leWidgetType - the type
 */
+leWidgetType _leWidget_GetType(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -656,6 +657,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     int32_t - the x value
 */
+int32_t _leWidget_GetX(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -678,6 +680,8 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_SetX(leWidget* _this,
+                        int32_t x);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -698,6 +702,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     int32_t - the y value
 */
+int32_t _leWidget_GetY(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -720,6 +725,8 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_SetY(leWidget* _this,
+                        int32_t y);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -744,6 +751,9 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_SetPosition(leWidget* _this,
+                               int32_t x,
+                               int32_t y);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -768,6 +778,9 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_Translate(leWidget* _this,
+                             int32_t x,
+                             int32_t y);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -788,6 +801,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     uint32_t - the width value
 */
+uint32_t _leWidget_GetWidth(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -810,6 +824,8 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_SetWidth(leWidget* _this,
+                            uint32_t width);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -830,6 +846,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     uint32_t - the height value
 */
+uint32_t _leWidget_GetHeight(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -852,6 +869,8 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_SetHeight(leWidget* _this,
+                             uint32_t height);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -876,6 +895,9 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_SetSize(leWidget* _this,
+                           uint32_t width,
+                           uint32_t height);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -900,6 +922,9 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_Resize(leWidget* _this,
+                          int32_t width,
+                          int32_t height);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -920,6 +945,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leBool - true if alpha blending is enabled
 */
+leBool _leWidget_GetAlphaEnabled(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -942,6 +968,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leBool - true if alpha blending is enabled
 */
+leBool _leWidget_GetCumulativeAlphaEnabled(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -964,6 +991,8 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_SetAlphaEnabled(leWidget* _this,
+                                   leBool enable);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -984,6 +1013,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     uint32_t - the alpha amount
 */
+uint32_t _leWidget_GetAlphaAmount(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1004,6 +1034,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     uint32_t - the alpha amount
 */
+uint32_t _leWidget_GetCumulativeAlphaAmount(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1026,6 +1057,8 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_SetAlphaAmount(leWidget* _this,
+                                  uint32_t alpha);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1046,6 +1079,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leBool - true if opaque
 */
+leBool _leWidget_IsOpaque(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1066,6 +1100,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leBool - the setting value
 */
+leBool _leWidget_GetEnabled(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1088,6 +1123,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_SetEnabled(leWidget* _this, leBool enable);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1108,6 +1144,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leBool - the visibility setting
 */
+leBool _leWidget_GetVisible(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1130,6 +1167,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_SetVisible(leWidget* _this, leBool visible);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1150,6 +1188,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leRect - the bounding rectangle
 */
+leRect _leWidget_LocalRect(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1170,6 +1209,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leRect - the bounding rectangle
 */
+leRect _leWidget_RectToParentSpace(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1190,6 +1230,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leRect - the bounding rectangle
 */
+leRect _leWidget_RectToScreenSpace(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1212,6 +1253,8 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_AddChild(leWidget* _this,
+                            leWidget* child);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1234,6 +1277,8 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_RemoveChild(leWidget* _this,
+                               leWidget* child);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1254,6 +1299,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     void
 */
+void _leWidget_RemoveAllChildren(leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1274,6 +1320,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leWidget* - the root widget
 */
+leWidget* _leWidget_GetRootWidget(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1296,6 +1343,8 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_SetParent(leWidget* _this,
+                             leWidget* parent);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1316,6 +1365,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     uint32_t - the child count
 */
+uint32_t _leWidget_GetChildCount(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1338,6 +1388,8 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leWidget* - the child widget
 */
+leWidget* _leWidget_GetChildAtIndex(const leWidget* _this,
+                                    uint32_t idx);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1360,6 +1412,8 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     uint32_t -
 */
+uint32_t _leWidget_GetIndexOfChild(const leWidget* _this,
+                                   const leWidget* child);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1382,6 +1436,8 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leBool - LE_TRUE if the widget is a descentdent of this
 */
+leBool _leWidget_ContainsDescendent(const leWidget* _this,
+                                    const leWidget* wgt);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1402,6 +1458,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leScheme* - the scheme pointer
 */
+leScheme* _leWidget_GetScheme(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1424,6 +1481,8 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_SetScheme(leWidget* _this,
+                             leScheme* scheme);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1444,6 +1503,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leBorderType - the type
 */
+leBorderType _leWidget_GetBorderType(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1466,6 +1526,8 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_SetBorderType(leWidget* _this,
+                                 leBorderType type);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1486,6 +1548,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leBackgroundType - the type
 */
+leBackgroundType _leWidget_GetBackgroundType(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1508,6 +1571,8 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_SetBackgroundType(leWidget* _this,
+                                     leBackgroundType type);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1528,6 +1593,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leHAlignment - the horizontal alignment
 */
+leHAlignment _leWidget_GetHAlignment(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1550,6 +1616,8 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_SetHAlignment(leWidget* _this,
+                                 leHAlignment align);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1570,6 +1638,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leVAlignment - the vertical alignment
 */
+leVAlignment _leWidget_GetVAlignment(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1592,6 +1661,8 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_SetVAlignment(leWidget* _this,
+                                 leVAlignment align);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1612,6 +1683,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leMargin - the margin value
 */
+leMargin _leWidget_GetMargins(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1640,6 +1712,11 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_SetMargins(leWidget* _this,
+                              uint32_t l,
+                              uint32_t t,
+                              uint32_t r,
+                              uint32_t b);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1660,6 +1737,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     uint32_t - the radius value
 */
+uint32_t _leWidget_GetCornerRadius(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1682,6 +1760,8 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_SetCornerRadius(leWidget* _this,
+                                   uint32_t radius);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1702,6 +1782,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leBool - true if focused
 */
+leBool _leWidget_HasFocus(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1722,6 +1803,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_SetFocus(leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1742,6 +1824,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     void
 */
+void _leWidget_Invalidate(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1762,6 +1845,7 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     void
 */
+void _leWidget_InvalidateContents(const leWidget* _this);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1784,6 +1868,8 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_InstallEventFilter(leWidget* _this,
+                                      leWidgetEventFilter fltr);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1806,6 +1892,8 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     leResult - the result of the operation
 */
+leResult _leWidget_RemoveEventFilter(leWidget* _this,
+                                     leWidgetEventFilter fltr);
 
 // *****************************************************************************
 /* Virtual Member Function:
@@ -1828,7 +1916,22 @@ LIB_EXPORT void leWidget_Delete(leWidget* wgt);
   Returns:
     void
 */
+void _leWidget_Update(leWidget* _this, uint32_t dt);
 
-
+void _leWidget_HandleEvent(leWidget*, leEvent*);
+void _leWidget_ValidateChildren(leWidget*);
+void _leWidget_IncreaseDirtyState(leWidget*, uint32_t);
+void _leWidget_SetDirtyState(leWidget*, uint32_t);
+void _leWidget_ClearDirtyState(leWidget*);
+void _leWidget_InvalidateBorderAreas(const leWidget*);
+void _leWidget_DamageArea(const leWidget*, leRect*);
+void _leWidget_TouchDownEvent(leWidget*, leWidgetEvent_TouchDown*);
+void _leWidget_TouchUpEvent(leWidget*, leWidgetEvent_TouchUp*);
+void _leWidget_TouchMoveEvent(leWidget*, leWidgetEvent_TouchMove*);
+void _leWidget_MoveEvent(leWidget*, leWidget_MoveEvent*);
+void _leWidget_ResizeEvent(leWidget*, leWidget_ResizeEvent*);
+void _leWidget_FocusLostEvent(leWidget*);
+void _leWidget_FocusGainedEvent(leWidget*);
+void _leWidget_LanguageChangeEvent(leWidget*);
 
 #endif /* LEGATO_WIDGET_H */

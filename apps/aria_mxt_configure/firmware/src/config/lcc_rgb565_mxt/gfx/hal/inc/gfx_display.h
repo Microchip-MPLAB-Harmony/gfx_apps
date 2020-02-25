@@ -74,16 +74,16 @@ typedef struct GFX_DisplayInfo_t
         
         struct horizontal_t
         {
-            int8_t pulse_width;
-            int8_t back_porch;
-            int8_t front_porch;
+            int32_t pulse_width;
+            int32_t back_porch;
+            int32_t front_porch;
         } horz;
         
         struct vertical_t
         {
-            int8_t pulse_width;
-            int8_t back_porch;
-            int8_t front_porch;
+            int32_t pulse_width;
+            int32_t back_porch;
+            int32_t front_porch;
         } vert;
         
         int32_t inv_left_shift;

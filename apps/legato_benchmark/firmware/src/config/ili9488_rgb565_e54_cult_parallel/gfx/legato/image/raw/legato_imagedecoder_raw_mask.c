@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -48,7 +48,7 @@ void _leRawImageDecoder_MaskStage_Internal(leRawDecodeState* state)
     memset(&maskStage, 0, sizeof(maskStage));
 
     maskStage.base.state = state;
-    maskStage.base.exec = (void*)stage_rejectMaskedColor;
+    maskStage.base.exec = stage_rejectMaskedColor;
 
     _leRawImageDecoder_InjectStage(state, (void*)&maskStage);
 }

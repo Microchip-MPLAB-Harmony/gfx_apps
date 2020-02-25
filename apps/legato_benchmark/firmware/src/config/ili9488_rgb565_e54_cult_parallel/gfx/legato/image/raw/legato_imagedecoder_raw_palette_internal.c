@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -57,7 +57,7 @@ void _leRawImageDecoder_LookupStage_Internal(leRawDecodeState* state)
 
     paletteStage.base.state = state;
 
-    paletteStage.base.exec = (void*)stage_lookup;
+	paletteStage.base.exec = (leResult(*)(struct leRawDecodeStage *))stage_lookup;
     paletteStage.paletteSize = leColorInfoTable[state->source->palette->colorMode].size;
 
     _leRawImageDecoder_InjectStage(state, (void*)&paletteStage);
@@ -88,7 +88,7 @@ leResult _leRawImageDecoder_ImageRenderPostLookupStage(leRawDecodeState* state)
     state->needToLookupMaskColor = LE_TRUE;
 
     imageRenderPostLookupStage.base.state = state;
-    imageRenderPostLookupStage.base.exec = (void*)stage_imageRenderPostLookup;
+    imageRenderPostLookupStage.base.exec = stage_imageRenderPostLookup;
 
     _leRawImageDecoder_InjectStage(state, (void*)&imageRenderPostLookupStage);
 

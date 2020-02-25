@@ -16,7 +16,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -132,8 +132,8 @@ typedef struct leSliderWidgetVTable
 typedef struct leSliderWidget
 {
     leWidget widget; // widget base class
-    
-    leSliderWidgetVTable* fn;
+
+    const leSliderWidgetVTable* fn;
 
     leSliderState state; // slider state
     leOrientation alignment; // slider alignment

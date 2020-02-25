@@ -400,7 +400,9 @@ SYS_STATUS SYS_TIME_Status ( SYS_MODULE_OBJ object );
    Returns:
       SYS_TIME_SUCCESS - If the call succeeded.
 
-      SYS_TIME_ERROR   - If the call failed.
+      SYS_TIME_ERROR   - If the call failed, either because the requested delay is
+      zero, or the passed handle is invalid or there is not enough room to queue in
+      the request in the SYS Time's internal queue.
 
    Example:
        <code>
@@ -420,7 +422,10 @@ SYS_STATUS SYS_TIME_Status ( SYS_MODULE_OBJ object );
 
    Remarks:
        Will delay the requested number of microseconds or longer
-       depending on system performance.
+       depending on system performance. In tick-based mode, the requested
+       delay will be ceiled to the next timer tick. For example, if the 
+       timer tick is set to 1 msec and the requested delay is 1500 usec, a 
+       delay of 2 msec will be generated.
 
        Delay values of 0 will return SYS_TIME_ERROR.
 
@@ -476,7 +481,10 @@ SYS_TIME_RESULT SYS_TIME_DelayUS ( uint32_t us, SYS_TIME_HANDLE* handle );
 
    Remarks:
        Will delay the requested number of milliseconds or longer
-       depending on system performance.
+       depending on system performance. In tick-based mode, the requested
+       delay will be ceiled to the next timer tick. For example, if the 
+       timer tick is set to 700 usec and the requested delay is 2 msec, a delay
+       of 2.1 ms will be generated.
 
        Delay values of 0 will return SYS_TIME_ERROR.
 
@@ -596,6 +604,15 @@ Example:
         //timer is created successfully.
   }
   </code>
+
+   Remarks:
+       Will give a callback after the requested number of microseconds or longer
+       have elapsed, depending on system performance. In tick-based mode, the requested
+       delay will be ceiled to the next timer tick. For example, if the 
+       timer tick is set to 1 msec and the requested delay is 1500 usec, a 
+       delay of 2 msec will be generated.
+
+       Delay values of 0 will return SYS_TIME_ERROR.
 */
 
 SYS_TIME_HANDLE SYS_TIME_CallbackRegisterUS ( SYS_TIME_CALLBACK callback, uintptr_t context,
@@ -661,6 +678,15 @@ Example:
         //timer is created successfully.
   }
   </code>
+      
+    Remarks:
+       Will give a callback after the requested number of microseconds or longer
+       have elapsed, depending on system performance. In tick-based mode, the requested
+       delay will be ceiled to the next timer tick. For example, if the 
+       timer tick is set to 700 usec and the requested delay is 2 msec, a delay
+       of 2.1 ms will be generated.
+
+       Delay values of 0 will return SYS_TIME_ERROR.
 */
 
 SYS_TIME_HANDLE SYS_TIME_CallbackRegisterMS ( SYS_TIME_CALLBACK callback, uintptr_t context,
@@ -681,8 +707,12 @@ SYS_TIME_HANDLE SYS_TIME_CallbackRegisterMS ( SYS_TIME_CALLBACK callback, uintpt
     Gets the frequency at which the hardwaer timer counts.
 
   Description:
-    Returns the frequency at which the hardware timer runs. This frequency
-    determines the maximum resolution of all services provided by SYS_TIME.
+    For tick-less mode this API returns the frequency at which the hardware 
+    timer runs. 
+    For tick-based mode, this API returns the frequency at which the hardware
+    timer generates a periodic tick.
+    This frequency determines the maximum resolution of all 
+    services provided by SYS_TIME.
 
   Precondition:
     The SYS_TIME_Initialize function should have been called before calling this
@@ -692,8 +722,12 @@ SYS_TIME_HANDLE SYS_TIME_CallbackRegisterMS ( SYS_TIME_CALLBACK callback, uintpt
     None
 
   Returns:
-    The frequency at which the hardware timer runs, if the timer has been
-    initialized and is ready. Otherwise, it returns 0.
+    If the timer has been initialized and is ready:
+    For tick-less mode this API returns the frequency at which the hardware 
+    timer runs. 
+    For tick-based mode, this API returns the frequency at which the hardware
+    timer generates a periodic tick.
+    Returns 0 if the timer is not initialized.
 
   Example:
     <code>
@@ -944,7 +978,9 @@ uint32_t  SYS_TIME_CountToMS ( uint32_t count );
       </code>
 
    Remarks:
-      None.
+      In tick-based mode, the returned count will be ceiled to the next timer tick. 
+      For example, if the timer tick is set to 700 usec and the requested time is 
+      2000 usec, a count of 3 will be reported (corresponding to 2100 usec).
 */
 
 uint32_t SYS_TIME_USToCount ( uint32_t us );
@@ -979,7 +1015,9 @@ uint32_t SYS_TIME_USToCount ( uint32_t us );
       </code>
 
    Remarks:
-    None.
+    In tick-based mode, the returned count will be ceiled to the next timer tick. 
+    For example, if the timer tick is set to 700 usec and the requested time is 
+    2 msec, a count of 3 will be reported (corresponding to 2.1 msec).
 */
 
 uint32_t SYS_TIME_MSToCount ( uint32_t ms );

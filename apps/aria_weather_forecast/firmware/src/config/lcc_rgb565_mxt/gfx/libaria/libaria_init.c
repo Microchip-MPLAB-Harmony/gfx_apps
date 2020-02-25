@@ -603,7 +603,6 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laLineGraphWidget_AddCategory(TempLineGraph, NULL);
     laLineGraphWidget_AddCategory(TempLineGraph, NULL);
     laLineGraphWidget_AddSeries(TempLineGraph, NULL);
-    laLineGraphWidget_SetSeriesScheme(TempLineGraph, 0, &TempActualScheme);
     laLineGraphWidget_SetSeriesPointType(TempLineGraph, 0, LINE_GRAPH_DATA_POINT_SQUARE);
     laLineGraphWidget_AddDataToSeries(TempLineGraph, 0, 30, NULL);
     laLineGraphWidget_AddDataToSeries(TempLineGraph, 0, 36, NULL);
@@ -613,7 +612,6 @@ static void ScreenCreate_MainScreen(laScreen* screen)
     laLineGraphWidget_AddDataToSeries(TempLineGraph, 0, 46, NULL);
     laLineGraphWidget_AddDataToSeries(TempLineGraph, 0, 44, NULL);
     laLineGraphWidget_AddSeries(TempLineGraph, NULL);
-    laLineGraphWidget_SetSeriesScheme(TempLineGraph, 1, &TempRealFeelScheme);
     laLineGraphWidget_SetSeriesPointType(TempLineGraph, 1, LINE_GRAPH_DATA_POINT_CIRCLE);
     laLineGraphWidget_AddDataToSeries(TempLineGraph, 1, 22, NULL);
     laLineGraphWidget_AddDataToSeries(TempLineGraph, 1, 34, NULL);

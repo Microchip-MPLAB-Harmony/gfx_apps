@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -52,7 +52,11 @@ static lePoint getValuePoint(const leLineGraphWidget* _this,
                              uint32_t categoryIndex,
                              lePoint originPoint);
 
-static leLineGraphWidgetVTable lineGraphWidgetVTable;
+static
+#if LE_DYNAMIC_VTABLES == 0
+const
+#endif
+leLineGraphWidgetVTable lineGraphWidgetVTable;
 
 static void stringPreinvalidate(const leString* str,
                                 leLineGraphWidget* gph)
@@ -595,11 +599,11 @@ static leResult setCategoryString(leLineGraphWidget* _this,
     category->text = str;
 
     category->text->fn->setPreInvalidateCallback((leString*)category->text,
-                                                 (void*)stringPreinvalidate,
+                                                 (leString_InvalidateCallback)stringPreinvalidate,
                                                  _this);
 
     category->text->fn->setInvalidateCallback((leString*)category->text,
-                                              (void*)stringInvalidate,
+                                              (leString_InvalidateCallback)stringInvalidate,
                                               _this);
     
     _this->fn->invalidate(_this);
@@ -1228,8 +1232,10 @@ static void handleLanguageChangeEvent(leLineGraphWidget* _this)
     _this->fn->invalidate(_this);
 }
 
-void _leWidget_FillVTable(leWidgetVTable* tbl);
 void _leLineGraphWidget_Paint(leLineGraphWidget* _this);
+
+#if LE_DYNAMIC_VTABLES == 1
+void _leWidget_FillVTable(leWidgetVTable* tbl);
 
 void _leLineGraphWidget_GenerateVTable()
 {
@@ -1299,6 +1305,145 @@ void _leLineGraphWidget_FillVTable(leLineGraphWidgetVTable* tbl)
 {
     *tbl = lineGraphWidgetVTable;
 }
+#else
+static const leLineGraphWidgetVTable lineGraphWidgetVTable =
+{
+    // base class
+    .getType = (void*)_leWidget_GetType,
+    .getX = (void*)_leWidget_GetX,
+    .setX = (void*)_leWidget_SetX,
+    .getY = (void*)_leWidget_GetY,
+    .setY = (void*)_leWidget_SetY,
+    .setPosition = (void*)_leWidget_SetPosition,
+    .translate = (void*)_leWidget_Translate,
+    .getWidth = (void*)_leWidget_GetWidth,
+    .setWidth = (void*)_leWidget_SetWidth,
+    .getHeight = (void*)_leWidget_GetHeight,
+    .setHeight = (void*)_leWidget_SetHeight,
+    .setSize = (void*)_leWidget_SetSize,
+    .resize = (void*)_leWidget_Resize,
+    .getAlphaEnabled = (void*)_leWidget_GetAlphaEnabled,
+    .getCumulativeAlphaEnabled = (void*)_leWidget_GetCumulativeAlphaEnabled,
+    .setAlphaEnabled = (void*)_leWidget_SetAlphaEnabled,
+    .getAlphaAmount = (void*)_leWidget_GetAlphaAmount,
+    .getCumulativeAlphaAmount = (void*)_leWidget_GetCumulativeAlphaAmount,
+    .setAlphaAmount = (void*)_leWidget_SetAlphaAmount,
+    .isOpaque = (void*)_leWidget_IsOpaque,
+    .getEnabled = (void*)_leWidget_GetEnabled,
+    .setEnabled = (void*)_leWidget_SetEnabled,
+    .getVisible = (void*)_leWidget_GetVisible,
+    .setVisible = (void*)_leWidget_SetVisible,
+    .localRect = (void*)_leWidget_LocalRect,
+    .rectToParent = (void*)_leWidget_RectToParentSpace,
+    .rectToScreen = (void*)_leWidget_RectToScreenSpace,
+    .addChild = (void*)_leWidget_AddChild,
+    .removeChild = (void*)_leWidget_RemoveChild,
+    .removeAllChildren = (void*)_leWidget_RemoveAllChildren,
+    .getRootWidget = (void*)_leWidget_GetRootWidget,
+    .setParent = (void*)_leWidget_SetParent,
+    .getChildCount = (void*)_leWidget_GetChildCount,
+    .getChildAtIndex = (void*)_leWidget_GetChildAtIndex,
+    .getIndexOfChild = (void*)_leWidget_GetIndexOfChild,
+    .containsDescendent = (void*)_leWidget_ContainsDescendent,
+    .getScheme = (void*)_leWidget_GetScheme,
+    .setScheme = (void*)_leWidget_SetScheme,
+    .getBorderType = (void*)_leWidget_GetBorderType,
+    .setBorderType = (void*)_leWidget_SetBorderType,
+    .getBackgroundType = (void*)_leWidget_GetBackgroundType,
+    .setBackgroundType = (void*)_leWidget_SetBackgroundType,
+    .getHAlignment = (void*)_leWidget_GetHAlignment,
+    .setHAlignment = (void*)_leWidget_SetHAlignment,
+    .getVAlignment = (void*)_leWidget_GetVAlignment,
+    .setVAlignment = (void*)_leWidget_SetVAlignment,
+    .getMargins = (void*)_leWidget_GetMargins,
+    .setMargins = (void*)_leWidget_SetMargins,
+    .getCornerRadius = (void*)_leWidget_GetCornerRadius,
+    .setCornerRadius = (void*)_leWidget_SetCornerRadius,
+    .hasFocus = (void*)_leWidget_HasFocus,
+    .setFocus = (void*)_leWidget_SetFocus,
+    .invalidate = (void*)_leWidget_Invalidate,
+    .invalidateContents = (void*)_leWidget_InvalidateContents,
+    .installEventFilter = (void*)_leWidget_InstallEventFilter,
+    .removeEventFilter = (void*)_leWidget_RemoveEventFilter,
 
+    .update = (void*)_leWidget_Update,
+
+    .touchDownEvent = (void*)_leWidget_TouchDownEvent,
+    .touchUpEvent = (void*)_leWidget_TouchUpEvent,
+    .touchMoveEvent = (void*)_leWidget_TouchMoveEvent,
+    .moveEvent = (void*)_leWidget_MoveEvent,
+    .resizeEvent = (void*)_leWidget_ResizeEvent,
+    .focusLostEvent = (void*)_leWidget_FocusLostEvent,
+    .focusGainedEvent = (void*)_leWidget_FocusGainedEvent,
+    .languageChangeEvent = (void*)_leWidget_LanguageChangeEvent,
+
+    ._handleEvent = (void*)_leWidget_HandleEvent,
+    ._validateChildren = (void*)_leWidget_ValidateChildren,
+    ._increaseDirtyState = (void*)_leWidget_IncreaseDirtyState,
+    ._setDirtyState = (void*)_leWidget_SetDirtyState,
+    ._clearDirtyState = (void*)_leWidget_ClearDirtyState,
+    ._invalidateBorderAreas = (void*)_leWidget_InvalidateBorderAreas,
+    ._damageArea = (void*)_leWidget_DamageArea,
+
+    /* overrides from base class */
+    ._destructor = destructor,
+    ._paint = _leLineGraphWidget_Paint,
+    .languageChangeEvent = handleLanguageChangeEvent,
+
+    /* member functions */
+    .getTickLength = getTickLength,
+    .setTickLength = setTickLength,
+    .getStacked = getStacked,
+    .setStacked = setStacked,
+    .getMaxValue = getMaxValue,
+    .setMaxValue = setMaxValue,
+    .getMinValue = getMinValue,
+    .setMinValue = setMinValue,
+    .getValueAxisLabelsVisible = getValueAxisLabelsVisible,
+    .setValueAxisLabelsVisible = setValueAxisLabelsVisible,
+    .getFillGraphArea = getFillGraphArea,
+    .setFillGraphArea = setFillGraphArea,
+    .getFillSeriesArea = getFillSeriesArea,
+    .setFillSeriesArea = setFillSeriesArea,
+    .getGridLinesVisible = getGridLinesVisible,
+    .setGridLinesVisible = setGridLinesVisible,
+    .getValueAxisTicksVisible = getValueAxisTicksVisible,
+    .setValueAxisTicksVisible = setValueAxisTicksVisible,
+    .getValueAxisTickInterval = getValueAxisTickInterval,
+    .setValueAxisTickInterval = setValueAxisTickInterval,
+    .getValueAxisSubtickInterval = getValueAxisSubtickInterval,
+    .setValueAxisSubtickInterval = setValueAxisSubtickInterval,
+    .getValueAxisSubticksVisible = getValueAxisSubticksVisible,
+    .setValueAxisSubticksVisible = setValueAxisSubticksVisible,
+    .getCategoryAxisTicksVisible = getCategoryAxisTicksVisible,
+    .setCategoryAxisTicksVisible = setCategoryAxisTicksVisible,
+    .addCategory = addCategory,
+    .getCategoryString = getCategoryString,
+    .setCategoryString = setCategoryString,
+    .addSeries = addSeries,
+    .addDataToSeries = addDataToSeries,
+    .setDataInSeries = setDataInSeries,
+    .getSeriesScheme = getSeriesScheme,
+    .setSeriesScheme = setSeriesScheme,
+    .getSeriesFillPoints = getSeriesFillPoints,
+    .setSeriesFillPoints = setSeriesFillPoints,
+    .getSeriesLinesVisible = getSeriesLinesVisible,
+    .setSeriesLinesVisible = setSeriesLinesVisible,
+    .getSeriesPointType = getSeriesPointType,
+    .setSeriesPointType = setSeriesPointType,
+    .getSeriesPointSize = getSeriesPointSize,
+    .setSeriesPointSize = setSeriesPointSize,
+    .clear = clear,
+    .setTicksLabelFont = setTicksLabelFont,
+    .getCategoryAxisLabelsVisible = getCategoryAxisLabelsVisible,
+    .setCategoryAxisLabelsVisible = setCategoryAxisLabelsVisible,
+    .getValueAxisTicksPosition = getValueAxisTicksPosition,
+    .setValueAxisTicksPosition = setValueAxisTicksPosition,
+    .getValueAxisSubticksPosition = getValueAxisSubticksPosition,
+    .setValueAxisSubticksPosition = setValueAxisSubticksPosition,
+    .getCategoryAxisTicksPosition = getCategoryAxisTicksPosition,
+    .setCategoryAxisTicksPosition = setCategoryAxisTicksPosition,
+};
+#endif
 
 #endif // LE_LINEGRAPH_WIDGET_ENABLED

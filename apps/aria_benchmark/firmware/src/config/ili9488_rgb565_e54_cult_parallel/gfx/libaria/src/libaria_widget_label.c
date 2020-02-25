@@ -88,6 +88,18 @@ void _laLabelWidget_Destructor(laLabelWidget* lbl)
         
         lbl->reader = NULL;
     }
+    
+    if (lbl->drawObj.lineRect != NULL)
+    {
+        laContext_GetActive()->memIntf.heap.free(lbl->drawObj.lineRect);
+        lbl->drawObj.lineRect = NULL;
+    }
+        
+    if (lbl->drawObj.offset != NULL)
+    {
+        laContext_GetActive()->memIntf.heap.free(lbl->drawObj.offset);
+        lbl->drawObj.offset = NULL;
+    }
 
     _laWidget_Destructor((laWidget*)lbl);
 }

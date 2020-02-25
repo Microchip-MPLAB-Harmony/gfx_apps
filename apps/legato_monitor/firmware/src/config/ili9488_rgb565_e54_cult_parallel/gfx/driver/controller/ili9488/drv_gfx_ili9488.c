@@ -14,7 +14,7 @@
 *******************************************************************************/
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -38,6 +38,8 @@
 //DOM-IGNORE-END
 
 
+
+
 #include "definitions.h"
 
 #include "drv_gfx_ili9488_cmd_defs.h"
@@ -51,7 +53,7 @@
 #define DISPLAY_WIDTH   320
 #define DISPLAY_HEIGHT  480
 
-#define PIXEL_BUFFER_COLOR_MODE LE_COLOR_MODE_RGB_565
+#define PIXEL_BUFFER_COLOR_MODE GFX_COLOR_MODE_RGB_565
 
 #define SCREEN_WIDTH DISPLAY_WIDTH
 #define SCREEN_HEIGHT DISPLAY_HEIGHT
@@ -122,7 +124,7 @@ typedef struct ILI9488_DRV
     {
         int32_t x;
         int32_t y;
-        lePixelBuffer* buf;
+        gfxPixelBuffer* buf;
     } blitParms;
 
 } ILI9488_DRV;
@@ -251,19 +253,19 @@ static int ILI9488_Init(ILI9488_DRV *drv,
     return returnValue;
 }
 
-leResult DRV_ILI9488_Initialize(void)
+gfxResult DRV_ILI9488_Initialize(void)
 {
     drv.state = INIT;
 
-    //Open interface to ILI9488 controller
+    //Open interface to ILI9488 controlgfxR
     drv.port_priv = (void*) GFX_Disp_Intf_Open();
     if (drv.port_priv == 0)
-        return LE_FAILURE;
+        return GFX_FAILURE;
             
-    return LE_SUCCESS;
+    return GFX_SUCCESS;
 }
 
-leColorMode DRV_ILI9488_GetColorMode(void)
+gfxColorMode DRV_ILI9488_GetColorMode(void)
 {
     return PIXEL_BUFFER_COLOR_MODE;
 }
@@ -391,7 +393,7 @@ void DRV_ILI9488_Update(void)
                 
             while (row < drv.blitParms.buf->size.height)
             {
-                ptr = lePixelBufferOffsetGet_Unsafe(drv.blitParms.buf, 0, row);
+                ptr = gfxPixelBufferOffsetGet_Unsafe(drv.blitParms.buf, 0, row);
 
                 for(col = 0, dataIdx = 0; col < drv.blitParms.buf->size.width; col++)
                 {
@@ -431,17 +433,18 @@ uint32_t DRV_ILI9488_GetActiveLayer()
     return 0;
 }
 
-leResult DRV_ILI9488_SetActiveLayer(uint32_t idx)
+gfxResult DRV_ILI9488_SetActiveLayer(uint32_t idx)
 {
-    return LE_SUCCESS;
+    return GFX_SUCCESS;
 }
 
-leResult DRV_ILI9488_BlitBuffer(int32_t x,
-                                int32_t y,
-                                lePixelBuffer* buf)
+gfxResult DRV_ILI9488_BlitBuffer(int32_t x,
+                                 int32_t y,
+                                 gfxPixelBuffer* buf,
+                                 gfxBlend gfx)
 {
     if(drv.state != IDLE)
-        return LE_FAILURE;
+        return GFX_FAILURE;
 
     drv.blitParms.x = x;
     drv.blitParms.y = y;
@@ -453,7 +456,7 @@ leResult DRV_ILI9488_BlitBuffer(int32_t x,
         DRV_ILI9488_Update();
     }
     
-    return LE_SUCCESS;
+    return GFX_SUCCESS;
 }
 
 void DRV_ILI9488_Swap(void)

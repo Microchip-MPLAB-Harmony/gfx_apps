@@ -40,7 +40,7 @@
 #ifndef DRV_GFX_ILI9488_H
 #define DRV_GFX_ILI9488_H
 
-#include "gfx/legato/renderer/legato_driver.h"
+#include "gfx/driver/gfx_driver.h"
 
 #ifdef __cplusplus
     extern "C" {
@@ -49,22 +49,25 @@
 
 //DOM-IGNORE-END
 
-leResult DRV_ILI9488_Initialize(void);
+gfxResult DRV_ILI9488_Initialize(void);
 
-leColorMode DRV_ILI9488_GetColorMode(void);
+gfxColorMode DRV_ILI9488_GetColorMode(void);
 uint32_t DRV_ILI9488_GetBufferCount(void);
 uint32_t DRV_ILI9488_GetDisplayWidth(void);
 uint32_t DRV_ILI9488_GetDisplayHeight(void);
 void DRV_ILI9488_Update(void);
 uint32_t DRV_ILI9488_GetLayerCount();
 uint32_t DRV_ILI9488_GetActiveLayer();
-leResult DRV_ILI9488_SetActiveLayer(uint32_t idx);
-leResult DRV_ILI9488_BlitBuffer(int32_t x, int32_t y, lePixelBuffer* buf);
+gfxResult DRV_ILI9488_SetActiveLayer(uint32_t idx);
+gfxResult DRV_ILI9488_BlitBuffer(int32_t x,
+                           int32_t y,
+                           gfxPixelBuffer* buf,
+                           gfxBlend gfx);
 void DRV_ILI9488_Swap(void);
 uint32_t DRV_ILI9488_GetSwapCount(void);
 
 
-static const leDisplayDriver ili9488DisplayDriver =
+static const gfxDisplayDriver ili9488DisplayDriver =
 {
     DRV_ILI9488_GetColorMode,
     DRV_ILI9488_GetBufferCount,
@@ -76,7 +79,9 @@ static const leDisplayDriver ili9488DisplayDriver =
     DRV_ILI9488_SetActiveLayer,
     DRV_ILI9488_BlitBuffer,
     DRV_ILI9488_Swap,
-    DRV_ILI9488_GetSwapCount
+    DRV_ILI9488_GetSwapCount,
+	NULL /* GetFrameBuffer not supported */
+	
 };
 
 #ifdef __cplusplus

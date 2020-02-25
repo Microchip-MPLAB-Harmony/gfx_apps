@@ -1212,7 +1212,7 @@ static void ScreenCreate_PortraitScreen(laScreen* screen)
 int32_t libaria_preprocess_assets(void)
 {
 
-	// process images configured for preprocessing
+    // process images configured for preprocessing
     laUtils_PreprocessImage(&Bar,0xA86B2000,GFX_COLOR_MODE_RGBA_8888,GFX_FALSE,&laContext_GetActive()->memIntf);
     laUtils_PreprocessImage(&question_button,0xA86CBC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);
     laUtils_PreprocessImage(&HomeButton,0xA87BBC80,GFX_COLOR_MODE_RGBA_8888,GFX_TRUE,&laContext_GetActive()->memIntf);

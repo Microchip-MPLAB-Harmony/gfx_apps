@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -43,6 +43,7 @@ leState* leGetState()
     return &_state; 
 }
 
+#if LE_DYNAMIC_VTABLES == 1
 /* vtable generation functions, make sure child classes come after base ones */
 typedef void (*vtableFn)();
 
@@ -87,11 +88,13 @@ void _leWindowWidget_GenerateVTable();
 
 vtableFn vtableFnTable[] =
 {
+#if LE_DYNAMIC_VTABLES == 1
     _leString_GenerateVTable,
     _leDynamicString_GenerateVTable,
     _leFixedString_GenerateVTable,
     _leTableString_GenerateVTable,
-    
+#endif
+
     _leWidget_GenerateVTable,
     _leEditWidget_GenerateVTable,
 
@@ -217,8 +220,9 @@ vtableFn vtableFnTable[] =
 
     NULL
 };
+#endif
 
-leResult leInitialize(const leDisplayDriver* dispDriver)
+leResult leInitialize(const gfxDisplayDriver* dispDriver)
 {
     uint32_t idx;
     leWidget* root;
@@ -235,7 +239,8 @@ leResult leInitialize(const leDisplayDriver* dispDriver)
     {
         return LE_FAILURE;
     }
-    
+
+#if LE_DYNAMIC_VTABLES == 1
     /* initialize virtual function tables */
     idx = 0;
     
@@ -245,9 +250,10 @@ leResult leInitialize(const leDisplayDriver* dispDriver)
         
         idx += 1;
     }
+#endif
     
     leImage_InitDecoders();
-    leScheme_Initialize(&_state.defaultScheme, dispDriver->getColorMode());
+    leScheme_Initialize(&_state.defaultScheme, LE_GLOBAL_COLOR_MODE);
 
     for(idx = 0; idx < LE_LAYER_COUNT; idx++)
     {

@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -234,7 +234,7 @@ void _leImageSequenceWidget_Paint(leImageSequenceWidget* img)
         break;
 #endif
         
-#if LE_EXTERNAL_STREAMING_ENABLED == 1
+#if LE_STREAMING_ENABLED == 1
         if(img->widget.drawState == WAIT_IMAGE)
             break;
 #endif

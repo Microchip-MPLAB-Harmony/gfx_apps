@@ -124,6 +124,24 @@ typedef struct laButtonWidget_t
     laButtonWidget_ReleasedEvent releasedEvent; // released event callback
 
     GFXU_ExternalAssetReader* reader; // external asset reader state
+
+    //stores string draw parameters, primarily for multi-line text
+    struct
+    {
+        GFX_Rect textRect;
+        GFX_Rect clipRect;
+        GFX_Rect drawRect;
+        uint32_t newoffset;
+        uint32_t end;
+        GFX_Rect bounds;
+        uint32_t numlines;
+        uint32_t line;
+        uint32_t lineY;
+        uint32_t maxLines;
+        GFX_Rect * lineRect;
+        uint32_t * offset;
+    } drawObj;    
+    
 } laButtonWidget;
 
 // *****************************************************************************
