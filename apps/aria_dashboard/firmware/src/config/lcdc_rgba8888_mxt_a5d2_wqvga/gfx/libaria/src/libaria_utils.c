@@ -271,6 +271,28 @@ void laUtils_ClipRectToParent(laWidget* parent, GFX_Rect* rect)
     *rect = result;
 }
 
+GFX_Rect laUtils_ClipWidgetToAncestors(laWidget* wgt)
+{
+    GFX_Rect result = GFX_Rect_Zero;
+    
+    if(wgt == NULL)
+        return result;
+    
+    result = wgt->rect;
+
+    while(wgt->parent != NULL)
+    {
+        result.x += wgt->parent->rect.x;
+        result.y += wgt->parent->rect.y;
+        
+        GFX_RectClip(&result, &wgt->parent->rect, &result);
+        
+        wgt = wgt->parent;
+    }
+
+    return result;
+}
+
 GFX_Rect laUtils_WidgetLocalRect(laWidget* widget)
 {
     GFX_Rect res;
@@ -996,3 +1018,4 @@ laResult laUtils_PreprocessImage(GFXU_ImageAsset* img,
     
     return LA_SUCCESS;
 }
+

@@ -78,7 +78,7 @@ void DRV_GFX2D_Initialize()
     // call the plib initialization routines
     PLIB_GFX2D_Initialize();
     PLIB_GFX2D_Enable();
-    PLIB_GFX2D_IRQ_CallbackRegister(_IntHandler, NULL);
+    PLIB_GFX2D_IRQ_CallbackRegister(_IntHandler, 0);
 }
 
 void  DRV_GFX2D_Fill(
@@ -138,7 +138,7 @@ void  DRV_GFX2D_Rop(
     PLIB_GFX2D_Rop(dest, dest_rect, src1, src1_rect, src2, src2_rect, pmask, rop);
 
     /* Wait for instruction to complete */
-    while ( GFX2D_GetGlobalStatusBusy() == true ) ;
+    while ( PLIB_GFX2D_GetGlobalStatusBusy() == true ) ;
     //while (gpu_end == 0) {
     //};
 }

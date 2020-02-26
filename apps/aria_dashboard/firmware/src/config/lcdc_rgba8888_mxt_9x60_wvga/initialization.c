@@ -74,23 +74,23 @@ static DRV_I2C_TRANSFER_OBJ drvI2C0TransferObj[DRV_I2C_QUEUE_SIZE_IDX0];
 const DRV_I2C_PLIB_INTERFACE drvI2C0PLibAPI = {
 
     /* I2C PLib Transfer Read Add function */
-    .read = (DRV_I2C_PLIB_READ)FLEXCOM6_TWI_Read,
+    .read = (DRV_I2C_PLIB_READ)FLEXCOM0_TWI_Read,
 
     /* I2C PLib Transfer Write Add function */
-    .write = (DRV_I2C_PLIB_WRITE)FLEXCOM6_TWI_Write,
+    .write = (DRV_I2C_PLIB_WRITE)FLEXCOM0_TWI_Write,
 
 
     /* I2C PLib Transfer Write Read Add function */
-    .writeRead = (DRV_I2C_PLIB_WRITE_READ)FLEXCOM6_TWI_WriteRead,
+    .writeRead = (DRV_I2C_PLIB_WRITE_READ)FLEXCOM0_TWI_WriteRead,
 
     /* I2C PLib Transfer Status function */
-    .errorGet = (DRV_I2C_PLIB_ERROR_GET)FLEXCOM6_TWI_ErrorGet,
+    .errorGet = (DRV_I2C_PLIB_ERROR_GET)FLEXCOM0_TWI_ErrorGet,
 
     /* I2C PLib Transfer Setup function */
-    .transferSetup = (DRV_I2C_PLIB_TRANSFER_SETUP)FLEXCOM6_TWI_TransferSetup,
+    .transferSetup = (DRV_I2C_PLIB_TRANSFER_SETUP)FLEXCOM0_TWI_TransferSetup,
 
     /* I2C PLib Callback Register */
-    .callbackRegister = (DRV_I2C_PLIB_CALLBACK_REGISTER)FLEXCOM6_TWI_CallbackRegister,
+    .callbackRegister = (DRV_I2C_PLIB_CALLBACK_REGISTER)FLEXCOM0_TWI_CallbackRegister,
 };
 
 
@@ -100,7 +100,7 @@ const DRV_I2C_INTERRUPT_SOURCES drvI2C0InterruptSources =
     .isSingleIntSrc                        = true,
 
     /* Peripheral interrupt line */
-    .intSources.i2cInterrupt             = FLEXCOM6_IRQn,
+    .intSources.i2cInterrupt             = FLEXCOM0_IRQn,
 };
 
 /* I2C Driver Initialization Data */
@@ -168,12 +168,12 @@ SYSTEM_OBJECTS sysObj;
 
 const SYS_TIME_PLIB_INTERFACE sysTimePlibAPI = {
     .timerCallbackSet = (SYS_TIME_PLIB_CALLBACK_REGISTER)TC0_CH0_TimerCallbackRegister,
-    .timerCounterGet = (SYS_TIME_PLIB_COUNTER_GET)TC0_CH0_TimerCounterGet,
-    .timerPeriodSet = (SYS_TIME_PLIB_PERIOD_SET)TC0_CH0_TimerPeriodSet,
-    .timerFrequencyGet = (SYS_TIME_PLIB_FREQUENCY_GET)TC0_CH0_TimerFrequencyGet,
-    .timerCompareSet = (SYS_TIME_PLIB_COMPARE_SET)TC0_CH0_TimerCompareSet,
     .timerStart = (SYS_TIME_PLIB_START)TC0_CH0_TimerStart,
-    .timerStop = (SYS_TIME_PLIB_STOP)TC0_CH0_TimerStop 
+    .timerStop = (SYS_TIME_PLIB_STOP)TC0_CH0_TimerStop ,
+    .timerFrequencyGet = (SYS_TIME_PLIB_FREQUENCY_GET)TC0_CH0_TimerFrequencyGet,
+    .timerPeriodSet = (SYS_TIME_PLIB_PERIOD_SET)TC0_CH0_TimerPeriodSet,
+    .timerCompareSet = (SYS_TIME_PLIB_COMPARE_SET)TC0_CH0_TimerCompareSet,
+    .timerCounterGet = (SYS_TIME_PLIB_COUNTER_GET)TC0_CH0_TimerCounterGet,
 };
 
 const SYS_TIME_INIT sysTimeInitData =
@@ -203,6 +203,8 @@ void SYS_Initialize ( void* data )
 
 	PIO_Initialize();
 
+
+
 	BSP_Initialize();
     MMU_Initialize();
 
@@ -211,12 +213,12 @@ void SYS_Initialize ( void* data )
     /* Disable WDT   */
     WDT_REGS->WDT_MR = WDT_MR_WDDIS_Msk;
 
-    FLEXCOM6_TWI_Initialize();
-
  
     TC0_CH0_TimerInitialize(); 
      
     
+    FLEXCOM0_TWI_Initialize();
+
 
 
     GFX_Initialize();

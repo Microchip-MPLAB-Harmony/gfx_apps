@@ -81,6 +81,24 @@ typedef struct laLabelWidget_t
     GFXU_ExternalAssetReader* reader; // asset reader
 
     int32_t textLineSpace; //new line space per pixel
+    
+    //stores string draw parameters, primarily for multi-line text
+    struct
+    {
+        GFX_Rect textRect;
+        GFX_Rect clipRect;
+        GFX_Rect drawRect;
+        uint32_t newoffset;
+        uint32_t end;
+        GFX_Rect bounds;
+        uint32_t numlines;
+        uint32_t line;
+        uint32_t lineY;
+        uint32_t maxLines;
+        GFX_Rect * lineRect;
+        uint32_t * offset;
+    } drawObj;
+
 } laLabelWidget;
 
 // DOM-IGNORE-BEGIN

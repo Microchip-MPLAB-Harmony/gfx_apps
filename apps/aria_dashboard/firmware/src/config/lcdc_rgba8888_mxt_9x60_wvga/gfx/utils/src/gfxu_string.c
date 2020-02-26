@@ -92,6 +92,34 @@ GFX_Result GFXU_DrawStringBufferExternal(GFXU_CHAR* buffer,
                                          int32_t y,
                                          GFXU_MemoryIntf* memoryInterface,
                                          GFXU_ExternalAssetReader** reader);                                   
+
+GFX_Result GFXU_DrawSubStringExternal(GFXU_StringTableAsset* tbl,
+                                   GFXU_FontAsset* fnt,
+                                   uint32_t id,
+                                   uint32_t lang,
+                                   uint32_t start,
+                                   uint32_t end,        
+                                   int32_t clipX,
+                                   int32_t clipY,
+                                   int32_t clipWidth,
+                                   int32_t clipHeight,
+                                   int32_t x,
+                                   int32_t y,
+                                   GFXU_MemoryIntf* memIntf,
+                                   GFXU_ExternalAssetReader** reader);
+
+GFX_Result GFXU_DrawSubStringBufferExternal(GFXU_CHAR* str,
+                                         GFXU_FontAsset* fnt,
+							             uint32_t start,
+                                         uint32_t end,        
+                                         int32_t clipX,
+                                         int32_t clipY,
+                                         int32_t clipWidth,
+                                         int32_t clipHeight,
+                                         int32_t x,
+                                         int32_t y,
+                                         GFXU_MemoryIntf* memIntf,
+                                         GFXU_ExternalAssetReader** reader);
                                      
 GFX_Result GFXU_DrawString(GFXU_StringTableAsset* tbl,
                            uint32_t id,
@@ -256,19 +284,20 @@ GFX_Result GFXU_DrawSubStringClipped(GFXU_StringTableAsset* tbl,
     }
     else if(memoryInterface != GFX_NULL && reader != GFX_NULL)
     {
-        //TODO: Implement for external strings
-        GFXU_DrawStringExternal(tbl,
-                                fnt,
-                                id,
-                                lang,
-                                clipX,
-                                clipY,
-                                clipWidth,
-                                clipHeight,
-                                x,
-                                y,
-                                memoryInterface,
-                                reader);
+        GFXU_DrawSubStringExternal(tbl,
+                                    fnt,
+                                    id,
+                                    lang,
+                                    start,
+                                    end,
+                                    clipX,
+                                    clipY,
+                                    clipWidth,
+                                    clipHeight,
+                                    x,
+                                    y,
+                                    memoryInterface,
+                                    reader);
     }
     
     return GFX_SUCCESS;
@@ -398,16 +427,18 @@ GFX_Result GFXU_DrawCharSubStringClipped(GFXU_CHAR* str,
     else if(memoryInterface != GFX_NULL && reader != GFX_NULL)
     {
         //TODO: Implement substring draw
-        return GFXU_DrawStringBufferExternal(str,
-                                             fnt,
-                                             clipX,
-                                             clipY,
-                                             clipWidth,
-                                             clipHeight,
-                                             x,
-                                             y,
-                                             memoryInterface,
-                                             reader);
+        return GFXU_DrawSubStringBufferExternal(str,
+                                                fnt,
+                                                start,
+                                                end,                
+                                                clipX,
+                                                clipY,
+                                                clipWidth,
+                                                clipHeight,
+                                                x,
+                                                y,
+                                                memoryInterface,
+                                                reader);
     }
     
     return GFX_SUCCESS;
