@@ -54,14 +54,14 @@
               </logicalFolder>
               <logicalFolder name="f10" displayName="generated" projectFiles="true">
                 <logicalFolder name="f1" displayName="screen" projectFiles="true">
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/screen/le_gen_screen_FPSMotion.h</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/screen/le_gen_screen_FPSCounters.h</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/screen/le_gen_screen_FPSImages.h</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/screen/le_gen_screen_FPSMotion.h</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/screen/le_gen_screen_SplashScreen.h</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/le_gen_assets.h</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/le_gen_harmony.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/le_gen_init.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/le_gen_harmony.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/le_gen_assets.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/le_gen_scheme.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f5" displayName="image" projectFiles="true">
@@ -259,42 +259,42 @@
       <logicalFolder name="f2" displayName="packs" projectFiles="true">
         <logicalFolder name="f1" displayName="ATSAME70Q21B_DFP" projectFiles="true">
           <logicalFolder name="f1" displayName="component" projectFiles="true">
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/acc.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/aes.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/afec.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/chipid.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/dacc.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/efc.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/gmac.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/gpbr.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/hsmci.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/i2sc.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/icm.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/isi.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/matrix.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/mcan.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/pio.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/pmc.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/pwm.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/qspi.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/rstc.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/rswdt.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/rtc.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/rtt.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/sdramc.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/smc.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/spi.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/ssc.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/supc.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/tc.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/trng.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/twihs.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/efc.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/matrix.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/tc.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/smc.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/uart.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/gpbr.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/supc.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/qspi.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/usart.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/usbhs.h</itemPath>
-            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/utmi.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/ssc.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/i2sc.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/pwm.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/chipid.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/wdt.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/isi.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/acc.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/mcan.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/trng.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/afec.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/rswdt.h</itemPath>
             <itemPath>../src/packs/ATSAME70Q21B_DFP/component/xdmac.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/hsmci.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/rstc.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/gmac.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/utmi.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/sdramc.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/rtc.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/dacc.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/icm.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/pmc.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/rtt.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/usbhs.h</itemPath>
+            <itemPath>../src/packs/ATSAME70Q21B_DFP/component/spi.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="pio" projectFiles="true">
             <itemPath>../src/packs/ATSAME70Q21B_DFP/pio/same70q21b.h</itemPath>
@@ -383,48 +383,48 @@
               </logicalFolder>
               <logicalFolder name="f10" displayName="generated" projectFiles="true">
                 <logicalFolder name="f1" displayName="font" projectFiles="true">
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/font/le_gen_font_ArialLarge.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/font/le_gen_font_ArialLittle.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/font/le_gen_font_ArialMed.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/font/le_gen_font_ArialTiny.c</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/font/le_gen_font_ArialNarrow.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/font/le_gen_font_ArialTitle.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/font/le_gen_font_ArialMed.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/font/le_gen_font_ArialLittle.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/font/le_gen_font_ArialTinyAve.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/font/le_gen_font_ArialLarge.c</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/font/le_gen_font_ArialNarrowMed.c</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/font/le_gen_font_ArialSmall.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/font/le_gen_font_ArialTiny.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/font/le_gen_font_ArialTinyAve.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/font/le_gen_font_ArialTitle.c</itemPath>
                 </logicalFolder>
                 <logicalFolder name="f2" displayName="image" projectFiles="true">
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_Bar.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_HarmonyLogo.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_MicrochipLogo.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_PIC32Logo.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_100x100.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_200x200.c</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_40x40.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_480x270.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_100x100.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_200x200.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_40x40.c</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_480x270.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_100x100.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_200x200.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_40x40.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_200x200.c</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_480x270.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_100x100.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_200x200.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_40x40.c</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_480x270.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_100x100.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_40x40.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_MicrochipLogo.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_HarmonyLogo.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_100x100.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_200x200.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_200x200.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_PIC32Logo.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_200x200.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_480x270.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_100x100.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_100x100.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_40x40.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_40x40.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/image/le_gen_image_Bar.c</itemPath>
                 </logicalFolder>
                 <logicalFolder name="f3" displayName="screen" projectFiles="true">
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/screen/le_gen_screen_FPSCounters.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/screen/le_gen_screen_FPSImages.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/screen/le_gen_screen_FPSMotion.c</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/screen/le_gen_screen_SplashScreen.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/screen/le_gen_screen_FPSMotion.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/screen/le_gen_screen_FPSImages.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/screen/le_gen_screen_FPSCounters.c</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/le_gen_harmony.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/le_gen_init.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/le_gen_scheme.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/le_gen_stringtable.c</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt_e70/gfx/legato/generated/le_gen_harmony.c</itemPath>
               </logicalFolder>
               <logicalFolder name="f5" displayName="image" projectFiles="true">
                 <logicalFolder name="f1" displayName="raw" projectFiles="true">
@@ -679,10 +679,10 @@
         <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.40</languageToolchainVersion>
-        <platform>3</platform>
+        <platform>2</platform>
       </toolsSet>
       <packs>
-        <pack name="SAME70_DFP" vendor="Microchip" version="4.1.50"/>
+        <pack name="SAME70_DFP" vendor="Microchip" version="4.0.40"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
       </packs>
       <compileType>
@@ -890,7 +890,7 @@
         <property key="memories.programmemory.ranges" value="400000-5fffff"/>
         <property key="poweroptions.powerenable" value="false"/>
         <property key="programmerToGoFilePath"
-                  value="C:/harmony3_dev/gfx_apps/apps/legato_benchmark/firmware/legato_bm_e70_xu_tm4301b.X/debug/lcc_rgb565_mxt_e70/legato_bm_e70_xu_tm4301b_ptg"/>
+                  value="/home/ryan/Work/lh3/gfx_apps/apps/legato_benchmark/firmware/legato_bm_e70_xu_tm4301b.X/debug/lcc_rgb565_mxt_e70/legato_bm_e70_xu_tm4301b_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"

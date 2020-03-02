@@ -59,8 +59,8 @@
           <Name dnOrder="1">drv_maxtouch.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/driver/input</LogicalPath>
           <PhysicalPath dnOrder="3">/driver/input/</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">A86BDB5CFCA302B3F14CD9186F740EF6</GeneratedChecksum>
-          <UserChecksum dnOrder="5">A86BDB5CFCA302B3F14CD9186F740EF6</UserChecksum>
+          <GeneratedChecksum dnOrder="4">42B2BB0438C46794A7F6032477CD09B3</GeneratedChecksum>
+          <UserChecksum dnOrder="5">42B2BB0438C46794A7F6032477CD09B3</UserChecksum>
         </File>
         <File dnOrder="7">
           <Type dnOrder="0">SOURCE</Type>
@@ -98,39 +98,39 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_font_NotoSansCJKsc_Bold16.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\font\</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">B32840784BDA02769EB45533FEAF4A33</GeneratedChecksum>
-          <UserChecksum dnOrder="5">B32840784BDA02769EB45533FEAF4A33</UserChecksum>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/font/</PhysicalPath>
+          <GeneratedChecksum dnOrder="4">A70F5AC879816B45FBF22D0964EFB005</GeneratedChecksum>
+          <UserChecksum dnOrder="5">A70F5AC879816B45FBF22D0964EFB005</UserChecksum>
         </File>
         <File dnOrder="12">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_font_NotoSansCJKsc_Bold24.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\font\</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">ECB37BA6A4D42780EA379DE2A6AABA50</GeneratedChecksum>
-          <UserChecksum dnOrder="5">ECB37BA6A4D42780EA379DE2A6AABA50</UserChecksum>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/font/</PhysicalPath>
+          <GeneratedChecksum dnOrder="4">5DE3CA91D102480F8CBB8225FE753F1A</GeneratedChecksum>
+          <UserChecksum dnOrder="5">5DE3CA91D102480F8CBB8225FE753F1A</UserChecksum>
         </File>
         <File dnOrder="13">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_font_NotoSansCJKsc_Regular16.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\font\</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">E8FE45F6CBD3E8B0569FB943D6BE2FE3</GeneratedChecksum>
-          <UserChecksum dnOrder="5">E8FE45F6CBD3E8B0569FB943D6BE2FE3</UserChecksum>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/font/</PhysicalPath>
+          <GeneratedChecksum dnOrder="4">BBA316CB45A8171FED5A8AACEFEC13D8</GeneratedChecksum>
+          <UserChecksum dnOrder="5">BBA316CB45A8171FED5A8AACEFEC13D8</UserChecksum>
         </File>
         <File dnOrder="14">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_font_NotoSans_Bold24.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\font\</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">F2086FFE25696F4A6D2B0D51EC167496</GeneratedChecksum>
-          <UserChecksum dnOrder="5">F2086FFE25696F4A6D2B0D51EC167496</UserChecksum>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/font/</PhysicalPath>
+          <GeneratedChecksum dnOrder="4">DF40E0D71EBECF5951C14001513F1F38</GeneratedChecksum>
+          <UserChecksum dnOrder="5">DF40E0D71EBECF5951C14001513F1F38</UserChecksum>
         </File>
         <File dnOrder="15">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_harmony.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">EFC983F27B4195A42928C65820FBD744</GeneratedChecksum>
           <UserChecksum dnOrder="5">EFC983F27B4195A42928C65820FBD744</UserChecksum>
         </File>
@@ -138,7 +138,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_Bar.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">325963384FBD216D5182DD61B2AF4071</GeneratedChecksum>
           <UserChecksum dnOrder="5">325963384FBD216D5182DD61B2AF4071</UserChecksum>
         </File>
@@ -146,7 +146,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_ArrowLeft_20x60.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">FCB693F54BCABCE5B1946598F2358ABE</GeneratedChecksum>
           <UserChecksum dnOrder="5">FCB693F54BCABCE5B1946598F2358ABE</UserChecksum>
         </File>
@@ -154,7 +154,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_ArrowRight_20x60.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">3AA650C4BAE5F9209E3850F1A6606092</GeneratedChecksum>
           <UserChecksum dnOrder="5">3AA650C4BAE5F9209E3850F1A6606092</UserChecksum>
         </File>
@@ -162,7 +162,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_CloseX_20x20.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">54716E8879B218178CE280036B182280</GeneratedChecksum>
           <UserChecksum dnOrder="5">54716E8879B218178CE280036B182280</UserChecksum>
         </File>
@@ -170,7 +170,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_CloseX_40x40.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">6F954703D6CA4CA4C91F52A5388E96A8</GeneratedChecksum>
           <UserChecksum dnOrder="5">6F954703D6CA4CA4C91F52A5388E96A8</UserChecksum>
         </File>
@@ -178,7 +178,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_FF_20x20.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">0895900F8E99FC05FC9AEC7ED2587AB8</GeneratedChecksum>
           <UserChecksum dnOrder="5">0895900F8E99FC05FC9AEC7ED2587AB8</UserChecksum>
         </File>
@@ -186,7 +186,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_FF_30x30.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">0ACFDBB163D84BC64CB5F2D255BAD9E8</GeneratedChecksum>
           <UserChecksum dnOrder="5">0ACFDBB163D84BC64CB5F2D255BAD9E8</UserChecksum>
         </File>
@@ -194,7 +194,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_FF_Green_20x20.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">6142781BB5186367E3835868081A0169</GeneratedChecksum>
           <UserChecksum dnOrder="5">6142781BB5186367E3835868081A0169</UserChecksum>
         </File>
@@ -202,7 +202,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Help_20x20.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">26EAD8F5AB0916C303C04E8DB38AF1F3</GeneratedChecksum>
           <UserChecksum dnOrder="5">26EAD8F5AB0916C303C04E8DB38AF1F3</UserChecksum>
         </File>
@@ -210,7 +210,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Help_40x40.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">10D205D0133C2E76070EAC7589FEBFDD</GeneratedChecksum>
           <UserChecksum dnOrder="5">10D205D0133C2E76070EAC7589FEBFDD</UserChecksum>
         </File>
@@ -218,7 +218,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Help_60.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">D179EACAF03117E797DCAF62922022A1</GeneratedChecksum>
           <UserChecksum dnOrder="5">D179EACAF03117E797DCAF62922022A1</UserChecksum>
         </File>
@@ -226,7 +226,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Home_20x20.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">DF6F5BB181AF0AE6387FF39053C4470C</GeneratedChecksum>
           <UserChecksum dnOrder="5">DF6F5BB181AF0AE6387FF39053C4470C</UserChecksum>
         </File>
@@ -234,7 +234,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Home_60x60.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">F97EBB2D8D365E1057BA148AC1F76B9F</GeneratedChecksum>
           <UserChecksum dnOrder="5">F97EBB2D8D365E1057BA148AC1F76B9F</UserChecksum>
         </File>
@@ -242,7 +242,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Keyboard_80_drop.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">1416E694D1F3D8CC7278712CF2B0E3E9</GeneratedChecksum>
           <UserChecksum dnOrder="5">1416E694D1F3D8CC7278712CF2B0E3E9</UserChecksum>
         </File>
@@ -250,7 +250,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Keypad_20x20.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">4EE62143D5A4FAD9B3DD7C228F25170B</GeneratedChecksum>
           <UserChecksum dnOrder="5">4EE62143D5A4FAD9B3DD7C228F25170B</UserChecksum>
         </File>
@@ -258,7 +258,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_ListWheel_20x20.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">1CA77E7A1C1680A4DB78A0AE783F583D</GeneratedChecksum>
           <UserChecksum dnOrder="5">1CA77E7A1C1680A4DB78A0AE783F583D</UserChecksum>
         </File>
@@ -266,7 +266,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Microchip_logo_150x30.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">F705125BC0448823FD86C715D2BF6E09</GeneratedChecksum>
           <UserChecksum dnOrder="5">F705125BC0448823FD86C715D2BF6E09</UserChecksum>
         </File>
@@ -274,7 +274,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_NextScreen_60x60.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">EB7570D876CDCA35003B859F31A19125</GeneratedChecksum>
           <UserChecksum dnOrder="5">EB7570D876CDCA35003B859F31A19125</UserChecksum>
         </File>
@@ -282,7 +282,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Pause_Pink_20x20.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">2FAFDD1A1F616BBC3A7DEAEE764EC318</GeneratedChecksum>
           <UserChecksum dnOrder="5">2FAFDD1A1F616BBC3A7DEAEE764EC318</UserChecksum>
         </File>
@@ -290,7 +290,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Play_20x20.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">01770962C82F6511F364F340E24C2DE5</GeneratedChecksum>
           <UserChecksum dnOrder="5">01770962C82F6511F364F340E24C2DE5</UserChecksum>
         </File>
@@ -298,7 +298,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Play_30x30.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">77D78DCEF6900904F9B017D881ABBF25</GeneratedChecksum>
           <UserChecksum dnOrder="5">77D78DCEF6900904F9B017D881ABBF25</UserChecksum>
         </File>
@@ -306,7 +306,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Play_Green_20x20.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">B2B7E87EA34516D0E43B22E5E3220F18</GeneratedChecksum>
           <UserChecksum dnOrder="5">B2B7E87EA34516D0E43B22E5E3220F18</UserChecksum>
         </File>
@@ -314,7 +314,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Settings_20x20.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">9D35046D3BA2AD9E66875521D7FBBA54</GeneratedChecksum>
           <UserChecksum dnOrder="5">9D35046D3BA2AD9E66875521D7FBBA54</UserChecksum>
         </File>
@@ -322,7 +322,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Settings_60x60.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">7292382A9968B51E4161A2B44C781628</GeneratedChecksum>
           <UserChecksum dnOrder="5">7292382A9968B51E4161A2B44C781628</UserChecksum>
         </File>
@@ -330,7 +330,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_SlideShow_80_drop.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">6757EA4AAC75CBEC5C117CBAD089E57F</GeneratedChecksum>
           <UserChecksum dnOrder="5">6757EA4AAC75CBEC5C117CBAD089E57F</UserChecksum>
         </File>
@@ -338,7 +338,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Slide_80_drop.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">881D1027007ADB1C6CF8C0208061B40E</GeneratedChecksum>
           <UserChecksum dnOrder="5">881D1027007ADB1C6CF8C0208061B40E</UserChecksum>
         </File>
@@ -346,7 +346,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Slideshow_20x20.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">677BF6FE112564A5AEDA868C9F117318</GeneratedChecksum>
           <UserChecksum dnOrder="5">677BF6FE112564A5AEDA868C9F117318</UserChecksum>
         </File>
@@ -354,7 +354,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Stop_20x20.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">71571F234C1539F7EC62C4538475BE6E</GeneratedChecksum>
           <UserChecksum dnOrder="5">71571F234C1539F7EC62C4538475BE6E</UserChecksum>
         </File>
@@ -362,7 +362,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Stop_30x30.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">AF16DE03B277EEA68EFD61A9F143476B</GeneratedChecksum>
           <UserChecksum dnOrder="5">AF16DE03B277EEA68EFD61A9F143476B</UserChecksum>
         </File>
@@ -370,7 +370,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Touch_20x20.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">BAD0963C80217C82FF2D64AB012278FA</GeneratedChecksum>
           <UserChecksum dnOrder="5">BAD0963C80217C82FF2D64AB012278FA</UserChecksum>
         </File>
@@ -378,7 +378,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Touch_80.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">AE0F42205DB8D5B2B18E5E4CA8B44D40</GeneratedChecksum>
           <UserChecksum dnOrder="5">AE0F42205DB8D5B2B18E5E4CA8B44D40</UserChecksum>
         </File>
@@ -386,7 +386,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_Touch_80_drop.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">3C47E2B3403815F6959E579E61D3FB70</GeneratedChecksum>
           <UserChecksum dnOrder="5">3C47E2B3403815F6959E579E61D3FB70</UserChecksum>
         </File>
@@ -394,7 +394,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_alpha_20x20.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">8D5F919C454756E286BA105C2F0897BE</GeneratedChecksum>
           <UserChecksum dnOrder="5">8D5F919C454756E286BA105C2F0897BE</UserChecksum>
         </File>
@@ -402,7 +402,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_alpha_80x80_drop.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">57F3A5543ACD13571D45CA289374A91D</GeneratedChecksum>
           <UserChecksum dnOrder="5">57F3A5543ACD13571D45CA289374A91D</UserChecksum>
         </File>
@@ -410,7 +410,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_harmony_logo_40x40.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">7192543458C31D6E28513ED1DAA63B41</GeneratedChecksum>
           <UserChecksum dnOrder="5">7192543458C31D6E28513ED1DAA63B41</UserChecksum>
         </File>
@@ -418,7 +418,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_GFX_mplab_logo_80x80.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">69BB9B7A39263E3B38D4897CFAA28C3F</GeneratedChecksum>
           <UserChecksum dnOrder="5">69BB9B7A39263E3B38D4897CFAA28C3F</UserChecksum>
         </File>
@@ -426,7 +426,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_HarmonyLogo.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">3CB23DA11063FA3A668498BED44FE107</GeneratedChecksum>
           <UserChecksum dnOrder="5">3CB23DA11063FA3A668498BED44FE107</UserChecksum>
         </File>
@@ -434,7 +434,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_MicrochipLogo.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">54FA24C3BEE8DC2F6E9B40B39081F2E8</GeneratedChecksum>
           <UserChecksum dnOrder="5">54FA24C3BEE8DC2F6E9B40B39081F2E8</UserChecksum>
         </File>
@@ -442,7 +442,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_MicrochipLogo_1.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">E2B18405DA6FAAC1FE6D2C13E7B954CA</GeneratedChecksum>
           <UserChecksum dnOrder="5">E2B18405DA6FAAC1FE6D2C13E7B954CA</UserChecksum>
         </File>
@@ -450,7 +450,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_NewHarmonyLogo.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">5B9C996243BC4D932757A1FBAE996F40</GeneratedChecksum>
           <UserChecksum dnOrder="5">5B9C996243BC4D932757A1FBAE996F40</UserChecksum>
         </File>
@@ -458,7 +458,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_PIC32Logo.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">C2617E93CE57263C7E63F1501A684CBF</GeneratedChecksum>
           <UserChecksum dnOrder="5">C2617E93CE57263C7E63F1501A684CBF</UserChecksum>
         </File>
@@ -466,7 +466,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_image_USA.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\image\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/image/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">F2E8AA245F0F0D94AB97ABCA01338CCE</GeneratedChecksum>
           <UserChecksum dnOrder="5">F2E8AA245F0F0D94AB97ABCA01338CCE</UserChecksum>
         </File>
@@ -474,7 +474,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_init.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">3C31B2B884FE76689600BBD7B800BE39</GeneratedChecksum>
           <UserChecksum dnOrder="5">3C31B2B884FE76689600BBD7B800BE39</UserChecksum>
         </File>
@@ -482,7 +482,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_scheme.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">6788014001BD39DF03CCB4F4D0F42EF9</GeneratedChecksum>
           <UserChecksum dnOrder="5">6788014001BD39DF03CCB4F4D0F42EF9</UserChecksum>
         </File>
@@ -490,7 +490,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_screen_AlphaBlendingDemoScreen.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">83A55E47A1FF8EC9428041729C290D8F</GeneratedChecksum>
           <UserChecksum dnOrder="5">83A55E47A1FF8EC9428041729C290D8F</UserChecksum>
         </File>
@@ -498,7 +498,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_screen_AlphaBlendingHelpScreen.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">F17468551E43E2C955EA819EF720B5A2</GeneratedChecksum>
           <UserChecksum dnOrder="5">F17468551E43E2C955EA819EF720B5A2</UserChecksum>
         </File>
@@ -506,7 +506,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_screen_KeypadDemoScreen.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">158FF3E57380B8475A358C51289E05E9</GeneratedChecksum>
           <UserChecksum dnOrder="5">158FF3E57380B8475A358C51289E05E9</UserChecksum>
         </File>
@@ -514,7 +514,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_screen_KeypadHelpScreen.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">9DDF523B725D89FA9B219B26CA57CE55</GeneratedChecksum>
           <UserChecksum dnOrder="5">9DDF523B725D89FA9B219B26CA57CE55</UserChecksum>
         </File>
@@ -522,7 +522,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_screen_ListWheelDemoScreen.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">9A6E053AA3F988DA3FE470178C66DE4A</GeneratedChecksum>
           <UserChecksum dnOrder="5">9A6E053AA3F988DA3FE470178C66DE4A</UserChecksum>
         </File>
@@ -530,7 +530,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_screen_ListWheelHelpScreen.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">8E264F59891BA5AC10EEF58256AECD78</GeneratedChecksum>
           <UserChecksum dnOrder="5">8E264F59891BA5AC10EEF58256AECD78</UserChecksum>
         </File>
@@ -538,7 +538,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_screen_MainMenu.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">D30E21EE35903F64507513F845F31D1D</GeneratedChecksum>
           <UserChecksum dnOrder="5">D30E21EE35903F64507513F845F31D1D</UserChecksum>
         </File>
@@ -546,7 +546,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_screen_MainMenuHelp.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">89E23498C77F28EFC98BF6C102D564BA</GeneratedChecksum>
           <UserChecksum dnOrder="5">89E23498C77F28EFC98BF6C102D564BA</UserChecksum>
         </File>
@@ -554,7 +554,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_screen_SettingsScreen.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">130C60F1F1F67BE0F89EA5E18AB2DD0A</GeneratedChecksum>
           <UserChecksum dnOrder="5">130C60F1F1F67BE0F89EA5E18AB2DD0A</UserChecksum>
         </File>
@@ -562,7 +562,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_screen_SlideShowDemoScreen.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">EB912E51E4019C7A14805C4027A49EBA</GeneratedChecksum>
           <UserChecksum dnOrder="5">EB912E51E4019C7A14805C4027A49EBA</UserChecksum>
         </File>
@@ -570,7 +570,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_screen_SlideshowHelpScreen.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">8E173905B29EE4626828EC50FB71F375</GeneratedChecksum>
           <UserChecksum dnOrder="5">8E173905B29EE4626828EC50FB71F375</UserChecksum>
         </File>
@@ -578,7 +578,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_screen_SplashScreen.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">50B841796D9BBEDE4A36ECA84BB1BBA4</GeneratedChecksum>
           <UserChecksum dnOrder="5">50B841796D9BBEDE4A36ECA84BB1BBA4</UserChecksum>
         </File>
@@ -586,7 +586,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_screen_TouchTestDemoScreen.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">F519B59AA4EAC28956886D85DCAF692D</GeneratedChecksum>
           <UserChecksum dnOrder="5">F519B59AA4EAC28956886D85DCAF692D</UserChecksum>
         </File>
@@ -594,7 +594,7 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_screen_TouchTestHelpScreen.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">A8CC4A094390F5E311CBFA7D1B9111C9</GeneratedChecksum>
           <UserChecksum dnOrder="5">A8CC4A094390F5E311CBFA7D1B9111C9</UserChecksum>
         </File>
@@ -602,9 +602,9 @@
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_stringtable.c</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">B95BD8035174E48156703B17264DAD86</GeneratedChecksum>
-          <UserChecksum dnOrder="5">B95BD8035174E48156703B17264DAD86</UserChecksum>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/</PhysicalPath>
+          <GeneratedChecksum dnOrder="4">B9ECF12C2C3CFF4715E61BEE161042FF</GeneratedChecksum>
+          <UserChecksum dnOrder="5">B9ECF12C2C3CFF4715E61BEE161042FF</UserChecksum>
         </File>
         <File dnOrder="75">
           <Type dnOrder="0">SOURCE</Type>
@@ -2050,15 +2050,15 @@
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_assets.h</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">3FBB4202973C42C3373A3D79DA6DD8B3</GeneratedChecksum>
-          <UserChecksum dnOrder="5">3FBB4202973C42C3373A3D79DA6DD8B3</UserChecksum>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/</PhysicalPath>
+          <GeneratedChecksum dnOrder="4">B205D00A96B66315CE14045AC4A79446</GeneratedChecksum>
+          <UserChecksum dnOrder="5">B205D00A96B66315CE14045AC4A79446</UserChecksum>
         </File>
         <File dnOrder="256">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_harmony.h</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">96E97A25B5AFCE6A13F42ACBD9CB41AB</GeneratedChecksum>
           <UserChecksum dnOrder="5">96E97A25B5AFCE6A13F42ACBD9CB41AB</UserChecksum>
         </File>
@@ -2066,7 +2066,7 @@
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_init.h</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">BAC6F49B3A05345418109CE641036511</GeneratedChecksum>
           <UserChecksum dnOrder="5">BAC6F49B3A05345418109CE641036511</UserChecksum>
         </File>
@@ -2074,7 +2074,7 @@
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_scheme.h</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">8AA4B079A16F38A2F0C5D130A217FC8C</GeneratedChecksum>
           <UserChecksum dnOrder="5">8AA4B079A16F38A2F0C5D130A217FC8C</UserChecksum>
         </File>
@@ -2082,7 +2082,7 @@
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_screen_AlphaBlendingDemoScreen.h</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">92C43C73FC18B23CA1B0EFCD78FAA763</GeneratedChecksum>
           <UserChecksum dnOrder="5">92C43C73FC18B23CA1B0EFCD78FAA763</UserChecksum>
         </File>
@@ -2090,7 +2090,7 @@
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_screen_AlphaBlendingHelpScreen.h</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">5AFF1DA44A4AB0D311AEDF3E708AC646</GeneratedChecksum>
           <UserChecksum dnOrder="5">5AFF1DA44A4AB0D311AEDF3E708AC646</UserChecksum>
         </File>
@@ -2098,7 +2098,7 @@
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_screen_KeypadDemoScreen.h</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">B44CD3138ABC6DC0C6053FF23B4D9E0E</GeneratedChecksum>
           <UserChecksum dnOrder="5">B44CD3138ABC6DC0C6053FF23B4D9E0E</UserChecksum>
         </File>
@@ -2106,7 +2106,7 @@
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_screen_KeypadHelpScreen.h</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">213711FF44F5D3F33951C7E5236DE015</GeneratedChecksum>
           <UserChecksum dnOrder="5">213711FF44F5D3F33951C7E5236DE015</UserChecksum>
         </File>
@@ -2114,7 +2114,7 @@
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_screen_ListWheelDemoScreen.h</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">801CC1C78BBF75FB18073BCCDF409055</GeneratedChecksum>
           <UserChecksum dnOrder="5">801CC1C78BBF75FB18073BCCDF409055</UserChecksum>
         </File>
@@ -2122,7 +2122,7 @@
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_screen_ListWheelHelpScreen.h</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">543EDB5C113245FCB655F16F002733C5</GeneratedChecksum>
           <UserChecksum dnOrder="5">543EDB5C113245FCB655F16F002733C5</UserChecksum>
         </File>
@@ -2130,7 +2130,7 @@
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_screen_MainMenu.h</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">F38F8C016EE47024E4E9A95FD1F0C5CD</GeneratedChecksum>
           <UserChecksum dnOrder="5">F38F8C016EE47024E4E9A95FD1F0C5CD</UserChecksum>
         </File>
@@ -2138,7 +2138,7 @@
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_screen_MainMenuHelp.h</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">A289FA37C4D797D07DEB9B06497F9AF2</GeneratedChecksum>
           <UserChecksum dnOrder="5">A289FA37C4D797D07DEB9B06497F9AF2</UserChecksum>
         </File>
@@ -2146,7 +2146,7 @@
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_screen_SettingsScreen.h</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">B51348D2DF144512A95A244BA7447458</GeneratedChecksum>
           <UserChecksum dnOrder="5">B51348D2DF144512A95A244BA7447458</UserChecksum>
         </File>
@@ -2154,7 +2154,7 @@
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_screen_SlideShowDemoScreen.h</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">92D83DB39DE8D626E90F46AB5839C0D8</GeneratedChecksum>
           <UserChecksum dnOrder="5">92D83DB39DE8D626E90F46AB5839C0D8</UserChecksum>
         </File>
@@ -2162,7 +2162,7 @@
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_screen_SlideshowHelpScreen.h</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">E612D8A6BC6FD80698D01537B9D72199</GeneratedChecksum>
           <UserChecksum dnOrder="5">E612D8A6BC6FD80698D01537B9D72199</UserChecksum>
         </File>
@@ -2170,7 +2170,7 @@
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_screen_SplashScreen.h</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">DC1812F404BCF6D5F4428BD906F14C2D</GeneratedChecksum>
           <UserChecksum dnOrder="5">DC1812F404BCF6D5F4428BD906F14C2D</UserChecksum>
         </File>
@@ -2178,7 +2178,7 @@
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_screen_TouchTestDemoScreen.h</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">B26EB1AEEEFF6D79014D8651A94C7463</GeneratedChecksum>
           <UserChecksum dnOrder="5">B26EB1AEEEFF6D79014D8651A94C7463</UserChecksum>
         </File>
@@ -2186,7 +2186,7 @@
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_screen_TouchTestHelpScreen.h</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\generated\screen\</PhysicalPath>
+          <PhysicalPath dnOrder="3">/gfx/legato/generated/screen/</PhysicalPath>
           <GeneratedChecksum dnOrder="4">EC414058BCDD520F28F511B8D0ECE933</GeneratedChecksum>
           <UserChecksum dnOrder="5">EC414058BCDD520F28F511B8D0ECE933</UserChecksum>
         </File>
@@ -2226,9 +2226,9 @@
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_config.h</Name>
           <LogicalPath dnOrder="2">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/</LogicalPath>
-          <PhysicalPath dnOrder="3">/gfx/legato\</PhysicalPath>
-          <GeneratedChecksum dnOrder="4">0715FD3B264052FBC5EF3E173428CBD2</GeneratedChecksum>
-          <UserChecksum dnOrder="5">0715FD3B264052FBC5EF3E173428CBD2</UserChecksum>
+          <PhysicalPath dnOrder="3">/gfx/legato/</PhysicalPath>
+          <GeneratedChecksum dnOrder="4">324982B793F370278BE80CBB9EC1C793</GeneratedChecksum>
+          <UserChecksum dnOrder="5">324982B793F370278BE80CBB9EC1C793</UserChecksum>
         </File>
         <File dnOrder="278">
           <Type dnOrder="0">HEADER</Type>
@@ -3170,12 +3170,12 @@
       </Settings>
     </Manifest>
     <Settings dnOrder="4">
-      <Setting dnOrder="0" key="CMSISPath" value=".\dev_packs\arm\CMSIS\5.6.0"/>
-      <Setting dnOrder="1" key="DFPPath" value=".\dev_packs\Microchip\SAME54_DFP\3.2.53\atdf\ATSAME54P20A.atdf"/>
+      <Setting dnOrder="0" key="CMSISPath" value="./dev_packs/arm/CMSIS/5.6.0"/>
+      <Setting dnOrder="1" key="DFPPath" value="./dev_packs/Microchip/SAME54_DFP/3.2.53/atdf/ATSAME54P20A.atdf"/>
       <Setting dnOrder="2" key="FORCE_OPTIMIZATION" value="false"/>
       <Setting dnOrder="3" key="GENERATE_BACKUP" value="true"/>
       <Setting dnOrder="4" key="MERGE_STRATEGY" value="USER_ALL"/>
-      <Setting dnOrder="5" key="PackageFilter" value="audio;bsp;core;csp;gfx;gfx_apps;touch;usb;"/>
+      <Setting dnOrder="5" key="PackageFilter" value="core;usb;audio;gfx;bsp;gfx_apps;csp;bt;"/>
     </Settings>
   </Configurator>
 </Configuration>

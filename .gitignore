@@ -26,3 +26,7 @@
 /apps/legato_benchmark/firmware/legato_bm_e70_xu_tm4301b.X/dist/
 /apps/legato_monitor/firmware/aria_monitor_e54_xpld_xpro.X/build/
 /apps/legato_monitor/firmware/aria_monitor_e54_xpld_xpro.X/dist/
+/apps/aria_thermostat/firmware/aria_th_mzef_cu_tm5000_ssd1963.X/build/
+/apps/aria_thermostat/firmware/aria_th_mzef_cu_tm5000_ssd1963.X/dist/
+/apps/legato_showcase/firmware/legato_sc_e54_cu_cpro_parallel.X/build/
+/apps/legato_showcase/firmware/legato_sc_e54_cu_cpro_parallel.X/dist/

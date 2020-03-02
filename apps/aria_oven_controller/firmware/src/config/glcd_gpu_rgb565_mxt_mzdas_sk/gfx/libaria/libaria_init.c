@@ -94,7 +94,6 @@ static void ScreenCreate_SplashScreen(laScreen* screen);
 static void ScreenCreate_homeScreen(laScreen* screen);
 static void ScreenCreate_controllerScreen(laScreen* screen);
 static void ScreenCreate_infoScreen(laScreen* screen);
-static void ScreenCreate_assetLayout(laScreen* screen);
 
 
 int32_t libaria_initialize(void)
@@ -278,10 +277,7 @@ int32_t libaria_initialize(void)
     screen = laScreen_New(LA_FALSE, LA_FALSE, &ScreenCreate_infoScreen);
     laContext_AddScreen(screen);
 
-    screen = laScreen_New(LA_FALSE, LA_FALSE, &ScreenCreate_assetLayout);
-    laContext_AddScreen(screen);
-
-    laContext_SetActiveScreen(0);
+    laContext_SetActiveScreen(3);
 
 	return 0;
 }
@@ -754,20 +750,6 @@ static void ScreenCreate_infoScreen(laScreen* screen)
     laWidget_SetBorderType((laWidget*)ImageWidget30, LA_WIDGET_BORDER_NONE);
     laImageWidget_SetImage(ImageWidget30, &info);
     laWidget_AddChild((laWidget*)layer0, (laWidget*)ImageWidget30);
-
-}
-
-static void ScreenCreate_assetLayout(laScreen* screen)
-{
-    laLayer* layer0;
-
-    layer0 = laLayer_New();
-    laWidget_SetPosition((laWidget*)layer0, 0, 0);
-    laWidget_SetSize((laWidget*)layer0, 480, 272);
-    laWidget_SetBackgroundType((laWidget*)layer0, LA_WIDGET_BACKGROUND_FILL);
-    laLayer_SetBufferCount(layer0, 1);
-
-    laScreen_SetLayer(screen, 0, layer0);
 
 }
 

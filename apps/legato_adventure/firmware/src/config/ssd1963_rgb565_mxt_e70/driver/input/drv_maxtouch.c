@@ -49,6 +49,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 /* Firmware config definitions */
 #define MXT_CFG_MAGIC		 "OBP_RAW V1"
@@ -58,6 +59,9 @@
 #define MXT_OBJECT_SIZE         6
 #define MXT_INFO_CHECKSUM_SIZE	3
 #define MXT_MAX_BLOCK_WRITE     253
+
+#define MXT_DATA_BUFFER_SIZE    256
+#define MXT_MSG_BUFFER_SIZE     256
 
 //#define DEBUG_ENABLE
 
@@ -259,8 +263,8 @@ struct mxt_data {
 	struct i2c_client *client;
 //	struct input_dev *input_dev;
 	struct mxt_object *object_table;
-	struct mxt_info *info;
-	void *raw_info_block;
+	struct mxt_info info;
+	uint8_t raw_info_block[MXT_DATA_BUFFER_SIZE];
 	unsigned int max_x;
 	unsigned int max_y;
 	bool invertx;
@@ -277,7 +281,7 @@ struct mxt_data {
 	uint32_t config_crc;
 	uint32_t info_crc;
 	uint8_t bootloader_addr;
-	uint8_t *msg_buf;
+	uint8_t msg_buf[MXT_MSG_BUFFER_SIZE];
 	uint8_t t6_status;
 	bool update_input;
 	uint8_t last_message_count;
@@ -910,10 +914,7 @@ void DRV_MAXTOUCH_Close (DRV_HANDLE handle)
     }
     
     /* move driver to the idle state to stop any processes */
-    pDrvObject->deviceState = DEVICE_STATE_REQUEST_ID_BLOCK;    
-    
-    /* free up the memory used */
-    OSAL_Free(pDrvObject->data.object_table);
+    pDrvObject->deviceState = DEVICE_STATE_REQUEST_ID_BLOCK;
 }
 
 void DRV_MAXTOUCH_ConfigParse ( SYS_MODULE_OBJ object, DRV_MAXTOUCH_Firmware * firmware )
@@ -1044,15 +1045,12 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
 #ifdef DEBUG_ENABLE            
             SYS_DEBUG_Print("MXT Reset\n");
 #endif
-            
-            /* allocate memory to hold information block */
-	        pDrvObject->data.info = OSAL_Malloc(sizeof(struct mxt_info));
 
             /* clock in the information block */
             /* read  7-byte ID information block starting at address 0 */
             DRV_I2C_ReadTransferAdd(pDrvObject->drvI2CHandle,
                                       I2C_MASTER_READ_ID,
-                                      pDrvObject->data.info,
+                                      &pDrvObject->data.info,
                                       sizeof(struct mxt_info),
                                       &pDrvObject->hInformationBlockRead);            
             
@@ -1090,12 +1088,10 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
             int size = sizeof(struct mxt_info);
 
             /* Resize buffer to give space for rest of info block */
-            uint8_t num_objects = pDrvObject->data.info->object_num;
-            size += (num_objects * sizeof(struct mxt_object))
-                + MXT_INFO_CHECKSUM_SIZE;
+            uint8_t num_objects = pDrvObject->data.info.object_num;
+            size += (num_objects * sizeof(struct mxt_object)) + MXT_INFO_CHECKSUM_SIZE;
             
-            pDrvObject->data.raw_info_block = OSAL_Malloc(size);
-            memcpy(pDrvObject->data.raw_info_block, pDrvObject->data.info, size);
+            memcpy(pDrvObject->data.raw_info_block, &pDrvObject->data.info, sizeof(struct mxt_info));
             
             pDrvObject->data.object_table = (struct mxt_object*)((uint8_t*)pDrvObject->data.raw_info_block + sizeof(struct mxt_info));
                                   
@@ -1128,7 +1124,7 @@ void DRV_MAXTOUCH_Tasks ( SYS_MODULE_OBJ object )
             int size = sizeof(struct mxt_info);
 
             /* Resize buffer to give space for rest of info block */
-            uint8_t num_objects = pDrvObject->data.info->object_num;
+            uint8_t num_objects = pDrvObject->data.info.object_num;
             size += (num_objects * sizeof(struct mxt_object))
                 + MXT_INFO_CHECKSUM_SIZE;
     
@@ -1842,7 +1838,7 @@ mxt_get_object(struct DEVICE_OBJECT *pDrvObject, uint8_t type)
 	struct mxt_object *object;
 	int i;
 
-	for (i = 0; i < pDrvObject->data.info->object_num; i++) {
+	for (i = 0; i < pDrvObject->data.info.object_num; i++) {
 		object = pDrvObject->data.object_table + i;
 		if (object->type == type)
 			return object;
@@ -2056,7 +2052,7 @@ bool mxt_parse_object_table(struct DEVICE_OBJECT *pDrvObject,
 	/* Valid Report IDs start counting from 1 */
 	reportid = 1;
 	pDrvObject->data.mem_size = 0;
-	for (i = 0; i < pDrvObject->data.info->object_num; i++) {
+	for (i = 0; i < pDrvObject->data.info.object_num; i++) {
 		struct mxt_object *object = object_table + i;
 		uint8_t min_id, max_id;
 
@@ -2079,8 +2075,8 @@ bool mxt_parse_object_table(struct DEVICE_OBJECT *pDrvObject,
             break;
         
 		case MXT_GEN_MESSAGE_T5:
-			if (pDrvObject->data.info->family_id == 0x80 &&
-			    pDrvObject->data.info->version < 0x20) {
+			if (pDrvObject->data.info.family_id == 0x80 &&
+			    pDrvObject->data.info.version < 0x20) {
 				/*
 				 * On mXT224 firmware versions prior to V2.0
 				 * read and discard unused CRC byte otherwise
@@ -2138,9 +2134,7 @@ bool mxt_parse_object_table(struct DEVICE_OBJECT *pDrvObject,
 		return false;
 	}
 
-	pDrvObject->data.msg_buf = OSAL_Malloc(pDrvObject->data.T5_msg_size);
-	if (!pDrvObject->data.msg_buf)
-		return false;
+    assert(pDrvObject->data.T5_msg_size <= MXT_MSG_BUFFER_SIZE);
 
 	return true;
 }
@@ -2415,7 +2409,7 @@ bool mxt_load_xcfg_file(struct DEVICE_OBJECT * pDeviceObject, const char *filena
     
     /* Malloc memory to store configuration */
     pDeviceObject->data.cfg_start_ofs = MXT_OBJECT_START +
-            pDeviceObject->data.info->object_num * sizeof(struct mxt_object) +
+            pDeviceObject->data.info.object_num * sizeof(struct mxt_object) +
             MXT_INFO_CHECKSUM_SIZE;
     pDeviceObject->data.config_mem_size = pDeviceObject->data.mem_size - pDeviceObject->data.cfg_start_ofs;
     
@@ -2683,12 +2677,12 @@ static bool mxt_load_raw_flash(struct DEVICE_OBJECT* pDeviceObject, char * flash
 
     ptr = strtok(NULL, "\n");
 
-	if (cfg_info.family_id != pDeviceObject->data.info->family_id) {
+	if (cfg_info.family_id != pDeviceObject->data.info.family_id) {
 		dev_err(dev, "Family ID mismatch!\n");
 		return false;
 	}
 
-	if (cfg_info.variant_id != pDeviceObject->data.info->variant_id) {
+	if (cfg_info.variant_id != pDeviceObject->data.info.variant_id) {
 		dev_err(dev, "Variant ID mismatch!\n");
 		return false;
 	}
@@ -2733,7 +2727,7 @@ static bool mxt_load_raw_flash(struct DEVICE_OBJECT* pDeviceObject, char * flash
     
 	/* Malloc memory to store configuration */
 	pDeviceObject->data.cfg_start_ofs = MXT_OBJECT_START +
-			pDeviceObject->data.info->object_num * sizeof(struct mxt_object) +
+			pDeviceObject->data.info.object_num * sizeof(struct mxt_object) +
 			MXT_INFO_CHECKSUM_SIZE;
 	pDeviceObject->data.config_mem_size = pDeviceObject->data.mem_size - pDeviceObject->data.cfg_start_ofs;
     
@@ -2790,12 +2784,12 @@ bool mxt_load_raw_file(struct DEVICE_OBJECT* pDeviceObject, char * cfg)
 
     ptr = strtok(NULL, "\n");
 
-	if (cfg_info.family_id != pDeviceObject->data.info->family_id) {
+	if (cfg_info.family_id != pDeviceObject->data.info.family_id) {
 		dev_err(dev, "Family ID mismatch!\n");
 		return false;
 	}
 
-	if (cfg_info.variant_id != pDeviceObject->data.info->variant_id) {
+	if (cfg_info.variant_id != pDeviceObject->data.info.variant_id) {
 		dev_err(dev, "Variant ID mismatch!\n");
 		return false;
 	}
@@ -2840,7 +2834,7 @@ bool mxt_load_raw_file(struct DEVICE_OBJECT* pDeviceObject, char * cfg)
     
 	/* Malloc memory to store configuration */
 	pDeviceObject->data.cfg_start_ofs = MXT_OBJECT_START +
-			pDeviceObject->data.info->object_num * sizeof(struct mxt_object) +
+			pDeviceObject->data.info.object_num * sizeof(struct mxt_object) +
 			MXT_INFO_CHECKSUM_SIZE;
 	pDeviceObject->data.config_mem_size = pDeviceObject->data.mem_size - pDeviceObject->data.cfg_start_ofs;
     

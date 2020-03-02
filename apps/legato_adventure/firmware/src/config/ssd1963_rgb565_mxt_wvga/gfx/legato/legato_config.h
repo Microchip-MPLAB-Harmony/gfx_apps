@@ -99,7 +99,7 @@ extern "C" {
 // variable heap configuration
 #define LE_VARIABLEHEAP_DEBUGLEVEL         0
 #define LE_VARIABLEHEAP_SIZE               8192
-#define LE_VARIABLEHEAP_MINALLOCSIZE       32
+#define LE_VARIABLEHEAP_MINALLOCSIZE       4
 #define LE_VARIABLEHEAP_ALIGNMENT          4
 #define LE_VARIABLEHEAP_BESTFIT            1
 

@@ -62,14 +62,14 @@
               </logicalFolder>
               <logicalFolder name="f10" displayName="generated" projectFiles="true">
                 <logicalFolder name="f1" displayName="screen" projectFiles="true">
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_FPSMotion.h</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_FPSCounters.h</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_FPSImages.h</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_FPSMotion.h</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_SplashScreen.h</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_assets.h</itemPath>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_harmony.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_init.h</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_harmony.h</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_assets.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_scheme.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f5" displayName="image" projectFiles="true">
@@ -277,45 +277,45 @@
       <logicalFolder name="f2" displayName="packs" projectFiles="true">
         <logicalFolder name="f1" displayName="ATSAME54P20A_DFP" projectFiles="true">
           <logicalFolder name="f1" displayName="component" projectFiles="true">
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/aes.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/sdhc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/mclk.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/sercom.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/port.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/ramecc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/tcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/eic.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/i2s.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/tc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/evsys.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/oscctrl.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pdec.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/supc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/qspi.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dmac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/wdt.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/trng.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/freqm.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/rstc.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/ac.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/adc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/aes.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/can.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/ccl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/cmcc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dmac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dsu.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/eic.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/evsys.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/freqm.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/gclk.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/gmac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/hmatrixb.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/i2s.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/icm.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/mclk.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pukcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dsu.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/can.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/nvmctrl.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/osc32kctrl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/oscctrl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pcc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pdec.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pm.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/port.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pukcc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/qspi.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/ramecc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/rstc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/ccl.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/rtc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/sdhc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/sercom.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/supc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/tc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/tcc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/trng.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/hmatrixb.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/cmcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pm.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/icm.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/gclk.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/usb.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/wdt.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="pio" projectFiles="true">
             <itemPath>../src/packs/ATSAME54P20A_DFP/pio/same54p20a.h</itemPath>
@@ -412,44 +412,44 @@
               </logicalFolder>
               <logicalFolder name="f10" displayName="generated" projectFiles="true">
                 <logicalFolder name="f1" displayName="font" projectFiles="true">
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialLarge.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialLittle.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialMed.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialTiny.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialNarrow.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialTitle.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialMed.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialLittle.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialTinyAve.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialLarge.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialNarrowMed.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialSmall.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialTiny.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialTinyAve.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialTitle.c</itemPath>
                 </logicalFolder>
                 <logicalFolder name="f2" displayName="image" projectFiles="true">
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_Bar.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_HarmonyLogo.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_MicrochipLogo.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_PIC32Logo.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_100x100.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_200x200.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_40x40.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_100x100.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_200x200.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_40x40.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_100x100.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_200x200.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_40x40.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_100x100.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_40x40.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_MicrochipLogo.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_HarmonyLogo.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_100x100.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_200x200.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_200x200.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_PIC32Logo.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_200x200.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_100x100.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_100x100.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_40x40.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_40x40.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_Bar.c</itemPath>
                 </logicalFolder>
                 <logicalFolder name="f3" displayName="screen" projectFiles="true">
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_FPSCounters.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_FPSImages.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_FPSMotion.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_SplashScreen.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_FPSMotion.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_FPSImages.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_FPSCounters.c</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_harmony.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_init.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_scheme.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_stringtable.c</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_harmony.c</itemPath>
               </logicalFolder>
               <logicalFolder name="f5" displayName="image" projectFiles="true">
                 <logicalFolder name="f1" displayName="raw" projectFiles="true">
@@ -717,7 +717,7 @@
         <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.40</languageToolchainVersion>
-        <platform>3</platform>
+        <platform>2</platform>
       </toolsSet>
       <packs>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
@@ -945,8 +945,6 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-fffff"/>
         <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmerToGoFilePath"
-                  value="C:/harmony3_dev/gfx_apps/apps/legato_benchmark/firmware/legato_bm_e54_cu_cpro_parallel.X/debug/ili9488_rgb565_e54_cult_parallel/legato_bm_e54_cu_cpro_parallel_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
