@@ -30,6 +30,9 @@
 #include "gfx/libaria/inc/libaria_utils.h"
 #include "gfx/libaria/inc/libaria_widget.h"
 
+// forward declare to avoid automated built test issue
+GFX_Rect laUtils_ClipWidgetToAncestors(laWidget* wgt);
+
 static void updateDirtyFlags(laWidget* widget)
 {
     laWidget* child;

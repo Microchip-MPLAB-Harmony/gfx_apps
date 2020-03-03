@@ -336,7 +336,7 @@ extern GFXU_ImageAsset CrossFade3;
 /*********************************
  * GFX Font Asset
  * Name:         ArialLarge
- * Height:       185
+ * Height:       187
  * Style:        Plain
  * Glyph Count:  10
  * Range Count:  1
@@ -347,7 +347,7 @@ extern GFXU_FontAsset ArialLarge;
 /*********************************
  * GFX Font Asset
  * Name:         ArialMed
- * Height:       104
+ * Height:       106
  * Style:        Plain
  * Glyph Count:  10
  * Range Count:  1
@@ -358,7 +358,7 @@ extern GFXU_FontAsset ArialMed;
 /*********************************
  * GFX Font Asset
  * Name:         ArialSmall
- * Height:       56
+ * Height:       57
  * Style:        Plain
  * Glyph Count:  10
  * Range Count:  1
@@ -392,7 +392,7 @@ extern GFXU_FontAsset ArialNarrow;
 /*********************************
  * GFX Font Asset
  * Name:         ArialNarrowMed
- * Height:       42
+ * Height:       43
  * Style:        Plain
  * Glyph Count:  14
  * Range Count:  5

@@ -1083,7 +1083,7 @@ extern GFXU_PaletteAsset Background_palette;
 /*********************************
  * GFX Font Asset
  * Name:         NotoSans_Bold
- * Height:       24
+ * Height:       26
  * Style:        Antialias
  * Glyph Count:  32
  * Range Count:  13

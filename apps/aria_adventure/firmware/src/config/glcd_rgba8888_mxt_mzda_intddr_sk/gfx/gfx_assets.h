@@ -609,7 +609,7 @@ extern GFXU_FontAsset Arial;
 /*********************************
  * GFX Font Asset
  * Name:         CalibriTitle
- * Height:       36
+ * Height:       33
  * Style:        Plain
  * Glyph Count:  13
  * Range Count:  7
@@ -626,7 +626,7 @@ extern GFXU_FontAsset CalibriTitle;
 /*********************************
  * GFX Font Asset
  * Name:         ComicSansMS
- * Height:       23
+ * Height:       19
  * Style:        Plain
  * Glyph Count:  19
  * Range Count:  7

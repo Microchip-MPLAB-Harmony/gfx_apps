@@ -451,7 +451,7 @@ extern GFXU_FontAsset Arial;
 /*********************************
  * GFX Font Asset
  * Name:         Elephant
- * Height:       23
+ * Height:       22
  * Style:        Plain
  * Glyph Count:  24
  * Range Count:  15

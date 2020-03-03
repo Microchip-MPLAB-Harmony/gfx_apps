@@ -261,7 +261,7 @@ extern GFXU_FontAsset TimesNewRoman18;
 /*********************************
  * GFX Font Asset
  * Name:         TimesNewRoman12
- * Height:       14
+ * Height:       15
  * Style:        Plain
  * Glyph Count:  0
  * Range Count:  0

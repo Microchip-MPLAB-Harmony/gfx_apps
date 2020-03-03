@@ -464,7 +464,7 @@
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
         <property key="make-warnings-into-errors" value="true"/>
-        <property key="optimization-level" value="-O1"/>
+        <property key="optimization-level" value="-O3"/>
         <property key="place-data-into-section" value="false"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
@@ -905,7 +905,7 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="1d000000-1d1fffff"/>
         <property key="programmerToGoFilePath"
-                  value="C:/harmony3_dev/gfx_apps/apps/aria_thermostat/firmware/aria_th_mzef_cu_tm5000_ssd1963.X/debug/ssd1963_rgb565_mxt_mzef_cu_wvga/aria_th_mzef_cu_tm5000_ssd1963_ptg"/>
+                  value="/home/ryan/Work/lh3/gfx_apps/apps/aria_thermostat/firmware/aria_th_mzef_cu_tm5000_ssd1963.X/debug/ssd1963_rgb565_mxt_mzef_cu_wvga/aria_th_mzef_cu_tm5000_ssd1963_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.pgmentry.voltage" value="low"/>

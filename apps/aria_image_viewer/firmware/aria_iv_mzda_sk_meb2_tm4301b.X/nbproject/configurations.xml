@@ -443,7 +443,7 @@
         <platformTool>ICD4Tool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.40</languageToolchainVersion>
-        <platform>3</platform>
+        <platform>2</platform>
       </toolsSet>
       <packs>
         <pack name="PIC32MZ-DA_DFP" vendor="Microchip" version="1.1.98"/>
@@ -487,7 +487,7 @@
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
         <property key="make-warnings-into-errors" value="true"/>
-        <property key="optimization-level" value="-O1"/>
+        <property key="optimization-level" value="-O3"/>
         <property key="place-data-into-section" value="false"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
@@ -702,7 +702,7 @@
         <property key="memories.programmemory.ranges" value="1d000000-1d1fffff"/>
         <property key="poweroptions.powerenable" value="false"/>
         <property key="programmerToGoFilePath"
-                  value="C:/harmony3_dev/gfx_apps/apps/aria_image_viewer/firmware/aria_iv_mzda_sk_meb2_tm4301b.X/debug/glcd_gpu_rgba8888_mxt_mzda_sk/aria_iv_mzda_sk_meb2_tm4301b_ptg"/>
+                  value="/home/ryan/Work/lh3/gfx_apps/apps/aria_image_viewer/firmware/aria_iv_mzda_sk_meb2_tm4301b.X/debug/glcd_gpu_rgba8888_mxt_mzda_sk/aria_iv_mzda_sk_meb2_tm4301b_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.ledbrightness" value="5"/>

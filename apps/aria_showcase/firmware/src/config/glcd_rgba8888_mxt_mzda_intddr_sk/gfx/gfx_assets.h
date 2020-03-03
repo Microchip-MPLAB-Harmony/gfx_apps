@@ -462,7 +462,7 @@ extern GFXU_ImageAsset GFX_NextScreen_60x60;
 /*********************************
  * GFX Font Asset
  * Name:         Calibri
- * Height:       20
+ * Height:       19
  * Style:        Plain
  * Glyph Count:  3
  * Range Count:  3
@@ -475,7 +475,7 @@ extern GFXU_FontAsset Calibri;
 /*********************************
  * GFX Font Asset
  * Name:         ArialUnicodeMS
- * Height:       23
+ * Height:       19
  * Style:        Plain
  * Glyph Count:  165
  * Range Count:  116
@@ -601,7 +601,7 @@ extern GFXU_FontAsset ArialUnicodeMS;
 /*********************************
  * GFX Font Asset
  * Name:         ArialUnicodeMS_Large
- * Height:       25
+ * Height:       22
  * Style:        Bold
  * Glyph Count:  55
  * Range Count:  39
@@ -650,7 +650,7 @@ extern GFXU_FontAsset ArialUnicodeMS_Large;
 /*********************************
  * GFX Font Asset
  * Name:         ArialUnicodeMS_XL
- * Height:       30
+ * Height:       27
  * Style:        Bold
  * Glyph Count:  16
  * Range Count:  6
