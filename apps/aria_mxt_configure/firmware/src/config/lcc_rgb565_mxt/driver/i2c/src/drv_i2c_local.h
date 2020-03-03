@@ -167,6 +167,7 @@ typedef struct _DRV_I2C_TRANSFER_OBJ
 
     /* Errors associated with the I2C transfer */
     volatile DRV_I2C_ERROR          errors;
+
     /* Next buffer pointer */
     struct _DRV_I2C_TRANSFER_OBJ*   next;
 
@@ -271,7 +272,6 @@ typedef struct
 
     /* The IO intent with which the client was opened */
     DRV_IO_INTENT                   ioIntent;
-
 
     /* This flags indicates if the object is in use or is available */
     bool                            inUse;

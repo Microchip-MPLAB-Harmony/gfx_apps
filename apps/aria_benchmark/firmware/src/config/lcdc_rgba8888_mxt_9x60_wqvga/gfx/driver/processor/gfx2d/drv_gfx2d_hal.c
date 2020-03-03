@@ -67,81 +67,11 @@ GFX2D_PIXEL_FORMAT p2dFormats[GFX_COLOR_MODE_COUNT] =
     GFX2D_IDX8, // GFX_COLOR_MODE_INDEX_8
 };
 
-static GFX_Result drawLine(const GFX_Point* p1,
-                           const GFX_Point* p2,
-                           const GFX_DrawState* state)
-{
-    struct gpu_buffer    buffer;
-    GFX_Rect lrect;
-    GFX2D_TRANSFER_DIRECTION orientation = GFX2D_XY00;
-    GFX_Context* context = GFX_ActiveContext();
-
-    // return failure if line is not horizonal or vertical line
-    if(p1->x != p2->x && p1->y != p2->y)
-    {
-        cpuDrawLine(p1, p2, state);
-        return GFX_SUCCESS;
-    }
-
-    lrect.x = p1->x;
-    lrect.y = p1->y;
-    lrect.width = p2->x;
-    lrect.height = p2->y;
-
-    if ( p1->x == p2->x )
-      lrect.width = 1;
-    if ( p1->y == p2->y )
-      lrect.height = 1;
-
-    switch(context->orientation)
-    {
-        case GFX_ORIENTATION_0:
-        {
-            orientation = GFX2D_XY00;
-            break;
-        }
-        case GFX_ORIENTATION_90:
-        {
-            orientation = GFX2D_XY01;
-            break;
-        }
-        case GFX_ORIENTATION_180:
-        {
-            orientation = GFX2D_XY10;
-            break;
-        }
-        case GFX_ORIENTATION_270:
-        {
-            orientation = GFX2D_XY11;
-            break;
-        }
-    }
-
-    buffer.width = state->target->size.width;
-    buffer.height = state->target->size.height;
-    buffer.format = p2dFormats[state->target->mode];
-    buffer.dir = orientation;
-    buffer.addr = (uint32_t)state->target->pixels;
-    
-    lrect.x = p1->x; 
-    lrect.y = p1->y;
-    lrect.width = p2->x;
-    lrect.height = p2->y;
-    
-    DRV_GFX2D_Fill(&buffer,
-             (GFX2D_RECTANGLE*)&lrect,
-             GFX_ColorConvert(state->colorMode, GFX_COLOR_MODE_RGBA_8888, state->color));
-    
-    return GFX_SUCCESS;
-}
-
 static GFX_Result fillRect(const GFX_Rect* rect,
                            const GFX_DrawState* state)
 {
     struct gpu_buffer    buffer;
     GFX_Rect lrect;
-    GFX2D_TRANSFER_DIRECTION orientation = GFX2D_XY00;
-    GFX_Context* context = GFX_ActiveContext();
 
 #if GFX_LAYER_CLIPPING_ENABLED || GFX_BOUNDS_CLIPPING_ENABLED
     GFX_Rect clipRect;
@@ -173,30 +103,6 @@ static GFX_Result fillRect(const GFX_Rect* rect,
         lrect = clipRect; 
     }
 #endif   
-
-    switch(context->orientation)
-    {
-        case GFX_ORIENTATION_0:
-        {
-            orientation = GFX2D_XY00;
-            break;
-        }
-        case GFX_ORIENTATION_90:
-        {
-            orientation = GFX2D_XY01;
-            break;
-        }
-        case GFX_ORIENTATION_180:
-        {
-            orientation = GFX2D_XY10;
-            break;
-        }
-        case GFX_ORIENTATION_270:
-        {
-            orientation = GFX2D_XY11;
-            break;
-        }
-    }
 
     buffer.width = state->target->size.width;
     buffer.height = state->target->size.height;
@@ -241,6 +147,11 @@ static GFX_Result drawBlit(const GFX_PixelBuffer* source,
         case GFX_ORIENTATION_270:
         {
             orientation = GFX2D_XY11;
+            break;
+        }
+        default:
+        {
+            orientation = GFX2D_XY00;
             break;
         }
     }

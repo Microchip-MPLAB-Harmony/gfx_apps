@@ -21,7 +21,7 @@
         <path>$PROJ_DIR$\..\..\firmware\src\arm</path>
     </asmIncludePath>
     <defines>
-        <defines>__FPU_PRESENT=1</defines>
+        <define>__FPU_PRESENT=1</define>
     </defines>
     <linkerFile>
         <override>true</override>
@@ -136,9 +136,6 @@
             <path>\..\..\packs\CMSIS\CMSIS\Core_A\Include\cmsis_iccarm.h</path>
             <path>\..\..\packs\CMSIS\CMSIS\Core_A\Include\cmsis_cp15.h</path>
             <path>\..\..\packs\CMSIS\CMSIS\Core_A\Include\core_ca.h</path>
-            <path>\..\..\packs\CMSIS\CMSIS\DSP\Include\arm_common_tables.h</path>
-            <path>\..\..\packs\CMSIS\CMSIS\DSP\Include\arm_const_structs.h</path>
-            <path>\..\..\packs\CMSIS\CMSIS\DSP\Include\arm_math.h</path>
             <path>\gfx\utils\gfx_utils.h</path>
             <path>\gfx\utils\gfxu_config.h</path>
             <path>\gfx\utils\inc\gfxu_binary.h</path>
@@ -257,7 +254,6 @@
             <path>\..\..\main.c</path>
             <path>\initialization.c</path>
             <path>\interrupts.c</path>
-            <path>\exceptions.c</path>
             <path>\stdio\iar_monitor.c</path>
             <path>\peripheral\mmu\plib_mmu.c</path>
             <path>\peripheral\matrix\plib_matrix.c</path>

@@ -152,7 +152,7 @@ static void languageChanging(laKeyPadWidget* pad)
     
     for(i = 0; i < pad->rows * pad->cols; i++)
     {
-        if(laString_IsEmpty(&pad->cells[i].button->text) == LA_FALSE)
+        if(&pad->cells[i].button->text != NULL)
         {
             laWidget_Invalidate((laWidget*)pad);
             

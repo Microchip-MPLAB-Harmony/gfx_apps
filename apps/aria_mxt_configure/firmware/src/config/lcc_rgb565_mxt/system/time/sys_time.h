@@ -395,7 +395,7 @@ SYS_STATUS SYS_TIME_Status ( SYS_MODULE_OBJ object );
    Parameters:
        us     - The desired number of microseconds to delay.
 
-       handle - Address of the variable to receive the timer handle value.
+       handle - Address of the variable to receive the timer handle value. 
 
    Returns:
       SYS_TIME_SUCCESS - If the call succeeded.
@@ -550,21 +550,21 @@ bool SYS_TIME_DelayIsComplete ( SYS_TIME_HANDLE handle );
     SYS_TIME_HANDLE SYS_TIME_CallbackRegisterUS ( SYS_TIME_CALLBACK callback,
                         uintptr_t context, uint32_t us, SYS_TIME_CALLBACK_TYPE type )
 
-Summary:
-    Registers a function with the time system service to be called back when the
-    requested number of microseconds have expired (either once or repeatedly).
+   Summary:
+        Registers a function with the time system service to be called back when the
+        requested number of microseconds have expired (either once or repeatedly).
 
-Description:
-    Creates a timer object and registers a function with it to be called back
-    when the requested delay (specified in microseconds) has completed.  The
-    caller must identify if the timer should call the function once or repeatedly
-    every time the given delay period expires.
+   Description:
+        Creates a timer object and registers a function with it to be called back
+        when the requested delay (specified in microseconds) has completed.  The
+        caller must identify if the timer should call the function once or repeatedly
+        every time the given delay period expires.
 
-Precondition:
-    The SYS_TIME_Initialize function should have been called before calling this
-    function.
+   Precondition:
+        The SYS_TIME_Initialize function should have been called before calling this
+        function.
 
-Parameters:
+   Parameters:
     callback    - Pointer to the function to be called.
                   For single shot timers, the callback cannot be NULL.
                   For periodic timers, if the callback pointer is given as NULL,
@@ -584,26 +584,26 @@ Parameters:
                   object is stopped or deleted.
 
 
-Returns:
-    SYS_TIME_HANDLE - A valid timer object handle if the call succeeds.
+   Returns:
+        SYS_TIME_HANDLE - A valid timer object handle if the call succeeds.
                       SYS_TIME_HANDLE_INVALID if it fails.
 
-Example:
-  Given a callback function implementation matching the following prototype:
-  <code>
-  void MyCallback ( uintptr_t context);
-  </code>
+   Example:
+      Given a callback function implementation matching the following prototype:
+      <code>
+      void MyCallback ( uintptr_t context);
+      </code>
 
-  The following example call will register it, requesting a 500 microsecond
-  periodic callback.
-  <code>
-  //Give a SYS_TIME_CALLBACK function "MyCallback",
-  SYS_TIME_HANDLE handle = SYS_TIME_CallbackRegisterUS(MyCallback, (uintptr_t)0, 500, SYS_TIME_PERIODIC);
-  if (handle != SYS_TIME_HANDLE_INVALID)
-  {
-        //timer is created successfully.
-  }
-  </code>
+      The following example call will register it, requesting a 500 microsecond
+      periodic callback.
+      <code>
+      //Give a SYS_TIME_CALLBACK function "MyCallback",
+      SYS_TIME_HANDLE handle = SYS_TIME_CallbackRegisterUS(MyCallback, (uintptr_t)0, 500, SYS_TIME_PERIODIC);
+      if (handle != SYS_TIME_HANDLE_INVALID)
+      {
+            //timer is created successfully.
+      }
+      </code>
 
    Remarks:
        Will give a callback after the requested number of microseconds or longer
@@ -624,60 +624,60 @@ SYS_TIME_HANDLE SYS_TIME_CallbackRegisterUS ( SYS_TIME_CALLBACK callback, uintpt
     SYS_TIME_HANDLE SYS_TIME_CallbackRegisterMS ( SYS_TIME_CALLBACK callback,
                         uintptr_t context, uint32_t ms, SYS_TIME_CALLBACK_TYPE type )
 
-Summary:
-    Registers a function with the time system service to be called back when the
-    requested number of milliseconds has expired (either once or repeatedly).
+   Summary:
+        Registers a function with the time system service to be called back when the
+        requested number of milliseconds has expired (either once or repeatedly).
 
-Description:
-    Creates a timer object and registers a function with it to be called back
-    when the requested delay (specified in milliseconds) has completed.  The
-    caller must identify if the timer should call the function once or repeatedly
-    every time the given delay period expires.
+   Description:
+        Creates a timer object and registers a function with it to be called back
+        when the requested delay (specified in milliseconds) has completed.  The
+        caller must identify if the timer should call the function once or repeatedly
+        every time the given delay period expires.
 
-Precondition:
-    The SYS_TIME_Initialize function should have been called before calling this
-    function.
+   Precondition:
+        The SYS_TIME_Initialize function should have been called before calling this
+        function.
 
-Parameters:
-    callback    - Pointer to the function to be called.
-                  For single shot timers, the callback cannot be NULL.
-                  For periodic timers, if the callback pointer is given as NULL,
-                  no callback will occur, but SYS_TIME_TimerPeriodHasExpired can
-                  still be polled to determine if the period has expired for a
-                  periodic timer.
+   Parameters:
+        callback    - Pointer to the function to be called.
+                      For single shot timers, the callback cannot be NULL.
+                      For periodic timers, if the callback pointer is given as NULL,
+                      no callback will occur, but SYS_TIME_TimerPeriodHasExpired can
+                      still be polled to determine if the period has expired for a
+                      periodic timer.
 
-    context     - A client-defined value that is passed to the callback function.
+        context     - A client-defined value that is passed to the callback function.
 
-    ms          - Time period in milliseconds.
+        ms          - Time period in milliseconds.
 
-    type        - Type of callback requested. If type is SYS_TIME_SINGLE, the
-                  Callback function will be called once when the time period expires.
-                  After the time period expires, the timer object will be freed.
-                  If type is SYS_TIME_PERIODIC Callback function will be called
-                  repeatedly, every time the time period expires until the timer
-                  object is stopped or deleted.
+        type        - Type of callback requested. If type is SYS_TIME_SINGLE, the
+                      Callback function will be called once when the time period expires.
+                      After the time period expires, the timer object will be freed.
+                      If type is SYS_TIME_PERIODIC Callback function will be called
+                      repeatedly, every time the time period expires until the timer
+                      object is stopped or deleted.
 
 
-Returns:
-    SYS_TIME_HANDLE - A valid timer object handle if the call succeeds.
-                      SYS_TIME_HANDLE_INVALID if it fails.
+   Returns:
+        SYS_TIME_HANDLE - A valid timer object handle if the call succeeds.
+                          SYS_TIME_HANDLE_INVALID if it fails.
 
-Example:
-  Given a callback function implementation matching the following prototype:
-  <code>
-  void MyCallback ( uintptr_t context);
-  </code>
+   Example:
+      Given a callback function implementation matching the following prototype:
+      <code>
+      void MyCallback ( uintptr_t context);
+      </code>
 
-  The following example call will register it, requesting a 50 millisecond
-  periodic callback.
-  <code>
-  //Give a SYS_TIME_CALLBACK function "MyCallback",
-  SYS_TIME_HANDLE handle = SYS_TIME_CallbackRegisterMS(MyCallback, (uintptr_t)0, 50, SYS_TIME_PERIODIC);
-  if (handle != SYS_TIME_HANDLE_INVALID)
-  {
-        //timer is created successfully.
-  }
-  </code>
+      The following example call will register it, requesting a 50 millisecond
+      periodic callback.
+      <code>
+      //Give a SYS_TIME_CALLBACK function "MyCallback",
+      SYS_TIME_HANDLE handle = SYS_TIME_CallbackRegisterMS(MyCallback, (uintptr_t)0, 50, SYS_TIME_PERIODIC);
+      if (handle != SYS_TIME_HANDLE_INVALID)
+      {
+            //timer is created successfully.
+      }
+      </code>
       
     Remarks:
        Will give a callback after the requested number of microseconds or longer
@@ -785,7 +785,7 @@ uint32_t SYS_TIME_FrequencyGet ( void );
   Remarks:
     The value returned may be stale as soon as it is provided, as the timer is
     live and running at full frequency resolution (as configured and as reported
-    by the SYS_TIME_FrequencyGet function).  If additional accuracy is required,
+    by the SYS_TIME_FrequencyGet function). If additional accuracy is required,
     use a hardware timer instance.
 */
 
@@ -833,7 +833,7 @@ uint32_t SYS_TIME_CounterGet ( void );
   Remarks:
     The value returned may be stale as soon as it is provided, as the timer is
     live and running at full frequency resolution (as configured and as reported
-    by the SYS_TIME_FrequencyGet function).  If additional accuracy is required,
+    by the SYS_TIME_FrequencyGet function). If additional accuracy is required,
     use a hardware timer instance.
 */
 

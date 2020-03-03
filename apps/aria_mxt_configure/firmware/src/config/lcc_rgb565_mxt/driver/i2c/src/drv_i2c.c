@@ -958,11 +958,11 @@ DRV_I2C_TRANSFER_EVENT DRV_I2C_TransferStatusGet(
     if(transferIndex < dObj->transferObjPoolSize)
     {
         if(transferHandle == dObj->transferObjPool[transferIndex].transferHandle)
-    {
+        {
             event = dObj->transferObjPool[transferIndex].event;
-    }
-    else
-    {
+        }
+        else
+        {
             event = DRV_I2C_TRANSFER_EVENT_HANDLE_EXPIRED;
         }
     }

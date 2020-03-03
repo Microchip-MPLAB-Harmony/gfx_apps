@@ -66,7 +66,7 @@
                 </option>
                 <option>
                     <name>OGLastSavedByProductVersion</name>
-                    <state>8.32.1.18618</state>
+                    <state>8.32.3.20186</state>
                 </option>
                 <option>
                     <name>GeneralEnableMisra</name>
@@ -116,7 +116,7 @@
                 </option>
                 <option>
                     <name>GBECoreSlave</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>12</state>
                 </option>
                 <option>
@@ -133,7 +133,7 @@
                 </option>
                 <option>
                     <name>CoreVariant</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>12</state>
                 </option>
                 <option>
@@ -156,7 +156,7 @@
                 </option>
                 <option>
                     <name>GFPUCoreSlave2</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>12</state>
                 </option>
                 <option>
@@ -1161,7 +1161,7 @@
                 </option>
                 <option>
                     <name>GBECoreSlave</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>38</state>
                 </option>
                 <option>
@@ -1178,7 +1178,7 @@
                 </option>
                 <option>
                     <name>CoreVariant</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>38</state>
                 </option>
                 <option>
@@ -1201,7 +1201,7 @@
                 </option>
                 <option>
                     <name>GFPUCoreSlave2</name>
-                    <version>26</version>
+                    <version>27</version>
                     <state>38</state>
                 </option>
                 <option>
@@ -2489,7 +2489,7 @@
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\peripheral\clk\plib_clk.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\peripheral\flexcom\twi\plib_flexcom6_twi.h</name>
+                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\peripheral\flexcom\twi\plib_flexcom0_twi.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\peripheral\flexcom\twi\plib_flexcom_twi_master.h</name>
@@ -2673,9 +2673,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\driver\input\drv_maxtouch.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\exceptions.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\gfx\hal\src\gfx.c</name>
@@ -3092,7 +3089,7 @@
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\peripheral\clk\plib_clk.c</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\peripheral\flexcom\twi\plib_flexcom6_twi.c</name>
+                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\peripheral\flexcom\twi\plib_flexcom0_twi.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\peripheral\gfx2d\plib_gfx2d.c</name>

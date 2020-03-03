@@ -54,26 +54,7 @@
 */
 #include "device.h"
 #include "plib_gfx2d.h"
-
-
-#define CONF_GFX2D_GC_REGEN             1
-#define CONF_GFX2D_GC_MTY               1
-#define GFX2D_GC_MTY_Pos                1
-#define GFX2D_GC_REGEN_Pos              1
-#define CONF_GFX2D_GC_MTY               1
-#define GFX2D_GC_MTY_Pos                1
-#define CONF_GFX2D_GC_REGQOS1           1
-#define GFX2D_GC_REGQOS1_Pos            1
-#define CONF_GFX2D_GC_REGQOS2           1
-#define GFX2D_GC_REGQOS2_Pos            1
-#define CONF_GFX2D_GC_REGQOS3           1
-#define GFX2D_GC_REGQOS3_Pos            1
-#define GFX2D_IS_EXEND                  1
-#define GFX2D_PC0_SEL_Pos               1
-#define GFX2D_PC0_FILT_Pos              1
-#define GFX2D_PC1_SEL_Pos               1
-#define GFX2D_PC1_FILT_Pos              1
-//#define GFX2D_GS_STATUS                 1
+#include "component/gfx2d.h"
 
 #ifndef CONF_GFX2D_PC1_REG
 #define CONF_GFX2D_PC1_REG ((CONF_GFX2D_PC1_SEL << GFX2D_PC1_SEL_Pos) | (CONF_GFX2D_PC1_FILT << GFX2D_PC1_FILT_Pos))
@@ -388,6 +369,8 @@ uint32_t PLIB_GFX2D_SetPerformanceMetric(GFX2D_PERFORMANCE_REGISTER reg, GFX2D_P
                                   GFX2D_PC_SEL(selection);
             break;
     }
+
+    return 0;
 }
 
 uint32_t PLIB_GFX2D_GetPerformanceMetric(GFX2D_PERFORMANCE_REGISTER reg)
@@ -400,6 +383,8 @@ uint32_t PLIB_GFX2D_GetPerformanceMetric(GFX2D_PERFORMANCE_REGISTER reg)
         case GFX2D_PERFORMANCE_REG1:
             return GFX2D_REGS->GFX2D_SUB0[1].GFX2D_MC;
     }
+
+    return 0;
 }
 
 // *****************************************************************************
@@ -673,7 +658,7 @@ void PLIB_GFX2D_InterruptHandler(void)
     }
 
     /*  */
-    if( status & GFX2D_IS_EXEND )
+    if( status & GFX2D_IS_EXEND(1) )
     {
         GFX2D_IRQ_CallbackObj.callback_fn(GFX2D_IRQ_CallbackObj.context);
     }
@@ -716,15 +701,6 @@ GFX2D_STATUS PLIB_GFX2D_Copy(GFX2D_BUFFER *dst, GFX2D_RECTANGLE *dst_rect, GFX2D
 
     return _gpu_instruction((uint32_t *)(&instr), 4);
 }
-
-static const uint32_t _gfx2d_blend_val[12] = {
-    GFX2D_INST_BLEND_WD5(0, 0, 7, 1), /* SRC_OVER, S + (1-Sa)xD */
-    GFX2D_INST_BLEND_WD5(0, 0, 1, 9), /* DST_OVER, (1-Da)*S + D */
-    GFX2D_INST_BLEND_WD5(0, 0, 0, 8), /* SRC_IN, Da*S */
-    GFX2D_INST_BLEND_WD5(0, 0, 6, 0), /* DST_IN, Sa*D */
-    GFX2D_INST_BLEND_WD5(0, 0, 1, 1), /* ADDITIVE, S + D */
-    GFX2D_INST_BLEND_WD5(0, 0, 3, 0)  /* SUBTRACT, D * (1-S) */
-};
 
 GFX2D_STATUS PLIB_GFX2D_Blend(GFX2D_BUFFER *dst, GFX2D_RECTANGLE *dst_rect, GFX2D_BUFFER *fg,
                          GFX2D_RECTANGLE *fg_rect, GFX2D_BUFFER *bg, GFX2D_RECTANGLE *bg_rect,

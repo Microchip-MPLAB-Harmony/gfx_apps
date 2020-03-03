@@ -385,34 +385,34 @@ static uint32_t SYS_TIME_GetTotalElapsedCount(SYS_TIME_TIMER_OBJ* tmr)
     }
     else
     {
-    /* Add time from all timers in the front */
-    while ((tmrActive != NULL) && (tmrActive != tmr))
-    {
+        /* Add time from all timers in the front */
+        while ((tmrActive != NULL) && (tmrActive != tmr))
+        {
+            pendingCount += tmrActive->relativeTimePending;
+            tmrActive = tmrActive->tmrNext;
+        }
+        /* Add the pending time of the requested timer */
         pendingCount += tmrActive->relativeTimePending;
-        tmrActive = tmrActive->tmrNext;
-    }
-    /* Add the pending time of the requested timer */
-    pendingCount += tmrActive->relativeTimePending;
-    hwTimerCurrentValue = counterObj->timePlib->timerCounterGet();
-    elapsedCount = SYS_TIME_GetElapsedCount(hwTimerCurrentValue);
+        hwTimerCurrentValue = counterObj->timePlib->timerCounterGet();
+        elapsedCount = SYS_TIME_GetElapsedCount(hwTimerCurrentValue);
 
-    if (pendingCount >= elapsedCount)
-    {
-        pendingCount -= elapsedCount;
-    }
-    else
-    {
-        pendingCount = 0;
-    }
+        if (pendingCount >= elapsedCount)
+        {
+            pendingCount -= elapsedCount;
+        }
+        else
+        {
+            pendingCount = 0;
+        }
 
-    if (tmrActive->requestedTime >= pendingCount)
-    {
-        elapsedCount = tmrActive->requestedTime - pendingCount;
-    }
-    else
-    {
-        elapsedCount = 0;
-    }
+        if (tmrActive->requestedTime >= pendingCount)
+        {
+            elapsedCount = tmrActive->requestedTime - pendingCount;
+        }
+        else
+        {
+            elapsedCount = 0;
+        }
     }
 
     return elapsedCount;
@@ -515,7 +515,7 @@ static void SYS_TIME_ClientNotify(void)
 static void SYS_TIME_UpdateTime(uint32_t elapsedCounts)
 {
     uint8_t i;
-    
+
     SYS_TIME_UpdateTimerList(elapsedCounts);
 
     SYS_TIME_ClientNotify();
@@ -556,7 +556,7 @@ static void SYS_TIME_PLIBCallback(uint32_t status, uintptr_t context)
     counterObj->hwTimerCurrentValue = counterObj->timePlib->timerCounterGet();
 
     elapsedCount = SYS_TIME_GetElapsedCount(counterObj->hwTimerCurrentValue);
-
+	
 	SYS_TIME_Counter64Update(elapsedCount);
 
     if (tmrActive != NULL)
@@ -567,7 +567,7 @@ static void SYS_TIME_PLIBCallback(uint32_t status, uintptr_t context)
 
         counterObj->interruptNestingCount--;
     }
-
+    
     interruptState = SYS_INT_Disable();
     SYS_TIME_HwTimerCompareUpdate();
     SYS_INT_Restore(interruptState);

@@ -2767,7 +2767,7 @@
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\peripheral\clk\plib_clk.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\peripheral\flexcom\twi\plib_flexcom6_twi.h</name>
+                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\peripheral\flexcom\twi\plib_flexcom0_twi.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\peripheral\flexcom\twi\plib_flexcom_twi_master.h</name>
@@ -2951,9 +2951,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\driver\input\drv_maxtouch.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\exceptions.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\gfx\hal\src\gfx.c</name>
@@ -3370,7 +3367,7 @@
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\peripheral\clk\plib_clk.c</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\peripheral\flexcom\twi\plib_flexcom6_twi.c</name>
+                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\peripheral\flexcom\twi\plib_flexcom0_twi.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_9x60_wqvga\peripheral\gfx2d\plib_gfx2d.c</name>
