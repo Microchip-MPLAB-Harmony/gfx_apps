@@ -18,6 +18,7 @@ For more information on the tools, libraries and basic development with the MPLA
  - [MPLAB® Harmony 3 Graphics Videos](https://www.youtube.com/playlist?list=PL9B4edd-p2ag5xsIIHhja-caKYY7AKPxe)
  - [MPLAB® Harmony 3 Graphics User Guide](https://microchip-mplab-harmony.github.io/gfx)
  - [MPLAB® Harmony 3 Graphics Applications User Guide](https://microchip-mplab-harmony.github.io/gfx_apps)
+ - [MPLAB® Harmony 3 Graphics Repository](https://bitbucket.microchip.com/projects/MH3/repos/gfx/browse)
 
 # Contents Summary
 
