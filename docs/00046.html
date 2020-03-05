@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
 <head>
-<title>Running the Demonstration</title>
+<title>legato_adv_e54_cu_cpro_parallel.X</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="generator" content="Doc-O-Matic" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
@@ -18,7 +18,7 @@
 <!-- Begin Page Header -->
 <div class="Element710" id="areafixed">
 <div class="Element94">
-<a href="00000.html" target="topic">MPLAB Harmony Graphics Suite Applications</a> &gt; <a href="00055.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00053.html" target="topic">Aria Applications</a> &gt; <a href="00043.html" target="topic">aria_weather_forecast</a> &gt; <a href="00046.html" target="topic">Running the Demonstration</a></div>
+<a href="00000.html" target="topic">MPLAB Harmony Graphics Suite Applications</a> &gt; <a href="00043.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00042.html" target="topic">Legato Applications</a> &gt; <a href="00050.html" target="topic">legato_adventure</a> &gt; <a href="00046.html" target="topic">legato_adv_e54_cu_cpro_parallel.X</a></div>
 <div class="Element92">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="25%">
@@ -29,12 +29,12 @@ MPLAB® Harmony Graphics Suite Applications</div>
 <a href="contents.html" target="tocidx">Contents</a> | <a href="00000.html" target="topic">Home</a></div>
 </td><td width="25%">
 <div class="Element90">
-<a href="00045.html" target="topic">Previous</a> | <a href="00043.html" target="topic">Up</a> | <a href="00054.html" target="topic">Next</a></div>
+<a href="00050.html" target="topic">Previous</a> | <a href="00050.html" target="topic">Up</a> | <a href="00047.html" target="topic">Next</a></div>
 </td><td width="25%">
 <div class="Element96">
-<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_weather_forecast_run Topic Title: Running the Demonstration)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
+<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: legato_adv_e54_cu_cpro_parallel.X Topic Title: legato_adv_e54_cu_cpro_parallel.X)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
 </td></tr></table><div class="Element5">
-Running the Demonstration</div>
+legato_adv_e54_cu_cpro_parallel.X</div>
 </div>
 </div>
 
@@ -49,34 +49,224 @@ Running the Demonstration</div>
 <a name="4465736372697074696F6E"></a><div class="Element11">
 <div class="Element10">
 <div class="Element15">
-Splash Screen</div>
+Defining the Architecture</div>
 <p class="Element10">
-When power-on is successful, the demonstration will display an animated splash screen: </p><p class="Element10" style="text-align: center;">
-<img src="APPS GFX aria_coffee_maker Splash Screen.png" border="0" alt="" title=""></p><p class="Element10">
 &nbsp;</p>
-<div class="Element15">
-Main Screen</div>
+<p class="Element10" style="text-align: center;">
+<img src="legato_qs_e54_cult_xpro_parallel-arch.png" border="0" alt="" title=""></p><p class="Element10">
+&nbsp;</p>
 <p class="Element10">
-The next screen after boot-up shows Los Angeles (LA) daily weather: </p><p class="Element10" style="text-align: center;">
-<img src="APPS GFX aria_weather_forecast LA, Daily.png" border="0" alt="" title="">&nbsp;</p>
+The application features user touch input through the integrated touch screen on the display panel. Touch input from the touch controller goes through the I2C port, and the Input System Service acquires the touch input information from the Touch and I2C drivers. The Input System Service sends touch events to the Graphics Library, which processes these events and updates the frame data accordingly.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+This configuration runs on the SAM E54 Curiosity Ultra board with a 24-bit passthrough GFX interface card and a maXTouch Curiosity Pro display. The maXTouch Curiosity Pro display has an ILI9488 display controller that is connected to the SAM E54 thru the port/GPIO peripheral using an 8-bit 8080/Parallel interface, boosted with a combination of DMA and CCL peripherals. The Legato graphics library draws the updated sections of the frame to an internal scratch buffer which is used by the ILI9488 display driver to update the ILI9488 display controller.&nbsp;</p>
+<p class="Element10">
+User touch input on the display panel is received thru the PCAP capacitive touch controller, which sends a notification to the Touch Input Driver. The Touch Input Driver reads the touch information over I2C and sends the touch event to the Graphics Library thru the Input System Service.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+<strong>Demonstration Features</strong>&nbsp;</p>
+<p class="Element10">
+• Legato Graphics Library&nbsp;</p>
+<p class="Element10">
+• Input system service and touch driver&nbsp;</p>
+<p class="Element10">
+• Time system service, timer-counter peripheral library and driver&nbsp;</p>
+<p class="Element10">
+• ILI9488 display 8-bit parallel mode driver (DMA-CCL boosted)&nbsp;</p>
+<p class="Element10">
+• 16-bit RGB565 color depth (8-bit palettized double buffering)&nbsp;</p>
+<p class="Element10">
+• Port/GPIO peripheral&nbsp;</p>
+<p class="Element10">
+• I2C peripheral library and driver&nbsp;</p>
+<p class="Element10">
+• Images and Fonts for user interface stored in internal flash&nbsp;</p>
+<p class="Element10">
+• Alpha-blending&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><div class="Element15">
+Creating the Project Graph</div>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+<img src="legato_ck_e54_cult_cpro_parallel.X_pj.png" border="0" alt="" title=""></p><p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+The Project Graph diagram shows the Harmony components that are included in this application. Lines between components are drawn to satisfy components that depend on a capability that another component provides.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+For the DMA-CCL boosted setup, components TC4, CCL needs to be added.&nbsp;</p>
+<p class="Element10">
+Additional components to support QSPI and SST26 needs to be added and connected manually.&nbsp;</p>
+<p class="Element10">
+Some of these components are fine with default settings, while other require some changes. The following is a list of all the components that required custom settings.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="legato_qs_x_r_e54_cult_cpro_parallel.X_conf1.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
+&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+<img src="legato_qs_x_r_e54_cult_cpro_parallel.X_conf2.png" border="0" alt="" title=""></p><p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+To setup the CCL to clock the pixel data, make sure PB09 is set to CCL_OUT2&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="legato_qs_x_r_e54_cult_cpro_parallel.X_conf4.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+Instead of write strobe, make sure PB17 is setup as RSDC instead&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="legato_qs_x_r_e54_cult_cpro_parallel.X_conf5.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
+&nbsp;</p>
 <p class="Element10" style="text-align: center;">
 &nbsp;</p>
 <p class="Element10">
-A tap at the top or at the lower right button (city graphic) changes from LA to China to Madrid and back to LA with each touch. Buttons on the bottom of the display changes the forecast between daily and hourly. The same change can be accomplished by tapping the center of the plots. Here is the LA hourly forecast display: </p><p class="Element10" style="text-align: center;">
-<img src="APPS GFX aria_weather_forecast LA, Hourly.png" border="0" alt="" title=""></p><p class="Element10">
-The Shanghai forecast display is in Chinese: </p><p class="Element10" style="text-align: center;">
-<img src="APPS GFX aria_weather_forecast China.png" border="0" alt="" title=""></p><p class="Element10">
-The Madrid forecast is in Spanish: </p><p class="Element10" style="text-align: center;">
-<img src="APPS GFX aria_weather_forecast Madrid.png" border="0" alt="" title=""></p></div>
+&nbsp;</p>
+<div class="Element15">
+Building the Application</div>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+The parent directory for this application is gfx/apps/aria_adventure. To build this application, open the gfx/apps/aria_adventure/firmware/legato_adv_e54_cu_cpro_parallel.X project file in MPLABX IDE that corresponds to the hardware configuration.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+The following table lists configuration properties: </p><div class="Element63">
+<div class="TableDiv">
+<table cellspacing="0" class="Table2">
+<tr>
+<td class="Element65" valign="top" width="25%">
+<div class="Element66">
+Project Name&nbsp;</div></td><td class="Element65" valign="top" width="13%">
+<div class="Element66">
+BSP Used&nbsp;</div></td><td class="Element65" valign="top" width="24%">
+<div class="Element66">
+Graphics Template Used&nbsp;</div></td><td class="Element65" valign="top" width="38%">
+<div class="Element66">
+Description&nbsp;</div></td></tr><tr>
+<td class="Element67" valign="top" width="25%">
+<div class="Element68">
+legato_adv_e54_cu_cpro_parallel.X&nbsp;</div></td><td class="Element67" valign="top" width="13%">
+<div class="Element68">
+PIC32MZ EF Curiosity 2.0&nbsp;</div></td><td class="Element67" valign="top" width="24%">
+<div class="Element68">
+Aria Graphics w/ PDA TM4301B Display&nbsp;</div></td><td class="Element67" valign="top" width="38%">
+<div class="Element68">
+PIC32MZ EF Curiosity 2.0 with RGB565 GFX Interface and 4.3” WQVGA PCAP Touch display&nbsp;</div></td></tr></table></div></div>
+<p class="Element10">
+&nbsp;</p>
+<div class="Element63">
+<div class="TableDiv">
+<table cellspacing="0" class="Table0">
+<tr>
+<td class="Element67" valign="top" width="10%" style="border:none;">
+<div class="Element68">
+<img src="Important Star.png" border="0" alt="" title=""><strong> Important!</strong>&nbsp;</div></td><td class="Element67" valign="top" width="90%" style="border:none;">
+<div class="Element68">
+This application may contain custom code that is marked by the comments // START OF CUSTOM CODE ... and // END OF CUSTOM CODE. When using the MPLAB Harmony Configurator to regenerate the application code, use the &quot;ALL&quot; merging strategy and <i>do not</i> remove or replace the custom code.&nbsp;</div></td></tr></table></div></div>
+<p class="Element10">
+&nbsp;</p>
+<div class="Element15">
+Configuring the Hardware</div>
+<p class="Element10">
+Configure the hardware as follows:&nbsp;</p>
+<p class="Element10">
+• Attach the 24-bit pass through card to the GFX Connector on the SAM E54 Curiosity Ultra board.&nbsp;</p>
+<p class="Element10">
+• Connect the ribbon cable from the maXTouch Curiosity Pro Display to the ribbon connector on the 24-bit pass through card. Make sure that the S1 switch on the 24-bit pass through card is set to 2.&nbsp;</p>
+<p class="Element10">
+• On the backside of the maXTouch Curiosity Pro display, set the IM[2:0] switches to ‘011’ for 8-bit MCU mode.&nbsp;</p>
+<p class="Element10">
+• Connect a USB cable from the host computer to the DEBUG USB port on the SAM E54 Curiosity Ultra board. This USB connection is used for power, code download and debugging.&nbsp;</p>
+<p class="Element10">
+• Connect 5.5V power supply to the SAM E54 Curiosity Ultra board is optional&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="legato_qs_e54_cult_xpro_parallel-hd1.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+The final hardware set-up should be: </p><p class="Element10" style="text-align: center;">
+<img src="legato_qs_e54_cult_xpro_parallel-hd2.png" border="0" alt="" title=""></p><p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+Power up the board by connecting the power adapter to power connector or a powered USB cable to the DEBUG USB port on the board.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><div class="Element15">
+Running the Demonstration</div>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+<strong>Splash Screen</strong>&nbsp;</p>
+<p class="Element10">
+On start-up, the application will display a splash screen: </p><p class="Element10" style="text-align: center;">
+<img src="APPS GFX aria_adventure splashscreen.png" border="0" alt="" title=""></p><p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+<strong>Main Screen</strong>&nbsp;</p>
+<p class="Element10">
+Subsequently, the demonstrations main mode will appear: </p><p class="Element10" style="text-align: center;">
+<img src="APPS GFX aria_adventure demo main mode.png" border="0" alt="" title=""></p><p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+Without any touch interaction, the lamb sprite character remains stationary and loops in an idle animation. Pressing a finger on left or right half of the screen near one of the semi-transparent chevrons will trigger the lamb sprite to start moving towards that respective side of the screen. The longer the finger remain pressed, the “faster” the lamb will travel. Note the speed of the background increases as the lamb seemingly speeds up. The needle on the circular gauge will increase as the lamb travels. When the needle is in the yellow area, the lamb is in “super speed” mode. But if the needle touches the red section of the meter, the lamb becomes “exhausted”. It would fall and become dizzy before recovering. Touch interaction is disabled while the lamb takes a fall and is dizzy. A score is tallied based on how “far” the lamb has travelled before becoming exhausted. A high score is kept for as long as the application has power.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+<strong>Parallax</strong>&nbsp;</p>
+<p class="Element10">
+The parallax feature is in full demonstration while the lamb is moving, as the speed of the clouds, the rolling hills and the pathway that the lamb is traveling on are all moving at different speed to create an illusion of movement and distance. The art of the background was chosen to be “loop-able”. The application keeps track of which part of the background scenery that is being shown and loops back to the start position seamlessly when the end is reached.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+<strong>Animations</strong>&nbsp;</p>
+<p class="Element10">
+The animations used to support the lamb include:</p>
+<ul class="Element630">
+<li class="Element600">Idle Facing Right</li>
+<li class="Element600">Idle Facing Left</li>
+<li class="Element600">Walk/Run Facing Right</li>
+<li class="Element600">Walk/Run Facing Left</li>
+<li class="Element600">Super Speed Facing Right</li>
+<li class="Element600">Super Speed Facing Left</li>
+<li class="Element600">Fall Facing Right</li>
+<li class="Element600">Fall Facing Left</li>
+<li class="Element600">Dizzy Facing Right</li>
+<li class="Element600">Dizzy Facing Left</li>
+</ul><p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+The application contains a decision-tree that picks the right set of animation to play out based on the facing direction and the “speed” of the lamb movement on-screen.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+<strong>Information Screen</strong>&nbsp;</p>
+<p class="Element10">
+Tapping the Microchip logo on the upper corner of the main screen will switch the application to the information screen.&nbsp;</p>
+<p class="Element10">
+The information screen serves as a screen to list out the demonstrated features of the demo. It also provides two features.</p>
+<ul class="Element630">
+<li class="Element600">The features are located on layer1. Sliding a finger up or down will cause the feature list to scroll up and down as if it’s on an invisible glass pane. The MPLAB Harmony logo that is rendered on layer0 is another demonstration of the real-time alpha-blending capability of the GLCD.</li>
+<li class="Element600">Touching the Microchip logo will trigger no visible change on-screen, but will toggle on/off a hidden “Easter Egg” mode. When the hidden mode is enabled, after going back to the main screen, the lamb character can go into “super speed” mode in-definitely without succumbing to exhaustion.</li>
+</ul></div>
 </div>
-<div class="Element62">
-Created with a commercial version of <a href="#" onclick="openExternalLink('http://www.doc-o-matic.com');">Doc-O-Matic</a>. In order to make this message disappear you need to register this software. If you have problems registering this software please contact us at <a href="#" onclick="openExternalLink('mailto:support@toolsfactory.com');">support@toolsfactory.com</a>.</div>
 </div>
 <!-- End Page Content -->
 
 <!-- Begin Page Footer -->
 <div class="Element95">
-<a href="00000.html" target="topic">MPLAB Harmony Graphics Suite Applications</a> &gt; <a href="00055.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00053.html" target="topic">Aria Applications</a> &gt; <a href="00043.html" target="topic">aria_weather_forecast</a> &gt; <a href="00046.html" target="topic">Running the Demonstration</a></div>
+<a href="00000.html" target="topic">MPLAB Harmony Graphics Suite Applications</a> &gt; <a href="00043.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00042.html" target="topic">Legato Applications</a> &gt; <a href="00050.html" target="topic">legato_adventure</a> &gt; <a href="00046.html" target="topic">legato_adv_e54_cu_cpro_parallel.X</a></div>
 <div class="Element93">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="25%">
@@ -87,10 +277,10 @@ MPLAB® Harmony Graphics Suite Applications</div>
 <a href="contents.html" target="tocidx">Contents</a> | <a href="00000.html" target="topic">Home</a></div>
 </td><td width="25%">
 <div class="Element91">
-<a href="00045.html" target="topic">Previous</a> | <a href="00043.html" target="topic">Up</a> | <a href="00054.html" target="topic">Next</a></div>
+<a href="00050.html" target="topic">Previous</a> | <a href="00050.html" target="topic">Up</a> | <a href="00047.html" target="topic">Next</a></div>
 </td><td width="25%">
 <div class="Element97">
-<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_weather_forecast_run Topic Title: Running the Demonstration)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
+<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: legato_adv_e54_cu_cpro_parallel.X Topic Title: legato_adv_e54_cu_cpro_parallel.X)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
 </td></tr></table></div>
 
 <!-- End Page Footer -->

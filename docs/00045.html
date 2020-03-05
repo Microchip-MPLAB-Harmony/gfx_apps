@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
 <head>
-<title>Configuring the Hardware</title>
+<title>Bootloader + External Flash Reader</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="generator" content="Doc-O-Matic" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
@@ -18,7 +18,7 @@
 <!-- Begin Page Header -->
 <div class="Element710" id="areafixed">
 <div class="Element94">
-<a href="00000.html" target="topic">MPLAB Harmony Graphics Suite Applications</a> &gt; <a href="00055.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00053.html" target="topic">Aria Applications</a> &gt; <a href="00043.html" target="topic">aria_weather_forecast</a> &gt; <a href="00045.html" target="topic">Configuring the Hardware</a></div>
+<a href="00000.html" target="topic">MPLAB Harmony Graphics Suite Applications</a> &gt; <a href="00043.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00042.html" target="topic">Legato Applications</a> &gt; <a href="00059.html" target="topic">legato_quickstart_ext_res</a> &gt; <a href="00045.html" target="topic">Bootloader + External Flash Reader</a></div>
 <div class="Element92">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="25%">
@@ -29,12 +29,12 @@ MPLAB® Harmony Graphics Suite Applications</div>
 <a href="contents.html" target="tocidx">Contents</a> | <a href="00000.html" target="topic">Home</a></div>
 </td><td width="25%">
 <div class="Element90">
-<a href="00044.html" target="topic">Previous</a> | <a href="00043.html" target="topic">Up</a> | <a href="00046.html" target="topic">Next</a></div>
+<a href="00059.html" target="topic">Previous</a> | <a href="00059.html" target="topic">Up</a> | <a href="00058.html" target="topic">Next</a></div>
 </td><td width="25%">
 <div class="Element96">
-<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_weather_forecast_config Topic Title: Configuring the Hardware)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
+<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: LE Bootloader + External Flash Reader Topic Title: Bootloader + External Flash Reader)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
 </td></tr></table><div class="Element5">
-Configuring the Hardware</div>
+Bootloader + External Flash Reader</div>
 </div>
 </div>
 
@@ -49,28 +49,67 @@ Configuring the Hardware</div>
 <a name="4465736372697074696F6E"></a><div class="Element11">
 <div class="Element10">
 <p class="Element10">
-<strong>SAM E70 Xplained Ultra board with 4.3” WQVGA Display</strong>&nbsp;</p>
+ &nbsp;</p>
 <p class="Element10">
-There are two programming options. The primary option is the Micro B Embedded Debugger (EDBG) port. Power to the board can also be supplied via this connection. The secondary option is via the ICD4 debugger with the ICD4/PICKit 4 Target Adapter Board (Power has to be provided from power supply in this alternative setup).&nbsp;</p>
+Applications requiring multiple images or non-alphabet-based languages with large number of glyphs, have a very large NVM requirement for their graphics resources. In such applications, storing these graphics resources on-chip may be inefficient or impossible. The solution is to store the graphics resources to off-chip NVM, thereby preserving the on-chip NVM for program memory and allowing for more complex functional features.&nbsp;</p>
 <p class="Element10">
 &nbsp;</p>
 <p class="Element10">
-The image below shows both the EDBG and the ICD4 connection options: </p><p class="Element10" style="text-align: center;">
-<img src="APPS GFX aria_benchmark Final Setup.png" border="0" alt="" title=""></p><p class="Element10">
-Configuring the 4.3” WQVGA Display requires disconnecting the ribbon cable that connects the display to the interposer board. </p><p class="Element10" style="text-align: center;">
-<img src="APPS GFX aria_benchmark Bottom of WQVGA Display.png" border="0" alt="" title=""></p><p class="Element10">
-First, release the ribbon cable from the interposer board. Next, release the black clamp on the E70’s J2 connector and turn the display over. Finally, insert the ribbon cable into J2 and close the clamp. </p><p class="Element10" style="text-align: center;">
-<img src="APPS GFX aria_benchmark Connecting Ribbon Cable.png" border="0" alt="" title=""></p><p class="Element10">
-The board and display are powered by a Micro B – USB A cable from PC to the “Debug USB” port on the E70 board. The ICD4 Debugger and ICD4/PICKit4 Adapter Board are connected as shown above.</p></div>
+aria_quickstart_ext_res&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+The legato_quickstart_external_resources (external flash reader) application populates some of its user interface from assets stored on on-chip NVM and other parts of it from assets stored as binary data on an external NVM. The resources are previous copied into the external NVM using the <a href="00056.html" target="topic">legato_flash</a> application.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+To demonstrate how to access graphics resources stored on an external memory device, three components are needed:&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+• File Packaging&nbsp;</p>
+<p class="Element10">
+• Bootloader Application&nbsp;</p>
+<p class="Element10">
+• Fetch Application&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+The following figure shows the external resources process diagram.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="bootloader_external_flash_reader_le_img1.png" border="0" alt="" title="">&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+&nbsp;</p><p class="Element10">
+The same image, stored externally as three different encoding formats, are demonstrated: Uncompressed RAW, Run-Length Encoded (RLE), Palette Compressed images.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="bootloader_external_flash_reader_le_img2.png" border="0" alt="" title="">&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+&nbsp;</p><p class="Element10">
+The legato_quickstart_external_resources (external flash reader) application also demonstrates the ability of the Legato Graphics Library to support multiple languages in the same application build. One language is alphabetic (English) and the other is non-alphabetic (Chinese). English is supported via the Basic Latin Unicode Range (ASCII 32 to 127).&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="bootloader_external_flash_reader_img3.png" border="0" alt="" title="">&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+&nbsp;</p><p class="Element10">
+For Chinese, the MPLAB Harmony Graphics Composer’s built-in automatic glyph filter is overridden to use the enter CJK Unified Ideographs Extension 1 (UTC 32,968 to 40,959). This covers the most used kanji glyphs. The glyphs for both languages are generated as binary data, programmed into external NVM, retrieved and displayed from external memory at runtime.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="bootloader_external_flash_reader_le_img3.png" border="0" alt="" title="">&nbsp;</p></div>
 </div>
-<div class="Element62">
-Created with a commercial version of <a href="#" onclick="openExternalLink('http://www.doc-o-matic.com');">Doc-O-Matic</a>. In order to make this message disappear you need to register this software. If you have problems registering this software please contact us at <a href="#" onclick="openExternalLink('mailto:support@toolsfactory.com');">support@toolsfactory.com</a>.</div>
 </div>
 <!-- End Page Content -->
 
 <!-- Begin Page Footer -->
 <div class="Element95">
-<a href="00000.html" target="topic">MPLAB Harmony Graphics Suite Applications</a> &gt; <a href="00055.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00053.html" target="topic">Aria Applications</a> &gt; <a href="00043.html" target="topic">aria_weather_forecast</a> &gt; <a href="00045.html" target="topic">Configuring the Hardware</a></div>
+<a href="00000.html" target="topic">MPLAB Harmony Graphics Suite Applications</a> &gt; <a href="00043.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00042.html" target="topic">Legato Applications</a> &gt; <a href="00059.html" target="topic">legato_quickstart_ext_res</a> &gt; <a href="00045.html" target="topic">Bootloader + External Flash Reader</a></div>
 <div class="Element93">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="25%">
@@ -81,10 +120,10 @@ MPLAB® Harmony Graphics Suite Applications</div>
 <a href="contents.html" target="tocidx">Contents</a> | <a href="00000.html" target="topic">Home</a></div>
 </td><td width="25%">
 <div class="Element91">
-<a href="00044.html" target="topic">Previous</a> | <a href="00043.html" target="topic">Up</a> | <a href="00046.html" target="topic">Next</a></div>
+<a href="00059.html" target="topic">Previous</a> | <a href="00059.html" target="topic">Up</a> | <a href="00058.html" target="topic">Next</a></div>
 </td><td width="25%">
 <div class="Element97">
-<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: APPS GFX aria_weather_forecast_config Topic Title: Configuring the Hardware)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
+<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: LE Bootloader + External Flash Reader Topic Title: Bootloader + External Flash Reader)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
 </td></tr></table></div>
 
 <!-- End Page Footer -->
