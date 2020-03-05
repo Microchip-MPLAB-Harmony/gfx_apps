@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
 <head>
-<title>blank_qs_e54_cult_cpro_spi.X</title>
+<title>legato_adv_e54_cu_cpro_parallel.X</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="generator" content="Doc-O-Matic" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
@@ -18,7 +18,7 @@
 <!-- Begin Page Header -->
 <div class="Element710" id="areafixed">
 <div class="Element94">
-<a href="00000.html" target="topic">MPLAB Harmony Graphics Suite Applications</a> &gt; <a href="00043.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00037.html" target="topic">Blank Applications</a> &gt; <a href="00039.html" target="topic">blank_quickstart</a> &gt; <a href="00040.html" target="topic">blank_qs_e54_cult_cpro_spi.X</a></div>
+<a href="00000.html" target="topic">MPLAB Harmony Graphics Suite Applications</a> &gt; <a href="00039.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00038.html" target="topic">Legato Applications</a> &gt; <a href="00044.html" target="topic">legato_adventure</a> &gt; <a href="00040.html" target="topic">legato_adv_e54_cu_cpro_parallel.X</a></div>
 <div class="Element92">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="25%">
@@ -29,12 +29,12 @@ MPLAB® Harmony Graphics Suite Applications</div>
 <a href="contents.html" target="tocidx">Contents</a> | <a href="00000.html" target="topic">Home</a></div>
 </td><td width="25%">
 <div class="Element90">
-<a href="00038.html" target="topic">Previous</a> | <a href="00039.html" target="topic">Up</a></div>
+<a href="00044.html" target="topic">Previous</a> | <a href="00044.html" target="topic">Up</a> | <a href="00041.html" target="topic">Next</a></div>
 </td><td width="25%">
 <div class="Element96">
-<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: blank_quickstart_e54_cult_cpro_spi.X Topic Title: blank_qs_e54_cult_cpro_spi.X)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
+<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: legato_adv_e54_cu_cpro_parallel.X Topic Title: legato_adv_e54_cu_cpro_parallel.X)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
 </td></tr></table><div class="Element5">
-blank_qs_e54_cult_cpro_spi.X</div>
+legato_adv_e54_cu_cpro_parallel.X</div>
 </div>
 </div>
 
@@ -48,56 +48,76 @@ blank_qs_e54_cult_cpro_spi.X</div>
 <a name="PageContent"></a><div class="Element58">
 <a name="4465736372697074696F6E"></a><div class="Element11">
 <div class="Element10">
+<div class="Element15">
+Defining the Architecture</div>
+<p class="Element10" style="text-align: center;">
+<img src="legato_adv_e54_cu_cpro_parallel.X_arch.png" border="0" alt="" title=""></p><p class="Element10">
+&nbsp;</p>
 <p class="Element10">
-<strong>Defining the Architecture</strong> </p><p class="Element10" style="text-align: center;">
-<img src="legato_qs_e54_cu_cpro_spi_arch.png" border="0" alt="" title=""></p><p class="Element10">
-The application uses the Legato Graphics Driver Abstraction to render text on a label widget, an image and a user-interactive button to the screen. Touching the button on the screen will show the button being pressed.&nbsp;</p>
+This configuration runs on the SAM E54 Curiosity Ultra board with a 24-bit passthrough GFX interface card and a maXTouch Curiosity Pro display. The maXTouch Curiosity Pro display has an ILI9488 display controller that is connected to the SAM E54 thru the port/GPIO peripheral using an 8-bit 8080/Parallel interface, boosted with a combination of DMA and CCL peripherals. The Legato graphics library draws the updated sections of the frame to an internal scratch buffer which is used by the ILI9488 display driver to update the ILI9488 display controller.&nbsp;</p>
 <p class="Element10">
-The block diagrams below show the various software and hardware blocks used in this application:&nbsp;</p>
+User touch input on the display panel is received thru the PCAP capacitive touch controller, which sends a notification to the Touch Input Driver. The Touch Input Driver reads the touch information over I2C and sends the touch event to the Graphics Library thru the Input System Service.&nbsp;</p>
 <p class="Element10">
 &nbsp;</p>
 <p class="Element10">
 <strong>Demonstration Features</strong>&nbsp;</p>
 <p class="Element10">
-• Legato Graphics Driver Abstraction&nbsp;</p>
+• Legato Graphics Library&nbsp;</p>
 <p class="Element10">
-• ILI9488 display controller driver&nbsp;</p>
-<p class="Element10">
-• 4-line SPI display interface driver&nbsp;</p>
+• Input system service and touch driver&nbsp;</p>
 <p class="Element10">
 • Time system service, timer-counter peripheral library and driver&nbsp;</p>
 <p class="Element10">
-• 16-bit RGB565 color depth support (65535 unique colors)&nbsp;</p>
+• ILI9488 display 8-bit parallel mode driver (DMA-CCL boosted)&nbsp;</p>
 <p class="Element10">
-• Port, I2C peripheral library&nbsp;</p>
+• 16-bit RGB565 color depth (8-bit palettized double buffering)&nbsp;</p>
 <p class="Element10">
+• Port/GPIO peripheral&nbsp;</p>
+<p class="Element10">
+• I2C peripheral library and driver&nbsp;</p>
+<p class="Element10">
+• Images and Fonts for user interface stored in internal flash&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><div class="Element15">
+Creating the Project Graph</div>
+<p class="Element10" style="text-align: center;">
+<img src="legato_adv_e54_cu_cpro_parallel.X_pj.png" border="0" alt="" title=""></p><p class="Element10">
 &nbsp;</p>
 <p class="Element10">
-<strong>Creating the Project Graph</strong> &nbsp;</p><p class="Element10" style="text-align: center;">
-<img src="legato_qs_e54_cu_cpro_spi_pg.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
-The Project Graph diagram below shows the Harmony components that are included in this application. Lines between components are drawn to satisfy components that depend on a capability that another component provides.&nbsp;</p>
+Adding the “SAM E54 Curiosity Ultra BSP” and “Legato Graphics w/ MXT Curiosity Pro Display” Graphics Template component into the project graph.&nbsp;</p>
 <p class="Element10">
-&nbsp;</p>
+This will automatically add the components needed for a graphics project and resolve their dependencies. It will also configure the pins needed to drive the external peripherals like the display and the touch controller.&nbsp;</p>
 <p class="Element10">
-Adding the “SAM E54 Curiosity Ultra BSP” and “Legato Graphics w/ MXT Curiosity Pro Display” Graphics Template component into the project graph will automatically add the components needed for a graphics project and resolve their dependencies. It will also configure the pins needed to drive the external peripherals like the display and the touch controller.&nbsp;</p>
+For the DMA-CCL boosted setup, components TC4, CCL needs to be added.&nbsp;</p>
 <p class="Element10">
-To configure the project for an SPI Interface, set the Display Interface setting for the “Legato Graphics w/ PDA TM4301B Display“ component to SPI 4-Line.&nbsp;</p>
-<p class="Element10">
-&nbsp;</p>
-<p class="Element10">
-To configure the project for an SPI Interface, set the Display Interface setting for the “Legato Graphics w/ PDA TM4301B Display“ component to SPI 4-Line.&nbsp;</p>
-<p class="Element10">
-&nbsp;</p>
+Some of these components are fine with default settings, while other require some changes. The following is a list of all the components that required custom settings.&nbsp;</p>
 <p class="Element10">
 &nbsp;</p><p class="Element10" style="text-align: center;">
-<img src="legato_qs_e54_cu_cpro_spi_cfg1.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
+<img src="legato_qs_x_r_e54_cult_cpro_parallel.X_conf1.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
+&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+<img src="legato_qs_x_r_e54_cult_cpro_parallel.X_conf2.png" border="0" alt="" title=""></p><p class="Element10">
 &nbsp;</p>
 <p class="Element10">
-<strong>Building the Application</strong>&nbsp;</p>
+&nbsp;</p>
+<p class="Element10">
+To setup the CCL to clock the pixel data, make sure PB09 is set to CCL_OUT2&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="legato_qs_x_r_e54_cult_cpro_parallel.X_conf4.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+Instead of write strobe, make sure PB17 is setup as RSDC instead&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="legato_qs_x_r_e54_cult_cpro_parallel.X_conf5.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
+&nbsp;</p>
+<div class="Element15">
+Building the Application</div>
 <p class="Element10">
 &nbsp;</p>
 <p class="Element10">
-The parent directory for this application is gfx/apps/<a href="00039.html" target="topic">blank_quickstart</a>. To build this application, open the gfx/apps/<a href="00039.html" target="topic">blank_quickstart</a>/firmware/blank_qs_e54_cu_cpro_spi.X project file.&nbsp;</p>
+The parent directory for this application is gfx/apps/<a href="00044.html" target="topic">legato_adventure</a>. To build this application, use MPLAB X IDE to open the gfx/apps/<a href="00044.html" target="topic">legato_adventure</a>/firmware/legato_adv_e54_cu_cpro_parallel.X project file.&nbsp;</p>
 <p class="Element10">
 &nbsp;</p>
 <p class="Element10">
@@ -107,22 +127,22 @@ The following table lists configuration properties: </p><div class="Element63">
 <tr>
 <td class="Element65" valign="top" width="25%">
 <div class="Element66">
-Project Name&nbsp;</div></td><td class="Element65" valign="top" width="14%">
+Project Name&nbsp;</div></td><td class="Element65" valign="top" width="13%">
 <div class="Element66">
 BSP Used&nbsp;</div></td><td class="Element65" valign="top" width="24%">
 <div class="Element66">
-Graphics Template Used&nbsp;</div></td><td class="Element65" valign="top" width="37%">
+Graphics Template Used&nbsp;</div></td><td class="Element65" valign="top" width="38%">
 <div class="Element66">
 Description&nbsp;</div></td></tr><tr>
 <td class="Element67" valign="top" width="25%">
 <div class="Element68">
-blank_quickstart_e54_cu_cpro_spi.X&nbsp;</div></td><td class="Element67" valign="top" width="14%">
+legato_adv_e54_cu_cpro_parallel.X&nbsp;</div></td><td class="Element67" valign="top" width="13%">
 <div class="Element68">
-SAM E54 Curiosity Ultra BSP&nbsp;</div></td><td class="Element67" valign="top" width="24%">
+PIC32MZ EF Curiosity 2.0&nbsp;</div></td><td class="Element67" valign="top" width="24%">
 <div class="Element68">
-Legato Graphics w/ Xplained Pro Display&nbsp;</div></td><td class="Element67" valign="top" width="37%">
+Legato Graphics w/ PDA TM4301B Display&nbsp;</div></td><td class="Element67" valign="top" width="38%">
 <div class="Element68">
-SAM E54 Curiosity Ultra w/ maXTouch Xplained Pro display via 8-bit parallel interface&nbsp;</div></td></tr></table></div></div>
+PIC32MZ EF Curiosity 2.0 with RGB565 GFX Interface and 4.3” WQVGA PCAP Touch display&nbsp;</div></td></tr></table></div></div>
 <p class="Element10">
 &nbsp;</p>
 <div class="Element63">
@@ -136,36 +156,69 @@ SAM E54 Curiosity Ultra w/ maXTouch Xplained Pro display via 8-bit parallel inte
 This application may contain custom code that is marked by the comments // START OF CUSTOM CODE ... and // END OF CUSTOM CODE. When using the MPLAB Harmony Configurator to regenerate the application code, use the &quot;ALL&quot; merging strategy and <i>do not</i> remove or replace the custom code.&nbsp;</div></td></tr></table></div></div>
 <p class="Element10">
 &nbsp;</p>
+<div class="Element15">
+Configuring the Hardware</div>
 <p class="Element10">
-<strong>Configuring the Hardware</strong>&nbsp;</p>
+Configure the hardware as follows:&nbsp;</p>
 <p class="Element10">
-&nbsp;</p>
+• Attach the 24-bit pass through card to the GFX Connector on the SAM E54 Curiosity Ultra board.&nbsp;</p>
 <p class="Element10">
-The final setup should be:&nbsp;</p>
+• Connect the ribbon cable from the maXTouch Curiosity Pro Display to the ribbon connector on the 24-bit pass through card. Make sure that the S1 switch on the 24-bit pass through card is set to 2.&nbsp;</p>
 <p class="Element10">
-&nbsp;</p><p class="Element10" style="text-align: center;">
-<img src="legato_qs_e54_cu_cpro_spi_hd1.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
-&nbsp;</p>
+• On the backside of the maXTouch Curiosity Pro display, set the IM[2:0] switches to ‘011’ for 8-bit MCU mode.&nbsp;</p>
 <p class="Element10">
-Set the IM switches on the MXT Curiosity Pro Display to IM[2:0] = 111b.&nbsp;</p>
+• Connect a USB cable from the host computer to the DEBUG USB port on the SAM E54 Curiosity Ultra board. This USB connection is used for power, code download and debugging.&nbsp;</p>
 <p class="Element10">
-&nbsp;</p><p class="Element10" style="text-align: center;">
-<img src="legato_qs_e54_cu_cpro_spi_hd2.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
-<strong>Running the Demonstration</strong>&nbsp;</p>
+• Connect 5.5V power supply to the SAM E54 Curiosity Ultra board is optional&nbsp;</p>
 <p class="Element10">
 &nbsp;</p>
 <p class="Element10">
-When power-on is successful, the demonstration will display a similar menu to that shown in the following figure (different configurations may have slight variation in the screen aspect ratio):&nbsp;</p>
+The final hardware set-up should be: </p><p class="Element10" style="text-align: center;">
+<img src="legato_qs_e54_cult_xpro_parallel-hd2.png" border="0" alt="" title=""></p><p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+Power up the board by connecting the power adapter to power connector or a powered USB cable to the DEBUG USB port on the board.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><div class="Element15">
+Running the Demonstration</div>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+The application first boots to an animated Splash Screen. Once the Splash Screen animation completes, the application boots to a Main Screen.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+When at rest, the demo will cycle through idle sprite animations. Various areas of the screen are touch interactive.&nbsp;</p>
 <p class="Element10">
 &nbsp;</p><p class="Element10" style="text-align: center;">
-<img src="blank_quickstart_565.png" border="0" alt="" title="">&nbsp;</p></div>
+<img src="legato_adv_e54_cu_cpro_parallel.X_img1.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+If initiated to run, the lamb sprite will run to the end of the screen, and play out a sequence of smacking into a wall, hurt and dizzy animations.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="legato_adv_e54_cu_cpro_parallel.X_img2.png" border="0" alt="" title="">&nbsp;</p><p class="Element10">
+&nbsp;</p>
+<p class="Element10">
+Tap Jump and the lamb will play out a jump animation.&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="legato_adv_e54_cu_cpro_parallel.X_img3.png" border="0" alt="" title="">&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+&nbsp;</p>
+<p class="Element10" style="text-align: center;">
+&nbsp;</p><p class="Element10">
+Info Screen describes the features supported by this demo&nbsp;</p>
+<p class="Element10">
+&nbsp;</p><p class="Element10" style="text-align: center;">
+<img src="legato_adv_e54_cu_cpro_parallel.X_img4.png" border="0" alt="" title="">&nbsp;</p></div>
 </div>
 </div>
 <!-- End Page Content -->
 
 <!-- Begin Page Footer -->
 <div class="Element95">
-<a href="00000.html" target="topic">MPLAB Harmony Graphics Suite Applications</a> &gt; <a href="00043.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00037.html" target="topic">Blank Applications</a> &gt; <a href="00039.html" target="topic">blank_quickstart</a> &gt; <a href="00040.html" target="topic">blank_qs_e54_cult_cpro_spi.X</a></div>
+<a href="00000.html" target="topic">MPLAB Harmony Graphics Suite Applications</a> &gt; <a href="00039.html" target="topic">Examples and Demonstrations</a> &gt; <a href="00038.html" target="topic">Legato Applications</a> &gt; <a href="00044.html" target="topic">legato_adventure</a> &gt; <a href="00040.html" target="topic">legato_adv_e54_cu_cpro_parallel.X</a></div>
 <div class="Element93">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="25%">
@@ -176,10 +229,10 @@ MPLAB® Harmony Graphics Suite Applications</div>
 <a href="contents.html" target="tocidx">Contents</a> | <a href="00000.html" target="topic">Home</a></div>
 </td><td width="25%">
 <div class="Element91">
-<a href="00038.html" target="topic">Previous</a> | <a href="00039.html" target="topic">Up</a></div>
+<a href="00044.html" target="topic">Previous</a> | <a href="00044.html" target="topic">Up</a> | <a href="00041.html" target="topic">Next</a></div>
 </td><td width="25%">
 <div class="Element97">
-<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: blank_quickstart_e54_cult_cpro_spi.X Topic Title: blank_qs_e54_cult_cpro_spi.X)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
+<a href="mailto:docerrors@microchip.com&subject=MPLAB Harmony Documentation Feedback (Topic ID: legato_adv_e54_cu_cpro_parallel.X Topic Title: legato_adv_e54_cu_cpro_parallel.X)&body=Thank you for your feedback! Please include a description of your feedback, and indicate whether you are reporting an an error in the documentation or an enhancement.">Documentation Feedback</a><br> <a href="http://support.microchip.com" target="_blank">Microchip Support</a></div>
 </td></tr></table></div>
 
 <!-- End Page Footer -->
