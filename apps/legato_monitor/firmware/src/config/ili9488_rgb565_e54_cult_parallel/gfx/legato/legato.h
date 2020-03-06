@@ -1,20 +1,3 @@
-/*******************************************************************************
- Module for Microchip Graphics Library - Legato User Interface Library
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    legato.h
-
-  Summary:
-    The header file joins all header files used in the graphics object library.
-
-  Description:
-    This header file includes all the header files required to use the
-    Harmony Graphics Object Library. 
-*******************************************************************************/
-
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
@@ -39,6 +22,24 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 // DOM-IGNORE-END
+
+/*******************************************************************************
+ Module for Microchip Graphics Library - Legato User Interface Library
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    legato.h
+
+  Summary:
+    The header file joins all header files used in the graphics object library.
+
+  Description:
+    This header file includes all the header files required to use the
+    Harmony Graphics Object Library. 
+*******************************************************************************/
+
 
 #ifndef LEGATO_H
 // DOM-IGNORE-BEGIN

@@ -1,27 +1,6 @@
-/*******************************************************************************
- Module for Microchip Graphics Library - Graphic Object Layer
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    libaria.c
-
-  Summary:
-    Graphics Object Layer of the Microchip Graphics Library.
-
-  Description:
-    This module implements the common routines for the Graphics Object Layer
-    of the Microchip Graphics Library. The routines are independent of the
-    Display Driver Layer and should be compatible with any Display Driver
-    that is compliant with the requirements of the Display Driver
-    Layer of the Graphics Library.
-    The module utilizes the Graphics Primitive Layer to render the objects.
-*******************************************************************************/
-
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -43,6 +22,28 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 // DOM-IGNORE-END
+
+/*******************************************************************************
+ Module for Microchip Graphics Library - Graphic Object Layer
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    libaria.c
+
+  Summary:
+    Graphics Object Layer of the Microchip Graphics Library.
+
+  Description:
+    This module implements the common routines for the Graphics Object Layer
+    of the Microchip Graphics Library. The routines are independent of the
+    Display Driver Layer and should be compatible with any Display Driver
+    that is compliant with the requirements of the Display Driver
+    Layer of the Graphics Library.
+    The module utilizes the Graphics Primitive Layer to render the objects.
+*******************************************************************************/
+
 #include "gfx/libaria/inc/libaria_context.h"
 
 #include "gfx/hal/gfx.h"

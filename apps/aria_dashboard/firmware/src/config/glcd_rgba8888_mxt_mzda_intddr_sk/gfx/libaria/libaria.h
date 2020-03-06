@@ -1,23 +1,6 @@
-/*******************************************************************************
- Module for Microchip Graphics Library
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    libaria.h
-
-  Summary:
-    The header file joins all header files used in the graphics object library.
-
-  Description:
-    This header file includes all the header files required to use the
-    Harmony Graphics Object Library. 
-*******************************************************************************/
-
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -39,6 +22,24 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 // DOM-IGNORE-END
+
+/*******************************************************************************
+ Module for Microchip Graphics Library
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    libaria.h
+
+  Summary:
+    The header file joins all header files used in the graphics object library.
+
+  Description:
+    This header file includes all the header files required to use the
+    Harmony Graphics Object Library. 
+*******************************************************************************/
+
 
 #ifndef LIBARIA_H
 // DOM-IGNORE-BEGIN

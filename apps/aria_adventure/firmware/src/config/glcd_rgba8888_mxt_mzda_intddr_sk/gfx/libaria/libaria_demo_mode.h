@@ -1,21 +1,6 @@
-/*******************************************************************************
-  MPLAB Harmony Graphics Composer Generated Definitions Header
-
-  File Name:
-    libaria_demo_mode.h
-
-  Summary:
-    Build-time generated definitions header of the graphics demo mode.
-
-  Description:
-    Build-time generated definitions header of the graphics demo mode.
-
-    Created with MPLAB Harmony Version 3.0
-*******************************************************************************/
-
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -37,6 +22,22 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 // DOM-IGNORE-END
+
+/*******************************************************************************
+  MPLAB Harmony Graphics Composer Generated Definitions Header
+
+  File Name:
+    libaria_demo_mode.h
+
+  Summary:
+    Build-time generated definitions header of the graphics demo mode.
+
+  Description:
+    Build-time generated definitions header of the graphics demo mode.
+
+    Created with MPLAB Harmony Version 3.0
+*******************************************************************************/
+
 
 #ifndef _LIBARIA_DEMO_MODE_H    /* Guard against multiple inclusion */
 #define _LIBARIA_DEMO_MODE_H

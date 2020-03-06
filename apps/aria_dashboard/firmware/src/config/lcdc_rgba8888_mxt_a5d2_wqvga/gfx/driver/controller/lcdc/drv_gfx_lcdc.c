@@ -1,20 +1,6 @@
+// DOM-IGNORE-BEGIN
 /*******************************************************************************
-  MPLAB Harmony LCDC Generated Driver Implementation File
-
-  File Name:
-    drv_gfx_LCDC_generic.c
-
-  Summary:
-    Build-time generated implementation for the LCDC Driver for PIC32C MPU/MCUs.
-
-  Description:
-    Build-time generated implementation for the LCDC Driver for PIC32C MPU/MCUs.
-
-    Created with MPLAB Harmony Version 3.0
-*******************************************************************************/
-//DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -35,7 +21,22 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-//DOM-IGNORE-END
+// DOM-IGNORE-END
+
+/*******************************************************************************
+  MPLAB Harmony LCDC Generated Driver Implementation File
+
+  File Name:
+    drv_gfx_LCDC_generic.c
+
+  Summary:
+    Build-time generated implementation for the LCDC Driver for PIC32C MPU/MCUs.
+
+  Description:
+    Build-time generated implementation for the LCDC Driver for PIC32C MPU/MCUs.
+
+    Created with MPLAB Harmony Version 3.0
+*******************************************************************************/
 
 
 #include "gfx/driver/controller/lcdc/drv_gfx_lcdc.h"

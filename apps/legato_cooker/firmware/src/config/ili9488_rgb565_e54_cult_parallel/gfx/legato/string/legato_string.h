@@ -1,24 +1,3 @@
-/*******************************************************************************
- Module for Microchip Graphics Library - Legato User Interface Library
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    legato_string.h
-
-  Summary:
-    A string library implementation for the Legato user interface library.  
-
-  Description:
-    This is a string library implementation that is used internally by the 
-    Legato user interface library.  
-    
-    This implementation relies on the leChar definition for characters.  
-    This chararcter definition is 16 bits in size and allows the library to
-    support international character code points and Unicode encoding standards.
-*******************************************************************************/
-
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
@@ -42,6 +21,30 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+// DOM-IGNORE-END
+
+/*******************************************************************************
+ Module for Microchip Graphics Library - Legato User Interface Library
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    legato_string.h
+
+  Summary:
+    A string library implementation for the Legato user interface library.  
+
+  Description:
+    This is a string library implementation that is used internally by the 
+    Legato user interface library.  
+    
+    This implementation relies on the leChar definition for characters.  
+    This chararcter definition is 16 bits in size and allows the library to
+    support international character code points and Unicode encoding standards.
+*******************************************************************************/
+
+// DOM-IGNORE-BEGIN
 
 #ifndef LEGATO_STRING_H
 #define LEGATO_STRING_H

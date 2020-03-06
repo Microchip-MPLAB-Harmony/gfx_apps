@@ -1,19 +1,3 @@
-/*******************************************************************************
- Module for Microchip Graphics Library - Legato User Interface Library
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    legato_scheme.h
-
-  Summary:
-    A scheme is a collection of colors that can be referenced by one or more
-    widgets.  Widgets may use schemes in different ways.  While the color
-    names strive to be intuitive they aren't always used in the manner in
-    which they describe.
-*******************************************************************************/
-
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
@@ -37,6 +21,25 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+// DOM-IGNORE-END
+
+/*******************************************************************************
+ Module for Microchip Graphics Library - Legato User Interface Library
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    legato_scheme.h
+
+  Summary:
+    A scheme is a collection of colors that can be referenced by one or more
+    widgets.  Widgets may use schemes in different ways.  While the color
+    names strive to be intuitive they aren't always used in the manner in
+    which they describe.
+*******************************************************************************/
+
+// DOM-IGNORE-BEGIN
 
 #ifndef LEGATO_SCHEME_H
 #define LEGATO_SCHEME_H

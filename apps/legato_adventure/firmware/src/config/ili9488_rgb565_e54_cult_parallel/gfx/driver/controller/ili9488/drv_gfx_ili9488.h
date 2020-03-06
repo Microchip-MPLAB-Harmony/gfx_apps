@@ -1,20 +1,6 @@
+// DOM-IGNORE-BEGIN
 /*******************************************************************************
-  MPLAB Harmony Generated Driver Header File
-
-  File Name:
-    drv_gfx_ili9488.h
-
-  Summary:
-    Build-time generated header file for ILI9488 driver.
-	
-  Description:
-    Build-time generated header file for top-level ILI9488 driver.
- * 
-    Created with MPLAB Harmony Version 2.03
-*******************************************************************************/
-//DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -35,7 +21,22 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-//DOM-IGNORE-END
+// DOM-IGNORE-END
+
+/*******************************************************************************
+  MPLAB Harmony Generated Driver Header File
+
+  File Name:
+    drv_gfx_ili9488.h
+
+  Summary:
+    Build-time generated header file for ILI9488 driver.
+	
+  Description:
+    Build-time generated header file for top-level ILI9488 driver.
+ * 
+    Created with MPLAB Harmony Version 2.03
+*******************************************************************************/
 
 #ifndef DRV_GFX_ILI9488_H
 #define DRV_GFX_ILI9488_H

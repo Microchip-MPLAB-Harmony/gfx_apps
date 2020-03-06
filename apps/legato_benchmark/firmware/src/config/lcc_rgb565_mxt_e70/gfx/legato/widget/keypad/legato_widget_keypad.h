@@ -1,19 +1,3 @@
-/*******************************************************************************
- Module for Microchip Graphics Library - Legato User Interface Library
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    legato_widget_keypad.h
-
-  Summary:
-
-
-  Description:
-    This module implements keypad widget functions.
-*******************************************************************************/
-
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
@@ -37,6 +21,25 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+// DOM-IGNORE-END
+
+/*******************************************************************************
+ Module for Microchip Graphics Library - Legato User Interface Library
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    legato_widget_keypad.h
+
+  Summary:
+
+
+  Description:
+    This module implements keypad widget functions.
+*******************************************************************************/
+
+// DOM-IGNORE-BEGIN
 #ifndef LEGATO_KEYPAD_H
 #define LEGATO_KEYPAD_H
 //DOM-IGNORE-END

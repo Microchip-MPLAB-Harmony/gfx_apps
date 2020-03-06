@@ -1,21 +1,3 @@
-/*******************************************************************************
- Module for Microchip Legato Graphics Library
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    generated/le_gen_assets.h
-
-  Summary:
-    Header file containing a list of asset specifications for use with the
-    MPLAB Harmony Graphics Stack.
-
-  Description:
-    Header file containing a list of asset specifications for use with the
-    MPLAB Harmony Graphics Stack.
-*******************************************************************************/
-
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
@@ -40,6 +22,25 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 // DOM-IGNORE-END
+
+/*******************************************************************************
+ Module for Microchip Legato Graphics Library
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    generated/le_gen_assets.h
+
+  Summary:
+    Header file containing a list of asset specifications for use with the
+    MPLAB Harmony Graphics Stack.
+
+  Description:
+    Header file containing a list of asset specifications for use with the
+    MPLAB Harmony Graphics Stack.
+*******************************************************************************/
+
 
 #ifndef LE_GEN_ASSETS_H
 #define LE_GEN_ASSETS_H

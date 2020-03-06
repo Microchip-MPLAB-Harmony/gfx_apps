@@ -1,19 +1,3 @@
-/*******************************************************************************
- Module for Microchip Graphics Library - Legato User Interface Library
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    gfx_image_utils.h
-
-  Summary:
-    Image return utilities
-
-  Description:
-    Internal library use only
-*******************************************************************************/
-
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
@@ -37,6 +21,25 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+// DOM-IGNORE-END
+
+/*******************************************************************************
+ Module for Microchip Graphics Library - Legato User Interface Library
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    gfx_image_utils.h
+
+  Summary:
+    Image return utilities
+
+  Description:
+    Internal library use only
+*******************************************************************************/
+
+// DOM-IGNORE-BEGIN
 #ifndef LE_IMAGE_UTILS_H
 #define LE_IMAGE_UTILS_H
 //DOM-IGNORE-END

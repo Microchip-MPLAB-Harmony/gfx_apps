@@ -1,24 +1,6 @@
+// DOM-IGNORE-BEGIN
 /*******************************************************************************
-  MPLAB Harmony LCC Generated Driver Header File
-
-  File Name:
-    drv_gfx_lcc_generic.h
-
-  Summary:
-    Build-time generated header file
-	Interface for the graphics library where the primitives are rendered and 
-	sent to the graphics controller either external or internal
-
-  Description:
-    This header file contains the function prototypes and definitions of
-    the data types and constants that make up the interface to the Low-Cost
-    Controllerless (LCC) Graphics Controller for PIC32C MCUs.
-
-    Created with MPLAB Harmony Version 3.0
-*******************************************************************************/
-//DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2018-2020 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -39,7 +21,26 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-//DOM-IGNORE-END
+// DOM-IGNORE-END
+
+/*******************************************************************************
+  MPLAB Harmony LCC Generated Driver Header File
+
+  File Name:
+    drv_gfx_lcc_generic.h
+
+  Summary:
+    Build-time generated header file
+	Interface for the graphics library where the primitives are rendered and 
+	sent to the graphics controller either external or internal
+
+  Description:
+    This header file contains the function prototypes and definitions of
+    the data types and constants that make up the interface to the Low-Cost
+    Controllerless (LCC) Graphics Controller for PIC32C MCUs.
+
+    Created with MPLAB Harmony Version 3.0
+*******************************************************************************/
 
 #ifndef _DRV_GFX_LCC_H
 #define _DRV_GFX_LCC_H

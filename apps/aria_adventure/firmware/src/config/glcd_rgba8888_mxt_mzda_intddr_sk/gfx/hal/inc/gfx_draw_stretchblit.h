@@ -1,23 +1,6 @@
 // DOM-IGNORE-BEGIN
-
 /*******************************************************************************
- Module for Microchip Graphics Library - Hardware Abstraction Layer
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    gfx_draw_stretchblit.h
-
-  Summary:
-    Stretched blit drawing functions.
-
-  Description:
-    Blit drawing functions, internal use.
-*******************************************************************************/
-
-/*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -38,6 +21,26 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+// DOM-IGNORE-END
+
+// DOM-IGNORE-BEGIN
+
+/*******************************************************************************
+ Module for Microchip Graphics Library - Hardware Abstraction Layer
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    gfx_draw_stretchblit.h
+
+  Summary:
+    Stretched blit drawing functions.
+
+  Description:
+    Blit drawing functions, internal use.
+*******************************************************************************/
+
 #ifndef GFX_DRAW_STRETCHBLIT_H
 #define GFX_DRAW_STRETCHBLIT_H
 

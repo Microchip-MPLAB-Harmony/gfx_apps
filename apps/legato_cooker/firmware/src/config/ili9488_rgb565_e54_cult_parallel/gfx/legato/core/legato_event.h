@@ -1,18 +1,3 @@
-/*******************************************************************************
- Module for Microchip Graphics Library - Legato User Interface Library
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    legato_event.h
-
-  Summary:
-    Defines events that are used in the UI library.  Events are created and
-    stored for later processing during a library context's update loop.
-
-*******************************************************************************/
-
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
@@ -36,6 +21,24 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+// DOM-IGNORE-END
+
+/*******************************************************************************
+ Module for Microchip Graphics Library - Legato User Interface Library
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    legato_event.h
+
+  Summary:
+    Defines events that are used in the UI library.  Events are created and
+    stored for later processing during a library context's update loop.
+
+*******************************************************************************/
+
+// DOM-IGNORE-BEGIN
 #ifndef LEGATO_EVENT_H
 #define LEGATO_EVENT_H
 //DOM-IGNORE-END

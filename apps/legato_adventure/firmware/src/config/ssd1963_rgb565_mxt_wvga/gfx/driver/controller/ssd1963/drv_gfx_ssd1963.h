@@ -1,20 +1,6 @@
+// DOM-IGNORE-BEGIN
 /*******************************************************************************
-  MPLAB Harmony Generated Driver Header File
-
-  File Name:
-    drv_gfx_ssd1963.h
-
-  Summary:
-    Build-time generated header file for SSD1963 driver.
-	
-  Description:
-    Build-time generated header file for top-level SSD1963 driver.
- * 
-    Created with MPLAB Harmony Version 3.00
-*******************************************************************************/
-//DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2019-2020 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -35,7 +21,22 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-//DOM-IGNORE-END
+// DOM-IGNORE-END
+
+/*******************************************************************************
+  MPLAB Harmony Generated Driver Header File
+
+  File Name:
+    drv_gfx_ssd1963.h
+
+  Summary:
+    Build-time generated header file for SSD1963 driver.
+	
+  Description:
+    Build-time generated header file for top-level SSD1963 driver.
+ * 
+    Created with MPLAB Harmony Version 3.00
+*******************************************************************************/
 
 #ifndef DRV_GFX_SSD1963_H
 #define DRV_GFX_SSD1963_H

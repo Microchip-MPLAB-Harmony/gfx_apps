@@ -1,22 +1,6 @@
-/*******************************************************************************
- Module for Microchip Graphics Library - Legato Graphics Library
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    legato_asset.h
-
-  Summary:
-    Global defines for legato assets.
-
-  Description:
-    Global defines for legato assets.
-*******************************************************************************/
-
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -37,6 +21,25 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+// DOM-IGNORE-END
+
+/*******************************************************************************
+ Module for Microchip Graphics Library - Legato Graphics Library
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    legato_asset.h
+
+  Summary:
+    Global defines for legato assets.
+
+  Description:
+    Global defines for legato assets.
+*******************************************************************************/
+
+// DOM-IGNORE-BEGIN
 
 #ifndef LE_ASSET_H
 #define LE_ASSET_H

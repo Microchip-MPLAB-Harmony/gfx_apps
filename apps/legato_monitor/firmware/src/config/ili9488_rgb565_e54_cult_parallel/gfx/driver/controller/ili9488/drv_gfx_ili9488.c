@@ -1,18 +1,4 @@
-/*******************************************************************************
-  ILI9488 Display Top-Level Driver Source File
-
-  File Name:
-    drv_gfx_ili9488.c
-
-  Summary:
-    Top level driver for ILI9488.
-
-  Description:
-    Build-time generated implementation for the ILI9488 Driver.
-
-    Created with MPLAB Harmony Version 3.0
-*******************************************************************************/
-//DOM-IGNORE-BEGIN
+// DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
@@ -35,7 +21,22 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-//DOM-IGNORE-END
+// DOM-IGNORE-END
+
+/*******************************************************************************
+  ILI9488 Display Top-Level Driver Source File
+
+  File Name:
+    drv_gfx_ili9488.c
+
+  Summary:
+    Top level driver for ILI9488.
+
+  Description:
+    Build-time generated implementation for the ILI9488 Driver.
+
+    Created with MPLAB Harmony Version 3.0
+*******************************************************************************/
 
 
 

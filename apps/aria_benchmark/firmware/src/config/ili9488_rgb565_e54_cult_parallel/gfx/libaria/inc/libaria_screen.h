@@ -1,21 +1,6 @@
-/*******************************************************************************
- Module for Microchip Graphics Library - Aria User Interface Library
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    libaria_screen.h
-
-  Summary:
-    A screen describes the state of a set of layers.  It can be orthogonally
-    rotated and its life-cycle can be configured.
-
-*******************************************************************************/
-
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -36,6 +21,24 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+// DOM-IGNORE-END
+
+/*******************************************************************************
+ Module for Microchip Graphics Library - Aria User Interface Library
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    libaria_screen.h
+
+  Summary:
+    A screen describes the state of a set of layers.  It can be orthogonally
+    rotated and its life-cycle can be configured.
+
+*******************************************************************************/
+
+// DOM-IGNORE-BEGIN
 
 #ifndef LIBARIA_SCREEN_H
 #define LIBARIA_SCREEN_H

@@ -1,21 +1,3 @@
-/*******************************************************************************
- Module for Microchip Graphics Library - Legato User Interface Library
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    legato_rectarray.h
-
-  Summary:
-    An array implementation for storing rectangles for the
-    Legato user interface library
-
-  Description:
-    This is an array implementation that is used internally by the 
-    Legato user interface library.  
-*******************************************************************************/
-
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
@@ -39,6 +21,27 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+// DOM-IGNORE-END
+
+/*******************************************************************************
+ Module for Microchip Graphics Library - Legato User Interface Library
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    legato_rectarray.h
+
+  Summary:
+    An array implementation for storing rectangles for the
+    Legato user interface library
+
+  Description:
+    This is an array implementation that is used internally by the 
+    Legato user interface library.  
+*******************************************************************************/
+
+// DOM-IGNORE-BEGIN
 
 #ifndef LEGATO_RECTARRAY_H
 #define LEGATO_RECTARRAY_H

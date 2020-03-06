@@ -1,22 +1,6 @@
-/*******************************************************************************
- Module for Microchip Graphics Library - Aria User Interface Library
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    libaria_scheme.h
-
-  Summary:
-    A scheme is a collection of colors that can be referenced by one or more
-    widgets.  Widgets may use schemes in different ways.  While the color
-    names strive to be intuitive they aren't always used in the manner in
-    which they describe.
-*******************************************************************************/
-
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -37,6 +21,25 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+// DOM-IGNORE-END
+
+/*******************************************************************************
+ Module for Microchip Graphics Library - Aria User Interface Library
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    libaria_scheme.h
+
+  Summary:
+    A scheme is a collection of colors that can be referenced by one or more
+    widgets.  Widgets may use schemes in different ways.  While the color
+    names strive to be intuitive they aren't always used in the manner in
+    which they describe.
+*******************************************************************************/
+
+// DOM-IGNORE-BEGIN
 
 #ifndef LIBARIA_SCHEME_H
 #define LIBARIA_SCHEME_H

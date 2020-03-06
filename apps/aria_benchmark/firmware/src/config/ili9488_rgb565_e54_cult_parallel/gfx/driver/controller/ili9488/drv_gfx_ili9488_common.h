@@ -1,22 +1,6 @@
+// DOM-IGNORE-BEGIN
 /*******************************************************************************
- Module for Microchip Graphics Library - Hardware Abstraction Layer
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    drv_gfx_ili9488_common.h
-
-  Summary:
-    Contains ILI9488 driver type definitions and interface prototypes.
-
-  Description:
-    Contains ILI9488 driver type definitions and interface prototypes.
-*******************************************************************************/
-
-//DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -37,7 +21,24 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-//DOM-IGNORE-END
+// DOM-IGNORE-END
+
+/*******************************************************************************
+ Module for Microchip Graphics Library - Hardware Abstraction Layer
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    drv_gfx_ili9488_common.h
+
+  Summary:
+    Contains ILI9488 driver type definitions and interface prototypes.
+
+  Description:
+    Contains ILI9488 driver type definitions and interface prototypes.
+*******************************************************************************/
+
 
 #ifndef DRV_GFX_ILI9488_COMMON_H    /* Guard against multiple inclusion */
 #define DRV_GFX_ILI9488_COMMON_H

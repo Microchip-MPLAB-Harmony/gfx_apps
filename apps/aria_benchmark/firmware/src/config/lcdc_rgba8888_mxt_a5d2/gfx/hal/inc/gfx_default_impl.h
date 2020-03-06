@@ -1,24 +1,6 @@
 // DOM-IGNORE-BEGIN
-
 /*******************************************************************************
- Module for Microchip Graphics Library - Hardware Abstraction Layer
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    gfx_default_impl.h
-
-  Summary:
-    Defines MPLAB Harmony Graphics Hardware Abstraction default software
-    function implementations 
-
-  Description:
-    Drawing and display timing functions.
-*******************************************************************************/
-
-/*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -39,6 +21,27 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+// DOM-IGNORE-END
+
+// DOM-IGNORE-BEGIN
+
+/*******************************************************************************
+ Module for Microchip Graphics Library - Hardware Abstraction Layer
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    gfx_default_impl.h
+
+  Summary:
+    Defines MPLAB Harmony Graphics Hardware Abstraction default software
+    function implementations 
+
+  Description:
+    Drawing and display timing functions.
+*******************************************************************************/
+
 #ifndef GFX_DEFAULT_IMPL_H
 #define GFX_DEFAULT_IMPL_H
 
