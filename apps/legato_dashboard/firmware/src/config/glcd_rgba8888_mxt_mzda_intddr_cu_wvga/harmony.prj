@@ -3,7 +3,7 @@
   <Configurator>
     <Name dnOrder="0" value="glcd_rgba8888_mxt_mzda_intddr_cu_wvga"/>
     <Processor dnOrder="1" value="PIC32MZ2064DAR176"/>
-    <Harmony dnOrder="2" path="../../.."/>
+    <Harmony dnOrder="2" path="D:\Harmony3Public"/>
     <Folder_Name dnOrder="3" value=""/>
     <Manifest dnOrder="4">
       <Files dnOrder="0">
@@ -2541,7 +2541,7 @@
       <Setting dnOrder="2" key="FORCE_OPTIMIZATION" value="false"/>
       <Setting dnOrder="3" key="GENERATE_BACKUP" value="true"/>
       <Setting dnOrder="4" key="MERGE_STRATEGY" value="USER_ALL"/>
-      <Setting dnOrder="5" key="PackageFilter" value="audio;bootloader;bsp;core;crypto;csp;gfx;gfx_apps;net;touch;usb;"/>
+      <Setting dnOrder="5" key="PackageFilter" value="bsp;core;csp;gfx;gfx_apps;touch;usb;"/>
     </Settings>
   </Configurator>
 </Configuration>

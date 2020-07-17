@@ -47,6 +47,7 @@ static leResult blendPixel(int32_t x,
 leColor leRenderer_GetPixel(int32_t x,
                             int32_t y)
 {
+    // adjust for rectangle position
     x -= _rendererState.layerStates[_rendererState.layerIdx].frameRectList.rects[_rendererState.frameRectIdx].x;
     y -= _rendererState.layerStates[_rendererState.layerIdx].frameRectList.rects[_rendererState.frameRectIdx].y;
 
@@ -62,6 +63,7 @@ leResult leRenderer_GetPixel_Safe(int32_t x,
     if(leRenderer_CullDrawXY(x, y) == LE_TRUE)
         return LE_FAILURE;
 
+    // adjust for rectangle position
     x -= _rendererState.layerStates[_rendererState.layerIdx].frameRectList.rects[_rendererState.frameRectIdx].x;
     y -= _rendererState.layerStates[_rendererState.layerIdx].frameRectList.rects[_rendererState.frameRectIdx].y;
 
@@ -78,6 +80,7 @@ leResult leRenderer_PutPixel(int32_t x,
                              int32_t y,
                              leColor clr)
 {
+    // adjust for rectangle position
     x -= _rendererState.layerStates[_rendererState.layerIdx].frameRectList.rects[_rendererState.frameRectIdx].x;
     y -= _rendererState.layerStates[_rendererState.layerIdx].frameRectList.rects[_rendererState.frameRectIdx].y;
     
@@ -91,6 +94,7 @@ leResult leRenderer_PutPixel_Safe(int32_t x,
     if(leRenderer_CullDrawXY(x, y) == LE_TRUE)
         return LE_FAILURE;
 
+    // adjust for rectangle position
     x -= _rendererState.layerStates[_rendererState.layerIdx].frameRectList.rects[_rendererState.frameRectIdx].x;
     y -= _rendererState.layerStates[_rendererState.layerIdx].frameRectList.rects[_rendererState.frameRectIdx].y;
 
@@ -102,6 +106,7 @@ leResult leRenderer_BlendPixel(int32_t x,
                                leColor clr,
                                uint32_t a)
 {
+    // adjust for rectangle position
     x -= _rendererState.layerStates[_rendererState.layerIdx].frameRectList.rects[_rendererState.frameRectIdx].x;
     y -= _rendererState.layerStates[_rendererState.layerIdx].frameRectList.rects[_rendererState.frameRectIdx].y;
     
@@ -120,6 +125,7 @@ leResult leRenderer_BlendPixel_Safe(int32_t x,
     if(leRenderer_CullDrawXY(x, y) == LE_TRUE)
         return LE_FAILURE;
 
+    // adjust for rectangle position
     x -= _rendererState.layerStates[_rendererState.layerIdx].frameRectList.rects[_rendererState.frameRectIdx].x;
     y -= _rendererState.layerStates[_rendererState.layerIdx].frameRectList.rects[_rendererState.frameRectIdx].y;
 
@@ -216,18 +222,20 @@ leResult leRenderer_FillArea(int32_t x,
 {
 #if LE_ALPHA_BLENDING_ENABLED == 1	
     uint32_t w, h;
-    leRect fillRect;
-    lePoint pnt;
 #endif
 
-    x -= _rendererState.layerStates[_rendererState.layerIdx].frameRectList.rects[_rendererState.frameRectIdx].x;
-    y -= _rendererState.layerStates[_rendererState.layerIdx].frameRectList.rects[_rendererState.frameRectIdx].y;
+    lePoint pnt;
+    leRect fillRect;
+
+    // adjust for rectangle position
+    pnt.x = x - _rendererState.layerStates[_rendererState.layerIdx].frameRectList.rects[_rendererState.frameRectIdx].x;
+    pnt.y = y - _rendererState.layerStates[_rendererState.layerIdx].frameRectList.rects[_rendererState.frameRectIdx].y;
 
     if(a == 0)
         return LE_SUCCESS;
 
-    fillRect.x = x;
-    fillRect.y = y;
+    fillRect.x = pnt.x;
+    fillRect.y = pnt.y;
     fillRect.width = width;
     fillRect.height = height;
 
@@ -241,10 +249,8 @@ leResult leRenderer_FillArea(int32_t x,
         {
             for(w = 0; w < width; w++)
             {
-                pnt.x = x + w;
-                pnt.y = y + h;
-
-                leRenderer_BlendPixel_Safe(pnt.x, pnt.y, clr, a);
+                // blend pixel will adjust for the rectangle
+                leRenderer_BlendPixel_Safe(x + w, y + h, clr, a);
             }
         }
     }
@@ -252,8 +258,8 @@ leResult leRenderer_FillArea(int32_t x,
     {
 #endif
         lePixelBufferAreaFill_Unsafe(_rendererState.renderBuffer,
-                                     x,
-                                     y,
+                                     pnt.x,
+                                     pnt.y,
                                      width,
                                      height,
                                      clr);
@@ -273,18 +279,27 @@ leResult leRenderer_FillArea_Safe(int32_t x,
 {
 #if LE_ALPHA_BLENDING_ENABLED == 1	
     uint32_t w, h;
-    lePoint pnt;
 #endif
+    lePoint pnt;
     leRect fillRect;
 
-    x -= _rendererState.layerStates[_rendererState.layerIdx].frameRectList.rects[_rendererState.frameRectIdx].x;
-    y -= _rendererState.layerStates[_rendererState.layerIdx].frameRectList.rects[_rendererState.frameRectIdx].y;
+    // adjust for rectangle position
+    pnt.x = x - _rendererState.layerStates[_rendererState.layerIdx].frameRectList.rects[_rendererState.frameRectIdx].x;
+    pnt.y = y - _rendererState.layerStates[_rendererState.layerIdx].frameRectList.rects[_rendererState.frameRectIdx].y;
 
     if(a == 0)
         return LE_SUCCESS;
 
-    fillRect.x = x;
-    fillRect.y = y;
+    fillRect.x = pnt.x;
+    fillRect.y = pnt.y;
+    fillRect.width = width;
+    fillRect.height = height;
+
+    if(a == 0)
+        return LE_SUCCESS;
+
+    fillRect.x = pnt.x;
+    fillRect.y = pnt.y;
     fillRect.width = width;
     fillRect.height = height;
 
@@ -298,10 +313,8 @@ leResult leRenderer_FillArea_Safe(int32_t x,
         {
             for(w = 0; w < width; w++)
             {
-                pnt.x = x + w;
-                pnt.y = y + h;
-
-                leRenderer_BlendPixel(pnt.x, pnt.y, clr, a);
+                // blend pixel will adjust for the rectangle position
+                leRenderer_BlendPixel(x + w, y + h, clr, a);
             }
         }
     }
@@ -309,8 +322,8 @@ leResult leRenderer_FillArea_Safe(int32_t x,
     {
 #endif
         lePixelBufferAreaFill(_rendererState.renderBuffer,
-                              x,
-                              y,
+                              pnt.x,
+                              pnt.y,
                               width,
                               height,
                               clr);

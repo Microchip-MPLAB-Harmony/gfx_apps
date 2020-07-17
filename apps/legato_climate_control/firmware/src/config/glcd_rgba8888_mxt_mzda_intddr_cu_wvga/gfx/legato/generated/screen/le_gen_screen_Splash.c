@@ -58,29 +58,29 @@ leResult screenShow_Splash()
     root0->fn->addChild(root0, (leWidget*)Splash_ImageWidget);
 
     leAddRootWidget(root0, 0);
-    leSetLayerColorMode(0, LE_COLOR_MODE_RGBA_8888);
+    leSetLayerColorMode(0, LE_COLOR_MODE_INDEX_8);
 
     // layer 1
     root1 = leWidget_New();
-    root1->fn->setSize(root1, 800, 480);
+    root1->fn->setSize(root1, 300, 350);
     root1->fn->setBackgroundType(root1, LE_WIDGET_BACKGROUND_NONE);
     root1->fn->setMargins(root1, 0, 0, 0, 0);
     root1->flags |= LE_WIDGET_IGNOREEVENTS;
     root1->flags |= LE_WIDGET_IGNOREPICK;
 
     leAddRootWidget(root1, 1);
-    leSetLayerColorMode(1, LE_COLOR_MODE_RGBA_8888);
+    leSetLayerColorMode(1, LE_COLOR_MODE_INDEX_8);
 
     // layer 2
     root2 = leWidget_New();
-    root2->fn->setSize(root2, 800, 480);
+    root2->fn->setSize(root2, 400, 50);
     root2->fn->setBackgroundType(root2, LE_WIDGET_BACKGROUND_NONE);
     root2->fn->setMargins(root2, 0, 0, 0, 0);
     root2->flags |= LE_WIDGET_IGNOREEVENTS;
     root2->flags |= LE_WIDGET_IGNOREPICK;
 
     leAddRootWidget(root2, 2);
-    leSetLayerColorMode(2, LE_COLOR_MODE_RGBA_8888);
+    leSetLayerColorMode(2, LE_COLOR_MODE_INDEX_8);
 
     Splash_OnShow(); // raise event
 

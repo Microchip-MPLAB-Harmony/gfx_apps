@@ -115,20 +115,23 @@ const gfxDisplayDriver gfxDriverInterface =
     GFXC_SetPalette,
 };
 
+uint8_t __attribute__ ((coherent, aligned (32))) canvasfb0[800 * 480] = {0};
+uint8_t __attribute__ ((coherent, aligned (32))) canvasfb1[300 * 350] = {0};
+uint8_t __attribute__ ((coherent, aligned (32))) canvasfb2[400 * 50] = {0};
 
 static void gfxcObjectsInitialize(void)
 {
     unsigned int id;
 
     id = gfxcCreate();
-    gfxcSetPixelBuffer(id, 800, 480, GFX_COLOR_MODE_RGBA_8888,
-                       (void *) 0xa8000000);
+    gfxcSetPixelBuffer(id, 800, 480, GFX_COLOR_MODE_GS_8,
+                       (void *) canvasfb0);
     id = gfxcCreate();
-    gfxcSetPixelBuffer(id, 800, 480, GFX_COLOR_MODE_RGBA_8888,
-                       (void *) 0xa8177000);
+    gfxcSetPixelBuffer(id, 300, 350, GFX_COLOR_MODE_GS_8,
+                       (void *) canvasfb1);
     id = gfxcCreate();
-    gfxcSetPixelBuffer(id, 800, 480, GFX_COLOR_MODE_RGBA_8888,
-                       (void *) 0xa82ee000);
+    gfxcSetPixelBuffer(id, 400, 50, GFX_COLOR_MODE_GS_8,
+                       (void *) canvasfb2);
 }
 
 static void effectsTimerCallback ( uintptr_t context )
@@ -256,7 +259,12 @@ gfxResult GFXC_SetPalette(gfxBuffer* palette,
                           gfxColorMode mode,
                           uint32_t colorCount)
 {
-    return GFX_FAILURE;
+    //Global Palette is a controller function, pass it down to the controller
+    if (gfxDispCtrlr != NULL && 
+        gfxDispCtrlr->setPalette != NULL)
+        return gfxDispCtrlr->setPalette(palette, mode, colorCount);
+    else
+        return GFX_FAILURE;
 }
 
 gfxLayerState GFXC_GetLayerState(uint32_t idx)
@@ -317,6 +325,10 @@ GFXC_RESULT _gfxcCanvasUpdate(unsigned int canvasID)
         //clipping code
         if (setPositionParm.xpos < 0)
         {
+            //align offsets for 8bpp frames
+            if (gfxColorInfoTable[canvas[canvasID].pixelBuffer.mode].size == 1)
+                setPositionParm.xpos = -(abs(setPositionParm.xpos) & ~0x3);
+            
             setBaseAddressParm.value += abs(setPositionParm.xpos) * 
                     gfxColorInfoTable[canvas[canvasID].pixelBuffer.mode].size; 
 

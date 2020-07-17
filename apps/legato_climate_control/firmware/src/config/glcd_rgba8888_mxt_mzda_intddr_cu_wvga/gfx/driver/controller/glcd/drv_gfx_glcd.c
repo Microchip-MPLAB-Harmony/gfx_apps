@@ -66,21 +66,13 @@
 #define GFX_GLCD_LAYERS 3
 #define GFX_GLCD_BACKGROUND_COLOR 0xFFFFFF00
 #define GFX_GLCD_CONFIG_CONTROL 0x80000000
-#define GFX_GLCD_CONFIG_CLK_DIVIDER 14
+#define GFX_GLCD_CONFIG_CLK_DIVIDER 10
+#define GFX_GLCD_GLOBAL_PALETTE_COLOR_COUNT 256
 
-/*** GLCD Layer 0 Configuration ***/
-#define  GFX_GLCD_LAYER0_BASEADDR                      0xA8000000
-#define  GFX_GLCD_LAYER0_DBL_BASEADDR                  0xA8465000
-/*** GLCD Layer 1 Configuration ***/
-#define  GFX_GLCD_LAYER1_BASEADDR                      0xA8177000
-#define  GFX_GLCD_LAYER1_DBL_BASEADDR                  0xA85DC000
-/*** GLCD Layer 2 Configuration ***/
-#define  GFX_GLCD_LAYER2_BASEADDR                      0xA82EE000
-#define  GFX_GLCD_LAYER2_DBL_BASEADDR                  0xA8753000
 
-#define LCDC_DEFAULT_GFX_COLOR_MODE GLCD_LAYER_COLOR_MODE_RGBA8888
-#define FRAMEBUFFER_PTR_TYPE    uint32_t*
-#define FRAMEBUFFER_PIXEL_TYPE    uint32_t
+#define LCDC_DEFAULT_GFX_COLOR_MODE GLCD_LAYER_COLOR_MODE_LUT8
+#define FRAMEBUFFER_PTR_TYPE    uint8_t*
+#define FRAMEBUFFER_PIXEL_TYPE    uint8_t
 
 typedef enum
 {
@@ -93,6 +85,7 @@ const char* DRIVER_NAME = "GLCD";
 //static uint32_t supported_color_format = (GFX_COLOR_MASK_GS_8 |
 //                                          GFX_COLOR_MASK_RGB_565 |
 //                                          GFX_COLOR_MASK_RGBA_8888);
+
 
 static uint32_t state;
 static unsigned int vsyncCount = 0;
@@ -214,7 +207,6 @@ static GLCD_LAYER_COLOR_MODE getGLCDColorModeFromGFXColorMode(gfxColorMode mode)
     }
 }
 
-
 void DRV_GLCD_Initialize()
 {
     uint32_t      xResolution;
@@ -227,7 +219,6 @@ void DRV_GLCD_Initialize()
     uint32_t      upperMargin;
     uint32_t      stride;
     uint32_t      layerCount;
-    uint32_t      bufferCount;
 
     // general default initialization
     //if(defInitialize(context) == LE_FAILURE)
@@ -260,13 +251,11 @@ void DRV_GLCD_Initialize()
     PLIB_GLCD_ResolutionXYSet(xResolution, yResolution);
 
     PLIB_GLCD_SignalPolaritySet( GLCD_VSYNC_POLARITY_NEGATIVE | GLCD_HSYNC_POLARITY_NEGATIVE );
-    PLIB_GLCD_PaletteGammaRampDisable();
+
+    PLIB_GLCD_PaletteGammaRampEnable();
 
     PLIB_GLCD_Enable();
 
-    drvLayer[0].baseaddr[0] = (FRAMEBUFFER_PTR_TYPE)GFX_GLCD_LAYER0_BASEADDR;
-    drvLayer[1].baseaddr[0] = (FRAMEBUFFER_PTR_TYPE)GFX_GLCD_LAYER1_BASEADDR;
-    drvLayer[2].baseaddr[0] = (FRAMEBUFFER_PTR_TYPE)GFX_GLCD_LAYER2_BASEADDR;
 
     for (layerCount = 0; layerCount < GFX_GLCD_LAYERS; layerCount++)
     {
@@ -282,13 +271,6 @@ void DRV_GLCD_Initialize()
         drvLayer[layerCount].colorspace = LCDC_DEFAULT_GFX_COLOR_MODE;
         drvLayer[layerCount].enabled    = true;
         drvLayer[layerCount].updateLock = LAYER_LOCKED;
-
-        //Clear frame buffer
-        for(bufferCount = 0; bufferCount < BUFFER_PER_LAYER; ++bufferCount)
-        {
-            memset(drvLayer[layerCount].baseaddr[bufferCount], 0, sizeof(FRAMEBUFFER_PIXEL_TYPE) * DISPLAY_WIDTH * DISPLAY_HEIGHT);
-        }
-        
         stride = getColorModeStrideSize(drvLayer[layerCount].colorspace);
 
         PLIB_GLCD_LayerBaseAddressSet(layerCount, (uint32_t)drvLayer[layerCount].baseaddr[0]);
@@ -351,7 +333,7 @@ static int DRV_GFX_GLCD_Start()
 
 gfxColorMode DRV_GLCD_GetColorMode()
 {
-    return GFX_COLOR_MODE_RGBA_8888;
+    return GFX_COLOR_MODE_GS_8;
 }
 
 uint32_t DRV_GLCD_GetBufferCount()
@@ -557,7 +539,30 @@ gfxResult DRV_GLCD_SetPalette(gfxBuffer* palette,
                               gfxColorMode mode,
                               uint32_t colorCount)
 {
-    return GFX_FAILURE;
+    uint32_t lut[GFX_GLCD_GLOBAL_PALETTE_COLOR_COUNT];
+    uint32_t colorIndex = 0;
+    gfxPixelBuffer buffer;
+    
+    if (palette == NULL)
+        return GFX_FAILURE;
+    
+    if (colorCount > GFX_GLCD_GLOBAL_PALETTE_COLOR_COUNT)
+        colorCount = GFX_GLCD_GLOBAL_PALETTE_COLOR_COUNT;
+
+    gfxPixelBufferCreate(colorCount, 1, mode, palette, &buffer);
+    
+    for( colorIndex = 0;
+         colorIndex < colorCount;
+         colorIndex++ )
+    {
+        lut[colorIndex] = gfxColorConvert(mode,
+                                          GFX_COLOR_MODE_RGB_888,
+                                          gfxPixelBufferGetIndex(&buffer, colorIndex));
+    }
+
+    PLIB_GLCD_GlobalColorLUTSet(lut);
+
+    return GFX_SUCCESS;
 }
 
 gfxResult DRV_GLCD_CtrlrConfig(ctlrCfg request, void * arg)

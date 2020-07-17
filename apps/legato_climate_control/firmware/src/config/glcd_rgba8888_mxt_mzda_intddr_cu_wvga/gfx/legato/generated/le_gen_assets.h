@@ -66,7 +66,7 @@ extern const lePalette leGlobalPalette;
  * Name:   deg65
  * Size:   100x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg65;
 
@@ -75,7 +75,7 @@ extern leImage deg65;
  * Name:   deg66
  * Size:   100x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg66;
 
@@ -84,7 +84,7 @@ extern leImage deg66;
  * Name:   deg67
  * Size:   100x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg67;
 
@@ -93,7 +93,7 @@ extern leImage deg67;
  * Name:   deg68
  * Size:   100x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg68;
 
@@ -102,7 +102,7 @@ extern leImage deg68;
  * Name:   deg69
  * Size:   100x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg69;
 
@@ -111,7 +111,7 @@ extern leImage deg69;
  * Name:   deg70
  * Size:   100x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg70;
 
@@ -120,7 +120,7 @@ extern leImage deg70;
  * Name:   deg71
  * Size:   100x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg71;
 
@@ -129,7 +129,7 @@ extern leImage deg71;
  * Name:   deg72
  * Size:   100x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg72;
 
@@ -138,7 +138,7 @@ extern leImage deg72;
  * Name:   deg73
  * Size:   100x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg73;
 
@@ -147,7 +147,7 @@ extern leImage deg73;
  * Name:   deg74
  * Size:   100x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg74;
 
@@ -156,7 +156,7 @@ extern leImage deg74;
  * Name:   deg75
  * Size:   100x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg75;
 
@@ -165,7 +165,7 @@ extern leImage deg75;
  * Name:   deg76
  * Size:   100x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg76;
 
@@ -174,7 +174,7 @@ extern leImage deg76;
  * Name:   deg77
  * Size:   100x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg77;
 
@@ -183,7 +183,7 @@ extern leImage deg77;
  * Name:   deg78
  * Size:   101x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg78;
 
@@ -192,7 +192,7 @@ extern leImage deg78;
  * Name:   deg79
  * Size:   100x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg79;
 
@@ -201,7 +201,7 @@ extern leImage deg79;
  * Name:   deg80
  * Size:   100x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg80;
 
@@ -210,7 +210,7 @@ extern leImage deg80;
  * Name:   deg81
  * Size:   100x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg81;
 
@@ -219,7 +219,7 @@ extern leImage deg81;
  * Name:   deg82
  * Size:   100x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg82;
 
@@ -228,7 +228,7 @@ extern leImage deg82;
  * Name:   deg83
  * Size:   100x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg83;
 
@@ -237,7 +237,7 @@ extern leImage deg83;
  * Name:   deg84
  * Size:   100x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg84;
 
@@ -246,7 +246,7 @@ extern leImage deg84;
  * Name:   deg85
  * Size:   100x60 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage deg85;
 
@@ -255,7 +255,7 @@ extern leImage deg85;
  * Name:   Driver
  * Size:   180x36 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage Driver;
 
@@ -264,7 +264,7 @@ extern leImage Driver;
  * Name:   FontPassenger
  * Size:   180x36 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage FontPassenger;
 
@@ -273,7 +273,7 @@ extern leImage FontPassenger;
  * Name:   LeftPassenger
  * Size:   180x36 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage LeftPassenger;
 
@@ -282,7 +282,7 @@ extern leImage LeftPassenger;
  * Name:   RightPassenger
  * Size:   180x36 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage RightPassenger;
 
@@ -291,7 +291,7 @@ extern leImage RightPassenger;
  * Name:   climate_control_off
  * Size:   45x45 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage climate_control_off;
 
@@ -300,7 +300,7 @@ extern leImage climate_control_off;
  * Name:   climate_control_on
  * Size:   45x45 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage climate_control_on;
 
@@ -309,7 +309,7 @@ extern leImage climate_control_on;
  * Name:   fresh_air_on
  * Size:   45x29 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage fresh_air_on;
 
@@ -318,7 +318,7 @@ extern leImage fresh_air_on;
  * Name:   front_vent_off
  * Size:   50x31 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage front_vent_off;
 
@@ -327,7 +327,7 @@ extern leImage front_vent_off;
  * Name:   front_vent_on
  * Size:   50x31 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage front_vent_on;
 
@@ -336,7 +336,7 @@ extern leImage front_vent_on;
  * Name:   rear_vent_off
  * Size:   45x36 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage rear_vent_off;
 
@@ -345,7 +345,7 @@ extern leImage rear_vent_off;
  * Name:   rear_vent_on
  * Size:   45x36 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage rear_vent_on;
 
@@ -354,7 +354,7 @@ extern leImage rear_vent_on;
  * Name:   recirc_on
  * Size:   45x28 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage recirc_on;
 
@@ -363,7 +363,7 @@ extern leImage recirc_on;
  * Name:   aircon_on2
  * Size:   50x45 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage aircon_on2;
 
@@ -372,7 +372,7 @@ extern leImage aircon_on2;
  * Name:   aircon_off2
  * Size:   51x45 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage aircon_off2;
 
@@ -381,7 +381,7 @@ extern leImage aircon_off2;
  * Name:   fresh_air_on2
  * Size:   50x32 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage fresh_air_on2;
 
@@ -390,7 +390,7 @@ extern leImage fresh_air_on2;
  * Name:   front_vent_off2
  * Size:   50x32 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage front_vent_off2;
 
@@ -399,7 +399,7 @@ extern leImage front_vent_off2;
  * Name:   front_vent_on2
  * Size:   50x32 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage front_vent_on2;
 
@@ -408,7 +408,7 @@ extern leImage front_vent_on2;
  * Name:   rear_vent_on2
  * Size:   50x42 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage rear_vent_on2;
 
@@ -417,7 +417,7 @@ extern leImage rear_vent_on2;
  * Name:   recirc_on2
  * Size:   50x32 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage recirc_on2;
 
@@ -426,7 +426,7 @@ extern leImage recirc_on2;
  * Name:   rear_vent_off2
  * Size:   50x42 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage rear_vent_off2;
 
@@ -435,7 +435,7 @@ extern leImage rear_vent_off2;
  * Name:   syncOff_rs
  * Size:   125x39 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage syncOff_rs;
 
@@ -444,7 +444,7 @@ extern leImage syncOff_rs;
  * Name:   syncOn_rs
  * Size:   125x39 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage syncOn_rs;
 
@@ -453,7 +453,7 @@ extern leImage syncOn_rs;
  * Name:   seat_warm_off
  * Size:   45x45 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage seat_warm_off;
 
@@ -462,7 +462,7 @@ extern leImage seat_warm_off;
  * Name:   seat_warm_on
  * Size:   45x45 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage seat_warm_on;
 
@@ -471,7 +471,7 @@ extern leImage seat_warm_on;
  * Name:   breeze_on
  * Size:   50x13 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage breeze_on;
 
@@ -480,7 +480,7 @@ extern leImage breeze_on;
  * Name:   breeze_off
  * Size:   50x13 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage breeze_off;
 
@@ -489,7 +489,7 @@ extern leImage breeze_off;
  * Name:   circle_fill
  * Size:   25x25 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage circle_fill;
 
@@ -498,7 +498,7 @@ extern leImage circle_fill;
  * Name:   circle_nofill
  * Size:   25x25 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage circle_nofill;
 
@@ -507,7 +507,7 @@ extern leImage circle_nofill;
  * Name:   h1
  * Size:   55x50 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage h1;
 
@@ -516,7 +516,7 @@ extern leImage h1;
  * Name:   h10
  * Size:   55x50 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage h10;
 
@@ -525,7 +525,7 @@ extern leImage h10;
  * Name:   h11
  * Size:   55x50 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage h11;
 
@@ -534,7 +534,7 @@ extern leImage h11;
  * Name:   h12
  * Size:   55x50 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage h12;
 
@@ -543,7 +543,7 @@ extern leImage h12;
  * Name:   h2
  * Size:   55x50 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage h2;
 
@@ -552,7 +552,7 @@ extern leImage h2;
  * Name:   h3
  * Size:   55x50 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage h3;
 
@@ -561,7 +561,7 @@ extern leImage h3;
  * Name:   h4
  * Size:   55x50 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage h4;
 
@@ -570,7 +570,7 @@ extern leImage h4;
  * Name:   h5
  * Size:   55x50 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage h5;
 
@@ -579,7 +579,7 @@ extern leImage h5;
  * Name:   h6
  * Size:   55x50 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage h6;
 
@@ -588,7 +588,7 @@ extern leImage h6;
  * Name:   h7
  * Size:   55x50 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage h7;
 
@@ -597,7 +597,7 @@ extern leImage h7;
  * Name:   h8
  * Size:   55x50 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage h8;
 
@@ -606,7 +606,7 @@ extern leImage h8;
  * Name:   h9
  * Size:   55x50 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage h9;
 
@@ -615,7 +615,7 @@ extern leImage h9;
  * Name:   colon
  * Size:   3x10 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage colon;
 
@@ -624,7 +624,7 @@ extern leImage colon;
  * Name:   m00
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m00;
 
@@ -633,7 +633,7 @@ extern leImage m00;
  * Name:   m01
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m01;
 
@@ -642,7 +642,7 @@ extern leImage m01;
  * Name:   m02
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m02;
 
@@ -651,7 +651,7 @@ extern leImage m02;
  * Name:   m03
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m03;
 
@@ -660,7 +660,7 @@ extern leImage m03;
  * Name:   m04
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m04;
 
@@ -669,7 +669,7 @@ extern leImage m04;
  * Name:   m05
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m05;
 
@@ -678,7 +678,7 @@ extern leImage m05;
  * Name:   m06
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m06;
 
@@ -687,7 +687,7 @@ extern leImage m06;
  * Name:   m07
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m07;
 
@@ -696,7 +696,7 @@ extern leImage m07;
  * Name:   m08
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m08;
 
@@ -705,7 +705,7 @@ extern leImage m08;
  * Name:   m09
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m09;
 
@@ -714,7 +714,7 @@ extern leImage m09;
  * Name:   m10
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m10;
 
@@ -723,7 +723,7 @@ extern leImage m10;
  * Name:   m11
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m11;
 
@@ -732,7 +732,7 @@ extern leImage m11;
  * Name:   m12
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m12;
 
@@ -741,7 +741,7 @@ extern leImage m12;
  * Name:   m13
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m13;
 
@@ -750,7 +750,7 @@ extern leImage m13;
  * Name:   m14
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m14;
 
@@ -759,7 +759,7 @@ extern leImage m14;
  * Name:   m15
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m15;
 
@@ -768,7 +768,7 @@ extern leImage m15;
  * Name:   m16
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m16;
 
@@ -777,7 +777,7 @@ extern leImage m16;
  * Name:   m17
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m17;
 
@@ -786,7 +786,7 @@ extern leImage m17;
  * Name:   m18
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m18;
 
@@ -795,7 +795,7 @@ extern leImage m18;
  * Name:   m19
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m19;
 
@@ -804,7 +804,7 @@ extern leImage m19;
  * Name:   m20
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m20;
 
@@ -813,7 +813,7 @@ extern leImage m20;
  * Name:   m21
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m21;
 
@@ -822,7 +822,7 @@ extern leImage m21;
  * Name:   m22
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m22;
 
@@ -831,7 +831,7 @@ extern leImage m22;
  * Name:   m23
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m23;
 
@@ -840,7 +840,7 @@ extern leImage m23;
  * Name:   m24
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m24;
 
@@ -849,7 +849,7 @@ extern leImage m24;
  * Name:   m25
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m25;
 
@@ -858,7 +858,7 @@ extern leImage m25;
  * Name:   m26
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m26;
 
@@ -867,7 +867,7 @@ extern leImage m26;
  * Name:   m27
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m27;
 
@@ -876,7 +876,7 @@ extern leImage m27;
  * Name:   m28
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m28;
 
@@ -885,7 +885,7 @@ extern leImage m28;
  * Name:   m29
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m29;
 
@@ -894,7 +894,7 @@ extern leImage m29;
  * Name:   m31
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: GS_8
  ***********************************/
 extern leImage m31;
 
@@ -903,7 +903,7 @@ extern leImage m31;
  * Name:   m32
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m32;
 
@@ -912,7 +912,7 @@ extern leImage m32;
  * Name:   m33
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m33;
 
@@ -921,7 +921,7 @@ extern leImage m33;
  * Name:   m34
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m34;
 
@@ -930,7 +930,7 @@ extern leImage m34;
  * Name:   m35
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m35;
 
@@ -939,7 +939,7 @@ extern leImage m35;
  * Name:   m36
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m36;
 
@@ -948,7 +948,7 @@ extern leImage m36;
  * Name:   m37
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m37;
 
@@ -957,7 +957,7 @@ extern leImage m37;
  * Name:   m38
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m38;
 
@@ -966,7 +966,7 @@ extern leImage m38;
  * Name:   m39
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m39;
 
@@ -975,7 +975,7 @@ extern leImage m39;
  * Name:   m40
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m40;
 
@@ -984,7 +984,7 @@ extern leImage m40;
  * Name:   m41
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m41;
 
@@ -993,7 +993,7 @@ extern leImage m41;
  * Name:   m42
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m42;
 
@@ -1002,7 +1002,7 @@ extern leImage m42;
  * Name:   m43
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m43;
 
@@ -1011,7 +1011,7 @@ extern leImage m43;
  * Name:   m44
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m44;
 
@@ -1020,7 +1020,7 @@ extern leImage m44;
  * Name:   m45
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m45;
 
@@ -1029,7 +1029,7 @@ extern leImage m45;
  * Name:   m46
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m46;
 
@@ -1038,7 +1038,7 @@ extern leImage m46;
  * Name:   m47
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m47;
 
@@ -1047,7 +1047,7 @@ extern leImage m47;
  * Name:   m48
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m48;
 
@@ -1056,7 +1056,7 @@ extern leImage m48;
  * Name:   m49
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m49;
 
@@ -1065,7 +1065,7 @@ extern leImage m49;
  * Name:   m50
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m50;
 
@@ -1074,7 +1074,7 @@ extern leImage m50;
  * Name:   m51
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m51;
 
@@ -1083,7 +1083,7 @@ extern leImage m51;
  * Name:   m52
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m52;
 
@@ -1092,7 +1092,7 @@ extern leImage m52;
  * Name:   m53
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m53;
 
@@ -1101,7 +1101,7 @@ extern leImage m53;
  * Name:   m54
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m54;
 
@@ -1110,7 +1110,7 @@ extern leImage m54;
  * Name:   m55
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m55;
 
@@ -1119,7 +1119,7 @@ extern leImage m55;
  * Name:   m56
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m56;
 
@@ -1128,7 +1128,7 @@ extern leImage m56;
  * Name:   m57
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m57;
 
@@ -1137,7 +1137,7 @@ extern leImage m57;
  * Name:   m58
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m58;
 
@@ -1146,7 +1146,7 @@ extern leImage m58;
  * Name:   m59
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m59;
 
@@ -1155,7 +1155,7 @@ extern leImage m59;
  * Name:   m30
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage m30;
 
@@ -1164,7 +1164,7 @@ extern leImage m30;
  * Name:   AM
  * Size:   25x13 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage AM;
 
@@ -1173,7 +1173,7 @@ extern leImage AM;
  * Name:   weather
  * Size:   249x50 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage weather;
 
@@ -1182,7 +1182,7 @@ extern leImage weather;
  * Name:   background5
  * Size:   800x480 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage background5;
 
@@ -1191,7 +1191,7 @@ extern leImage background5;
  * Name:   InfoPage2
  * Size:   290x345 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage InfoPage2;
 
@@ -1200,7 +1200,7 @@ extern leImage InfoPage2;
  * Name:   Microchip_logo_150x30
  * Size:   150x30 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage Microchip_logo_150x30;
 
@@ -1209,7 +1209,7 @@ extern leImage Microchip_logo_150x30;
  * Name:   MHGC_200x200_white
  * Size:   200x200 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage MHGC_200x200_white;
 
@@ -1218,7 +1218,7 @@ extern leImage MHGC_200x200_white;
  * Name:   InfoPage3
  * Size:   290x345 pixels
  * Type:   RGB Data
- * Format: RGB_565
+ * Format: INDEX_8
  ***********************************/
 extern leImage InfoPage3;
 

@@ -331,10 +331,11 @@ static void preLayer()
         leRectArray_PushBack(&_rendererState.layerStates[_rendererState.layerIdx].scratchRectList,
                              &_rendererState.layerStates[_rendererState.layerIdx].currentDamageRects.rects[i]);
     }
-    
+
     if(_rendererState.layerStates[_rendererState.layerIdx].scratchRectList.size == 0)
     {
         _rendererState.frameState = LE_FRAME_POSTLAYER;
+
         return;
     }
 

@@ -152,7 +152,7 @@ typedef union leSchemeColorTable
  */
 typedef struct leScheme
 {
-    leSchemeColorTable tables[LE_SCHEME_COLOR_MODE_COUNT];
+    leSchemeColorTable tables[LE_COLOR_MODE_COUNT];
 } leScheme;
 
 extern const struct leScheme leDefaultScheme;
