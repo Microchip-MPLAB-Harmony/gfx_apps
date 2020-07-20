@@ -73,7 +73,7 @@ static void drawBorder(leBarGraphWidget* graph);
 
 static void nextState(leBarGraphWidget* graph)
 {
-    switch(graph->widget.drawState)
+    switch(graph->widget.status.drawState)
     {
         case NOT_STARTED:
         {
@@ -87,9 +87,9 @@ static void nextState(leBarGraphWidget* graph)
             }
 #endif
             
-            if(graph->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
+            if(graph->widget.style.backgroundType != LE_WIDGET_BACKGROUND_NONE)
             {
-                graph->widget.drawState = DRAW_BACKGROUND;
+                graph->widget.status.drawState = DRAW_BACKGROUND;
                 graph->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBackground;
 
                 return;
@@ -97,7 +97,7 @@ static void nextState(leBarGraphWidget* graph)
         }
         case DRAW_BACKGROUND:
         {
-            graph->widget.drawState = DRAW_BAR_GRAPH;
+            graph->widget.status.drawState = DRAW_BAR_GRAPH;
             graph->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBarGraph;
     
             return;
@@ -105,23 +105,23 @@ static void nextState(leBarGraphWidget* graph)
         case DRAW_BAR_GRAPH:
         {            
             graph->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawString;
-            graph->widget.drawState = DRAW_STRING;
+            graph->widget.status.drawState = DRAW_STRING;
             
             return;
         }
         case DRAW_STRING:
         {
-            if(graph->widget.borderType != LE_WIDGET_BORDER_NONE)
+            if(graph->widget.style.borderType != LE_WIDGET_BORDER_NONE)
             {
                 graph->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
-                graph->widget.drawState = DRAW_BORDER;
+                graph->widget.status.drawState = DRAW_BORDER;
                 
                 return;
             }
         }
         case DRAW_BORDER:
         {
-            graph->widget.drawState = DONE;
+            graph->widget.status.drawState = DONE;
             graph->widget.drawFunc = NULL;
         }
     }
@@ -178,7 +178,7 @@ static void drawTickLabelWithValue(leBarGraphWidget* graph,
     req.x = textRect.x;
     req.y = textRect.y;
     req.align = LE_HALIGN_CENTER;
-    req.color = graph->widget.scheme->text;
+    req.color = leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_TEXT);
     req.alpha = a;
 
     leStringRenderer_DrawCString(&req);
@@ -225,7 +225,7 @@ static void determineOriginPoint(leBarGraphWidget* bar)
                                 drawPoint.y,
                                 paintState.graphRect.x + paintState.graphRect.width,
                                 drawPoint.y,
-                                bar->widget.scheme->foreground,
+                                leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_FOREGROUND),
                                 paintState.alpha);
         }
         else
@@ -234,7 +234,7 @@ static void determineOriginPoint(leBarGraphWidget* bar)
                                 drawPoint.y,
                                 paintState.graphRect.x + paintState.graphRect.width,
                                 drawPoint.y,
-                                bar->widget.scheme->foreground,
+                                leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_FOREGROUND),
                                 paintState.alpha);
         }
 
@@ -267,7 +267,7 @@ static void fillGraphArea(leBarGraphWidget* bar)
         return;
         
     leRenderer_RectFill(&paintState.graphRect,
-                        bar->widget.scheme->background,
+                        leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_BACKGROUND),
                         paintState.alpha);
 }
 
@@ -280,14 +280,14 @@ static void drawGraphBorders(leBarGraphWidget* bar)
                         rect.y,
                         rect.x,
                         rect.y + rect.height,
-                        bar->widget.scheme->foreground,
+                        leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_FOREGROUND),
                         paintState.alpha); // left
                         
     leRenderer_DrawLine(rect.x + rect.width,
                         rect.y,
                         rect.x + rect.width,
                         rect.y + rect.height,
-                        bar->widget.scheme->foreground,
+                        leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_FOREGROUND),
                         paintState.alpha); // right
 }
 
@@ -309,14 +309,14 @@ static void adjustHorizontalBorders(leBarGraphWidget* bar)
                                 rect.y, 
                                 rect.x + rect.width , 
                                 rect.y,
-                                bar->widget.scheme->foreground,
+                                leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_FOREGROUND),
                                 paintState.alpha); // top            
                           
             leRenderer_DrawLine(rect.x - bar->tickLength, 
                                 rect.y + rect.height, 
                                 rect.x + rect.width, 
                                 rect.y + rect.height,
-                                bar->widget.scheme->foreground,
+                                leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_FOREGROUND),
                                 paintState.alpha); // bottom
                                 
             break;
@@ -327,14 +327,14 @@ static void adjustHorizontalBorders(leBarGraphWidget* bar)
                                 rect.y, 
                                 rect.x + rect.width , 
                                 rect.y,
-                                bar->widget.scheme->foreground,
+                                leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_FOREGROUND),
                                 paintState.alpha); // top    
                                         
             leRenderer_DrawLine(rect.x - bar->tickLength / 2, 
                                 rect.y + rect.height, 
                                 rect.x + rect.width, 
                                 rect.y + rect.height,
-                                bar->widget.scheme->foreground,
+                                leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_FOREGROUND),
                                 paintState.alpha); // bottom
                                 
             break;
@@ -463,7 +463,7 @@ static void drawTicks(leBarGraphWidget* bar)
                                     drawPoint.y,
                                     drawEndPoint.x,
                                     drawPoint.y,
-                                    bar->widget.scheme->foreground,
+                                    leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_FOREGROUND),
                                     paintState.alpha);
 
                 if(bar->valueAxisLabelsVisible)
@@ -493,7 +493,7 @@ static void drawTicks(leBarGraphWidget* bar)
                                     drawPoint.y,
                                     drawEndPoint.x,
                                     drawPoint.y,
-                                    bar->widget.scheme->foreground,
+                                    leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_FOREGROUND),
                                     paintState.alpha);
             
                 if (bar->valueAxisLabelsVisible)
@@ -563,7 +563,7 @@ static void drawSubTicks(leBarGraphWidget* bar)
                                 drawPoint.y,
                                 drawPoint.x + subTickLength,
                                 drawPoint.y,
-                                bar->widget.scheme->foreground,
+                                leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_FOREGROUND),
                                 paintState.alpha);                
         }
     }
@@ -581,7 +581,7 @@ static void drawSubTicks(leBarGraphWidget* bar)
                                 drawPoint.y,
                                 drawPoint.x + subTickLength,
                                 drawPoint.y,
-                                bar->widget.scheme->foreground,
+                                leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_FOREGROUND),
                                 paintState.alpha);                
         }
     }
@@ -633,7 +633,7 @@ static void drawCategoryTicks(leBarGraphWidget* bar)
                             drawPoint.y,
                             drawPoint.x,
                             drawPoint.y + length,
-                            bar->widget.scheme->foreground,
+                            leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_FOREGROUND),
                             paintState.alpha);
     }
 }
@@ -691,7 +691,7 @@ static void drawUnstackedBars(leBarGraphWidget* bar)
                 valueRect.height = paintState.originPoint.y - valueRect.y;
                 
                 leRenderer_RectFill(&valueRect,
-                                    series->scheme->foreground,
+                                    leScheme_GetRenderColor(series->scheme, LE_SCHM_FOREGROUND),
                                     paintState.alpha);
             }
             //draw the bars below the origin value
@@ -710,7 +710,7 @@ static void drawUnstackedBars(leBarGraphWidget* bar)
                 valueRect.height = height;
                 
                 leRenderer_RectFill(&valueRect,
-                                    series->scheme->foreground,
+                                    leScheme_GetRenderColor(series->scheme, LE_SCHM_FOREGROUND),
                                     paintState.alpha);
             }
         }
@@ -790,7 +790,7 @@ static void drawStackedBars(leBarGraphWidget* bar)
                 valueRect.height = topPoint.y - valueRect.y;
                 
                 leRenderer_RectFill(&valueRect,
-                                    series->scheme->foreground,
+                                    leScheme_GetRenderColor(series->scheme, LE_SCHM_FOREGROUND),
                                     paintState.alpha);
                 
                 topPoint.y = valueRect.y;
@@ -816,7 +816,7 @@ static void drawStackedBars(leBarGraphWidget* bar)
                 valueRect.height = valueRect.y - bottomPoint.y + 1;
                 
                 leRenderer_RectFill(&valueRect,
-                                    series->scheme->foreground,
+                                    leScheme_GetRenderColor(series->scheme, LE_SCHM_FOREGROUND),
                                     paintState.alpha);
                 
                 bottomPoint.y = valueRect.y;
@@ -832,14 +832,14 @@ static void drawHorizontalBorders(leBarGraphWidget* bar)
                         paintState.graphRect.y,
                         paintState.graphRect.x + paintState.graphRect.width,
                         paintState.graphRect.y,
-                        bar->widget.scheme->foreground,
+                        leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_FOREGROUND),
                         paintState.alpha); // top
                                     
     leRenderer_DrawLine(paintState.graphRect.x,
                         paintState.graphRect.y + paintState.graphRect.height,
                         paintState.graphRect.x + paintState.graphRect.width,
                         paintState.graphRect.y + paintState.graphRect.height,
-                        bar->widget.scheme->foreground,
+                        leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_FOREGROUND),
                         paintState.alpha); // bottom
 }
 
@@ -949,7 +949,7 @@ static void onStringStreamFinished(leStreamManager* strm)
 {
     leBarGraphWidget* grph = (leBarGraphWidget*)strm->userData;
 
-    grph->widget.drawState = DRAW_STRING;
+    grph->widget.status.drawState = DRAW_STRING;
 
     nextState(grph);
 }
@@ -984,7 +984,7 @@ static void drawString(leBarGraphWidget* graph)
                                 textRect.x,
                                 textRect.y,
                                 LE_HALIGN_LEFT,
-                                graph->widget.scheme->text,
+                                leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_TEXT),
                                 paintState.alpha);
 
 #if LE_STREAMING_ENABLED == 1
@@ -993,7 +993,7 @@ static void drawString(leBarGraphWidget* graph)
                 leGetActiveStream()->onDone = onStringStreamFinished;
                 leGetActiveStream()->userData = graph;
 
-                graph->widget.drawState = WAIT_STRING;
+                graph->widget.status.drawState = WAIT_STRING;
 
                 return;
             }
@@ -1006,11 +1006,11 @@ static void drawString(leBarGraphWidget* graph)
 
 static void drawBorder(leBarGraphWidget* graph)
 {    
-    if(graph->widget.borderType == LE_WIDGET_BORDER_LINE)
+    if(graph->widget.style.borderType == LE_WIDGET_BORDER_LINE)
     {
         leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)graph, paintState.alpha);
     }
-    else if(graph->widget.borderType == LE_WIDGET_BORDER_BEVEL)
+    else if(graph->widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)graph, paintState.alpha);
     }
@@ -1020,17 +1020,10 @@ static void drawBorder(leBarGraphWidget* graph)
 
 void _leBarGraphWidget_Paint(leBarGraphWidget* graph)
 {
-    if(graph->widget.scheme == NULL)
-    {
-        graph->widget.drawState = DONE;
-        
-        return;
-    }
-    
-    if(graph->widget.drawState == NOT_STARTED)
+    if(graph->widget.status.drawState == NOT_STARTED)
         nextState(graph);
     
-    while(graph->widget.drawState != DONE)
+    while(graph->widget.status.drawState != DONE)
     {
         graph->widget.drawFunc((leWidget*)graph);
         

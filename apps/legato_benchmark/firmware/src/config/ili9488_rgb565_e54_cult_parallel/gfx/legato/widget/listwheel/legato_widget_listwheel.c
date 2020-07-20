@@ -235,10 +235,10 @@ void leListWheelWidget_Constructor(leListWheelWidget* _this)
     _this->widget.rect.height = DEFAULT_HEIGHT;
 
     _this->widget.borderType = LE_WIDGET_BORDER_BEVEL;
-    _this->widget.backgroundType = LE_WIDGET_BACKGROUND_FILL;
+    _this->widget.style.backgroundType = LE_WIDGET_BACKGROUND_FILL;
     
     _this->borderTypeCache = _this->widget.borderType;
-    _this->backgroundTypeCache = _this->widget.backgroundType;
+    _this->backgroundTypeCache = _this->widget.style.backgroundType;
     //_this->allowEmpty = LE_TRUE;
     
 
@@ -246,7 +246,7 @@ void leListWheelWidget_Constructor(leListWheelWidget* _this)
     
     leArray_Create(&_this->items);
     
-    _this->widget.halign = LE_HALIGN_CENTER;
+    _this->widget.style.halign = LE_HALIGN_CENTER;
     _this->iconPos = LE_RELATIVE_POSITION_LEFTOF;
     _this->iconMargin = DEFAULT_MARGIN;
     _this->visibleItems = DEFAULT_VISIBLE_COUNT;
@@ -425,7 +425,7 @@ static void snapRotation(leListWheelWidget* _this)
     }
     
     // reset draw state on invalidate in case the wheel is partially redrawn
-    //_this->widget.drawState = LE_WIDGET_DRAW_STATE_READY;
+    //_this->widget.status.drawState = LE_WIDGET_DRAW_STATE_READY;
         
     //printf("snap, %i, %i, %i\n", _this->rotation, _this->momentum, _this->paintState.offs);
 }
@@ -1461,7 +1461,7 @@ static const leListWheelWidgetVTable listWheelWidgetVTable =
     .getChildCount = (void*)_leWidget_GetChildCount,
     .getChildAtIndex = (void*)_leWidget_GetChildAtIndex,
     .getIndexOfChild = (void*)_leWidget_GetIndexOfChild,
-    .containsDescendent = (void*)_leWidget_ContainsDescendent,
+    .containsDescendant = (void*)_leWidget_ContainsDescendant,
     .getScheme = (void*)_leWidget_GetScheme,
     .setScheme = (void*)_leWidget_SetScheme,
     .getBorderType = (void*)_leWidget_GetBorderType,

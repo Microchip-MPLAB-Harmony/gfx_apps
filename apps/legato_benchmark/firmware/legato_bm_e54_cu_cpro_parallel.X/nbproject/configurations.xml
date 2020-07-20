@@ -24,12 +24,9 @@
           </logicalFolder>
           <logicalFolder name="f2" displayName="gfx" projectFiles="true">
             <logicalFolder name="f3" displayName="driver" projectFiles="true">
-              <logicalFolder name="f1" displayName="ili9488" projectFiles="true">
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/driver/controller/ili9488/drv_gfx_ili9488_common.h</itemPath>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/driver/controller/ili9488/drv_gfx_disp_intf.h</itemPath>
+              <logicalFolder name="f1" displayName="external_controller" projectFiles="true">
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/driver/gfx_driver.h</itemPath>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/driver/controller/ili9488/drv_gfx_ili9488.h</itemPath>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/driver/controller/ili9488/drv_gfx_ili9488_cmd_defs.h</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/driver/controller/external_controller/drv_gfx_external_controller.h</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="f2" displayName="interface" projectFiles="true">
@@ -62,17 +59,22 @@
               </logicalFolder>
               <logicalFolder name="f10" displayName="generated" projectFiles="true">
                 <logicalFolder name="f1" displayName="screen" projectFiles="true">
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_FPSMotion.h</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_FPSCounters.h</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_FPSImages.h</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_SplashScreen.h</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_Screen0.h</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_init.h</itemPath>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_harmony.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_assets.h</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_harmony.h</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_init.h</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_scheme.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f5" displayName="image" projectFiles="true">
+                <logicalFolder name="f2" displayName="jpeg" projectFiles="true">
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/jpeg/legato_imagedecoder_jpeg.h</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/jpeg/legato_imagedecoder_jpeg_common.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="f3" displayName="png" projectFiles="true">
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/png/legato_imagedecoder_png.h</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/png/lodepng.h</itemPath>
+                </logicalFolder>
                 <logicalFolder name="f1" displayName="raw" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/raw/legato_imagedecoder_raw.h</itemPath>
                 </logicalFolder>
@@ -87,6 +89,7 @@
               </logicalFolder>
               <logicalFolder name="f7" displayName="renderer" projectFiles="true">
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/renderer/legato_renderer.h</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/renderer/legato_gpu.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f8" displayName="string" projectFiles="true">
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/string/legato_dynamicstring.h</itemPath>
@@ -131,65 +134,62 @@
                 <logicalFolder name="f11" displayName="image" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/image/legato_widget_image.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f12" displayName="imageplus" projectFiles="true">
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/imageplus/legato_widget_imageplus.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="f13" displayName="imagerotate" projectFiles="true">
+                <logicalFolder name="f12" displayName="imagerotate" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/imagerotate/legato_widget_imagerotate.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f14" displayName="imagescale" projectFiles="true">
+                <logicalFolder name="f13" displayName="imagescale" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/imagescale/legato_widget_imagescale.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f15" displayName="imagesequence" projectFiles="true">
+                <logicalFolder name="f14" displayName="imagesequence" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/imagesequence/legato_widget_imagesequence.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f16" displayName="keypad" projectFiles="true">
+                <logicalFolder name="f15" displayName="keypad" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/keypad/legato_widget_keypad.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f17" displayName="label" projectFiles="true">
+                <logicalFolder name="f16" displayName="label" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/label/legato_widget_label.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f18" displayName="line" projectFiles="true">
+                <logicalFolder name="f17" displayName="line" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/line/legato_widget_line.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f19" displayName="linegraph" projectFiles="true">
+                <logicalFolder name="f18" displayName="linegraph" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/linegraph/legato_widget_line_graph.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f20" displayName="list" projectFiles="true">
+                <logicalFolder name="f19" displayName="list" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/list/legato_widget_list.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f21" displayName="listwheel" projectFiles="true">
+                <logicalFolder name="f20" displayName="listwheel" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/listwheel/legato_widget_listwheel.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f22" displayName="piechart" projectFiles="true">
+                <logicalFolder name="f21" displayName="piechart" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/piechart/legato_widget_pie_chart.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f23" displayName="progressbar" projectFiles="true">
+                <logicalFolder name="f22" displayName="progressbar" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/progressbar/legato_widget_progressbar.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f24" displayName="radialmenu" projectFiles="true">
+                <logicalFolder name="f23" displayName="radialmenu" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/radialmenu/legato_widget_radial_menu.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f25" displayName="radiobutton" projectFiles="true">
+                <logicalFolder name="f24" displayName="radiobutton" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/radiobutton/legato_radiobutton_group.h</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/radiobutton/legato_widget_radiobutton.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f26" displayName="rectangle" projectFiles="true">
+                <logicalFolder name="f25" displayName="rectangle" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/rectangle/legato_widget_rectangle.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f27" displayName="scrollbar" projectFiles="true">
+                <logicalFolder name="f26" displayName="scrollbar" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/scrollbar/legato_widget_scrollbar.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f28" displayName="slider" projectFiles="true">
+                <logicalFolder name="f27" displayName="slider" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/slider/legato_widget_slider.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f29" displayName="textfield" projectFiles="true">
+                <logicalFolder name="f28" displayName="textfield" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/textfield/legato_widget_textfield.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f30" displayName="touchtest" projectFiles="true">
+                <logicalFolder name="f29" displayName="touchtest" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/touchtest/legato_widget_touchtest.h</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f31" displayName="window" projectFiles="true">
+                <logicalFolder name="f30" displayName="window" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/window/legato_widget_window.h</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/legato_editwidget.h</itemPath>
@@ -233,6 +233,7 @@
             </logicalFolder>
             <logicalFolder name="f9" displayName="tc" projectFiles="true">
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/tc/plib_tc_common.h</itemPath>
+              <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/tc/plib_tc1.h</itemPath>
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/tc/plib_tc0.h</itemPath>
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/tc/plib_tc4.h</itemPath>
             </logicalFolder>
@@ -240,6 +241,9 @@
           <logicalFolder name="f5" displayName="system" projectFiles="true">
             <logicalFolder name="f4" displayName="cache" projectFiles="true">
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/system/cache/sys_cache.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f5" displayName="debug" projectFiles="true">
+              <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/system/debug/sys_debug.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f2" displayName="input" projectFiles="true">
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/system/input/sys_input.h</itemPath>
@@ -277,50 +281,51 @@
       <logicalFolder name="f2" displayName="packs" projectFiles="true">
         <logicalFolder name="f1" displayName="ATSAME54P20A_DFP" projectFiles="true">
           <logicalFolder name="f1" displayName="component" projectFiles="true">
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/aes.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/sdhc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/mclk.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/sercom.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/port.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/ramecc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/tcc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/eic.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/i2s.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/tc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/evsys.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pcc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/oscctrl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pdec.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/supc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/qspi.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dmac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/wdt.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/trng.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/freqm.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/rstc.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/ac.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/adc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/gmac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pukcc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dsu.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/aes.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/can.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/ccl.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/cmcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dmac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dsu.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/eic.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/evsys.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/freqm.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/gclk.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/gmac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/hmatrixb.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/i2s.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/icm.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/mclk.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/nvmctrl.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/osc32kctrl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/ccl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/rtc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/hmatrixb.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/cmcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/oscctrl.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pdec.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/pm.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/icm.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/gclk.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/port.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pukcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/qspi.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/ramecc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/rstc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/rtc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/sdhc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/sercom.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/supc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/tc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/tcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/trng.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/usb.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/wdt.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="pio" projectFiles="true">
             <itemPath>../src/packs/ATSAME54P20A_DFP/pio/same54p20a.h</itemPath>
           </logicalFolder>
           <itemPath>../src/packs/ATSAME54P20A_DFP/device.h</itemPath>
+          <itemPath>../src/packs/ATSAME54P20A_DFP/atsame54p20a_compat.h</itemPath>
           <itemPath>../src/packs/ATSAME54P20A_DFP/atsame54p20a.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="CMSIS" projectFiles="true">
@@ -368,10 +373,9 @@
           </logicalFolder>
           <logicalFolder name="f2" displayName="gfx" projectFiles="true">
             <logicalFolder name="f3" displayName="driver" projectFiles="true">
-              <logicalFolder name="f1" displayName="ili9488" projectFiles="true">
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/driver/controller/ili9488/drv_gfx_ili9488_intf.c</itemPath>
+              <logicalFolder name="f1" displayName="external_controller" projectFiles="true">
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/driver/gfx_driver.c</itemPath>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/driver/controller/ili9488/drv_gfx_ili9488.c</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/driver/controller/external_controller/drv_gfx_external_controller.c</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="f2" displayName="interface" projectFiles="true">
@@ -412,48 +416,31 @@
               </logicalFolder>
               <logicalFolder name="f10" displayName="generated" projectFiles="true">
                 <logicalFolder name="f1" displayName="font" projectFiles="true">
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialTiny.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialNarrow.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialTitle.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialMed.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialLittle.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialTinyAve.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialLarge.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialNarrowMed.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_font_ArialSmall.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/font/le_gen_fonts.c</itemPath>
                 </logicalFolder>
                 <logicalFolder name="f2" displayName="image" projectFiles="true">
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_40x40.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_200x200.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_100x100.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_40x40.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_MicrochipLogo.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_HarmonyLogo.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mplab_100x100.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_200x200.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_200x200.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_PIC32Logo.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_200x200.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAWRLE_GFX_mchp_100x100.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_100x100.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAW_GFX_mplab_40x40.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_RAW_GFX_mchp_40x40.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_image_Bar.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/image/le_gen_images.c</itemPath>
                 </logicalFolder>
                 <logicalFolder name="f3" displayName="screen" projectFiles="true">
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_SplashScreen.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_FPSMotion.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_FPSImages.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_FPSCounters.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/le_gen_screen_Screen0.c</itemPath>
                 </logicalFolder>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_globalpalette.c</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_harmony.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_init.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_scheme.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_stringtable.c</itemPath>
-                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/le_gen_harmony.c</itemPath>
               </logicalFolder>
               <logicalFolder name="f5" displayName="image" projectFiles="true">
+                <logicalFolder name="f2" displayName="jpeg" projectFiles="true">
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/jpeg/legato_imagedecoder_jpeg.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/jpeg/legato_imagedecoder_jpeg_common.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/jpeg/jidctint.c</itemPath>
+                </logicalFolder>
+                <logicalFolder name="f3" displayName="png" projectFiles="true">
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/png/legato_imagedecoder_png.c</itemPath>
+                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/png/lodepng.c</itemPath>
+                </logicalFolder>
                 <logicalFolder name="f1" displayName="raw" projectFiles="true">
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/raw/legato_imagedecoder_raw_read_stream.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/raw/legato_imagedecoder_raw.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/raw/legato_imagedecoder_raw_blend.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/image/raw/legato_imagedecoder_raw_convert.c</itemPath>
@@ -485,6 +472,7 @@
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/renderer/legato_draw_line.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/renderer/legato_draw_rect.c</itemPath>
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/renderer/legato_renderer.c</itemPath>
+                <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/renderer/legato_gpu.c</itemPath>
               </logicalFolder>
               <logicalFolder name="f8" displayName="string" projectFiles="true">
                 <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/string/legato_dynamicstring.c</itemPath>
@@ -541,84 +529,80 @@
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/image/legato_widget_image.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/image/legato_widget_image_skin_classic.c</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f12" displayName="imageplus" projectFiles="true">
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/imageplus/legato_widget_imageplus.c</itemPath>
-                  <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/imageplus/legato_widget_imageplus_skin_classic.c</itemPath>
-                </logicalFolder>
-                <logicalFolder name="f13" displayName="imagerotate" projectFiles="true">
+                <logicalFolder name="f12" displayName="imagerotate" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/imagerotate/legato_widget_imagerotate.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/imagerotate/legato_widget_imagerotate_skin_classic.c</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f14" displayName="imagescale" projectFiles="true">
+                <logicalFolder name="f13" displayName="imagescale" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/imagescale/legato_widget_imagescale.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/imagescale/legato_widget_imagescale_skin_classic.c</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f15" displayName="imagesequence" projectFiles="true">
+                <logicalFolder name="f14" displayName="imagesequence" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/imagesequence/legato_widget_imagesequence.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/imagesequence/legato_widget_imagesequence_skin_classic.c</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f16" displayName="keypad" projectFiles="true">
+                <logicalFolder name="f15" displayName="keypad" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/keypad/legato_widget_keypad.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/keypad/legato_widget_keypad_skin_classic.c</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f17" displayName="label" projectFiles="true">
+                <logicalFolder name="f16" displayName="label" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/label/legato_widget_label.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/label/legato_widget_label_skin_classic.c</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f18" displayName="line" projectFiles="true">
+                <logicalFolder name="f17" displayName="line" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/line/legato_widget_line.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/line/legato_widget_line_skin_classic.c</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f19" displayName="linegraph" projectFiles="true">
+                <logicalFolder name="f18" displayName="linegraph" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/linegraph/legato_widget_line_graph.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/linegraph/legato_widget_line_graph_skin_classic.c</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f20" displayName="list" projectFiles="true">
+                <logicalFolder name="f19" displayName="list" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/list/legato_widget_list.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/list/legato_widget_list_skin_classic.c</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f21" displayName="listwheel" projectFiles="true">
+                <logicalFolder name="f20" displayName="listwheel" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/listwheel/legato_widget_listwheel.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/listwheel/legato_widget_listwheel_skin_classic.c</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f22" displayName="piechart" projectFiles="true">
+                <logicalFolder name="f21" displayName="piechart" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/piechart/legato_widget_pie_chart.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/piechart/legato_widget_pie_chart_skin_classic.c</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f23" displayName="progressbar" projectFiles="true">
+                <logicalFolder name="f22" displayName="progressbar" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/progressbar/legato_widget_progressbar.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/progressbar/legato_widget_progressbar_skin_classic.c</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f24" displayName="radialmenu" projectFiles="true">
+                <logicalFolder name="f23" displayName="radialmenu" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/radialmenu/legato_widget_radial_menu.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/radialmenu/legato_widget_radial_menu_skin_classic.c</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f25" displayName="radiobutton" projectFiles="true">
+                <logicalFolder name="f24" displayName="radiobutton" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/radiobutton/legato_radiobutton_group.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/radiobutton/legato_widget_radiobutton.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/radiobutton/legato_widget_radiobutton_skin_classic.c</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f26" displayName="rectangle" projectFiles="true">
+                <logicalFolder name="f25" displayName="rectangle" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/rectangle/legato_widget_rectangle.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/rectangle/legato_widget_rectangle_skin_classic.c</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f27" displayName="scrollbar" projectFiles="true">
+                <logicalFolder name="f26" displayName="scrollbar" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/scrollbar/legato_widget_scrollbar.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/scrollbar/legato_widget_scrollbar_skin_classic.c</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f28" displayName="slider" projectFiles="true">
+                <logicalFolder name="f27" displayName="slider" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/slider/legato_widget_slider.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/slider/legato_widget_slider_skin_classic.c</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f29" displayName="textfield" projectFiles="true">
+                <logicalFolder name="f28" displayName="textfield" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/textfield/legato_widget_textfield.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/textfield/legato_widget_textfield_skin_classic.c</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f30" displayName="touchtest" projectFiles="true">
+                <logicalFolder name="f29" displayName="touchtest" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/touchtest/legato_widget_touchtest.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/touchtest/legato_widget_touchtest_skin_classic.c</itemPath>
                 </logicalFolder>
-                <logicalFolder name="f31" displayName="window" projectFiles="true">
+                <logicalFolder name="f30" displayName="window" projectFiles="true">
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/window/legato_widget_window.c</itemPath>
                   <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/gfx/legato/widget/window/legato_widget_window_skin_classic.c</itemPath>
                 </logicalFolder>
@@ -660,6 +644,7 @@
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="f9" displayName="tc" projectFiles="true">
+              <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/tc/plib_tc1.c</itemPath>
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/tc/plib_tc0.c</itemPath>
               <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/peripheral/tc/plib_tc4.c</itemPath>
             </logicalFolder>
@@ -701,6 +686,7 @@
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
+      <itemPath>../src/config/ili9488_rgb565_e54_cult_parallel/harmony.prj</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -717,12 +703,14 @@
         <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.40</languageToolchainVersion>
-        <platform>2</platform>
+        <platform>3</platform>
       </toolsSet>
       <packs>
+        <pack name="SAME54_DFP" vendor="Microchip" version="3.2.56"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
-        <pack name="SAME54_DFP" vendor="Microchip" version="3.1.43"/>
       </packs>
+      <ScriptingSettings>
+      </ScriptingSettings>
       <compileType>
         <linkerTool>
           <linkerLibItems>
@@ -747,24 +735,6 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../src/config/ili9488_rgb565_e54_cult_parallel/gfx/driver/controller/ili9488/drv_gfx_ili9488_intf.c"
-            ex="true"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-CO>
-        </C32-CO>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
       <AtmelIceTool>
         <property key="AutoSelectMemRanges" value="auto"/>
         <property key="communication.interface" value="swd"/>
@@ -798,7 +768,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/ili9488_rgb565_e54_cult_parallel;../src/packs/ATSAME54P20A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/arm"/>
+                  value="../src/arm;../src;../src/config/ili9488_rgb565_e54_cult_parallel;../src/packs/ATSAME54P20A_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -918,6 +888,7 @@
         <property key="mdtcm" value=""/>
         <property key="mitcm" value=""/>
         <property key="mstacktcm" value="false"/>
+        <property key="omit-pack-options" value="1"/>
         <property key="relaxed-math" value="false"/>
         <property key="save-temps" value="false"/>
         <property key="wpo-lto" value="false"/>
@@ -930,6 +901,8 @@
         <property key="debugoptions.useswbreakpoints" value="false"/>
         <property key="firmware.path"
                   value="Press to browse for a specific firmware version"/>
+        <property key="firmware.toolpack"
+                  value="Press to select which tool pack to use"/>
         <property key="firmware.update.action" value="firmware.update.use.latest"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
@@ -955,6 +928,10 @@
         <property key="programoptions.preserveprogramrange" value="false"/>
         <property key="programoptions.preserveuserid" value="false"/>
         <property key="programoptions.programuserotp" value="false"/>
+        <property key="toolpack.updateoptions"
+                  value="toolpack.updateoptions.uselatestoolpack"/>
+        <property key="toolpack.updateoptions.packversion"
+                  value="Press to select which tool pack to use"/>
         <property key="voltagevalue" value=""/>
       </EdbgTool>
       <PICkit3PlatformTool>

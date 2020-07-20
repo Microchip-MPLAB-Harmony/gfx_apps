@@ -77,6 +77,8 @@ typedef struct
     uint32_t data_buffer_size;
     uint8_t *data_buffer_ptr;
     uint8_t partial_frames;
+    GFX_Disp_Intf_Callback callback;
+    void * callback_parm;
 } GFX_DISP_INTF_PORTGROUP;
 
 uintptr_t ContextHandle;
@@ -84,7 +86,8 @@ uintptr_t ContextHandle;
 GFX_DISP_INTF_PORTGROUP portGroupIntf =
 {
         .locked = 0,
-        .transferStatus = GFX_INTF_DMA_STATUS_NO_TRANSFER
+        .transferStatus = GFX_INTF_DMA_STATUS_NO_TRANSFER,
+        .callback = NULL
 };
 
 static void GFX_Disp_Intf_DMATransferCallback(DMAC_TRANSFER_EVENT event,
@@ -185,6 +188,8 @@ void GFX_Disp_Intf_StartTransfer(uint8_t * cmd_buffer,
     }
     
     portGroupIntf.data_buffer_size = data_buffer_size;
+
+    TC1_CompareStart();
     
     if (cmd_buffer != NULL && cmd_buffer_size > 0)
     {
@@ -217,6 +222,7 @@ int GFX_Disp_Intf_WriteCommand(GFX_Disp_Intf intf, uint8_t cmd)
     //Start Transfer
     GFX_Disp_Intf_StartTransfer(&cmd, 1, NULL, 0);
 
+    while(!_GFX_Disp_Intf_Ready());
         
     return 0;
 }
@@ -235,6 +241,7 @@ int GFX_Disp_Intf_WriteData(GFX_Disp_Intf intf, uint8_t * data, int bytes)
     //Start Transfer
     GFX_Disp_Intf_StartTransfer(NULL, 0, data, bytes);
 
+    while(!_GFX_Disp_Intf_Ready());
     
     return 0;
 }
@@ -253,6 +260,7 @@ int GFX_Disp_Intf_WriteData16(GFX_Disp_Intf intf, uint16_t * data, int num)
     //Start Transfer
     GFX_Disp_Intf_StartTransfer(NULL, 0, (uint8_t*) data, num);
 
+    while(!_GFX_Disp_Intf_Ready());
     
     return 0;
 }
@@ -308,6 +316,7 @@ int GFX_Disp_Intf_Write(GFX_Disp_Intf intf, uint8_t * data, int bytes)
     //Start Transfer
     GFX_Disp_Intf_StartTransfer(NULL, 0, (uint8_t*) data, bytes);
 
+    while(!_GFX_Disp_Intf_Ready());
     
     return 0;
 }
@@ -323,6 +332,7 @@ int GFX_Disp_Intf_WriteDataByte(GFX_Disp_Intf intf, uint8_t data)
     //Start single byte data write
     GFX_Disp_Intf_StartTransfer(NULL, 0, (uint8_t*) &data, 1);
 
+    while(!_GFX_Disp_Intf_Ready());
     
     return 0;
 }
@@ -345,12 +355,25 @@ static void GFX_Disp_Intf_DMATransferCallback(DMAC_TRANSFER_EVENT event,
     {
         default:
         case GFX_INTF_DMA_STATUS_NO_TRANSFER:
+        {
             break;
+        }
         case GFX_INTF_DMA_STATUS_CMD_TRANSFER:
         {
             if (portGroupIntf.data_buffer_ptr == NULL)
             {
                 portGroupIntf.transferStatus = GFX_INTF_DMA_STATUS_NO_TRANSFER;
+
+                TC1_CompareStop();
+
+                if (portGroupIntf.callback != NULL)
+                {
+                    portGroupIntf.callback((GFX_Disp_Intf) &portGroupIntf,
+                                           GFX_DISP_INTF_TX_DONE,
+                                           portGroupIntf.callback_parm);
+                }
+
+
             }
             else
             {
@@ -374,10 +397,30 @@ static void GFX_Disp_Intf_DMATransferCallback(DMAC_TRANSFER_EVENT event,
             else
             {                
                 portGroupIntf.transferStatus = GFX_INTF_DMA_STATUS_NO_TRANSFER;
+
+                TC1_CompareStop();
+
+                if (portGroupIntf.callback != NULL)
+                {
+                    portGroupIntf.callback((GFX_Disp_Intf) &portGroupIntf,
+                                           GFX_DISP_INTF_TX_DONE,
+                                           portGroupIntf.callback_parm);
+                }
             }
             break;
         }
     }
+}
+
+int GFX_Disp_Intf_Set_Callback(GFX_Disp_Intf intf, GFX_Disp_Intf_Callback cb, void * parm)
+{
+    if (((GFX_DISP_INTF_PORTGROUP *) intf) == NULL)
+        return -1;
+
+    ((GFX_DISP_INTF_PORTGROUP *) intf)->callback = cb;
+    ((GFX_DISP_INTF_PORTGROUP *) intf)->callback_parm = parm;
+
+    return 0;
 }
 
 

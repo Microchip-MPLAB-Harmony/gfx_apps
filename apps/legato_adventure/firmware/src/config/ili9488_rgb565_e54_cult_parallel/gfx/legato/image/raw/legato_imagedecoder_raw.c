@@ -24,7 +24,7 @@
 // DOM-IGNORE-END
 
 
-#include <gfx/legato/image/legato_image.h>
+#include "gfx/legato/image/legato_image.h"
 #include "gfx/legato/image/raw/legato_imagedecoder_raw.h"
 
 #include "gfx/legato/common/legato_math.h"
@@ -33,6 +33,7 @@
 #include "gfx/legato/image/legato_palette.h"
 #include "gfx/legato/memory/legato_memory.h"
 #include "gfx/legato/renderer/legato_renderer.h"
+#include "gfx/legato/renderer/legato_gpu.h"
 
 #if LE_STREAMING_ENABLED == 1
 
@@ -192,7 +193,7 @@ static leResult _initLookupStage(leRawDecodeState* state)
 
 static leResult _initConvertStage(leRawDecodeState* state)
 {
-    if(state->source->palette != NULL && state->source->palette->colorMode == state->targetMode)
+    if(state->source->palette != NULL && state->source->palette->buffer.mode == state->targetMode)
         return LE_SUCCESS;
 
     if(state->source->buffer.mode  == state->targetMode)
@@ -270,7 +271,19 @@ static leResult _draw(const leImage* img,
 
     state.globalAlpha = a;
 
-    state.targetMode = LE_GLOBAL_COLOR_MODE;
+    state.targetMode = leRenderer_CurrentColorMode();
+
+    if(img->header.location == LE_STREAM_LOCATION_ID_INTERNAL &&
+       img->format == LE_IMAGE_FORMAT_RAW)
+    {
+        if(leGPU_BlitBuffer(&state.source->buffer,
+                            &state.sourceRect,
+                            &state.destRect,
+                            a) == LE_SUCCESS)
+        {
+            return LE_SUCCESS;
+        }
+    }
 
     if(_leRawImageDecoder_SourceIterateSetupStage(&state) == LE_FAILURE ||
        _initReadStage(&state) == LE_FAILURE ||
@@ -481,9 +494,22 @@ static leResult _resizeDraw(const leImage* src,
     state.sizeX = sizeX;
     state.sizeY = sizeY;
 
-    state.targetMode = LE_GLOBAL_COLOR_MODE;
+    state.targetMode = leRenderer_CurrentColorMode();
 
     state.globalAlpha = a;
+
+
+    if(src->header.location == LE_STREAM_LOCATION_ID_INTERNAL &&
+       src->format == LE_IMAGE_FORMAT_RAW)
+    {
+        if(leGPU_BlitStretchBuffer(&state.source->buffer,
+                                   &state.sourceRect,
+                                   &state.destRect,
+                                   a) == LE_SUCCESS)
+        {
+            return LE_SUCCESS;
+        }
+    }
 
     // iterator setup
     if(_leRawImageDecoder_TargetIterateSetupStage(&state) == LE_FAILURE)
@@ -520,7 +546,8 @@ static leResult _resizeDraw(const leImage* src,
     }
 
     // convert and write
-    if(_initConvertStage(&state) == LE_FAILURE ||
+    if(_initBlendStage(&state) == LE_FAILURE ||
+	   _initConvertStage(&state) == LE_FAILURE ||
        _leRawImageDecoder_FrameBufferWriteStage(&state) == LE_FAILURE)
     {
         return LE_FAILURE;
@@ -864,7 +891,8 @@ static leResult _rotate(const leImage* src,
     }
 
     // convert and write
-    if(_initConvertStage(&state) == LE_FAILURE ||
+    if(_initBlendStage(&state) == LE_FAILURE ||
+       _initConvertStage(&state) == LE_FAILURE ||
        _leRawImageDecoder_ImageWriteStage(&state) == LE_FAILURE)
     {
         return LE_FAILURE;
@@ -950,7 +978,7 @@ static leResult _rotateDraw(const leImage* src,
     state.angle = angle;
     state.origin = *origin;
 
-    state.targetMode = LE_GLOBAL_COLOR_MODE;
+    state.targetMode = leRenderer_CurrentColorMode();
 
     state.globalAlpha = a;
 
@@ -992,7 +1020,8 @@ static leResult _rotateDraw(const leImage* src,
 
     // convert and write
     if(_initMaskStage(&state) == LE_FAILURE ||
-       _initConvertStage(&state) == LE_FAILURE ||
+		_initBlendStage(&state) == LE_FAILURE ||
+		_initConvertStage(&state) == LE_FAILURE ||
        _leRawImageDecoder_FrameBufferWriteStage(&state) == LE_FAILURE)
     {
         return LE_FAILURE;
@@ -1007,6 +1036,9 @@ static void _cleanup(leStreamManager* mgr)
 static void _decoderCleanup()
 #endif
 {
+#if LE_STREAMING_ENABLED == 1
+    (void)mgr; // unused
+#endif
     int32_t idx;
 
     if(state.mode != LE_RAW_MODE_NONE)
@@ -1092,6 +1124,10 @@ static leBool _isDone(leStreamManager* mgr)
 static leBool _decoderIsDone()
 #endif
 {
+#if LE_STREAMING_ENABLED == 1
+    (void)mgr; // unused
+#endif
+
     return state.done;
 }
 

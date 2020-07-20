@@ -1,6 +1,27 @@
+/*******************************************************************************
+ Module for Microchip Legato Graphics Library
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    le_gen_assets.h
+
+  Summary:
+    Header file containing a list of asset specifications for use with the
+    Legato Graphics Stack.
+
+
+  Description:
+    Header file containing a list of asset specifications for use with the
+    Legato Graphics Stack.
+
+*******************************************************************************/
+
+
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C)  Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -21,26 +42,8 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+
 // DOM-IGNORE-END
-
-/*******************************************************************************
- Module for Microchip Legato Graphics Library
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    generated/le_gen_assets.h
-
-  Summary:
-    Header file containing a list of asset specifications for use with the
-    MPLAB Harmony Graphics Stack.
-
-  Description:
-    Header file containing a list of asset specifications for use with the
-    MPLAB Harmony Graphics Stack.
-*******************************************************************************/
-
 
 #ifndef LE_GEN_ASSETS_H
 #define LE_GEN_ASSETS_H
@@ -53,113 +56,62 @@ extern "C" {
 
 #include "gfx/legato/legato.h"
 
+extern const lePalette leGlobalPalette;
+
 /*****************************************************************************
-* MPLAB Harmony Graphics Asset Location IDs
-*****************************************************************************/
-/*****************************************************************************
-* MPLAB Harmony Graphics Image Assets
-*****************************************************************************/
-/*********************************
- * Legato Image Asset
- * Name:   Background
- * Size:   320x480 pixels
- * Format: Raw
- * Mode: RGB_565
- ***********************************/
-extern leImage Background;
-
-/*********************************
- * Legato Image Asset
- * Name:   heart
- * Size:   25x25 pixels
- * Format: Raw
- * Mode: RGB_565
- ***********************************/
-extern leImage heart;
-
-/*********************************
- * Legato Image Asset
- * Name:   Microchip_meatball
- * Size:   42x30 pixels
- * Format: RLE
- * Mode: RGB_565
- ***********************************/
-extern leImage Microchip_meatball;
-
+ * Legato Graphics Image Assets
+ *****************************************************************************/
 /*********************************
  * Legato Image Asset
  * Name:   MHGC_170x170
  * Size:   170x170 pixels
- * Format: RLE
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_888
  ***********************************/
 extern leImage MHGC_170x170;
 
-/*********************************
- * Legato Image Asset
- * Name:   Bar_320
- * Size:   320x65 pixels
- * Format: Raw
- * Mode: RGB_565
- ***********************************/
-extern leImage Bar_320;
-
-/*********************************
- * Legato Image Asset
- * Name:   MicrochipLogo
- * Size:   144x39 pixels
- * Format: Raw
- * Mode: RGB_888
- ***********************************/
-extern leImage MicrochipLogo;
-
 /*****************************************************************************
-* MPLAB Harmony Graphics Font Assets
-*****************************************************************************/
+ * Legato Graphics Font Assets
+ *****************************************************************************/
 /*********************************
  * Legato Font Asset
- * Name:         NotoSans_Regular
- * Height:       14
- * Baseline:     13
+ * Name:         NotoSans_Medium
+ * Height:       21
+ * Baseline:     12
  * Style:        Antialias
- * Glyph Count:  11
- * Range Count:  1
- * Glyph Ranges: 0x30-0x3A
-***********************************/
-extern leRasterFont NotoSans_Regular;
-
-/*********************************
- * Legato Font Asset
- * Name:         NotoSans_Bold
- * Height:       57
- * Baseline:     55
- * Style:        Antialias
- * Glyph Count:  12
- * Range Count:  3
+ * Glyph Count:  28
+ * Range Count:  12
  * Glyph Ranges: 0x20
-                 0x2D
-                 0x30-0x39
+                 0x2E
+                 0x41-0x43
+                 0x47-0x48
+                 0x4C-0x4D
+                 0x50
+                 0x52
+                 0x61
+                 0x63-0x69
+                 0x6D-0x70
+                 0x72-0x75
+                 0x79
 ***********************************/
-extern leRasterFont NotoSans_Bold;
+extern leRasterFont NotoSans_Medium;
 
 /*****************************************************************************
  * Legato String Table
  * Encoding        ASCII
  * Language Count: 1
- * String Count:   5
-*****************************************************************************/
+ * String Count:   2
+ *****************************************************************************/
 
 // language IDs
 #define language_default    0
 
 // string IDs
-#define string_ClearVal    0
-#define string_ClockNums    1
-#define string_Default    2
-#define string_DefaultTime    3
-#define string_Nums    4
+#define stringID_ModifyRegenerateRun    0
+#define stringID_MPLABHarmonyComposer    1
 
 extern const leStringTable stringTable;
+
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }

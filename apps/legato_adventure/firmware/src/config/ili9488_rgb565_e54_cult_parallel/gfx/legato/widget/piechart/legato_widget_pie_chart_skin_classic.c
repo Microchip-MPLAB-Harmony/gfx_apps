@@ -70,7 +70,7 @@ static void drawBorder(lePieChartWidget* chart);
 
 static void nextState(lePieChartWidget* chart)
 {
-    switch(chart->widget.drawState)
+    switch(chart->widget.status.drawState)
     {
         case NOT_STARTED:
         {
@@ -83,9 +83,9 @@ static void nextState(lePieChartWidget* chart)
             }
 #endif
             
-            if(chart->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
+            if(chart->widget.style.backgroundType != LE_WIDGET_BACKGROUND_NONE)
             {
-                chart->widget.drawState = DRAW_BACKGROUND;
+                chart->widget.status.drawState = DRAW_BACKGROUND;
                 chart->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBackground;
 
                 return;
@@ -93,24 +93,24 @@ static void nextState(lePieChartWidget* chart)
         }
         case DRAW_BACKGROUND:
         {
-            chart->widget.drawState = DRAW_PIE_CHART;
+            chart->widget.status.drawState = DRAW_PIE_CHART;
             chart->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawPieChart;
     
             return;
         }
         case DRAW_PIE_CHART:
         {            
-            if(chart->widget.borderType != LE_WIDGET_BORDER_NONE)
+            if(chart->widget.style.borderType != LE_WIDGET_BORDER_NONE)
             {
                 chart->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
-                chart->widget.drawState = DRAW_BORDER;
+                chart->widget.status.drawState = DRAW_BORDER;
                 
                 return;
             }
         }
         case DRAW_BORDER:
         {
-            chart->widget.drawState = DONE;
+            chart->widget.status.drawState = DONE;
             chart->widget.drawFunc = NULL;
         }
     }
@@ -217,7 +217,7 @@ static void drawSliceLabel(lePieChartWidget* chart,
                   drawRect.x,
                   drawRect.y,
                   LE_HALIGN_CENTER,
-                  chart->widget.scheme->text,
+                  leScheme_GetRenderColor(chart->widget.scheme, LE_SCHM_TEXT),
                   paintState.alpha);
 
     str.fn->destructor(&str);
@@ -270,19 +270,13 @@ static void drawPieSlice(lePieChartWidget* chart,
     lePieChartPie* pie = leArray_Get(&chart->pieArray, idx);
     leColor clr;
     
-    //paintState.pieCenter = paintState.p;
-
     if (pie->scheme != NULL)
     {
-        clr = pie->scheme->foreground;
-        //GFX_Set(GFXF_DRAW_COLOR, pie->scheme->foreground);
-        //GFX_Set(GFXF_DRAW_GRADIENT_COLOR, pie->scheme->foreground & 0xffffff00, pie->scheme->foreground, NULL, NULL);
+        clr = leScheme_GetRenderColor(pie->scheme, LE_SCHM_FOREGROUND);
     }
     else
     {
-        clr = chart->widget.scheme->foreground;
-        //GFX_Set(GFXF_DRAW_COLOR, chart->widget.scheme->foreground);
-        //GFX_Set(GFXF_DRAW_GRADIENT_COLOR, chart->widget.scheme->foreground & 0xffffff00, chart->widget.scheme->foreground, NULL, NULL);
+        clr = leScheme_GetRenderColor( chart->widget.scheme, LE_SCHM_FOREGROUND);
     }
 
     //GFX_Set(GFXF_DRAW_THICKNESS, pie->radius);
@@ -349,9 +343,6 @@ static void drawPieChart(lePieChartWidget* chart)
     paintState.pieCenter.x = paintState.pieRect.width / 2;
     paintState.pieCenter.y = paintState.pieRect.height / 2;
 
-    //GFX_Set(GFXF_DRAW_MODE, GFX_DRAW_LINE);
-    //GFX_Set(GFXF_DRAW_COLOR, chart->widget.scheme->foreground);
-        
     //Get the total
     for (i = 0; i < chart->pieArray.size; i++) 
     {
@@ -371,12 +362,12 @@ static void drawPieChart(lePieChartWidget* chart)
 
 static void drawBorder(lePieChartWidget* chart)
 {    
-    if(chart->widget.borderType == LE_WIDGET_BORDER_LINE)
+    if(chart->widget.style.borderType == LE_WIDGET_BORDER_LINE)
     {
         leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)chart,
                                                     paintState.alpha);
     }
-    else if(chart->widget.borderType == LE_WIDGET_BORDER_BEVEL)
+    else if(chart->widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)chart,
                                                       paintState.alpha);
@@ -387,19 +378,12 @@ static void drawBorder(lePieChartWidget* chart)
 
 void _lePieChartWidget_Paint(lePieChartWidget* chart)
 {
-    if(chart->widget.scheme == NULL)
-    {
-        chart->widget.drawState = DONE;
-        
-        return;
-    }
-    
-    if(chart->widget.drawState == NOT_STARTED)
+    if(chart->widget.status.drawState == NOT_STARTED)
     {
         nextState(chart);
     }
     
-    while(chart->widget.drawState != DONE)
+    while(chart->widget.status.drawState != DONE)
     {
         chart->widget.drawFunc((leWidget*)chart);
         

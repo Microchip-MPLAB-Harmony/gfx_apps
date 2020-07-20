@@ -43,6 +43,7 @@ static leStringVTable stringVTable;
 
 void _leString_Constructor(leString* _this)
 {
+    (void)_this; // unused
 }
 
 void _leString_Destructor(leString* _this)

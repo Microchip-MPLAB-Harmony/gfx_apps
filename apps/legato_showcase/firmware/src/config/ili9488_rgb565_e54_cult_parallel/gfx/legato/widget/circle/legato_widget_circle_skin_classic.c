@@ -55,7 +55,7 @@ static void drawBorder(leCircleWidget* cir);
 
 static void nextState(leCircleWidget* cir)
 {
-    switch(cir->widget.drawState)
+    switch(cir->widget.status.drawState)
     {
         case NOT_STARTED:
         {
@@ -68,34 +68,36 @@ static void nextState(leCircleWidget* cir)
             }
 #endif
             
-            if(cir->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
+            if(cir->widget.style.backgroundType != LE_WIDGET_BACKGROUND_NONE)
             {
-                cir->widget.drawState = DRAW_BACKGROUND;
+                cir->widget.status.drawState = DRAW_BACKGROUND;
                 cir->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBackground;
 
                 return;
             }
         }
+        // fall through
         case DRAW_BACKGROUND:
         {
-            cir->widget.drawState = DRAW_CIRCLE;
+            cir->widget.status.drawState = DRAW_CIRCLE;
             cir->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawCircle;
     
             return;
         }
         case DRAW_CIRCLE:
         {            
-            if(cir->widget.borderType != LE_WIDGET_BORDER_NONE)
+            if(cir->widget.style.borderType != LE_WIDGET_BORDER_NONE)
             {
                 cir->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
-                cir->widget.drawState = DRAW_BORDER;
+                cir->widget.status.drawState = DRAW_BORDER;
                 
                 return;
             }
         }
+        // fall through
         case DRAW_BORDER:
         {
-            cir->widget.drawState = DONE;
+            cir->widget.status.drawState = DONE;
             cir->widget.drawFunc = NULL;
         }
     }
@@ -130,22 +132,16 @@ static void drawCircle(leCircleWidget* cir)
     if(cir->filled == LE_FALSE)
     {
         leRenderer_CircleDraw(&circleRect,
-                              cir->x,
-                              cir->y,
-                              cir->radius,
                               cir->thickness,
-                              cir->widget.scheme->foreground,
+                              leScheme_GetRenderColor(cir->widget.scheme, LE_SCHM_FOREGROUND),
                               paintState.alpha);
     }
     else
     {
         leRenderer_CircleFill(&circleRect,
-                              cir->x,
-                              cir->y,
-                              cir->radius,
                               cir->thickness,
-                              cir->widget.scheme->foreground,
-                              cir->widget.scheme->background,
+                              leScheme_GetRenderColor(cir->widget.scheme, LE_SCHM_FOREGROUND),
+                              leScheme_GetRenderColor(cir->widget.scheme, LE_SCHM_BACKGROUND),
                               paintState.alpha);
     }
 
@@ -154,12 +150,12 @@ static void drawCircle(leCircleWidget* cir)
 
 static void drawBorder(leCircleWidget* cir)
 {    
-    if(cir->widget.borderType == LE_WIDGET_BORDER_LINE)
+    if(cir->widget.style.borderType == LE_WIDGET_BORDER_LINE)
     {
         leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)cir,
                                                     paintState.alpha);
     }
-    else if(cir->widget.borderType == LE_WIDGET_BORDER_BEVEL)
+    else if(cir->widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)cir,
                                                       paintState.alpha);
@@ -170,19 +166,12 @@ static void drawBorder(leCircleWidget* cir)
 
 void _leCircleWidget_Paint(leCircleWidget* cir)
 {
-    if(cir->widget.scheme == NULL)
-    {
-        cir->widget.drawState = DONE;
-        
-        return;
-    }
-    
-    if(cir->widget.drawState == NOT_STARTED)
+    if(cir->widget.status.drawState == NOT_STARTED)
     {
         nextState(cir);
     }
     
-    while(cir->widget.drawState != DONE)
+    while(cir->widget.status.drawState != DONE)
     {
         cir->widget.drawFunc((leWidget*)cir);
         

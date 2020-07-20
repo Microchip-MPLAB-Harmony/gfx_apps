@@ -98,7 +98,7 @@ static leResult stage_targetIterateSetup(leRawDecodeStage* stage)
     state->referenceX = state->sourceRect.x + state->colIterator;
     state->referenceY = state->sourceRect.y + state->rowIterator;
 
-    if(state->referenceY - state->sourceRect.y >= (uint32_t)state->sourceRect.height)
+    if(state->referenceY - state->sourceRect.y >= (int32_t)state->sourceRect.height)
     {
         state->currentStage = 0;
         state->done = LE_TRUE;
@@ -110,7 +110,7 @@ static leResult stage_targetIterateSetup(leRawDecodeStage* stage)
     state->targetY = stage->state->destRect.y + state->rowIterator;
     state->targetX = stage->state->destRect.x + state->colIterator;
 
-    if(state->referenceX - state->sourceRect.x < (uint32_t)state->destRect.width - 1)
+    if(state->referenceX - state->sourceRect.x < (int32_t)state->destRect.width - 1)
     {
         state->colIterator += 1;
     }
@@ -142,7 +142,7 @@ static leResult stage_rotatedTargetIterateSetup(leRawDecodeStage* stage)
 {
     leRawDecodeState* state = stage->state;
 
-    if(state->targetY - state->destRect.y >= (uint32_t)state->destRect.height)
+    if(state->targetY - state->destRect.y >= (int32_t)state->destRect.height)
     {
         state->currentStage = 0;
         state->done = LE_TRUE;
@@ -154,7 +154,7 @@ static leResult stage_rotatedTargetIterateSetup(leRawDecodeStage* stage)
     state->targetY = stage->state->destRect.y + state->rowIterator;
     state->targetX = stage->state->destRect.x + state->colIterator;
 
-    if(state->targetX - state->destRect.x < (uint32_t)state->destRect.width - 1)
+    if(state->targetX - state->destRect.x < (int32_t)state->destRect.width - 1)
     {
         state->colIterator += 1;
     }

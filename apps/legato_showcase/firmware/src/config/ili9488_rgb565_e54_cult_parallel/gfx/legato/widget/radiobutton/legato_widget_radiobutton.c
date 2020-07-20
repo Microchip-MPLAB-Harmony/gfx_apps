@@ -128,8 +128,8 @@ void leRadioButtonWidget_Constructor(leRadioButtonWidget* _this)
     _this->imagePosition = LE_RELATIVE_POSITION_LEFTOF;
     _this->imageMargin = DEFAULT_IMAGE_MARGIN;
 
-    _this->widget.halign = LE_HALIGN_LEFT;
-    _this->widget.valign = LE_VALIGN_MIDDLE;
+    _this->widget.style.halign = LE_HALIGN_LEFT;
+    _this->widget.style.valign = LE_VALIGN_MIDDLE;
     
     _this->selectedImage = NULL;
     _this->unselectedImage = NULL;
@@ -604,7 +604,7 @@ static const leRadioButtonWidgetVTable radioButtonWidgetVTable =
     .getChildCount = (void*)_leWidget_GetChildCount,
     .getChildAtIndex = (void*)_leWidget_GetChildAtIndex,
     .getIndexOfChild = (void*)_leWidget_GetIndexOfChild,
-    .containsDescendent = (void*)_leWidget_ContainsDescendent,
+    .containsDescendant = (void*)_leWidget_ContainsDescendant,
     .getScheme = (void*)_leWidget_GetScheme,
     .setScheme = (void*)_leWidget_SetScheme,
     .getBorderType = (void*)_leWidget_GetBorderType,

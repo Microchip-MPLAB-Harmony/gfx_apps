@@ -1,145 +1,15 @@
-// DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
-// DOM-IGNORE-END
-
 #include "gfx/legato/generated/le_gen_scheme.h"
 
-leScheme defaultScheme;
-leScheme ElevatedScheme;
-leScheme HighStage1Scheme;
-leScheme HighStage2Scheme;
-leScheme HypertensiveScheme;
-leScheme NormalScheme;
-
-void legato_initialize_schemes(void)
+const leScheme NewScheme = 
 {
-    leScheme_Initialize(&defaultScheme, LE_COLOR_MODE_RGB_565);
-    defaultScheme.base = 0xFFFF;
-    defaultScheme.highlight = 0xC67A;
-    defaultScheme.highlightLight = 0xFFFF;
-    defaultScheme.shadow = 0x8410;
-    defaultScheme.shadowDark = 0x4208;
-    defaultScheme.foreground = 0x0000;
-    defaultScheme.foregroundInactive = 0xD71C;
-    defaultScheme.foregroundDisabled = 0x8410;
-    defaultScheme.background = 0xFFFF;
-    defaultScheme.backgroundInactive = 0xD71C;
-    defaultScheme.backgroundDisabled = 0xC67A;
-    defaultScheme.text = 0x0000;
-    defaultScheme.textHighlight = 0x001F;
-    defaultScheme.textHighlightText = 0xFFFF;
-    defaultScheme.textInactive = 0xD71C;
-    defaultScheme.textDisabled = 0x8C92;
-
-    leScheme_Initialize(&ElevatedScheme, LE_COLOR_MODE_RGB_565);
-    ElevatedScheme.base = 0xC67A;
-    ElevatedScheme.highlight = 0xC67A;
-    ElevatedScheme.highlightLight = 0xFFFF;
-    ElevatedScheme.shadow = 0x8410;
-    ElevatedScheme.shadowDark = 0x4208;
-    ElevatedScheme.foreground = 0x0000;
-    ElevatedScheme.foregroundInactive = 0xD71C;
-    ElevatedScheme.foregroundDisabled = 0x8410;
-    ElevatedScheme.background = 0xFFFF;
-    ElevatedScheme.backgroundInactive = 0xD71C;
-    ElevatedScheme.backgroundDisabled = 0xC67A;
-    ElevatedScheme.text = 0xBDE0;
-    ElevatedScheme.textHighlight = 0x001F;
-    ElevatedScheme.textHighlightText = 0xFFFF;
-    ElevatedScheme.textInactive = 0xD71C;
-    ElevatedScheme.textDisabled = 0x8C92;
-
-    leScheme_Initialize(&HighStage1Scheme, LE_COLOR_MODE_RGB_565);
-    HighStage1Scheme.base = 0xC67A;
-    HighStage1Scheme.highlight = 0xC67A;
-    HighStage1Scheme.highlightLight = 0xFFFF;
-    HighStage1Scheme.shadow = 0x8410;
-    HighStage1Scheme.shadowDark = 0x4208;
-    HighStage1Scheme.foreground = 0x0000;
-    HighStage1Scheme.foregroundInactive = 0xD71C;
-    HighStage1Scheme.foregroundDisabled = 0x8410;
-    HighStage1Scheme.background = 0xFFFF;
-    HighStage1Scheme.backgroundInactive = 0xD71C;
-    HighStage1Scheme.backgroundDisabled = 0xC67A;
-    HighStage1Scheme.text = 0xFC00;
-    HighStage1Scheme.textHighlight = 0x001F;
-    HighStage1Scheme.textHighlightText = 0xFFFF;
-    HighStage1Scheme.textInactive = 0xD71C;
-    HighStage1Scheme.textDisabled = 0x8C92;
-
-    leScheme_Initialize(&HighStage2Scheme, LE_COLOR_MODE_RGB_565);
-    HighStage2Scheme.base = 0xC67A;
-    HighStage2Scheme.highlight = 0xC67A;
-    HighStage2Scheme.highlightLight = 0xFFFF;
-    HighStage2Scheme.shadow = 0x8410;
-    HighStage2Scheme.shadowDark = 0x4208;
-    HighStage2Scheme.foreground = 0x0000;
-    HighStage2Scheme.foregroundInactive = 0xD71C;
-    HighStage2Scheme.foregroundDisabled = 0x8410;
-    HighStage2Scheme.background = 0xFFFF;
-    HighStage2Scheme.backgroundInactive = 0xD71C;
-    HighStage2Scheme.backgroundDisabled = 0xC67A;
-    HighStage2Scheme.text = 0xBA00;
-    HighStage2Scheme.textHighlight = 0x001F;
-    HighStage2Scheme.textHighlightText = 0xFFFF;
-    HighStage2Scheme.textInactive = 0xD71C;
-    HighStage2Scheme.textDisabled = 0x8C92;
-
-    leScheme_Initialize(&HypertensiveScheme, LE_COLOR_MODE_RGB_565);
-    HypertensiveScheme.base = 0xC67A;
-    HypertensiveScheme.highlight = 0xC67A;
-    HypertensiveScheme.highlightLight = 0xFFFF;
-    HypertensiveScheme.shadow = 0x8410;
-    HypertensiveScheme.shadowDark = 0x4208;
-    HypertensiveScheme.foreground = 0x0000;
-    HypertensiveScheme.foregroundInactive = 0xD71C;
-    HypertensiveScheme.foregroundDisabled = 0x8410;
-    HypertensiveScheme.background = 0xFFFF;
-    HypertensiveScheme.backgroundInactive = 0xD71C;
-    HypertensiveScheme.backgroundDisabled = 0xC67A;
-    HypertensiveScheme.text = 0xB800;
-    HypertensiveScheme.textHighlight = 0x001F;
-    HypertensiveScheme.textHighlightText = 0xFFFF;
-    HypertensiveScheme.textInactive = 0xD71C;
-    HypertensiveScheme.textDisabled = 0x8C92;
-
-    leScheme_Initialize(&NormalScheme, LE_COLOR_MODE_RGB_565);
-    NormalScheme.base = 0xC67A;
-    NormalScheme.highlight = 0xC67A;
-    NormalScheme.highlightLight = 0xFFFF;
-    NormalScheme.shadow = 0x8410;
-    NormalScheme.shadowDark = 0x4208;
-    NormalScheme.foreground = 0x0000;
-    NormalScheme.foregroundInactive = 0xD71C;
-    NormalScheme.foregroundDisabled = 0x8410;
-    NormalScheme.background = 0xFFFF;
-    NormalScheme.backgroundInactive = 0xD71C;
-    NormalScheme.backgroundDisabled = 0xC67A;
-    NormalScheme.text = 0x0400;
-    NormalScheme.textHighlight = 0x001F;
-    NormalScheme.textHighlightText = 0xFFFF;
-    NormalScheme.textInactive = 0xD71C;
-    NormalScheme.textDisabled = 0x8C92;
-
-}
+    {
+        { { 0xFF, 0xCF, 0xFF, 0x80, 0x40, 0x0, 0xE1, 0x80, 0xFF, 0xE1, 0xCF, 0x0, 0x12, 0xFF, 0xE1, 0x91 } }, // GS_8
+        { { 0xFF, 0xBA, 0xFF, 0x92, 0x49, 0x0, 0xDB, 0x92, 0xFF, 0xDB, 0xBA, 0x0, 0x3, 0xFF, 0xDB, 0x92 } }, // RGB_332
+        { { 0xFFFF, 0xC67A, 0xFFFF, 0x8410, 0x4208, 0x0, 0xD71C, 0x8410, 0xFFFF, 0xD71C, 0xC67A, 0x0, 0x1F, 0xFFFF, 0xD71C, 0x8C92 } }, // RGB_565
+        { { 0xFFFF, 0xC675, 0xFFFF, 0x8421, 0x4211, 0x1, 0xD739, 0x8421, 0xFFFF, 0xD739, 0xC675, 0x1, 0x3F, 0xFFFF, 0xD739, 0x8CA5 } }, // RGBA_5551
+        { { 0xFFFFFF, 0xC8D0D4, 0xFFFFFF, 0x808080, 0x404040, 0x0, 0xD6E3E7, 0x808080, 0xFFFFFF, 0xD6E3E7, 0xC8D0D4, 0x0, 0xFF, 0xFFFFFF, 0xD6E3E7, 0x8C9294 } }, // RGB_888
+        { { 0xFFFFFFFF, 0xC8D0D4FF, 0xFFFFFFFF, 0x808080FF, 0x404040FF, 0xFF, 0xD6E3E7FF, 0x808080FF, 0xFFFFFFFF, 0xD6E3E7FF, 0xC8D0D4FF, 0xFF, 0xFFFF, 0xFFFFFFFF, 0xD6E3E7FF, 0x8C9294FF } }, // RGBA_8888
+        { { 0xFFFFFFFF, 0xFFC8D0D4, 0xFFFFFFFF, 0xFF808080, 0xFF404040, 0xFF000000, 0xFFD6E3E7, 0xFF808080, 0xFFFFFFFF, 0xFFD6E3E7, 0xFFC8D0D4, 0xFF000000, 0xFF0000FF, 0xFFFFFFFF, 0xFFD6E3E7, 0xFF8C9294 } }, // ARGB_8888
+        { { 0xF, 0xFC, 0xF, 0x8, 0xED, 0x0, 0xFE, 0x8, 0xF, 0xFE, 0xFC, 0x0, 0xC, 0xF, 0xFE, 0xF6 } }, // INDEX_8
+    },
+};

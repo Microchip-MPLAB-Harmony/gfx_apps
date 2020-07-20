@@ -55,7 +55,7 @@ static struct
 
 static void nextState(leDrawSurfaceWidget* sfc)
 {
-    switch(sfc->widget.drawState)
+    switch(sfc->widget.status.drawState)
     {
         case NOT_STARTED:
         {
@@ -68,9 +68,9 @@ paintState.alpha = 255;
             }
 #endif
 
-            if(sfc->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
+            if(sfc->widget.style.backgroundType != LE_WIDGET_BACKGROUND_NONE)
             {
-                sfc->widget.drawState = DRAW_BACKGROUND;
+                sfc->widget.status.drawState = DRAW_BACKGROUND;
                 sfc->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBackground;
 
                 return;
@@ -78,7 +78,7 @@ paintState.alpha = 255;
         }
         case DRAW_BACKGROUND:
         {
-            sfc->widget.drawState = DRAW_CALLBACK;
+            sfc->widget.status.drawState = DRAW_CALLBACK;
             sfc->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawCallback;
             
             return;
@@ -87,7 +87,7 @@ paintState.alpha = 255;
         {            
             if(sfc->widget.borderType != LE_WIDGET_BORDER_NONE)
             {
-                sfc->widget.drawState = DRAW_BORDER;
+                sfc->widget.status.drawState = DRAW_BORDER;
                 sfc->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
                 
                 return;
@@ -95,7 +95,7 @@ paintState.alpha = 255;
         }
         case DRAW_BORDER:
         {
-            sfc->widget.drawState = DONE;
+            sfc->widget.status.drawState = DONE;
             sfc->widget.drawFunc = NULL;
         }
     }
@@ -143,19 +143,12 @@ static void drawBorder(leDrawSurfaceWidget* sfc)
 
 void _leDrawSurfaceWidget_Paint(leDrawSurfaceWidget* sfc)
 {
-    if(sfc->widget.scheme == NULL)
-    {
-        sfc->widget.drawState = DONE;
-        
-        return;
-    }
-    
-    if(sfc->widget.drawState == NOT_STARTED)
+    if(sfc->widget.status.drawState == NOT_STARTED)
     {
         nextState(sfc);
     }
     
-    while(sfc->widget.drawState != DONE)
+    while(sfc->widget.status.drawState != DONE)
     {
         sfc->widget.drawFunc((leWidget*)sfc);
         

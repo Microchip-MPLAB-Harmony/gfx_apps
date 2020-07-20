@@ -107,7 +107,7 @@ void DMAC_Initialize( void )
     DMAC_REGS->DMAC_PRICTRL0 = DMAC_PRICTRL0_LVLPRI0(0) | DMAC_PRICTRL0_LVLPRI1(1) | DMAC_PRICTRL0_RRLVLEN1_Msk | DMAC_PRICTRL0_LVLPRI2(1) | DMAC_PRICTRL0_RRLVLEN2_Msk | DMAC_PRICTRL0_LVLPRI3(1) | DMAC_PRICTRL0_RRLVLEN3_Msk;
 
    /***************** Configure DMA channel 0 ********************/
-   DMAC_REGS->CHANNEL[0].DMAC_CHCTRLA = DMAC_CHCTRLA_TRIGACT(0) | DMAC_CHCTRLA_TRIGSRC(0) | DMAC_CHCTRLA_THRESHOLD(0) | DMAC_CHCTRLA_BURSTLEN(0) ;
+   DMAC_REGS->CHANNEL[0].DMAC_CHCTRLA = DMAC_CHCTRLA_TRIGACT(2) | DMAC_CHCTRLA_TRIGSRC(48) | DMAC_CHCTRLA_THRESHOLD(0) | DMAC_CHCTRLA_BURSTLEN(0) ;
 
    descriptor_section[0].DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_INT | DMAC_BTCTRL_BEATSIZE_BYTE | DMAC_BTCTRL_VALID_Msk | DMAC_BTCTRL_SRCINC_Msk | DMAC_BTCTRL_EVOSEL(0x3) ;
 
@@ -251,94 +251,16 @@ bool DMAC_ChannelSettingsSet (DMAC_CHANNEL channel, DMAC_CHANNEL_CONFIG setting)
     return true;
 }
 
-/*******************************************************************************
-    This function handles the DMA interrupt events.
-*/
-void DMAC_0_InterruptHandler( void )
+//*******************************************************************************
+//    Functions to handle DMA interrupt events.
+//*******************************************************************************
+void _DMAC_interruptHandler(uint8_t channel)
 {
     DMAC_CH_OBJECT  *dmacChObj = NULL;
     volatile uint32_t chanIntFlagStatus = 0;
     DMAC_TRANSFER_EVENT event   = DMAC_TRANSFER_EVENT_ERROR;
 
-	dmacChObj = (DMAC_CH_OBJECT *)&dmacChannelObj[0];
-
-    /* Get the DMAC channel interrupt status */
-    chanIntFlagStatus = DMAC_REGS->CHANNEL[0].DMAC_CHINTFLAG;
-
-    /* Verify if DMAC Channel Transfer complete flag is set */
-    if (chanIntFlagStatus & DMAC_CHINTENCLR_TCMPL_Msk)
-    {
-        /* Clear the transfer complete flag */
-        DMAC_REGS->CHANNEL[0].DMAC_CHINTFLAG = DMAC_CHINTENCLR_TCMPL_Msk;
-
-        event = DMAC_TRANSFER_EVENT_COMPLETE;
-        dmacChObj->busyStatus = false;
-    }
-
-    /* Verify if DMAC Channel Error flag is set */
-    if (chanIntFlagStatus & DMAC_CHINTENCLR_TERR_Msk)
-    {
-        /* Clear transfer error flag */
-        DMAC_REGS->CHANNEL[0].DMAC_CHINTFLAG = DMAC_CHINTENCLR_TERR_Msk;
-
-        event = DMAC_TRANSFER_EVENT_ERROR;
-        dmacChObj->busyStatus = false;
-    }
-
-    /* Execute the callback function */
-    if (dmacChObj->callback != NULL)
-    {
-        dmacChObj->callback (event, dmacChObj->context);
-    }
-}
-void DMAC_1_InterruptHandler( void )
-{
-    DMAC_CH_OBJECT  *dmacChObj = NULL;
-    volatile uint32_t chanIntFlagStatus = 0;
-    DMAC_TRANSFER_EVENT event   = DMAC_TRANSFER_EVENT_ERROR;
-
-	dmacChObj = (DMAC_CH_OBJECT *)&dmacChannelObj[1];
-
-    /* Get the DMAC channel interrupt status */
-    chanIntFlagStatus = DMAC_REGS->CHANNEL[1].DMAC_CHINTFLAG;
-
-    /* Verify if DMAC Channel Transfer complete flag is set */
-    if (chanIntFlagStatus & DMAC_CHINTENCLR_TCMPL_Msk)
-    {
-        /* Clear the transfer complete flag */
-        DMAC_REGS->CHANNEL[1].DMAC_CHINTFLAG = DMAC_CHINTENCLR_TCMPL_Msk;
-
-        event = DMAC_TRANSFER_EVENT_COMPLETE;
-        dmacChObj->busyStatus = false;
-    }
-
-    /* Verify if DMAC Channel Error flag is set */
-    if (chanIntFlagStatus & DMAC_CHINTENCLR_TERR_Msk)
-    {
-        /* Clear transfer error flag */
-        DMAC_REGS->CHANNEL[1].DMAC_CHINTFLAG = DMAC_CHINTENCLR_TERR_Msk;
-
-        event = DMAC_TRANSFER_EVENT_ERROR;
-        dmacChObj->busyStatus = false;
-    }
-
-    /* Execute the callback function */
-    if (dmacChObj->callback != NULL)
-    {
-        dmacChObj->callback (event, dmacChObj->context);
-    }
-}
-void DMAC_OTHER_InterruptHandler( void )
-{
-    DMAC_CH_OBJECT  *dmacChObj = NULL;
-    uint8_t channel = 0;
-    volatile uint32_t chanIntFlagStatus = 0;
-    DMAC_TRANSFER_EVENT event   = DMAC_TRANSFER_EVENT_ERROR;
-
-    /* Get active channel number */
-    channel =  DMAC_REGS->DMAC_INTPEND & DMAC_INTPEND_ID_Msk;
-
-	dmacChObj = (DMAC_CH_OBJECT *)&dmacChannelObj[channel];
+    dmacChObj = (DMAC_CH_OBJECT *)&dmacChannelObj[channel];
 
     /* Get the DMAC channel interrupt status */
     chanIntFlagStatus = DMAC_REGS->CHANNEL[channel].DMAC_CHINTFLAG;
@@ -369,3 +291,14 @@ void DMAC_OTHER_InterruptHandler( void )
         dmacChObj->callback (event, dmacChObj->context);
     }
 }
+
+
+void DMAC_0_InterruptHandler( void )
+{
+	_DMAC_interruptHandler(0);
+}
+
+
+
+
+

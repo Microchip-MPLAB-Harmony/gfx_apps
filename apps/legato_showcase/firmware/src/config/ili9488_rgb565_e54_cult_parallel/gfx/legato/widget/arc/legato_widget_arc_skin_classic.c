@@ -56,7 +56,7 @@ static void drawBorder(leArcWidget* arc);
 
 static void nextState(leArcWidget* arc)
 {
-    switch(arc->widget.drawState)
+    switch(arc->widget.status.drawState)
     {
         case NOT_STARTED:
         {
@@ -69,34 +69,36 @@ static void nextState(leArcWidget* arc)
             }
 #endif
             
-            if(arc->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
+            if(arc->widget.style.backgroundType != LE_WIDGET_BACKGROUND_NONE)
             {
-                arc->widget.drawState = DRAW_BACKGROUND;
+                arc->widget.status.drawState = DRAW_BACKGROUND;
                 arc->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBackground;
 
                 return;
             }
         }
+        // fall through
         case DRAW_BACKGROUND:
         {
-            arc->widget.drawState = DRAW_ARC;
+            arc->widget.status.drawState = DRAW_ARC;
             arc->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawArc;
     
             return;
         }
         case DRAW_ARC:
         {            
-            if(arc->widget.borderType != LE_WIDGET_BORDER_NONE)
+            if(arc->widget.style.borderType != LE_WIDGET_BORDER_NONE)
             {
                 arc->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
-                arc->widget.drawState = DRAW_BORDER;
+                arc->widget.status.drawState = DRAW_BORDER;
                 
                 return;
             }
         }
+        // fall through
         case DRAW_BORDER:
         {
-            arc->widget.drawState = DONE;
+            arc->widget.status.drawState = DONE;
             arc->widget.drawFunc = NULL;
         }
     }
@@ -112,7 +114,7 @@ static void drawBackground(leArcWidget* arc)
 //Returns the relative position of the midpoint in the arc
 static lePoint _leArcWidget_GetMidPointAtAngle(leArcWidget* arc, int32_t angle)
 {
-    lePoint point, arcCenterPoint;
+    lePoint point;
     
     while (angle < 0)
     {
@@ -124,15 +126,15 @@ static lePoint _leArcWidget_GetMidPointAtAngle(leArcWidget* arc, int32_t angle)
         angle -= 360;
     }
     
-    arcCenterPoint.x = arc->widget.rect.width/2;
-    arcCenterPoint.y = arc->widget.rect.height/2;
+    //arcCenterPoint.x = arc->widget.rect.width/2;
+    //arcCenterPoint.y = arc->widget.rect.height/2;
     
-    leUtils_PointToScreenSpace((leWidget*)arc, &arcCenterPoint);
+    //leUtils_PointToScreenSpace((leWidget*)arc, &arcCenterPoint);
     
-    lePolarToXY(arc->radius - (arc->thickness/2), angle, &point);
+    lePolarToXY(arc->radius, angle, &point);
 
-    point.x = arcCenterPoint.x + point.x;
-    point.y = arcCenterPoint.y - point.y;
+    //point.x = arcCenterPoint.x + point.x;
+    //point.y = arcCenterPoint.y + point.y;
     
     return point;
 }
@@ -141,58 +143,69 @@ static void drawArc(leArcWidget* arc)
 {
     lePoint p;
     leRect arcRect;
+    leRect tipRect;
+    lePoint center;
 
-    p.x = 0;
-    p.y = 0;
+    p.x = arc->widget.rect.width / 2;
+    p.y = arc->widget.rect.width / 2;
+
+    center.x = arc->widget.rect.width / 2;
+    center.y = arc->widget.rect.height / 2;
 
     leUtils_PointToScreenSpace((leWidget*)arc, &p);
 
-    arcRect.x = p.x;
-    arcRect.y = p.y;
+    arcRect.x = p.x - arc->radius;
+    arcRect.y = p.y - arc->radius;
     arcRect.width = arc->radius * 2;
     arcRect.height = arc->radius * 2;
 
-    p.x = arc->widget.rect.width / 2;
-    p.y = arc->widget.rect.height / 2;
-
     leRenderer_ArcFill(&arcRect,
-                       p.x,
-                       p.y,
-                       arc->radius,
                        arc->startAngle,
                        arc->centerAngle,
                        arc->thickness,
-                       arc->widget.scheme->foreground,
+                       leScheme_GetRenderColor(arc->widget.scheme, LE_SCHM_FOREGROUND),
                        LE_FALSE,
                        paintState.alpha);
-    
+
     //Draw the edges
     if (arc->roundEdge == LE_TRUE)
     {
         lePoint point = _leArcWidget_GetMidPointAtAngle(arc, arc->startAngle);
-        
-        leRenderer_ArcFill(&arcRect,
-                           point.x,
-                           point.y,
-                           arc->thickness / 2,
+        point.y *= -1;
+
+        leUtils_PointToScreenSpace((leWidget*)arc, &point);
+
+        tipRect.x = center.x + point.x;
+        tipRect.y = center.y + point.y;
+
+        tipRect.x -= arc->thickness / 4;
+        tipRect.y -= arc->thickness / 4;
+        tipRect.width = arc->thickness / 2;
+        tipRect.height = arc->thickness / 2;
+
+        leRenderer_ArcFill(&tipRect,
                            0,
                            360,
                            arc->thickness / 2,
-                           arc->widget.scheme->foreground,
+                           leScheme_GetRenderColor(arc->widget.scheme, LE_SCHM_FOREGROUND),
                            LE_FALSE,
                            paintState.alpha);
         
-        point = _leArcWidget_GetMidPointAtAngle(arc,
-                                                arc->startAngle + arc->centerAngle);
-        
-        leRenderer_ArcFill(&arcRect,
-                           point.x,
-                           point.y,
-                           arc->thickness / 2,
+        point = _leArcWidget_GetMidPointAtAngle(arc, arc->centerAngle);
+        point.y *= -1;
+
+        leUtils_PointToScreenSpace((leWidget*)arc, &point);
+
+        tipRect.x = center.x + point.x;
+        tipRect.y = center.y + point.y;
+        tipRect.x -= arc->thickness / 4;
+        tipRect.y -= arc->thickness / 4;
+
+        leRenderer_ArcFill(&tipRect,
                            0,
                            360,
                            arc->thickness / 2,
-                           arc->widget.scheme->foreground,
+                           leScheme_GetRenderColor(arc->widget.scheme, LE_SCHM_FOREGROUND),
                            LE_FALSE,
                            paintState.alpha);
     }
@@ -202,12 +215,12 @@ static void drawArc(leArcWidget* arc)
 
 static void drawBorder(leArcWidget* arc)
 {    
-    if(arc->widget.borderType == LE_WIDGET_BORDER_LINE)
+    if(arc->widget.style.borderType == LE_WIDGET_BORDER_LINE)
     {
         leWidget_SkinClassic_DrawStandardLineBorder((leWidget *) arc,
                                                     paintState.alpha);
     }
-    else if(arc->widget.borderType == LE_WIDGET_BORDER_BEVEL)
+    else if(arc->widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget *) arc,
                                                       paintState.alpha);
@@ -218,19 +231,12 @@ static void drawBorder(leArcWidget* arc)
 
 void _leArcWidget_Paint(leArcWidget* arc)
 {
-    if(arc->widget.scheme == NULL)
-    {
-        arc->widget.drawState = DONE;
-        
-        return;
-    }
-    
-    if(arc->widget.drawState == NOT_STARTED)
+    if(arc->widget.status.drawState == NOT_STARTED)
     {
         nextState(arc);
     }
 
-    while(arc->widget.drawState != DONE)
+    while(arc->widget.status.drawState != DONE)
     {
         arc->widget.drawFunc((leWidget*)arc);
         

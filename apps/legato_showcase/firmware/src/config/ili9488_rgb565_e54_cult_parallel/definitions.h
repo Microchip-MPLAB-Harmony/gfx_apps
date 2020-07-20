@@ -54,18 +54,23 @@
 #include "peripheral/port/plib_port.h"
 #include "peripheral/clock/plib_clock.h"
 #include "peripheral/nvic/plib_nvic.h"
+#include "peripheral/dmac/plib_dmac.h"
 #include "peripheral/cmcc/plib_cmcc.h"
 #include "peripheral/sercom/i2c_master/plib_sercom4_i2c_master.h"
 #include "bsp/bsp.h"
+#include "peripheral/tc/plib_tc1.h"
 #include "peripheral/tc/plib_tc0.h"
 #include "driver/i2c/drv_i2c.h"
 #include "system/time/sys_time.h"
+#include "peripheral/tc/plib_tc4.h"
 #include "system/input/sys_input.h"
-#include "gfx/driver/controller/ili9488/drv_gfx_ili9488.h"
+#include "peripheral/ccl/plib_ccl.h"
+#include "gfx/driver/controller/external_controller/drv_gfx_external_controller.h"
 #include "driver/input/drv_maxtouch.h"
 #include "system/int/sys_int.h"
 #include "system/cache/sys_cache.h"
 #include "osal/osal.h"
+#include "system/debug/sys_debug.h"
 #include "app.h"
 
 
@@ -128,27 +133,27 @@ void SYS_Initialize( void *data );
 // *****************************************************************************
 /* System Tasks Function
 
-  Function:
+Function:
     void SYS_Tasks ( void );
 
-  Summary:
+Summary:
     Function that performs all polled system tasks.
 
-  Description:
+Description:
     This function performs all polled system tasks by calling the state machine
     "tasks" functions for all polled modules in the system, including drivers,
     services, middleware and applications.
 
-  Precondition:
+Precondition:
     The SYS_Initialize function must have been called and completed.
 
-  Parameters:
+Parameters:
     None.
 
-  Returns:
+Returns:
     None.
 
-  Example:
+Example:
     <code>
     SYS_Initialize ( NULL );
 
@@ -158,7 +163,7 @@ void SYS_Initialize( void *data );
     }
     </code>
 
-  Remarks:
+Remarks:
     If the module is interrupt driven, the system will call this routine from
     an interrupt context.
 */
@@ -170,22 +175,22 @@ void SYS_Tasks ( void );
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
-
+    
 // *****************************************************************************
 /* System Objects
-
-  Summary:
+        
+Summary:
     Structure holding the system's object handles
-
-  Description:
+        
+Description:
     This structure contains the object handles for all objects in the
     MPLAB Harmony project's system configuration.
-
-  Remarks:
+        
+Remarks:
     These handles are returned from the "Initialize" functions for each module
     and must be passed into the "Tasks" function for each module.
 */
-
+        
 typedef struct
 {
     /* I2C0 Driver Object */
@@ -196,7 +201,6 @@ typedef struct
 
 
 } SYSTEM_OBJECTS;
-
 
 // *****************************************************************************
 // *****************************************************************************

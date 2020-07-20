@@ -76,7 +76,7 @@ lePoint _leLineGraphWidget_GetOriginPoint(const leLineGraphWidget* _this);
 
 static void nextState(leLineGraphWidget* graph)
 {
-    switch(graph->widget.drawState)
+    switch(graph->widget.status.drawState)
     {
         case NOT_STARTED:
         {
@@ -89,9 +89,9 @@ static void nextState(leLineGraphWidget* graph)
             }
 #endif
             
-            if(graph->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
+            if(graph->widget.style.backgroundType != LE_WIDGET_BACKGROUND_NONE)
             {
-                graph->widget.drawState = DRAW_BACKGROUND;
+                graph->widget.status.drawState = DRAW_BACKGROUND;
                 graph->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBackground;
 
                 return;
@@ -99,7 +99,7 @@ static void nextState(leLineGraphWidget* graph)
         }
         case DRAW_BACKGROUND:
         {
-            graph->widget.drawState = DRAW_LINE_GRAPH;
+            graph->widget.status.drawState = DRAW_LINE_GRAPH;
             graph->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawLineGraph;
     
             return;
@@ -107,23 +107,23 @@ static void nextState(leLineGraphWidget* graph)
         case DRAW_LINE_GRAPH:
         {            
             graph->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawString;
-            graph->widget.drawState = DRAW_STRING;
+            graph->widget.status.drawState = DRAW_STRING;
             
             return;
         }
         case DRAW_STRING:
         {
-            if(graph->widget.borderType != LE_WIDGET_BORDER_NONE)
+            if(graph->widget.style.borderType != LE_WIDGET_BORDER_NONE)
             {
                 graph->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
-                graph->widget.drawState = DRAW_BORDER;
+                graph->widget.status.drawState = DRAW_BORDER;
                 
                 return;
             }
         }
         case DRAW_BORDER:
         {
-            graph->widget.drawState = DONE;
+            graph->widget.status.drawState = DONE;
             graph->widget.drawFunc = NULL;
         }
     }
@@ -300,7 +300,7 @@ static void drawSeriesPoint(leLineGraphDataSeries* series,
                                0,
                                360,
                                thk,
-                               series->scheme->foreground,
+                               leScheme_GetRenderColor(series->scheme, LE_SCHM_FOREGROUND),
                                LE_FALSE,
                                paintState.alpha);
 
@@ -316,13 +316,13 @@ static void drawSeriesPoint(leLineGraphDataSeries* series,
             if (series->fillPoints == LE_TRUE)
             {
                 leRenderer_RectFill(&rect,
-                                    series->scheme->foreground,
+                                    leScheme_GetRenderColor(series->scheme, LE_SCHM_FOREGROUND),
                                     paintState.alpha);
             }
             else
             {
                 leRenderer_RectLine(&rect,
-                                    series->scheme->foreground,
+                                    leScheme_GetRenderColor(series->scheme, LE_SCHM_FOREGROUND),
                                     paintState.alpha);
             }
 
@@ -451,7 +451,7 @@ void _leLineGraphWidget_GetGraphRect(const leLineGraphWidget* graph,
 static void fillBase(leLineGraphWidget* graph)
 {
     leRenderer_RectFill(&paintState.rect,
-                        graph->widget.scheme->background,
+                        leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_BACKGROUND),
                         paintState.alpha);
 }
 
@@ -464,13 +464,13 @@ static void drawValueAxisTickBorders(leLineGraphWidget* graph)
             leRenderer_HorzLine(paintState.rect.x - graph->tickLength,
                                 paintState.rect.y,
                                 paintState.rect.width,
-                                graph->widget.scheme->foreground,
+                                leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_FOREGROUND),
                                 paintState.alpha);
                                 
             leRenderer_HorzLine(paintState.rect.x - graph->tickLength,
                                 paintState.rect.y + paintState.rect.height,
                                 paintState.rect.width,
-                                graph->widget.scheme->foreground,
+                                leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_FOREGROUND),
                                 paintState.alpha);
 
             break;
@@ -480,13 +480,13 @@ static void drawValueAxisTickBorders(leLineGraphWidget* graph)
             leRenderer_HorzLine(paintState.rect.x - graph->tickLength / 2,
                                 paintState.rect.y,
                                 paintState.rect.width,
-                                graph->widget.scheme->foreground,
+                                leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_FOREGROUND),
                                 paintState.alpha);
                                 
             leRenderer_HorzLine(paintState.rect.x - graph->tickLength / 2,
                                 paintState.rect.y + paintState.rect.height,
                                 paintState.rect.width,
-                                graph->widget.scheme->foreground,
+                                leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_FOREGROUND),
                                 paintState.alpha);
                                 
             break;
@@ -527,7 +527,7 @@ static void drawMinMaxLabels(leLineGraphWidget* graph)
                            drawPoint,
                            LE_RELATIVE_POSITION_LEFTOF,
                            graph->maxValue,
-                           graph->widget.scheme->text);
+                           leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_TEXT));
 
     drawPoint.y = paintState.rect.y + paintState.rect.height;
     
@@ -535,7 +535,7 @@ static void drawMinMaxLabels(leLineGraphWidget* graph)
                            drawPoint,
                            LE_RELATIVE_POSITION_LEFTOF,
                            graph->minValue,
-                           graph->widget.scheme->text);
+                           leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_TEXT));
 }
 
 static void drawTicks(leLineGraphWidget* graph)
@@ -597,7 +597,7 @@ static void drawTicks(leLineGraphWidget* graph)
                 leRenderer_HorzLine(drawPoint.x,
                                     drawPoint.y,
                                     drawEndPoint.x - drawPoint.x,
-                                    graph->widget.scheme->foreground,
+                                    leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_FOREGROUND),
                                     paintState.alpha);
 
                 if (graph->valueAxisLabelsVisible)
@@ -606,7 +606,7 @@ static void drawTicks(leLineGraphWidget* graph)
                                            drawPoint,
                                            LE_RELATIVE_POSITION_LEFTOF,
                                            value,
-                                           graph->widget.scheme->text);
+                                           leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_TEXT));
                 }
             }
         }
@@ -628,7 +628,7 @@ static void drawTicks(leLineGraphWidget* graph)
                 leRenderer_HorzLine(drawPoint.x,
                                     drawPoint.y,
                                     drawEndPoint.x - drawPoint.x,
-                                    graph->widget.scheme->foreground,
+                                    leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_FOREGROUND),
                                     paintState.alpha);
             
                 if (graph->valueAxisLabelsVisible)
@@ -637,7 +637,7 @@ static void drawTicks(leLineGraphWidget* graph)
                                            drawPoint,
                                            LE_RELATIVE_POSITION_LEFTOF,
                                            value,
-                                           graph->widget.scheme->text);
+                                           leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_TEXT));
                 }
             }
         }
@@ -757,7 +757,7 @@ static void drawStackedFills(leLineGraphWidget* graph)
                            series,
                            categoryIndex,
                            prevPoint,
-                           series->scheme->base);
+                           leScheme_GetRenderColor(series->scheme, LE_SCHM_BASE));
             }
 
             category->stackValue = topValue;
@@ -835,7 +835,7 @@ static void drawUnstackedFills(leLineGraphWidget* graph)
                                             scanPoint.y,
                                             scanPoint.x,
                                             paintState.originPoint.y,
-                                            series->scheme->base,
+                                            leScheme_GetRenderColor(series->scheme, LE_SCHM_BASE),
                                             paintState.alpha);
 
                         scanPoint.x++;
@@ -887,7 +887,7 @@ static void drawOriginLine(leLineGraphWidget* graph)
                             drawPoint.y,
                             paintState.rect.x + paintState.rect.width,
                             drawPoint.y,
-                            graph->widget.scheme->foreground,
+                            leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_FOREGROUND),
                             paintState.alpha);
     }
     else
@@ -896,7 +896,7 @@ static void drawOriginLine(leLineGraphWidget* graph)
                             drawPoint.y,
                             paintState.rect.x + paintState.rect.width,
                             drawPoint.y,
-                            graph->widget.scheme->foreground,
+                            leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_FOREGROUND),
                             paintState.alpha);
     }
 
@@ -906,7 +906,7 @@ static void drawOriginLine(leLineGraphWidget* graph)
                                drawPoint,
                                LE_RELATIVE_POSITION_LEFTOF,
                                paintState.originValue,
-                               graph->widget.scheme->text);
+                               leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_TEXT));
     }
 }
 
@@ -961,7 +961,7 @@ static void drawCategoryTicks(leLineGraphWidget* graph)
         leRenderer_VertLine(drawPoint.x,
                             drawPoint.y,
                             length,
-                            graph->widget.scheme->foreground,
+                            leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_FOREGROUND),
                             paintState.alpha);
     }
 }
@@ -1007,7 +1007,7 @@ static void drawSubTicks(leLineGraphWidget* graph)
             leRenderer_HorzLine(drawPoint.x,
                                 drawPoint.y,
                                 subTickLength,
-                                graph->widget.scheme->foreground,
+                                leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_FOREGROUND),
                                 paintState.alpha);
         }               
     }
@@ -1026,7 +1026,7 @@ static void drawSubTicks(leLineGraphWidget* graph)
             leRenderer_HorzLine(drawPoint.x,
                                 drawPoint.y,
                                 subTickLength,
-                                graph->widget.scheme->foreground,
+                                leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_FOREGROUND),
                                 paintState.alpha);
         }              
     }
@@ -1038,25 +1038,25 @@ static void drawBorders(leLineGraphWidget* graph)
     leRenderer_VertLine(paintState.rect.x,
                         paintState.rect.y,
                         paintState.rect.height,
-                        graph->widget.scheme->foreground,
+                        leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_FOREGROUND),
                         paintState.alpha);
                         
     leRenderer_VertLine(paintState.rect.x + paintState.rect.width,
                         paintState.rect.y,
                         paintState.rect.height,
-                        graph->widget.scheme->foreground,
+                        leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_FOREGROUND),
                         paintState.alpha);
     
     leRenderer_HorzLine(paintState.rect.x,
                         paintState.rect.y,
                         paintState.rect.width,
-                        graph->widget.scheme->foreground,
+                        leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_FOREGROUND),
                         paintState.alpha);
                         
     leRenderer_HorzLine(paintState.rect.x,
                         paintState.rect.y + paintState.rect.height,
                         paintState.rect.width,
-                        graph->widget.scheme->foreground,
+                        leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_FOREGROUND),
                         paintState.alpha);
 }
 
@@ -1164,7 +1164,7 @@ static void drawStackedLines(leLineGraphWidget* graph)
                                         start.y,
                                         end.x,
                                         end.y,
-                                        series->scheme->foreground,
+                                        leScheme_GetRenderColor(series->scheme, LE_SCHM_FOREGROUND),
                                         paintState.alpha);
                 }
             }
@@ -1264,7 +1264,7 @@ static void drawUnstackedLines(leLineGraphWidget* graph)
                                         start.y,
                                         end.x,
                                         end.y,
-                                        series->scheme->foreground,
+                                        leScheme_GetRenderColor(series->scheme, LE_SCHM_FOREGROUND),
                                         paintState.alpha);
                 }
             }
@@ -1454,7 +1454,7 @@ static void onStringStreamFinished(leStreamManager* strm)
 {
     leLineGraphWidget* graph = (leLineGraphWidget*)strm->userData;
 
-    graph->widget.drawState = DRAW_STRING;
+    graph->widget.status.drawState = DRAW_STRING;
 
     nextState(graph);
 }
@@ -1488,7 +1488,7 @@ static void drawString(leLineGraphWidget* graph)
                                       textRect.x,
                                       textRect.y,
                                       LE_HALIGN_CENTER,
-                                      graph->widget.scheme->text,
+                                      leScheme_GetRenderColor(graph->widget.scheme, LE_SCHM_TEXT),
                                       paintState.alpha);
 
 #if LE_STREAMING_ENABLED == 1
@@ -1497,7 +1497,7 @@ static void drawString(leLineGraphWidget* graph)
                 leGetActiveStream()->onDone = onStringStreamFinished;
                 leGetActiveStream()->userData = graph;
 
-                graph->widget.drawState = WAIT_STRING;
+                graph->widget.status.drawState = WAIT_STRING;
 
                 return;
             }
@@ -1510,12 +1510,12 @@ static void drawString(leLineGraphWidget* graph)
 
 static void drawBorder(leLineGraphWidget* graph)
 {    
-    if(graph->widget.borderType == LE_WIDGET_BORDER_LINE)
+    if(graph->widget.style.borderType == LE_WIDGET_BORDER_LINE)
     {
         leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)graph,
                                                     paintState.alpha);
     }
-    else if(graph->widget.borderType == LE_WIDGET_BORDER_BEVEL)
+    else if(graph->widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)graph,
                                                       paintState.alpha);
@@ -1526,17 +1526,10 @@ static void drawBorder(leLineGraphWidget* graph)
 
 void _leLineGraphWidget_Paint(leLineGraphWidget* graph)
 {
-    if(graph->widget.scheme == NULL)
-    {
-        graph->widget.drawState = DONE;
-        
-        return;
-    }
-    
-    if(graph->widget.drawState == NOT_STARTED)
+    if(graph->widget.status.drawState == NOT_STARTED)
         nextState(graph);
     
-    while(graph->widget.drawState != DONE)
+    while(graph->widget.status.drawState != DONE)
     {
         graph->widget.drawFunc((leWidget*)graph);
         
@@ -1545,7 +1538,7 @@ void _leLineGraphWidget_Paint(leLineGraphWidget* graph)
 #endif
 
 #if LE_STREAMING_ENABLED == 1
-        if(graph->widget.drawState == WAIT_STRING)
+        if(graph->widget.status.drawState == WAIT_STRING)
             break;
 #endif
     }

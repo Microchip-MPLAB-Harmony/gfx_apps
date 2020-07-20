@@ -78,7 +78,7 @@ void _leGroupBoxWidget_GetTextRect(const leGroupBoxWidget* box,
     leUtils_ArrangeRectangleRelative(textRect,
                                      leRect_Zero,
                                      bounds,
-                                     box->widget.halign,
+                                     box->widget.style.halign,
                                      LE_VALIGN_TOP,
                                      0,
                                      0,
@@ -101,7 +101,7 @@ static void drawBorder(leGroupBoxWidget* box);
 
 static void nextState(leGroupBoxWidget* box)
 {
-    switch(box->widget.drawState)
+    switch(box->widget.status.drawState)
     {
         case NOT_STARTED:
         {
@@ -114,9 +114,9 @@ static void nextState(leGroupBoxWidget* box)
             }
 #endif
             
-            if(box->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
+            if(box->widget.style.backgroundType != LE_WIDGET_BACKGROUND_NONE)
             {
-                box->widget.drawState = DRAW_BACKGROUND;
+                box->widget.status.drawState = DRAW_BACKGROUND;
                 box->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBackground;
 
                 return;
@@ -124,7 +124,7 @@ static void nextState(leGroupBoxWidget* box)
         }
         case DRAW_BACKGROUND:
         {
-            box->widget.drawState = DRAW_OUTLINE;
+            box->widget.status.drawState = DRAW_OUTLINE;
             box->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawOutline;
 
             return;
@@ -133,7 +133,7 @@ static void nextState(leGroupBoxWidget* box)
         {            
             if(box->string != NULL)
             {
-                box->widget.drawState = DRAW_STRING;
+                box->widget.status.drawState = DRAW_STRING;
                 box->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawString;
 
                 return;
@@ -141,17 +141,17 @@ static void nextState(leGroupBoxWidget* box)
         }
         case DRAW_STRING:
         {
-            if(box->widget.borderType != LE_WIDGET_BORDER_NONE)
+            if(box->widget.style.borderType != LE_WIDGET_BORDER_NONE)
             {
                 box->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
-                box->widget.drawState = DRAW_BORDER;
+                box->widget.status.drawState = DRAW_BORDER;
                 
                 return;
             }
         }
         case DRAW_BORDER:
         {
-            box->widget.drawState = DONE;
+            box->widget.status.drawState = DONE;
             box->widget.drawFunc = NULL;
         }
     }
@@ -219,7 +219,7 @@ static void drawOutline(leGroupBoxWidget* box)
              top,
              widgetRect.x + OUTLINE_SPACE,
              bottom,
-             box->widget.scheme->shadow,
+             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_SHADOW),
              paintState.alpha);
     
     // right inner line
@@ -228,7 +228,7 @@ static void drawOutline(leGroupBoxWidget* box)
              top,
              widgetRect.x + box->widget.rect.width - OUTLINE_SPACE - 2,
              bottom - 1,
-             box->widget.scheme->shadow,
+             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_SHADOW),
              paintState.alpha);
              
     // left inner line
@@ -237,7 +237,7 @@ static void drawOutline(leGroupBoxWidget* box)
              top + 1,
              widgetRect.x + OUTLINE_SPACE + 1,
              bottom - 1,
-             box->widget.scheme->highlightLight,
+             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_HIGHLIGHTLIGHT),
              paintState.alpha);
              
     // right outer line
@@ -246,10 +246,10 @@ static void drawOutline(leGroupBoxWidget* box)
              top,
              widgetRect.x + box->widget.rect.width - OUTLINE_SPACE - 1,
              bottom,
-             box->widget.scheme->highlightLight,
+             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_HIGHLIGHTLIGHT),
              paintState.alpha);
              
-    if(box->widget.halign == LE_HALIGN_LEFT)
+    if(box->widget.style.halign == LE_HALIGN_LEFT)
     {   
         left = OUTLINE_SPACE * 3;
         right = left + textRect.width + 1;
@@ -259,7 +259,7 @@ static void drawOutline(leGroupBoxWidget* box)
             right = box->widget.rect.width - OUTLINE_SPACE * 3;
         }
     }
-    else if(box->widget.halign == LE_HALIGN_CENTER)
+    else if(box->widget.style.halign == LE_HALIGN_CENTER)
     {
         left = box->widget.rect.width / 2 - textRect.width / 2 - 2;
         right = left + textRect.width + 3;
@@ -285,7 +285,7 @@ static void drawOutline(leGroupBoxWidget* box)
              top,
              left,
              top,
-             box->widget.scheme->shadow,
+             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_SHADOW),
              paintState.alpha);
              
     // top outer line right segment
@@ -294,7 +294,7 @@ static void drawOutline(leGroupBoxWidget* box)
              top,
              widgetRect.x + widgetRect.width - OUTLINE_SPACE * 2,
              top,
-             box->widget.scheme->shadow,
+             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_SHADOW),
              paintState.alpha);
                  
     // bottom inner line
@@ -303,7 +303,7 @@ static void drawOutline(leGroupBoxWidget* box)
              bottom - 1,
              widgetRect.x + widgetRect.width - (OUTLINE_SPACE * 2),
              bottom - 1,
-             box->widget.scheme->shadow,
+             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_SHADOW),
              paintState.alpha);
              
     // top inner line left segment
@@ -312,7 +312,7 @@ static void drawOutline(leGroupBoxWidget* box)
              top + 1,
              left,
              top + 1,
-             box->widget.scheme->highlightLight,
+             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_HIGHLIGHTLIGHT),
              paintState.alpha);
              
     // top inner line right segment
@@ -321,7 +321,7 @@ static void drawOutline(leGroupBoxWidget* box)
              top + 1,
              widgetRect.x + widgetRect.width - (OUTLINE_SPACE * 2) - 1,
              top + 1,
-             box->widget.scheme->highlightLight,
+             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_HIGHLIGHTLIGHT),
              paintState.alpha);
              
     // bottom outer line
@@ -330,7 +330,7 @@ static void drawOutline(leGroupBoxWidget* box)
              bottom,
              widgetRect.x + widgetRect.width - (OUTLINE_SPACE * 2),
              bottom,
-             box->widget.scheme->highlightLight,
+             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_HIGHLIGHTLIGHT),
              paintState.alpha);
            
     nextState(box);
@@ -341,7 +341,7 @@ static void onStringStreamFinished(leStreamManager* strm)
 {
     leGroupBoxWidget* box = (leGroupBoxWidget*)strm->userData;
 
-    box->widget.drawState = DRAW_STRING;
+    box->widget.status.drawState = DRAW_STRING;
 
     nextState(box);
 }
@@ -356,8 +356,8 @@ static void drawString(leGroupBoxWidget* box)
     box->string->fn->_draw(box->string,
                            textRect.x,
                            textRect.y,
-                           box->widget.halign,
-                           box->widget.scheme->text,
+                           box->widget.style.halign,
+                           leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_TEXT),
                            paintState.alpha);
 
 #if LE_STREAMING_ENABLED == 1
@@ -366,7 +366,7 @@ static void drawString(leGroupBoxWidget* box)
         leGetActiveStream()->onDone = onStringStreamFinished;
         leGetActiveStream()->userData = box;
 
-        box->widget.drawState = WAIT_STRING;
+        box->widget.status.drawState = WAIT_STRING;
 
         return;
     }
@@ -377,12 +377,12 @@ static void drawString(leGroupBoxWidget* box)
 
 static void drawBorder(leGroupBoxWidget* box)
 {
-    if(box->widget.borderType == LE_WIDGET_BORDER_LINE)
+    if(box->widget.style.borderType == LE_WIDGET_BORDER_LINE)
     {
         leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)box,
                                                     paintState.alpha);
     }
-    else if(box->widget.borderType == LE_WIDGET_BORDER_BEVEL)
+    else if(box->widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)box,
                                                       paintState.alpha);
@@ -393,19 +393,12 @@ static void drawBorder(leGroupBoxWidget* box)
 
 void _leGroupBoxWidget_Paint(leGroupBoxWidget* box)
 {
-    if(box->widget.scheme == NULL)
-    {
-        box->widget.drawState = DONE;
-        
-        return;
-    }
-    
-    if(box->widget.drawState == NOT_STARTED)
+    if(box->widget.status.drawState == NOT_STARTED)
     {
         nextState(box);
     }
     
-    while(box->widget.drawState != DONE)
+    while(box->widget.status.drawState != DONE)
     {
         box->widget.drawFunc((leWidget*)box);
         
@@ -414,7 +407,7 @@ void _leGroupBoxWidget_Paint(leGroupBoxWidget* box)
 #endif
         
 #if LE_STREAMING_ENABLED == 1
-        if(box->widget.drawState == WAIT_STRING)
+        if(box->widget.status.drawState == WAIT_STRING)
             break;
 #endif
     }

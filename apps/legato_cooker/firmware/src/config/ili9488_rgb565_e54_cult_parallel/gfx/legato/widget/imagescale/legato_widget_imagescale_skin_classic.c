@@ -187,7 +187,7 @@ static void drawBorder(leImageScaleWidget* img);
 
 static void nextState(leImageScaleWidget* img)
 {
-    switch(img->widget.drawState)
+    switch(img->widget.status.drawState)
     {
         case NOT_STARTED:
         {
@@ -200,9 +200,9 @@ static void nextState(leImageScaleWidget* img)
             }
 #endif
             
-            if(img->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
+            if(img->widget.style.backgroundType != LE_WIDGET_BACKGROUND_NONE)
             {
-                img->widget.drawState = DRAW_BACKGROUND;
+                img->widget.status.drawState = DRAW_BACKGROUND;
                 img->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBackground;
 
                 return;
@@ -212,7 +212,7 @@ static void nextState(leImageScaleWidget* img)
         {
             if(img->image != NULL)
             {
-                img->widget.drawState = DRAW_IMAGE;
+                img->widget.status.drawState = DRAW_IMAGE;
                 img->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawImage;
 
                 return;
@@ -223,7 +223,7 @@ static void nextState(leImageScaleWidget* img)
             if(img->widget.borderType != LE_WIDGET_BORDER_NONE)
             {
                 img->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
-                img->widget.drawState = DRAW_BORDER;
+                img->widget.status.drawState = DRAW_BORDER;
                 
                 return;
             }
@@ -231,7 +231,7 @@ static void nextState(leImageScaleWidget* img)
         case DRAW_BORDER:
         {           
             
-            img->widget.drawState = DONE;
+            img->widget.status.drawState = DONE;
             img->widget.drawFunc = NULL;
         }
     }
@@ -283,19 +283,12 @@ static void drawBorder(leImageScaleWidget* img)
 
 void _leImageScaleWidget_Paint(leImageScaleWidget* img)
 {
-    if(img->widget.scheme == NULL)
-    {
-        img->widget.drawState = DONE;
-        
-        return;
-    }
-    
-    if(img->widget.drawState == NOT_STARTED)
+    if(img->widget.status.drawState == NOT_STARTED)
     {
         nextState(img);
     }
     
-    while(img->widget.drawState != DONE)
+    while(img->widget.status.drawState != DONE)
     {
         img->widget.drawFunc((leWidget*)img);
         
