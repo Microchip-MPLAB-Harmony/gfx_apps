@@ -101,7 +101,7 @@ static void _setCursorFromPoint(leTextFieldWidget* _this,
     leUtils_ArrangeRectangleRelative(&textRect,
                                      leRect_Zero,
                                      widgetRect,
-                                     _this->editWidget.widget.halign,
+                                     _this->editWidget.widget.style.halign,
                                      LE_VALIGN_MIDDLE,
                                      0,
                                      _this->editWidget.widget.margin.left,
@@ -158,7 +158,7 @@ void leTextFieldWidget_Constructor(leTextFieldWidget* _this)
     leDynamicString_Constructor(&_this->text);
     _this->hintText = NULL;
     
-    _this->editWidget.widget.halign = LE_HALIGN_LEFT;
+    _this->editWidget.widget.style.halign = LE_HALIGN_LEFT;
     _this->cursorPos = 0;
     _this->cursorEnable = LE_TRUE;
     _this->cursorDelay = DEFAULT_CURSOR_TIME;

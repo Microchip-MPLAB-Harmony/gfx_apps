@@ -49,6 +49,8 @@
 typedef struct leWidget leWidget;
 typedef struct leList leList;
 
+#define LE_TEST_FLAG(val, flag) ((val & flag) > 0)
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Routines

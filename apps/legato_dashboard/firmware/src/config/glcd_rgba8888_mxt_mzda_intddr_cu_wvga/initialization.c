@@ -290,10 +290,14 @@ void SYS_Initialize ( void* data )
 
 	GPIO_Initialize();
 
+    OCMP1_Initialize();
+
     CORETIMER_Initialize();
     I2C2_Initialize();
 
 	BSP_Initialize();
+    TMR2_Initialize();
+
 	DDR_Initialize();
 
 

@@ -63,9 +63,9 @@ typedef enum
 {
     /* Application's state machine's initial state. */
     APP_STATE_INIT=0,
-    APP_STATE_INIT_OVERLAYS,
     APP_STATE_FADE_IN_SPLASH,
-    APP_STATE_FADE_OUT_SPLASH,
+    APP_STATE_FADE_OUT_SPLASH,            
+    APP_STATE_INIT_OVERLAYS,
     APP_STATE_PROCESS_SCENE1,
     APP_STATE_PROCESS_SCENE2,
  
@@ -149,6 +149,14 @@ typedef struct
 #define DOUBLE_TAP_PERIOD_MS 300
 
 #define DOUBLE_TAP_COUNT_LIMIT ((DOUBLE_TAP_PERIOD_MS * 1000)/ANIM_TIMER_PERIOD_US)
+
+//Backlight defines
+#define BACKLIGHT_IDLE_PERIOD_US 5000000 //5seconds
+#define BACKLIGHT_IDLE_TIMEOUT_COUNT (BACKLIGHT_IDLE_PERIOD_US/ANIM_TIMER_PERIOD_US)
+#define ON_BRIGHTNESS 100
+#define DIM_BRIGHTNESS 30
+#define OFF_BRIGHTNESS 0
+
 
 
 typedef struct
@@ -276,6 +284,8 @@ void appSetRightNeedleImageData(leImage * imgAst,
 
 void APP_Process_Scene1(void);
 void APP_Process_Scene2(void);
+void APP_SetBacklightBrightness(unsigned int pct);
+unsigned int APP_GetBacklightBrightness(void);
 
 #endif /* _APP_H */
 

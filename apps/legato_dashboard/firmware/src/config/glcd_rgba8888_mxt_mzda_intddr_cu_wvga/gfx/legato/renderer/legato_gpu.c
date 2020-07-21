@@ -33,7 +33,6 @@ leResult leGPU_DrawLine(int32_t x0,
     gfxPoint p0, p1;
     gfxRect clipRect;
     gfxColor drawClr;
-    gfxBlend blend = GFX_BLEND_SRC_OVER;
 
     if(_rendererState.gpuDriver == NULL ||
        _rendererState.gpuDriver->drawLine == NULL)
@@ -59,12 +58,31 @@ leResult leGPU_DrawLine(int32_t x0,
 
     drawClr = clr;
 
+#if LE_ALPHA_BLENDING_ENABLED == 1
+    if(a <= 255)
+    {
+        _rendererState.gpuDriver->setGlobalAlpha(GFX_GLOBAL_ALPHA_ON,
+                                                 GFX_GLOBAL_ALPHA_OFF,
+                                                 a,
+                                                 255);
+    }
+#endif
+
     _rendererState.gpuDriver->drawLine(&buf,
                                        &p0,
                                        &p1,
                                        &clipRect,
-                                       drawClr,
-                                       blend);
+                                       drawClr);
+
+#if LE_ALPHA_BLENDING_ENABLED == 1
+    if(a <= 255)
+    {
+        _rendererState.gpuDriver->setGlobalAlpha(GFX_GLOBAL_ALPHA_OFF,
+                                                 GFX_GLOBAL_ALPHA_OFF,
+                                                 255,
+                                                 255);
+    }
+#endif
 
     return LE_SUCCESS;
 }
@@ -76,7 +94,6 @@ leResult leGPU_FillRect(const leRect* rect,
     gfxPixelBuffer buf;
     gfxRect fillRect;
     gfxColor drawClr;
-    gfxBlend blend = GFX_BLEND_SRC_OVER;
 
     if(_rendererState.gpuDriver == NULL ||
        _rendererState.gpuDriver->fillRect == NULL)
@@ -97,10 +114,29 @@ leResult leGPU_FillRect(const leRect* rect,
 
     drawClr = clr;
 
+#if LE_ALPHA_BLENDING_ENABLED == 1
+    if(a <= 255)
+    {
+        _rendererState.gpuDriver->setGlobalAlpha(GFX_GLOBAL_ALPHA_ON,
+                                                 GFX_GLOBAL_ALPHA_OFF,
+                                                 a,
+                                                 255);
+    }
+#endif
+
     _rendererState.gpuDriver->fillRect(&buf,
                                        &fillRect,
-                                       drawClr,
-                                       blend);
+                                       drawClr);
+
+#if LE_ALPHA_BLENDING_ENABLED == 1
+    if(a <= 255)
+    {
+        _rendererState.gpuDriver->setGlobalAlpha(GFX_GLOBAL_ALPHA_OFF,
+                                                 GFX_GLOBAL_ALPHA_OFF,
+                                                 255,
+                                                 255);
+    }
+#endif
 
     return LE_SUCCESS;
 }
@@ -112,7 +148,6 @@ leResult leGPU_BlitBuffer(const lePixelBuffer* sourceBuffer,
 {
     gfxPixelBuffer sourceBuf, destBuf;
     gfxRect gfxSourceRect, gfxDestRect;
-    gfxBlend blend = GFX_BLEND_SRC_OVER;
 
     if(_rendererState.gpuDriver == NULL ||
        _rendererState.gpuDriver->blitBuffer == NULL)
@@ -144,11 +179,30 @@ leResult leGPU_BlitBuffer(const lePixelBuffer* sourceBuffer,
     gfxDestRect.width = destRect->width;
     gfxDestRect.height = destRect->height;
 
+#if LE_ALPHA_BLENDING_ENABLED == 1
+    if(a <= 255)
+    {
+        _rendererState.gpuDriver->setGlobalAlpha(GFX_GLOBAL_ALPHA_ON,
+                                                 GFX_GLOBAL_ALPHA_OFF,
+                                                 a,
+                                                 255);
+    }
+#endif
+
     _rendererState.gpuDriver->blitBuffer(&sourceBuf,
                                          &gfxSourceRect,
                                          &destBuf,
-                                         &gfxDestRect,
-                                         blend);
+                                         &gfxDestRect);
+
+#if LE_ALPHA_BLENDING_ENABLED == 1
+    if(a <= 255)
+    {
+        _rendererState.gpuDriver->setGlobalAlpha(GFX_GLOBAL_ALPHA_OFF,
+                                                 GFX_GLOBAL_ALPHA_OFF,
+                                                 255,
+                                                 255);
+    }
+#endif
 
     return LE_SUCCESS;
 }
@@ -160,10 +214,9 @@ leResult leGPU_BlitStretchBuffer(const lePixelBuffer* sourceBuffer,
 {
     gfxPixelBuffer sourceBuf, destBuf;
     gfxRect gfxSourceRect, gfxDestRect;
-    gfxBlend blend = GFX_BLEND_SRC_OVER;
 
     if(_rendererState.gpuDriver == NULL ||
-       _rendererState.gpuDriver->blitStretchBuffer == NULL)
+       _rendererState.gpuDriver->blitBuffer == NULL)
         return LE_FAILURE;
 
     gfxSourceRect.x = sourceRect->x;
@@ -192,11 +245,30 @@ leResult leGPU_BlitStretchBuffer(const lePixelBuffer* sourceBuffer,
     gfxDestRect.width = destRect->width;
     gfxDestRect.height = destRect->height;
 
-    _rendererState.gpuDriver->blitStretchBuffer(&sourceBuf,
-                                                &gfxSourceRect,
-                                                &destBuf,
-                                                &gfxDestRect,
-                                                blend);
+#if LE_ALPHA_BLENDING_ENABLED == 1
+    if(a <= 255)
+    {
+        _rendererState.gpuDriver->setGlobalAlpha(GFX_GLOBAL_ALPHA_ON,
+                                                 GFX_GLOBAL_ALPHA_OFF,
+                                                 a,
+                                                 255);
+    }
+#endif
+
+    _rendererState.gpuDriver->blitBuffer(&sourceBuf,
+                                         &gfxSourceRect,
+                                         &destBuf,
+                                         &gfxDestRect);
+
+#if LE_ALPHA_BLENDING_ENABLED == 1
+    if(a <= 255)
+    {
+        _rendererState.gpuDriver->setGlobalAlpha(GFX_GLOBAL_ALPHA_OFF,
+                                                 GFX_GLOBAL_ALPHA_OFF,
+                                                 255,
+                                                 255);
+    }
+#endif
 
     return LE_SUCCESS;
 }

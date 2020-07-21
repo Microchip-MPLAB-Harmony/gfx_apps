@@ -567,6 +567,33 @@ typedef struct leRectArray leRectArray;
 
 typedef void (*leWidget_DrawFunction_FnPtr)(void*);
 
+enum leWidgetFlags
+{
+    LE_WIDGET_ENABLED      = 0x1,  // indicates that the widget is enabled
+    LE_WIDGET_VISIBLE      = 0x2,  // indicates that the widget is visible
+    LE_WIDGET_ALPHAENABLED = 0x4,  // indicates that the widget is using alpha blending
+    LE_WIDGET_ISROOT       = 0x8,  // indicates that this widget is a root widget
+    LE_WIDGET_IGNOREEVENTS = 0x10, // indicates that the widget should ignore input/focus events
+    LE_WIDGET_IGNOREPICK   = 0x20  // indicates that the widget should be ignored for pick tests
+};
+
+typedef struct leWidgetStyle
+{
+    uint8_t backgroundType;  // the widget background type
+    uint8_t borderType;      // the widget border type
+    uint8_t halign;          // horizontal alignment of the widget
+    uint8_t valign;          // vertical alignment of the widget
+    uint8_t alphaAmount;     // the global alpha amount to apply to this widget (cumulative with parent widgets)
+    uint8_t cornerRadius;    //corner radius, draws round corners if > 0
+} leWidgetStyle;
+
+typedef struct leWidgetStatus
+{
+    uint8_t dirtyState;
+    uint8_t drawState;
+
+} leWidgetStatus;
+
 /**
   * @endcond
   *
@@ -599,42 +626,23 @@ typedef struct leWidget
     uint32_t id;  // the id of the widget
     leWidgetType type; // the type of the widget
 
-    leBool visible; // the widget visible flag
-    leBool enabled; // the widget enabled flag
-
     leRect rect; // the bounding rectangle of the widget
-    uint32_t cornerRadius; //corner radius, draws round corners if > 0
-    
-    leHAlignment halign; // horizontal alignment of the widget
-    leVAlignment valign; // vertical alignment of the widget
+
+    uint32_t flags;        // widget state flags
+    leWidgetStyle style;   // widget style values
+    leWidgetStatus status; // widget status values
 
     leMargin margin; // the margin settings for the widget
 
-    leBorderType borderType; // the widget border type
-    leBackgroundType backgroundType; // the widget background type
-
-    uint32_t optimizationFlags; // optimization flags
-
     uint32_t drawCount; // number of times this widget has been drawn
                         // for the active screen
-
-    leBool alphaEnabled;    // indicates that the global alpha blending
-                            // setting is enabled for this widget
-    uint32_t alphaAmount;   // the global alpha amount to apply to this
-                            // widget (cumulative with parent widgets)
-
-    uint32_t dirtyState;    // the widget's dirty state
-    uint32_t drawState;     // the widget's draw state
 
     leWidget_DrawFunction_FnPtr drawFunc; // the next draw function to call
 
     const leScheme* scheme; // the widget's color scheme
 
-    //leWidgetInputHandler externalHandler;
-
     leWidgetEventFilter eventFilters[LE_WIDGET_MAX_EVENT_FILTERS];
 
-    leBool root;      // indicates if this widget is a root widget
     leWidget* parent; // pointer to the widget's parent
     leArray children;  // pointers for the widget's children
 } leWidget;

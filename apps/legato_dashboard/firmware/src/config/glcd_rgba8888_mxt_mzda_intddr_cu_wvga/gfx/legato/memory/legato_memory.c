@@ -116,8 +116,6 @@ static void* _fixedHeapAlloc(uint32_t size)
         {
             ptr = LE_FHEAP_ALLOC(&fixedHeaps[i]);
 
-            LE_ASSERT(ptr != NULL);
-
             if(ptr != NULL)
             {
 #if LE_MALLOC_ZEROIZE == 1

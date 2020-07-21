@@ -102,7 +102,7 @@ void _leRectangleWidget_InvalidateRect(leRectangleWidget* rct)
 
 static void nextState(leRectangleWidget* rct)
 {
-    switch(rct->widget.drawState)
+    switch(rct->widget.status.drawState)
     {
         case NOT_STARTED:
         {
@@ -115,9 +115,9 @@ static void nextState(leRectangleWidget* rct)
             }
 #endif
             
-            if(rct->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
+            if(rct->widget.style.backgroundType != LE_WIDGET_BACKGROUND_NONE)
             {
-                rct->widget.drawState = DRAW_BACKGROUND;
+                rct->widget.status.drawState = DRAW_BACKGROUND;
                 rct->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBackground;
 
                 return;
@@ -127,7 +127,7 @@ static void nextState(leRectangleWidget* rct)
         {
             if(rct->thickness > 0)
             {
-                rct->widget.drawState = DRAW_EDGE;
+                rct->widget.status.drawState = DRAW_EDGE;
                 rct->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawEdge;
                 
                 return;
@@ -135,17 +135,17 @@ static void nextState(leRectangleWidget* rct)
         }
         case DRAW_EDGE:
         {            
-            if(rct->widget.borderType != LE_WIDGET_BORDER_NONE)
+            if(rct->widget.style.borderType != LE_WIDGET_BORDER_NONE)
             {
                 rct->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
-                rct->widget.drawState = DRAW_BORDER;
+                rct->widget.status.drawState = DRAW_BORDER;
                 
                 return;
             }
         }
         case DRAW_BORDER:
         {
-            rct->widget.drawState = DONE;
+            rct->widget.status.drawState = DONE;
             rct->widget.drawFunc = NULL;
         }
     }
@@ -208,12 +208,12 @@ static void drawEdge(leRectangleWidget* rct)
 
 static void drawBorder(leRectangleWidget* rct)
 {
-    if(rct->widget.borderType == LE_WIDGET_BORDER_LINE)
+    if(rct->widget.style.borderType == LE_WIDGET_BORDER_LINE)
     {
         leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)rct,
                                                     paintState.alpha);
     }
-    else if(rct->widget.borderType == LE_WIDGET_BORDER_BEVEL)
+    else if(rct->widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)rct,
                                                       paintState.alpha);
@@ -224,12 +224,12 @@ static void drawBorder(leRectangleWidget* rct)
 
 void _leRectangleWidget_Paint(leRectangleWidget* rct)
 {
-    if(rct->widget.drawState == NOT_STARTED)
+    if(rct->widget.status.drawState == NOT_STARTED)
     {
         nextState(rct);
     }
     
-    while(rct->widget.drawState != DONE)
+    while(rct->widget.status.drawState != DONE)
     {
         rct->widget.drawFunc((leWidget*)rct);
         

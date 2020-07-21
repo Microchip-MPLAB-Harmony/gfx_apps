@@ -245,10 +245,16 @@ GFXC_RESULT gfxcStartEffectFade(unsigned int canvasID, uint8_t startAlpha, uint8
         canvas[canvasID].effects.fade.endAlpha = endAlpha;
         canvas[canvasID].effects.fade.delta = delta;
         
-        canvas[canvasID].effects.fade.status = GFXC_FX_RUN;
+        canvas[canvasID].effects.fade.status = GFXC_FX_START;
         
         gfxcSetWindowAlpha(canvasID, startAlpha);
         _gfxcStartEffects();
+        
+        if (canvas[canvasID].effects.cb != NULL)
+            canvas[canvasID].effects.cb(canvasID,
+                                        GFXC_FX_FADE,
+                                        GFXC_FX_START,
+                                        canvas[canvasID].effects.parm);
         
         return GFX_SUCCESS;        
     }
@@ -274,10 +280,16 @@ GFXC_RESULT gfxcStartEffectMove(unsigned int canvasID,
         canvas[canvasID].effects.move.endY = endY;
         canvas[canvasID].effects.move.type = type;
         canvas[canvasID].effects.move.delta = delta;
-        canvas[canvasID].effects.move.status = GFXC_FX_RUN;
+        canvas[canvasID].effects.move.status = GFXC_FX_START;
         
         gfxcSetWindowPosition(canvasID, startX, startY);
         _gfxcStartEffects();
+        
+        if (canvas[canvasID].effects.cb != NULL)
+            canvas[canvasID].effects.cb(canvasID,
+                                        GFXC_FX_MOVE,
+                                        GFXC_FX_START,
+                                        canvas[canvasID].effects.parm);
         
         return GFX_SUCCESS;        
     }

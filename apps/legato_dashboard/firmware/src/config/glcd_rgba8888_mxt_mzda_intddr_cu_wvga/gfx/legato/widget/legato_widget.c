@@ -77,27 +77,28 @@ void leWidget_Constructor(leWidget* _this)
     _this->type = LE_WIDGET_WIDGET;
 
     _this->scheme = NULL;
-    _this->visible = LE_TRUE;
-    _this->enabled = LE_TRUE;
-    _this->dirtyState = LE_WIDGET_DIRTY_STATE_DIRTY;
-    _this->drawState = LE_WIDGET_DRAW_STATE_READY;
+    _this->flags = 0;
+    _this->flags |= LE_WIDGET_VISIBLE;
+    _this->flags |= LE_WIDGET_ENABLED;
+
+    _this->status.dirtyState = LE_WIDGET_DIRTY_STATE_DIRTY;
+    _this->status.drawState = LE_WIDGET_DRAW_STATE_READY;
 
     _this->rect.x = 0;
     _this->rect.y = 0;
     _this->rect.width = 100;
     _this->rect.height = 100;
-    _this->cornerRadius = 0;
 
-    _this->borderType = LE_WIDGET_BORDER_NONE;
-    _this->backgroundType = LE_WIDGET_BACKGROUND_FILL;
+    _this->style.cornerRadius = 0;
+    _this->style.borderType = LE_WIDGET_BORDER_NONE;
+    _this->style.backgroundType = LE_WIDGET_BACKGROUND_FILL;
             
 #if LE_ALPHA_BLENDING_ENABLED == 1
-    _this->alphaEnabled = LE_FALSE;
-    _this->alphaAmount = 255;
+    _this->style.alphaAmount = 255;
 #endif
             
-    _this->halign = LE_HALIGN_CENTER;
-    _this->valign = LE_VALIGN_MIDDLE;
+    _this->style.halign = LE_HALIGN_CENTER;
+    _this->style.valign = LE_VALIGN_MIDDLE;
             
     _this->margin.left = DEFAULT_BORDER_MARGIN;
     _this->margin.top = DEFAULT_BORDER_MARGIN;
@@ -110,12 +111,10 @@ void leWidget_Constructor(leWidget* _this)
         _this->eventFilters[i].data = NULL;
     }
 
-    _this->root = LE_FALSE;
     _this->parent = NULL;
 
     leArray_Create(&_this->children);
 
-    _this->optimizationFlags = 0;
     _this->drawCount = 0;
     _this->drawFunc = NULL;
 }
@@ -476,7 +475,7 @@ leBool _leWidget_GetAlphaEnabled(const leWidget* _this)
 #if LE_ALPHA_BLENDING_ENABLED == 1
     LE_ASSERT_THIS();
     
-    return _this->alphaEnabled;
+    return LE_TEST_FLAG(_this->flags, LE_WIDGET_ALPHAENABLED);
 #else
     return LE_FALSE;
 #endif
@@ -489,7 +488,7 @@ leBool _leWidget_GetCumulativeAlphaEnabled(const leWidget* _this)
     
     while(_this != NULL)
     {
-        if(_this->alphaEnabled == LE_TRUE)
+        if(LE_TEST_FLAG(_this->flags, LE_WIDGET_ALPHAENABLED) == LE_TRUE)
             return LE_TRUE;
         
         _this = _this->parent; 
@@ -505,11 +504,18 @@ leResult _leWidget_SetAlphaEnabled(leWidget* _this,
 #if LE_ALPHA_BLENDING_ENABLED == 1
     LE_ASSERT_THIS();
     
-    if(_this->alphaEnabled == enable)
+    if(LE_TEST_FLAG(_this->flags, LE_WIDGET_ALPHAENABLED) == enable)
         return LE_FAILURE;
-        
-    _this->alphaEnabled = enable;
-    
+
+    if(enable == LE_FALSE)
+    {
+        _this->flags &= ~(LE_WIDGET_ALPHAENABLED);
+    }
+    else
+    {
+        _this->flags |= LE_WIDGET_ALPHAENABLED;
+    }
+
     _this->fn->invalidate(_this);
         
     return LE_SUCCESS;
@@ -523,7 +529,7 @@ uint32_t _leWidget_GetAlphaAmount(const leWidget* _this)
 #if LE_ALPHA_BLENDING_ENABLED == 1
     LE_ASSERT_THIS();
     
-    return _this->alphaAmount;
+    return _this->style.alphaAmount;
 #else
     return 255;
 #endif
@@ -541,14 +547,14 @@ uint32_t _leWidget_GetCumulativeAlphaAmount(const leWidget* _this)
     if(_this->fn->getCumulativeAlphaEnabled(_this) == LE_FALSE)
         return 255;
         
-    localAmount = lePercentWholeRounded(_this->alphaAmount, 255);
+    localAmount = lePercentWholeRounded(_this->style.alphaAmount, 255);
     actualAmount = localAmount;
         
     _this = _this->parent;
         
     while(_this != NULL && _this->fn->getCumulativeAlphaEnabled(_this) == LE_TRUE)
     {
-        amount = lePercentWholeRounded(_this->alphaAmount, 255);
+        amount = lePercentWholeRounded(_this->style.alphaAmount, 255);
         
         actualAmount = lePercentOf(actualAmount, amount);
         
@@ -567,7 +573,7 @@ leResult _leWidget_SetAlphaAmount(leWidget* _this,
 #if LE_ALPHA_BLENDING_ENABLED == 1
     LE_ASSERT_THIS();
     
-    if(_this->alphaAmount == alpha)
+    if(_this->style.alphaAmount == alpha)
         return LE_FAILURE;
         
     if(alpha > 255)
@@ -575,7 +581,7 @@ leResult _leWidget_SetAlphaAmount(leWidget* _this,
         alpha = 255;
     }
         
-    _this->alphaAmount = alpha;
+    _this->style.alphaAmount = alpha;
     
     _this->fn->invalidate(_this);
         
@@ -596,7 +602,7 @@ leBool _leWidget_IsOpaque(const leWidget* _this)
          return LE_FALSE;
     }
         
-    if(_this->backgroundType == LE_WIDGET_BACKGROUND_NONE /*&&
+    if(_this->style.backgroundType == LE_WIDGET_BACKGROUND_NONE /*&&
        (_this->optimizationFlags & LE_WIDGET_OPT_OPAQUE) == 0*/)
     {
        return LE_FALSE;
@@ -608,17 +614,25 @@ leBool _leWidget_IsOpaque(const leWidget* _this)
 
 leBool _leWidget_GetEnabled(const leWidget* _this)
 {
-    return _this->enabled;
+    return LE_TEST_FLAG(_this->flags, LE_WIDGET_ENABLED);
 }
 
 leResult _leWidget_SetEnabled(leWidget* _this, leBool enable)
 {
     LE_ASSERT_THIS();
     
-    if(_this->enabled == enable)
+    if(LE_TEST_FLAG(_this->flags, LE_WIDGET_ENABLED) == enable)
         return LE_FAILURE;
-        
-    _this->enabled = enable;
+
+    if(enable == LE_FALSE)
+    {
+        _this->flags &= ~(LE_WIDGET_ENABLED);
+    }
+    else
+    {
+        _this->flags |= LE_WIDGET_ENABLED;
+    }
+
     
     _this->fn->invalidate(_this);
     
@@ -629,17 +643,24 @@ leBool _leWidget_GetVisible(const leWidget* _this)
 {
     LE_ASSERT_THIS();
     
-    return _this->visible;
+    return LE_TEST_FLAG(_this->flags, LE_WIDGET_VISIBLE);
 }
 
 leResult _leWidget_SetVisible(leWidget* _this, leBool visible)
 {
     LE_ASSERT_THIS();
     
-    if(_this->visible == visible)
+    if(LE_TEST_FLAG(_this->flags, LE_WIDGET_VISIBLE) == visible)
         return LE_FAILURE;
-        
-    _this->visible = visible;
+
+    if(visible == LE_FALSE)
+    {
+        _this->flags &= ~(LE_WIDGET_VISIBLE);
+    }
+    else
+    {
+        _this->flags |= LE_WIDGET_VISIBLE;
+    }
     
     _this->fn->invalidate(_this);
         
@@ -716,7 +737,7 @@ leResult _leWidget_AddChild(leWidget* _this,
     LE_ASSERT_THIS();
     
     if(child == NULL ||
-       child->root == LE_TRUE ||
+       LE_TEST_FLAG(child->flags, LE_WIDGET_ISROOT) == LE_TRUE ||
        isAncestorOf(child, _this) == LE_TRUE)
     {
         return LE_FAILURE;
@@ -742,7 +763,7 @@ leResult _leWidget_InsertChild(leWidget* _this,
     LE_ASSERT_THIS();
 
     if(child == NULL ||
-       child->root == LE_TRUE ||
+    LE_TEST_FLAG(child->flags, LE_WIDGET_ISROOT) == LE_TRUE ||
        isAncestorOf(child, _this) == LE_TRUE)
     {
         return LE_FAILURE;
@@ -940,7 +961,7 @@ leBorderType _leWidget_GetBorderType(const leWidget* _this)
 {
     LE_ASSERT_THIS();
     
-    return _this->borderType;
+    return _this->style.borderType;
 }
 
 leResult _leWidget_SetBorderType(leWidget* _this,
@@ -948,10 +969,10 @@ leResult _leWidget_SetBorderType(leWidget* _this,
 {
     LE_ASSERT_THIS();
     
-    if(_this->borderType == type)
+    if(_this->style.borderType == type)
         return LE_SUCCESS;
         
-    _this->borderType = type;
+    _this->style.borderType = type;
     
 	_this->fn->_invalidateBorderAreas(_this);
     
@@ -962,36 +983,19 @@ leBackgroundType _leWidget_GetBackgroundType(const leWidget* _this)
 {
     LE_ASSERT_THIS();
     
-    return _this->backgroundType;
+    return _this->style.backgroundType;
 }
 
 leResult _leWidget_SetBackgroundType(leWidget* _this,
                                      leBackgroundType type)
 {
     LE_ASSERT_THIS();
-    if(_this->backgroundType == type)
+    if(_this->style.backgroundType == type)
         return LE_SUCCESS;
         
-    _this->backgroundType = type;
+    _this->style.backgroundType = type;
     
     _this->fn->invalidate(_this);
-    
-    return LE_SUCCESS;
-}
-
-uint32_t _leWidget_GetOptimizationFlags(const leWidget* _this)
-{
-    LE_ASSERT_THIS();
-    
-    return _this->optimizationFlags;
-}
-
-leResult _leWidget_SetOptimizationFlags(leWidget* _this,
-                                        uint32_t val)
-{
-    LE_ASSERT_THIS();
-    
-    _this->optimizationFlags = val;
     
     return LE_SUCCESS;
 }
@@ -1000,7 +1004,7 @@ leHAlignment _leWidget_GetHAlignment(const leWidget* _this)
 {
     LE_ASSERT_THIS();
     
-    return _this->halign;
+    return _this->style.halign;
 }
 
 leResult _leWidget_SetHAlignment(leWidget* _this,
@@ -1008,12 +1012,12 @@ leResult _leWidget_SetHAlignment(leWidget* _this,
 {
     LE_ASSERT_THIS();
     
-    if(_this->halign == align)
+    if(_this->style.halign == align)
         return LE_SUCCESS;
 
     _this->fn->invalidateContents(_this);
 
-    _this->halign = align;
+    _this->style.halign = align;
 
     _this->fn->invalidateContents(_this);
     
@@ -1024,7 +1028,7 @@ leVAlignment _leWidget_GetVAlignment(const leWidget* _this)
 {
     LE_ASSERT_THIS();
     
-    return _this->valign;
+    return _this->style.valign;
 }
 
 leResult _leWidget_SetVAlignment(leWidget* _this,
@@ -1032,12 +1036,12 @@ leResult _leWidget_SetVAlignment(leWidget* _this,
 {
     LE_ASSERT_THIS();
     
-    if(_this->valign == align)
+    if(_this->style.valign == align)
         return LE_SUCCESS;
 
     _this->fn->invalidateContents(_this);
 
-    _this->valign = align;
+    _this->style.valign = align;
 
     _this->fn->invalidateContents(_this);
     
@@ -1081,7 +1085,7 @@ uint32_t _leWidget_GetCornerRadius(const leWidget* _this)
 {
     LE_ASSERT_THIS();
     
-    return _this->cornerRadius;
+    return _this->style.cornerRadius;
 }
 
 leResult _leWidget_SetCornerRadius(leWidget* _this,
@@ -1089,14 +1093,14 @@ leResult _leWidget_SetCornerRadius(leWidget* _this,
 {
     LE_ASSERT_THIS();
     
-    if (_this->borderType != LE_WIDGET_BORDER_NONE &&
-        _this->borderType != LE_WIDGET_BORDER_LINE)
+    if (_this->style.borderType != LE_WIDGET_BORDER_NONE &&
+        _this->style.borderType != LE_WIDGET_BORDER_LINE)
         return LE_FAILURE;
         
-    if(_this->cornerRadius == radius)
+    if(_this->style.cornerRadius == radius)
        return LE_FAILURE;
         
-    _this->cornerRadius = radius;
+    _this->style.cornerRadius = radius;
     
     _this->fn->invalidate(_this);
     
@@ -1326,11 +1330,14 @@ void _leWidget_HandleEvent(leWidget* _this,
                            leEvent* evt)
 {
     LE_ASSERT_THIS();
-    
+
     switch(evt->id)
     {
         case LE_EVENT_TOUCH_DOWN:
         {
+            if(LE_TEST_FLAG(_this->flags, LE_WIDGET_IGNOREEVENTS) == LE_TRUE)
+                return;
+
             if(filterEvent(_this, (leWidgetEvent*)evt) == LE_TRUE)
                 return;
 
@@ -1340,6 +1347,9 @@ void _leWidget_HandleEvent(leWidget* _this,
         }
         case LE_EVENT_TOUCH_UP:
         {
+            if(LE_TEST_FLAG(_this->flags, LE_WIDGET_IGNOREEVENTS) == LE_TRUE)
+                return;
+
             if(filterEvent(_this, (leWidgetEvent*)evt) == LE_TRUE)
                 return;
 
@@ -1349,6 +1359,9 @@ void _leWidget_HandleEvent(leWidget* _this,
         }
         case LE_EVENT_TOUCH_MOVE:
         {
+            if(LE_TEST_FLAG(_this->flags, LE_WIDGET_IGNOREEVENTS) == LE_TRUE)
+                return;
+
             if(filterEvent(_this, (leWidgetEvent*)evt) == LE_TRUE)
                 return;
 
@@ -1385,6 +1398,9 @@ void _leWidget_HandleEvent(leWidget* _this,
         }
         case LE_WIDGET_EVENT_FOCUS_GAINED:
         {
+            if(LE_TEST_FLAG(_this->flags, LE_WIDGET_IGNOREEVENTS) == LE_TRUE)
+                return;
+
             if(filterEvent(_this, (leWidgetEvent*)evt) == LE_TRUE)
                 return;
 
@@ -1394,6 +1410,9 @@ void _leWidget_HandleEvent(leWidget* _this,
         }
         case LE_WIDGET_EVENT_FOCUS_LOST:
         {
+            if(LE_TEST_FLAG(_this->flags, LE_WIDGET_IGNOREEVENTS) == LE_TRUE)
+                return;
+
             if(filterEvent(_this, (leWidgetEvent*)evt) == LE_TRUE)
                 return;
 
@@ -1405,7 +1424,7 @@ void _leWidget_HandleEvent(leWidget* _this,
         {
             break;
         }
-    }   
+    }
 }
 
 void _leWidget_ValidateChildren(leWidget* _this)
@@ -1417,7 +1436,7 @@ void _leWidget_ValidateChildren(leWidget* _this)
 
     _this->fn->_clearDirtyState(_this);
     
-    _this->drawState = LE_WIDGET_DRAW_STATE_READY;
+    _this->status.drawState = LE_WIDGET_DRAW_STATE_READY;
 
     for(i = 0; i < _this->children.size; i++)
     {
@@ -1431,9 +1450,9 @@ void _leWidget_IncreaseDirtyState(leWidget* _this, uint32_t state)
 {
     LE_ASSERT_THIS();
     
-    if(state > _this->dirtyState)
+    if(state > _this->status.dirtyState)
     {
-        _this->dirtyState = state;
+        _this->status.dirtyState = state;
     }
 }
 
@@ -1441,14 +1460,14 @@ void _leWidget_SetDirtyState(leWidget* _this, uint32_t state)
 {
     LE_ASSERT_THIS();
     
-    _this->dirtyState = state;
+    _this->status.dirtyState = state;
 }
 
 void _leWidget_ClearDirtyState(leWidget* _this)
 {
     LE_ASSERT_THIS();
     
-    _this->dirtyState = LE_WIDGET_DIRTY_STATE_CLEAN;
+    _this->status.dirtyState = LE_WIDGET_DIRTY_STATE_CLEAN;
 }
 
 
@@ -1463,7 +1482,7 @@ void _leWidget_DamageArea(const leWidget* _this, leRect* rect)
     
     if(leWidgetIsInScene(_this) == LE_TRUE)
     {
-        leRenderer_DamageArea(rect);
+        leRenderer_DamageArea(rect, leGetWidgetLayer(_this));
     }
 }
 

@@ -128,8 +128,8 @@ void leRadioButtonWidget_Constructor(leRadioButtonWidget* _this)
     _this->imagePosition = LE_RELATIVE_POSITION_LEFTOF;
     _this->imageMargin = DEFAULT_IMAGE_MARGIN;
 
-    _this->widget.halign = LE_HALIGN_LEFT;
-    _this->widget.valign = LE_VALIGN_MIDDLE;
+    _this->widget.style.halign = LE_HALIGN_LEFT;
+    _this->widget.style.valign = LE_VALIGN_MIDDLE;
     
     _this->selectedImage = NULL;
     _this->unselectedImage = NULL;

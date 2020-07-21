@@ -179,6 +179,30 @@ uint32_t DRV_GLCD_GetLayerCount();
 uint32_t DRV_GLCD_GetActiveLayer();
 
 /**
+ * @brief Get layer state.
+ * @details Returns the state of the specified display layer.
+ * @code
+ * gfxDisplayDriver*  drv;
+ * gfxLayerState state = drv->getLayerState();
+ * @endcode
+ * @return gfxLayerState structure
+ */
+gfxLayerState DRV_GLCD_GetLayerState(uint32_t idx);
+
+/**
+ * @brief Set the display controller palette.
+ * @details Sets palette for the display controller
+ * @code
+ * gfxDisplayDriver* drv;
+ * gfxResult res = drv->setPalette(palette, mode, colorCount);
+ * @endcode
+ * @return GFX_SUCCESS set is successful, otherwise GFX_FAILURE.
+ */
+gfxResult DRV_GLCD_SetPalette(gfxBuffer* palette,
+                              gfxColorMode mode,
+                              uint32_t colorCount);
+
+/**
  * @brief Set active layer.
  * @details Sets active the layer at <span class="param">idx</span> position.
  * @code
@@ -202,7 +226,7 @@ gfxResult DRV_GLCD_SetActiveLayer(uint32_t idx);
  * @endcode
  * @return GFX_SUCCESS if blit was performed, otherwise GFX_FAILURE.
  */
-gfxResult DRV_GLCD_BlitBuffer(int32_t x, int32_t y, gfxPixelBuffer* buf, gfxBlend blend);
+gfxResult DRV_GLCD_BlitBuffer(int32_t x, int32_t y, gfxPixelBuffer* buf);
 
 /**
  * @brief Swap buffer.
@@ -275,10 +299,12 @@ static const gfxDisplayDriver glcdDisplayDriver =
     DRV_GLCD_GetLayerCount,	/**< implements layerCount */
     DRV_GLCD_GetActiveLayer,	/**< implements activeLayer */
     DRV_GLCD_SetActiveLayer,	/**< implements setActive */
+    DRV_GLCD_GetLayerState, /**< implements getLayerState */    
     DRV_GLCD_BlitBuffer,	/**< implements blitbuffer */
     DRV_GLCD_Swap,		/**< implements swap */
     DRV_GLCD_GetVSYNCCount,	/**< implements getVSYNCCount */
     DRV_GLCD_GetFrameBuffer,	/**< implements getFrameBuffer */
+    DRV_GLCD_SetPalette,        /**< implements setPalette */
     DRV_GLCD_CtrlrConfig        /**< implements ctrlrConfig */
 };
 

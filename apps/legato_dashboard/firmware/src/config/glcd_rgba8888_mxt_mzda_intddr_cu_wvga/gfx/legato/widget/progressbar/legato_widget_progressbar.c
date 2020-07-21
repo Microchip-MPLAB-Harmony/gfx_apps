@@ -73,7 +73,7 @@ void leProgressBarWidget_Constructor(leProgressBarWidget* _this)
     _this->widget.rect.height = DEFAULT_HEIGHT;
 
     _this->widget.borderType = LE_WIDGET_BORDER_BEVEL;
-    _this->widget.backgroundType = LE_WIDGET_BACKGROUND_FILL;
+    _this->widget.style.backgroundType = LE_WIDGET_BACKGROUND_FILL;
 
     _this->direction = LE_DIRECTION_RIGHT;
 

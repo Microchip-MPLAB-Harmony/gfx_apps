@@ -57,7 +57,7 @@ lePoint _leCircularSliderWidget_GetCircleCenterPointAtValue(leCircularSliderWidg
 
 static void nextState(leCircularSliderWidget* slider)
 {
-    switch(slider->widget.drawState)
+    switch(slider->widget.status.drawState)
     {
         case NOT_STARTED:
         {
@@ -70,9 +70,9 @@ static void nextState(leCircularSliderWidget* slider)
             }
 #endif
             
-            if(slider->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
+            if(slider->widget.style.backgroundType != LE_WIDGET_BACKGROUND_NONE)
             {
-                slider->widget.drawState = DRAW_BACKGROUND;
+                slider->widget.status.drawState = DRAW_BACKGROUND;
                 slider->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBackground;
 
                 return;
@@ -80,7 +80,7 @@ static void nextState(leCircularSliderWidget* slider)
         }
         case DRAW_BACKGROUND:
         {
-            slider->widget.drawState = DRAW_CIRCULAR_SLIDER;
+            slider->widget.status.drawState = DRAW_CIRCULAR_SLIDER;
             slider->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawCircularSlider;
     
             return;
@@ -90,14 +90,14 @@ static void nextState(leCircularSliderWidget* slider)
             if(slider->widget.borderType != LE_WIDGET_BORDER_NONE)
             {
                 slider->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
-                slider->widget.drawState = DRAW_BORDER;
+                slider->widget.status.drawState = DRAW_BORDER;
                 
                 return;
             }
         }
         case DRAW_BORDER:
         {
-            slider->widget.drawState = DONE;
+            slider->widget.status.drawState = DONE;
             slider->widget.drawFunc = NULL;
         }
     }
@@ -105,7 +105,7 @@ static void nextState(leCircularSliderWidget* slider)
 
 static void drawBackground(leCircularSliderWidget* slider)
 {
-    if(slider->widget.backgroundType == LE_WIDGET_BACKGROUND_FILL)
+    if(slider->widget.style.backgroundType == LE_WIDGET_BACKGROUND_FILL)
     {
         leWidget_SkinClassic_DrawBackground((leWidget*) slider, 
                                              leScheme_GetRenderColor(slider->widget.scheme, LE_SCHM_BACKGROUND),
@@ -319,10 +319,10 @@ static void drawBorder(leCircularSliderWidget* slider)
 
 void _leCircularSliderWidget_Paint(leCircularSliderWidget* slider)
 {
-    if(slider->widget.drawState == NOT_STARTED)
+    if(slider->widget.status.drawState == NOT_STARTED)
         nextState(slider);
     
-    while(slider->widget.drawState != DONE)
+    while(slider->widget.status.drawState != DONE)
     {
         slider->widget.drawFunc((leWidget*)slider);
         

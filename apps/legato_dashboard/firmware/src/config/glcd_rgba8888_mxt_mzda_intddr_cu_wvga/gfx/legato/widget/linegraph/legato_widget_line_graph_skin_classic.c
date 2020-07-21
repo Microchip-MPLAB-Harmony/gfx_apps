@@ -76,7 +76,7 @@ lePoint _leLineGraphWidget_GetOriginPoint(const leLineGraphWidget* _this);
 
 static void nextState(leLineGraphWidget* graph)
 {
-    switch(graph->widget.drawState)
+    switch(graph->widget.status.drawState)
     {
         case NOT_STARTED:
         {
@@ -89,9 +89,9 @@ static void nextState(leLineGraphWidget* graph)
             }
 #endif
             
-            if(graph->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
+            if(graph->widget.style.backgroundType != LE_WIDGET_BACKGROUND_NONE)
             {
-                graph->widget.drawState = DRAW_BACKGROUND;
+                graph->widget.status.drawState = DRAW_BACKGROUND;
                 graph->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBackground;
 
                 return;
@@ -99,7 +99,7 @@ static void nextState(leLineGraphWidget* graph)
         }
         case DRAW_BACKGROUND:
         {
-            graph->widget.drawState = DRAW_LINE_GRAPH;
+            graph->widget.status.drawState = DRAW_LINE_GRAPH;
             graph->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawLineGraph;
     
             return;
@@ -107,23 +107,23 @@ static void nextState(leLineGraphWidget* graph)
         case DRAW_LINE_GRAPH:
         {            
             graph->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawString;
-            graph->widget.drawState = DRAW_STRING;
+            graph->widget.status.drawState = DRAW_STRING;
             
             return;
         }
         case DRAW_STRING:
         {
-            if(graph->widget.borderType != LE_WIDGET_BORDER_NONE)
+            if(graph->widget.style.borderType != LE_WIDGET_BORDER_NONE)
             {
                 graph->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
-                graph->widget.drawState = DRAW_BORDER;
+                graph->widget.status.drawState = DRAW_BORDER;
                 
                 return;
             }
         }
         case DRAW_BORDER:
         {
-            graph->widget.drawState = DONE;
+            graph->widget.status.drawState = DONE;
             graph->widget.drawFunc = NULL;
         }
     }
@@ -1454,7 +1454,7 @@ static void onStringStreamFinished(leStreamManager* strm)
 {
     leLineGraphWidget* graph = (leLineGraphWidget*)strm->userData;
 
-    graph->widget.drawState = DRAW_STRING;
+    graph->widget.status.drawState = DRAW_STRING;
 
     nextState(graph);
 }
@@ -1497,7 +1497,7 @@ static void drawString(leLineGraphWidget* graph)
                 leGetActiveStream()->onDone = onStringStreamFinished;
                 leGetActiveStream()->userData = graph;
 
-                graph->widget.drawState = WAIT_STRING;
+                graph->widget.status.drawState = WAIT_STRING;
 
                 return;
             }
@@ -1510,12 +1510,12 @@ static void drawString(leLineGraphWidget* graph)
 
 static void drawBorder(leLineGraphWidget* graph)
 {    
-    if(graph->widget.borderType == LE_WIDGET_BORDER_LINE)
+    if(graph->widget.style.borderType == LE_WIDGET_BORDER_LINE)
     {
         leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)graph,
                                                     paintState.alpha);
     }
-    else if(graph->widget.borderType == LE_WIDGET_BORDER_BEVEL)
+    else if(graph->widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)graph,
                                                       paintState.alpha);
@@ -1526,10 +1526,10 @@ static void drawBorder(leLineGraphWidget* graph)
 
 void _leLineGraphWidget_Paint(leLineGraphWidget* graph)
 {
-    if(graph->widget.drawState == NOT_STARTED)
+    if(graph->widget.status.drawState == NOT_STARTED)
         nextState(graph);
     
-    while(graph->widget.drawState != DONE)
+    while(graph->widget.status.drawState != DONE)
     {
         graph->widget.drawFunc((leWidget*)graph);
         
@@ -1538,7 +1538,7 @@ void _leLineGraphWidget_Paint(leLineGraphWidget* graph)
 #endif
 
 #if LE_STREAMING_ENABLED == 1
-        if(graph->widget.drawState == WAIT_STRING)
+        if(graph->widget.status.drawState == WAIT_STRING)
             break;
 #endif
     }

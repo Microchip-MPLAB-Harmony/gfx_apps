@@ -37,6 +37,7 @@ leWidget* leUtils_PickFromWidget(const leWidget* parent,
 {
     const leWidget* child;
     const leWidget* result;
+    const leWidget* childResult;
     lePoint pnt;
     uint32_t i;
 
@@ -50,12 +51,22 @@ leWidget* leUtils_PickFromWidget(const leWidget* parent,
         child = leArray_Get(&parent->children, i);
 
         // widget must be enabled and visible
-        if(child->enabled == LE_TRUE &&
-           child->visible == LE_TRUE &&
+        if(LE_TEST_FLAG(child->flags, LE_WIDGET_ENABLED) == LE_TRUE &&
+           LE_TEST_FLAG(child->flags, LE_WIDGET_VISIBLE) == LE_TRUE &&
            leRectContainsPoint(&child->rect, &pnt) == LE_TRUE)
         {
-            result = leUtils_PickFromWidget(child, x - child->rect.x, y - child->rect.y);
+            childResult = leUtils_PickFromWidget(child, x - child->rect.x, y - child->rect.y);
+
+            if(childResult != NULL && LE_TEST_FLAG(childResult->flags, LE_WIDGET_IGNOREPICK) == LE_FALSE)
+            {
+                result = childResult;
+            }
         }
+    }
+
+    if(result != NULL && LE_TEST_FLAG(result->flags, LE_WIDGET_IGNOREPICK) == LE_TRUE)
+    {
+        result = NULL;
     }
 
     return (leWidget*)result;

@@ -327,6 +327,23 @@ typedef struct gfxRect
  */
 static const gfxRect gfxRect_Zero = {0, 0, 0, 0};
 
+// *****************************************************************************
+/* Structure:
+    gfxLayerState
+
+  Summary:
+    A layer state structure definition.  
+*/
+/**
+ * @brief This struct represents a layer state.
+ * @details This structure is provided by the driver to describe layer state.
+ * @details
+ */
+typedef struct gfxLayerState
+{
+    gfxRect rect;
+    gfxBool enabled;
+} gfxLayerState;
 
 /**
  * @brief This type represents a buffer;
@@ -503,6 +520,38 @@ typedef enum gfxBlend
     GFX_BLEND_SUBTRACT,
 } gfxBlend;
 
+/**
+ * @brief This enum represents alpha modes.
+ * @details Global alpha modes are used to define the type of global
+ * alpha blending operations.
+ */
+typedef enum gfxAlpha
+{
+    GFX_GLOBAL_ALPHA_OFF,
+    GFX_GLOBAL_ALPHA_ON,
+    GFX_GLOBAL_ALPHA_SCALE
+} gfxAlpha;
+
+/**
+ * @brief This enum represents transparency modes.
+ * @details Transparency modes are used to define the target of transparency
+ * to perform.
+ */
+typedef enum gfxTransparency
+{
+    GFX_TRANSPARENCY_NONE,
+    GFX_TRANSPARENCY_SOURCE,
+    GFX_TRANSPARENCY_DESTINATION,
+}
+gfxTransparency;
+
+
+typedef enum gfxPaletteSelect
+{
+    GFX_PALETTE_ONE,
+    GFX_PALETTE_TWO
+}
+gfxPaletteSelect;
 
 /**
  * @brief This enum represents buffer flags.
@@ -1109,16 +1158,21 @@ typedef struct gfxDisplayDriver
 
     gfxResult (*setActiveLayer)(uint32_t idx);
 
+    gfxLayerState (*getLayerState)(uint32_t idx);
+
     gfxResult (*blitBuffer)(int32_t x,
                            int32_t y,
-                           gfxPixelBuffer* buf,
-                           gfxBlend gfx);
+                           gfxPixelBuffer* buf);
 
     void (*swap)(void);
 
     uint32_t (*getVSYNCCount)(void);
 
     gfxPixelBuffer* (*getFrameBuffer)(int32_t idx);
+
+    gfxResult (*setPalette)(gfxBuffer* palette,
+                            gfxColorMode mode,
+                            uint32_t colorCount);
 
     gfxResult (*ctrlrConfig) (ctlrCfg request, void * arg);
 
@@ -1170,28 +1224,38 @@ typedef struct gfxDisplayDriver
 typedef struct gfxGraphicsProcessor
 {
     gfxResult (*drawLine)(gfxPixelBuffer * dest,      /**< @see drv_gfx_glcd.h */
-                        const gfxPoint* p1,
-                        const gfxPoint* p2,
-                           const gfxRect* clipRect,
-                           const gfxColor color,
-                        const gfxBlend blend);
+                          const gfxPoint* p1,
+                          const gfxPoint* p2,
+                          const gfxRect* clipRect,
+                          const gfxColor color);
 
     gfxResult (*fillRect)(gfxPixelBuffer * dest,
-                        const gfxRect* clipRect,
-                        const gfxColor color,
-                        const gfxBlend blend);
+                          const gfxRect* clipRect,
+                          const gfxColor color);
 
     gfxResult (*blitBuffer)(const gfxPixelBuffer* source,
-                        const gfxRect* srcRect,
-                        const gfxPixelBuffer* dest,
-                        const gfxRect* destRect,
-                        const gfxBlend blend);
+                            const gfxRect* srcRect,
+                            const gfxPixelBuffer* dest,
+                            const gfxRect* destRect);
 
-    gfxResult (*blitStretchBuffer)(const gfxPixelBuffer* source,
-                        const gfxRect* srcRect,
-                        const gfxPixelBuffer* dest,
-                        const gfxRect* destRect,
-                        const gfxBlend blend);
+    gfxResult (*setBlend)(const gfxBlend blend);
+
+    gfxResult (*setGlobalAlpha)(
+                        const gfxAlpha srcGlobalAlpha,
+                        const gfxAlpha dstGlobalAlpha,
+                        uint32_t srcGlobalAlphaValue,
+                        uint32_t dstGlobalAlphaValue);
+
+    gfxResult (*setPalette)(
+                        uint32_t index_count,
+                        gfxBuffer color_table,
+                        gfxBool color_convert);
+
+    gfxResult (*setTransparency)(
+                        gfxTransparency transparency,
+                        gfxColor color,
+                        uint32_t foreground_rop,
+                        uint32_t background_rop);
 
 } gfxGraphicsProcessor;
 

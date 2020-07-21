@@ -123,10 +123,10 @@ void leRadialMenuWidget_Constructor(leRadialMenuWidget* _this)
     _this->drawEllipse = LE_TRUE;
 
     _this->widget.borderType = LE_WIDGET_BORDER_NONE;
-    _this->widget.backgroundType = LE_WIDGET_BACKGROUND_NONE;
+    _this->widget.style.backgroundType = LE_WIDGET_BACKGROUND_NONE;
 
-    _this->widget.halign = LE_HALIGN_CENTER;
-    _this->widget.valign = LE_VALIGN_MIDDLE;
+    _this->widget.style.halign = LE_HALIGN_CENTER;
+    _this->widget.style.valign = LE_VALIGN_MIDDLE;
     
     _this->ellipse.a = DEFAULT_A;
     _this->ellipse.b = DEFAULT_B;

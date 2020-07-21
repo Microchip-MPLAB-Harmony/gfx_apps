@@ -35,6 +35,10 @@
 // Section: Global Data Definitions
 // *****************************************************************************
 // *****************************************************************************
+#define BACKLIGHT_TIMER_PERIOD_MS 30
+#define TMR_PERIOD 3906
+#define BRIGHTNESS_DELTA_PCT_DOWN 2
+#define BRIGHTNESS_DELTA_PCT_UP 5
 
 // *****************************************************************************
 /* Application Data
@@ -57,8 +61,12 @@ SYS_TIME_HANDLE timer = SYS_TIME_HANDLE_INVALID;
 needleObj leftNeedles[360];
 needleObj rightNeedles[360];
 SYS_TIME_HANDLE animTimer;
+SYS_TIME_HANDLE backlightTimer;
 volatile unsigned int animCounter;
 unsigned int animCounterOld;
+static unsigned int brightness = 0;
+static unsigned int newBrightness = 0;
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -187,6 +195,62 @@ void appSetLayerFrame(uint32_t layerID,
     gfxcCanvasUpdate(layerID);
 }
 
+static void Backlight_TimerCallback ( uintptr_t context )
+{
+    if (brightness != newBrightness)
+    {
+        if (newBrightness > brightness)
+        {
+            if (brightness < newBrightness - BRIGHTNESS_DELTA_PCT_UP)
+            {
+                brightness += BRIGHTNESS_DELTA_PCT_UP;
+            }
+            else
+            {
+                brightness = newBrightness;
+                SYS_TIME_TimerStop(backlightTimer);
+            }
+        }
+        else
+        {
+            if (brightness > newBrightness + BRIGHTNESS_DELTA_PCT_DOWN)
+            {
+                brightness -= BRIGHTNESS_DELTA_PCT_DOWN;
+            }
+            else
+            {
+                brightness = newBrightness;
+                SYS_TIME_TimerStop(backlightTimer);
+            }        
+        }
+
+        OCMP1_CompareSecondaryValueSet( (TMR_PERIOD * brightness)/100);
+
+    }
+    else if (brightness == newBrightness)
+    {
+        SYS_TIME_TimerStop(backlightTimer);
+    }
+}
+
+void APP_SetBacklightBrightness(unsigned int pct)
+{
+    if (pct == brightness)
+        return;
+    
+    if (pct > ON_BRIGHTNESS)
+        newBrightness = ON_BRIGHTNESS;
+    else    
+        newBrightness = pct;
+    
+    SYS_TIME_TimerStart(backlightTimer);
+}
+
+unsigned int APP_GetBacklightBrightness(void)
+{
+    return brightness;
+}
+
 /******************************************************************************
   Function:
     void APP_Tasks ( void )
@@ -206,16 +270,43 @@ void APP_Tasks ( void )
         {
             bool appInitialized = true;
             
+            backlightTimer = SYS_TIME_CallbackRegisterMS(Backlight_TimerCallback, 
+                                    (uintptr_t) NULL,
+                                    BACKLIGHT_TIMER_PERIOD_MS,
+                                    SYS_TIME_PERIODIC);   
+            
+            TMR2_Start();
+            OCMP1_Enable();
+            
+            APP_SetBacklightBrightness(ON_BRIGHTNESS);
             APP_PreprocessNeedleImages();
 
             if (appInitialized)
             {
-                appData.state = APP_STATE_INIT_OVERLAYS;
+                appData.state = APP_STATE_FADE_IN_SPLASH;
             }
+            break;
+        }
+        case APP_STATE_FADE_IN_SPLASH:
+        {
+            if (APP_GetBacklightBrightness() > ON_BRIGHTNESS)
+                break;
+            
+            appData.state = APP_STATE_FADE_OUT_SPLASH;
+            
+            APP_SetBacklightBrightness(OFF_BRIGHTNESS);
+            break;
+        }
+        case APP_STATE_FADE_OUT_SPLASH:
+        {
+            appData.state = APP_STATE_INIT_OVERLAYS;
             break;
         }
         case APP_STATE_INIT_OVERLAYS:
         {
+            if (APP_GetBacklightBrightness() > OFF_BRIGHTNESS)
+                break;
+            
             gfxcShowCanvas(0);
             gfxcShowCanvas(1);
             gfxcShowCanvas(2);
@@ -223,6 +314,7 @@ void APP_Tasks ( void )
             gfxcCanvasUpdate(1);            
             gfxcCanvasUpdate(2);
             
+            APP_SetBacklightBrightness(ON_BRIGHTNESS);
             StartAnimTimer();            
             
             appData.state = APP_STATE_PROCESS_SCENE1;

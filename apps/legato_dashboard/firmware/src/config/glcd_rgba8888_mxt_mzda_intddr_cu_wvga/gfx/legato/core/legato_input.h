@@ -251,7 +251,10 @@ typedef struct leInputState
     leTouchState touch[LE_MAX_TOUCH_STATES];
     //uint8_t keyState[KEY_LAST];  // change to bitset?
     //leMouseState mouse;
-    
+
+    int32_t driverAdjustX;
+    int32_t driverAdjustY;
+
 } leInputState;
 
 /* internal use only */

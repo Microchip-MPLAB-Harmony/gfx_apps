@@ -268,11 +268,15 @@ leResult leInitialize(const gfxDisplayDriver* dispDriver,
         
         leWidget_Constructor(root);
         
-        root->fn->setPosition(root, 0, 0);
-        
-        root->fn->setSize(root,
-                          dispDriver->getDisplayWidth(),
-                          dispDriver->getDisplayHeight());
+        root->rect.x = 0;
+        root->rect.y = 0;
+        root->rect.width = dispDriver->getDisplayWidth();
+        root->rect.height = dispDriver->getDisplayHeight();
+
+        root->fn->invalidate(root);
+        root->flags |= LE_WIDGET_ISROOT;
+        root->flags |= LE_WIDGET_IGNOREEVENTS;
+        root->flags |= LE_WIDGET_IGNOREPICK;
 
         _state.layerStates[idx].colorMode = LE_DEFAULT_COLOR_MODE;
     }
@@ -337,7 +341,30 @@ static void updateWidgets(uint32_t dt)
 
 leResult leUpdate(uint32_t dt)
 {
+#if LE_DRIVER_LAYER_MODE == 1
+    uint32_t itr;
+    gfxLayerState driverLayerState;
+#endif
+
     leEvent_ProcessEvents();
+
+#if LE_DRIVER_LAYER_MODE == 1
+    for(itr = 0; itr < LE_LAYER_COUNT; ++itr)
+    {
+        driverLayerState = leGetRenderState()->dispDriver->getLayerState(itr);
+
+        _state.layerStates[itr].driverPosition.x = driverLayerState.rect.x;
+        _state.layerStates[itr].driverPosition.y = driverLayerState.rect.y;
+
+        _state.rootWidget[itr].fn->setPosition(&_state.rootWidget[itr],
+                                               0,
+                                               0);
+
+        _state.rootWidget[itr].fn->setSize(&_state.rootWidget[itr],
+                                           driverLayerState.rect.width,
+                                           driverLayerState.rect.height);
+    }
+#endif
 
 #if LE_STREAMING_ENABLED == 1
     // there is an active stream in progress, service that to completion
@@ -402,10 +429,10 @@ leResult leSetLayerRenderHorizontal(uint32_t idx,
     return LE_SUCCESS;
 }
 
-leRect leGetDisplayRect()
+/*leRect leGetDisplayRect()
 {
     return leGetRenderState()->displayRect;
-}
+}*/
 
 leStringTable* leGetStringTable()
 {
@@ -542,7 +569,7 @@ leResult leAddRootWidget(leWidget* wgt,
     if(wgt == NULL || layer > LE_LAYER_COUNT - 1)
         return LE_FAILURE;
         
-    leRenderer_DamageArea(&wgt->rect);
+    leRenderer_DamageArea(&wgt->rect, layer);
         
     return _state.rootWidget[layer].fn->addChild(&_state.rootWidget[layer], wgt);
 }
@@ -558,7 +585,7 @@ leResult leRemoveRootWidget(leWidget* wgt, uint32_t layer)
         
     if(_state.rootWidget[layer].fn->removeChild(&_state.rootWidget[layer], wgt) == LE_SUCCESS)
     {
-        leRenderer_DamageArea(&rect);
+        leRenderer_DamageArea(&rect, layer);
         
         return LE_SUCCESS;
     }
@@ -568,27 +595,32 @@ leResult leRemoveRootWidget(leWidget* wgt, uint32_t layer)
 
 leBool leWidgetIsInScene(const leWidget* wgt)
 {
-    uint32_t layer;
+    return leGetWidgetLayer(wgt) >= 0;
+}
+
+int32_t leGetWidgetLayer(const leWidget* wgt)
+{
+    int32_t layer;
     leWidget* root;
     leWidget* wgtRoot;
-    
+
     if(wgt == NULL)
         return LE_FALSE;
-        
+
     wgtRoot = wgt->fn->getRootWidget(wgt);
-    
+
     if(wgtRoot == NULL)
         return LE_FALSE;
-    
+
     for(layer = 0; layer < LE_LAYER_COUNT; layer++)
     {
         root = &_state.rootWidget[layer];
-        
+
         if(root == wgtRoot)
-            return LE_TRUE;
+            return layer;
     }
-    
-    return LE_FALSE;
+
+    return -1;
 }
 
 #if LE_STREAMING_ENABLED == 1

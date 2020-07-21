@@ -113,8 +113,8 @@ void _leRadioButtonWidget_GetImageRect(const leRadioButtonWidget* btn,
     leUtils_ArrangeRectangle(imgRect,
                              textRect,
                              bounds,
-                             btn->widget.halign,
-                             btn->widget.valign,
+                             btn->widget.style.halign,
+                             btn->widget.style.valign,
                              btn->imagePosition,
                              btn->widget.margin.left,
                              btn->widget.margin.top,
@@ -179,8 +179,8 @@ void _leRadioButtonWidget_GetTextRect(leRadioButtonWidget* btn,
     leUtils_ArrangeRectangleRelative(textRect,
                                      imgRect,
                                      bounds,
-                                     btn->widget.halign,
-                                     btn->widget.valign,
+                                     btn->widget.style.halign,
+                                     btn->widget.style.valign,
                                      btn->imagePosition,
                                      btn->widget.margin.left,
                                      btn->widget.margin.top,
@@ -202,7 +202,7 @@ static void drawBorder(leRadioButtonWidget* btn);
 
 static void nextState(leRadioButtonWidget* btn)
 {
-    switch(btn->widget.drawState)
+    switch(btn->widget.status.drawState)
     {
         case NOT_STARTED:
         {
@@ -215,9 +215,9 @@ static void nextState(leRadioButtonWidget* btn)
             }
 #endif
 
-            if(btn->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
+            if(btn->widget.style.backgroundType != LE_WIDGET_BACKGROUND_NONE)
             {
-                btn->widget.drawState = DRAW_BACKGROUND;
+                btn->widget.status.drawState = DRAW_BACKGROUND;
                 btn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBackground;
 
                 return;
@@ -225,7 +225,7 @@ static void nextState(leRadioButtonWidget* btn)
         }
         case DRAW_BACKGROUND:
         {
-            btn->widget.drawState = DRAW_IMAGE;
+            btn->widget.status.drawState = DRAW_IMAGE;
             btn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawImage;
 
             return;
@@ -234,7 +234,7 @@ static void nextState(leRadioButtonWidget* btn)
         {            
             if(btn->string != NULL)
             {
-                btn->widget.drawState = DRAW_STRING;
+                btn->widget.status.drawState = DRAW_STRING;
                 btn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawString;
 
                 return;
@@ -245,14 +245,14 @@ static void nextState(leRadioButtonWidget* btn)
             if(btn->widget.borderType != LE_WIDGET_BORDER_NONE)
             {
                 btn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
-                btn->widget.drawState = DRAW_BORDER;
+                btn->widget.status.drawState = DRAW_BORDER;
                 
                 return;
             }
         }
         case DRAW_BORDER:
         {
-            btn->widget.drawState = DONE;
+            btn->widget.status.drawState = DONE;
             btn->widget.drawFunc = NULL;
         }
     }
@@ -429,7 +429,7 @@ static void onImageStreamFinished(leStreamManager* dec)
 {
     leRadioButtonWidget* btn = (leRadioButtonWidget*)dec->userData;
 
-    btn->widget.drawState = DRAW_IMAGE;
+    btn->widget.status.drawState = DRAW_IMAGE;
 
     nextState(btn);
 }
@@ -476,7 +476,7 @@ static void drawImage(leRadioButtonWidget* btn)
             leGetActiveStream()->onDone = onImageStreamFinished;
             leGetActiveStream()->userData = btn;
 
-            btn->widget.drawState = WAIT_IMAGE;
+            btn->widget.status.drawState = WAIT_IMAGE;
 
             return;
         }
@@ -491,7 +491,7 @@ static void onStringStreamFinished(leStreamManager* strm)
 {
     leRadioButtonWidget* btn = (leRadioButtonWidget*)strm->userData;
 
-    btn->widget.drawState = DRAW_STRING;
+    btn->widget.status.drawState = DRAW_STRING;
 
     nextState(btn);
 }
@@ -516,7 +516,7 @@ static void drawString(leRadioButtonWidget* btn)
         leGetActiveStream()->onDone = onStringStreamFinished;
         leGetActiveStream()->userData = btn;
 
-        btn->widget.drawState = WAIT_STRING;
+        btn->widget.status.drawState = WAIT_STRING;
 
         return;
     }
@@ -543,20 +543,20 @@ static void drawBorder(leRadioButtonWidget* btn)
 
 void _leRadioButtonWidget_Paint(leRadioButtonWidget* btn)
 {
-    if(btn->widget.drawState == NOT_STARTED)
+    if(btn->widget.status.drawState == NOT_STARTED)
     {
         nextState(btn);
     }
 
 #if LE_STREAMING_ENABLED == 1
-    if(btn->widget.drawState == WAIT_STRING ||
-       btn->widget.drawState == WAIT_IMAGE)
+    if(btn->widget.status.drawState == WAIT_STRING ||
+       btn->widget.status.drawState == WAIT_IMAGE)
     {
         return;
     }
 #endif
     
-    while(btn->widget.drawState != DONE)
+    while(btn->widget.status.drawState != DONE)
     {
         btn->widget.drawFunc((leWidget*)btn);
         
@@ -565,8 +565,8 @@ void _leRadioButtonWidget_Paint(leRadioButtonWidget* btn)
 #endif
         
 #if LE_STREAMING_ENABLED == 1
-        if(btn->widget.drawState == WAIT_STRING ||
-           btn->widget.drawState == WAIT_IMAGE)
+        if(btn->widget.status.drawState == WAIT_STRING ||
+           btn->widget.status.drawState == WAIT_IMAGE)
             break;
 #endif
     }

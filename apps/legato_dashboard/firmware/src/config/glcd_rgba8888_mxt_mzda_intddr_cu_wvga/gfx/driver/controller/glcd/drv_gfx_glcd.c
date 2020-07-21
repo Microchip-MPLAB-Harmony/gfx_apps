@@ -1,4 +1,3 @@
-// DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
@@ -21,8 +20,6 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-// DOM-IGNORE-END
-
 /********************************************************************************
   GFX GLCD Driver Functions for Static Single Instance Driver
 
@@ -70,16 +67,8 @@
 #define GFX_GLCD_BACKGROUND_COLOR 0xFFFFFF00
 #define GFX_GLCD_CONFIG_CONTROL 0x80000000
 #define GFX_GLCD_CONFIG_CLK_DIVIDER 10
+#define GFX_GLCD_GLOBAL_PALETTE_COLOR_COUNT 256
 
-/*** GLCD Layer 0 Configuration ***/
-#define  GFX_GLCD_LAYER0_BASEADDR                      0xA8000000
-#define  GFX_GLCD_LAYER0_DBL_BASEADDR                  0xA8465000
-/*** GLCD Layer 1 Configuration ***/
-#define  GFX_GLCD_LAYER1_BASEADDR                      0xA8177000
-#define  GFX_GLCD_LAYER1_DBL_BASEADDR                  0xA85DC000
-/*** GLCD Layer 2 Configuration ***/
-#define  GFX_GLCD_LAYER2_BASEADDR                      0xA82EE000
-#define  GFX_GLCD_LAYER2_DBL_BASEADDR                  0xA8753000
 
 #define LCDC_DEFAULT_GFX_COLOR_MODE GLCD_LAYER_COLOR_MODE_RGBA8888
 #define FRAMEBUFFER_PTR_TYPE    uint32_t*
@@ -96,6 +85,7 @@ const char* DRIVER_NAME = "GLCD";
 //static uint32_t supported_color_format = (GFX_COLOR_MASK_GS_8 |
 //                                          GFX_COLOR_MASK_RGB_565 |
 //                                          GFX_COLOR_MASK_RGBA_8888);
+
 
 static uint32_t state;
 static unsigned int vsyncCount = 0;
@@ -217,7 +207,6 @@ static GLCD_LAYER_COLOR_MODE getGLCDColorModeFromGFXColorMode(gfxColorMode mode)
     }
 }
 
-
 void DRV_GLCD_Initialize()
 {
     uint32_t      xResolution;
@@ -230,7 +219,6 @@ void DRV_GLCD_Initialize()
     uint32_t      upperMargin;
     uint32_t      stride;
     uint32_t      layerCount;
-    uint32_t      bufferCount;
 
     // general default initialization
     //if(defInitialize(context) == LE_FAILURE)
@@ -263,13 +251,11 @@ void DRV_GLCD_Initialize()
     PLIB_GLCD_ResolutionXYSet(xResolution, yResolution);
 
     PLIB_GLCD_SignalPolaritySet( GLCD_VSYNC_POLARITY_NEGATIVE | GLCD_HSYNC_POLARITY_NEGATIVE );
+
     PLIB_GLCD_PaletteGammaRampDisable();
 
     PLIB_GLCD_Enable();
 
-    drvLayer[0].baseaddr[0] = (FRAMEBUFFER_PTR_TYPE)GFX_GLCD_LAYER0_BASEADDR;
-    drvLayer[1].baseaddr[0] = (FRAMEBUFFER_PTR_TYPE)GFX_GLCD_LAYER1_BASEADDR;
-    drvLayer[2].baseaddr[0] = (FRAMEBUFFER_PTR_TYPE)GFX_GLCD_LAYER2_BASEADDR;
 
     for (layerCount = 0; layerCount < GFX_GLCD_LAYERS; layerCount++)
     {
@@ -285,13 +271,6 @@ void DRV_GLCD_Initialize()
         drvLayer[layerCount].colorspace = LCDC_DEFAULT_GFX_COLOR_MODE;
         drvLayer[layerCount].enabled    = true;
         drvLayer[layerCount].updateLock = LAYER_LOCKED;
-
-        //Clear frame buffer
-        for(bufferCount = 0; bufferCount < BUFFER_PER_LAYER; ++bufferCount)
-        {
-            memset(drvLayer[layerCount].baseaddr[bufferCount], 0, sizeof(FRAMEBUFFER_PIXEL_TYPE) * DISPLAY_WIDTH * DISPLAY_HEIGHT);
-        }
-        
         stride = getColorModeStrideSize(drvLayer[layerCount].colorspace);
 
         PLIB_GLCD_LayerBaseAddressSet(layerCount, (uint32_t)drvLayer[layerCount].baseaddr[0]);
@@ -389,6 +368,20 @@ gfxResult DRV_GLCD_SetActiveLayer(uint32_t idx)
     return GFX_SUCCESS;
 }
 
+gfxLayerState DRV_GLCD_GetLayerState(uint32_t idx)
+{
+    gfxLayerState layerState;
+
+    layerState.rect.x = drvLayer[idx].startx;
+    layerState.rect.y = drvLayer[idx].starty;
+    layerState.rect.width = drvLayer[idx].sizex;
+    layerState.rect.height = drvLayer[idx].sizey;
+
+    layerState.enabled = drvLayer[idx].enabled;
+
+    return layerState;
+}
+
 void DRV_GLCD_Swap(void)
 {
 
@@ -401,8 +394,7 @@ uint32_t DRV_GLCD_GetVSYNCCount(void)
 
 gfxResult DRV_GLCD_BlitBuffer(int32_t x,
                              int32_t y,
-                             gfxPixelBuffer* buf,
-                             gfxBlend blend)
+                             gfxPixelBuffer* buf)
 {
     void* srcPtr;
     void* destPtr;
@@ -541,6 +533,13 @@ static gfxResult DRV_GLCD_LayerConfig(ctlrCfg request, unsigned int layer, void 
     }
     
     return GFX_SUCCESS;
+}
+
+gfxResult DRV_GLCD_SetPalette(gfxBuffer* palette,
+                              gfxColorMode mode,
+                              uint32_t colorCount)
+{
+    return GFX_FAILURE;
 }
 
 gfxResult DRV_GLCD_CtrlrConfig(ctlrCfg request, void * arg)

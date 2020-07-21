@@ -69,14 +69,6 @@
 #define BSP_MAXTOUCH_CHG_OutputEnable()      (TRISHCLR = (1<<14))
 #define BSP_MAXTOUCH_CHG_InputEnable()       (TRISHSET = (1<<14))
 #define BSP_MAXTOUCH_CHG_PIN                  GPIO_PIN_RH14
-/*** Macros for TM5000_BACKLIGHT pin ***/
-#define TM5000_BACKLIGHT_Set()               (LATDSET = (1<<0))
-#define TM5000_BACKLIGHT_Clear()             (LATDCLR = (1<<0))
-#define TM5000_BACKLIGHT_Toggle()            (LATDINV= (1<<0))
-#define TM5000_BACKLIGHT_Get()               ((PORTD >> 0) & 0x1)
-#define TM5000_BACKLIGHT_OutputEnable()      (TRISDCLR = (1<<0))
-#define TM5000_BACKLIGHT_InputEnable()       (TRISDSET = (1<<0))
-#define TM5000_BACKLIGHT_PIN                  GPIO_PIN_RD0
 
 
 // *****************************************************************************

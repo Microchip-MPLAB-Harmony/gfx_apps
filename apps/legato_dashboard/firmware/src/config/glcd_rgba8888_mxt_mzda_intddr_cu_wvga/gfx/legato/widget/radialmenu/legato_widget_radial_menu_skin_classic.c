@@ -57,7 +57,7 @@ static void arrangeItems(leRadialMenuWidget* mn);
 
 static void nextState(leRadialMenuWidget* mn)
 {
-    switch(mn->widget.drawState)
+    switch(mn->widget.status.drawState)
     {
         case NOT_STARTED:
         {
@@ -70,9 +70,9 @@ static void nextState(leRadialMenuWidget* mn)
             }
 #endif
 
-            if(mn->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
+            if(mn->widget.style.backgroundType != LE_WIDGET_BACKGROUND_NONE)
             {
-                mn->widget.drawState = DRAW_BACKGROUND;
+                mn->widget.status.drawState = DRAW_BACKGROUND;
                 mn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBackground;
 
                 return;
@@ -82,7 +82,7 @@ static void nextState(leRadialMenuWidget* mn)
         {
             if(mn->drawEllipse == LE_TRUE)
             {
-                mn->widget.drawState = DRAW_ELLIPSE;
+                mn->widget.status.drawState = DRAW_ELLIPSE;
                 mn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawEllipse;
 
                 return;
@@ -92,7 +92,7 @@ static void nextState(leRadialMenuWidget* mn)
         {
             if(mn->widgetList.size > 0)
             {
-                mn->widget.drawState = ARRANGE_ITEMS;
+                mn->widget.status.drawState = ARRANGE_ITEMS;
                 mn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&arrangeItems;
 
                 return;
@@ -100,7 +100,7 @@ static void nextState(leRadialMenuWidget* mn)
         }
         default:
         {
-            mn->widget.drawState = DONE;
+            mn->widget.status.drawState = DONE;
             mn->widget.drawFunc = NULL;
         }
     }
@@ -190,12 +190,12 @@ static void arrangeItems(leRadialMenuWidget* mn)
 
 void _leRadialMenuWidget_Paint(leRadialMenuWidget* mn)
 {
-    if(mn->widget.drawState == NOT_STARTED)
+    if(mn->widget.status.drawState == NOT_STARTED)
     {
         nextState(mn);
     }
     
-    while(mn->widget.drawState != DONE)
+    while(mn->widget.status.drawState != DONE)
     {
         mn->widget.drawFunc((leWidget*)mn);
         

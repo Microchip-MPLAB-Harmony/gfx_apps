@@ -120,7 +120,7 @@ static void drawBorder(leProgressBarWidget* bar);
 
 static void nextState(leProgressBarWidget* bar)
 {
-    switch(bar->widget.drawState)
+    switch(bar->widget.status.drawState)
     {
         case NOT_STARTED:
         {
@@ -133,9 +133,9 @@ static void nextState(leProgressBarWidget* bar)
             }
 #endif
             
-            if(bar->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
+            if(bar->widget.style.backgroundType != LE_WIDGET_BACKGROUND_NONE)
             {
-                bar->widget.drawState = DRAW_BACKGROUND;
+                bar->widget.status.drawState = DRAW_BACKGROUND;
                 bar->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBackground;
 
                 return;
@@ -145,7 +145,7 @@ static void nextState(leProgressBarWidget* bar)
         {
             if(bar->value > 0)
             {
-                bar->widget.drawState = DRAW_FILL;
+                bar->widget.status.drawState = DRAW_FILL;
                 bar->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawFill;
                 
                 return;
@@ -156,14 +156,14 @@ static void nextState(leProgressBarWidget* bar)
             if(bar->widget.borderType != LE_WIDGET_BORDER_NONE)
             {
                 bar->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
-                bar->widget.drawState = DRAW_BORDER;
+                bar->widget.status.drawState = DRAW_BORDER;
                 
                 return;
             }
         }
         case DRAW_BORDER:
         {
-            bar->widget.drawState = DONE;
+            bar->widget.status.drawState = DONE;
             bar->widget.drawFunc = NULL;
         }
     }
@@ -171,7 +171,7 @@ static void nextState(leProgressBarWidget* bar)
 
 static void drawBackground(leProgressBarWidget* bar)
 {
-    if(bar->widget.backgroundType == LE_WIDGET_BACKGROUND_FILL)
+    if(bar->widget.style.backgroundType == LE_WIDGET_BACKGROUND_FILL)
     {
         leWidget_SkinClassic_DrawBackground((leWidget*)bar,
                                             leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_BASE),
@@ -212,12 +212,12 @@ static void drawBorder(leProgressBarWidget* bar)
 
 void _leProgressBarWidget_Paint(leProgressBarWidget* bar)
 {
-    if(bar->widget.drawState == NOT_STARTED)
+    if(bar->widget.status.drawState == NOT_STARTED)
     {
         nextState(bar);
     }
     
-    while(bar->widget.drawState != DONE)
+    while(bar->widget.status.drawState != DONE)
     {
         bar->widget.drawFunc((leWidget*)bar);
         

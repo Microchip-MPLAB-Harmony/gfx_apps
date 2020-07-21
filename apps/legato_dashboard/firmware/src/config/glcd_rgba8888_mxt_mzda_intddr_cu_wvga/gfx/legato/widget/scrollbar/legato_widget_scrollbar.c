@@ -191,7 +191,7 @@ void leScrollBarWidget_Constructor(leScrollBarWidget* _this)
 
     _this->state = LE_SCROLLBAR_STATE_NONE;
 
-    _this->widget.borderType = LE_WIDGET_BORDER_BEVEL;
+    _this->widget..status.borderType = LE_WIDGET_BORDER_BEVEL;
 
     _this->alignment = LE_ORIENTATION_VERTICAL;
     

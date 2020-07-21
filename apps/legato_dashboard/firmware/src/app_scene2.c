@@ -419,6 +419,8 @@ void APP_Process_Scene2(void)
        }       
        case APP_SCENE_STATE_PROCESS_TASKS:
        {
+            static unsigned int idleCount = 0;
+           
             if (animCounterOld != animCounter)
             {
                 uint32_t updateNeeded = 0;
@@ -448,6 +450,19 @@ void APP_Process_Scene2(void)
                 if (updateNeeded == 1)
                 {
                     UpdateGauges(nextLeftNeedleAngle, nextRightNeedleAngle);
+                    
+                    idleCount = 0;
+                    
+                    if (APP_GetBacklightBrightness() != ON_BRIGHTNESS)
+                        APP_SetBacklightBrightness(ON_BRIGHTNESS);
+                }
+                else
+                {
+                    if (idleCount > BACKLIGHT_IDLE_TIMEOUT_COUNT)
+                        APP_SetBacklightBrightness(DIM_BRIGHTNESS);
+                    else
+                        idleCount++;
+                    
                 }
                 
                 animCounterOld = animCounter;

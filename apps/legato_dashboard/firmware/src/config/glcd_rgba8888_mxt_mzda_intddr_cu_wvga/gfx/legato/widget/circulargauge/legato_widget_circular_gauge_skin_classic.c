@@ -92,7 +92,7 @@ static void drawBorder(leCircularGaugeWidget* gauge);
 
 static void nextState(leCircularGaugeWidget* gauge)
 {
-    switch(gauge->widget.drawState)
+    switch(gauge->widget.status.drawState)
     {
         case NOT_STARTED:
         {
@@ -105,9 +105,9 @@ static void nextState(leCircularGaugeWidget* gauge)
             }
 #endif
             
-            if(gauge->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
+            if(gauge->widget.style.backgroundType != LE_WIDGET_BACKGROUND_NONE)
             {
-                gauge->widget.drawState = DRAW_BACKGROUND;
+                gauge->widget.status.drawState = DRAW_BACKGROUND;
                 gauge->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBackground;
 
                 return;
@@ -116,17 +116,17 @@ static void nextState(leCircularGaugeWidget* gauge)
         // fall through
         case DRAW_BACKGROUND:
         {
-            gauge->widget.drawState = DRAW_CIRCULAR_GAUGE;
+            gauge->widget.status.drawState = DRAW_CIRCULAR_GAUGE;
             gauge->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawCircularGauge;
     
             return;
         }
         case DRAW_CIRCULAR_GAUGE:
         {            
-            if(gauge->widget.borderType != LE_WIDGET_BORDER_NONE)
+            if(gauge->widget.style.borderType != LE_WIDGET_BORDER_NONE)
             {
                 gauge->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
-                gauge->widget.drawState = DRAW_BORDER;
+                gauge->widget.status.drawState = DRAW_BORDER;
                 
                 return;
             }
@@ -134,7 +134,7 @@ static void nextState(leCircularGaugeWidget* gauge)
         // fall through
         case DRAW_BORDER:
         {
-            gauge->widget.drawState = DONE;
+            gauge->widget.status.drawState = DONE;
             gauge->widget.drawFunc = NULL;
         }
     }
@@ -492,7 +492,7 @@ static void drawCircularGauge(leCircularGaugeWidget* gauge)
 
 static void drawBorder(leCircularGaugeWidget* gauge)
 {    
-    if(gauge->widget.borderType == LE_WIDGET_BORDER_LINE)
+    if(gauge->widget.style.borderType == LE_WIDGET_BORDER_LINE)
     {
         leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)gauge,
                                                     paintState.alpha);
@@ -508,12 +508,12 @@ static void drawBorder(leCircularGaugeWidget* gauge)
 
 void _leCircularGaugeWidget_Paint(leCircularGaugeWidget* gauge)
 {    
-    if(gauge->widget.drawState == NOT_STARTED)
+    if(gauge->widget.status.drawState == NOT_STARTED)
     {
         nextState(gauge);
     }
     
-    while(gauge->widget.drawState != DONE)
+    while(gauge->widget.status.drawState != DONE)
     {
         gauge->widget.drawFunc((leWidget*)gauge);
         

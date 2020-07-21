@@ -77,7 +77,7 @@ static void drawBorder(leTouchTestWidget* tch);
 
 static void nextState(leTouchTestWidget* tch)
 {
-    switch(tch->widget.drawState)
+    switch(tch->widget.status.drawState)
     {
         case NOT_STARTED:
         {
@@ -90,9 +90,9 @@ static void nextState(leTouchTestWidget* tch)
             }
 #endif
 
-            if(tch->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
+            if(tch->widget.style.backgroundType != LE_WIDGET_BACKGROUND_NONE)
             {
-                tch->widget.drawState = DRAW_BACKGROUND;
+                tch->widget.status.drawState = DRAW_BACKGROUND;
                 tch->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBackground;
 
                 return;
@@ -102,7 +102,7 @@ static void nextState(leTouchTestWidget* tch)
         {
             if(tch->size > 0)
             {
-                tch->widget.drawState = DRAW_LINES;
+                tch->widget.status.drawState = DRAW_LINES;
                 tch->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawLines;
                 
                 return;
@@ -110,17 +110,17 @@ static void nextState(leTouchTestWidget* tch)
         }
         case DRAW_LINES:
         {
-            if(tch->widget.borderType != LE_WIDGET_BORDER_NONE)
+            if(tch->widget.style.borderType != LE_WIDGET_BORDER_NONE)
             {
                 tch->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
-                tch->widget.drawState = DRAW_BORDER;
+                tch->widget.status.drawState = DRAW_BORDER;
                 
                 return;
             }
         }
         case DRAW_BORDER:
         {
-            tch->widget.drawState = DONE;
+            tch->widget.status.drawState = DONE;
             tch->widget.drawFunc = NULL;
         }
     }
@@ -195,11 +195,11 @@ static void drawLines(leTouchTestWidget* tch)
 
 static void drawBorder(leTouchTestWidget* tch)
 {
-    if(tch->widget.borderType == LE_WIDGET_BORDER_LINE)
+    if(tch->widget.style.borderType == LE_WIDGET_BORDER_LINE)
     {
         leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)tch, paintState.alpha);
     }
-    else if(tch->widget.borderType == LE_WIDGET_BORDER_BEVEL)
+    else if(tch->widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)tch, paintState.alpha);
     }
@@ -209,12 +209,12 @@ static void drawBorder(leTouchTestWidget* tch)
 
 void _leTouchTestWidget_Paint(leTouchTestWidget* tch)
 {
-    if(tch->widget.drawState == NOT_STARTED)
+    if(tch->widget.status.drawState == NOT_STARTED)
     {
         nextState(tch);
     }
     
-    while(tch->widget.drawState != DONE)
+    while(tch->widget.status.drawState != DONE)
     {
         tch->widget.drawFunc((leWidget*)tch);
         

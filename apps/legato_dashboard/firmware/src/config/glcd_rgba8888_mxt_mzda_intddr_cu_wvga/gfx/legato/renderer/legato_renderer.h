@@ -59,56 +59,22 @@ typedef enum leFrameState
     LE_FRAME_POSTFRAME,
 } leFrameState;
 
-// *****************************************************************************
-/* Structure:
-    struct leRenderState
+typedef struct leRenderLayerState
+{
+    leRectArray prevDamageRects;    // previous damaged rectangle list
+    leRectArray currentDamageRects; // queued damaged rectangle list
+    leRectArray pendingDamageRects; // pending damaged rectangle list
+                                    // these are rectangles added during
+                                    // a frame in progress
 
-  Summary:
-    Defines the global state of the renderer
+    leRectArray scratchRectList; // used for rectangle culling phase
+    leRectArray frameRectList;   // rects to draw for a frame
 
-  Description:
-    const gfxDisplayDriver* dispDriver - the display driver pointer
+    leBool drawingPrev;           // indicates if the layer is currently
+                                  // drawing from its previous rectangle
+                                  // array
+} leRenderLayerState;
 
-    uint32_t layerIdx - the current layer index
-
-    leRect displayRect - the driver physical display rectangle
-    uint32_t bufferCount - the number of scratch buffers the library supports
-
-    leRectArray prevDamageRects - previous damaged rectangle list
-    leRectArray currentDamageRects - queued damaged rectangle list
-    leRectArray pendingDamageRects - pending damaged rectangle list
-                                     these are rectangles added during
-                                     a frame in progress
-
-    leRectArray scratchRectList - used for rectangle culling phase
-    leRectArray frameRectList - this of rects to draw for a frame
-
-    uint32_t frameRectIdx - the current frame draw rectangle index
-    leWidget* currentWidget - the widget that is currently drawing
-
-    leRect drawRect - the current damage rectangle clipped to the currently
-                      rendering widget
-
-    leBool drawingPrev - indicates if the layer is currently drawing from its
-                         previous rectangle array
-
-    leFrameState frameState - the current frame render state
-
-    uint32_t drawCount - the number of times the screen has drawn
-
-    uint32_t frameDrawCount - the number of widgets that have rendered
-                              on the screen
-
-    uint32_t deltaTime - stores delta time for updates that happen
-                         during rendering
-
-    leBool alphaEnable - the global alpha enabled flag
-    uint8_t alpha - the current global alpha value
-
-    lePalette* globalPalette - the pointer to the global palette
-
-    lePixelBuffer* renderBuffer - the current scratch buffer
-*/
 /**
  * @brief This structs represents global state of the renderer.
  * @details This struct type describes the state at which a
@@ -120,18 +86,9 @@ typedef struct leRenderState
     const gfxGraphicsProcessor* gpuDriver; // the gpu driver pointer
     
     uint32_t layerIdx;           // the current layer index
-    
-    leRect displayRect;          // the driver physical display rectangle
-    uint32_t bufferCount;        // the number of scratch buffers the library supports
-    
-    leRectArray prevDamageRects; // previous damaged rectangle list
-    leRectArray currentDamageRects; // queued damaged rectangle list
-    leRectArray pendingDamageRects; // pending damaged rectangle list
-                                    // these are rectangles added during
-                                    // a frame in progress
 
-    leRectArray scratchRectList; // used for rectangle culling phase
-    leRectArray frameRectList;   // this of rects to draw for a frame
+    //leRect displayRect;          // the driver physical display rectangle
+    uint32_t bufferCount;        // the number of scratch buffers the library supports
 
     uint32_t frameRectIdx;       // the current frame draw rectangle index
     leWidget* currentWidget;     // the widget that is currently drawing
@@ -139,9 +96,7 @@ typedef struct leRenderState
     leRect drawRect;              // the current damage rectangle clipped
                                   // to the currently rendering widget
 
-    leBool drawingPrev;           // indicates if the layer is currently
-                                  // drawing from its previous rectangle
-                                  // array
+    leRenderLayerState layerStates[LE_LAYER_COUNT];
 
     leFrameState frameState;      // the current frame render state
 
@@ -192,20 +147,21 @@ void leRenderer_Shutdown();
     leResult leRenderer_DamageArea(const leRect* rect)
 
   Summary:
-    Damages a section of the display.  The renderer will redraw it as part
+    Damages a section of a display layer.  The renderer will redraw it as part
     of the next draw cycle.
 
   Description:
-    Damages a section of the display.  The renderer will redraw it as part
+    Damages a section of a display layer.  The renderer will redraw it as part
     of the next draw cycle.
 
   Parameters:
     const leRect* rect - the rectangle area to damage
+    uint32_t layerIdx - the layer to damage
 
   Returns:
     leResult
 */
-leResult leRenderer_DamageArea(const leRect* rect);
+leResult leRenderer_DamageArea(const leRect* rect, uint32_t layerIdx);
 
 // internal use only
 void leRenderer_Paint();
@@ -315,23 +271,6 @@ leColor leRenderer_GlobalPaletteLookup(uint32_t idx);
     leColor - the result color
 */
 leColor leRenderer_ConvertColor(leColor inColor, leColorMode inMode);
-
-// *****************************************************************************
-/* Function:
-    leRect leRenderer_GetDisplayRect()
-
-  Summary:
-    Gets the current display rectangle.
-
-  Description:
-    Gets the current display rectangle.
-
-  Parameters:
-
-  Returns:
-    leRect - the display rectangle
-*/
-leRect leRenderer_GetDisplayRect();
 
 // *****************************************************************************
 /* Function:

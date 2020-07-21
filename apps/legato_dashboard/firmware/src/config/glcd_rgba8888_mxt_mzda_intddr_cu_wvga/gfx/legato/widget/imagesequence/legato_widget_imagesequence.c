@@ -60,8 +60,8 @@ void leImageSequenceWidget_Constructor(leImageSequenceWidget* _this)
     _this->widget.rect.width = DEFAULT_WIDTH;
     _this->widget.rect.height = DEFAULT_HEIGHT;
 
-    _this->widget.borderType = LE_WIDGET_BORDER_NONE;
-    _this->widget.backgroundType = LE_WIDGET_BACKGROUND_FILL;
+    _this->widget.style.borderType = LE_WIDGET_BORDER_NONE;
+    _this->widget.style.backgroundType = LE_WIDGET_BACKGROUND_FILL;
 
     _this->count = 0;
     _this->images = NULL;

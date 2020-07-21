@@ -106,7 +106,7 @@ void leWindowWidget_Constructor(leWindowWidget* _this)
     _this->widget.rect.width = DEFAULT_WIDTH;
     _this->widget.rect.height = DEFAULT_HEIGHT;
 
-    _this->widget.borderType = LE_WIDGET_BORDER_BEVEL;
+    _this->widget.style.borderType = LE_WIDGET_BORDER_BEVEL;
 
     _this->titleHeight = DEFAULT_TITLE_HEIGHT;
     _this->iconMargin = DEFAULT_ICON_MARGIN;

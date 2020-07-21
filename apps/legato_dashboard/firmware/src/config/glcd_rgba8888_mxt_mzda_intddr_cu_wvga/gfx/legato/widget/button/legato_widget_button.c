@@ -111,7 +111,7 @@ void leButtonWidget_Constructor(leButtonWidget* _this)
     _this->state = LE_BUTTON_STATE_UP;
     _this->toggleable = LE_FALSE;
 
-    _this->widget.borderType = LE_WIDGET_BORDER_BEVEL;
+    _this->widget.style.borderType = LE_WIDGET_BORDER_BEVEL;
 
     _this->string = NULL;
 
@@ -227,7 +227,7 @@ static leResult setPressed(leButtonWidget* _this,
         dirty = LE_TRUE;
     }
        
-    if(_this->widget.borderType == LE_WIDGET_BORDER_BEVEL)
+    if(_this->widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         dirty = LE_TRUE;
     }

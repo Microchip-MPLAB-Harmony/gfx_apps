@@ -99,8 +99,8 @@ void _leButtonWidget_GetImageRect(const leButtonWidget* btn,
     leUtils_ArrangeRectangle(imgRect,
                              textRect,
                              bounds,
-                             btn->widget.halign,
-                             btn->widget.valign,
+                             btn->widget.style.halign,
+                             btn->widget.style.valign,
                              btn->imagePosition,
                              btn->widget.margin.left,
                              btn->widget.margin.top,
@@ -158,8 +158,8 @@ void _leButtonWidget_GetTextRect(const leButtonWidget* btn,
     leUtils_ArrangeRectangleRelative(textRect,
                                      imgRect,
                                      bounds,
-                                     btn->widget.halign,
-                                     btn->widget.valign,
+                                     btn->widget.style.halign,
+                                     btn->widget.style.valign,
                                      btn->imagePosition,
                                      btn->widget.margin.left,
                                      btn->widget.margin.top,
@@ -185,12 +185,12 @@ void _leButtonWidget_InvalidateBorderAreas(const leButtonWidget* btn)
     leRect rect, dmgRect;
 	int32_t left, top, right, bottom;
 	
-	if(btn->widget.borderType == LE_WIDGET_BORDER_NONE)
+	if(btn->widget.style.borderType == LE_WIDGET_BORDER_NONE)
 	    return;
 	
 	rect = btn->fn->rectToScreen(btn);
 	
-	if(btn->widget.borderType == LE_WIDGET_BORDER_LINE)
+	if(btn->widget.style.borderType == LE_WIDGET_BORDER_LINE)
 	{
 	    if(rect.width == 0 || rect.height == 0)
 			return;
@@ -271,7 +271,7 @@ static void drawImage(leButtonWidget* btn);
 static void drawBorder(leButtonWidget* btn);
 static void nextState(leButtonWidget* btn)
 {
-    switch(btn->widget.drawState)
+    switch(btn->widget.status.drawState)
     {
         case NOT_STARTED:
         {
@@ -284,9 +284,9 @@ static void nextState(leButtonWidget* btn)
             }
 #endif
             
-            if(btn->widget.backgroundType != LE_WIDGET_BACKGROUND_NONE) 
+            if(btn->widget.style.backgroundType != LE_WIDGET_BACKGROUND_NONE)
             {
-                btn->widget.drawState = DRAW_BACKGROUND;
+                btn->widget.status.drawState = DRAW_BACKGROUND;
                 btn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBackground;
 
                 return;
@@ -298,7 +298,7 @@ static void nextState(leButtonWidget* btn)
             if((btn->state != LE_BUTTON_STATE_UP && btn->pressedImage != NULL) ||
                (btn->state == LE_BUTTON_STATE_UP && btn->releasedImage != NULL))
             {
-                btn->widget.drawState = DRAW_IMAGE;
+                btn->widget.status.drawState = DRAW_IMAGE;
                 btn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawImage;
 
                 return;
@@ -309,7 +309,7 @@ static void nextState(leButtonWidget* btn)
         {            
             if(btn->string != NULL && btn->string->fn->isEmpty(btn->string) == LE_FALSE)
             {
-                btn->widget.drawState = DRAW_STRING;
+                btn->widget.status.drawState = DRAW_STRING;
                 btn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawString;
 
                 return;
@@ -318,10 +318,10 @@ static void nextState(leButtonWidget* btn)
         // fall through
         case DRAW_STRING:
         {
-            if(btn->widget.borderType != LE_WIDGET_BORDER_NONE)
+            if(btn->widget.style.borderType != LE_WIDGET_BORDER_NONE)
             {
                 btn->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
-                btn->widget.drawState = DRAW_BORDER;
+                btn->widget.status.drawState = DRAW_BORDER;
                 
                 return;
             }
@@ -329,7 +329,7 @@ static void nextState(leButtonWidget* btn)
         // fall through
         case DRAW_BORDER:
         {
-            btn->widget.drawState = DONE;
+            btn->widget.status.drawState = DONE;
             btn->widget.drawFunc = NULL;
         }
     }
@@ -337,7 +337,7 @@ static void nextState(leButtonWidget* btn)
 
 static void drawBackground(leButtonWidget* btn)
 {
-    if(btn->widget.backgroundType == LE_WIDGET_BACKGROUND_FILL)
+    if(btn->widget.style.backgroundType == LE_WIDGET_BACKGROUND_FILL)
     {
         if(btn->state != LE_BUTTON_STATE_UP)
         {
@@ -361,7 +361,7 @@ static void onImageStreamFinished(leStreamManager* strm)
 {
     leButtonWidget* btn = (leButtonWidget*)strm->userData;
 
-    btn->widget.drawState = DRAW_IMAGE;
+    btn->widget.status.drawState = DRAW_IMAGE;
 
     nextState(btn);
 }
@@ -397,7 +397,7 @@ static void drawImage(leButtonWidget* btn)
         leGetActiveStream()->onDone = onImageStreamFinished;
         leGetActiveStream()->userData = btn;
 
-        btn->widget.drawState = WAIT_IMAGE;
+        btn->widget.status.drawState = WAIT_IMAGE;
         
         return;
     }
@@ -411,7 +411,7 @@ static void onStringStreamFinished(leStreamManager* strm)
 {
     leButtonWidget* btn = (leButtonWidget*)strm->userData;
 
-    btn->widget.drawState = DRAW_STRING;
+    btn->widget.status.drawState = DRAW_STRING;
 
     nextState(btn);
 }
@@ -430,7 +430,7 @@ static void drawString(leButtonWidget* btn)
     btn->string->fn->_draw(btn->string,
                            textRect.x,
                            textRect.y,
-                           btn->widget.halign,
+                           btn->widget.style.halign,
                            leScheme_GetRenderColor(btn->widget.scheme, LE_SCHM_TEXT),
                            paintState.alpha);
 
@@ -440,7 +440,7 @@ static void drawString(leButtonWidget* btn)
         leGetActiveStream()->onDone = onStringStreamFinished;
         leGetActiveStream()->userData = btn;
 
-        btn->widget.drawState = WAIT_STRING;
+        btn->widget.status.drawState = WAIT_STRING;
 
         return;
     }
@@ -451,12 +451,12 @@ static void drawString(leButtonWidget* btn)
 
 static void drawBorder(leButtonWidget* btn)
 {
-    if(btn->widget.borderType == LE_WIDGET_BORDER_LINE)
+    if(btn->widget.style.borderType == LE_WIDGET_BORDER_LINE)
     {
         leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)btn,
                                                     paintState.alpha);
     }
-    else if(btn->widget.borderType == LE_WIDGET_BORDER_BEVEL)
+    else if(btn->widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         if(btn->state != LE_BUTTON_STATE_UP)
         {
@@ -475,20 +475,20 @@ static void drawBorder(leButtonWidget* btn)
 
 void _leButtonWidget_Paint(leButtonWidget* btn)
 {
-    if(btn->widget.drawState == NOT_STARTED)
+    if(btn->widget.status.drawState == NOT_STARTED)
     {
         nextState(btn);
     }
 
 #if LE_STREAMING_ENABLED == 1
-    if(btn->widget.drawState == WAIT_IMAGE ||
-        btn->widget.drawState == WAIT_STRING)
+    if(btn->widget.status.drawState == WAIT_IMAGE ||
+        btn->widget.status.drawState == WAIT_STRING)
     {
         return;
     }
 #endif
     
-    while(btn->widget.drawState != DONE)
+    while(btn->widget.status.drawState != DONE)
     {
         btn->widget.drawFunc((leWidget*)btn);
         
@@ -497,8 +497,8 @@ void _leButtonWidget_Paint(leButtonWidget* btn)
 #endif
         
 #if LE_STREAMING_ENABLED == 1
-        if(btn->widget.drawState == WAIT_IMAGE ||
-           btn->widget.drawState == WAIT_STRING)
+        if(btn->widget.status.drawState == WAIT_IMAGE ||
+           btn->widget.status.drawState == WAIT_STRING)
             break;
 #endif
     }

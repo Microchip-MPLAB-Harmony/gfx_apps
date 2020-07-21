@@ -95,8 +95,8 @@ void leLabelWidget_Constructor(leLabelWidget* _this)
     _this->widget.rect.width = DEFAULT_WIDTH;
     _this->widget.rect.height = DEFAULT_HEIGHT;
 
-    _this->widget.borderType = LE_WIDGET_BORDER_NONE;
-    _this->widget.halign = LE_HALIGN_LEFT;
+    _this->widget.style.borderType = LE_WIDGET_BORDER_NONE;
+    _this->widget.style.halign = LE_HALIGN_LEFT;
      
     _this->string = NULL;
 }

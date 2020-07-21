@@ -167,7 +167,7 @@ static void drawHandle(leScrollBarWidget* bar);
 
 static void nextState(leScrollBarWidget* bar)
 {
-    switch(bar->widget.drawState)
+    switch(bar->widget.status.drawState)
     {
         case NOT_STARTED:
         {
@@ -180,35 +180,35 @@ static void nextState(leScrollBarWidget* bar)
             }
 #endif
 
-            bar->widget.drawState = DRAW_BACKGROUND;
+            bar->widget.status.drawState = DRAW_BACKGROUND;
             bar->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBackground;
 
             return;
         }
         case DRAW_BACKGROUND:
         {
-            bar->widget.drawState = DRAW_UP_BUTTON;
+            bar->widget.status.drawState = DRAW_UP_BUTTON;
             bar->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawUpButton;
             
             return;
         }
         case DRAW_UP_BUTTON:
         {            
-            bar->widget.drawState = DRAW_DOWN_BUTTON;
+            bar->widget.status.drawState = DRAW_DOWN_BUTTON;
             bar->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawDownButton;
             
             return;
         }
         case DRAW_DOWN_BUTTON:
         {            
-            bar->widget.drawState = DRAW_HANDLE;
+            bar->widget.status.drawState = DRAW_HANDLE;
             bar->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawHandle;
             
             return;
         }
         case DRAW_HANDLE:
         {
-            bar->widget.drawState = DONE;
+            bar->widget.status.drawState = DONE;
             bar->widget.drawFunc = NULL;
         }
     }
@@ -218,7 +218,7 @@ static void drawBackground(leScrollBarWidget* bar)
 {
     leRect rect;
     
-    if(bar->widget.backgroundType == LE_WIDGET_BACKGROUND_FILL)
+    if(bar->widget.style.backgroundType == LE_WIDGET_BACKGROUND_FILL)
     {
         _leScrollBar_GetScrollAreaRect(bar, &rect);
      
@@ -277,13 +277,13 @@ static void drawUpButton(leScrollBarWidget* bar)
     }
     
     // draw button border
-    if(bar->widget.borderType == LE_WIDGET_BORDER_LINE)
+    if(bar->widget.style.borderType == LE_WIDGET_BORDER_LINE)
     {
         leWidget_SkinClassic_DrawLineBorder(&rect,
                                             leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_SHADOWDARK),
                                             paintState.alpha);
     }
-    else if(bar->widget.borderType == LE_WIDGET_BORDER_BEVEL)
+    else if(bar->widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         if(bar->state == LE_SCROLLBAR_STATE_TOP_INSIDE)
         {
@@ -362,13 +362,13 @@ static void drawDownButton(leScrollBarWidget* bar)
     }
     
     // draw button border
-    if(bar->widget.borderType == LE_WIDGET_BORDER_LINE)
+    if(bar->widget.style.borderType == LE_WIDGET_BORDER_LINE)
     {
         leWidget_SkinClassic_DrawLineBorder(&rect,
                                             leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_SHADOWDARK),
                                             paintState.alpha);
     }
-    else if(bar->widget.borderType == LE_WIDGET_BORDER_BEVEL)
+    else if(bar->widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         if(bar->state == LE_SCROLLBAR_STATE_BOTTOM_INSIDE)
         {
@@ -404,13 +404,13 @@ static void drawHandle(leScrollBarWidget* bar)
                         paintState.alpha);
     
     // draw handle border
-    if(bar->widget.borderType == LE_WIDGET_BORDER_LINE)
+    if(bar->widget.style.borderType == LE_WIDGET_BORDER_LINE)
     {
         leWidget_SkinClassic_DrawLineBorder(&rect,
                                             leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_SHADOWDARK),
                                             paintState.alpha);
     }
-    else if(bar->widget.borderType == LE_WIDGET_BORDER_BEVEL)
+    else if(bar->widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         leWidget_SkinClassic_Draw1x2BeveledBorder(&rect,
                                                   leScheme_GetRenderColor(bar->widget.scheme, LE_SCHM_HIGHLIGHTLIGHT),
@@ -424,10 +424,10 @@ static void drawHandle(leScrollBarWidget* bar)
 
 void _leScrollBarWidget_Paint(leScrollBarWidget* bar)
 {
-    if(bar->widget.drawState == NOT_STARTED)
+    if(bar->widget.status.drawState == NOT_STARTED)
         nextState(bar);
     
-    while(bar->widget.drawState != DONE)
+    while(bar->widget.status.drawState != DONE)
     {
         bar->widget.drawFunc((leWidget*)bar);
         

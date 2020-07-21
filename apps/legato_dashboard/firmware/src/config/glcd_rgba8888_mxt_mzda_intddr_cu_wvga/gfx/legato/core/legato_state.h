@@ -57,6 +57,7 @@ typedef struct
 {
     leColorMode colorMode;
     leBool renderHorizontal;
+    lePoint driverPosition;
 } leLayerState;
 
 // *****************************************************************************
@@ -206,6 +207,7 @@ leBool leGetLayerRenderHorizontal(uint32_t lyrIdx);
  */
 leResult leSetLayerRenderHorizontal(uint32_t lyrIdx, leBool horz);
 
+#if 0
 // *****************************************************************************
 /**
  * @brief Get display rectangle.
@@ -217,7 +219,8 @@ leResult leSetLayerRenderHorizontal(uint32_t lyrIdx, leBool horz);
  * @return the display rectangle.
  */
 LIB_EXPORT leRect leGetDisplayRect();
-    
+#endif
+
 // *****************************************************************************
 /**
  * @brief Get string table.
@@ -683,7 +686,9 @@ LIB_EXPORT leResult leRemoveRootWidget(leWidget* wgt,
  * @param void.
  * @returns LE_SUCCESS if set, otherwise LE_FAILURE.
  */
-LIB_EXPORT leBool leWidgetIsInScene(const leWidget* wgt);
+leBool leWidgetIsInScene(const leWidget* wgt);
+
+int32_t leGetWidgetLayer(const leWidget* wgt);
 
 
 /*  Function:

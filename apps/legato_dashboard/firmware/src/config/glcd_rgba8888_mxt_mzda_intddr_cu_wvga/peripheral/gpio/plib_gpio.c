@@ -60,12 +60,16 @@ void GPIO_Initialize ( void )
     /* PORTA Initialization */
 
     /* PORTB Initialization */
+    ODCBSET = 0x2; /* Open Drain Enable */
+    LATB = 0x2; /* Initial Latch Value */
+    TRISBCLR = 0x2; /* Direction Control */
 
     /* PORTC Initialization */
+    ODCCSET = 0x12; /* Open Drain Enable */
+    LATC = 0x12; /* Initial Latch Value */
+    TRISCCLR = 0x12; /* Direction Control */
 
     /* PORTD Initialization */
-    LATD = 0x1; /* Initial Latch Value */
-    TRISDCLR = 0x1; /* Direction Control */
 
     /* PORTE Initialization */
 
@@ -80,11 +84,22 @@ void GPIO_Initialize ( void )
     /* PORTK Initialization */
 
 
+    /* Unlock system for PPS configuration */
+    SYSKEY = 0x00000000;
+    SYSKEY = 0xAA996655;
+    SYSKEY = 0x556699AA;
+    CFGCONbits.IOLOCK = 0;
 
     /* PPS Input Remapping */
 
     /* PPS Output Remapping */
+    RPD0R = 12;
 
+    /* Lock back the system after PPS configuration */
+    SYSKEY = 0x00000000;
+    SYSKEY = 0xAA996655;
+    SYSKEY = 0x556699AA;
+    CFGCONbits.IOLOCK = 1;
 
 }
 
