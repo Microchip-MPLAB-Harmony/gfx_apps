@@ -28,7 +28,6 @@
 // *****************************************************************************
 #include <stdio.h>
 #include "app.h"
-#include "app.h"
 #include "definitions.h"
 #include "gfx/canvas/gfx_canvas_api.h"
 #include "gfx/driver/controller/glcd/plib_glcd.h"
@@ -46,6 +45,8 @@ static bool rightGaugeAnimDone = false;
 
 static SYS_INP_InputListener app_inputListener;
 
+static int lastX, lastY;
+static bool rightEdgeDownFlag = false;
 static unsigned int lastTouchDownCount = 0;
 static int inputListenerID = 0;
 
@@ -382,22 +383,45 @@ static void app_touchDownHandler(const SYS_INP_TouchStateEvent* const evt)
 {
     if (animCounter > lastTouchDownCount && (animCounter - lastTouchDownCount < DOUBLE_TAP_COUNT_LIMIT))
         appData.scene_state = APP_SCENE_STATE_SWITCH_SCENE_1_2_0;
+    
+    if (evt->x > RIGHT_EDGE_TOUCH_X_MIN)
+    {
+        rightEdgeDownFlag = true;
+        lastX = evt->x;
+        lastY = evt->y;
+    }
     else
-        SetGaugeTarget(evt->x, evt->y);
-
+        rightEdgeDownFlag = false;
+    
+    SetGaugeTarget(evt->x, evt->y);    
+    
     demoModeCounter = 0;
     lastTouchDownCount = animCounter;
 }
 
 static void app_touchUpHandler(const SYS_INP_TouchStateEvent* const evt)
 {
-
+    rightEdgeDownFlag = false;
 }
 
 static void app_touchMoveHandler(const SYS_INP_TouchMoveEvent* const evt)
 {
-    SetGaugeTarget(evt->x, evt->y);
-    demoModeCounter = 0;    
+    if ((rightEdgeDownFlag == true) &&
+        (lastX > evt->x) && 
+        (lastX - evt->x > SWIPE_THRESHOLD_PIXELS))
+    {
+            appData.scene_state = APP_SCENE_STATE_SWITCH_SCENE_1_2_0;
+    }
+    else
+    {
+        SetGaugeTarget(evt->x, evt->y);
+    }
+    
+    rightEdgeDownFlag = false;
+    demoModeCounter = 0; 
+    
+    lastX = evt->x;
+    lastY = evt->y;
 }
 
 static void animTimer_DemoMode ( uintptr_t context )

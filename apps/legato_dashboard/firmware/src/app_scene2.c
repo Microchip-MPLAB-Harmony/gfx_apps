@@ -43,6 +43,8 @@ static bool rightGaugeAnimDone = false;
 
 static SYS_INP_InputListener app_inputListener;
 
+static int lastX, lastY;
+static bool leftEdgeDownFlag = false;
 static unsigned int lastTouchDownCount = 0;
 static int inputListenerID = 0;
 
@@ -281,25 +283,50 @@ static void SetGaugeTarget(int x, int y)
 
 static void app_touchDownHandler(const SYS_INP_TouchStateEvent* const evt)
 {
-    SetGaugeTarget(evt->x, evt->y);
-    
     //Detect double tap
     if (animCounter > lastTouchDownCount && (animCounter - lastTouchDownCount < DOUBLE_TAP_COUNT_LIMIT))
         appData.scene_state = APP_SCENE_STATE_SWITCH_SCENE_1_2_0;
     
+    if (evt->x < LEFT_EDGE_TOUCH_X_MAX)
+    {
+        leftEdgeDownFlag = true;
+        lastX = evt->x;
+        lastY = evt->y;
+    }
+    else
+        leftEdgeDownFlag = false;
+    
+    SetGaugeTarget(evt->x, evt->y);
+    
     demoModeCounter = 0;
     lastTouchDownCount = animCounter;
+    
+    
 }
 
 static void app_touchUpHandler(const SYS_INP_TouchStateEvent* const evt)
 {
-
+    leftEdgeDownFlag = false;
 }
 
 static void app_touchMoveHandler(const SYS_INP_TouchMoveEvent* const evt)
 {
-    SetGaugeTarget(evt->x, evt->y);
+    
+    if ((leftEdgeDownFlag == true) &&
+        (lastX < evt->x) && 
+        (evt->x - lastX > SWIPE_THRESHOLD_PIXELS))
+    {
+            appData.scene_state = APP_SCENE_STATE_SWITCH_SCENE_1_2_0;
+    }
+    else
+    {
+        SetGaugeTarget(evt->x, evt->y);
+    }
+    
     demoModeCounter = 0;
+    
+    lastX = evt->x;
+    lastY = evt->y;    
 }
 
 static void APP_Scene2_EffectsCallback(unsigned int canvasID,
