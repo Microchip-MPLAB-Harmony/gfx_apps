@@ -211,7 +211,7 @@ extern GFXU_ImageAsset leopard;
 /*********************************
  * GFX Font Asset
  * Name:         TrebuchetMS
- * Height:       27
+ * Height:       26
  * Style:        Plain
  * Glyph Count:  20
  * Range Count:  15
@@ -236,7 +236,7 @@ extern GFXU_FontAsset TrebuchetMS;
 /*********************************
  * GFX Font Asset
  * Name:         TrebuchetMS_1
- * Height:       17
+ * Height:       18
  * Style:        Plain
  * Glyph Count:  12
  * Range Count:  8

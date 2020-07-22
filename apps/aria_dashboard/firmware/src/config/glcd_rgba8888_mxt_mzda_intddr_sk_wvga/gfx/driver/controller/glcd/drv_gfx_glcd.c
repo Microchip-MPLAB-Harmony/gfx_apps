@@ -510,6 +510,7 @@ static GFX_Result glcdInitialize(GFX_Context* context)
     PLIB_GLCD_ClockDividerSet(GFX_GLCD_CONFIG_CLK_DIVIDER);
     PLIB_GLCD_ResolutionXYSet(xResolution, yResolution);
 
+    PLIB_GLCD_SignalPolaritySet( GLCD_VSYNC_POLARITY_NEGATIVE | GLCD_HSYNC_POLARITY_NEGATIVE );
     PLIB_GLCD_PaletteGammaRampDisable();
 
     PLIB_GLCD_Enable();

@@ -391,7 +391,7 @@ extern GFXU_ImageAsset CrossFade3;
 /*********************************
  * GFX Font Asset
  * Name:         ArialLarge
- * Height:       187
+ * Height:       185
  * Style:        Plain
  * Glyph Count:  10
  * Range Count:  1
@@ -402,7 +402,7 @@ extern GFXU_FontAsset ArialLarge;
 /*********************************
  * GFX Font Asset
  * Name:         ArialMed
- * Height:       106
+ * Height:       104
  * Style:        Plain
  * Glyph Count:  10
  * Range Count:  1
@@ -413,7 +413,7 @@ extern GFXU_FontAsset ArialMed;
 /*********************************
  * GFX Font Asset
  * Name:         ArialSmall
- * Height:       57
+ * Height:       56
  * Style:        Plain
  * Glyph Count:  10
  * Range Count:  1
@@ -447,7 +447,7 @@ extern GFXU_FontAsset ArialNarrow;
 /*********************************
  * GFX Font Asset
  * Name:         ArialNarrowMed
- * Height:       43
+ * Height:       42
  * Style:        Plain
  * Glyph Count:  14
  * Range Count:  5
@@ -462,7 +462,7 @@ extern GFXU_FontAsset ArialNarrowMed;
 /*********************************
  * GFX Font Asset
  * Name:         ArialTiny
- * Height:       14
+ * Height:       13
  * Style:        Plain
  * Glyph Count:  48
  * Range Count:  16
@@ -488,7 +488,7 @@ extern GFXU_FontAsset ArialTiny;
 /*********************************
  * GFX Font Asset
  * Name:         ArialTitle
- * Height:       15
+ * Height:       14
  * Style:        Bold
  * Glyph Count:  20
  * Range Count:  12
@@ -538,7 +538,7 @@ extern GFXU_FontAsset ArialLittleItalics;
 /*********************************
  * GFX Font Asset
  * Name:         ArialTinyAve
- * Height:       14
+ * Height:       13
  * Style:        Italic
  * Glyph Count:  1
  * Range Count:  1

@@ -589,8 +589,6 @@ laResult laListWidget_RemoveAllItems(laListWidget* lst)
         
     laWidget_Invalidate((laWidget*)lst);
         
-    recalculateScrollBarValues(lst);
-    
     return LA_SUCCESS;
 }
 

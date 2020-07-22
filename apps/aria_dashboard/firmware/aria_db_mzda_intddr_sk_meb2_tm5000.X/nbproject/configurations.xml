@@ -167,6 +167,9 @@
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f4" displayName="system" projectFiles="true">
+            <logicalFolder name="f4" displayName="debug" projectFiles="true">
+              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk_wvga/system/debug/sys_debug.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="f2" displayName="input" projectFiles="true">
               <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk_wvga/system/input/sys_input.h</itemPath>
               <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk_wvga/system/input/sys_input_gesture.h</itemPath>
@@ -443,6 +446,7 @@
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
+      <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk_wvga/harmony.prj</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -456,14 +460,16 @@
         <targetDevice>PIC32MZ2064DAR169</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>RealICEPlatformTool</platformTool>
+        <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.40</languageToolchainVersion>
-        <platform>2</platform>
+        <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32MZ-DA_DFP" vendor="Microchip" version="1.1.98"/>
+        <pack name="PIC32MZ-DA_DFP" vendor="Microchip" version="1.2.102"/>
       </packs>
+      <ScriptingSettings>
+      </ScriptingSettings>
       <compileType>
         <linkerTool>
           <linkerLibItems>
@@ -498,7 +504,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/glcd_rgba8888_mxt_mzda_intddr_sk_wvga;../src/packs/PIC32MZ2064DAR169_DFP;;../src/mips"/>
+                  value="../src;../src/config/glcd_rgba8888_mxt_mzda_intddr_sk_wvga;../src/packs/PIC32MZ2064DAR169_DFP;"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -618,6 +624,7 @@
         <property key="mdtcm" value=""/>
         <property key="mitcm" value=""/>
         <property key="mstacktcm" value="false"/>
+        <property key="omit-pack-options" value="1"/>
         <property key="relaxed-math" value="false"/>
         <property key="save-temps" value="false"/>
         <property key="wpo-lto" value="false"/>
@@ -799,6 +806,12 @@
         <property key="programoptions.programuserotp" value="false"/>
         <property key="programoptions.usehighvoltageonmclr" value="false"/>
         <property key="programoptions.uselvpprogramming" value="false"/>
+        <property key="tracecontrol.include.timestamp" value="summarydataenabled"/>
+        <property key="tracecontrol.select" value="0"/>
+        <property key="tracecontrol.stallontracebufferfull" value="false"/>
+        <property key="tracecontrol.tracebufmax" value="546000"/>
+        <property key="tracecontrol.tracefile" value="defmplabxtrace.log"/>
+        <property key="tracecontrol.tracefilemax" value="10000000"/>
         <property key="voltagevalue" value="3.25"/>
       </RealICEPlatformTool>
     </conf>

@@ -265,7 +265,7 @@ extern GFXU_ImageAsset Stone_Right;
 /*********************************
  * GFX Font Asset
  * Name:         Verdana
- * Height:       84
+ * Height:       89
  * Style:        Plain
  * Glyph Count:  10
  * Range Count:  1
@@ -276,7 +276,7 @@ extern GFXU_FontAsset Verdana;
 /*********************************
  * GFX Font Asset
  * Name:         Verdana_Med
- * Height:       38
+ * Height:       40
  * Style:        Plain
  * Glyph Count:  31
  * Range Count:  12
@@ -298,7 +298,7 @@ extern GFXU_FontAsset Verdana_Med;
 /*********************************
  * GFX Font Asset
  * Name:         Verdana_Small
- * Height:       22
+ * Height:       23
  * Style:        Plain
  * Glyph Count:  7
  * Range Count:  4
@@ -312,7 +312,7 @@ extern GFXU_FontAsset Verdana_Small;
 /*********************************
  * GFX Font Asset
  * Name:         Verdana_Text
- * Height:       32
+ * Height:       33
  * Style:        Plain
  * Glyph Count:  53
  * Range Count:  16

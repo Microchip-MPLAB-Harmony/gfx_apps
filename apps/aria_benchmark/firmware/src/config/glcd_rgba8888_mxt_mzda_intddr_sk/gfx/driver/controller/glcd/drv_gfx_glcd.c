@@ -518,6 +518,7 @@ static GFX_Result glcdInitialize(GFX_Context* context)
     PLIB_GLCD_ClockDividerSet(GFX_GLCD_CONFIG_CLK_DIVIDER);
     PLIB_GLCD_ResolutionXYSet(xResolution, yResolution);
 
+    PLIB_GLCD_SignalPolaritySet( GLCD_VSYNC_POLARITY_NEGATIVE | GLCD_HSYNC_POLARITY_NEGATIVE );
     PLIB_GLCD_PaletteGammaRampDisable();
 
     PLIB_GLCD_Enable();
@@ -544,7 +545,7 @@ static GFX_Result glcdInitialize(GFX_Context* context)
         {
             for(j = 0; j < context->layer.layers[layerCount].rect.display.width; j++)
             {
-        *(uint32_t*)(drvLayer[layerCount].baseaddr[0] + i*context->layer.layers[layerCount].rect.display.width + j) = 0;
+			*(uint32_t*)(drvLayer[layerCount].baseaddr[0] + i*context->layer.layers[layerCount].rect.display.width + j) = 0;
             }
         }
         

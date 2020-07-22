@@ -1,21 +1,6 @@
-/*******************************************************************************
- Touch controller MAXTOUCH driver file
-
-  File Name:
-    drv_maxtouch.c
-
-  Summary:
-    Touch controller MAXTOUCH driver interface file.
-
-  Description:
-    This file consist of touch controller MAXTOUCH driver interfaces. It
-    implements the driver interfaces which read the touch input data from
-    MAXTOUCH through I2C bus.
- ******************************************************************************/
-
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -36,9 +21,23 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-
-
 // DOM-IGNORE-END
+
+/*******************************************************************************
+ Touch controller MAXTOUCH driver file
+
+  File Name:
+    drv_maxtouch.c
+
+  Summary:
+    Touch controller MAXTOUCH driver interface file.
+
+  Description:
+    This file consist of touch controller MAXTOUCH driver interfaces. It
+    implements the driver interfaces which read the touch input data from
+    MAXTOUCH through I2C bus.
+ ******************************************************************************/
+
 
 #include "definitions.h"
 #include "driver/i2c/drv_i2c.h"
@@ -561,7 +560,7 @@ static void _RegRead(struct DEVICE_OBJECT *pDrvObject, void* val, size_t size, D
 bool MXT_INTERRUPT_PIN_VALUE_GET(void)
 {
 #ifndef BSP_MAXTOUCH_CHG_Get
-#error "MAXTOUCH_INT_Get is not defined. Please use Pin Settings Tab in MHC to define the Touch Interrupt pin with the name 'MAXTOUCH_INT' as GPIO_IN"   
+#error "BSP_MAXTOUCH_CHG_Get is not defined. Please use Pin Settings Tab in MHC to define the Touch Interrupt pin with the name 'BSP_MAXTOUCH_CHG' as GPIO_IN"   
 #else
 return(BSP_MAXTOUCH_CHG_Get());
 #endif
@@ -877,7 +876,7 @@ DRV_HANDLE DRV_MAXTOUCH_Open(const SYS_MODULE_INDEX index,
     
     if(pDrvInstance->drvI2CHandle == DRV_HANDLE_INVALID)
     {
-        pDrvInstance->drvI2CHandle = pDrvInstance->drvOpen(DRV_I2C_INDEX_0,
+        pDrvInstance->drvI2CHandle = pDrvInstance->drvOpen(0,
                                                            DRV_IO_INTENT_READWRITE);
     }
     

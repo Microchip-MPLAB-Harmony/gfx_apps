@@ -137,7 +137,7 @@ void LibAria_DemoModeAddInputEvent(uint32_t dt_ms,
 		// CUSTOM CODE - DO NOT REMOVE
 		//SYS_DEBUG_Print("\nLibAria_DemoModeAddInputEvent(%u, %u, %d, %d, %d);\r", dt_ms, te, index, x, y);
 		// CUSTOM CODE END
-	}
+    }
 }
 
 void LibAria_DemoModeRecordInputEvent(DEMO_MODE_INPUT_TYPE te,
@@ -568,7 +568,7 @@ void LibAria_DemoModeProcessEvents(void)
             demoModeEvents.demoTimeoutTimer = SYS_TIME_HANDLE_INVALID;
             demoModeEvents.recordTickTimer = SYS_TIME_HANDLE_INVALID;
 
-                demoModeEvents.state = DEMO_IDLE;
+            demoModeEvents.state = DEMO_IDLE;
             
             //Start timeout timer
             demoModeEvents.demoTimeoutTimer = SYS_TIME_CallbackRegisterMS

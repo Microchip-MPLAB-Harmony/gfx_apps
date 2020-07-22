@@ -214,6 +214,28 @@ SYSTEM_OBJECTS sysObj;
  * USB Driver Initialization
  ******************************************************/
  
+/*  When designing a Self-powered USB Device, the application should make sure
+    that USB_DEVICE_Attach() function is called only when VBUS is actively powered.
+	Therefore, the firmware needs some means to detect when the Host is powering 
+	the VBUS. A 5V tolerant I/O pin can be connected to VBUS (through a resistor)
+	and can be used to detect when VBUS is high or low. The application can specify
+	a VBUS Detect function through the USB Driver Initialize data structure. 
+	The USB device stack will periodically call this function. If the VBUS is 
+	detected, the USB_DEVICE_EVENT_POWER_DETECTED event is generated. If the VBUS 
+	is removed (i.e., the device is physically detached from Host), the USB stack 
+	will generate the event USB_DEVICE_EVENT_POWER_REMOVED. The application should 
+	call USB_DEVICE_Detach() when VBUS is removed. 
+    
+    The following are the steps to generate the VBUS_SENSE Function through MHC     
+        1) Navigate to MHC->Tools->Pin Configuration and Configure the pin used 
+		   as VBUS_SENSE. Set this pin Function as "GPIO" and set as "Input". 
+		   Provide a custom name to the pin.
+        2) Select the USB Driver Component in MHC Project Graph and enable the  
+		   "Enable VBUS Sense" Check-box.     
+        3) Specify the custom name of the VBUS SENSE pin in the "VBUS SENSE Pin Name" box.  
+*/
+	  
+	
 static DRV_USB_VBUS_LEVEL DRV_USBHSV1_VBUS_Comparator(void)
 {
     DRV_USB_VBUS_LEVEL retVal = DRV_USB_VBUS_LEVEL_INVALID;
@@ -247,15 +269,51 @@ const DRV_USBHSV1_INIT drvUSBInit =
 };
 
 
-/*** File System Initialization Data ***/
+// <editor-fold defaultstate="collapsed" desc="File System Initialization Data">
 
 
-const SYS_FS_MEDIA_MOUNT_DATA sysfsMountTable[SYS_FS_VOLUME_NUMBER] = 
+const SYS_FS_MEDIA_MOUNT_DATA sysfsMountTable[SYS_FS_VOLUME_NUMBER] =
 {
-	{NULL}
+    {NULL}
 };
 
-
+const SYS_FS_FUNCTIONS FatFsFunctions =
+{
+    .mount             = FATFS_mount,
+    .unmount           = FATFS_unmount,
+    .open              = FATFS_open,
+    .read              = FATFS_read,
+    .close             = FATFS_close,
+    .seek              = FATFS_lseek,
+    .fstat             = FATFS_stat,
+    .getlabel          = FATFS_getlabel,
+    .currWD            = FATFS_getcwd,
+    .getstrn           = FATFS_gets,
+    .openDir           = FATFS_opendir,
+    .readDir           = FATFS_readdir,
+    .closeDir          = FATFS_closedir,
+    .chdir             = FATFS_chdir,
+    .chdrive           = FATFS_chdrive,
+    .write             = FATFS_write,
+    .tell              = FATFS_tell,
+    .eof               = FATFS_eof,
+    .size              = FATFS_size,
+    .mkdir             = FATFS_mkdir,
+    .remove            = FATFS_unlink,
+    .setlabel          = FATFS_setlabel,
+    .truncate          = FATFS_truncate,
+    .chmode            = FATFS_chmod,
+    .chtime            = FATFS_utime,
+    .rename            = FATFS_rename,
+    .sync              = FATFS_sync,
+    .putchr            = FATFS_putc,
+    .putstrn           = FATFS_puts,
+    .formattedprint    = FATFS_printf,
+    .testerror         = FATFS_error,
+    .formatDisk        = (FORMAT_DISK)FATFS_mkfs,
+    .partitionDisk     = FATFS_fdisk,
+    .getCluster        = FATFS_getclusters
+};
 
 
 const SYS_FS_REGISTRATION_TABLE sysFSInit [ SYS_FS_MAX_FILE_SYSTEM_TYPE ] =
@@ -266,6 +324,7 @@ const SYS_FS_REGISTRATION_TABLE sysFSInit [ SYS_FS_MAX_FILE_SYSTEM_TYPE ] =
     }
 };
 
+// </editor-fold>
 
 
 
@@ -293,6 +352,14 @@ const SYS_TIME_INIT sysTimeInitData =
 };
 
 // </editor-fold>
+
+
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Local initialization functions
+// *****************************************************************************
+// *****************************************************************************
 
 
 

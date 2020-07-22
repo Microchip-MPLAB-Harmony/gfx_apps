@@ -821,7 +821,7 @@ void LibAria_DemoModeProcessEvents(void)
             {
                 // Clear all events
                 demoModeEvents.demoEventFlags = 0;
-                
+
                 //Reset the timeout counter
                 demoModeTimeElapsedSecs = 0;
                 
@@ -912,7 +912,7 @@ void LibAria_DemoModeProcessEvents(void)
                 demoModeEvents.demoRunTimer = SYS_TIME_HANDLE_INVALID;
 
                 //Reset the timeout counter
-                demoModeTimeElapsedSecs = 0;    
+                demoModeTimeElapsedSecs = 0;
 
                 demoModeEvents.state = DEMO_IDLE;
             }

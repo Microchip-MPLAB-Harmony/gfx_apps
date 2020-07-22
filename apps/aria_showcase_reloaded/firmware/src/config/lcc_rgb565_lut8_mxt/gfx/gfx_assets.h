@@ -373,7 +373,7 @@ extern GFXU_ImageAsset PieChartTouchScreenFilled30x30;
 /*********************************
  * GFX Font Asset
  * Name:         CopperplateGothicLight
- * Height:       19
+ * Height:       18
  * Style:        Bold
  * Glyph Count:  17
  * Range Count:  11
@@ -394,7 +394,7 @@ extern GFXU_FontAsset CopperplateGothicLight;
 /*********************************
  * GFX Font Asset
  * Name:         ArialUnicodeMS
- * Height:       17
+ * Height:       19
  * Style:        Bold
  * Glyph Count:  27
  * Range Count:  12
@@ -416,7 +416,7 @@ extern GFXU_FontAsset ArialUnicodeMS;
 /*********************************
  * GFX Font Asset
  * Name:         ArialBig
- * Height:       57
+ * Height:       56
  * Style:        Plain
  * Glyph Count:  0
  * Range Count:  0
@@ -426,7 +426,7 @@ extern GFXU_FontAsset ArialBig;
 /*********************************
  * GFX Font Asset
  * Name:         ArialMed
- * Height:       29
+ * Height:       28
  * Style:        Plain
  * Glyph Count:  10
  * Range Count:  1
@@ -437,7 +437,7 @@ extern GFXU_FontAsset ArialMed;
 /*********************************
  * GFX Font Asset
  * Name:         ArialSmall
- * Height:       14
+ * Height:       13
  * Style:        Plain
  * Glyph Count:  34
  * Range Count:  13

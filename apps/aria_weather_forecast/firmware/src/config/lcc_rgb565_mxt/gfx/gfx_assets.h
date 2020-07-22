@@ -222,7 +222,7 @@ extern GFXU_PaletteAsset citySkyline_palette;
 /*********************************
  * GFX Font Asset
  * Name:         ArialUnicodeMS_Medium
- * Height:       19
+ * Height:       23
  * Style:        Antialias
  * Glyph Count:  96
  * Range Count:  45
@@ -277,7 +277,7 @@ extern GFXU_FontAsset ArialUnicodeMS_Medium;
 /*********************************
  * GFX Font Asset
  * Name:         ArialUnicodeMS_Large
- * Height:       33
+ * Height:       38
  * Style:        Antialias
  * Glyph Count:  16
  * Range Count:  12
@@ -299,7 +299,7 @@ extern GFXU_FontAsset ArialUnicodeMS_Large;
 /*********************************
  * GFX Font Asset
  * Name:         ArialUnicodeMS_Small
- * Height:       13
+ * Height:       14
  * Style:        Antialias
  * Glyph Count:  50
  * Range Count:  26
@@ -335,7 +335,7 @@ extern GFXU_FontAsset ArialUnicodeMS_Small;
 /*********************************
  * GFX Font Asset
  * Name:         ArialUnicodeMS_Huge
- * Height:       43
+ * Height:       49
  * Style:        Antialias
  * Glyph Count:  7
  * Range Count:  5
@@ -350,7 +350,7 @@ extern GFXU_FontAsset ArialUnicodeMS_Huge;
 /*********************************
  * GFX Font Asset
  * Name:         ArialUnicodeMS_Tiny
- * Height:       12
+ * Height:       13
  * Style:        Antialias
  * Glyph Count:  31
  * Range Count:  21

@@ -103,7 +103,7 @@ static void LibAria_DemoModeStartTimerCallback (uintptr_t context)
     
     if (demoModeTimeElapsedSecs > DEMO_IDLE_TIMEOUT_S)
     {
-    LibAria_DemoModeSendEvent(DEMO_EVENT_START);
+        LibAria_DemoModeSendEvent(DEMO_EVENT_START);
         demoModeTimeElapsedSecs = 0;
     }
 }
@@ -417,10 +417,10 @@ void LibAria_DemoModeProcessEvents(void)
             {
                 // Clear all events
                 demoModeEvents.demoEventFlags = 0;
-                
+
                 //Reset the timeout counter
                 demoModeTimeElapsedSecs = 0;
-
+                
                 demoModeEvents.state = DEMO_IDLE;
             }
 

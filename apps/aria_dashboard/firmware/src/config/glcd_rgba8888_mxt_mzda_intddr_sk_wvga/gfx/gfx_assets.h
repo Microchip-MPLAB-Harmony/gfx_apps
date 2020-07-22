@@ -265,7 +265,7 @@ extern GFXU_ImageAsset centercircle2;
 /*********************************
  * GFX Font Asset
  * Name:         ArialBlack_GearLabelFont
- * Height:       66
+ * Height:       80
  * Style:        Plain
  * Glyph Count:  9
  * Range Count:  4
@@ -279,7 +279,7 @@ extern GFXU_FontAsset ArialBlack_GearLabelFont;
 /*********************************
  * GFX Font Asset
  * Name:         ArialBlack_SpeedoLabelFont
- * Height:       82
+ * Height:       99
  * Style:        Plain
  * Glyph Count:  10
  * Range Count:  1
@@ -306,7 +306,7 @@ extern GFXU_FontAsset Arial_18_BI_Font;
 /*********************************
  * GFX Font Asset
  * Name:         Arial_12_BI_Font
- * Height:       15
+ * Height:       14
  * Style:        Bold, Italic
  * Glyph Count:  14
  * Range Count:  5
@@ -321,7 +321,7 @@ extern GFXU_FontAsset Arial_12_BI_Font;
 /*********************************
  * GFX Font Asset
  * Name:         Arial
- * Height:       57
+ * Height:       56
  * Style:        Bold, Italic
  * Glyph Count:  2
  * Range Count:  2

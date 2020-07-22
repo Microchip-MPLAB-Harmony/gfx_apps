@@ -499,7 +499,7 @@ extern GFXU_ImageAsset PIC32Logo;
 /*********************************
  * GFX Font Asset
  * Name:         Calibri
- * Height:       19
+ * Height:       20
  * Style:        Plain
  * Glyph Count:  3
  * Range Count:  3
@@ -512,7 +512,7 @@ extern GFXU_FontAsset Calibri;
 /*********************************
  * GFX Font Asset
  * Name:         ArialUnicodeMS
- * Height:       19
+ * Height:       23
  * Style:        Plain
  * Glyph Count:  165
  * Range Count:  116
@@ -638,7 +638,7 @@ extern GFXU_FontAsset ArialUnicodeMS;
 /*********************************
  * GFX Font Asset
  * Name:         ArialUnicodeMS_Large
- * Height:       22
+ * Height:       25
  * Style:        Bold
  * Glyph Count:  55
  * Range Count:  39
@@ -687,7 +687,7 @@ extern GFXU_FontAsset ArialUnicodeMS_Large;
 /*********************************
  * GFX Font Asset
  * Name:         ArialUnicodeMS_XL
- * Height:       27
+ * Height:       30
  * Style:        Bold
  * Glyph Count:  16
  * Range Count:  6

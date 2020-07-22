@@ -238,7 +238,7 @@ extern GFXU_ImageAsset CrossFade3;
 /*********************************
  * GFX Font Asset
  * Name:         TimesNewRoman18
- * Height:       22
+ * Height:       21
  * Style:        Bold
  * Glyph Count:  37
  * Range Count:  14

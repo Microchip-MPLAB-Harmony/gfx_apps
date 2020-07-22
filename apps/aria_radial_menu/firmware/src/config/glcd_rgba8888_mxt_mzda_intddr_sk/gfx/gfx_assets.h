@@ -438,7 +438,7 @@ extern GFXU_PaletteAsset vertical_touch_palette;
 /*********************************
  * GFX Font Asset
  * Name:         Arial
- * Height:       15
+ * Height:       14
  * Style:        Plain
  * Glyph Count:  7
  * Range Count:  4
@@ -452,7 +452,7 @@ extern GFXU_FontAsset Arial;
 /*********************************
  * GFX Font Asset
  * Name:         Elephant
- * Height:       22
+ * Height:       23
  * Style:        Plain
  * Glyph Count:  24
  * Range Count:  15
