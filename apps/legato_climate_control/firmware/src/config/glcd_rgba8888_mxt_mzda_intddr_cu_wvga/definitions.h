@@ -62,7 +62,6 @@
 #include "system/input/sys_input.h"
 #include "peripheral/tmr/plib_tmr2.h"
 #include "bsp/bsp.h"
-#include "peripheral/ddr/plib_ddr.h"
 #include "driver/input/drv_maxtouch.h"
 #include "system/int/sys_int.h"
 #include "osal/osal.h"

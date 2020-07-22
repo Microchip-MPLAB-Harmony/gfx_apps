@@ -128,7 +128,7 @@ void CLK_Initialize( void )
     PMD4 = 0x1fd;
     PMD5 = 0x301d3f3f;
     PMD6 = 0x10a10000;
-    PMD7 = 0x500000;
+    PMD7 = 0x10500000;
 
     /* Lock system since done with clock configuration */
     int_flag = (bool)__builtin_disable_interrupts();

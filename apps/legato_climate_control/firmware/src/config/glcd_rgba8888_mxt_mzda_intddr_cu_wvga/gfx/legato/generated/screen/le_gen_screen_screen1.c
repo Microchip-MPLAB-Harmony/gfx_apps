@@ -454,7 +454,7 @@ leResult screenShow_screen1()
     screen1_ImageWidget1->fn->setEnabled(screen1_ImageWidget1, LE_FALSE);
     screen1_ImageWidget1->fn->setBackgroundType(screen1_ImageWidget1, LE_WIDGET_BACKGROUND_NONE);
     screen1_ImageWidget1->fn->setBorderType(screen1_ImageWidget1, LE_WIDGET_BORDER_NONE);
-    screen1_ImageWidget1->fn->setImage(screen1_ImageWidget1, (leImage*)&InfoPage3);
+    screen1_ImageWidget1->fn->setImage(screen1_ImageWidget1, (leImage*)&InfoPage);
     root1->fn->addChild(root1, (leWidget*)screen1_ImageWidget1);
 
     leAddRootWidget(root1, 1);

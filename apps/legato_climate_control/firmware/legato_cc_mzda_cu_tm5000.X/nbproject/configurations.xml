@@ -210,9 +210,6 @@
             <logicalFolder name="f5" displayName="coretimer" projectFiles="true">
               <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/peripheral/coretimer/plib_coretimer.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="f8" displayName="ddr" projectFiles="true">
-              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/peripheral/ddr/plib_ddr.h</itemPath>
-            </logicalFolder>
             <logicalFolder name="f3" displayName="evic" projectFiles="true">
               <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/peripheral/evic/plib_evic.h</itemPath>
             </logicalFolder>
@@ -549,9 +546,6 @@
             </logicalFolder>
             <logicalFolder name="f5" displayName="coretimer" projectFiles="true">
               <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/peripheral/coretimer/plib_coretimer.c</itemPath>
-            </logicalFolder>
-            <logicalFolder name="f8" displayName="ddr" projectFiles="true">
-              <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/peripheral/ddr/plib_ddr.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f3" displayName="evic" projectFiles="true">
               <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/peripheral/evic/plib_evic.c</itemPath>

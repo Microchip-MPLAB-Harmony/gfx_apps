@@ -1188,15 +1188,6 @@ extern leImage background5;
 
 /*********************************
  * Legato Image Asset
- * Name:   InfoPage2
- * Size:   290x345 pixels
- * Type:   RGB Data
- * Format: INDEX_8
- ***********************************/
-extern leImage InfoPage2;
-
-/*********************************
- * Legato Image Asset
  * Name:   Microchip_logo_150x30
  * Size:   150x30 pixels
  * Type:   RGB Data
@@ -1215,12 +1206,12 @@ extern leImage MHGC_200x200_white;
 
 /*********************************
  * Legato Image Asset
- * Name:   InfoPage3
- * Size:   290x345 pixels
+ * Name:   InfoPage
+ * Size:   300x350 pixels
  * Type:   RGB Data
  * Format: INDEX_8
  ***********************************/
-extern leImage InfoPage3;
+extern leImage InfoPage;
 
 /*****************************************************************************
  * Legato Graphics Font Assets
