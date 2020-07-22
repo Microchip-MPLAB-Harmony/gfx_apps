@@ -50,20 +50,22 @@ static unsigned int lastTouchDownCount = 0;
 static int inputListenerID = 0;
 
 extern SYS_TIME_HANDLE timer;
+static volatile unsigned int demoModeCounter = 0;;
+static volatile unsigned int demoModeValuesIndex = 0;
 
-void APP_Scene1_SetEnergyLevel(APP_ENERGY_LEVEL energy);
+static SYS_TIME_HANDLE selfDemoTimer;
 
-//static DEMO_MODE_GAUGE_VALUES demoModeGaugeValues[] =
-//{
-//    {180, 180},
-//    {0, 0},
-//    {180, 0},
-//    {0, 180},
-//    {0, 0},
-//    {180, 0},
-//    {95, 180},
-//    {180, 0},
-//};
+static DEMO_MODE_GAUGE_VALUES demoModeGaugeValues[] =
+{
+    {180, 180},
+    {0, 0},
+    {180, 0},
+    {0, 180},
+    {0, 0},
+    {180, 0},
+    {95, 180},
+    {180, 0},
+};
 
 
 static void UpdateLeftNeedle(uint32_t newAngle)
@@ -382,7 +384,8 @@ static void app_touchDownHandler(const SYS_INP_TouchStateEvent* const evt)
         appData.scene_state = APP_SCENE_STATE_SWITCH_SCENE_1_2_0;
     else
         SetGaugeTarget(evt->x, evt->y);
-        
+
+    demoModeCounter = 0;
     lastTouchDownCount = animCounter;
 }
 
@@ -394,6 +397,47 @@ static void app_touchUpHandler(const SYS_INP_TouchStateEvent* const evt)
 static void app_touchMoveHandler(const SYS_INP_TouchMoveEvent* const evt)
 {
     SetGaugeTarget(evt->x, evt->y);
+    demoModeCounter = 0;    
+}
+
+static void animTimer_DemoMode ( uintptr_t context )
+{
+    static bool demoModeRunning = false;
+    
+    if (demoModeCounter > ANIM_DEMO_MODE_IDLE_PERIOD_MS/ANIM_DEMO_MODE_TIMER_PERIOD_MS)
+    {
+        if (demoModeRunning == false)
+        {
+            demoModeRunning = true;
+        }
+        
+        if (demoModeCounter < ANIM_DEMO_MODE_RUN_PERIOD_MS/ANIM_DEMO_MODE_TIMER_PERIOD_MS)
+        {
+            targetLeftNeedleAngle = demoModeGaugeValues[demoModeValuesIndex].left;
+            targetRightNeedleAngle = demoModeGaugeValues[demoModeValuesIndex].right;
+
+            demoModeValuesIndex = (demoModeValuesIndex < 
+                        sizeof(demoModeGaugeValues)/sizeof(DEMO_MODE_GAUGE_VALUES) - 1) ?
+                        demoModeValuesIndex + 1 : 0;
+            
+            
+            demoModeCounter++;
+        }
+        else
+        {
+            demoModeCounter = 0;
+            appData.scene_state = APP_SCENE_STATE_SWITCH_SCENE_1_2_0;
+        }
+    }
+    else
+    {
+        if (demoModeRunning == true)
+        {
+            demoModeRunning = false;
+        }
+        
+        demoModeCounter++;
+    }
 }
 
 
@@ -410,6 +454,8 @@ void APP_Process_Scene1(void)
             nextRightNeedleAngle = 0;
             currentLeftNeedleAngle = 0;
             currentRightNeedleAngle = 0;
+            demoModeCounter = 0;;
+            demoModeValuesIndex = 0;            
 
             APP_SCENE1_initialize_needle_lookup_table();
             
@@ -501,6 +547,12 @@ void APP_Process_Scene1(void)
                     inputListenerID = SYS_INP_AddListener(&app_inputListener);                    
                     
                     appData.scene_state = APP_SCENE_STATE_PROCESS_TASKS;
+                    
+                    //start self demo timer, triggers every second
+                    selfDemoTimer = SYS_TIME_CallbackRegisterMS(animTimer_DemoMode, 
+                                    NULL,
+                                    ANIM_DEMO_MODE_TIMER_PERIOD_MS,
+                                    SYS_TIME_PERIODIC);                    
                 }
                 
                 animCounterOld = animCounter;
@@ -563,6 +615,8 @@ void APP_Process_Scene1(void)
        case APP_SCENE_STATE_SWITCH_SCENE_1_2_0:
        {
             SYS_INP_RemoveListener(inputListenerID);
+            SYS_TIME_TimerStop(selfDemoTimer);
+            SYS_TIME_TimerDestroy(selfDemoTimer);            
                    
             leftGaugeAnimDone = false;
             rightGaugeAnimDone = false;                

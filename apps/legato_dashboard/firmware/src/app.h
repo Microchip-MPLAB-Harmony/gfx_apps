@@ -139,14 +139,14 @@ typedef struct
 #define ANIM_DEMO_MODE_TIMER_PERIOD_MS 800
 
 //Start demo after idle period
-#define ANIM_DEMO_MODE_IDLE_PERIOD_MS 5000
+#define ANIM_DEMO_MODE_IDLE_PERIOD_MS 10000
 
 //Run demo for a while, then switch to next scene
 #define ANIM_DEMO_MODE_RUN_PERIOD_MS 20000 //20 seconds
 
 #define ANIM_TIMER_PERIOD_US 3000
 
-#define DOUBLE_TAP_PERIOD_MS 300
+#define DOUBLE_TAP_PERIOD_MS 100
 
 #define DOUBLE_TAP_COUNT_LIMIT ((DOUBLE_TAP_PERIOD_MS * 1000)/ANIM_TIMER_PERIOD_US)
 
