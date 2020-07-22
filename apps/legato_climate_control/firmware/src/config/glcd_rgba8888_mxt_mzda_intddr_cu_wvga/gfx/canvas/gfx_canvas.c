@@ -328,7 +328,7 @@ GFXC_RESULT _gfxcCanvasUpdate(unsigned int canvasID)
             //align offsets for 8bpp frames
             if (gfxColorInfoTable[canvas[canvasID].pixelBuffer.mode].size == 1)
                 setPositionParm.xpos = -(abs(setPositionParm.xpos) & ~0x3);
-
+            
             setBaseAddressParm.value += abs(setPositionParm.xpos) * 
                     gfxColorInfoTable[canvas[canvasID].pixelBuffer.mode].size; 
 

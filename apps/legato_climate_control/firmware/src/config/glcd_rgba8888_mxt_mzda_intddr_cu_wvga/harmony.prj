@@ -31,8 +31,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/gfx/driver/glcd</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/driver/controller/glcd/</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">82B3A1FF0AA0874E840E368D3B61EF5F</GeneratedChecksum>
-          <UserChecksum dnOrder="6">82B3A1FF0AA0874E840E368D3B61EF5F</UserChecksum>
+          <GeneratedChecksum dnOrder="5">9E14DE38CBB1EC16772E6CCAC1BCFB95</GeneratedChecksum>
+          <UserChecksum dnOrder="6">9E14DE38CBB1EC16772E6CCAC1BCFB95</UserChecksum>
         </File>
         <File dnOrder="3">
           <Type dnOrder="0">SOURCE</Type>
@@ -139,8 +139,8 @@
           <Security dnOrder="2"/>
           <LogicalPath dnOrder="3">config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/gfx/legato/generated/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">DB72B6F49425F9A38117F3C7792D6151</GeneratedChecksum>
-          <UserChecksum dnOrder="6">DB72B6F49425F9A38117F3C7792D6151</UserChecksum>
+          <GeneratedChecksum dnOrder="5">2D48DB8AD17CFF23FA87412540899BA2</GeneratedChecksum>
+          <UserChecksum dnOrder="6">2D48DB8AD17CFF23FA87412540899BA2</UserChecksum>
         </File>
         <File dnOrder="15">
           <Type dnOrder="0">SOURCE</Type>
@@ -157,8 +157,8 @@
           <Security dnOrder="2"/>
           <LogicalPath dnOrder="3">config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/gfx/legato/generated/image/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\image\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">569C84757D12490A2037FB7F48DBCB14</GeneratedChecksum>
-          <UserChecksum dnOrder="6">569C84757D12490A2037FB7F48DBCB14</UserChecksum>
+          <GeneratedChecksum dnOrder="5">613283ADAF4F5C17D832B70F7A4A6E58</GeneratedChecksum>
+          <UserChecksum dnOrder="6">613283ADAF4F5C17D832B70F7A4A6E58</UserChecksum>
         </File>
         <File dnOrder="17">
           <Type dnOrder="0">SOURCE</Type>
@@ -175,8 +175,8 @@
           <Security dnOrder="2"/>
           <LogicalPath dnOrder="3">config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/gfx/legato/generated/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">B4D58FC2CA9E675B94260B90A30BF3DD</GeneratedChecksum>
-          <UserChecksum dnOrder="6">B4D58FC2CA9E675B94260B90A30BF3DD</UserChecksum>
+          <GeneratedChecksum dnOrder="5">70D27CC6E40D42990BC708D95773E66C</GeneratedChecksum>
+          <UserChecksum dnOrder="6">70D27CC6E40D42990BC708D95773E66C</UserChecksum>
         </File>
         <File dnOrder="19">
           <Type dnOrder="0">SOURCE</Type>
@@ -193,8 +193,8 @@
           <Security dnOrder="2"/>
           <LogicalPath dnOrder="3">config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/gfx/legato/generated/screen/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\screen\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">2B45165A7DF7EA22D48922AFB8368ED3</GeneratedChecksum>
-          <UserChecksum dnOrder="6">2B45165A7DF7EA22D48922AFB8368ED3</UserChecksum>
+          <GeneratedChecksum dnOrder="5">805650001CEF659AF8153670FF52E77E</GeneratedChecksum>
+          <UserChecksum dnOrder="6">805650001CEF659AF8153670FF52E77E</UserChecksum>
         </File>
         <File dnOrder="21">
           <Type dnOrder="0">SOURCE</Type>
@@ -1615,8 +1615,8 @@
           <Security dnOrder="2"/>
           <LogicalPath dnOrder="3">config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/gfx/legato/generated/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">E260E7FF59B8E91CE1B9AF9B74C2702E</GeneratedChecksum>
-          <UserChecksum dnOrder="6">E260E7FF59B8E91CE1B9AF9B74C2702E</UserChecksum>
+          <GeneratedChecksum dnOrder="5">3F8A7BCB3E8F7AD7A43D40514AD0541B</GeneratedChecksum>
+          <UserChecksum dnOrder="6">3F8A7BCB3E8F7AD7A43D40514AD0541B</UserChecksum>
         </File>
         <File dnOrder="179">
           <Type dnOrder="0">HEADER</Type>

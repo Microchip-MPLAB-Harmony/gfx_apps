@@ -1646,12 +1646,12 @@
         </String>
         <Integer dnOrder="13" id="PixelClock">
           <Values dnOrder="0">
-            <Dynamic dnOrder="0" id="le_gfx_driver_glcd" value="20000000"/>
+            <Dynamic dnOrder="0" id="le_gfx_driver_glcd" value="14285714"/>
           </Values>
         </Integer>
         <Integer dnOrder="14" id="RefreshRate">
           <Values dnOrder="0">
-            <Dynamic dnOrder="0" id="gfx_hal_le" value="40"/>
+            <Dynamic dnOrder="0" id="gfx_hal_le" value="28"/>
           </Values>
         </Integer>
         <String dnOrder="15" id="gfx_display">
@@ -2038,12 +2038,13 @@
         </Boolean>
         <Integer dnOrder="8" id="PixelClock">
           <Values dnOrder="0">
-            <Dynamic dnOrder="0" id="le_gfx_driver_glcd" value="20000000"/>
+            <Dynamic dnOrder="0" id="le_gfx_driver_glcd" value="14285714"/>
           </Values>
         </Integer>
         <Integer dnOrder="9" id="PixelClockDivider">
           <Values dnOrder="0">
             <Dynamic dnOrder="0" id="legato_gfx_pda_tm5000" value="10"/>
+            <User dnOrder="1" value="14"/>
           </Values>
         </Integer>
         <Integer dnOrder="10" id="TotalNumLayers">
