@@ -76,8 +76,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/gfx/canvas</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/canvas/</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">80F01BB1B778EDBDC1B4BDC7C2F87C47</GeneratedChecksum>
-          <UserChecksum dnOrder="6">80F01BB1B778EDBDC1B4BDC7C2F87C47</UserChecksum>
+          <GeneratedChecksum dnOrder="5">C78BE916C3E6169BFAFA30735EE5610D</GeneratedChecksum>
+          <UserChecksum dnOrder="6">C78BE916C3E6169BFAFA30735EE5610D</UserChecksum>
         </File>
         <File dnOrder="8">
           <Type dnOrder="0">SOURCE</Type>
@@ -103,8 +103,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/</LogicalPath>
           <PhysicalPath dnOrder="4">/</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">B62A1FD4C79522F95F99EBDF46779674</GeneratedChecksum>
-          <UserChecksum dnOrder="6">B62A1FD4C79522F95F99EBDF46779674</UserChecksum>
+          <GeneratedChecksum dnOrder="5">0CE4909769E8B48E2DA1699F9843D5C9</GeneratedChecksum>
+          <UserChecksum dnOrder="6">0CE4909769E8B48E2DA1699F9843D5C9</UserChecksum>
         </File>
         <File dnOrder="11">
           <Type dnOrder="0">SOURCE</Type>
@@ -148,8 +148,8 @@
           <Security dnOrder="2"/>
           <LogicalPath dnOrder="3">config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/gfx/legato/generated/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">36EEBFE4C58E87C45DDF4021954C081E</GeneratedChecksum>
-          <UserChecksum dnOrder="6">36EEBFE4C58E87C45DDF4021954C081E</UserChecksum>
+          <GeneratedChecksum dnOrder="5">7B27ABEA143D66C8E8F9A9E2A0E7BAFE</GeneratedChecksum>
+          <UserChecksum dnOrder="6">7B27ABEA143D66C8E8F9A9E2A0E7BAFE</UserChecksum>
         </File>
         <File dnOrder="16">
           <Type dnOrder="0">SOURCE</Type>
@@ -157,8 +157,8 @@
           <Security dnOrder="2"/>
           <LogicalPath dnOrder="3">config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/gfx/legato/generated/image/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\image\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">0052417FCBAB80E22A705ECADDDB90B1</GeneratedChecksum>
-          <UserChecksum dnOrder="6">0052417FCBAB80E22A705ECADDDB90B1</UserChecksum>
+          <GeneratedChecksum dnOrder="5">7D0885403664150D80D734DBED3D1F28</GeneratedChecksum>
+          <UserChecksum dnOrder="6">7D0885403664150D80D734DBED3D1F28</UserChecksum>
         </File>
         <File dnOrder="17">
           <Type dnOrder="0">SOURCE</Type>
@@ -175,8 +175,8 @@
           <Security dnOrder="2"/>
           <LogicalPath dnOrder="3">config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/gfx/legato/generated/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">CCE4B78F3C0BA89267302BE434DD10A8</GeneratedChecksum>
-          <UserChecksum dnOrder="6">CCE4B78F3C0BA89267302BE434DD10A8</UserChecksum>
+          <GeneratedChecksum dnOrder="5">7593B015F9949F59645EF75FE176BC5D</GeneratedChecksum>
+          <UserChecksum dnOrder="6">7593B015F9949F59645EF75FE176BC5D</UserChecksum>
         </File>
         <File dnOrder="19">
           <Type dnOrder="0">SOURCE</Type>
@@ -184,8 +184,8 @@
           <Security dnOrder="2"/>
           <LogicalPath dnOrder="3">config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/gfx/legato/generated/screen/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\screen\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">6B60FA9E20274617F2F7A31A0A485030</GeneratedChecksum>
-          <UserChecksum dnOrder="6">6B60FA9E20274617F2F7A31A0A485030</UserChecksum>
+          <GeneratedChecksum dnOrder="5">9861AEDEA914E7A00A7919E1A7F8DA88</GeneratedChecksum>
+          <UserChecksum dnOrder="6">9861AEDEA914E7A00A7919E1A7F8DA88</UserChecksum>
         </File>
         <File dnOrder="20">
           <Type dnOrder="0">SOURCE</Type>
@@ -1507,8 +1507,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/</LogicalPath>
           <PhysicalPath dnOrder="4">/</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">EFC1F23A3787A8987345AE70304A202C</GeneratedChecksum>
-          <UserChecksum dnOrder="6">EFC1F23A3787A8987345AE70304A202C</UserChecksum>
+          <GeneratedChecksum dnOrder="5">2115E3A2A438DDE3004F7EBDD461E357</GeneratedChecksum>
+          <UserChecksum dnOrder="6">2115E3A2A438DDE3004F7EBDD461E357</UserChecksum>
         </File>
         <File dnOrder="167">
           <Type dnOrder="0">HEADER</Type>
@@ -1579,8 +1579,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/gfx/canvas</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/canvas/</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">8D6731B14925040B8E214E7E4CB7C03E</GeneratedChecksum>
-          <UserChecksum dnOrder="6">8D6731B14925040B8E214E7E4CB7C03E</UserChecksum>
+          <GeneratedChecksum dnOrder="5">D9BA7849F042999859A0D3DC69C9C46B</GeneratedChecksum>
+          <UserChecksum dnOrder="6">D9BA7849F042999859A0D3DC69C9C46B</UserChecksum>
         </File>
         <File dnOrder="175">
           <Type dnOrder="0">HEADER</Type>
@@ -1606,8 +1606,8 @@
           <Security dnOrder="2"/>
           <LogicalPath dnOrder="3">config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/gfx/legato/generated/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">763165EF48341EB2119846180B6EEF71</GeneratedChecksum>
-          <UserChecksum dnOrder="6">763165EF48341EB2119846180B6EEF71</UserChecksum>
+          <GeneratedChecksum dnOrder="5">DD74D269C629C937451ECB175093AF85</GeneratedChecksum>
+          <UserChecksum dnOrder="6">DD74D269C629C937451ECB175093AF85</UserChecksum>
         </File>
         <File dnOrder="178">
           <Type dnOrder="0">HEADER</Type>
@@ -1633,8 +1633,8 @@
           <Security dnOrder="2"/>
           <LogicalPath dnOrder="3">config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/gfx/legato/generated/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">24CA3BE84C8C2C9AF7826160A3574326</GeneratedChecksum>
-          <UserChecksum dnOrder="6">24CA3BE84C8C2C9AF7826160A3574326</UserChecksum>
+          <GeneratedChecksum dnOrder="5">C4746F2F4F87265A5EE37EBEF0D936B6</GeneratedChecksum>
+          <UserChecksum dnOrder="6">C4746F2F4F87265A5EE37EBEF0D936B6</UserChecksum>
         </File>
         <File dnOrder="181">
           <Type dnOrder="0">HEADER</Type>
@@ -1642,8 +1642,8 @@
           <Security dnOrder="2"/>
           <LogicalPath dnOrder="3">config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/gfx/legato/generated/screen/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\screen\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">881930C23BC451B91EBB16D9375F261B</GeneratedChecksum>
-          <UserChecksum dnOrder="6">881930C23BC451B91EBB16D9375F261B</UserChecksum>
+          <GeneratedChecksum dnOrder="5">20F4F2F131C1D27625A56620F3587089</GeneratedChecksum>
+          <UserChecksum dnOrder="6">20F4F2F131C1D27625A56620F3587089</UserChecksum>
         </File>
         <File dnOrder="182">
           <Type dnOrder="0">HEADER</Type>
@@ -1687,8 +1687,8 @@
           <Security dnOrder="2"/>
           <LogicalPath dnOrder="3">config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/gfx/legato/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">37B19A0120CE002F1E8C9C105771BFF9</GeneratedChecksum>
-          <UserChecksum dnOrder="6">37B19A0120CE002F1E8C9C105771BFF9</UserChecksum>
+          <GeneratedChecksum dnOrder="5">3C7C97797E34A39E0145BF19D63A26C2</GeneratedChecksum>
+          <UserChecksum dnOrder="6">3C7C97797E34A39E0145BF19D63A26C2</UserChecksum>
         </File>
         <File dnOrder="187">
           <Type dnOrder="0">HEADER</Type>

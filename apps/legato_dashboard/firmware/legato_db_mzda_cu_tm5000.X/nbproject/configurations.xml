@@ -590,7 +590,6 @@
       </logicalFolder>
       <itemPath>../src/app_preprocess.c</itemPath>
       <itemPath>../src/app_scene1.c</itemPath>
-      <itemPath>../src/app_scene2.c</itemPath>
       <itemPath>../src/main.c</itemPath>
       <itemPath>../src/app.c</itemPath>
     </logicalFolder>
@@ -654,7 +653,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga;../src/packs/PIC32MZ2064DAR176_DFP"/>
+                  value="../src;../src/config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga;../src/packs/PIC32MZ2064DAR176_DFP;"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -983,6 +982,8 @@
                   value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="1d000000-1d1fffff"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/Users/c18797/Documents/Projects/Harmony/H3/gfx_apps/apps/legato_dashboard/firmware/legato_db_mzda_cu_tm5000.X/debug/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/legato_db_mzda_cu_tm5000_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.pgmentry.voltage" value="low"/>

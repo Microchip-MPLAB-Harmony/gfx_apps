@@ -52,7 +52,7 @@ extern "C" {
 
 #define LE_DEFAULT_COLOR_MODE              LE_COLOR_MODE_RGBA_8888
 #define LE_TOUCH_ORIENTATION               0
-#define LE_HARDWARE_LAYER_MODE             0
+#define LE_DRIVER_LAYER_MODE               1
 
 #define LE_ASSERT_ENABLE                   0
 
@@ -75,7 +75,7 @@ extern "C" {
 // widget inclusion
 #define LE_ARC_WIDGET_ENABLED              0
 #define LE_BARGRAPH_WIDGET_ENABLED         0
-#define LE_BUTTON_WIDGET_ENABLED           0
+#define LE_BUTTON_WIDGET_ENABLED           1
 #define LE_CHECKBOX_WIDGET_ENABLED         0
 #define LE_CIRCLE_WIDGET_ENABLED           0
 #define LE_CIRCULARGAUGE_WIDGET_ENABLED    0
@@ -133,7 +133,7 @@ extern "C" {
 // renderer configuration
 //#define LE_VSYNC_STALL
 
-#define LE_LAYER_COUNT                     1
+#define LE_LAYER_COUNT                     2
 
 #if LE_LAYER_COUNT <= 0
 #error LE_LAYER_COUNT must be greater than or equal to 1

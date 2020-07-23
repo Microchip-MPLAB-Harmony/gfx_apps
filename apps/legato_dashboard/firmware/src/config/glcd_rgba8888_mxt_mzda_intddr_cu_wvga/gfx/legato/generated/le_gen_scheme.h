@@ -5,6 +5,7 @@
 
 extern const leScheme WhiteBaseScheme;
 extern const leScheme BlackBaseScheme;
+extern const leScheme InfoLayerScheme;
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

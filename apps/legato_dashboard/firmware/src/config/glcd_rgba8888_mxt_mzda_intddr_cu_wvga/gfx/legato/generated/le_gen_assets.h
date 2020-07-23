@@ -1735,6 +1735,15 @@ extern leImage background_all;
  ***********************************/
 extern leImage Background_Image_Dashboard2;
 
+/*********************************
+ * Legato Image Asset
+ * Name:   Infopage
+ * Size:   300x350 pixels
+ * Type:   RGB Data
+ * Format: RGBA_8888
+ ***********************************/
+extern leImage Infopage;
+
 /*****************************************************************************
  * Legato String Table
  * Encoding        ASCII

@@ -124,10 +124,19 @@ static void gfxcObjectsInitialize(void)
     gfxcSetPixelBuffer(id, 1600, 480, GFX_COLOR_MODE_RGBA_8888,
                        (void *) 0xa8000000);
     id = gfxcCreate();
-    gfxcSetPixelBuffer(id, 800, 480, GFX_COLOR_MODE_RGBA_8888,
+    gfxcSetPixelBuffer(id, 300, 350, GFX_COLOR_MODE_RGBA_8888,
+                       (void *) 0xa82ee000);
+    id = gfxcCreate();
+    gfxcSetPixelBuffer(id, 480, 272, GFX_COLOR_MODE_RGBA_8888,
                        NULL);
     id = gfxcCreate();
-    gfxcSetPixelBuffer(id, 800, 480, GFX_COLOR_MODE_RGBA_8888,
+    gfxcSetPixelBuffer(id, 480, 272, GFX_COLOR_MODE_RGBA_8888,
+                       NULL);
+    id = gfxcCreate();
+    gfxcSetPixelBuffer(id, 480, 272, GFX_COLOR_MODE_RGBA_8888,
+                       NULL);
+    id = gfxcCreate();
+    gfxcSetPixelBuffer(id, 480, 272, GFX_COLOR_MODE_RGBA_8888,
                        NULL);
 }
 

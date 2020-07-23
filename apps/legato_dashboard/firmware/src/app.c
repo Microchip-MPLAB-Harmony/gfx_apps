@@ -29,6 +29,7 @@
 
 #include "app.h"
 #include "definitions.h"
+#include "config/glcd_rgba8888_mxt_mzda_intddr_cu_wvga/gfx/canvas/gfx_canvas_api.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -132,33 +133,37 @@ void APP_Initialize ( void )
     APP_PreprocessSplashImages();
     
     /* Initialize canvas objects */
-    gfxcSetLayer(0, 0);
-    gfxcSetLayer(1, 1);
-    gfxcSetLayer(2, 2);
+    gfxcSetLayer(BACKGROUND_CANVAS_ID, BACKGROUND_LAYER_ID);
+    gfxcSetLayer(INFOPAGE_CANVAS_ID, INFOPAGE_LAYER_ID);
+    gfxcSetLayer(LEFT_NEEDLE_CANVAS_ID, LEFT_NEEDLE_LAYER_ID);
+    gfxcSetLayer(RIGHT_NEEDLE_CANVAS_ID, RIGHT_NEEDLE_LAYER_ID);
+    gfxcSetLayer(MCHP_LOGO_CANVAS_ID, MCHP_LOGO_LAYER_ID);
+    gfxcSetLayer(MHGC_LOGO_CANVAS_ID, MHGC_LOGO_LAYER_ID);    
 
-    gfxcSetWindowSize(0, 1600, 480);
+    gfxcSetWindowSize(BACKGROUND_CANVAS_ID, 1600, 480);
 
     //Show splash screen using canvas
-    appSetLayerFrame(1, 
+    appSetLayerFrame(MHGC_LOGO_CANVAS_ID, 
                     (uint32_t) MHGC_200x200_white.buffer.pixels, 
                     300,
                     140,
                     MHGC_200x200_white.buffer.size.width, 
                     MHGC_200x200_white.buffer.size.height);
-    appSetLayerFrame(2,
+    
+    appSetLayerFrame(MCHP_LOGO_CANVAS_ID,
                     (uint32_t) mchpLogo_light.buffer.pixels, 
                     0,
                     0,
                     mchpLogo_light.buffer.size.width, 
                     mchpLogo_light.buffer.size.height);    
     
-    gfxcHideCanvas(0);
-    gfxcShowCanvas(1);
-    gfxcShowCanvas(2);
+    gfxcHideCanvas(BACKGROUND_CANVAS_ID);
+    gfxcShowCanvas(MCHP_LOGO_CANVAS_ID);
+    gfxcShowCanvas(MHGC_LOGO_CANVAS_ID);
 
-    gfxcCanvasUpdate(0);
-    gfxcCanvasUpdate(1);
-    gfxcCanvasUpdate(2);
+    gfxcCanvasUpdate(BACKGROUND_CANVAS_ID);
+    gfxcCanvasUpdate(MCHP_LOGO_CANVAS_ID);
+    gfxcCanvasUpdate(MHGC_LOGO_CANVAS_ID);
 }
 
 void animTimer_Callback ( uintptr_t context )
@@ -307,30 +312,54 @@ void APP_Tasks ( void )
             if (APP_GetBacklightBrightness() > OFF_BRIGHTNESS)
                 break;
             
-            gfxcShowCanvas(0);
-            gfxcShowCanvas(1);
-            gfxcShowCanvas(2);
-            gfxcCanvasUpdate(0);            
-            gfxcCanvasUpdate(1);            
-            gfxcCanvasUpdate(2);
+            //show the background cluster
+            gfxcShowCanvas(BACKGROUND_CANVAS_ID);
+            gfxcCanvasUpdate(BACKGROUND_CANVAS_ID);
             
+            //hide the logos
+            gfxcHideCanvas(MCHP_LOGO_CANVAS_ID);
+            gfxcCanvasUpdate(MCHP_LOGO_CANVAS_ID);
+            gfxcHideCanvas(MHGC_LOGO_CANVAS_ID);
+            gfxcCanvasUpdate(MHGC_LOGO_CANVAS_ID);
+            
+            //show infopage
+            gfxcSetWindowSize(INFOPAGE_CANVAS_ID, 300, 350); 
+            gfxcSetWindowAlpha(INFOPAGE_CANVAS_ID, 220);
+            gfxcShowCanvas(INFOPAGE_CANVAS_ID);            
+            gfxcCanvasUpdate(INFOPAGE_CANVAS_ID);
+            gfxcStartEffectMove(INFOPAGE_CANVAS_ID,
+                            GFXC_FX_MOVE_DEC,
+                            250,
+                            -350,
+                            250,
+                            65,
+                            10);   
             APP_SetBacklightBrightness(ON_BRIGHTNESS);
-            StartAnimTimer();            
+       
             
-            appData.state = APP_STATE_PROCESS_SCENE1;
+            appData.state = APP_STATE_SHOW_HELP;
             
             break;
         }
+        case APP_STATE_SHOW_HELP:
+        {
+            //wait for touch to happen
+            break;
+        }
+        case APP_STATE_START_SCENE:
+        {
+            StartAnimTimer();     
+            
+            appData.state = APP_STATE_PROCESS_SCENE1;
+            break;
+        }
         case APP_STATE_PROCESS_SCENE1:
+            //No break
+        case APP_STATE_PROCESS_SCENE2:
         {
             APP_Process_Scene1();
             break;
         }
-        case APP_STATE_PROCESS_SCENE2:
-        {
-            APP_Process_Scene2();
-            break;
-        }        
 
         /* TODO: implement your application state machine.*/
 
@@ -344,6 +373,34 @@ void APP_Tasks ( void )
     }
 }
 
+void event_Screen0_ButtonWidget0_OnPressed(leButtonWidget* btn)
+{
+    switch(appData.state)
+    {   
+        case APP_STATE_SHOW_HELP:
+        {
+            appData.state = APP_STATE_START_SCENE;
+            break;
+        }
+        case APP_STATE_PROCESS_SCENE1:
+        {    
+            appData.scene_state = APP_SCENE_STATE_HIDE_HELP;
+            break;
+        }
+        case APP_STATE_PROCESS_SCENE2:
+        {   
+            appData.scene_state = APP_SCENE_STATE_HIDE_HELP;
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+void Screen0_OnUpdate()
+{
+    
+}
 
 /*******************************************************************************
  End of File
