@@ -67,8 +67,8 @@ typedef enum
     APP_STATE_FADE_OUT_SPLASH,            
     APP_STATE_INIT_OVERLAYS,
     APP_STATE_SHOW_HELP,
+    APP_STATE_HIDE_HELP,            
     APP_STATE_START_SCENE,
-    APP_STATE_HIDE_HELP,
     APP_STATE_PROCESS_SCENE1,
     APP_STATE_PROCESS_SCENE2,
  
@@ -86,6 +86,7 @@ typedef enum
     APP_SCENE_STATE_SHOW_HELP,
     APP_SCENE_STATE_IDLE_HELP, 
     APP_SCENE_STATE_HIDE_HELP,
+    APP_SCENE_STATE_WAIT_HIDE_HELP,
     APP_SCENE_STATE_SWITCH_SCENE_1_2_0,
     APP_SCENE_STATE_SWITCH_SCENE_1_2_1,
     APP_SCENE_STATE_SWITCH_SCENE_WAIT,
@@ -149,7 +150,7 @@ typedef struct
 
 //Run demo for a while, then switch to next scene
 #define ANIM_DEMO_MODE_RUN_PERIOD_MS 20000 //20 seconds
-#define ANIM_DEMO_MODE_HELP_PERIOD_MS 35000 //30 seconds
+#define ANIM_DEMO_MODE_HELP_PERIOD_MS 40000 //30 seconds
 
 #define ANIM_TIMER_PERIOD_US 3000
 
@@ -230,6 +231,11 @@ extern APP_DATA appData;
 extern volatile uint32_t layerAlpha[3];
 extern needleObj leftNeedles[360];
 extern needleObj rightNeedles[360];
+
+extern bool backgroundAnimDone;
+extern bool leftGaugeAnimDone;
+extern bool rightGaugeAnimDone;
+extern bool infoPageAnimDone;
 /*******************************************************************************
   Function:
     void APP_Initialize ( void )

@@ -67,6 +67,10 @@ volatile unsigned int animCounter;
 unsigned int animCounterOld;
 static unsigned int brightness = 0;
 static unsigned int newBrightness = 0;
+bool backgroundAnimDone = false;
+bool leftGaugeAnimDone = false;
+bool rightGaugeAnimDone = false;
+bool infoPageAnimDone = false;
 
 
 // *****************************************************************************
@@ -256,6 +260,30 @@ unsigned int APP_GetBacklightBrightness(void)
     return brightness;
 }
 
+void APP_Scene_EffectsCallback(unsigned int canvasID,
+                                GFXC_FX_TYPE effect,
+                                GFXC_FX_STATUS status,
+                                void * parm)
+{
+    switch (canvasID)
+    {
+        case BACKGROUND_CANVAS_ID:
+            backgroundAnimDone = (status == GFXC_FX_DONE) ? true : false;
+            break;
+        case LEFT_NEEDLE_CANVAS_ID:
+            leftGaugeAnimDone = (status == GFXC_FX_DONE) ? true : false;
+            break;
+        case RIGHT_NEEDLE_CANVAS_ID:
+            rightGaugeAnimDone = (status == GFXC_FX_DONE) ? true : false;
+            break;
+        case INFOPAGE_CANVAS_ID:
+            infoPageAnimDone = (status == GFXC_FX_DONE) ? true : false;
+            break;
+        default:
+            break;
+    }
+}
+
 /******************************************************************************
   Function:
     void APP_Tasks ( void )
@@ -312,6 +340,11 @@ void APP_Tasks ( void )
             if (APP_GetBacklightBrightness() > OFF_BRIGHTNESS)
                 break;
             
+            gfxcSetEffectsCallback(LEFT_NEEDLE_CANVAS_ID, APP_Scene_EffectsCallback, NULL);
+            gfxcSetEffectsCallback(RIGHT_NEEDLE_CANVAS_ID, APP_Scene_EffectsCallback, NULL);
+            gfxcSetEffectsCallback(INFOPAGE_CANVAS_ID, APP_Scene_EffectsCallback, NULL);
+            gfxcSetEffectsCallback(BACKGROUND_CANVAS_ID, APP_Scene_EffectsCallback, NULL);               
+            
             //show the background cluster
             gfxcShowCanvas(BACKGROUND_CANVAS_ID);
             gfxcCanvasUpdate(BACKGROUND_CANVAS_ID);
@@ -335,7 +368,6 @@ void APP_Tasks ( void )
                             65,
                             10);   
             APP_SetBacklightBrightness(ON_BRIGHTNESS);
-       
             
             appData.state = APP_STATE_SHOW_HELP;
             
@@ -346,8 +378,25 @@ void APP_Tasks ( void )
             //wait for touch to happen
             break;
         }
+        case APP_STATE_HIDE_HELP:
+        {
+            gfxcStartEffectMove(INFOPAGE_CANVAS_ID,
+                                GFXC_FX_MOVE_DEC,
+                                250,
+                                65,
+                                250,
+                                -350,
+                                10);  
+            
+            appData.state = APP_STATE_START_SCENE;
+            
+            break;
+        }
         case APP_STATE_START_SCENE:
         {
+            if (infoPageAnimDone == false)
+                break;
+            
             StartAnimTimer();     
             
             appData.state = APP_STATE_PROCESS_SCENE1;
@@ -379,7 +428,7 @@ void event_Screen0_ButtonWidget0_OnPressed(leButtonWidget* btn)
     {   
         case APP_STATE_SHOW_HELP:
         {
-            appData.state = APP_STATE_START_SCENE;
+            appData.state = APP_STATE_HIDE_HELP;
             break;
         }
         case APP_STATE_PROCESS_SCENE1:

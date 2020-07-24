@@ -39,9 +39,6 @@ static uint32_t nextLeftNeedleAngle = 0;
 static uint32_t nextRightNeedleAngle = 0;
 static uint32_t currentLeftNeedleAngle = 0;
 static uint32_t currentRightNeedleAngle = 0;
-static bool backgroundAnimDone = false;
-static bool leftGaugeAnimDone = false;
-static bool rightGaugeAnimDone = false;
 static unsigned int maxNeedleValue;
 
 static SYS_INP_InputListener app_inputListener;
@@ -575,30 +572,6 @@ static void APP_SCENE1_initialize_needle_lookup_table(void)
     appSetRightNeedleImageData(&n358_629_240, 88, 629, 240);
 }
 
-void APP_Scene_EffectsCallback(unsigned int canvasID,
-                                GFXC_FX_TYPE effect,
-                                GFXC_FX_STATUS status,
-                                void * parm)
-{
-    if (status == GFXC_FX_DONE)
-    {
-        switch (canvasID)
-        {
-            case BACKGROUND_CANVAS_ID:
-                backgroundAnimDone = true;
-                break;
-            case LEFT_NEEDLE_CANVAS_ID:
-                leftGaugeAnimDone = true;
-                break;
-            case RIGHT_NEEDLE_CANVAS_ID:
-                rightGaugeAnimDone = true;
-                break;
-            default:
-                break;
-        }
-    }
-}
-
 static void app_touchDownHandler(const SYS_INP_TouchStateEvent* const evt)
 {
     if (animCounter > lastTouchDownCount && (animCounter - lastTouchDownCount < DOUBLE_TAP_COUNT_LIMIT))
@@ -826,10 +799,6 @@ void APP_Process_Scene1(void)
             demoModeCounter = 0;;
             demoModeValuesIndex = 0;    
             
-            backgroundAnimDone = false;
-            leftGaugeAnimDone = false;
-            rightGaugeAnimDone = false;
-            
             leftEdgeDownFlag = false;
             rightEdgeDownFlag = false;
             topEdgeDownFlag = false;
@@ -857,10 +826,6 @@ void APP_Process_Scene1(void)
             {
                 APP_SCENE2_initialize_needle_lookup_table();
             }
-            
-            gfxcSetEffectsCallback(LEFT_NEEDLE_CANVAS_ID, APP_Scene_EffectsCallback, NULL);
-            gfxcSetEffectsCallback(RIGHT_NEEDLE_CANVAS_ID, APP_Scene_EffectsCallback, NULL);
-            gfxcSetEffectsCallback(BACKGROUND_CANVAS_ID, APP_Scene_EffectsCallback, NULL);
             
             appData.scene_state = APP_SCENE_STATE_READY_EVENT_HANDLERS;
             
@@ -1042,6 +1007,22 @@ void APP_Process_Scene1(void)
        }
        case APP_SCENE_STATE_HIDE_HELP:
        {
+            gfxcStartEffectMove(INFOPAGE_CANVAS_ID,
+                                GFXC_FX_MOVE_DEC,
+                                250,
+                                65,
+                                250,
+                                -350,
+                                10);
+            appData.scene_state = APP_SCENE_STATE_WAIT_HIDE_HELP;
+            
+            break;
+       }
+       case APP_SCENE_STATE_WAIT_HIDE_HELP:
+       {
+           if (infoPageAnimDone == false)
+               break;
+           
             appData.scene_state = APP_SCENE_STATE_INIT;
             
             break;
@@ -1052,8 +1033,6 @@ void APP_Process_Scene1(void)
             SYS_TIME_TimerStop(selfDemoTimer);
             SYS_TIME_TimerDestroy(selfDemoTimer);            
                    
-            leftGaugeAnimDone = false;
-            rightGaugeAnimDone = false;                
             gfxcStartEffectFade(LEFT_NEEDLE_CANVAS_ID,
                                 NEEDLE_FADE_OUT_START_ALPHA,
                                 NEEDLE_FADE_OUT_END_ALPHA,
@@ -1063,8 +1042,6 @@ void APP_Process_Scene1(void)
                                 NEEDLE_FADE_OUT_END_ALPHA,
                                 10);
            
-            backgroundAnimDone = false;
-            
             if (appData.state == APP_STATE_PROCESS_SCENE1)
             {
                 gfxcStartEffectMove(BACKGROUND_CANVAS_ID,
