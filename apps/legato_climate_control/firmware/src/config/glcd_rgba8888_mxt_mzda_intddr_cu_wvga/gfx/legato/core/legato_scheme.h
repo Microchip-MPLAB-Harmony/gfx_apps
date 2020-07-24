@@ -96,7 +96,7 @@ typedef enum leSchemeColor
 } leSchemeColor;
 
 #define LE_SCHEME_COLOR_COUNT        16
-#define LE_SCHEME_COLOR_MODE_COUNT   8
+#define LE_SCHEME_COLOR_MODE_COUNT   LE_COLOR_MODE_COUNT
 
 /*
   Union:
@@ -152,7 +152,7 @@ typedef union leSchemeColorTable
  */
 typedef struct leScheme
 {
-    leSchemeColorTable tables[LE_COLOR_MODE_COUNT];
+    leSchemeColorTable tables[LE_SCHEME_COLOR_MODE_COUNT];
 } leScheme;
 
 extern const struct leScheme leDefaultScheme;

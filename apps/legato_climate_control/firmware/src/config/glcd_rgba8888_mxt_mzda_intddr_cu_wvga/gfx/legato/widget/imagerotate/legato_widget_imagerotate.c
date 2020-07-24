@@ -44,69 +44,6 @@ const
 #endif
 leImageRotateWidgetVTable imageRotateWidgetVTable;
 
-static void calculateImageRect(leImageRotateWidget* img)
-{
-    lePoint point[4];
-    int32_t minX = 99999;
-    int32_t maxX = -99999;
-    int32_t minY = 99999;
-    int32_t maxY = -99999;
-
-    uint32_t i;
-
-    if(img->image == NULL)
-    {
-        img->imageRect = leRect_Zero;
-
-        return;
-    }
-
-    point[0].x = 0;
-    point[0].y = 0;
-
-    point[1].x = img->image->buffer.size.width;
-    point[1].y = 0;
-
-    point[2].x = 0;
-    point[2].y = img->image->buffer.size.height;
-
-    point[3].x = point[1].x;
-    point[3].y = point[2].y;
-
-    point[0] = leRotatePoint(point[0], img->origin, img->angle);
-    point[1] = leRotatePoint(point[1], img->origin, img->angle);
-    point[2] = leRotatePoint(point[2], img->origin, img->angle);
-    point[3] = leRotatePoint(point[3], img->origin, img->angle);
-
-    for(i = 0; i < 4; i++)
-    {
-        if(point[i].x < minX)
-        {
-            minX = point[i].x;
-        }
-
-        if(point[i].x > maxX)
-        {
-            maxX = point[i].x;
-        }
-
-        if(point[i].y < minY)
-        {
-            minY = point[i].y;
-        }
-
-        if(point[i].y > maxY)
-        {
-            maxY = point[i].y;
-        }
-    }
-
-    img->imageRect.x = minX;
-    img->imageRect.y = minY;
-    img->imageRect.width = maxX - minX;
-    img->imageRect.height = maxY - minY;
-}
-
 void leImageRotateWidget_Constructor(leImageRotateWidget* _this)
 {
     leWidget_Constructor((leWidget*)_this);
@@ -124,7 +61,6 @@ void leImageRotateWidget_Constructor(leImageRotateWidget* _this)
 
     _this->image = NULL;
 
-    _this->origin = lePoint_Zero;
     _this->angle = 0;
 
     _this->filter = LE_IMAGEFILTER_NEAREST_NEIGHBOR;
@@ -165,51 +101,8 @@ static leResult setImage(leImageRotateWidget* _this,
 
     _this->image = imgAst;
 
-    calculateImageRect(_this);
-
     _this->fn->invalidate(_this);
     
-    return LE_SUCCESS;
-}
-
-static lePoint getOrigin(const leImageRotateWidget* _this)
-{
-    LE_ASSERT_THIS();
-
-    return _this->origin;
-}
-
-static leResult setOriginX(leImageRotateWidget* _this,
-                           int32_t x)
-{
-    LE_ASSERT_THIS();
-
-    if(_this->origin.x == x)
-    {
-        return LE_SUCCESS;
-    }
-
-    _this->origin.x = x;
-
-    _this->fn->invalidate(_this);
-
-    return LE_SUCCESS;
-}
-
-static leResult setOriginY(leImageRotateWidget* _this,
-                           int32_t y)
-{
-    LE_ASSERT_THIS();
-
-    if(_this->origin.y == y)
-    {
-        return LE_SUCCESS;
-    }
-
-    _this->origin.y = y;
-
-    _this->fn->invalidate(_this);
-
     return LE_SUCCESS;
 }
 
@@ -229,8 +122,6 @@ static leResult setAngle(leImageRotateWidget* _this,
         return LE_SUCCESS;
 
     _this->angle = angle;
-
-    calculateImageRect(_this);
 
     _this->fn->invalidate(_this);
 
@@ -275,9 +166,6 @@ void _leImageRotateWidget_GenerateVTable()
     /* member functions */
     imageRotateWidgetVTable.getImage = getImage;
     imageRotateWidgetVTable.setImage = setImage;
-    imageRotateWidgetVTable.getOrigin = getOrigin;
-    imageRotateWidgetVTable.setOriginX = setOriginX;
-    imageRotateWidgetVTable.setOriginY = setOriginY;
     imageRotateWidgetVTable.getAngle = getAngle;
     imageRotateWidgetVTable.setAngle = setAngle;
     imageRotateWidgetVTable.getFilter = getFilter;
@@ -375,9 +263,6 @@ static const leImageRotateWidgetVTable imageRotateWidgetVTable =
     /* member functions */
     .getImage = getImage,
     .setImage = setImage,
-    .getOrigin = getOrigin,
-    .setOriginX = setOriginX,
-    .setOriginY = setOriginY,
     .getAngle = getAngle,
     .setAngle = setAngle,
     .getFilter = getFilter,

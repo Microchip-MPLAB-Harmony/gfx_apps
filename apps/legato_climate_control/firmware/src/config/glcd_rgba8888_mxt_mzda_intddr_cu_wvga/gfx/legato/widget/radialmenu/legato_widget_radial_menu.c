@@ -122,7 +122,7 @@ void leRadialMenuWidget_Constructor(leRadialMenuWidget* _this)
 
     _this->drawEllipse = LE_TRUE;
 
-    _this->widget.borderType = LE_WIDGET_BORDER_NONE;
+    _this->widget.style.borderType = LE_WIDGET_BORDER_NONE;
     _this->widget.style.backgroundType = LE_WIDGET_BACKGROUND_NONE;
 
     _this->widget.style.halign = LE_HALIGN_CENTER;
@@ -205,12 +205,13 @@ static void handleResizedEvent(leRadialMenuWidget* _this,
 {
     LE_ASSERT_THIS();
 
+    (void)evt; // unused
+
     _recalculateTouchRect(_this);
 
     _this->ellipse.invalid = LE_TRUE;
 }
 
-//#include <stdio.h>
 static void rotateMenu(leRadialMenuWidget* _this, int32_t mag)
 {
     _this->rotationDegrees += mag;
@@ -234,7 +235,7 @@ static void rotateMenu(leRadialMenuWidget* _this, int32_t mag)
         _this->prominentIndex += 1;
         _this->rotationDegrees += _this->angleSlice;
 
-        if(_this->prominentIndex >= _this->widgetList.size)
+        if(_this->prominentIndex >= (int32_t)_this->widgetList.size)
         {
             _this->prominentIndex = 0;
         }
@@ -546,7 +547,7 @@ static leResult addChild(leRadialMenuWidget* _this,
 
     widget->fn->installEventFilter(widget, filter);
 
-    item->origAlphaAmount = widget->alphaAmount;
+    item->origAlphaAmount = widget->style.alphaAmount;
     item->origSize = widget->rect;
     
     leList_PushBack(&_this->widgetList, item);
@@ -586,7 +587,7 @@ static leResult insertChild(leRadialMenuWidget* _this,
 
     widget->fn->installEventFilter(widget, filter);
 
-    item->origAlphaAmount = widget->alphaAmount;
+    item->origAlphaAmount = widget->style.alphaAmount;
     item->origSize = widget->rect;
 
     leList_InsertAt(&_this->widgetList, item, idx);
@@ -1015,7 +1016,7 @@ static void projectVector(struct Vector2* vec, const struct Vector2* ref)
 static void rotateVector(struct Vector2* vec, float ang)
 {
     float cs, sn, x, y;
-    float rad = ang * (3.14159 / 180.0f);
+    float rad = ang * (3.14159f / 180.0f);
 
 
     cs = cosf(rad);

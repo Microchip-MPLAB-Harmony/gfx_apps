@@ -58,6 +58,7 @@ leResult leRenderer_CircleDraw(const leRect* rect,
                        0,
                        360,
                        thickness,
+                       LE_FALSE,
                        clr,
                        LE_FALSE,
                        alpha);
@@ -73,24 +74,31 @@ leResult leRenderer_CircleFill(const leRect* rect,
 {
     uint32_t radius = rect->width / 2;
 
+
+
+    leRect fillRect;
+    fillRect.x = rect->x + 1 + rect->width / 4;
+    fillRect.y = rect->y + 1 + rect->height / 4;
+    fillRect.width = radius;
+    fillRect.height = radius;
+
+    leRenderer_ArcFill(&fillRect,
+                       0,
+                       360,
+                       radius,
+                       LE_FALSE,
+                       fillClr,
+                       LE_FALSE,
+                       alpha);
+
     leRenderer_ArcFill(rect,
                        0,
                        360,
                        thickness,
+                       LE_FALSE,
                        borderClr,
                        LE_FALSE,
                        alpha);
-
-    if(thickness < radius)
-    {
-        leRenderer_ArcFill(rect,
-                           0,
-                           360,
-                           radius - thickness,
-                           fillClr,
-                           LE_FALSE,
-                           alpha);
-    }
 
     return LE_SUCCESS;
 }
@@ -454,6 +462,7 @@ leResult leRenderer_ArcFill(const leRect* drawRect,
                             int32_t startAngle,
                             int32_t spanAngle,
                             uint32_t thickness,
+                            leBool rounded,
                             leColor clr,
                             leBool antialias,
                             uint32_t a)
@@ -578,6 +587,49 @@ leResult leRenderer_ArcFill(const leRect* drawRect,
                    ranges.angle1.startAngle,
                    ranges.angle1.endAngle);
         }
+    }
+
+    if(rounded == LE_TRUE)
+    {
+        lePoint point = lePointOnCircle((drawRect->width / 2) + 1,
+                                        startAngle);
+
+        leRect tipRect;
+
+        point.y *= -1;
+
+        tipRect.x = drawRect->x + (drawRect->width / 2) + point.x;
+        tipRect.y = drawRect->y + (drawRect->height / 2) + point.y;
+
+        tipRect.x -= thickness / 4;
+        tipRect.y -= thickness / 4;
+        tipRect.width = thickness / 2;
+        tipRect.height = thickness / 2;
+
+        leRenderer_CircleFill(&tipRect,
+                              thickness / 2,
+                              clr,
+                              clr,
+                              a);
+
+        point = lePointOnCircle((drawRect->width / 2) + 1,
+                                 startAngle + spanAngle);
+
+        point.y *= -1;
+
+        tipRect.x = drawRect->x + (drawRect->width / 2) + point.x;
+        tipRect.y = drawRect->y + (drawRect->height / 2) + point.y;
+
+        tipRect.x -= thickness / 4;
+        tipRect.y -= thickness / 4;
+        tipRect.width = thickness / 2;
+        tipRect.height = thickness / 2;
+
+        leRenderer_CircleFill(&tipRect,
+                              thickness / 2,
+                              clr,
+                              clr,
+                              a);
     }
 
     return LE_SUCCESS;

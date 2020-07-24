@@ -123,6 +123,7 @@ static void nextState(leRectangleWidget* rct)
                 return;
             }
         }
+        // fall through
         case DRAW_BACKGROUND:
         {
             if(rct->thickness > 0)
@@ -133,6 +134,7 @@ static void nextState(leRectangleWidget* rct)
                 return;
             }
         }
+        // fall through
         case DRAW_EDGE:
         {            
             if(rct->widget.style.borderType != LE_WIDGET_BORDER_NONE)
@@ -143,6 +145,7 @@ static void nextState(leRectangleWidget* rct)
                 return;
             }
         }
+        // fall through
         case DRAW_BORDER:
         {
             rct->widget.status.drawState = DONE;

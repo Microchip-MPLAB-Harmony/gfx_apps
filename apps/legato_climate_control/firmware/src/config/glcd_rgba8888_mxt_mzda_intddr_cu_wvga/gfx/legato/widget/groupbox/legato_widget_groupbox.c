@@ -53,12 +53,16 @@ static void invalidateTextRect(const leGroupBoxWidget* _this)
 static void stringPreinvalidate(const leString* str,
                                 leGroupBoxWidget* box)
 {
+    (void)str;
+
     invalidateTextRect(box);
 }
 
 static void stringInvalidate(const leString* str,
                              leGroupBoxWidget* box)
 {
+    (void)str;
+
     invalidateTextRect(box);
 }
 
@@ -248,7 +252,6 @@ static const leGroupBoxWidgetVTable groupBoxWidgetVTable =
     .resizeEvent = (void*)_leWidget_ResizeEvent,
     .focusLostEvent = (void*)_leWidget_FocusLostEvent,
     .focusGainedEvent = (void*)_leWidget_FocusGainedEvent,
-    .languageChangeEvent = (void*)_leWidget_LanguageChangeEvent,
 
     ._handleEvent = (void*)_leWidget_HandleEvent,
     ._validateChildren = (void*)_leWidget_ValidateChildren,

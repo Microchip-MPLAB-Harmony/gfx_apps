@@ -140,6 +140,7 @@ static void nextState(leSliderWidget* sld)
                 return;
             }
         }
+        // fall through
         case DRAW_BACKGROUND:
         {
             sld->widget.status.drawState = DRAW_BAR;
@@ -167,6 +168,7 @@ static void nextState(leSliderWidget* sld)
             sld->widget.status.drawState = DONE;
             sld->widget.drawFunc = NULL;
         }
+        // fall through
         /*case DRAW_BORDER:
         {
             sld->widget.status.drawState = DONE;

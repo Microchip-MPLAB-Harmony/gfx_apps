@@ -69,7 +69,7 @@ static void _cleanup(leStreamManager* mgr);
 
 leResult _leRawImageDecoder_SourceIterateSetupStage(leRawDecodeState* state);
 leResult _leRawImageDecoder_TargetIterateSetupStage(leRawDecodeState* state);
-leResult _leRawImageDecoder_RotatedTargetIterateSetupStage(leRawDecodeState* state);
+//leResult _leRawImageDecoder_RotatedTargetIterateSetupStage(leRawDecodeState* state);
 
 leResult _leRawImageDecoder_PostReadStage(leRawDecodeState* state);
 
@@ -780,11 +780,11 @@ static leResult _render(const leImage* src,
 static leResult _rotate(const leImage* src,
                         const leRect* srcRect,
                         leImageFilterMode mode,
-                        const lePoint* origin,
                         int32_t angle,
-                        leImage* target)
+                        leImage** target,
+                        leBool alloc)
 {
-    leRect imgRect, sourceClipRect, drawRect, targetRect, clipRect;
+    leRect imgRect, sourceClipRect, targetRect;
 
     // only allow a new setup if there isn't a current one
     if(state.mode != LE_RAW_MODE_NONE)
@@ -795,14 +795,10 @@ static leResult _rotate(const leImage* src,
 
     // can't blend
     if(mode == LE_IMAGEFILTER_BILINEAR &&
-      (LE_COLOR_MODE_IS_PIXEL(src->buffer.mode) == LE_FALSE ||
-       LE_COLOR_MODE_IS_PIXEL(target->buffer.mode) == LE_FALSE))
+      (LE_COLOR_MODE_IS_PIXEL(src->buffer.mode) == LE_FALSE))
     {
         return LE_FAILURE;
     }
-
-    if(target == NULL)
-        return LE_FAILURE;
 
     memset(&state, 0, sizeof(leRawDecodeState));
 
@@ -818,18 +814,46 @@ static leResult _rotate(const leImage* src,
     // trim the source rectangle to fit
     leRectClip(&imgRect, srcRect, &sourceClipRect);
 
-    drawRect.x = 0;
-    drawRect.y = 0;
-    drawRect.width = sourceClipRect.width;
-    drawRect.height = sourceClipRect.height;
+    if(target == NULL)
+        return LE_FAILURE;
 
     targetRect.x = 0;
     targetRect.y = 0;
-    targetRect.width = target->buffer.size.width;
-    targetRect.height = target->buffer.size.height;
+    targetRect.width = sourceClipRect.width;
+    targetRect.height = sourceClipRect.height;
 
-    /* make sure the dest rect is within the damaged rect area */
-    clipRect = leRectClipAdj(&drawRect, &targetRect, &sourceClipRect);
+    targetRect = leRotatedRectBounds(targetRect, angle);
+
+    if(alloc == LE_TRUE)
+    {
+        *target = leImage_Allocate(targetRect.width, targetRect.height, src->buffer.mode);
+
+        lePixelBufferAreaFill_Unsafe(&(*target)->buffer,
+                                     0,
+                                     0,
+                                     (*target)->buffer.size.width,
+                                     (*target)->buffer.size.height,
+                                     0);
+    }
+    else
+    {
+        if(*target == NULL)
+            return LE_FAILURE;
+
+        /*if((*target)->buffer.size.width < sourceClipRect.width ||
+           (*target)->buffer.size.height < sourceClipRect.height)
+            return LE_FAILURE;*/
+    }
+
+    state.target = *target;
+
+    state.destRect.x = 0;
+    state.destRect.y = 0;
+    state.destRect.width = state.target->buffer.size.width;
+    state.destRect.height = state.target->buffer.size.height;
+
+    if(state.target->buffer.pixels == NULL)
+        return LE_FAILURE;
 
     if(sourceClipRect.width <= 0 || sourceClipRect.height <= 0)
         return LE_FAILURE;
@@ -847,12 +871,12 @@ static leResult _rotate(const leImage* src,
     state.sourceRect = sourceClipRect;
 
     state.angle = angle;
-    state.origin = *origin;
+    state.sourceOrigin.x = state.sourceRect.x + state.sourceRect.width / 2;
+    state.sourceOrigin.y = state.sourceRect.y + state.sourceRect.height / 2;
+    state.targetOrigin.x = state.target->buffer.size.width / 2;
+    state.targetOrigin.y = state.target->buffer.size.height / 2;
 
     state.filterMode = mode;
-    state.target = target;
-
-    state.destRect = clipRect;
 
     state.targetMode = state.target->buffer.mode;
 
@@ -869,9 +893,7 @@ static leResult _rotate(const leImage* src,
     else
     {
         if(_leRawImageDecoder_RotateBilinearPreReadStage(&state) == LE_FAILURE)
-        {
             return LE_FAILURE;
-        }
     }
 
     // read stage
@@ -904,7 +926,6 @@ static leResult _rotate(const leImage* src,
 static leResult _rotateDraw(const leImage* src,
                             const leRect* srcRect,
                             leImageFilterMode mode,
-                            const lePoint* origin,
                             int32_t angle,
                             int32_t x,
                             int32_t y,
@@ -947,8 +968,14 @@ static leResult _rotateDraw(const leImage* src,
 
     // calculate bounds of rotated rectangle
     drawRect = leRotatedRectBounds(imgRect,
-                                   *origin,
                                    angle);
+
+    // center rotated rectangle over original rectangle
+    drawRect.x = imgRect.x + imgRect.width / 2;
+    drawRect.y = imgRect.y + imgRect.height / 2;
+
+    drawRect.x -= drawRect.width / 2;
+    drawRect.y -= drawRect.height / 2;
 
     /* make sure the dest rect is within the damaged rect area */
     leRectClip(&drawRect, &dmgRect, &clipRect);
@@ -972,11 +999,11 @@ static leResult _rotateDraw(const leImage* src,
     // store the target rect dimensions
     state.destRect = clipRect;
 
-    state.targetY = clipRect.y;
-    state.targetX = clipRect.x;
+    state.targetY = 0;
+    state.targetX = 0;
 
     state.angle = angle;
-    state.origin = *origin;
+    //state.sourceOrigin = srcRect->width
 
     state.targetMode = leRenderer_CurrentColorMode();
 
@@ -985,7 +1012,7 @@ static leResult _rotateDraw(const leImage* src,
     state.randomRLE = LE_TRUE;
 
     // iterator setup
-    if(_leRawImageDecoder_RotatedTargetIterateSetupStage(&state) == LE_FAILURE)
+    if(_leRawImageDecoder_TargetIterateSetupStage(&state) == LE_FAILURE)
         return LE_FAILURE;
 
     // filter pre read stage

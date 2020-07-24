@@ -894,7 +894,7 @@ extern leImage m29;
  * Name:   m31
  * Size:   41x40 pixels
  * Type:   RGB Data
- * Format: GS_8
+ * Format: INDEX_8
  ***********************************/
 extern leImage m31;
 

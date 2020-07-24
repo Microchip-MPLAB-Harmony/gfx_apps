@@ -90,12 +90,16 @@ static void _invalidateContents(const leRadioButtonWidget* _this)
 static void stringPreinvalidate(const leString* str,
                                 leRadioButtonWidget* btn)
 {
+    (void)str; // unused
+
     _invalidateTextRect(btn);
 }
 
 static void stringInvalidate(const leString* str,
                              leRadioButtonWidget* btn)
 {
+    (void)str; // unused
+
     _invalidateTextRect(btn);
 }
 
@@ -121,7 +125,7 @@ void leRadioButtonWidget_Constructor(leRadioButtonWidget* _this)
 
     _this->selected = LE_TRUE;
 
-    _this->widget.borderType = LE_WIDGET_BORDER_NONE;
+    _this->widget.style.borderType = LE_WIDGET_BORDER_NONE;
 
     _this->string = NULL;
 
@@ -444,13 +448,13 @@ static leResult setCircleButtonSize(leRadioButtonWidget* _this,
     if(size < DEFAULT_CIRCLE_SIZE)
         return LE_FAILURE;
     
-    if((int32_t)size > _this->widget.rect.height)
+    if((int32_t)size > (int32_t)_this->widget.rect.height)
         return LE_FAILURE;
     
-    if((int32_t)size > _this->widget.rect.width)
+    if((int32_t)size > (int32_t)_this->widget.rect.width)
         return LE_FAILURE;
 
-    if((int32_t)size == _this->circleButtonSize)
+    if((int32_t)size == (int32_t)_this->circleButtonSize)
         return LE_SUCCESS;
     
     _this->circleButtonSize = size;
@@ -622,20 +626,15 @@ static const leRadioButtonWidgetVTable radioButtonWidgetVTable =
     .hasFocus = (void*)_leWidget_HasFocus,
     .setFocus = (void*)_leWidget_SetFocus,
     .invalidate = (void*)_leWidget_Invalidate,
-    .invalidateContents = (void*)_leWidget_InvalidateContents,
     .installEventFilter = (void*)_leWidget_InstallEventFilter,
     .removeEventFilter = (void*)_leWidget_RemoveEventFilter,
 
     .update = (void*)_leWidget_Update,
 
-    .touchDownEvent = (void*)_leWidget_TouchDownEvent,
-    .touchUpEvent = (void*)_leWidget_TouchUpEvent,
-    .touchMoveEvent = (void*)_leWidget_TouchMoveEvent,
     .moveEvent = (void*)_leWidget_MoveEvent,
     .resizeEvent = (void*)_leWidget_ResizeEvent,
     .focusLostEvent = (void*)_leWidget_FocusLostEvent,
     .focusGainedEvent = (void*)_leWidget_FocusGainedEvent,
-    .languageChangeEvent = (void*)_leWidget_LanguageChangeEvent,
 
     ._handleEvent = (void*)_leWidget_HandleEvent,
     ._validateChildren = (void*)_leWidget_ValidateChildren,

@@ -141,6 +141,7 @@ static void nextState(leProgressBarWidget* bar)
                 return;
             }
         }
+        // fall through
         case DRAW_BACKGROUND:
         {
             if(bar->value > 0)
@@ -151,9 +152,10 @@ static void nextState(leProgressBarWidget* bar)
                 return;
             }
         }
+        // fall through
         case DRAW_FILL:
         {
-            if(bar->widget.borderType != LE_WIDGET_BORDER_NONE)
+            if(bar->widget.style.borderType != LE_WIDGET_BORDER_NONE)
             {
                 bar->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
                 bar->widget.status.drawState = DRAW_BORDER;
@@ -161,6 +163,7 @@ static void nextState(leProgressBarWidget* bar)
                 return;
             }
         }
+        // fall through
         case DRAW_BORDER:
         {
             bar->widget.status.drawState = DONE;
@@ -196,12 +199,12 @@ static void drawFill(leProgressBarWidget* bar)
 
 static void drawBorder(leProgressBarWidget* bar)
 {
-    if(bar->widget.borderType == LE_WIDGET_BORDER_LINE)
+    if(bar->widget.style.borderType == LE_WIDGET_BORDER_LINE)
     {
         leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)bar,
                                                     paintState.alpha);
     }
-    else if(bar->widget.borderType == LE_WIDGET_BORDER_BEVEL)
+    else if(bar->widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         leWidget_SkinClassic_DrawStandardLoweredBorder((leWidget*)bar,
                                                        paintState.alpha);
