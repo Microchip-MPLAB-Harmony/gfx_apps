@@ -28,9 +28,10 @@
 
 #if LE_CIRCULARSLIDER_WIDGET_ENABLED == 1
 
+#include "gfx/legato/common/legato_math.h"
+#include "gfx/legato/common/legato_utils.h"
 #include "gfx/legato/renderer/legato_renderer.h"
 #include "gfx/legato/string/legato_string.h"
-#include "gfx/legato/common/legato_utils.h"
 #include "gfx/legato/widget/legato_widget.h"
 
 #include "gfx/legato/widget/legato_widget_skin_classic_common.h"
@@ -78,6 +79,7 @@ static void nextState(leCircularSliderWidget* slider)
                 return;
             }
         }
+        // fall through
         case DRAW_BACKGROUND:
         {
             slider->widget.status.drawState = DRAW_CIRCULAR_SLIDER;
@@ -87,7 +89,7 @@ static void nextState(leCircularSliderWidget* slider)
         }
         case DRAW_CIRCULAR_SLIDER:
         {            
-            if(slider->widget.borderType != LE_WIDGET_BORDER_NONE)
+            if(slider->widget.style.borderType != LE_WIDGET_BORDER_NONE)
             {
                 slider->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
                 slider->widget.status.drawState = DRAW_BORDER;
@@ -95,6 +97,7 @@ static void nextState(leCircularSliderWidget* slider)
                 return;
             }
         }
+        // fall through
         case DRAW_BORDER:
         {
             slider->widget.status.drawState = DONE;
@@ -118,184 +121,94 @@ static void drawBackground(leCircularSliderWidget* slider)
 static void drawCircularSlider(leCircularSliderWidget* slider)
 {
     lePoint p;
-    leRect sliderRect;
-    int32_t valueCenterAngle;
-    
-    p.x = slider->widget.rect.width/2;
-    p.y = slider->widget.rect.height/2;
-    
-    sliderRect.x = 0;
-    sliderRect.y = 0;
-    sliderRect.width = slider->widget.rect.width;
-    sliderRect.height = slider->widget.rect.height;
+    leRect sliderRect, arcRect;
 
-    valueCenterAngle = (int32_t) ((slider->value - slider->startValue) * slider->degPerUnit);
+    p.x = slider->widget.rect.width / 2;
+    p.y = slider->widget.rect.height / 2;
     
+    sliderRect.x = p.x - slider->radius;
+    sliderRect.y = p.y - slider->radius;
+    sliderRect.width = slider->radius * 2;
+    sliderRect.height = sliderRect.width;
+
     leUtils_RectToScreenSpace((leWidget*)slider, &sliderRect);
-    
+
     //Draw inactive arc
     if (slider->inActiveArc.visible == LE_TRUE)
     {
-        if (slider->direction == LE_COUNTER_CLOCKWISE)
-        {
-            leRenderer_ArcFill(&sliderRect,
-                               p.x, 
-                               p.y, 
-                               slider->radius - slider->outsideBorderArc.thickness, 
-                               (slider->startAngle + valueCenterAngle), 
-                               360 - valueCenterAngle,
-                               slider->inActiveArc.thickness,
-                               leScheme_GetRenderColor(slider->widget.scheme, LE_SCHM_FOREGROUND_INACTIVE),
-                               LE_FALSE,
-                               paintState.alpha);
-        }
-        else
-        {
-            int32_t start, center;
-            start = slider->startAngle;
-            center = 360 - valueCenterAngle;
-
-            leRenderer_ArcFill(&sliderRect,
-                               p.x, 
-                               p.y, 
-                               slider->radius - slider->outsideBorderArc.thickness,
-                               start, 
-                               center,
-                               slider->inActiveArc.thickness,
-                               leScheme_GetRenderColor(slider->widget.scheme, LE_SCHM_FOREGROUND_INACTIVE),
-                               LE_FALSE,
-                               paintState.alpha);
-        }
+        leRenderer_CircleDraw(&sliderRect,
+                              slider->inActiveArc.thickness,
+                              leScheme_GetRenderColor(slider->widget.scheme, LE_SCHM_FOREGROUND_INACTIVE),
+                              paintState.alpha);
     }
-    
-    //Draw active arc
+
+    // draw active arc
     if (slider->activeArc.visible == LE_TRUE)
     {
-        if (slider->direction == LE_COUNTER_CLOCKWISE)
-        {
-            leRenderer_ArcFill(&sliderRect,
-                               p.x, 
-                               p.y, 
-                               slider->radius - slider->outsideBorderArc.thickness, 
-                               slider->startAngle, 
-                               valueCenterAngle,
-                               slider->activeArc.thickness,
-                               leScheme_GetRenderColor(slider->widget.scheme, LE_SCHM_FOREGROUND),
-                               LE_FALSE,
-                               paintState.alpha);
-        }
-        else
-        {
-            leRenderer_ArcFill(&sliderRect,
-                               p.x, 
-                               p.y, 
-                               slider->radius - slider->outsideBorderArc.thickness, 
-                               slider->startAngle, 
-                               -valueCenterAngle,
-                               slider->activeArc.thickness,
-                               leScheme_GetRenderColor(slider->widget.scheme, LE_SCHM_FOREGROUND),
-                               LE_FALSE,
-                               paintState.alpha);
-        }
-
-        //Draw round edges
-        if (slider->roundEdges == LE_TRUE)
-        {
-            //Draw start round edge
-            lePoint center = _leCircularSliderWidget_GetCircleCenterPointAtValue(slider, slider->startValue);
-
-            leRenderer_ArcFill(&sliderRect,
-                               center.x - sliderRect.x,
-                               center.y - sliderRect.y,
-                               slider->activeArc.thickness / 2,
-                               0,
-                               360,
-                               slider->activeArc.thickness / 2,
-                               leScheme_GetRenderColor(slider->widget.scheme, LE_SCHM_FOREGROUND),
-                               LE_FALSE,
-                               paintState.alpha);
-            
-            //Draw end round edge if circle button is not visible
-            if (slider->circleButtonArc.visible != LE_TRUE)
-            {
-                //Draw end round edge
-                lePoint center = _leCircularSliderWidget_GetCircleCenterPointAtValue(slider, slider->value);
-
-                leRenderer_ArcFill(&sliderRect,
-                                   center.x - sliderRect.x,
-                                   center.y - sliderRect.y,
-                                   slider->activeArc.thickness/2,
-                                   0,
-                                   360,
-                                   slider->activeArc.thickness / 2,
-                                   leScheme_GetRenderColor(slider->widget.scheme, LE_SCHM_FOREGROUND),
-                                   LE_FALSE,
-                                   paintState.alpha);
-            }
-        }
+        leRenderer_ArcFill(&sliderRect,
+                           slider->startAngle,
+                           slider->spanAngle,
+                           slider->activeArc.thickness,
+                           slider->roundEdges,
+                           leScheme_GetRenderColor(slider->widget.scheme, LE_SCHM_FOREGROUND),
+                           LE_FALSE,
+                           paintState.alpha);
     }
 
     //Draw outer arc
     if (slider->outsideBorderArc.visible == LE_TRUE)
     {
-        leRenderer_ArcFill(&sliderRect,
-                           p.x,
-                           p.y,
-                           slider->radius,
-                           0,
-                           360,
-                           slider->outsideBorderArc.thickness,
-                           leScheme_GetRenderColor(slider->widget.scheme, LE_SCHM_BASE),
-                           LE_FALSE,
-                           paintState.alpha);   
+        arcRect = sliderRect;
+        arcRect.x -= slider->activeArc.thickness / 2;
+        arcRect.width += slider->activeArc.thickness;
+        arcRect.y -= slider->activeArc.thickness / 2;
+        arcRect.height += slider->activeArc.thickness;
+
+        leRenderer_CircleDraw(&arcRect,
+                              slider->outsideBorderArc.thickness,
+                              leScheme_GetRenderColor(slider->widget.scheme, LE_SCHM_BASE),
+                              paintState.alpha);
     }
-    
-    //Draw inner arc
+
+    // draw inner arc
     if (slider->insideBorderArc.visible == LE_TRUE)
     {
-        leRenderer_ArcFill(&sliderRect,
-                           p.x,
-                           p.y,
-                           slider->radius - slider->outsideBorderArc.thickness - slider->activeArc.thickness, 
-                           0, 
-                           360,
-                           slider->insideBorderArc.thickness,
-                           leScheme_GetRenderColor(slider->widget.scheme, LE_SCHM_BASE),
-                           LE_FALSE,
-                           paintState.alpha); 
+        arcRect = sliderRect;
+        arcRect.x += slider->activeArc.thickness / 2;
+        arcRect.width -= slider->activeArc.thickness;
+        arcRect.y += slider->activeArc.thickness / 2;
+        arcRect.height -= slider->activeArc.thickness;
+
+        leRenderer_CircleDraw(&arcRect,
+                              slider->insideBorderArc.thickness,
+                              leScheme_GetRenderColor(slider->widget.scheme, LE_SCHM_BASE),
+                              paintState.alpha);
     }
 
-    //Draw circular button
+    // draw circular button
     if (slider->circleButtonArc.visible == LE_TRUE)
     {
-        lePoint center = _leCircularSliderWidget_GetCircleCenterPointAtValue(slider, slider->value);
+        uint32_t deg = leDegreesFromPercent(slider->value,
+                                            slider->spanAngle,
+                                            slider->startAngle);
 
-        //Draw outside border
-        leRenderer_ArcFill(&sliderRect,
-                           center.x - sliderRect.x,
-                           center.y - sliderRect.y,
-                           slider->circleButtonArc.radius,
-                           0,
-                           360,
-                           slider->circleButtonArc.thickness,
-                           leScheme_GetRenderColor(slider->circleButtonArc.scheme, LE_SCHM_BASE),
-                           LE_FALSE,
-                           paintState.alpha);
+        lePoint btnPnt = lePointOnCircle(slider->radius,
+                                         deg);
 
-        if (slider->circleButtonArc.radius != slider->circleButtonArc.thickness)
-        {
-            //Draw circle fill
-            leRenderer_ArcFill(&sliderRect,
-                               center.x - sliderRect.x,
-                               center.y - sliderRect.y,
-                               slider->circleButtonArc.radius - slider->circleButtonArc.thickness, 
-                               0,
-                               360,
-                               slider->circleButtonArc.radius - slider->circleButtonArc.thickness,
-                               leScheme_GetRenderColor(slider->circleButtonArc.scheme, LE_SCHM_FOREGROUND),
-                               LE_FALSE,
-                               paintState.alpha);
-        }
+        btnPnt.y *= -1;
+
+        arcRect.x = p.x + btnPnt.x - slider->circleButtonArc.radius;
+        arcRect.y = p.y + btnPnt.y - slider->circleButtonArc.radius;
+        arcRect.width = slider->circleButtonArc.radius * 2;
+        arcRect.height = arcRect.width;
+
+        leUtils_RectToScreenSpace((leWidget*)slider, &arcRect);
+
+        leRenderer_CircleFill(&arcRect,
+                              slider->circleButtonArc.thickness,
+                              leScheme_GetRenderColor(slider->widget.scheme, LE_SCHM_BASE),
+                              leScheme_GetRenderColor(slider->circleButtonArc.scheme, LE_SCHM_FOREGROUND),
+                              paintState.alpha);
     }
 
     nextState(slider);
@@ -303,12 +216,12 @@ static void drawCircularSlider(leCircularSliderWidget* slider)
 
 static void drawBorder(leCircularSliderWidget* slider)
 {    
-    if(slider->widget.borderType == LE_WIDGET_BORDER_LINE)
+    if(slider->widget.style.borderType == LE_WIDGET_BORDER_LINE)
     {
         leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)slider,
                                                     paintState.alpha);
     }
-    else if(slider->widget.borderType == LE_WIDGET_BORDER_BEVEL)
+    else if(slider->widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)slider,
                                                       paintState.alpha);

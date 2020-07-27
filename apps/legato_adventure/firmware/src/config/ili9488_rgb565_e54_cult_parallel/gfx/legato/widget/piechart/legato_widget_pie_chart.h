@@ -67,6 +67,10 @@ typedef struct lePieChartPie
     uint32_t radius;
     uint32_t offset;
     const leScheme* scheme;
+    uint32_t startAngle;
+    uint32_t spanAngle;
+    uint32_t percentOffset;
+    uint32_t percentValue;
 } lePieChartPie;
 
 typedef struct lePieChartWidget lePieChartWidget;

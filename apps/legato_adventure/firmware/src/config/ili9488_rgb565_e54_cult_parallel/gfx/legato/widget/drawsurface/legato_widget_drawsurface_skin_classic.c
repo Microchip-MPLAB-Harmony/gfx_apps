@@ -76,6 +76,7 @@ paintState.alpha = 255;
                 return;
             }
         }
+        // fall through
         case DRAW_BACKGROUND:
         {
             sfc->widget.status.drawState = DRAW_CALLBACK;
@@ -85,7 +86,7 @@ paintState.alpha = 255;
         }
         case DRAW_CALLBACK:
         {            
-            if(sfc->widget.borderType != LE_WIDGET_BORDER_NONE)
+            if(sfc->widget.style.borderType != LE_WIDGET_BORDER_NONE)
             {
                 sfc->widget.status.drawState = DRAW_BORDER;
                 sfc->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
@@ -93,6 +94,7 @@ paintState.alpha = 255;
                 return;
             }
         }
+        // fall through
         case DRAW_BORDER:
         {
             sfc->widget.status.drawState = DONE;
@@ -127,12 +129,12 @@ static void drawCallback(leDrawSurfaceWidget* sfc)
 
 static void drawBorder(leDrawSurfaceWidget* sfc)
 {
-    if(sfc->widget.borderType == LE_WIDGET_BORDER_LINE)
+    if(sfc->widget.style.borderType == LE_WIDGET_BORDER_LINE)
     {
         leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)sfc,
                                                     paintState.alpha);
     }
-    else if(sfc->widget.borderType == LE_WIDGET_BORDER_BEVEL)
+    else if(sfc->widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)sfc,
                                                       paintState.alpha);

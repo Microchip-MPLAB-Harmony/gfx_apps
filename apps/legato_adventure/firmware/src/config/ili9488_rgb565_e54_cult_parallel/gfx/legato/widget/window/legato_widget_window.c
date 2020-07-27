@@ -77,12 +77,17 @@ static void _invalidateTitleText(const leWindowWidget* _this)
 static void stringPreinvalidate(const leString* str,
                                 leWindowWidget* win)
 {
+    (void)str;
+    (void)win;
+
     _invalidateTitleText(win);
 }
 
 static void stringInvalidate(const leString* str,
                              leWindowWidget* win)
 {
+    (void)str;
+
     _invalidateTitleText(win);
 }
 
@@ -339,7 +344,6 @@ static const leWindowWidgetVTable windowWidgetVTable =
     .resizeEvent = (void*)_leWidget_ResizeEvent,
     .focusLostEvent = (void*)_leWidget_FocusLostEvent,
     .focusGainedEvent = (void*)_leWidget_FocusGainedEvent,
-    .languageChangeEvent = (void*)_leWidget_LanguageChangeEvent,
 
     ._handleEvent = (void*)_leWidget_HandleEvent,
     ._validateChildren = (void*)_leWidget_ValidateChildren,

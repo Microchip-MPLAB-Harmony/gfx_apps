@@ -94,7 +94,7 @@ void _leWindowWidget_GetIconRect(const leWindowWidget* win,
         imgSrcRect->x = 0;
         imgSrcRect->y = 0;
         imgSrcRect->width = 0;
-        imgRect->height = 0;
+        imgSrcRect->height = 0;
     
         return;
     }
@@ -117,7 +117,7 @@ void _leWindowWidget_GetIconRect(const leWindowWidget* win,
                                      LE_RELATIVE_POSITION_LEFTOF,
                                      win->widget.margin.left,
                                      win->widget.margin.top,
-                                     win->widget.margin.left,
+                                     win->widget.margin.right,
                                      win->widget.margin.bottom,
                                      win->iconMargin);
                                      
@@ -197,6 +197,7 @@ static void nextState(leWindowWidget* win)
                 return;
             }
         }
+        // fall through
         case DRAW_BACKGROUND:
         {
             win->widget.status.drawState = DRAW_TITLE_BAR;
@@ -214,6 +215,7 @@ static void nextState(leWindowWidget* win)
                 return;
             }
         }
+        // fall through
         case DRAW_ICON:
         {
             if(win->title != NULL)
@@ -224,6 +226,7 @@ static void nextState(leWindowWidget* win)
                 return;
             }
         }
+        // fall through
         case DRAW_STRING:
         {
             if(win->widget.style.borderType != LE_WIDGET_BORDER_NONE)
@@ -234,6 +237,7 @@ static void nextState(leWindowWidget* win)
                 return;
             }
         }
+        // fall through
         case DRAW_BORDER:
         {
             win->widget.status.drawState = DONE;

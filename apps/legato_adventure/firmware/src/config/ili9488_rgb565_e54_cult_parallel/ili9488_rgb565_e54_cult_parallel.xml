@@ -4036,8 +4036,7 @@
     </UniqueComponent>
   </Components>
   <UserData>
-    <GraphSettings canvasHeight="400" canvasWidth="400" dnOrder="0"/>
-    <ComponentGraph dnOrder="1" id="__ROOTVIEW">
+    <ComponentGraph dnOrder="0" id="__ROOTVIEW">
       <ElementPositions dnOrder="0">
         <ElementPosition dnOrder="0" id="BSP_SAM_E54_Curiosity_Ultra" x="330" y="60"/>
         <ElementPosition dnOrder="1" id="HarmonyCore" x="570" y="60"/>
@@ -4063,5 +4062,6 @@
         <ElementPosition dnOrder="21" id="tc4" x="30" y="160"/>
       </ElementPositions>
     </ComponentGraph>
+    <GraphSettings canvasHeight="400" canvasWidth="400" dnOrder="1"/>
   </UserData>
 </Configuration>

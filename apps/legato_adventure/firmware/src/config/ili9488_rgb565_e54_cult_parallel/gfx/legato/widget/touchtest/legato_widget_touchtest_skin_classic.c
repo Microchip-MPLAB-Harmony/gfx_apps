@@ -98,6 +98,7 @@ static void nextState(leTouchTestWidget* tch)
                 return;
             }
         }
+        // fall through
         case DRAW_BACKGROUND:
         {
             if(tch->size > 0)
@@ -108,6 +109,7 @@ static void nextState(leTouchTestWidget* tch)
                 return;
             }
         }
+        // fall through
         case DRAW_LINES:
         {
             if(tch->widget.style.borderType != LE_WIDGET_BORDER_NONE)
@@ -118,6 +120,7 @@ static void nextState(leTouchTestWidget* tch)
                 return;
             }
         }
+        // fall through
         case DRAW_BORDER:
         {
             tch->widget.status.drawState = DONE;
