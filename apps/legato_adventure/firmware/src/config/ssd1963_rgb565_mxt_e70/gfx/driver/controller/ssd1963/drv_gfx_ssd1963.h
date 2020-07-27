@@ -1,4 +1,3 @@
-// DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
@@ -21,7 +20,6 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-// DOM-IGNORE-END
 
 /*******************************************************************************
   MPLAB Harmony Generated Driver Header File
@@ -60,15 +58,18 @@ void DRV_SSD1963_Update(void);
 uint32_t DRV_SSD1963_GetLayerCount();
 uint32_t DRV_SSD1963_GetActiveLayer();
 gfxResult DRV_SSD1963_SetActiveLayer(uint32_t idx);
+gfxLayerState DRV_SSD1963_GetLayerState(uint32_t idx);
 gfxResult DRV_SSD1963_BlitBuffer(int32_t x,
                                  int32_t y,
-                                 gfxPixelBuffer* buf,
-                                 gfxBlend gfx);
+                                 gfxPixelBuffer* buf);
 void DRV_SSD1963_Swap(void);
 uint32_t DRV_SSD1963_GetSwapCount(void);
+gfxResult DRV_SSD1963_SetPalette(void* data,
+                                 gfxColorMode mode,
+                                 uint32_t colorCount);
 
 
-static const gfxDisplayDriver ssd1963DisplayDriver =
+static const gfxDisplayDriver gfxDriverInterface =
 {
     DRV_SSD1963_GetColorMode,
     DRV_SSD1963_GetBufferCount,
@@ -78,10 +79,13 @@ static const gfxDisplayDriver ssd1963DisplayDriver =
     DRV_SSD1963_GetLayerCount,
     DRV_SSD1963_GetActiveLayer,
     DRV_SSD1963_SetActiveLayer,
+    DRV_SSD1963_GetLayerState,
     DRV_SSD1963_BlitBuffer,
     DRV_SSD1963_Swap,
     DRV_SSD1963_GetSwapCount,
-    NULL /* GetFrameBuffer not supported */
+    NULL, /* GetFrameBuffer not supported */
+    NULL,
+    NULL,
 };
 
 #ifdef __cplusplus
