@@ -1,41 +1,18 @@
-// DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
-// DOM-IGNORE-END
-
 #include "gfx/legato/generated/le_gen_init.h"
 
 static uint32_t currentScreen;
 
 void legato_initialize(void)
 {
-    legato_initialize_schemes();
-
     leSetStringTable(&stringTable);
+
+    screenInit_Screen0();
+    screenInit_Screen1();
+    screenInit_Screen2();
 
     currentScreen = -1;
 
-    legato_showScreen(screenID_SplashScreen);
+    legato_showScreen(screenID_Screen0);
 }
 
 uint32_t legato_getCurrentScreen(void)
@@ -47,21 +24,21 @@ void legato_hideCurrentScreen()
 {
     switch(currentScreen)
     {
-        case screenID_SplashScreen:
+        case screenID_Screen0:
         {
-            screenHide_SplashScreen();
+            screenHide_Screen0();
             currentScreen = 0;
             break;
         }
-        case screenID_MainScreen:
+        case screenID_Screen1:
         {
-            screenHide_MainScreen();
+            screenHide_Screen1();
             currentScreen = 0;
             break;
         }
-        case screenID_InfoScreen:
+        case screenID_Screen2:
         {
-            screenHide_InfoScreen();
+            screenHide_Screen2();
             currentScreen = 0;
             break;
         }
@@ -74,21 +51,21 @@ void legato_showScreen(uint32_t id)
 
     switch(id)
     {
-        case screenID_SplashScreen:
+        case screenID_Screen0:
         {
-            screenShow_SplashScreen();
+            screenShow_Screen0();
             currentScreen = id;
             break;
         }
-        case screenID_MainScreen:
+        case screenID_Screen1:
         {
-            screenShow_MainScreen();
+            screenShow_Screen1();
             currentScreen = id;
             break;
         }
-        case screenID_InfoScreen:
+        case screenID_Screen2:
         {
-            screenShow_InfoScreen();
+            screenShow_Screen2();
             currentScreen = id;
             break;
         }
@@ -99,14 +76,19 @@ void legato_updateCurrentScreen(void)
 {
     switch(currentScreen)
     {
-        case screenID_SplashScreen:
+        case screenID_Screen0:
         {
-            screenUpdate_SplashScreen();
+            screenUpdate_Screen0();
             break;
         }
-        case screenID_MainScreen:
+        case screenID_Screen1:
         {
-            screenUpdate_MainScreen();
+            screenUpdate_Screen1();
+            break;
+        }
+        case screenID_Screen2:
+        {
+            screenUpdate_Screen2();
             break;
         }
     }

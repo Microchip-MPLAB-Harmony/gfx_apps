@@ -76,7 +76,7 @@ int32_t tickDelay = APP_IDLE_SPRITE_DELAY;
 int32_t APP_SPRITE_ANCHOR_MIN = 0;
 int32_t APP_SPRITE_ANCHOR_MAX = 0;
 
-leImageSequenceWidget* spriteWidgetToPlay;
+leImageSequenceWidget* Screen1_spriteWidgetToPlay;
 leImageSequenceWidget* currentWidget;
 
 SYS_TIME_HANDLE handleAnimation;
@@ -135,68 +135,68 @@ static void MainScreen_HandleLocomotion(uintptr_t context)
 
 static void MainScreen_HandleAnimation(uintptr_t context)
 {
-    uint32_t offset = PositionWidget->fn->getWidth(PositionWidget) / 2;
-    uint32_t leftButtonWidth = ButtonWidget_RunLeft->fn->getWidth(ButtonWidget_RunLeft);
+    uint32_t offset = Screen1_PositionWidget->fn->getWidth(Screen1_PositionWidget) / 2;
+    uint32_t Screen1_leftButtonWidth = Screen1_ButtonWidget_RunLeft->fn->getWidth(Screen1_ButtonWidget_RunLeft);
     
     if(leGetRenderState()->frameState == LE_FRAME_READY)
     {
-        PositionWidget->fn->setX(PositionWidget, spritePosX);
-        ButtonWidget_RunLeft->fn->setX(ButtonWidget_RunLeft, spritePosX + offset - leftButtonWidth);
-        ButtonWidget_RunRight->fn->setX(ButtonWidget_RunRight, spritePosX + offset);
+        Screen1_PositionWidget->fn->setX(Screen1_PositionWidget, spritePosX);
+        Screen1_ButtonWidget_RunLeft->fn->setX(Screen1_ButtonWidget_RunLeft, spritePosX + offset - Screen1_leftButtonWidth);
+        Screen1_ButtonWidget_RunRight->fn->setX(Screen1_ButtonWidget_RunRight, spritePosX + offset);
 
         if (spriteState == IDLE)
         {
             if (spriteFacing == FACE_RIGHT)
             {
-                spriteWidgetToPlay = ImageSequenceWidget_IdleRight;
+                Screen1_spriteWidgetToPlay = Screen1_ImageSequenceWidget_IdleRight;
             }
             else
             {
-                spriteWidgetToPlay = ImageSequenceWidget_IdleLeft;
+                Screen1_spriteWidgetToPlay = Screen1_ImageSequenceWidget_IdleLeft;
             }
         }
         else if (spriteState == RUN)
         {
             if (spriteFacing == FACE_RIGHT)
             {
-                spriteWidgetToPlay = ImageSequenceWidget_RunRight;
+                Screen1_spriteWidgetToPlay = Screen1_ImageSequenceWidget_RunRight;
             }
             else
             {
-                spriteWidgetToPlay = ImageSequenceWidget_RunLeft;
+                Screen1_spriteWidgetToPlay = Screen1_ImageSequenceWidget_RunLeft;
             }
         }
         else if (spriteState == JUMP)
         {
             if (spriteFacing == FACE_RIGHT)
             {
-                spriteWidgetToPlay = ImageSequenceWidget_JumpRight;
+                Screen1_spriteWidgetToPlay = Screen1_ImageSequenceWidget_JumpRight;
             }
             else
             {
-                spriteWidgetToPlay = ImageSequenceWidget_JumpLeft;
+                Screen1_spriteWidgetToPlay = Screen1_ImageSequenceWidget_JumpLeft;
             }
         }
         else if (spriteState == HURT)
         {
             if (spriteFacing == FACE_RIGHT)
             {
-                spriteWidgetToPlay = ImageSequenceWidget_HurtRight;
+                Screen1_spriteWidgetToPlay = Screen1_ImageSequenceWidget_HurtRight;
             }
             else
             {
-                spriteWidgetToPlay = ImageSequenceWidget_HurtLeft;
+                Screen1_spriteWidgetToPlay = Screen1_ImageSequenceWidget_HurtLeft;
             }
         }
         else if (spriteState == DIZZY)
         {
             if (spriteFacing == FACE_RIGHT)
             {
-                spriteWidgetToPlay = ImageSequenceWidget_DizzieRight;
+                Screen1_spriteWidgetToPlay = Screen1_ImageSequenceWidget_DizzieRight;
             }
             else
             {
-                spriteWidgetToPlay = ImageSequenceWidget_DizzieLeft;
+                Screen1_spriteWidgetToPlay = Screen1_ImageSequenceWidget_DizzieLeft;
             }
         }
         
@@ -210,13 +210,13 @@ static void MainScreen_HandleAnimation(uintptr_t context)
             triggerCount = tickDelay;
         }
         
-        if (currentWidget != spriteWidgetToPlay)
+        if (currentWidget != Screen1_spriteWidgetToPlay)
         {
             currentWidget->fn->setVisible(currentWidget, LE_FALSE);
             currentWidget->fn->stop(currentWidget);
             currentWidget->fn->rewind(currentWidget);
             
-            currentWidget = spriteWidgetToPlay;
+            currentWidget = Screen1_spriteWidgetToPlay;
             currentWidget->fn->setVisible(currentWidget, LE_TRUE);
             spriteIndex = 0;
         }
@@ -258,7 +258,7 @@ static void MainScreen_HandleAnimation(uintptr_t context)
     }
 }
 
-void MainScreen_OnShow()
+void Screen1_OnShow()
 {
     screenState = SCREEN_INIT;
     spriteState = IDLE;
@@ -266,13 +266,13 @@ void MainScreen_OnShow()
     spriteIndex = 0;
 }
 
-void MainScreen_OnHide()
+void Screen1_OnHide()
 {
     SYS_TIME_TimerDestroy(handleAnimation);
     SYS_TIME_TimerDestroy(handleLocomotion);
 }
 
-void MainScreen_OnUpdate()
+void Screen1_OnUpdate()
 {
     switch (screenState)
     {
@@ -281,17 +281,17 @@ void MainScreen_OnUpdate()
             if(leGetRenderState()->frameState == LE_FRAME_READY &&
                leEvent_GetCount() == 0)
             {
-                spritePosX = PositionWidget->fn->getX(PositionWidget);
+                spritePosX = Screen1_PositionWidget->fn->getX(Screen1_PositionWidget);
                 spriteState = IDLE;
                 spriteFacing = FACE_RIGHT;
                 tickDelay = APP_IDLE_SPRITE_DELAY;
                 triggerCount = 0;
 
-                spriteWidgetToPlay = ImageSequenceWidget_IdleRight;
-                currentWidget = spriteWidgetToPlay;
+                Screen1_spriteWidgetToPlay = Screen1_ImageSequenceWidget_IdleRight;
+                currentWidget = Screen1_spriteWidgetToPlay;
                 
-                APP_SPRITE_ANCHOR_MAX = PanelBackground->fn->getWidth(PanelBackground) 
-                        - ImageSequenceWidget_IdleRight->fn->getWidth(ImageSequenceWidget_IdleRight)
+                APP_SPRITE_ANCHOR_MAX = Screen1_PanelBackground->fn->getWidth(Screen1_PanelBackground) 
+                        - Screen1_ImageSequenceWidget_IdleRight->fn->getWidth(Screen1_ImageSequenceWidget_IdleRight)
                         + APP_SPRITE_OFFSET;
 
                 APP_SPRITE_ANCHOR_MIN = 0 - APP_SPRITE_OFFSET;
@@ -310,7 +310,7 @@ void MainScreen_OnUpdate()
     }
 }
 
-void ButtonWidget_RunRight_OnPressed(leButtonWidget *btn)
+void event_Screen1_ButtonWidget_RunRight_OnPressed(leButtonWidget *btn)
 {
     if (spriteState == RUN && spriteFacing == FACE_RIGHT)
     {      
@@ -325,11 +325,11 @@ void ButtonWidget_RunRight_OnPressed(leButtonWidget *btn)
     }
 }
 
-void ButtonWidget_RunRight_OnReleased(leButtonWidget *btn)
+void event_Screen1_ButtonWidget_RunRight_OnReleased(leButtonWidget *btn)
 {
 }
 
-void ButtonWidget_RunLeft_OnPressed(leButtonWidget *btn)
+void event_Screen1_ButtonWidget_RunLeft_OnPressed(leButtonWidget *btn)
 {
     if (spriteState == RUN && spriteFacing == FACE_LEFT)
     {      
@@ -344,11 +344,11 @@ void ButtonWidget_RunLeft_OnPressed(leButtonWidget *btn)
     }
 }
 
-void ButtonWidget_RunLeft_OnReleased(leButtonWidget *btn)
+void event_Screen1_ButtonWidget_RunLeft_OnReleased(leButtonWidget *btn)
 {
 }
 
-void ButtonWidget_Jump_OnPressed(leButtonWidget *btn)
+void event_Screen1_ButtonWidget_Jump_OnPressed(leButtonWidget *btn)
 {
     if (spriteState != JUMP && spriteState != DIZZY)
     {
@@ -359,7 +359,7 @@ void ButtonWidget_Jump_OnPressed(leButtonWidget *btn)
     }
 }
 
-void ButtonWidget_Jump_OnReleased(leButtonWidget *btn)
+void event_Screen1_ButtonWidget_Jump_OnReleased(leButtonWidget *btn)
 {
 }
 

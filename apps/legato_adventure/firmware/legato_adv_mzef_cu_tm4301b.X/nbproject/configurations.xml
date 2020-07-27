@@ -56,16 +56,24 @@
               </logicalFolder>
               <logicalFolder name="f10" displayName="generated" projectFiles="true">
                 <logicalFolder name="f1" displayName="screen" projectFiles="true">
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/screen/le_gen_screen_MainScreen.h</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/screen/le_gen_screen_InfoScreen.h</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/screen/le_gen_screen_SplashScreen.h</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/screen/le_gen_screen_Screen0.h</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/screen/le_gen_screen_Screen1.h</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/screen/le_gen_screen_Screen2.h</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/le_gen_init.h</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/le_gen_harmony.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/le_gen_assets.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/le_gen_harmony.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/le_gen_init.h</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/le_gen_scheme.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f5" displayName="image" projectFiles="true">
+                <logicalFolder name="f2" displayName="jpeg" projectFiles="true">
+                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/jpeg/legato_imagedecoder_jpeg.h</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/jpeg/legato_imagedecoder_jpeg_common.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="f3" displayName="png" projectFiles="true">
+                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/png/legato_imagedecoder_png.h</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/png/lodepng.h</itemPath>
+                </logicalFolder>
                 <logicalFolder name="f1" displayName="raw" projectFiles="true">
                   <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/raw/legato_imagedecoder_raw.h</itemPath>
                 </logicalFolder>
@@ -80,6 +88,7 @@
               </logicalFolder>
               <logicalFolder name="f7" displayName="renderer" projectFiles="true">
                 <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/renderer/legato_renderer.h</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/renderer/legato_gpu.h</itemPath>
               </logicalFolder>
               <logicalFolder name="f8" displayName="string" projectFiles="true">
                 <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/string/legato_dynamicstring.h</itemPath>
@@ -215,6 +224,9 @@
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f5" displayName="system" projectFiles="true">
+            <logicalFolder name="f4" displayName="debug" projectFiles="true">
+              <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/system/debug/sys_debug.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="f2" displayName="input" projectFiles="true">
               <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/system/input/sys_input.h</itemPath>
               <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/system/input/sys_input_gesture.h</itemPath>
@@ -319,72 +331,32 @@
               </logicalFolder>
               <logicalFolder name="f10" displayName="generated" projectFiles="true">
                 <logicalFolder name="f1" displayName="font" projectFiles="true">
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/font/le_gen_font_NotoSans_Regular_Small.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/font/le_gen_font_NotoSans_Regular.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/font/le_gen_fonts.c</itemPath>
                 </logicalFolder>
                 <logicalFolder name="f2" displayName="image" projectFiles="true">
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Jump4.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_MHGSLogo.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Idle3.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_HurtLeft2.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_DizzyLeft1.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Jump2.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Run1.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Jump7.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_IdleLeft1.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_DizzyLeft2.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Jump5.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_JumpLeft4.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Jump3.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_HurtLeft1.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_DizzyLeft0.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Idle2.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Dizzy0.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_RunToLeft1.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_JumpLeft2.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Run2.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_IdleLeft2.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Run0.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Dizzy2.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Dizzy1.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_JumpLeft1.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_MicrochipLogo.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_JumpLeft3.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Hurt0.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Jump6.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_HarmonyLogo.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_HurtLeft0.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Hurt2.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_IdleLeft0.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_RunToLeft0.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_HurtLeft3.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Jump0.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_PIC32Logo.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_JumpLeft6.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Hurt3.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_JumpLeft5.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_RunToLeft2.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_JumpLeft0.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_IdleLeft3.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Hurt1.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Idle1.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Idle0.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_JumpLeft7.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Jump1.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_mchp_logo.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_image_Bar.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/image/le_gen_images.c</itemPath>
                 </logicalFolder>
                 <logicalFolder name="f3" displayName="screen" projectFiles="true">
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/screen/le_gen_screen_InfoScreen.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/screen/le_gen_screen_SplashScreen.c</itemPath>
-                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/screen/le_gen_screen_MainScreen.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/screen/le_gen_screen_Screen0.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/screen/le_gen_screen_Screen1.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/screen/le_gen_screen_Screen2.c</itemPath>
                 </logicalFolder>
+                <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/le_gen_globalpalette.c</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/le_gen_harmony.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/le_gen_init.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/le_gen_scheme.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/le_gen_stringtable.c</itemPath>
-                <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/generated/le_gen_harmony.c</itemPath>
               </logicalFolder>
               <logicalFolder name="f5" displayName="image" projectFiles="true">
+                <logicalFolder name="f2" displayName="jpeg" projectFiles="true">
+                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/jpeg/legato_imagedecoder_jpeg.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/jpeg/legato_imagedecoder_jpeg_common.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/jpeg/jidctint.c</itemPath>
+                </logicalFolder>
+                <logicalFolder name="f3" displayName="png" projectFiles="true">
+                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/png/legato_imagedecoder_png.c</itemPath>
+                  <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/png/lodepng.c</itemPath>
+                </logicalFolder>
                 <logicalFolder name="f1" displayName="raw" projectFiles="true">
                   <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/raw/legato_imagedecoder_raw.c</itemPath>
                   <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/image/raw/legato_imagedecoder_raw_blend.c</itemPath>
@@ -417,6 +389,7 @@
                 <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/renderer/legato_draw_line.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/renderer/legato_draw_rect.c</itemPath>
                 <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/renderer/legato_renderer.c</itemPath>
+                <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/renderer/legato_gpu.c</itemPath>
               </logicalFolder>
               <logicalFolder name="f8" displayName="string" projectFiles="true">
                 <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/gfx/legato/string/legato_dynamicstring.c</itemPath>
@@ -610,6 +583,7 @@
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
+      <itemPath>../src/config/lcc_rgb565_mxt_mzef_cu/harmony.prj</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -625,12 +599,14 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>pkob4hybrid</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.40</languageToolchainVersion>
-        <platform>2</platform>
+        <languageToolchainVersion>2.41</languageToolchainVersion>
+        <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32MZ-EF_DFP" vendor="Microchip" version="1.1.45"/>
+        <pack name="PIC32MZ-EF_DFP" vendor="Microchip" version="1.0.20"/>
       </packs>
+      <ScriptingSettings>
+      </ScriptingSettings>
       <compileType>
         <linkerTool>
           <linkerLibItems>
@@ -664,7 +640,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/lcc_rgb565_mxt_mzef_cu;../src/packs/PIC32MZ2048EFM144_DFP;;../src/mips"/>
+                  value="../src;../src/config/lcc_rgb565_mxt_mzef_cu;../src/packs/PIC32MZ2048EFM144_DFP;"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
