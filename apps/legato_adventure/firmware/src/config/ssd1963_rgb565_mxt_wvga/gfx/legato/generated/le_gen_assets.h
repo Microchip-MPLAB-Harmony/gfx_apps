@@ -1,6 +1,27 @@
+/*******************************************************************************
+ Module for Microchip Legato Graphics Library
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    le_gen_assets.h
+
+  Summary:
+    Header file containing a list of asset specifications for use with the
+    Legato Graphics Stack.
+
+
+  Description:
+    Header file containing a list of asset specifications for use with the
+    Legato Graphics Stack.
+
+*******************************************************************************/
+
+
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C)  Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -21,26 +42,8 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+
 // DOM-IGNORE-END
-
-/*******************************************************************************
- Module for Microchip Legato Graphics Library
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    generated/le_gen_assets.h
-
-  Summary:
-    Header file containing a list of asset specifications for use with the
-    MPLAB Harmony Graphics Stack.
-
-  Description:
-    Header file containing a list of asset specifications for use with the
-    MPLAB Harmony Graphics Stack.
-*******************************************************************************/
-
 
 #ifndef LE_GEN_ASSETS_H
 #define LE_GEN_ASSETS_H
@@ -53,18 +56,17 @@ extern "C" {
 
 #include "gfx/legato/legato.h"
 
+extern const lePalette leGlobalPalette;
+
 /*****************************************************************************
-* MPLAB Harmony Graphics Asset Location IDs
-*****************************************************************************/
-/*****************************************************************************
-* MPLAB Harmony Graphics Image Assets
-*****************************************************************************/
+ * Legato Graphics Image Assets
+ *****************************************************************************/
 /*********************************
  * Legato Image Asset
  * Name:   Bar
  * Size:   480x65 pixels
- * Format: RLE
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Bar;
 
@@ -72,8 +74,8 @@ extern leImage Bar;
  * Legato Image Asset
  * Name:   HarmonyLogo
  * Size:   197x139 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage HarmonyLogo;
 
@@ -81,8 +83,8 @@ extern leImage HarmonyLogo;
  * Legato Image Asset
  * Name:   MicrochipLogo
  * Size:   144x39 pixels
- * Format: RLE
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage MicrochipLogo;
 
@@ -90,8 +92,8 @@ extern leImage MicrochipLogo;
  * Legato Image Asset
  * Name:   PIC32Logo
  * Size:   240x62 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage PIC32Logo;
 
@@ -99,8 +101,8 @@ extern leImage PIC32Logo;
  * Legato Image Asset
  * Name:   Jump0
  * Size:   120x192 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Jump0;
 
@@ -108,8 +110,8 @@ extern leImage Jump0;
  * Legato Image Asset
  * Name:   Jump1
  * Size:   120x192 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Jump1;
 
@@ -117,8 +119,8 @@ extern leImage Jump1;
  * Legato Image Asset
  * Name:   Jump2
  * Size:   120x192 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Jump2;
 
@@ -126,8 +128,8 @@ extern leImage Jump2;
  * Legato Image Asset
  * Name:   Jump3
  * Size:   120x192 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Jump3;
 
@@ -135,8 +137,8 @@ extern leImage Jump3;
  * Legato Image Asset
  * Name:   Jump4
  * Size:   120x192 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Jump4;
 
@@ -144,8 +146,8 @@ extern leImage Jump4;
  * Legato Image Asset
  * Name:   Jump5
  * Size:   120x192 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Jump5;
 
@@ -153,8 +155,8 @@ extern leImage Jump5;
  * Legato Image Asset
  * Name:   Jump6
  * Size:   120x192 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Jump6;
 
@@ -162,8 +164,8 @@ extern leImage Jump6;
  * Legato Image Asset
  * Name:   Jump7
  * Size:   120x192 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Jump7;
 
@@ -171,8 +173,8 @@ extern leImage Jump7;
  * Legato Image Asset
  * Name:   Dizzy0
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Dizzy0;
 
@@ -180,8 +182,8 @@ extern leImage Dizzy0;
  * Legato Image Asset
  * Name:   Dizzy1
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Dizzy1;
 
@@ -189,8 +191,8 @@ extern leImage Dizzy1;
  * Legato Image Asset
  * Name:   Dizzy2
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Dizzy2;
 
@@ -198,8 +200,8 @@ extern leImage Dizzy2;
  * Legato Image Asset
  * Name:   DizzyLeft0
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage DizzyLeft0;
 
@@ -207,8 +209,8 @@ extern leImage DizzyLeft0;
  * Legato Image Asset
  * Name:   DizzyLeft1
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage DizzyLeft1;
 
@@ -216,8 +218,8 @@ extern leImage DizzyLeft1;
  * Legato Image Asset
  * Name:   DizzyLeft2
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage DizzyLeft2;
 
@@ -225,8 +227,8 @@ extern leImage DizzyLeft2;
  * Legato Image Asset
  * Name:   Hurt0
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Hurt0;
 
@@ -234,8 +236,8 @@ extern leImage Hurt0;
  * Legato Image Asset
  * Name:   Hurt1
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Hurt1;
 
@@ -243,8 +245,8 @@ extern leImage Hurt1;
  * Legato Image Asset
  * Name:   Hurt2
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Hurt2;
 
@@ -252,8 +254,8 @@ extern leImage Hurt2;
  * Legato Image Asset
  * Name:   Hurt3
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Hurt3;
 
@@ -261,8 +263,8 @@ extern leImage Hurt3;
  * Legato Image Asset
  * Name:   HurtLeft0
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage HurtLeft0;
 
@@ -270,8 +272,8 @@ extern leImage HurtLeft0;
  * Legato Image Asset
  * Name:   HurtLeft1
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage HurtLeft1;
 
@@ -279,8 +281,8 @@ extern leImage HurtLeft1;
  * Legato Image Asset
  * Name:   HurtLeft2
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage HurtLeft2;
 
@@ -288,8 +290,8 @@ extern leImage HurtLeft2;
  * Legato Image Asset
  * Name:   HurtLeft3
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage HurtLeft3;
 
@@ -297,8 +299,8 @@ extern leImage HurtLeft3;
  * Legato Image Asset
  * Name:   Idle0
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Idle0;
 
@@ -306,8 +308,8 @@ extern leImage Idle0;
  * Legato Image Asset
  * Name:   Idle1
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Idle1;
 
@@ -315,8 +317,8 @@ extern leImage Idle1;
  * Legato Image Asset
  * Name:   Idle2
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Idle2;
 
@@ -324,8 +326,8 @@ extern leImage Idle2;
  * Legato Image Asset
  * Name:   Idle3
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Idle3;
 
@@ -333,8 +335,8 @@ extern leImage Idle3;
  * Legato Image Asset
  * Name:   IdleLeft0
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage IdleLeft0;
 
@@ -342,8 +344,8 @@ extern leImage IdleLeft0;
  * Legato Image Asset
  * Name:   IdleLeft1
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage IdleLeft1;
 
@@ -351,8 +353,8 @@ extern leImage IdleLeft1;
  * Legato Image Asset
  * Name:   IdleLeft2
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage IdleLeft2;
 
@@ -360,8 +362,8 @@ extern leImage IdleLeft2;
  * Legato Image Asset
  * Name:   IdleLeft3
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage IdleLeft3;
 
@@ -369,8 +371,8 @@ extern leImage IdleLeft3;
  * Legato Image Asset
  * Name:   JumpLeft0
  * Size:   120x192 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage JumpLeft0;
 
@@ -378,8 +380,8 @@ extern leImage JumpLeft0;
  * Legato Image Asset
  * Name:   JumpLeft1
  * Size:   120x192 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage JumpLeft1;
 
@@ -387,8 +389,8 @@ extern leImage JumpLeft1;
  * Legato Image Asset
  * Name:   JumpLeft2
  * Size:   120x192 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage JumpLeft2;
 
@@ -396,8 +398,8 @@ extern leImage JumpLeft2;
  * Legato Image Asset
  * Name:   JumpLeft3
  * Size:   120x192 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage JumpLeft3;
 
@@ -405,8 +407,8 @@ extern leImage JumpLeft3;
  * Legato Image Asset
  * Name:   JumpLeft4
  * Size:   120x192 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage JumpLeft4;
 
@@ -414,8 +416,8 @@ extern leImage JumpLeft4;
  * Legato Image Asset
  * Name:   JumpLeft5
  * Size:   120x192 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage JumpLeft5;
 
@@ -423,8 +425,8 @@ extern leImage JumpLeft5;
  * Legato Image Asset
  * Name:   JumpLeft6
  * Size:   120x192 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage JumpLeft6;
 
@@ -432,8 +434,8 @@ extern leImage JumpLeft6;
  * Legato Image Asset
  * Name:   JumpLeft7
  * Size:   120x192 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage JumpLeft7;
 
@@ -441,8 +443,8 @@ extern leImage JumpLeft7;
  * Legato Image Asset
  * Name:   Run0
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Run0;
 
@@ -450,8 +452,8 @@ extern leImage Run0;
  * Legato Image Asset
  * Name:   Run1
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Run1;
 
@@ -459,8 +461,8 @@ extern leImage Run1;
  * Legato Image Asset
  * Name:   Run2
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Run2;
 
@@ -468,8 +470,8 @@ extern leImage Run2;
  * Legato Image Asset
  * Name:   RunToLeft0
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage RunToLeft0;
 
@@ -477,8 +479,8 @@ extern leImage RunToLeft0;
  * Legato Image Asset
  * Name:   RunToLeft1
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage RunToLeft1;
 
@@ -486,8 +488,8 @@ extern leImage RunToLeft1;
  * Legato Image Asset
  * Name:   RunToLeft2
  * Size:   120x96 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage RunToLeft2;
 
@@ -495,8 +497,8 @@ extern leImage RunToLeft2;
  * Legato Image Asset
  * Name:   MHGSLogo
  * Size:   180x169 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage MHGSLogo;
 
@@ -504,21 +506,21 @@ extern leImage MHGSLogo;
  * Legato Image Asset
  * Name:   mchp_logo
  * Size:   120x28 pixels
- * Format: RLE
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage mchp_logo;
 
 /*****************************************************************************
-* MPLAB Harmony Graphics Font Assets
-*****************************************************************************/
+ * Legato Graphics Font Assets
+ *****************************************************************************/
 /*********************************
  * Legato Font Asset
  * Name:         NotoSans_Regular
- * Height:       16
- * Baseline:     15
+ * Height:       21
+ * Baseline:     0
  * Style:        Antialias
- * Glyph Count:  16
+ * Glyph Count:  0
  * Range Count:  10
  * Glyph Ranges: 0x20
                  0x44
@@ -536,12 +538,23 @@ extern leRasterFont NotoSans_Regular;
 /*********************************
  * Legato Font Asset
  * Name:         NotoSans_Regular_Small
- * Height:       18
- * Baseline:     13
+ * Height:       21
+ * Baseline:     0
  * Style:        Antialias
- * Glyph Count:  96
- * Range Count:  1
- * Glyph Ranges: 0x20-0x7F
+ * Glyph Count:  0
+ * Range Count:  12
+ * Glyph Ranges: 0x20
+                 0x28-0x29
+                 0x2C-0x2D
+                 0x30-0x3A
+                 0x41-0x45
+                 0x47-0x49
+                 0x4C-0x4E
+                 0x50-0x53
+                 0x55-0x58
+                 0x61-0x69
+                 0x6C-0x75
+                 0x78-0x79
 ***********************************/
 extern leRasterFont NotoSans_Regular_Small;
 
@@ -550,22 +563,23 @@ extern leRasterFont NotoSans_Regular_Small;
  * Encoding        ASCII
  * Language Count: 1
  * String Count:   8
-*****************************************************************************/
+ *****************************************************************************/
 
 // language IDs
 #define language_default    0
 
 // string IDs
-#define string_String_ColorDepth    0
-#define string_String_Demonstrated    1
-#define string_String_Device    2
-#define string_String_Features    3
-#define string_String_GfxController    4
-#define string_String_Library    5
-#define string_String_PressHere    6
-#define string_String_Resolution    7
+#define stringID_String_Features    0
+#define stringID_String_PressHere    1
+#define stringID_String_Demonstrated    2
+#define stringID_String_Resolution    3
+#define stringID_String_ColorDepth    4
+#define stringID_String_GfxController    5
+#define stringID_String_Library    6
+#define stringID_String_Device    7
 
 extern const leStringTable stringTable;
+
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }

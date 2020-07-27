@@ -43,6 +43,7 @@ static leStringVTable stringVTable;
 
 void _leString_Constructor(leString* _this)
 {
+    (void)_this; // unused
 }
 
 void _leString_Destructor(leString* _this)
@@ -122,6 +123,10 @@ uint32_t _leString_GetLineCount(const leString* _this)
         {
             count += 1;
         }
+        else if(chr == '\0')
+        {
+            break;
+        }
     }
     
     return count;
@@ -153,7 +158,7 @@ leResult _leString_GetLineIndices(const leString* _this,
     {
         chr = _this->fn->charAt(_this, idx);
         
-        if(chr == LE_STRING_LINEBREAK)
+        if(chr == LE_STRING_LINEBREAK || chr == '\0')
         {
             *end = idx;
             
@@ -239,7 +244,7 @@ leResult _leString_GetCharRect(const leString* _this,
     {
         chr = _this->fn->charAt(_this, idx);
         
-        if(chr == LE_STRING_LINEBREAK)
+        if(chr == LE_STRING_LINEBREAK || chr == '\0')
         {
         }
         else if(idx == charIdx)
@@ -293,8 +298,12 @@ leResult _leString_GetCharIndexAtPoint(const leString* _this,
     for(idx = 0; idx < len; idx++)
     {
         chr = _this->fn->charAt(_this, idx);
-        
-        if(chr == LE_STRING_LINEBREAK)
+
+        if(chr == '\0')
+        {
+            break;
+        }
+        else if(chr == LE_STRING_LINEBREAK)
         {
             rect.x = 0;
             rect.y += fnt->height;
