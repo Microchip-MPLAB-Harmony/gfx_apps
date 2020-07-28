@@ -1,4 +1,3 @@
-// DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
@@ -21,7 +20,6 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-// DOM-IGNORE-END
 
 /*******************************************************************************
   MPLAB Harmony LCC Generated Driver Implementation File
@@ -171,6 +169,19 @@ gfxResult DRV_LCC_SetActiveLayer(uint32_t idx)
         return GFX_SUCCESS;
 }
 
+gfxLayerState DRV_LCC_GetLayerState(uint32_t idx)
+{
+    gfxLayerState state;
+
+    state.rect.x = 0;
+    state.rect.y = 0;
+    state.rect.width = DISPLAY_WIDTH;
+    state.rect.height = DISPLAY_HEIGHT;
+    state.enabled = GFX_TRUE;
+
+    return state;
+}
+
 void DRV_LCC_Swap(void)
 {
     
@@ -186,10 +197,17 @@ gfxPixelBuffer * DRV_LCC_GetFrameBuffer(int32_t idx)
         return &pixelBuffer;
 }
 
+gfxResult DRV_LCC_SetPalette(gfxBuffer* palette,
+                             gfxColorMode mode,
+                             uint32_t colorCount)
+{
+    return GFX_FAILURE;
+}
+
+
 gfxResult DRV_LCC_BlitBuffer(int32_t x,
                              int32_t y,
-                             gfxPixelBuffer* buf,
-                             gfxBlend gfx)
+                             gfxPixelBuffer* buf)
 {
     void* srcPtr;
     void* destPtr;

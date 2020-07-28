@@ -1,6 +1,27 @@
+/*******************************************************************************
+ Module for Microchip Legato Graphics Library
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    le_gen_assets.h
+
+  Summary:
+    Header file containing a list of asset specifications for use with the
+    Legato Graphics Stack.
+
+
+  Description:
+    Header file containing a list of asset specifications for use with the
+    Legato Graphics Stack.
+
+*******************************************************************************/
+
+
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C)  Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -21,26 +42,8 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+
 // DOM-IGNORE-END
-
-/*******************************************************************************
- Module for Microchip Legato Graphics Library
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    generated/le_gen_assets.h
-
-  Summary:
-    Header file containing a list of asset specifications for use with the
-    MPLAB Harmony Graphics Stack.
-
-  Description:
-    Header file containing a list of asset specifications for use with the
-    MPLAB Harmony Graphics Stack.
-*******************************************************************************/
-
 
 #ifndef LE_GEN_ASSETS_H
 #define LE_GEN_ASSETS_H
@@ -53,18 +56,17 @@ extern "C" {
 
 #include "gfx/legato/legato.h"
 
+extern const lePalette leGlobalPalette;
+
 /*****************************************************************************
-* MPLAB Harmony Graphics Asset Location IDs
-*****************************************************************************/
-/*****************************************************************************
-* MPLAB Harmony Graphics Image Assets
-*****************************************************************************/
+ * Legato Graphics Image Assets
+ *****************************************************************************/
 /*********************************
  * Legato Image Asset
  * Name:   RAW_GFX_mchp_200x200
  * Size:   200x200 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage RAW_GFX_mchp_200x200;
 
@@ -72,8 +74,8 @@ extern leImage RAW_GFX_mchp_200x200;
  * Legato Image Asset
  * Name:   RAW_GFX_mchp_480x270
  * Size:   480x270 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage RAW_GFX_mchp_480x270;
 
@@ -81,8 +83,8 @@ extern leImage RAW_GFX_mchp_480x270;
  * Legato Image Asset
  * Name:   RAW_GFX_mplab_200x200
  * Size:   200x200 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage RAW_GFX_mplab_200x200;
 
@@ -90,8 +92,8 @@ extern leImage RAW_GFX_mplab_200x200;
  * Legato Image Asset
  * Name:   RAW_GFX_mplab_480x270
  * Size:   480x270 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage RAW_GFX_mplab_480x270;
 
@@ -99,8 +101,8 @@ extern leImage RAW_GFX_mplab_480x270;
  * Legato Image Asset
  * Name:   RAW_GFX_mchp_100x100
  * Size:   100x100 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage RAW_GFX_mchp_100x100;
 
@@ -108,8 +110,8 @@ extern leImage RAW_GFX_mchp_100x100;
  * Legato Image Asset
  * Name:   RAW_GFX_mchp_40x40
  * Size:   40x40 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage RAW_GFX_mchp_40x40;
 
@@ -117,8 +119,8 @@ extern leImage RAW_GFX_mchp_40x40;
  * Legato Image Asset
  * Name:   RAW_GFX_mplab_100x100
  * Size:   100x100 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGBA_8888
  ***********************************/
 extern leImage RAW_GFX_mplab_100x100;
 
@@ -126,8 +128,8 @@ extern leImage RAW_GFX_mplab_100x100;
  * Legato Image Asset
  * Name:   RAW_GFX_mplab_40x40
  * Size:   40x40 pixels
- * Format: Raw
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage RAW_GFX_mplab_40x40;
 
@@ -135,8 +137,8 @@ extern leImage RAW_GFX_mplab_40x40;
  * Legato Image Asset
  * Name:   RAWRLE_GFX_mchp_100x100
  * Size:   100x100 pixels
- * Format: RLE
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage RAWRLE_GFX_mchp_100x100;
 
@@ -144,8 +146,8 @@ extern leImage RAWRLE_GFX_mchp_100x100;
  * Legato Image Asset
  * Name:   RAWRLE_GFX_mchp_200x200
  * Size:   200x200 pixels
- * Format: RLE
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage RAWRLE_GFX_mchp_200x200;
 
@@ -153,8 +155,8 @@ extern leImage RAWRLE_GFX_mchp_200x200;
  * Legato Image Asset
  * Name:   RAWRLE_GFX_mchp_40x40
  * Size:   40x40 pixels
- * Format: RLE
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage RAWRLE_GFX_mchp_40x40;
 
@@ -162,8 +164,8 @@ extern leImage RAWRLE_GFX_mchp_40x40;
  * Legato Image Asset
  * Name:   RAWRLE_GFX_mchp_480x270
  * Size:   480x270 pixels
- * Format: RLE
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage RAWRLE_GFX_mchp_480x270;
 
@@ -171,8 +173,8 @@ extern leImage RAWRLE_GFX_mchp_480x270;
  * Legato Image Asset
  * Name:   RAWRLE_GFX_mplab_100x100
  * Size:   100x100 pixels
- * Format: RLE
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGBA_8888
  ***********************************/
 extern leImage RAWRLE_GFX_mplab_100x100;
 
@@ -180,8 +182,8 @@ extern leImage RAWRLE_GFX_mplab_100x100;
  * Legato Image Asset
  * Name:   RAWRLE_GFX_mplab_200x200
  * Size:   200x200 pixels
- * Format: RLE
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage RAWRLE_GFX_mplab_200x200;
 
@@ -189,8 +191,8 @@ extern leImage RAWRLE_GFX_mplab_200x200;
  * Legato Image Asset
  * Name:   RAWRLE_GFX_mplab_40x40
  * Size:   40x40 pixels
- * Format: RLE
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage RAWRLE_GFX_mplab_40x40;
 
@@ -198,8 +200,8 @@ extern leImage RAWRLE_GFX_mplab_40x40;
  * Legato Image Asset
  * Name:   RAWRLE_GFX_mplab_480x270
  * Size:   480x270 pixels
- * Format: RLE
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage RAWRLE_GFX_mplab_480x270;
 
@@ -207,8 +209,8 @@ extern leImage RAWRLE_GFX_mplab_480x270;
  * Legato Image Asset
  * Name:   Bar
  * Size:   480x65 pixels
- * Format: RLE
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage Bar;
 
@@ -216,8 +218,8 @@ extern leImage Bar;
  * Legato Image Asset
  * Name:   HarmonyLogo
  * Size:   197x139 pixels
- * Format: RLE
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage HarmonyLogo;
 
@@ -225,8 +227,8 @@ extern leImage HarmonyLogo;
  * Legato Image Asset
  * Name:   MicrochipLogo
  * Size:   144x39 pixels
- * Format: RLE
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage MicrochipLogo;
 
@@ -234,18 +236,18 @@ extern leImage MicrochipLogo;
  * Legato Image Asset
  * Name:   PIC32Logo
  * Size:   240x62 pixels
- * Format: RLE
- * Mode: RGB_565
+ * Type:   RGB Data
+ * Format: RGB_565
  ***********************************/
 extern leImage PIC32Logo;
 
 /*****************************************************************************
-* MPLAB Harmony Graphics Font Assets
-*****************************************************************************/
+ * Legato Graphics Font Assets
+ *****************************************************************************/
 /*********************************
  * Legato Font Asset
  * Name:         ArialLarge
- * Height:       117
+ * Height:       21
  * Baseline:     115
  * Style:        Plain
  * Glyph Count:  10
@@ -257,7 +259,7 @@ extern leRasterFont ArialLarge;
 /*********************************
  * Legato Font Asset
  * Name:         ArialMed
- * Height:       67
+ * Height:       21
  * Baseline:     65
  * Style:        Plain
  * Glyph Count:  10
@@ -269,7 +271,7 @@ extern leRasterFont ArialMed;
 /*********************************
  * Legato Font Asset
  * Name:         ArialSmall
- * Height:       36
+ * Height:       21
  * Baseline:     35
  * Style:        Plain
  * Glyph Count:  10
@@ -281,7 +283,7 @@ extern leRasterFont ArialSmall;
 /*********************************
  * Legato Font Asset
  * Name:         ArialNarrow
- * Height:       16
+ * Height:       21
  * Baseline:     11
  * Style:        Plain
  * Glyph Count:  24
@@ -305,7 +307,7 @@ extern leRasterFont ArialNarrow;
 /*********************************
  * Legato Font Asset
  * Name:         ArialNarrowMed
- * Height:       27
+ * Height:       21
  * Baseline:     26
  * Style:        Plain
  * Glyph Count:  14
@@ -321,7 +323,7 @@ extern leRasterFont ArialNarrowMed;
 /*********************************
  * Legato Font Asset
  * Name:         ArialTiny
- * Height:       12
+ * Height:       21
  * Baseline:     8
  * Style:        Plain
  * Glyph Count:  48
@@ -348,7 +350,7 @@ extern leRasterFont ArialTiny;
 /*********************************
  * Legato Font Asset
  * Name:         ArialTitle
- * Height:       14
+ * Height:       21
  * Baseline:     10
  * Style:        Plain
  * Glyph Count:  20
@@ -371,7 +373,7 @@ extern leRasterFont ArialTitle;
 /*********************************
  * Legato Font Asset
  * Name:         ArialLittle
- * Height:       20
+ * Height:       21
  * Baseline:     14
  * Style:        Plain
  * Glyph Count:  18
@@ -389,8 +391,19 @@ extern leRasterFont ArialLittle;
 
 /*********************************
  * Legato Font Asset
+ * Name:         ArialLittleItalics
+ * Height:       21
+ * Baseline:     0
+ * Style:        Plain
+ * Glyph Count:  0
+ * Range Count:  0
+ * Glyph Ranges: ***********************************/
+extern leRasterFont ArialLittleItalics;
+
+/*********************************
+ * Legato Font Asset
  * Name:         ArialTinyAve
- * Height:       7
+ * Height:       21
  * Baseline:     6
  * Style:        Plain
  * Glyph Count:  1
@@ -404,44 +417,45 @@ extern leRasterFont ArialTinyAve;
  * Encoding        ASCII
  * Language Count: 1
  * String Count:   30
-*****************************************************************************/
+ *****************************************************************************/
 
 // language IDs
 #define language_default    0
 
 // string IDs
-#define string_DynamicString    0
-#define string_FPS    1
-#define string_FPSCountString    2
-#define string_Fullscreen    3
-#define string_GPUOff    4
-#define string_GPUOn    5
-#define string_ImageRendering    6
-#define string_ImageType    7
-#define string_JPG24Bit    8
-#define string_Minus    9
-#define string_MotionUpdates    10
-#define string_Next    11
-#define string_NextSymbol    12
-#define string_NumsLarge    13
-#define string_NumsLittle    14
-#define string_NumsMed    15
-#define string_NumsSmall    16
-#define string_NumsTiny    17
-#define string_PNG8888    18
-#define string_Plus    19
-#define string_PreProcessedBlit    20
-#define string_Previous    21
-#define string_Raw565    22
-#define string_RawRLE565    23
-#define string_RectanglesNum    24
-#define string_RefreshRate    25
-#define string_RefreshRateCount    26
-#define string_Size    27
-#define string_StringSize    28
-#define string_ave    29
+#define stringID_Previous    0
+#define stringID_Size    1
+#define stringID_FPS    2
+#define stringID_PreProcessedBlit    3
+#define stringID_ImageRendering    4
+#define stringID_Next    5
+#define stringID_GPUOff    6
+#define stringID_RefreshRate    7
+#define stringID_Raw565    8
+#define stringID_MotionUpdates    9
+#define stringID_RawRLE565    10
+#define stringID_NumsSmall    11
+#define stringID_JPG24Bit    12
+#define stringID_RectanglesNum    13
+#define stringID_DynamicString    14
+#define stringID_GPUOn    15
+#define stringID_Fullscreen    16
+#define stringID_StringSize    17
+#define stringID_ave    18
+#define stringID_NumsLittle    19
+#define stringID_FPSCountString    20
+#define stringID_Minus    21
+#define stringID_PNG8888    22
+#define stringID_NumsTiny    23
+#define stringID_NumsMed    24
+#define stringID_NextSymbol    25
+#define stringID_Plus    26
+#define stringID_RefreshRateCount    27
+#define stringID_ImageType    28
+#define stringID_NumsLarge    29
 
 extern const leStringTable stringTable;
+
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }
