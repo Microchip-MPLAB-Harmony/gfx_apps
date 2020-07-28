@@ -122,6 +122,7 @@ static void nextState(leGroupBoxWidget* box)
                 return;
             }
         }
+        // fall through
         case DRAW_BACKGROUND:
         {
             box->widget.status.drawState = DRAW_OUTLINE;
@@ -139,6 +140,7 @@ static void nextState(leGroupBoxWidget* box)
                 return;
             }
         }
+        // fall through
         case DRAW_STRING:
         {
             if(box->widget.style.borderType != LE_WIDGET_BORDER_NONE)
@@ -149,6 +151,7 @@ static void nextState(leGroupBoxWidget* box)
                 return;
             }
         }
+        // fall through
         case DRAW_BORDER:
         {
             box->widget.status.drawState = DONE;
@@ -170,8 +173,7 @@ static void drawLine(leRect* rect,
                      int32_t y1,
                      int32_t x2,
                      int32_t y2,
-                     leColor clr,
-                     uint32_t a)
+                     leColor clr)
 {
     leRect lineRect, clipRect;
     
@@ -219,8 +221,7 @@ static void drawOutline(leGroupBoxWidget* box)
              top,
              widgetRect.x + OUTLINE_SPACE,
              bottom,
-             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_SHADOW),
-             paintState.alpha);
+             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_SHADOW));
     
     // right inner line
     drawLine(&widgetRect,
@@ -228,8 +229,7 @@ static void drawOutline(leGroupBoxWidget* box)
              top,
              widgetRect.x + box->widget.rect.width - OUTLINE_SPACE - 2,
              bottom - 1,
-             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_SHADOW),
-             paintState.alpha);
+             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_SHADOW));
              
     // left inner line
     drawLine(&widgetRect,
@@ -237,8 +237,7 @@ static void drawOutline(leGroupBoxWidget* box)
              top + 1,
              widgetRect.x + OUTLINE_SPACE + 1,
              bottom - 1,
-             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_HIGHLIGHTLIGHT),
-             paintState.alpha);
+             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_HIGHLIGHTLIGHT));
              
     // right outer line
     drawLine(&widgetRect,
@@ -246,8 +245,7 @@ static void drawOutline(leGroupBoxWidget* box)
              top,
              widgetRect.x + box->widget.rect.width - OUTLINE_SPACE - 1,
              bottom,
-             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_HIGHLIGHTLIGHT),
-             paintState.alpha);
+             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_HIGHLIGHTLIGHT));
              
     if(box->widget.style.halign == LE_HALIGN_LEFT)
     {   
@@ -285,8 +283,7 @@ static void drawOutline(leGroupBoxWidget* box)
              top,
              left,
              top,
-             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_SHADOW),
-             paintState.alpha);
+             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_SHADOW));
              
     // top outer line right segment
     drawLine(&widgetRect,
@@ -294,8 +291,7 @@ static void drawOutline(leGroupBoxWidget* box)
              top,
              widgetRect.x + widgetRect.width - OUTLINE_SPACE * 2,
              top,
-             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_SHADOW),
-             paintState.alpha);
+             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_SHADOW));
                  
     // bottom inner line
     drawLine(&widgetRect,
@@ -303,8 +299,7 @@ static void drawOutline(leGroupBoxWidget* box)
              bottom - 1,
              widgetRect.x + widgetRect.width - (OUTLINE_SPACE * 2),
              bottom - 1,
-             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_SHADOW),
-             paintState.alpha);
+             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_SHADOW));
              
     // top inner line left segment
     drawLine(&widgetRect,
@@ -312,8 +307,7 @@ static void drawOutline(leGroupBoxWidget* box)
              top + 1,
              left,
              top + 1,
-             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_HIGHLIGHTLIGHT),
-             paintState.alpha);
+             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_HIGHLIGHTLIGHT));
              
     // top inner line right segment
     drawLine(&widgetRect,
@@ -321,8 +315,7 @@ static void drawOutline(leGroupBoxWidget* box)
              top + 1,
              widgetRect.x + widgetRect.width - (OUTLINE_SPACE * 2) - 1,
              top + 1,
-             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_HIGHLIGHTLIGHT),
-             paintState.alpha);
+             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_HIGHLIGHTLIGHT));
              
     // bottom outer line
     drawLine(&widgetRect,
@@ -330,8 +323,7 @@ static void drawOutline(leGroupBoxWidget* box)
              bottom,
              widgetRect.x + widgetRect.width - (OUTLINE_SPACE * 2),
              bottom,
-             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_HIGHLIGHTLIGHT),
-             paintState.alpha);
+             leScheme_GetRenderColor(box->widget.scheme, LE_SCHM_HIGHLIGHTLIGHT));
            
     nextState(box);
 }

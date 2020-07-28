@@ -97,8 +97,8 @@ static void updateClock(void)
     //convert the character string to leFixedString object
     clockStr.fn->setFromCStr(&clockStr, charBuff);    
 
-    //Set ClockLabel text to object
-    ClockLabel->fn->setString(ClockLabel, (leString*)&clockStr);   
+    //Set default_ClockLabel text to object
+    default_ClockLabel->fn->setString(default_ClockLabel, (leString*)&clockStr);   
 }
 
 static void updateHeartIcon(void)
@@ -107,12 +107,12 @@ static void updateHeartIcon(void)
         
     if (showHeart == 1)
     {
-        HeartImage->fn->setVisible(HeartImage, LE_TRUE);
+        default_HeartImage->fn->setVisible(default_HeartImage, LE_TRUE);
         showHeart = 0;
     }
     else
     {
-        HeartImage->fn->setVisible(HeartImage, LE_FALSE);
+        default_HeartImage->fn->setVisible(default_HeartImage, LE_FALSE);
         showHeart = 1;
     }
 }
@@ -140,28 +140,28 @@ static void updateBloodPressure(void)
     
     if (sys > HYPER_SYSTOLIC_PRESSURE || dia > HYPER_DIASTOLIC_PRESSURE)
     {
-        SysLabel->fn->setScheme(SysLabel, &HypertensiveScheme);
-        DiaLabel->fn->setScheme(DiaLabel, &HypertensiveScheme);
+        default_SysLabel->fn->setScheme(default_SysLabel, &HypertensiveScheme);
+        default_DiaLabel->fn->setScheme(default_DiaLabel, &HypertensiveScheme);
     }
     else if (sys > HIGH2_SYSTOLIC_PRESSURE || dia > HIGH2_DIASTOLIC_PRESSURE)
     {
-        SysLabel->fn->setScheme(SysLabel, &HighStage2Scheme);
-        DiaLabel->fn->setScheme(DiaLabel, &HighStage2Scheme);
+        default_SysLabel->fn->setScheme(default_SysLabel, &HighStage2Scheme);
+        default_DiaLabel->fn->setScheme(default_DiaLabel, &HighStage2Scheme);
     }
     else if (sys > HIGH1_SYSTOLIC_PRESSURE || dia > HIGH1_DIASTOLIC_PRESSURE)
     {
-        SysLabel->fn->setScheme(SysLabel, &HighStage1Scheme);
-        DiaLabel->fn->setScheme(DiaLabel, &HighStage1Scheme);        
+        default_SysLabel->fn->setScheme(default_SysLabel, &HighStage1Scheme);
+        default_DiaLabel->fn->setScheme(default_DiaLabel, &HighStage1Scheme);        
     }
     else if (sys > ELEVATED_SYSTOLIC_PRESSURE && dia < HIGH1_DIASTOLIC_PRESSURE)
     {
-        SysLabel->fn->setScheme(SysLabel, &ElevatedScheme);
-        DiaLabel->fn->setScheme(DiaLabel, &ElevatedScheme);        
+        default_SysLabel->fn->setScheme(default_SysLabel, &ElevatedScheme);
+        default_DiaLabel->fn->setScheme(default_DiaLabel, &ElevatedScheme);        
     }
     else
     {
-        SysLabel->fn->setScheme(SysLabel, &NormalScheme);
-        DiaLabel->fn->setScheme(DiaLabel, &NormalScheme);          
+        default_SysLabel->fn->setScheme(default_SysLabel, &NormalScheme);
+        default_DiaLabel->fn->setScheme(default_DiaLabel, &NormalScheme);          
     }
    
     //create the time character string from hr, min, sec variables
@@ -170,8 +170,8 @@ static void updateBloodPressure(void)
     //convert the character string to leFixedString object
     sysStr.fn->setFromCStr(&sysStr, charBuff);    
 
-    //Set SysLabel text to object
-    SysLabel->fn->setString(SysLabel, (leString*)&sysStr);      
+    //Set default_SysLabel text to object
+    default_SysLabel->fn->setString(default_SysLabel, (leString*)&sysStr);      
     
     //create the time character string from hr, min, sec variables
     sprintf(charBuff, "%3d", dia); 
@@ -179,8 +179,8 @@ static void updateBloodPressure(void)
     //convert the character string to leFixedString object
     diaStr.fn->setFromCStr(&diaStr, charBuff);    
 
-    //Set SysLabel text to object
-    DiaLabel->fn->setString(DiaLabel, (leString*)&diaStr);       
+    //Set default_SysLabel text to object
+    default_DiaLabel->fn->setString(default_DiaLabel, (leString*)&diaStr);       
 }
 
 static void updateHeartRate(void)
@@ -201,8 +201,8 @@ static void updateHeartRate(void)
     //convert the character string to leFixedString object
     pulseStr.fn->setFromCStr(&pulseStr, charBuff);    
 
-    //Set SysLabel text to object
-    PulseLabel->fn->setString(PulseLabel, (leString*)&pulseStr);   
+    //Set default_SysLabel text to object
+    default_PulseLabel->fn->setString(default_PulseLabel, (leString*)&pulseStr);   
 }
 
 static void resetValues(void)
@@ -214,10 +214,10 @@ static void resetValues(void)
     pulseStr.fn->setFromCStr(&clearStr, charBuff);    
 
     //Update text
-    PulseLabel->fn->setString(PulseLabel, (leString*)&clearStr); 
-    DiaLabel->fn->setString(DiaLabel, (leString*)&clearStr);
-    SysLabel->fn->setString(SysLabel, (leString*)&clearStr); 
-    HeartImage->fn->setVisible(HeartImage, LE_FALSE);
+    default_PulseLabel->fn->setString(default_PulseLabel, (leString*)&clearStr); 
+    default_DiaLabel->fn->setString(default_DiaLabel, (leString*)&clearStr);
+    default_SysLabel->fn->setString(default_SysLabel, (leString*)&clearStr); 
+    default_HeartImage->fn->setVisible(default_HeartImage, LE_FALSE);
 }
 
 static void updateTimer_Callback ( uintptr_t context )
@@ -256,27 +256,27 @@ void default_OnShow()
     
     leFixedString_Constructor(&clockStr, clockStrBuff, 16);
     clockStr.fn->setFont(&clockStr, leStringTable_GetStringFont(leGetState()->stringTable,
-                                                              string_ClockNums,
+                                                              stringID_ClockNums,
                                                               0));
     
     leFixedString_Constructor(&sysStr, sysStrBuff, 16);
     sysStr.fn->setFont(&sysStr, leStringTable_GetStringFont(leGetState()->stringTable,
-                                                              string_Nums,
+                                                              stringID_Nums,
                                                               0));
     
     leFixedString_Constructor(&diaStr, diaStrBuff, 16);
     diaStr.fn->setFont(&diaStr, leStringTable_GetStringFont(leGetState()->stringTable,
-                                                              string_Nums,
+                                                              stringID_Nums,
                                                               0));  
     
     leFixedString_Constructor(&pulseStr, pulseStrBuff, 16);
     pulseStr.fn->setFont(&pulseStr, leStringTable_GetStringFont(leGetState()->stringTable,
-                                                              string_Nums,
+                                                              stringID_Nums,
                                                               0));    
     
     leFixedString_Constructor(&clearStr, clearStrBuff, 8);
     clearStr.fn->setFont(&clearStr, leStringTable_GetStringFont(leGetState()->stringTable,
-                                                              string_ClearVal,
+                                                              stringID_ClearVal,
                                                               0));  
     
     updateTimer1000ms = SYS_TIME_CallbackRegisterMS(updateTimer_Callback, 
@@ -308,7 +308,7 @@ void default_OnUpdate()
     
     if (startMonitorFlag == LE_TRUE)
     {
-        HeartImage->fn->setVisible(HeartImage, LE_TRUE);
+        default_HeartImage->fn->setVisible(default_HeartImage, LE_TRUE);
         startMonitorFlag = LE_FALSE;
     }
     
@@ -336,13 +336,13 @@ void default_OnUpdate()
     }
 }
 
-void ButtonWidget0_OnPressed(leButtonWidget* btn)
+void event_default_ButtonWidget0_OnPressed(leButtonWidget* btn)
 {
     touchDownFlag = LE_TRUE;
     startMonitorFlag = LE_TRUE;
 }
 
-void ButtonWidget0_OnReleased(leButtonWidget* btn)
+void event_default_ButtonWidget0_OnReleased(leButtonWidget* btn)
 {
     touchDownFlag = LE_FALSE;
     resetValuesFlag = LE_TRUE;

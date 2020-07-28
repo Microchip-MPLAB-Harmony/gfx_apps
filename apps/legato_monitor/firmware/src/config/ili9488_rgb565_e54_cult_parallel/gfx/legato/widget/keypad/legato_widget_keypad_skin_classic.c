@@ -79,6 +79,7 @@ static void nextState(leKeyPadWidget* pad)
                 return;
             }
         }
+        // fall through
         case DRAW_BACKGROUND:
         {
             if(pad->widget.style.borderType != LE_WIDGET_BORDER_NONE)
@@ -89,6 +90,7 @@ static void nextState(leKeyPadWidget* pad)
                 return;
             }
         }
+        // fall through
         case DRAW_BORDER:
         {
             pad->widget.status.drawState = DONE;
@@ -131,7 +133,7 @@ void _leKeyPadWidget_Paint(leKeyPadWidget* pad)
     {
         child = pad->widget.children.values[i];
         
-        child->borderType = pad->widget.style.borderType;
+        child->style.borderType = pad->widget.style.borderType;
         child->scheme = pad->widget.scheme;
     }
     

@@ -3,7 +3,12 @@
 
 #include "gfx/legato/legato.h"
 
-extern const leScheme NewScheme;
+extern const leScheme defaultScheme;
+extern const leScheme NormalScheme;
+extern const leScheme HighStage1Scheme;
+extern const leScheme HighStage2Scheme;
+extern const leScheme HypertensiveScheme;
+extern const leScheme ElevatedScheme;
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

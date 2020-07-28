@@ -63,52 +63,103 @@ extern const lePalette leGlobalPalette;
  *****************************************************************************/
 /*********************************
  * Legato Image Asset
+ * Name:   Background
+ * Size:   320x480 pixels
+ * Type:   RGB Data
+ * Format: RGB_565
+ ***********************************/
+extern leImage Background;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   heart
+ * Size:   25x25 pixels
+ * Type:   RGB Data
+ * Format: RGB_565
+ ***********************************/
+extern leImage heart;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   Microchip_meatball
+ * Size:   42x30 pixels
+ * Type:   RGB Data
+ * Format: RGB_565
+ ***********************************/
+extern leImage Microchip_meatball;
+
+/*********************************
+ * Legato Image Asset
  * Name:   MHGC_170x170
  * Size:   170x170 pixels
  * Type:   RGB Data
- * Format: RGB_888
+ * Format: RGB_565
  ***********************************/
 extern leImage MHGC_170x170;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   Bar_320
+ * Size:   320x65 pixels
+ * Type:   RGB Data
+ * Format: RGB_565
+ ***********************************/
+extern leImage Bar_320;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   MicrochipLogo
+ * Size:   144x39 pixels
+ * Type:   RGB Data
+ * Format: RGB_565
+ ***********************************/
+extern leImage MicrochipLogo;
 
 /*****************************************************************************
  * Legato Graphics Font Assets
  *****************************************************************************/
 /*********************************
  * Legato Font Asset
- * Name:         NotoSans_Medium
+ * Name:         NotoSans_Regular
  * Height:       21
- * Baseline:     12
+ * Baseline:     13
  * Style:        Antialias
- * Glyph Count:  28
- * Range Count:  12
- * Glyph Ranges: 0x20
-                 0x2E
-                 0x41-0x43
-                 0x47-0x48
-                 0x4C-0x4D
-                 0x50
-                 0x52
-                 0x61
-                 0x63-0x69
-                 0x6D-0x70
-                 0x72-0x75
-                 0x79
+ * Glyph Count:  11
+ * Range Count:  1
+ * Glyph Ranges: 0x30-0x3A
 ***********************************/
-extern leRasterFont NotoSans_Medium;
+extern leRasterFont NotoSans_Regular;
+
+/*********************************
+ * Legato Font Asset
+ * Name:         NotoSans_Bold
+ * Height:       21
+ * Baseline:     55
+ * Style:        Antialias
+ * Glyph Count:  12
+ * Range Count:  3
+ * Glyph Ranges: 0x20
+                 0x2D
+                 0x30-0x39
+***********************************/
+extern leRasterFont NotoSans_Bold;
 
 /*****************************************************************************
  * Legato String Table
  * Encoding        ASCII
  * Language Count: 1
- * String Count:   2
+ * String Count:   5
  *****************************************************************************/
 
 // language IDs
 #define language_default    0
 
 // string IDs
-#define stringID_ModifyRegenerateRun    0
-#define stringID_MPLABHarmonyComposer    1
+#define stringID_ClockNums    0
+#define stringID_ClearVal    1
+#define stringID_DefaultTime    2
+#define stringID_Nums    3
+#define stringID_Default    4
 
 extern const leStringTable stringTable;
 

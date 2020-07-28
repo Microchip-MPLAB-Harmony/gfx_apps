@@ -21,7 +21,7 @@
     files.
  *******************************************************************************/
 
-#include "gfx/legato/generated/screen/le_gen_screen_default.h"
+#include "definitions.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -59,7 +59,7 @@ void Splash_OnShow()
                                                   TIMER_DELAY_VALUE_MS,
                                                   SYS_TIME_PERIODIC);
     
-    barX = BarImageWidget->fn->getX(BarImageWidget);
+    barX = Splash_BarImageWidget->fn->getX(Splash_BarImageWidget);
         
     appSplashState = APP_SPLASH_STATE_INIT;
 }
@@ -92,12 +92,12 @@ void Splash_OnUpdate()
                     if (barX/4 > 0)
                     {
                         barX -= barX/4;
-                        BarImageWidget->fn->setX(BarImageWidget, barX);
+                        Splash_BarImageWidget->fn->setX(Splash_BarImageWidget, barX);
                     }
                     else
                     {
-                        BarImageWidget->fn->setX(BarImageWidget, 0);
-                        MicrochipLogoImageWidget->fn->setVisible(MicrochipLogoImageWidget, LE_TRUE);
+                        Splash_BarImageWidget->fn->setX(Splash_BarImageWidget, 0);
+                        Splash_MicrochipLogoImageWidget->fn->setVisible(Splash_MicrochipLogoImageWidget, LE_TRUE);
                         appSplashState = APP_SPLASH_STATE_ANIMATION_COMPLETE;
                     }
 

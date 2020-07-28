@@ -939,13 +939,11 @@ lePoint leRotatePoint(lePoint pos,
  * uint32_t whole = lePercentOf(l, percent);
  * @endcode
  * @param param1 rect is area to rotate.
- * @param param2 origin of the rotation.
  * @param param3 angle is the angle in degrees.
  * @return resultant percentage of the number.
  */
 
 leRect leRotatedRectBounds(leRect rect,
-                           lePoint org,
                            int32_t ang);
 
 
@@ -969,6 +967,17 @@ leRect leRotatedRectBounds(leRect rect,
 
 */
 float leSqrt(const float x);
+
+lePoint lePointOnCircle(uint32_t radius,
+                        int32_t angle);
+
+uint32_t leDegreesFromPercent(uint32_t percent,
+                              int32_t centerAngle,
+                              int32_t startAngle);
+
+uint32_t lePercentFromDegrees(uint32_t degrees,
+                              int32_t centerAngle,
+                              int32_t startAngle);
 
 void leNormalizeAngles(int32_t startAngle,
                        int32_t spanAngle,

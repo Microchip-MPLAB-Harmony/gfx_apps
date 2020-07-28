@@ -51,7 +51,7 @@ extern "C" {
 
 
 #define LE_DEFAULT_COLOR_MODE              LE_COLOR_MODE_RGB_565
-#define LE_TOUCH_ORIENTATION               90
+#define LE_TOUCH_ORIENTATION               0
 #define LE_DRIVER_LAYER_MODE               1
 
 #define LE_ASSERT_ENABLE                   0
@@ -115,7 +115,7 @@ extern "C" {
 
 // variable heap configuration
 #define LE_VARIABLEHEAP_DEBUGLEVEL         0
-#define LE_VARIABLEHEAP_SIZE               2048
+#define LE_VARIABLEHEAP_SIZE               6144
 #define LE_VARIABLEHEAP_MINALLOCSIZE       32
 #define LE_VARIABLEHEAP_ALIGNMENT          4
 #define LE_VARIABLEHEAP_BESTFIT            1

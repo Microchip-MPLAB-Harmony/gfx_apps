@@ -1,7 +1,10 @@
 #ifndef LE_GEN_SCREEN_DEFAULT_H
 #define LE_GEN_SCREEN_DEFAULT_H
 
-#include "gfx/legato/generated/le_gen_init.h"
+#include "gfx/legato/legato.h"
+
+#include "gfx/legato/generated/le_gen_scheme.h"
+#include "gfx/legato/generated/le_gen_assets.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -9,17 +12,20 @@ extern "C" {
 #endif
 // DOM-IGNORE-END
 
-// widget list for this screen
-// layer 0
-extern leImageWidget* BackgroundImage;
-extern leLabelWidget* PulseLabel;
-extern leLabelWidget* DiaLabel;
-extern leLabelWidget* SysLabel;
-extern leLabelWidget* ClockLabel;
-extern leImageWidget* HeartImage;
-extern leImageWidget* ImageWidget6;
-extern leButtonWidget* ButtonWidget0;
+// screen member widget declarations
+extern leImageWidget* default_BackgroundImage;
+extern leLabelWidget* default_PulseLabel;
+extern leLabelWidget* default_DiaLabel;
+extern leLabelWidget* default_SysLabel;
+extern leLabelWidget* default_ClockLabel;
+extern leImageWidget* default_HeartImage;
+extern leImageWidget* default_ImageWidget6;
+extern leButtonWidget* default_ButtonWidget0;
 
+// event handlers
+// !!THESE MUST BE IMPLEMENTED IN THE APPLICATION CODE!!
+void event_default_ButtonWidget0_OnPressed(leButtonWidget* btn);
+void event_default_ButtonWidget0_OnReleased(leButtonWidget* btn);
 
 // screen lifecycle functions
 // DO NOT CALL THESE DIRECTLY
@@ -31,17 +37,10 @@ void screenUpdate_default(); // called when Legato is updating
 
 leWidget* screenGetRoot_default(uint32_t lyrIdx); // gets a root widget for this screen
 
-// event handlers
-void default_OnShow(void);
-
-void default_OnUpdate(void);
-
-void ButtonWidget0_OnPressed(leButtonWidget* btn)
-;
-
-void ButtonWidget0_OnReleased(leButtonWidget* btn)
-;
-
+// Screen Events:
+void default_OnShow(); // called when this screen is shown
+void default_OnHide(); // called when this screen is hidden
+void default_OnUpdate(); // called when this screen is updated
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

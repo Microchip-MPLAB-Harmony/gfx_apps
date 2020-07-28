@@ -1,18 +1,23 @@
 #include "gfx/legato/generated/screen/le_gen_screen_Splash.h"
 
-// widget list for layer 0
-static leWidget* root0;
+// screen member widget declarations
+leWidget* root0;
 
-leWidget* PanelWidget0;
-leImageWidget* MHGCImageWidget;
-leImageWidget* BarImageWidget;
-leImageWidget* MicrochipLogoImageWidget;
+leWidget* Splash_PanelWidget0;
+leImageWidget* Splash_MHGCImageWidget;
+leImageWidget* Splash_BarImageWidget;
+leImageWidget* Splash_MicrochipLogoImageWidget;
 
-
+static leBool initialized = LE_FALSE;
 static leBool showing = LE_FALSE;
 
 leResult screenInit_Splash()
 {
+    if(initialized == LE_TRUE)
+        return LE_FAILURE;
+
+    initialized = LE_TRUE;
+
     return LE_SUCCESS;
 }
 
@@ -23,73 +28,82 @@ leResult screenShow_Splash()
 
     // layer 0
     root0 = leWidget_New();
-    root0->fn->setPosition(root0, 0, 0);
     root0->fn->setSize(root0, 320, 480);
     root0->fn->setBackgroundType(root0, LE_WIDGET_BACKGROUND_NONE);
     root0->fn->setMargins(root0, 0, 0, 0, 0);
+    root0->flags |= LE_WIDGET_IGNOREEVENTS;
+    root0->flags |= LE_WIDGET_IGNOREPICK;
 
-    PanelWidget0 = leWidget_New();
-    PanelWidget0->fn->setPosition(PanelWidget0, 0, 0);
-    PanelWidget0->fn->setSize(PanelWidget0, 320, 480);
-    PanelWidget0->fn->setScheme(PanelWidget0, &defaultScheme);
-    root0->fn->addChild(root0, PanelWidget0);
+    Splash_PanelWidget0 = leWidget_New();
+    Splash_PanelWidget0->fn->setPosition(Splash_PanelWidget0, 0, 0);
+    Splash_PanelWidget0->fn->setSize(Splash_PanelWidget0, 320, 480);
+    Splash_PanelWidget0->fn->setScheme(Splash_PanelWidget0, &defaultScheme);
+    root0->fn->addChild(root0, (leWidget*)Splash_PanelWidget0);
 
-    MHGCImageWidget = leImageWidget_New();
-    MHGCImageWidget->fn->setPosition(MHGCImageWidget, 76, 90);
-    MHGCImageWidget->fn->setSize(MHGCImageWidget, 176, 170);
-    MHGCImageWidget->fn->setScheme(MHGCImageWidget, &defaultScheme);
-    MHGCImageWidget->fn->setImage(MHGCImageWidget, &MHGC_170x170);
-    root0->fn->addChild(root0, (leWidget*)MHGCImageWidget);
+    Splash_MHGCImageWidget = leImageWidget_New();
+    Splash_MHGCImageWidget->fn->setPosition(Splash_MHGCImageWidget, 76, 90);
+    Splash_MHGCImageWidget->fn->setSize(Splash_MHGCImageWidget, 176, 170);
+    Splash_MHGCImageWidget->fn->setScheme(Splash_MHGCImageWidget, &defaultScheme);
+    Splash_MHGCImageWidget->fn->setBorderType(Splash_MHGCImageWidget, LE_WIDGET_BORDER_NONE);
+    Splash_MHGCImageWidget->fn->setImage(Splash_MHGCImageWidget, (leImage*)&MHGC_170x170);
+    root0->fn->addChild(root0, (leWidget*)Splash_MHGCImageWidget);
 
-    BarImageWidget = leImageWidget_New();
-    BarImageWidget->fn->setPosition(BarImageWidget, 320, 416);
-    BarImageWidget->fn->setSize(BarImageWidget, 320, 65);
-    BarImageWidget->fn->setBackgroundType(BarImageWidget, LE_WIDGET_BACKGROUND_NONE);
-    BarImageWidget->fn->setImage(BarImageWidget, &Bar_320);
-    root0->fn->addChild(root0, (leWidget*)BarImageWidget);
+    Splash_BarImageWidget = leImageWidget_New();
+    Splash_BarImageWidget->fn->setPosition(Splash_BarImageWidget, 320, 416);
+    Splash_BarImageWidget->fn->setSize(Splash_BarImageWidget, 320, 65);
+    Splash_BarImageWidget->fn->setBackgroundType(Splash_BarImageWidget, LE_WIDGET_BACKGROUND_NONE);
+    Splash_BarImageWidget->fn->setBorderType(Splash_BarImageWidget, LE_WIDGET_BORDER_NONE);
+    Splash_BarImageWidget->fn->setImage(Splash_BarImageWidget, (leImage*)&Bar_320);
+    root0->fn->addChild(root0, (leWidget*)Splash_BarImageWidget);
 
-    MicrochipLogoImageWidget = leImageWidget_New();
-    MicrochipLogoImageWidget->fn->setPosition(MicrochipLogoImageWidget, 9, 430);
-    MicrochipLogoImageWidget->fn->setSize(MicrochipLogoImageWidget, 145, 40);
-    MicrochipLogoImageWidget->fn->setVisible(MicrochipLogoImageWidget, LE_FALSE);
-    MicrochipLogoImageWidget->fn->setBackgroundType(MicrochipLogoImageWidget, LE_WIDGET_BACKGROUND_NONE);
-    MicrochipLogoImageWidget->fn->setImage(MicrochipLogoImageWidget, &MicrochipLogo);
-    root0->fn->addChild(root0, (leWidget*)MicrochipLogoImageWidget);
+    Splash_MicrochipLogoImageWidget = leImageWidget_New();
+    Splash_MicrochipLogoImageWidget->fn->setPosition(Splash_MicrochipLogoImageWidget, 9, 430);
+    Splash_MicrochipLogoImageWidget->fn->setSize(Splash_MicrochipLogoImageWidget, 145, 40);
+    Splash_MicrochipLogoImageWidget->fn->setVisible(Splash_MicrochipLogoImageWidget, LE_FALSE);
+    Splash_MicrochipLogoImageWidget->fn->setBackgroundType(Splash_MicrochipLogoImageWidget, LE_WIDGET_BACKGROUND_NONE);
+    Splash_MicrochipLogoImageWidget->fn->setBorderType(Splash_MicrochipLogoImageWidget, LE_WIDGET_BORDER_NONE);
+    Splash_MicrochipLogoImageWidget->fn->setImage(Splash_MicrochipLogoImageWidget, (leImage*)&MicrochipLogo);
+    root0->fn->addChild(root0, (leWidget*)Splash_MicrochipLogoImageWidget);
 
     leAddRootWidget(root0, 0);
+    leSetLayerColorMode(0, LE_COLOR_MODE_RGB_565);
+
+    Splash_OnShow(); // raise event
 
     showing = LE_TRUE;
-
-    Splash_OnShow();
 
     return LE_SUCCESS;
 }
 
 void screenUpdate_Splash()
 {
-    Splash_OnUpdate();
+    Splash_OnUpdate(); // raise event
 }
 
 void screenHide_Splash()
 {
+    Splash_OnHide(); // raise event
+
+
     leRemoveRootWidget(root0, 0);
-
     leWidget_Delete(root0);
-
     root0 = NULL;
 
-    PanelWidget0 = NULL;
-    MHGCImageWidget = NULL;
-    BarImageWidget = NULL;
-    MicrochipLogoImageWidget = NULL;
-    showing = LE_FALSE;
+    Splash_PanelWidget0 = NULL;
+    Splash_MHGCImageWidget = NULL;
+    Splash_BarImageWidget = NULL;
+    Splash_MicrochipLogoImageWidget = NULL;
 
-    Splash_OnHide();
+
+    showing = LE_FALSE;
 }
 
 void screenDestroy_Splash()
 {
+    if(initialized == LE_FALSE)
+        return;
 
+    initialized = LE_FALSE;
 }
 
 leWidget* screenGetRoot_Splash(uint32_t lyrIdx)
