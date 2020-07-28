@@ -54,6 +54,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 
 #include "gfx/legato/generated/screen/le_gen_screen_FPSCounters.h"
+#include "definitions.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -89,11 +90,11 @@ static char charBuff[16] = {0};
 unsigned int counterSizeStrings[MAX_COUNTER_SIZE + 1] =
 {
     0x00,
-    string_NumsTiny,
-    string_NumsLittle,
-    string_NumsSmall,
-    string_NumsMed,
-    string_NumsLarge,
+    stringID_NumsTiny,
+    stringID_NumsLittle,
+    stringID_NumsSmall,
+    stringID_NumsMed,
+    stringID_NumsLarge,
 };
 
 static enum
@@ -115,7 +116,7 @@ static void resetFPS(void)
     sprintf(charBuff, "---");
     
     fpsBtnText.fn->setFromCStr(&fpsBtnText, charBuff);
-    FPSCounterValue->fn->setString(FPSCounterValue, (leString*)&fpsBtnText);
+    Screen1_FPSCounterValue->fn->setString(Screen1_FPSCounterValue, (leString*)&fpsBtnText);
     
     prevDrawCount = 0;
     prevVsyncCount = 0;
@@ -126,14 +127,14 @@ static void fpsUpdateTimer_Callback()
     unsigned int rate;
     unsigned int i;
     
-    if(FPSCounterValue == NULL)
+    if(Screen1_FPSCounterValue == NULL)
         return;
     
     //Update the 10-pt rolling average
     prevDrawCountAve[aveCounter] = (leGetRenderState()->drawCount - prevDrawCount);
     
     //If not pressed, show current FPS
-    if(FPSUpdateValue->fn->getPressed(FPSUpdateValue) == LE_FALSE)
+    if(Screen1_FPSUpdateValue->fn->getPressed(Screen1_FPSUpdateValue) == LE_FALSE)
     {
             //Update FPS
         rate = (leGetRenderState()->drawCount - prevDrawCount)/
@@ -171,7 +172,7 @@ static void fpsUpdateTimer_Callback()
     }
     
     fpsBtnText.fn->setFromCStr(&fpsBtnText, charBuff);
-    FPSUpdateValue->fn->setString(FPSUpdateValue, (leString*)&fpsBtnText);
+    Screen1_FPSUpdateValue->fn->setString(Screen1_FPSUpdateValue, (leString*)&fpsBtnText);
     
 
     //Update Refresh Rate
@@ -186,14 +187,14 @@ static void fpsUpdateTimer_Callback()
     sprintf(charBuff, "%u", rate);
     
     refreshRateText.fn->setFromCStr(&refreshRateText, charBuff);
-    FPSRefreshValue->fn->setString(FPSRefreshValue,
+    Screen1_FPSRefreshValue->fn->setString(Screen1_FPSRefreshValue,
                                    (leString*)&refreshRateText);
     
     
     prevDrawCount = leGetRenderState()->drawCount;
     prevVsyncCount = vsyncCount;
     
-//    APP_DecrementCount(FPSCounterValue);
+//    APP_DecrementCount(Screen1_FPSCounterValue);
 }
 
 static void increaseCounterSize()
@@ -207,12 +208,12 @@ static void increaseCounterSize()
         return;
     }
 
-    FPSCounterValue->fn->invalidate(FPSCounterValue);
+    Screen1_FPSCounterValue->fn->invalidate(Screen1_FPSCounterValue);
 
     sprintf(charBuff, "%u", (unsigned int)counterStringSize);
 
     counterSizeStringText.fn->setFromCStr(&counterSizeStringText, charBuff);
-    FPSStringSize->fn->setString(FPSStringSize, (leString*)&counterSizeStringText);
+    Screen1_FPSStringSize->fn->setString(Screen1_FPSStringSize, (leString*)&counterSizeStringText);
 
     resetFPS();
 }
@@ -228,12 +229,12 @@ static void decreaseCounterSize()
         return;
     }
 
-    FPSCounterValue->fn->invalidate(FPSCounterValue);
+    Screen1_FPSCounterValue->fn->invalidate(Screen1_FPSCounterValue);
 
     sprintf(charBuff, "%u", (unsigned int)counterStringSize);
 
     counterSizeStringText.fn->setFromCStr(&counterSizeStringText, charBuff);
-    FPSStringSize->fn->setString(FPSStringSize, (leString*)&counterSizeStringText);
+    Screen1_FPSStringSize->fn->setString(Screen1_FPSStringSize, (leString*)&counterSizeStringText);
 
     resetFPS();
 }
@@ -252,16 +253,16 @@ static void decrementCount()
                                                               0));
     
     decStr.fn->setFromCStr(&decStr, charBuff);
-    FPSCounterValue->fn->setString(FPSCounterValue, (leString*)&decStr);
+    Screen1_FPSCounterValue->fn->setString(Screen1_FPSCounterValue, (leString*)&decStr);
 }
 
-void FPSCounters_OnShow()
+void Screen1_OnShow()
 {
     leFont* font = NULL;
     
     tickDecCount = MAX_COUNTDOWN;
     
-    font = leStringTable_GetStringFont(&stringTable, string_NumsLittle, 0);
+    font = leStringTable_GetStringFont(&stringTable, stringID_NumsLittle, 0);
     
     leDynamicString_Constructor(&fpsBtnText);
     fpsBtnText.fn->setFont(&fpsBtnText, font);
@@ -291,12 +292,12 @@ void FPSCounters_OnShow()
     sprintf(charBuff, "%u", (unsigned int)counterStringSize);
                     
     counterSizeStringText.fn->setFromCStr(&counterSizeStringText, charBuff);
-    FPSStringSize->fn->setString(FPSStringSize, (leString*)&counterSizeStringText);
+    Screen1_FPSStringSize->fn->setString(Screen1_FPSStringSize, (leString*)&counterSizeStringText);
     
     screenState = SCREEN_DO_NOTHING;
 }
 
-void FPSCounters_OnHide()
+void Screen1_OnHide()
 {
     SYS_TIME_TimerDestroy(fpsUpdateTimer);
     
@@ -306,7 +307,7 @@ void FPSCounters_OnHide()
     decStr.fn->destructor(&decStr);
 }
 
-void FPSCounters_OnUpdate()
+void Screen1_OnUpdate()
 {
     switch (screenState)
     {
@@ -366,7 +367,7 @@ void FPSCounters_OnUpdate()
         }
         case SCREEN_MOVE_TO_NEXT:
         {
-            legato_showScreen(screenID_FPSMotion);
+            legato_showScreen(screenID_Screen2);
 
             screenState = SCREEN_DONE;
 
@@ -381,7 +382,7 @@ void FPSCounters_OnUpdate()
 }
 
 // event handlers
-void FPSCounterSizeDown_OnPressed(leButtonWidget* btn)
+void event_Screen1_FPSCounterSizeDown_OnPressed(leButtonWidget* btn)
 {
     if(screenState == SCREEN_DO_NOTHING)
     {
@@ -389,7 +390,7 @@ void FPSCounterSizeDown_OnPressed(leButtonWidget* btn)
     }
 }
 
-void FPSCounterSizeUp_OnPressed(leButtonWidget* btn)
+void event_Screen1_FPSCounterSizeUp_OnPressed(leButtonWidget* btn)
 {
     if(screenState == SCREEN_DO_NOTHING)
     {
@@ -397,7 +398,7 @@ void FPSCounterSizeUp_OnPressed(leButtonWidget* btn)
     }
 }
 
-void FPSNextButton_OnPressed(leButtonWidget* btn)
+void event_Screen1_FPSNextButton_OnPressed(leButtonWidget* btn)
 {
     if(screenState == SCREEN_DO_NOTHING)
     {

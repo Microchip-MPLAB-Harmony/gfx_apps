@@ -50,7 +50,7 @@ extern leRectangleWidget* RectMotionWidget1;
 extern leWidget* MotionSideContainer;
 extern leLabelWidget* MotionUpdateLabel;
 extern leLabelWidget* MotionRefreshLabel;
-extern leLabelWidget* MotionRefreshValue;
+extern leLabelWidget* Screen2_MotionRefreshValue;
 extern leLabelWidget* MotionContainerTitle;
 extern leButtonWidget* MotionNextButton;
 extern leButtonWidget* MotionMinusButton;
@@ -61,7 +61,7 @@ extern leLabelWidget* MotionRectSizeLabel;
 extern leLabelWidget* MotionRectSizeValue;
 extern leButtonWidget* MotionSizeDownButton;
 extern leButtonWidget* MotionSizeUpButton;
-extern leButtonWidget* MotionUpdateValue;
+extern leButtonWidget* Screen1_MotionUpdateValue;
 
 
 // screen lifecycle functions

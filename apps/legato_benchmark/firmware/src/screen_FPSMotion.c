@@ -54,6 +54,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 
 #include "gfx/legato/generated/screen/le_gen_screen_FPSMotion.h"
+#include "definitions.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -107,7 +108,7 @@ MOTION_WIDGET_T motionWidgets[MOTION_WIDGETS_NUM] =
     {RECT_WIDGET_9, NULL, -1, -1},    
 };
 
-static leScheme* FillSchemes[MAX_FILL_SCHEMES_CYCLE] = 
+static const leScheme* FillSchemes[MAX_FILL_SCHEMES_CYCLE] = 
 {
     &PinkFillScheme,
     &PurpleFillScheme,
@@ -156,7 +157,7 @@ static void resetFPS(void)
     sprintf(charBuff, "---");
     
     fpsBtnText.fn->setFromCStr(&fpsBtnText, charBuff);
-    MotionUpdateValue->fn->setString(MotionUpdateValue, (leString*)&fpsBtnText);
+    Screen2_MotionUpdateValue->fn->setString(Screen2_MotionUpdateValue, (leString*)&fpsBtnText);
     
     prevDrawCount = 0;
     prevVsyncCount = 0;
@@ -167,14 +168,14 @@ static void fpsUpdateTimer_Callback()
     uint32_t rate;
     uint32_t i;
     
-    if(MotionUpdateValue == NULL)
+    if(Screen2_MotionUpdateValue == NULL)
         return;
     
     //Update the 10-pt rolling average
     prevDrawCountAve[aveCounter] = (leGetRenderState()->drawCount - prevDrawCount);
     
     //If not pressed, show current FPS
-    if(MotionUpdateValue->fn->getPressed(MotionUpdateValue) == LE_FALSE)
+    if(Screen2_MotionUpdateValue->fn->getPressed(Screen2_MotionUpdateValue) == LE_FALSE)
     {
             //Update FPS
         rate = (leGetRenderState()->drawCount - prevDrawCount)/
@@ -212,7 +213,7 @@ static void fpsUpdateTimer_Callback()
     }
     
     fpsBtnText.fn->setFromCStr(&fpsBtnText, charBuff);
-    MotionUpdateValue->fn->setString(MotionUpdateValue, (leString*)&fpsBtnText);
+    Screen2_MotionUpdateValue->fn->setString(Screen2_MotionUpdateValue, (leString*)&fpsBtnText);
     
     //Update Refresh Rate
     uint32_t vsyncCount = leGetRenderState()->dispDriver->getVSYNCCount();
@@ -226,7 +227,7 @@ static void fpsUpdateTimer_Callback()
     sprintf(charBuff, "%u", (unsigned int)rate);
     
     refreshRateText.fn->setFromCStr(&refreshRateText, charBuff);
-    MotionRefreshValue->fn->setString(MotionRefreshValue,
+    Screen2_MotionRefreshValue->fn->setString(Screen2_MotionRefreshValue,
                                       (leString*)&refreshRateText);
     
     
@@ -239,7 +240,10 @@ static void fpsUpdateTimer_Callback()
 static void moveWidget(MOTION_WIDGET_IDX id)
 {
     leWidget* widget = motionWidgets[id].widget;
-    leRect rect = leGetDisplayRect();
+    leRect rect;
+    
+    rect.width = gfxDriverInterface.getDisplayWidth();
+    rect.height = gfxDriverInterface.getDisplayHeight();
     
     if (((widget->rect.x + rectSize) >= (rect.width - MOTION_BLACKHOLE_WIDTH)) ||
         ((widget->rect.x + motionWidgets[id].dx + rectSize) > (rect.width - MOTION_BLACKHOLE_WIDTH)))
@@ -316,11 +320,11 @@ static void increaseRectSize()
 
     if (rectSize == FULLSCREEN_RECT_SIZE)
     {
-        motionWidgets[RECT_WIDGET_0].widget->fn->setWidth(motionWidgets[RECT_WIDGET_0].widget, leGetDisplayRect().width);
-        motionWidgets[RECT_WIDGET_0].widget->fn->setHeight(motionWidgets[RECT_WIDGET_0].widget, leGetDisplayRect().height);
+        motionWidgets[RECT_WIDGET_0].widget->fn->setWidth(motionWidgets[RECT_WIDGET_0].widget, gfxDriverInterface.getDisplayWidth());
+        motionWidgets[RECT_WIDGET_0].widget->fn->setHeight(motionWidgets[RECT_WIDGET_0].widget, gfxDriverInterface.getDisplayHeight());
 
-        MotionRectSizeValue->fn->invalidateContents(MotionRectSizeValue);
-        MotionRectSizeValue->fn->setString(MotionRectSizeValue, (leString*)&squareSizeFullScreenStr);
+        Screen2_MotionRectSizeValue->fn->invalidateContents(Screen2_MotionRectSizeValue);
+        Screen2_MotionRectSizeValue->fn->setString(Screen2_MotionRectSizeValue, (leString*)&squareSizeFullScreenStr);
     }
     else
     {
@@ -334,7 +338,7 @@ static void increaseRectSize()
         sprintf(charBuff, "%u", (unsigned int)rectSize);
 
         squareSizeSmallStr.fn->setFromCStr(&squareSizeSmallStr, charBuff);
-        MotionRectSizeValue->fn->setString(MotionRectSizeValue, (leString*)&squareSizeSmallStr);
+        Screen2_MotionRectSizeValue->fn->setString(Screen2_MotionRectSizeValue, (leString*)&squareSizeSmallStr);
     }
 
     resetFPS();
@@ -363,11 +367,11 @@ static void decreaseRectSize()
 
     if (rectSize == FULLSCREEN_RECT_SIZE)
     {
-        motionWidgets[RECT_WIDGET_0].widget->fn->setWidth(motionWidgets[RECT_WIDGET_0].widget, leGetDisplayRect().width);
-        motionWidgets[RECT_WIDGET_0].widget->fn->setHeight(motionWidgets[RECT_WIDGET_0].widget, leGetDisplayRect().height);
+        motionWidgets[RECT_WIDGET_0].widget->fn->setWidth(motionWidgets[RECT_WIDGET_0].widget, gfxDriverInterface.getDisplayWidth());
+        motionWidgets[RECT_WIDGET_0].widget->fn->setHeight(motionWidgets[RECT_WIDGET_0].widget, gfxDriverInterface.getDisplayHeight());
 
-        MotionRectSizeValue->fn->invalidateContents(MotionRectSizeValue);
-        MotionRectSizeValue->fn->setString(MotionRectSizeValue, (leString*)&squareSizeFullScreenStr);
+        Screen2_MotionRectSizeValue->fn->invalidateContents(Screen2_MotionRectSizeValue);
+        Screen2_MotionRectSizeValue->fn->setString(Screen2_MotionRectSizeValue, (leString*)&squareSizeFullScreenStr);
     }
     else
     {
@@ -381,7 +385,7 @@ static void decreaseRectSize()
         sprintf(charBuff, "%u", (unsigned int)rectSize);
 
         squareSizeSmallStr.fn->setFromCStr(&squareSizeSmallStr, charBuff);
-        MotionRectSizeValue->fn->setString(MotionRectSizeValue, (leString*)&squareSizeSmallStr);
+        Screen2_MotionRectSizeValue->fn->setString(Screen2_MotionRectSizeValue, (leString*)&squareSizeSmallStr);
     }
 
     resetFPS();
@@ -412,7 +416,7 @@ static void addRect()
     sprintf(charBuff, "%u", (unsigned int)motionRectsCount);
 
     motionRectsCountText.fn->setFromCStr(&motionRectsCountText, charBuff);
-    MotionRectCount->fn->setString(MotionRectCount, (leString*)&motionRectsCountText);
+    Screen2_MotionRectCount->fn->setString(Screen2_MotionRectCount, (leString*)&motionRectsCountText);
 
     resetFPS();
 }
@@ -442,17 +446,17 @@ static void removeRect()
     sprintf(charBuff, "%u", (unsigned int)motionRectsCount);
 
     motionRectsCountText.fn->setFromCStr(&motionRectsCountText, charBuff);
-    MotionRectCount->fn->setString(MotionRectCount, (leString*)&motionRectsCountText);
+    Screen2_MotionRectCount->fn->setString(Screen2_MotionRectCount, (leString*)&motionRectsCountText);
 
     resetFPS();
 }
 
-void FPSMotion_OnShow()
+void Screen2_OnShow()
 {
     leFont* font = NULL;
     uint32_t i;
     
-    font = leStringTable_GetStringFont(&stringTable, string_NumsLittle, 0);
+    font = leStringTable_GetStringFont(&stringTable, stringID_NumsLittle, 0);
     
     leDynamicString_Constructor(&fpsBtnText);
     fpsBtnText.fn->setFont(&fpsBtnText, font);
@@ -460,7 +464,7 @@ void FPSMotion_OnShow()
     leDynamicString_Constructor(&refreshRateText);
     refreshRateText.fn->setFont(&refreshRateText, font);
     
-    font = leStringTable_GetStringFont(leGetState()->stringTable, string_NumsTiny, 0);
+    font = leStringTable_GetStringFont(leGetState()->stringTable, stringID_NumsTiny, 0);
     
     leDynamicString_Constructor(&motionRectsCountText);
     motionRectsCountText.fn->setFont(&motionRectsCountText, font);
@@ -468,22 +472,22 @@ void FPSMotion_OnShow()
     leDynamicString_Constructor(&squareSizeSmallStr);
     squareSizeSmallStr.fn->setFont(&squareSizeSmallStr, font);
     
-    leTableString_Constructor(&squareSizeFullScreenStr, string_Fullscreen);
+    leTableString_Constructor(&squareSizeFullScreenStr, stringID_Fullscreen);
     
     motionRectsCount = 1;
     rectSize = DEF_RECT_SIZE;
 
     //Initialize the motion widgets
-    motionWidgets[RECT_WIDGET_0].widget = &RectMotionWidget1->widget;
-    motionWidgets[RECT_WIDGET_1].widget = &RectMotionWidget2->widget;
-    motionWidgets[RECT_WIDGET_2].widget = &RectMotionWidget3->widget;
-    motionWidgets[RECT_WIDGET_3].widget = &RectMotionWidget4->widget;
-    motionWidgets[RECT_WIDGET_4].widget = &RectMotionWidget5->widget;
-    motionWidgets[RECT_WIDGET_5].widget = &RectMotionWidget6->widget;
-    motionWidgets[RECT_WIDGET_6].widget = &RectMotionWidget7->widget;
-    motionWidgets[RECT_WIDGET_7].widget = &RectMotionWidget8->widget;
-    motionWidgets[RECT_WIDGET_8].widget = &RectMotionWidget9->widget;
-    motionWidgets[RECT_WIDGET_9].widget = &RectMotionWidget10->widget;
+    motionWidgets[RECT_WIDGET_0].widget = &Screen2_RectMotionWidget1->widget;
+    motionWidgets[RECT_WIDGET_1].widget = &Screen2_RectMotionWidget2->widget;
+    motionWidgets[RECT_WIDGET_2].widget = &Screen2_RectMotionWidget3->widget;
+    motionWidgets[RECT_WIDGET_3].widget = &Screen2_RectMotionWidget4->widget;
+    motionWidgets[RECT_WIDGET_4].widget = &Screen2_RectMotionWidget5->widget;
+    motionWidgets[RECT_WIDGET_5].widget = &Screen2_RectMotionWidget6->widget;
+    motionWidgets[RECT_WIDGET_6].widget = &Screen2_RectMotionWidget7->widget;
+    motionWidgets[RECT_WIDGET_7].widget = &Screen2_RectMotionWidget8->widget;
+    motionWidgets[RECT_WIDGET_8].widget = &Screen2_RectMotionWidget9->widget;
+    motionWidgets[RECT_WIDGET_9].widget = &Screen2_RectMotionWidget10->widget;
 
     for (i = 0; i < MOTION_WIDGETS_NUM; i++)
     {
@@ -500,11 +504,11 @@ void FPSMotion_OnShow()
 
     sprintf(charBuff, "%u", (unsigned int)motionRectsCount);
     motionRectsCountText.fn->setFromCStr(&motionRectsCountText, charBuff);
-    MotionRectCount->fn->setString(MotionRectCount, (leString*)&motionRectsCountText);
+    Screen2_MotionRectCount->fn->setString(Screen2_MotionRectCount, (leString*)&motionRectsCountText);
 
     sprintf(charBuff, "%u", (unsigned int)rectSize);
     squareSizeSmallStr.fn->setFromCStr(&squareSizeSmallStr, charBuff);
-    MotionRectSizeValue->fn->setString(MotionRectSizeValue, (leString*)&squareSizeSmallStr);
+    Screen2_MotionRectSizeValue->fn->setString(Screen2_MotionRectSizeValue, (leString*)&squareSizeSmallStr);
 
     //fpsTmrCtxt.refreshRate = RefreshRateMotionLabelWidget;
     //fpsTmrCtxt.fpsButton = FPSButtonMotion;
@@ -521,7 +525,7 @@ void FPSMotion_OnShow()
     screenState = SCREEN_DO_NOTHING;
 }
 
-void FPSMotion_OnHide()
+void Screen2_OnHide()
 {
     SYS_TIME_TimerDestroy(fpsUpdateTimer);
     
@@ -532,7 +536,7 @@ void FPSMotion_OnHide()
     squareSizeFullScreenStr.fn->destructor(&squareSizeFullScreenStr);
 }
 
-void FPSMotion_OnUpdate()
+void Screen2_OnUpdate()
 {
     switch (screenState)
     {
@@ -616,7 +620,7 @@ void FPSMotion_OnUpdate()
         }
         case SCREEN_MOVE_TO_NEXT:
         {
-            legato_showScreen(screenID_FPSImages);
+            legato_showScreen(screenID_Screen3);
 
             screenState = SCREEN_DONE;
 
@@ -631,7 +635,7 @@ void FPSMotion_OnUpdate()
 }
 
 // event handlers
-void MotionPlusButton_OnPressed(leButtonWidget* btn)
+void event_Screen2_MotionPlusButton_OnPressed(leButtonWidget* btn)
 {
     if(screenState == SCREEN_DO_NOTHING)
     {
@@ -639,7 +643,7 @@ void MotionPlusButton_OnPressed(leButtonWidget* btn)
     }
 }
 
-void MotionMinusButton_OnPressed(leButtonWidget* btn)
+void event_Screen2_MotionMinusButton_OnPressed(leButtonWidget* btn)
 {
     if(screenState == SCREEN_DO_NOTHING)
     {
@@ -647,7 +651,7 @@ void MotionMinusButton_OnPressed(leButtonWidget* btn)
     }
 }
 
-void MotionNextButton_OnPressed(leButtonWidget* btn)
+void event_Screen2_MotionNextButton_OnPressed(leButtonWidget* btn)
 {
     if(screenState == SCREEN_DO_NOTHING)
     {
@@ -655,7 +659,7 @@ void MotionNextButton_OnPressed(leButtonWidget* btn)
     }
 }
 
-void MotionSizeDownButton_OnPressed(leButtonWidget* btn)
+void event_Screen2_MotionSizeDownButton_OnPressed(leButtonWidget* btn)
 {
     if(screenState == SCREEN_DO_NOTHING)
     {
@@ -663,7 +667,7 @@ void MotionSizeDownButton_OnPressed(leButtonWidget* btn)
     }
 }
 
-void MotionSizeUpButton_OnPressed(leButtonWidget* btn)
+void event_Screen2_MotionSizeUpButton_OnPressed(leButtonWidget* btn)
 {
     if(screenState == SCREEN_DO_NOTHING)
     {

@@ -78,6 +78,7 @@ static void nextState(leImageRotateWidget* img)
                 return;
             }
         }
+        // fall through
         case DRAW_BACKGROUND:
         {
             if(img->image != NULL)
@@ -88,6 +89,7 @@ static void nextState(leImageRotateWidget* img)
                 return;
             }
         }
+        // fall through
         case DRAW_IMAGE:
         {            
             if(img->widget.style.borderType != LE_WIDGET_BORDER_NONE)
@@ -98,6 +100,7 @@ static void nextState(leImageRotateWidget* img)
                 return;
             }
         }
+        // fall through
         case DRAW_BORDER:
         {           
             
@@ -133,7 +136,6 @@ static void drawImage(leImageRotateWidget* img)
     leImage_RotateDraw(img->image,
                        &imgRect,
                        img->filter,
-                       &img->origin,
                        img->angle,
                        x,
                        y,

@@ -351,8 +351,8 @@ typedef struct leImageDecoder
     leResult (*render)(const leImage* src, const leRect* srcRect, int32_t x, int32_t y, leBool ignoreMask, leBool ignoreAlpha, leImage* dst);
     leResult (*resize)(const leImage* src, const leRect* srcRect, leImageFilterMode mode, uint32_t sizeX, uint32_t sizeY, leImage* dst);
     leResult (*resizeDraw)(const leImage* src, const leRect* srcRect, leImageFilterMode mode, uint32_t sizeX, uint32_t sizeY, int32_t x, int32_t y, uint32_t a);
-    leResult (*rotate)(const leImage* src, const leRect* srcRect, leImageFilterMode mode, const lePoint* origin, int32_t angle, leImage* dst);
-    leResult (*rotateDraw)(const leImage* src, const leRect* srcRect, leImageFilterMode mode, const lePoint* origin, int32_t angle, int32_t x, int32_t y, uint32_t a);
+    leResult (*rotate)(const leImage* src, const leRect* srcRect, leImageFilterMode mode, int32_t angle, leImage** dst, leBool alloc);
+    leResult (*rotateDraw)(const leImage* src, const leRect* srcRect, leImageFilterMode mode, int32_t angle, int32_t x, int32_t y, uint32_t a);
     leResult (*exec)(void);
     leBool   (*isDone)(void);
     void     (*free)(void);
@@ -624,64 +624,38 @@ LIB_EXPORT leResult leImage_Render(const leImage* src,
                                    leBool ignoreAlpha,
                                    leImage* dst);
 
-// *****************************************************************************
-/* Function:
-    leResult leImage_Rotate(const leImage* src,
-                            const leRect* sourceRect,
-                            leImageFilterMode mode,
-                            const lePoint* origin,
-                            int32_t angle,
-                            leImage* dst);
-
-  Summary:
-    Decodes a portion of the given image at the specified coordinates and
-    rotates it by the given angle in degrees, around the origin point,
-    using the specified filter mode.
-
-    The result is stored into the provided destination image pointer.
-
-  Parameters:
-    leImage* src - pointer to source image asset to draw
-    leRect* sourceRect - the source rectangle of the image to decode
-    leImageFilterMode mode - the filter to use when rotating
-    const lePoint* origin - the point to rotate around in image space
-    int32_t angle - the angle (degrees) to rotate by
-    leImage* dst - pointer to destination image asset
-
-  Returns:
-    leResult
-*/
 /**
  * @brief Rotate image.
  * @details Rotate image <span class="param">src</span> bounded by
- * <span class="param">srcRect</span> around
- * <span class="param">origin</span> at <span class="param">angle</span>
- * degress. The resulting image is <span class="param">dst</span>.
+ * <span class="param">srcRect</span> by <span class="param">angle</span>
+ * degress. The resulting image is <span class="param">dst</span>  The
+ * result image is automatically allocated and should be freed by the
+ * caller.
  * @code
  * leImage * fnptr;
  * leResult res = leImage_Rotate(src);
  * @endcode
  * @param src is the image to render.
  * @param sourceRect the source rectangle
- * @param mode the x position
- * @param origin the y position
- * @param angle set to true to skip the mask stage for the source image
+ * @param mode the the filter mode
+ * @param angle the angle to rotate by (positive is counter clockwise)
  * @param dst the destination image to fill
+ * @param alloc true if the decoder should automatically allocate the
+ *              destination image
  * @return LE_SUCCESS if set, otherwise LE_FAILURE.
  */
-LIB_EXPORT leResult leImage_Rotate(const leImage* src,
-                                   const leRect* sourceRect,
-                                   leImageFilterMode mode,
-                                   const lePoint* origin,
-                                   int32_t angle,
-                                   leImage* dst);
+leResult leImage_Rotate(const leImage* src,
+                        const leRect* sourceRect,
+                        leImageFilterMode mode,
+                        int32_t angle,
+                        leImage** dst,
+                        leBool alloc);
 
 // *****************************************************************************
 /* Function:
     leResult leImage_Rotate(const leImage* src,
                             const leRect* sourceRect,
                             leImageFilterMode mode,
-                            const lePoint* origin,
                             int32_t angle,
                             int32_t x,
                             int32_t y,
@@ -698,7 +672,6 @@ LIB_EXPORT leResult leImage_Rotate(const leImage* src,
     leImage* src - pointer to source image asset to draw
     leRect* sourceRect - the source rectangle of the image to decode
     leImageFilterMode mode - the filter to use when rotating
-    const lePoint* origin - the point to rotate around in image space
     int32_t angle - the angle (degrees) to rotate by
     int32_t x - the X coordinate to draw to
     int32_t y - the Y coordinate to draw to
@@ -719,22 +692,19 @@ LIB_EXPORT leResult leImage_Rotate(const leImage* src,
  * @endcode
  * @param src is the image to render.
  * @param sourceRect the source rectangle
- * @param mode the x position
- * @param origin the y position
  * @param angle set to true to skip the mask stage for the source image
  * @param x the destination image to fill
  * @param y is the image to resize.
  * @param a the alpha value to use
  * @return LE_SUCCESS if set, otherwise LE_FAILURE.
  */
-LIB_EXPORT leResult leImage_RotateDraw(const leImage* src,
-                                       const leRect* sourceRect,
-                                       leImageFilterMode mode,
-                                       const lePoint* origin,
-                                       int32_t angle,
-                                       int32_t x,
-                                       int32_t y,
-                                       uint32_t a);
+leResult leImage_RotateDraw(const leImage* src,
+                            const leRect* sourceRect,
+                            leImageFilterMode mode,
+                            int32_t angle,
+                            int32_t x,
+                            int32_t y,
+                            uint32_t a);
 
 
 #endif /* LE_IMAGE_H */

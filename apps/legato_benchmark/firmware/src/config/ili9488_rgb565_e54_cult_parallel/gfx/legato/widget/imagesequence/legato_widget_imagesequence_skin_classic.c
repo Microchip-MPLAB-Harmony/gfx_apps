@@ -117,6 +117,7 @@ static void nextState(leImageSequenceWidget* img)
                 return;
             }
         }
+        // fall through
         case DRAW_BACKGROUND:
         {
             if(img->activeIdx >= 0 && img->activeIdx < (int32_t)img->count &&
@@ -128,6 +129,7 @@ static void nextState(leImageSequenceWidget* img)
                 return;
             }
         }
+        // fall through
         case DRAW_IMAGE:
         {            
             if(img->widget.style.borderType != LE_WIDGET_BORDER_NONE)
@@ -138,6 +140,7 @@ static void nextState(leImageSequenceWidget* img)
                 return;
             }
         }
+        // fall through
         case DRAW_BORDER:
         {
             img->widget.status.drawState = DONE;

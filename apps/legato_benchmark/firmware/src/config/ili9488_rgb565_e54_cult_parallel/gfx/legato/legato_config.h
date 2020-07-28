@@ -51,7 +51,7 @@ extern "C" {
 
 
 #define LE_DEFAULT_COLOR_MODE              LE_COLOR_MODE_RGB_565
-#define LE_TOUCH_ORIENTATION               90
+#define LE_TOUCH_ORIENTATION               0
 #define LE_DRIVER_LAYER_MODE               1
 
 #define LE_ASSERT_ENABLE                   0
@@ -97,7 +97,7 @@ extern "C" {
 #define LE_PROGRESSBAR_WIDGET_ENABLED      0
 #define LE_RADIALMENU_WIDGET_ENABLED       0
 #define LE_RADIOBUTTON_WIDGET_ENABLED      0
-#define LE_RECTANGLE_WIDGET_ENABLED        0
+#define LE_RECTANGLE_WIDGET_ENABLED        1
 #define LE_SCROLLBAR_WIDGET_ENABLED        0
 #define LE_SLIDER_WIDGET_ENABLED           0
 #define LE_TEXTFIELD_WIDGET_ENABLED        0

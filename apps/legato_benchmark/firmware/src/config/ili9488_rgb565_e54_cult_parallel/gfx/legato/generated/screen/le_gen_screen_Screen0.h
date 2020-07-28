@@ -13,10 +13,11 @@ extern "C" {
 // DOM-IGNORE-END
 
 // screen member widget declarations
-extern leImageWidget* Screen0_ImageWidget0;
-extern leLabelWidget* Screen0_LabelWidget0;
-extern leImageWidget* Screen0_ImageWidget1;
-extern leButtonWidget* Screen0_ButtonWidget0;
+extern leWidget* Screen0_SplashBackground;
+extern leImageWidget* Screen0_SplashPIC32Logo;
+extern leImageWidget* Screen0_SplashHarmonyLogo;
+extern leImageWidget* Screen0_SplashBar;
+extern leImageWidget* Screen0_SplashMicrochipLogo;
 
 // screen lifecycle functions
 // DO NOT CALL THESE DIRECTLY
@@ -27,6 +28,11 @@ void screenDestroy_Screen0(); // called when Legato is destroyed
 void screenUpdate_Screen0(); // called when Legato is updating
 
 leWidget* screenGetRoot_Screen0(uint32_t lyrIdx); // gets a root widget for this screen
+
+// Screen Events:
+void Screen0_OnShow(); // called when this screen is shown
+void Screen0_OnHide(); // called when this screen is hidden
+void Screen0_OnUpdate(); // called when this screen is updated
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

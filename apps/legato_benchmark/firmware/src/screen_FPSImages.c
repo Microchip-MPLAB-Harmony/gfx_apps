@@ -54,6 +54,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 
 #include "gfx/legato/generated/screen/le_gen_screen_FPSImages.h"
+#include "definitions.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -125,8 +126,8 @@ char * imageSizeNames[IMG_MAX_SIZE] =
 
 unsigned int imageTypeNames[IMG_MAX_TYPE] = 
 {
-    string_Raw565,
-    string_RawRLE565,
+    stringID_Raw565,
+    stringID_RawRLE565,
 };
 
 /*IMAGE_LIST_T imagesPNG[] =
@@ -285,7 +286,7 @@ static void resetFPS(void)
     sprintf(charBuff, "---");
     
     fpsBtnText.fn->setFromCStr(&fpsBtnText, charBuff);
-    ImageUpdateValue->fn->setString(ImageUpdateValue, (leString*)&fpsBtnText);
+    Screen3_ImageUpdateValue->fn->setString(Screen3_ImageUpdateValue, (leString*)&fpsBtnText);
     
     prevDrawCount = 0;
     prevVsyncCount = 0;
@@ -297,14 +298,14 @@ static void fpsUpdateTimer_Callback()
     unsigned int rate;
     unsigned int i;
     
-    if(ImageUpdateValue == NULL)
+    if(Screen3_ImageUpdateValue == NULL)
         return;
     
     //Update the 10-pt rolling average
     prevDrawCountAve[aveCounter] = (leGetRenderState()->drawCount - prevDrawCount);
     
     //If not pressed, show current FPS
-    if(ImageUpdateValue->fn->getPressed(ImageUpdateValue) == LE_FALSE)
+    if(Screen3_ImageUpdateValue->fn->getPressed(Screen3_ImageUpdateValue) == LE_FALSE)
     {
             //Update FPS
         rate = (leGetRenderState()->drawCount - prevDrawCount)/
@@ -342,7 +343,7 @@ static void fpsUpdateTimer_Callback()
     }
     
     fpsBtnText.fn->setFromCStr(&fpsBtnText, charBuff);
-    ImageUpdateValue->fn->setString(ImageUpdateValue, (leString*)&fpsBtnText);
+    Screen3_ImageUpdateValue->fn->setString(Screen3_ImageUpdateValue, (leString*)&fpsBtnText);
     
 
     //Update Refresh Rate
@@ -357,7 +358,7 @@ static void fpsUpdateTimer_Callback()
     sprintf(charBuff, "%u", rate);
     
     refreshRateText.fn->setFromCStr(&refreshRateText, charBuff);
-    ImageRefreshValue->fn->setString(ImageRefreshValue,
+    Screen3_ImageRefreshValue->fn->setString(Screen3_ImageRefreshValue,
                                      (leString*)&refreshRateText);
     
     
@@ -390,7 +391,7 @@ static void increaseImageSize()
     sprintf(charBuff, "%s", imageSizeNames[imgSize]);
 
     imgSizeText.fn->setFromCStr(&imgSizeText, charBuff);
-    ImageSizeValue->fn->setString(ImageSizeValue, (leString*)&imgSizeText);
+    Screen3_ImageSizeValue->fn->setString(Screen3_ImageSizeValue, (leString*)&imgSizeText);
 
     resetFPS();
 }
@@ -410,7 +411,7 @@ static void decreaseImageSize()
     sprintf(charBuff, "%s", imageSizeNames[imgSize]);
 
     imgSizeText.fn->setFromCStr(&imgSizeText, charBuff);
-    ImageSizeValue->fn->setString(ImageSizeValue, (leString*)&imgSizeText);
+    Screen3_ImageSizeValue->fn->setString(Screen3_ImageSizeValue, (leString*)&imgSizeText);
 
     resetFPS();
 }
@@ -428,7 +429,7 @@ static void nextImageType()
     
     //Update image type label
     imageTypeStr.fn->setID(&imageTypeStr, imageTypeNames[imgType]);
-    ImageTypeValue->fn->setString(ImageTypeValue, (leString*)&imageTypeStr);
+    Screen3_ImageTypeValue->fn->setString(Screen3_ImageTypeValue, (leString*)&imageTypeStr);
 
     resetFPS();
 }
@@ -446,7 +447,7 @@ static void prevImageType()
                     
     //Update image type label
     imageTypeStr.fn->setID(&imageTypeStr, imageTypeNames[imgType]);
-    ImageTypeValue->fn->setString(ImageTypeValue, (leString*)&imageTypeStr);
+    Screen3_ImageTypeValue->fn->setString(Screen3_ImageTypeValue, (leString*)&imageTypeStr);
 
     resetFPS();
 }
@@ -486,7 +487,7 @@ static void nextImage()
     {
         if (imagesRAW[imgSize].imgAsst[imgIndex] != NULL)
         {
-            ImageRenderArea->fn->setImage(ImageRenderArea, 
+            Screen3_ImageRenderArea->fn->setImage(Screen3_ImageRenderArea, 
                                           imagesRAW[imgSize].imgAsst[imgIndex]);
         }
     }
@@ -494,7 +495,7 @@ static void nextImage()
     {
         if (imagesRAWRLE[imgSize].imgAsst[imgIndex] != NULL)
         {
-            ImageRenderArea->fn->setImage(ImageRenderArea, 
+            Screen3_ImageRenderArea->fn->setImage(Screen3_ImageRenderArea, 
                                           imagesRAWRLE[imgSize].imgAsst[imgIndex]);
         }
     }
@@ -510,11 +511,11 @@ static void nextImage()
 #endif    
 }
 
-void FPSImages_OnShow()
+void Screen3_OnShow()
 {
     leFont* font = NULL;
     
-    font = leStringTable_GetStringFont(&stringTable, string_NumsLittle, 0);
+    font = leStringTable_GetStringFont(&stringTable, stringID_NumsLittle, 0);
     
     leDynamicString_Constructor(&fpsBtnText);
     fpsBtnText.fn->setFont(&fpsBtnText, font);
@@ -522,12 +523,12 @@ void FPSImages_OnShow()
     leDynamicString_Constructor(&refreshRateText);
     refreshRateText.fn->setFont(&refreshRateText, font);
     
-    font = leStringTable_GetStringFont(leGetState()->stringTable, string_NumsTiny, 0);
+    font = leStringTable_GetStringFont(leGetState()->stringTable, stringID_NumsTiny, 0);
     
     leDynamicString_Constructor(&imgSizeText);
     imgSizeText.fn->setFont(&imgSizeText, font);
     
-    leTableString_Constructor(&imageTypeStr, string_Raw565);
+    leTableString_Constructor(&imageTypeStr, stringID_Raw565);
 
     imgSize = IMG_40x40;
     imgType = IMG_RAW_565;
@@ -537,11 +538,11 @@ void FPSImages_OnShow()
     sprintf(charBuff, "%s", imageSizeNames[imgSize]);
 
     imgSizeText.fn->setFromCStr(&imgSizeText, charBuff);
-    ImageSizeValue->fn->setString(ImageSizeValue, (leString*)&imgSizeText);
+    Screen3_ImageSizeValue->fn->setString(Screen3_ImageSizeValue, (leString*)&imgSizeText);
 
     // initialize image type label
     imageTypeStr.fn->setID(&imageTypeStr, imageTypeNames[imgType]);
-    ImageTypeValue->fn->setString(ImageTypeValue, (leString*)&imageTypeStr);
+    Screen3_ImageTypeValue->fn->setString(Screen3_ImageTypeValue, (leString*)&imageTypeStr);
 
     resetFPS();
                     
@@ -555,7 +556,7 @@ void FPSImages_OnShow()
     screenState = SCREEN_DO_NOTHING;
 }
 
-void FPSImages_OnHide()
+void Screen3_OnHide()
 {
     SYS_TIME_TimerDestroy(fpsUpdateTimer);
     
@@ -565,7 +566,7 @@ void FPSImages_OnHide()
     imageTypeStr.fn->destructor(&imageTypeStr);
 }
 
-void FPSImages_OnUpdate()
+void Screen3_OnUpdate()
 {
     switch (screenState)
     {
@@ -649,7 +650,7 @@ void FPSImages_OnUpdate()
         }
         case SCREEN_MOVE_TO_NEXT:
         {
-            legato_showScreen(screenID_FPSCounters);
+            legato_showScreen(screenID_Screen1);
 
             screenState = SCREEN_DONE;
 
@@ -664,7 +665,7 @@ void FPSImages_OnUpdate()
 }
 
 // event handlers
-void ImageSizeDownButton_OnPressed(leButtonWidget* btn)
+void event_Screen3_ImageSizeDownButton_OnPressed(leButtonWidget* btn)
 {
     if(screenState == SCREEN_DO_NOTHING)
     {
@@ -672,7 +673,7 @@ void ImageSizeDownButton_OnPressed(leButtonWidget* btn)
     }
 }
 
-void ImageSizeUpButton_OnPressed(leButtonWidget* btn)
+void event_Screen3_ImageSizeUpButton_OnPressed(leButtonWidget* btn)
 {
     if(screenState == SCREEN_DO_NOTHING)
     {
@@ -680,7 +681,7 @@ void ImageSizeUpButton_OnPressed(leButtonWidget* btn)
     }
 }
 
-void ImageTypePrevButton_OnPressed(leButtonWidget* btn)
+void event_Screen3_ImageTypePrevButton_OnPressed(leButtonWidget* btn)
 {
     if(screenState == SCREEN_DO_NOTHING)
     {
@@ -688,7 +689,7 @@ void ImageTypePrevButton_OnPressed(leButtonWidget* btn)
     }
 }
 
-void ImageTypeNextButton_OnPressed(leButtonWidget* btn)
+void event_Screen3_ImageTypeNextButton_OnPressed(leButtonWidget* btn)
 {
     if(screenState == SCREEN_DO_NOTHING)
     {
@@ -696,7 +697,7 @@ void ImageTypeNextButton_OnPressed(leButtonWidget* btn)
     }
 }
 
-void ImageNextButton_OnPressed(leButtonWidget* btn)
+void event_Screen3_ImageNextButton_OnPressed(leButtonWidget* btn)
 {
     if(screenState == SCREEN_DO_NOTHING)
     {

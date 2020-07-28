@@ -51,7 +51,7 @@
 #ifndef DRV_GFX_ILI9488_H
 #define DRV_GFX_ILI9488_H
 
-#include "gfx/legato/renderer/legato_renderer.h"
+#include "gfx/driver/gfx_driver.h"
 
 #ifdef __cplusplus
     extern "C" {

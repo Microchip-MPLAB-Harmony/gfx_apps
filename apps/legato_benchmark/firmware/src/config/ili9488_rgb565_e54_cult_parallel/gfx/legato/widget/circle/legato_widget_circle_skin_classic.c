@@ -116,18 +116,15 @@ static void drawCircle(leCircleWidget* cir)
     lePoint p;
     leRect circleRect;
 
-    p.x = 0;
-    p.y = 0;
+    p.x = cir->widget.rect.width / 2;
+    p.y = cir->widget.rect.height / 2;
 
     leUtils_PointToScreenSpace((leWidget*)cir, &p);
 
-    circleRect.x = p.x;
-    circleRect.y = p.y;
-    circleRect.width = cir->widget.rect.width;
-    circleRect.height = cir->widget.rect.height;
-
-    p.x = cir->x;
-    p.y = cir->y;
+    circleRect.x = p.x - cir->radius + cir->x;
+    circleRect.y = p.y - cir->radius + cir->y;
+    circleRect.width = cir->radius * 2;
+    circleRect.height = cir->radius * 2;
 
     if(cir->filled == LE_FALSE)
     {

@@ -314,9 +314,9 @@ leResult leImage_Render(const leImage* src,
 leResult leImage_Rotate(const leImage* src,
                         const leRect* sourceRect,
                         leImageFilterMode mode,
-                        const lePoint* origin,
                         int32_t angle,
-                        leImage* dst)
+                        leImage** dst,
+                        leBool alloc)
 {
     uint32_t decIdx;
 
@@ -330,9 +330,9 @@ leResult leImage_Rotate(const leImage* src,
             if(decoders[decIdx]->rotate(src,
                                         sourceRect,
                                         mode,
-                                        origin,
                                         angle,
-                                        dst) == LE_SUCCESS)
+                                        dst,
+                                        alloc) == LE_SUCCESS)
             {
                 decoders[decIdx]->exec();
 
@@ -347,7 +347,6 @@ leResult leImage_Rotate(const leImage* src,
 leResult leImage_RotateDraw(const leImage* src,
                             const leRect* sourceRect,
                             leImageFilterMode mode,
-                            const lePoint* origin,
                             int32_t angle,
                             int32_t x,
                             int32_t y,
@@ -365,7 +364,6 @@ leResult leImage_RotateDraw(const leImage* src,
             if(decoders[decIdx]->rotateDraw(src,
                                             sourceRect,
                                             mode,
-                                            origin,
                                             angle,
                                             x,
                                             y,

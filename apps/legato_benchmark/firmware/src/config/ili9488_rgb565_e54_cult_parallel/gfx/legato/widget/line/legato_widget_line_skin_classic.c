@@ -76,6 +76,7 @@ static void nextState(leLineWidget* line)
                 return;
             }
         }
+        // fall through
         case DRAW_BACKGROUND:
         {
             line->widget.status.drawState = DRAW_LINE;
@@ -85,7 +86,7 @@ static void nextState(leLineWidget* line)
         }
         case DRAW_LINE:
         {
-            if(line->widget..status.borderType != LE_WIDGET_BORDER_NONE)
+            if(line->widget.style.borderType != LE_WIDGET_BORDER_NONE)
             {
                 line->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
                 line->widget.status.drawState = DRAW_BORDER;
@@ -93,6 +94,7 @@ static void nextState(leLineWidget* line)
                 return;
             }
         }
+        // fall through
         case DRAW_BORDER:
         {
             line->widget.status.drawState = DONE;
@@ -133,12 +135,12 @@ static void drawLine(leLineWidget* line)
 
 static void drawBorder(leLineWidget* line)
 {
-    if(line->widget..status.borderType == LE_WIDGET_BORDER_LINE)
+    if(line->widget.style.borderType == LE_WIDGET_BORDER_LINE)
     {
         leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)line,
                                                     paintState.alpha);
     }
-    else if(line->widget..status.borderType == LE_WIDGET_BORDER_BEVEL)
+    else if(line->widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)line,
                                                       paintState.alpha);

@@ -50,7 +50,9 @@ static void resizeCells(leKeyPadWidget* _this,
     uint32_t width, height, wrem, hrem, row, col, wmod, hmod;
     int32_t x, y;
     leButtonWidget* btn;
-    
+
+    (void)evt; // unused
+
     if(_this->widget.children.size == 0)
         return;
     
@@ -443,10 +445,8 @@ static const leKeyPadWidgetVTable keyPadWidgetVTable =
     .touchUpEvent = (void*)_leWidget_TouchUpEvent,
     .touchMoveEvent = (void*)_leWidget_TouchMoveEvent,
     .moveEvent = (void*)_leWidget_MoveEvent,
-    .resizeEvent = (void*)_leWidget_ResizeEvent,
     .focusLostEvent = (void*)_leWidget_FocusLostEvent,
     .focusGainedEvent = (void*)_leWidget_FocusGainedEvent,
-    .languageChangeEvent = (void*)_leWidget_LanguageChangeEvent,
 
     ._handleEvent = (void*)_leWidget_HandleEvent,
     ._validateChildren = (void*)_leWidget_ValidateChildren,

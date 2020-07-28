@@ -7,6 +7,9 @@
 #include "gfx/legato/generated/le_gen_assets.h"
 
 #include "gfx/legato/generated/screen/le_gen_screen_Screen0.h"
+#include "gfx/legato/generated/screen/le_gen_screen_Screen1.h"
+#include "gfx/legato/generated/screen/le_gen_screen_Screen2.h"
+#include "gfx/legato/generated/screen/le_gen_screen_Screen3.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -16,6 +19,9 @@ extern "C" {
 
 // screen IDs
 #define screenID_Screen0    0
+#define screenID_Screen1    1
+#define screenID_Screen2    2
+#define screenID_Screen3    3
 
 void legato_initialize(void);
 

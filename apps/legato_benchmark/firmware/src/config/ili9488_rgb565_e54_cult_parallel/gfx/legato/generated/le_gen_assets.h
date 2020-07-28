@@ -63,52 +63,360 @@ extern const lePalette leGlobalPalette;
  *****************************************************************************/
 /*********************************
  * Legato Image Asset
- * Name:   MHGC_170x170
- * Size:   170x170 pixels
+ * Name:   RAW_GFX_mchp_200x200
+ * Size:   200x200 pixels
  * Type:   RGB Data
- * Format: RGB_888
+ * Format: RGB_565
  ***********************************/
-extern leImage MHGC_170x170;
+extern leImage RAW_GFX_mchp_200x200;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   RAW_GFX_mplab_200x200
+ * Size:   200x200 pixels
+ * Type:   RGB Data
+ * Format: RGB_565
+ ***********************************/
+extern leImage RAW_GFX_mplab_200x200;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   RAW_GFX_mchp_100x100
+ * Size:   100x100 pixels
+ * Type:   RGB Data
+ * Format: RGB_565
+ ***********************************/
+extern leImage RAW_GFX_mchp_100x100;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   RAW_GFX_mchp_40x40
+ * Size:   40x40 pixels
+ * Type:   RGB Data
+ * Format: RGB_565
+ ***********************************/
+extern leImage RAW_GFX_mchp_40x40;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   RAW_GFX_mplab_100x100
+ * Size:   100x100 pixels
+ * Type:   RGB Data
+ * Format: RGB_565
+ ***********************************/
+extern leImage RAW_GFX_mplab_100x100;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   RAW_GFX_mplab_40x40
+ * Size:   40x40 pixels
+ * Type:   RGB Data
+ * Format: RGBA_8888
+ ***********************************/
+extern leImage RAW_GFX_mplab_40x40;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   RAWRLE_GFX_mchp_100x100
+ * Size:   100x100 pixels
+ * Type:   RGB Data
+ * Format: RGB_565
+ ***********************************/
+extern leImage RAWRLE_GFX_mchp_100x100;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   RAWRLE_GFX_mchp_200x200
+ * Size:   200x200 pixels
+ * Type:   RGB Data
+ * Format: RGB_565
+ ***********************************/
+extern leImage RAWRLE_GFX_mchp_200x200;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   RAWRLE_GFX_mchp_40x40
+ * Size:   40x40 pixels
+ * Type:   RGB Data
+ * Format: RGB_565
+ ***********************************/
+extern leImage RAWRLE_GFX_mchp_40x40;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   RAWRLE_GFX_mplab_100x100
+ * Size:   100x100 pixels
+ * Type:   RGB Data
+ * Format: RGB_565
+ ***********************************/
+extern leImage RAWRLE_GFX_mplab_100x100;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   RAWRLE_GFX_mplab_200x200
+ * Size:   200x200 pixels
+ * Type:   RGB Data
+ * Format: RGB_565
+ ***********************************/
+extern leImage RAWRLE_GFX_mplab_200x200;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   RAWRLE_GFX_mplab_40x40
+ * Size:   40x40 pixels
+ * Type:   RGB Data
+ * Format: RGB_565
+ ***********************************/
+extern leImage RAWRLE_GFX_mplab_40x40;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   Bar
+ * Size:   480x65 pixels
+ * Type:   RGB Data
+ * Format: RGB_565
+ ***********************************/
+extern leImage Bar;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   HarmonyLogo
+ * Size:   197x139 pixels
+ * Type:   RGB Data
+ * Format: RGB_565
+ ***********************************/
+extern leImage HarmonyLogo;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   MicrochipLogo
+ * Size:   144x39 pixels
+ * Type:   RGB Data
+ * Format: RGB_565
+ ***********************************/
+extern leImage MicrochipLogo;
+
+/*********************************
+ * Legato Image Asset
+ * Name:   PIC32Logo
+ * Size:   240x62 pixels
+ * Type:   RGB Data
+ * Format: RGB_565
+ ***********************************/
+extern leImage PIC32Logo;
 
 /*****************************************************************************
  * Legato Graphics Font Assets
  *****************************************************************************/
 /*********************************
  * Legato Font Asset
- * Name:         NotoSans_Medium
+ * Name:         ArialLarge
  * Height:       21
- * Baseline:     12
- * Style:        Antialias
- * Glyph Count:  28
+ * Baseline:     115
+ * Style:        Plain
+ * Glyph Count:  10
+ * Range Count:  1
+ * Glyph Ranges: 0x30-0x39
+***********************************/
+extern leRasterFont ArialLarge;
+
+/*********************************
+ * Legato Font Asset
+ * Name:         ArialMed
+ * Height:       21
+ * Baseline:     65
+ * Style:        Plain
+ * Glyph Count:  10
+ * Range Count:  1
+ * Glyph Ranges: 0x30-0x39
+***********************************/
+extern leRasterFont ArialMed;
+
+/*********************************
+ * Legato Font Asset
+ * Name:         ArialSmall
+ * Height:       21
+ * Baseline:     35
+ * Style:        Plain
+ * Glyph Count:  10
+ * Range Count:  1
+ * Glyph Ranges: 0x30-0x39
+***********************************/
+extern leRasterFont ArialSmall;
+
+/*********************************
+ * Legato Font Asset
+ * Name:         ArialNarrow
+ * Height:       21
+ * Baseline:     11
+ * Style:        Plain
+ * Glyph Count:  24
+ * Range Count:  13
+ * Glyph Ranges: 0x20
+                 0x3A
+                 0x47
+                 0x49
+                 0x4E-0x50
+                 0x53-0x55
+                 0x64-0x67
+                 0x69
+                 0x6D-0x6E
+                 0x70
+                 0x72
+                 0x74-0x75
+                 0x78-0x7A
+***********************************/
+extern leRasterFont ArialNarrow;
+
+/*********************************
+ * Legato Font Asset
+ * Name:         ArialNarrowMed
+ * Height:       21
+ * Baseline:     26
+ * Style:        Plain
+ * Glyph Count:  14
+ * Range Count:  5
+ * Glyph Ranges: 0x2B
+                 0x2D
+                 0x30-0x39
+                 0x3C
+                 0x3E
+***********************************/
+extern leRasterFont ArialNarrowMed;
+
+/*********************************
+ * Legato Font Asset
+ * Name:         ArialTiny
+ * Height:       21
+ * Baseline:     8
+ * Style:        Plain
+ * Glyph Count:  48
+ * Range Count:  16
+ * Glyph Ranges: 0x20
+                 0x28-0x29
+                 0x2D
+                 0x30-0x3A
+                 0x44-0x48
+                 0x4A
+                 0x4C
+                 0x4E
+                 0x50
+                 0x52-0x53
+                 0x55
+                 0x61-0x66
+                 0x68-0x69
+                 0x6C-0x70
+                 0x72-0x75
+                 0x77-0x7A
+***********************************/
+extern leRasterFont ArialTiny;
+
+/*********************************
+ * Legato Font Asset
+ * Name:         ArialTitle
+ * Height:       21
+ * Baseline:     10
+ * Style:        Plain
+ * Glyph Count:  20
  * Range Count:  12
  * Glyph Ranges: 0x20
-                 0x2E
-                 0x41-0x43
-                 0x47-0x48
-                 0x4C-0x4D
-                 0x50
-                 0x52
+                 0x46
+                 0x49
+                 0x4D
+                 0x52-0x53
+                 0x55
                  0x61
-                 0x63-0x69
-                 0x6D-0x70
-                 0x72-0x75
-                 0x79
+                 0x64-0x65
+                 0x67
+                 0x69
+                 0x6C-0x70
+                 0x72-0x74
 ***********************************/
-extern leRasterFont NotoSans_Medium;
+extern leRasterFont ArialTitle;
+
+/*********************************
+ * Legato Font Asset
+ * Name:         ArialLittle
+ * Height:       21
+ * Baseline:     14
+ * Style:        Plain
+ * Glyph Count:  18
+ * Range Count:  8
+ * Glyph Ranges: 0x20
+                 0x2D
+                 0x30-0x39
+                 0x61
+                 0x63
+                 0x67
+                 0x72
+                 0x75-0x76
+***********************************/
+extern leRasterFont ArialLittle;
+
+/*********************************
+ * Legato Font Asset
+ * Name:         ArialLittleItalics
+ * Height:       21
+ * Baseline:     0
+ * Style:        Plain
+ * Glyph Count:  0
+ * Range Count:  0
+ * Glyph Ranges: ***********************************/
+extern leRasterFont ArialLittleItalics;
+
+/*********************************
+ * Legato Font Asset
+ * Name:         ArialTinyAve
+ * Height:       21
+ * Baseline:     6
+ * Style:        Plain
+ * Glyph Count:  1
+ * Range Count:  1
+ * Glyph Ranges: 0x61
+***********************************/
+extern leRasterFont ArialTinyAve;
 
 /*****************************************************************************
  * Legato String Table
  * Encoding        ASCII
  * Language Count: 1
- * String Count:   2
+ * String Count:   30
  *****************************************************************************/
 
 // language IDs
 #define language_default    0
 
 // string IDs
-#define stringID_MPLABHarmonyComposer    0
-#define stringID_ModifyRegenerateRun    1
+#define stringID_NumsMed    0
+#define stringID_Fullscreen    1
+#define stringID_ave    2
+#define stringID_GPUOff    3
+#define stringID_ImageType    4
+#define stringID_NumsLittle    5
+#define stringID_JPG24Bit    6
+#define stringID_Minus    7
+#define stringID_MotionUpdates    8
+#define stringID_PNG8888    9
+#define stringID_PreProcessedBlit    10
+#define stringID_ImageRendering    11
+#define stringID_NextSymbol    12
+#define stringID_GPUOn    13
+#define stringID_FPS    14
+#define stringID_NumsLarge    15
+#define stringID_RawRLE565    16
+#define stringID_RefreshRateCount    17
+#define stringID_Raw565    18
+#define stringID_StringSize    19
+#define stringID_Previous    20
+#define stringID_RefreshRate    21
+#define stringID_Next    22
+#define stringID_RectanglesNum    23
+#define stringID_Plus    24
+#define stringID_FPSCountString    25
+#define stringID_DynamicString    26
+#define stringID_NumsTiny    27
+#define stringID_Size    28
+#define stringID_NumsSmall    29
 
 extern const leStringTable stringTable;
 

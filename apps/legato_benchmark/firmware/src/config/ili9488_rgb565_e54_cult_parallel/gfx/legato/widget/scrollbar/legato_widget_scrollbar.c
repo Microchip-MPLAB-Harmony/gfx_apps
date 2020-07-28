@@ -191,7 +191,7 @@ void leScrollBarWidget_Constructor(leScrollBarWidget* _this)
 
     _this->state = LE_SCROLLBAR_STATE_NONE;
 
-    _this->widget..status.borderType = LE_WIDGET_BORDER_BEVEL;
+    _this->widget.style.borderType = LE_WIDGET_BORDER_BEVEL;
 
     _this->alignment = LE_ORIENTATION_VERTICAL;
     
@@ -387,8 +387,8 @@ static leResult stepBackward(leScrollBarWidget* _this)
         
     _invalidateHandleRect(_this);
         
-    if(_this->value - _this->step < DEFAULT_MIN ||
-       _this->value - _this->step > _this->max)
+    if(((int32_t)_this->value - (int32_t)_this->step) < DEFAULT_MIN ||
+       ((int32_t)_this->value - (int32_t)_this->step) > (int32_t)_this->max)
     {
         _this->value = DEFAULT_MIN;
     }
@@ -415,9 +415,9 @@ static leResult stepForward(leScrollBarWidget* _this)
         return LE_FAILURE;
         
     _invalidateHandleRect(_this);
-        
-    if(_this->value + _this->step < DEFAULT_MIN ||
-       _this->value + _this->step > _this->max)
+
+    if(((int32_t)_this->value - (int32_t)_this->step) < DEFAULT_MIN ||
+        ((int32_t)_this->value - (int32_t)_this->step) > (int32_t)_this->max)
     {
         _this->value = _this->max;
     }

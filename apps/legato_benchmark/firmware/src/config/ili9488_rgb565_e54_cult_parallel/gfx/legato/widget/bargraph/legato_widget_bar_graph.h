@@ -120,6 +120,12 @@ typedef struct leBarGraphDataSeries
     leBarGraphValueAxis axis;
 } leBarGraphDataSeries;
 
+typedef struct leBarGraphCategory
+{
+    const leString* str;
+    uint32_t drawX;
+} leBarGraphCategory;
+
 /* internal use only */
 /**
   * @cond INTERNAL
