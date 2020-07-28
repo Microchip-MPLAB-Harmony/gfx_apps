@@ -74,6 +74,7 @@ static void nextState(leGradientWidget* grad)
                 return;
             }
         }
+        // fall through
         case DRAW_BACKGROUND:
         {
             if(grad->widget.style.borderType != LE_WIDGET_BORDER_NONE)
@@ -84,6 +85,7 @@ static void nextState(leGradientWidget* grad)
                 return;
             }
         }
+        // fall through
         case DRAW_BORDER:
         {
             grad->widget.status.drawState = DONE;

@@ -130,8 +130,6 @@ typedef enum leCircularSliderWidgetArcType
 typedef struct leCircularSliderArc
 {
     leBool visible;
-    int32_t startAngle;
-    int32_t centerAngle;
     uint32_t radius;
     uint32_t thickness;
     const leScheme* scheme;
@@ -191,8 +189,10 @@ typedef void (*leCircularSliderWidget_ReleasedEvent)(leCircularSliderWidget *, i
     \
     uint32_t                 (*getRadius)(const THIS_TYPE* _this); \
     leResult                 (*setRadius)(THIS_TYPE* _this, uint32_t rad); \
-    uint32_t                 (*getStartAngle)(const THIS_TYPE* _this); \
-    leResult                 (*setStartAngle)(THIS_TYPE* _this, uint32_t ang); \
+    int32_t                  (*getStartAngle)(const THIS_TYPE* _this); \
+    leResult                 (*setStartAngle)(THIS_TYPE* _this, int32_t ang); \
+    int32_t                  (*getSpanAngle)(const THIS_TYPE* _this); \
+    leResult                 (*setSpanAngle)(THIS_TYPE* _this, int32_t ang); \
     uint32_t                 (*getArcThickness)(const THIS_TYPE* _this, leCircularSliderWidgetArcType type); \
     leResult                 (*setArcThickness)(THIS_TYPE* _this, leCircularSliderWidgetArcType type, uint32_t thck); \
     uint32_t                 (*getArcRadius)(const THIS_TYPE* _this, leCircularSliderWidgetArcType type); \
@@ -201,16 +201,14 @@ typedef void (*leCircularSliderWidget_ReleasedEvent)(leCircularSliderWidget *, i
     leResult                 (*setArcScheme)(THIS_TYPE* _this, leCircularSliderWidgetArcType type, const leScheme* schm); \
     leBool                   (*getArcVisible)(const THIS_TYPE* _this, leCircularSliderWidgetArcType type); \
     leResult                 (*setArcVisible)(THIS_TYPE* _this, leCircularSliderWidgetArcType type, leBool vis); \
-    uint32_t                 (*getStartValue)(const THIS_TYPE* _this); \
-    leResult                 (*setStartValue)(THIS_TYPE* _this, uint32_t val); \
-    uint32_t                 (*getEndValue)(const THIS_TYPE* _this); \
-    leResult                 (*setEndValue)(THIS_TYPE* _this, uint32_t val); \
     uint32_t                 (*getValue)(const THIS_TYPE* _this); \
     leResult                 (*setValue)(THIS_TYPE* _this, uint32_t val); \
     leBool                   (*getRoundEdges)(const THIS_TYPE* _this); \
     leResult                 (*setRoundEdges)(THIS_TYPE* _this, leBool rnd); \
     leBool                   (*getStickyButton)(const THIS_TYPE* _this); \
     leResult                 (*setStickyButton)(THIS_TYPE* _this, leBool stk); \
+    uint32_t                 (*getSnapDivisions)(const THIS_TYPE* _this); \
+    leResult                 (*setSnapDivisions)(THIS_TYPE* _this, uint32_t div); \
     leBool                   (*getTouchOnButtonOnly)(const THIS_TYPE* _this); \
     leResult                 (*setTouchOnButtonOnly)(THIS_TYPE* _this, leBool tch); \
     leRotationDirection      (*getDirection)(const THIS_TYPE* _this); \
@@ -254,15 +252,14 @@ typedef struct leCircularSliderWidget
 
     uint32_t radius; // the radius of the slider
 
-    uint32_t startAngle; //the start angle of the slider
+    int32_t startAngle; //the start angle of the slider
+    int32_t spanAngle;  //the span angle of the slider
 
     uint32_t value;      //the value of the slider
-    uint32_t startValue; //the start value of the slider
-    uint32_t endValue;   //the end value of the slider
-    float degPerUnit;   //degrees per unit in the slider
 
     leBool roundEdges; //round edges
     leBool sticky; //snaps to start value before wrapping around
+    uint32_t snapDivisions;
     leBool buttonTouch; //only button is active to touch
 
     leRotationDirection direction;    //the direction of the slider

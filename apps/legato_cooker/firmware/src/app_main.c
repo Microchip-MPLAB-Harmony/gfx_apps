@@ -137,11 +137,11 @@ static void updateClock(void)
     //create the time character string from hr, min, sec variables
     sprintf(charBuff, "%02u", clock_hr); 
     hrStr.fn->setFromCStr(&hrStr, charBuff);    
-    HourLabel->fn->setString(HourLabel, (leString*)&hrStr);   
+    MainMenu_HourLabel->fn->setString(MainMenu_HourLabel, (leString*)&hrStr);   
     
     sprintf(charBuff, "%02u", clock_min); 
     minStr.fn->setFromCStr(&minStr, charBuff);    
-    MinuteLabel->fn->setString(MinuteLabel, (leString*)&minStr);   
+    MainMenu_MinuteLabel->fn->setString(MainMenu_MinuteLabel, (leString*)&minStr);   
 }
 
 static void startMode(OPERATION_MODE new_mode)
@@ -174,22 +174,22 @@ static void Timer_Callback ( uintptr_t context)
                         demo_mode_event_idx + 1 : 0;
             }
             
-            DemoModeOnButton->fn->setVisible(DemoModeOnButton, sec_count%2);
+            MainMenu_DemoModeOnButton->fn->setVisible(MainMenu_DemoModeOnButton, sec_count%2);
         }
         else
         {
-            DemoModeOnButton->fn->setVisible(DemoModeOnButton, LE_TRUE);
+            MainMenu_DemoModeOnButton->fn->setVisible(MainMenu_DemoModeOnButton, LE_TRUE);
         }
     
         if (clock_dot_visible == true)
         {
             clock_dot_visible = false;
-            ColonLabel->fn->setVisible(ColonLabel, LE_FALSE);
+            MainMenu_ColonLabel->fn->setVisible(MainMenu_ColonLabel, LE_FALSE);
         }
         else
         {
             clock_dot_visible = true;
-            ColonLabel->fn->setVisible(ColonLabel, LE_TRUE);
+            MainMenu_ColonLabel->fn->setVisible(MainMenu_ColonLabel, LE_TRUE);
         }
 
         updateClock();
@@ -211,19 +211,19 @@ void main_screen_show(void)
 static bool show_main_menu(bool show)
 {
     leBool lshow = (show == true) ? LE_TRUE : LE_FALSE;
-    leScheme* scheme = (show == true) ? &WhiteTextScheme : &OffWhiteTextScheme;
+    const leScheme* scheme = (show == true) ? &WhiteTextScheme : &OffWhiteTextScheme;
     
-    MainPanel->fn->setVisible(MainPanel, lshow);
-    PanelWidget3->fn->setVisible(PanelWidget3, lshow);
-    ImageWidget1->fn->setVisible(ImageWidget1, lshow);
-    ImageWidget2->fn->setVisible(ImageWidget2, lshow);
-    ImageWidget3->fn->setVisible(ImageWidget3, lshow);
-    ImageWidget4->fn->setVisible(ImageWidget4, lshow);
-    ImageWidget8->fn->setVisible(ImageWidget8, lshow);
+    MainMenu_MainPanel->fn->setVisible(MainMenu_MainPanel, lshow);
+    MainMenu_PanelWidget3->fn->setVisible(MainMenu_PanelWidget3, lshow);
+    MainMenu_ImageWidget1->fn->setVisible(MainMenu_ImageWidget1, lshow);
+    MainMenu_ImageWidget2->fn->setVisible(MainMenu_ImageWidget2, lshow);
+    MainMenu_ImageWidget3->fn->setVisible(MainMenu_ImageWidget3, lshow);
+    MainMenu_ImageWidget4->fn->setVisible(MainMenu_ImageWidget4, lshow);
+    MainMenu_ImageWidget8->fn->setVisible(MainMenu_ImageWidget8, lshow);
     
-    HourLabel->fn->setScheme(HourLabel, scheme);
-    ColonLabel->fn->setScheme(ColonLabel, scheme);
-    MinuteLabel->fn->setScheme(MinuteLabel, scheme);
+    MainMenu_HourLabel->fn->setScheme(MainMenu_HourLabel, scheme);
+    MainMenu_ColonLabel->fn->setScheme(MainMenu_ColonLabel, scheme);
+    MainMenu_MinuteLabel->fn->setScheme(MainMenu_MinuteLabel, scheme);
     
     return true;
 }
@@ -283,22 +283,22 @@ void MainMenu_OnShow(void)
 {
     leFixedString_Constructor(&hrStr, hrStrBuff, 16);
     hrStr.fn->setFont(&hrStr, leStringTable_GetStringFont(leGetState()->stringTable,
-                                                              string_DefaultMinute,
+                                                              stringID_DefaultMinute,
                                                               0));    
     
     leFixedString_Constructor(&minStr, minStrBuff, 16);
     minStr.fn->setFont(&minStr, leStringTable_GetStringFont(leGetState()->stringTable,
-                                                              string_DefaultMinute,
+                                                              stringID_DefaultMinute,
                                                               0));
     
     leFixedString_Constructor(&progressStr, progressStrBuff, 16);
     progressStr.fn->setFont(&progressStr, leStringTable_GetStringFont(leGetState()->stringTable,
-                                                              string_DefaultCookTime,
+                                                              stringID_DefaultCookTime,
                                                               0));
     
-    DemoModeOnButton->fn->setPressed(DemoModeOnButton, (leBool) (demo_mode_on == false));
+    MainMenu_DemoModeOnButton->fn->setPressed(MainMenu_DemoModeOnButton, (leBool) (demo_mode_on == false));
     
-    SliderButton0->fn->installEventFilter(SliderButton0, main_eventFilter);
+    MainMenu_SliderButton0->fn->installEventFilter(MainMenu_SliderButton0, main_eventFilter);
 }
 
 void MainMenu_OnHide(void)
@@ -368,29 +368,29 @@ void MainMenu_OnUpdate(void)
         case MAIN_MENU_PREPARE_PROGRESS_SCENE2:
         {
             //Prepare to show progress panel
-            PanelWidget0->fn->setX(PanelWidget0, 0);   
+            MainMenu_PanelWidget0->fn->setX(MainMenu_PanelWidget0, 0);   
             
             //Restore and show black rects to hide border
-            RectangleWidget0->fn->setVisible(RectangleWidget0, LE_TRUE);
-            RectangleWidget1->fn->setVisible(RectangleWidget1, LE_TRUE);
-            RectangleWidget2->fn->setVisible(RectangleWidget2, LE_TRUE);
-            RectangleWidget3->fn->setVisible(RectangleWidget3, LE_TRUE); 
-            RectangleWidget0->fn->setWidth(RectangleWidget0, 340);
-            RectangleWidget0->fn->setX(RectangleWidget0, 66);
-            RectangleWidget1->fn->setWidth(RectangleWidget1, 340);
-            RectangleWidget1->fn->setX(RectangleWidget1, 66);
+            MainMenu_RectangleWidget0->fn->setVisible(MainMenu_RectangleWidget0, LE_TRUE);
+            MainMenu_RectangleWidget1->fn->setVisible(MainMenu_RectangleWidget1, LE_TRUE);
+            MainMenu_RectangleWidget2->fn->setVisible(MainMenu_RectangleWidget2, LE_TRUE);
+            MainMenu_RectangleWidget3->fn->setVisible(MainMenu_RectangleWidget3, LE_TRUE); 
+            MainMenu_RectangleWidget0->fn->setWidth(MainMenu_RectangleWidget0, 340);
+            MainMenu_RectangleWidget0->fn->setX(MainMenu_RectangleWidget0, 66);
+            MainMenu_RectangleWidget1->fn->setWidth(MainMenu_RectangleWidget1, 340);
+            MainMenu_RectangleWidget1->fn->setX(MainMenu_RectangleWidget1, 66);
             
             //Reset and hide the progress indicators
-            ProgressBarWidget0->fn->setValue(ProgressBarWidget0, 0);
-            ProgressBarWidget0->fn->setVisible(ProgressBarWidget0, LE_FALSE);
-            CookTimeLabel->fn->setVisible(CookTimeLabel, LE_FALSE);
-            CancelButton->fn->setPressedImage(CancelButton, &cancel_80);
-            CancelButton->fn->setReleasedImage(CancelButton, &cancel_80);            
-            CancelButton->fn->setVisible(CancelButton, LE_FALSE);
+            MainMenu_ProgressBarWidget0->fn->setValue(MainMenu_ProgressBarWidget0, 0);
+            MainMenu_ProgressBarWidget0->fn->setVisible(MainMenu_ProgressBarWidget0, LE_FALSE);
+            MainMenu_CookTimeLabel->fn->setVisible(MainMenu_CookTimeLabel, LE_FALSE);
+            MainMenu_CancelButton->fn->setPressedImage(MainMenu_CancelButton, &cancel_80);
+            MainMenu_CancelButton->fn->setReleasedImage(MainMenu_CancelButton, &cancel_80);            
+            MainMenu_CancelButton->fn->setVisible(MainMenu_CancelButton, LE_FALSE);
             
             //Prepare and Hide the Mode Image
-            ModeImageWidget->fn->setVisible(ModeImageWidget, LE_FALSE);
-            ModeImageWidget->fn->setImage(ModeImageWidget, mode_images[mode]);
+            MainMenu_ModeImageWidget->fn->setVisible(MainMenu_ModeImageWidget, LE_FALSE);
+            MainMenu_ModeImageWidget->fn->setImage(MainMenu_ModeImageWidget, mode_images[mode]);
             
             main_menu_state = MAIN_MENU_PREPARE_PROGRESS_SCENE3;
             
@@ -398,28 +398,28 @@ void MainMenu_OnUpdate(void)
         }
         case MAIN_MENU_PREPARE_PROGRESS_SCENE3:
         {
-            RectangleWidget3->fn->setVisible(RectangleWidget3, LE_FALSE); 
+            MainMenu_RectangleWidget3->fn->setVisible(MainMenu_RectangleWidget3, LE_FALSE); 
             main_menu_state = MAIN_MENU_PREPARE_PROGRESS_SCENE4;
             
             break;
         }
         case MAIN_MENU_PREPARE_PROGRESS_SCENE4:            
         {
-            uint32_t length = RectangleWidget0->fn->getWidth(RectangleWidget0);
-            uint32_t xpos = RectangleWidget0->fn->getX(RectangleWidget0);
+            uint32_t length = MainMenu_RectangleWidget0->fn->getWidth(MainMenu_RectangleWidget0);
+            uint32_t xpos = MainMenu_RectangleWidget0->fn->getX(MainMenu_RectangleWidget0);
 
             if (length > DELTA_RECT_PIX)
             {
-                RectangleWidget0->fn->setWidth(RectangleWidget0, length - DELTA_RECT_PIX);
-                RectangleWidget0->fn->setX(RectangleWidget0, xpos + DELTA_RECT_PIX);
-                RectangleWidget1->fn->setWidth(RectangleWidget1, length - DELTA_RECT_PIX);
-                RectangleWidget1->fn->setX(RectangleWidget1, xpos + DELTA_RECT_PIX);
+                MainMenu_RectangleWidget0->fn->setWidth(MainMenu_RectangleWidget0, length - DELTA_RECT_PIX);
+                MainMenu_RectangleWidget0->fn->setX(MainMenu_RectangleWidget0, xpos + DELTA_RECT_PIX);
+                MainMenu_RectangleWidget1->fn->setWidth(MainMenu_RectangleWidget1, length - DELTA_RECT_PIX);
+                MainMenu_RectangleWidget1->fn->setX(MainMenu_RectangleWidget1, xpos + DELTA_RECT_PIX);
             }
             else
             {
-                RectangleWidget0->fn->setVisible(RectangleWidget0, LE_FALSE);
-                RectangleWidget1->fn->setVisible(RectangleWidget1, LE_FALSE);
-                RectangleWidget1->fn->setVisible(RectangleWidget2, LE_FALSE);
+                MainMenu_RectangleWidget0->fn->setVisible(MainMenu_RectangleWidget0, LE_FALSE);
+                MainMenu_RectangleWidget1->fn->setVisible(MainMenu_RectangleWidget1, LE_FALSE);
+                MainMenu_RectangleWidget1->fn->setVisible(MainMenu_RectangleWidget2, LE_FALSE);
                 
                 main_menu_state = MAIN_MENU_PREPARE_PROGRESS_SCENE5;
             }
@@ -428,33 +428,33 @@ void MainMenu_OnUpdate(void)
         }
         case MAIN_MENU_PREPARE_PROGRESS_SCENE5:
         {
-            width = ProgressBarWidget0->fn->getWidth(ProgressBarWidget0);
-            x = ProgressBarWidget0->fn->getX(ProgressBarWidget0);
+            width = MainMenu_ProgressBarWidget0->fn->getWidth(MainMenu_ProgressBarWidget0);
+            x = MainMenu_ProgressBarWidget0->fn->getX(MainMenu_ProgressBarWidget0);
                         
-            ProgressBarWidget0->fn->setVisible(ProgressBarWidget0, LE_TRUE);
-            ProgressBarWidget0->fn->setValue(ProgressBarWidget0, 0);       
+            MainMenu_ProgressBarWidget0->fn->setVisible(MainMenu_ProgressBarWidget0, LE_TRUE);
+            MainMenu_ProgressBarWidget0->fn->setValue(MainMenu_ProgressBarWidget0, 0);       
             
-            ProgressBarWidget0->fn->setX(ProgressBarWidget0, x + (width*3)/8);
-            ProgressBarWidget0->fn->setWidth(ProgressBarWidget0, width/4);
+            MainMenu_ProgressBarWidget0->fn->setX(MainMenu_ProgressBarWidget0, x + (width*3)/8);
+            MainMenu_ProgressBarWidget0->fn->setWidth(MainMenu_ProgressBarWidget0, width/4);
             
             main_menu_state = MAIN_MENU_PREPARE_PROGRESS_SCENE6;
             break;
         }        
         case MAIN_MENU_PREPARE_PROGRESS_SCENE6:
         {
-            width = ProgressBarWidget0->fn->getWidth(ProgressBarWidget0);
-            x = ProgressBarWidget0->fn->getX(ProgressBarWidget0);
+            width = MainMenu_ProgressBarWidget0->fn->getWidth(MainMenu_ProgressBarWidget0);
+            x = MainMenu_ProgressBarWidget0->fn->getX(MainMenu_ProgressBarWidget0);
             
             if (width < 280 - PROGRESS_BAR_BLOCK_EXTEND)
             {
-                ProgressBarWidget0->fn->setWidth(ProgressBarWidget0, 
+                MainMenu_ProgressBarWidget0->fn->setWidth(MainMenu_ProgressBarWidget0, 
                                             width + PROGRESS_BAR_BLOCK_EXTEND);
-                ProgressBarWidget0->fn->setX(ProgressBarWidget0, x - PROGRESS_BAR_BLOCK_EXTEND/2);
+                MainMenu_ProgressBarWidget0->fn->setX(MainMenu_ProgressBarWidget0, x - PROGRESS_BAR_BLOCK_EXTEND/2);
             }
             else
             {
-                ProgressBarWidget0->fn->setWidth(ProgressBarWidget0, 280);
-                ProgressBarWidget0->fn->setX(ProgressBarWidget0, 104);
+                MainMenu_ProgressBarWidget0->fn->setWidth(MainMenu_ProgressBarWidget0, 280);
+                MainMenu_ProgressBarWidget0->fn->setX(MainMenu_ProgressBarWidget0, 104);
                 main_menu_state = MAIN_MENU_PREPARE_PROGRESS_SCENE7;
             }
             
@@ -462,15 +462,15 @@ void MainMenu_OnUpdate(void)
         }
         case MAIN_MENU_PREPARE_PROGRESS_SCENE7:
         {
-            CookTimeLabel->fn->setVisible(CookTimeLabel, LE_TRUE);
+            MainMenu_CookTimeLabel->fn->setVisible(MainMenu_CookTimeLabel, LE_TRUE);
             
             main_menu_state = MAIN_MENU_PREPARE_PROGRESS_SCENE8;
             break;
         }        
         case MAIN_MENU_PREPARE_PROGRESS_SCENE8:
         {
-            ModeImageWidget->fn->setVisible(ModeImageWidget, LE_TRUE);  
-            CancelButton->fn->setVisible(CancelButton, LE_TRUE);            
+            MainMenu_ModeImageWidget->fn->setVisible(MainMenu_ModeImageWidget, LE_TRUE);  
+            MainMenu_CancelButton->fn->setVisible(MainMenu_CancelButton, LE_TRUE);            
             cookSec = COOK_TIME_SECS;
                         
             main_menu_state = MAIN_MENU_PROCESS_PROGRESS_SCENE;
@@ -503,10 +503,10 @@ void MainMenu_OnUpdate(void)
             
                     sprintf(charBuff, "%u:%02u", cookSec/60, cookSec%60); 
                     progressStr.fn->setFromCStr(&progressStr, charBuff);    
-                    CookTimeLabel->fn->setString(CookTimeLabel, (leString*)&progressStr);    
-                    ProgressBarWidget0->fn->setValue(ProgressBarWidget0, event_parm);
+                    MainMenu_CookTimeLabel->fn->setString(MainMenu_CookTimeLabel, (leString*)&progressStr);    
+                    MainMenu_ProgressBarWidget0->fn->setValue(MainMenu_ProgressBarWidget0, event_parm);
                     
-                    CookTimeLabel->fn->setVisible(CookTimeLabel, LE_TRUE);
+                    MainMenu_CookTimeLabel->fn->setVisible(MainMenu_CookTimeLabel, LE_TRUE);
                     
                     event = EVENT_NONE;
                     
@@ -522,9 +522,9 @@ void MainMenu_OnUpdate(void)
                 {
                             sprintf(charBuff, "%u:%02u", cookSec/60, cookSec%60); 
                             progressStr.fn->setFromCStr(&progressStr, charBuff);    
-                    CookTimeLabel->fn->setString(CookTimeLabel, (leString*)&progressStr);                       
+                    MainMenu_CookTimeLabel->fn->setString(MainMenu_CookTimeLabel, (leString*)&progressStr);                       
                     
-                    ProgressBarWidget0->fn->setValue(ProgressBarWidget0, 
+                    MainMenu_ProgressBarWidget0->fn->setValue(MainMenu_ProgressBarWidget0, 
                                         100 - (100 * cookSec) / COOK_TIME_SECS);
                     
                     cookSec--;
@@ -534,12 +534,12 @@ void MainMenu_OnUpdate(void)
                 {
                     cookSec = COOK_TIME_SECS;
                     
-                    ProgressBarWidget0->fn->setValue(ProgressBarWidget0, 100);
+                    MainMenu_ProgressBarWidget0->fn->setValue(MainMenu_ProgressBarWidget0, 100);
                             sprintf(charBuff, "Done"); 
                             progressStr.fn->setFromCStr(&progressStr, charBuff);    
-                    CookTimeLabel->fn->setString(CookTimeLabel, (leString*)&progressStr);   
-                    CancelButton->fn->setPressedImage(CancelButton, &ok_80);
-                    CancelButton->fn->setReleasedImage(CancelButton, &ok_80);
+                    MainMenu_CookTimeLabel->fn->setString(MainMenu_CookTimeLabel, (leString*)&progressStr);   
+                    MainMenu_CancelButton->fn->setPressedImage(MainMenu_CancelButton, &ok_80);
+                    MainMenu_CancelButton->fn->setReleasedImage(MainMenu_CancelButton, &ok_80);
                     main_menu_state = MAIN_MENU_DONE_PROGRESS_SCENE; 
                 }
             }
@@ -556,10 +556,10 @@ void MainMenu_OnUpdate(void)
             
             if (last_sec_count != sec_count)
             {
-                if (CookTimeLabel->fn->getVisible(CookTimeLabel) == LE_TRUE)
-                    CookTimeLabel->fn->setVisible(CookTimeLabel, LE_FALSE);
+                if (MainMenu_CookTimeLabel->fn->getVisible(MainMenu_CookTimeLabel) == LE_TRUE)
+                    MainMenu_CookTimeLabel->fn->setVisible(MainMenu_CookTimeLabel, LE_FALSE);
                 else
-                    CookTimeLabel->fn->setVisible(CookTimeLabel, LE_TRUE);
+                    MainMenu_CookTimeLabel->fn->setVisible(MainMenu_CookTimeLabel, LE_TRUE);
                 
                 last_sec_count = sec_count;
             }
@@ -571,7 +571,7 @@ void MainMenu_OnUpdate(void)
                     if (main_menu_state == MAIN_MENU_IDLE_PROGRESS_SCENE)
                     {
                         main_menu_state = MAIN_MENU_PROCESS_PROGRESS_SCENE;
-                        CookTimeLabel->fn->setVisible(CookTimeLabel, LE_TRUE);                        
+                        MainMenu_CookTimeLabel->fn->setVisible(MainMenu_CookTimeLabel, LE_TRUE);                        
                     }
                     
                     event = EVENT_NONE;
@@ -590,16 +590,16 @@ void MainMenu_OnUpdate(void)
             
                     sprintf(charBuff, "%u:%02u", cookSec/60, cookSec%60); 
                     progressStr.fn->setFromCStr(&progressStr, charBuff);    
-                    CookTimeLabel->fn->setString(CookTimeLabel, (leString*)&progressStr);    
-                    ProgressBarWidget0->fn->setValue(ProgressBarWidget0, event_parm);
+                    MainMenu_CookTimeLabel->fn->setString(MainMenu_CookTimeLabel, (leString*)&progressStr);    
+                    MainMenu_ProgressBarWidget0->fn->setValue(MainMenu_ProgressBarWidget0, event_parm);
                     
-                    CookTimeLabel->fn->setVisible(CookTimeLabel, LE_TRUE);
+                    MainMenu_CookTimeLabel->fn->setVisible(MainMenu_CookTimeLabel, LE_TRUE);
                     
                     //cook time has been adjusted, switch back to idle/paused state
                     if (main_menu_state == MAIN_MENU_DONE_PROGRESS_SCENE)
                     {
-                        CancelButton->fn->setPressedImage(CancelButton, &cancel_80);
-                        CancelButton->fn->setReleasedImage(CancelButton, &cancel_80);  
+                        MainMenu_CancelButton->fn->setPressedImage(MainMenu_CancelButton, &cancel_80);
+                        MainMenu_CancelButton->fn->setReleasedImage(MainMenu_CancelButton, &cancel_80);  
                         main_menu_state = MAIN_MENU_PROCESS_PROGRESS_SCENE;
                     }
                     
@@ -615,42 +615,42 @@ void MainMenu_OnUpdate(void)
         }
         case MAIN_MENU_EXIT_PROGRESS_SCENE1:
         {
-            ModeImageWidget->fn->setVisible(ModeImageWidget, LE_FALSE);  
-            CancelButton->fn->setVisible(CancelButton, LE_FALSE);   
+            MainMenu_ModeImageWidget->fn->setVisible(MainMenu_ModeImageWidget, LE_FALSE);  
+            MainMenu_CancelButton->fn->setVisible(MainMenu_CancelButton, LE_FALSE);   
             main_menu_state = MAIN_MENU_EXIT_PROGRESS_SCENE2;
             
             break;
         }
         case MAIN_MENU_EXIT_PROGRESS_SCENE2:
         {
-            width = ProgressBarWidget0->fn->getWidth(ProgressBarWidget0);
-            x = ProgressBarWidget0->fn->getX(ProgressBarWidget0);
+            width = MainMenu_ProgressBarWidget0->fn->getWidth(MainMenu_ProgressBarWidget0);
+            x = MainMenu_ProgressBarWidget0->fn->getX(MainMenu_ProgressBarWidget0);
             
             if (width > PROGRESS_BAR_BLOCK_EXTEND)
             {
-                ProgressBarWidget0->fn->setWidth(ProgressBarWidget0, 
+                MainMenu_ProgressBarWidget0->fn->setWidth(MainMenu_ProgressBarWidget0, 
                                             width - PROGRESS_BAR_BLOCK_EXTEND);
-                ProgressBarWidget0->fn->setX(ProgressBarWidget0, x + PROGRESS_BAR_BLOCK_EXTEND/2);
+                MainMenu_ProgressBarWidget0->fn->setX(MainMenu_ProgressBarWidget0, x + PROGRESS_BAR_BLOCK_EXTEND/2);
             }
             else
             {
                 char charBuff[16] = {0}; 
                 
-                ProgressBarWidget0->fn->setWidth(ProgressBarWidget0, 0);
-                ProgressBarWidget0->fn->setVisible(ProgressBarWidget0, LE_FALSE);
+                MainMenu_ProgressBarWidget0->fn->setWidth(MainMenu_ProgressBarWidget0, 0);
+                MainMenu_ProgressBarWidget0->fn->setVisible(MainMenu_ProgressBarWidget0, LE_FALSE);
                 
                 sprintf(charBuff, "2:00"); 
                 progressStr.fn->setFromCStr(&progressStr, charBuff);    
-                CookTimeLabel->fn->setString(CookTimeLabel, (leString*)&progressStr);                       
+                MainMenu_CookTimeLabel->fn->setString(MainMenu_CookTimeLabel, (leString*)&progressStr);                       
                                     
-                CookTimeLabel->fn->setVisible(CookTimeLabel, LE_FALSE);   
+                MainMenu_CookTimeLabel->fn->setVisible(MainMenu_CookTimeLabel, LE_FALSE);   
                 main_menu_state = MAIN_MENU_EXIT_PROGRESS_SCENE3;
             }
             break;
         }
         case MAIN_MENU_EXIT_PROGRESS_SCENE3:
         {
-            PanelWidget0->fn->setX(PanelWidget0, 480); 
+            MainMenu_PanelWidget0->fn->setX(MainMenu_PanelWidget0, 480); 
             
             main_menu_state = MAIN_MENU_EXIT_PROGRESS_SCENE4;
             
@@ -658,24 +658,24 @@ void MainMenu_OnUpdate(void)
         }
         case MAIN_MENU_EXIT_PROGRESS_SCENE4:
         {
-            ImageWidget1->fn->setVisible(ImageWidget1, LE_TRUE);
-            ImageWidget8->fn->setVisible(ImageWidget8, LE_TRUE);  
+            MainMenu_ImageWidget1->fn->setVisible(MainMenu_ImageWidget1, LE_TRUE);
+            MainMenu_ImageWidget8->fn->setVisible(MainMenu_ImageWidget8, LE_TRUE);  
             
             main_menu_state = MAIN_MENU_EXIT_PROGRESS_SCENE5;
             break;
         }
         case MAIN_MENU_EXIT_PROGRESS_SCENE5:
         {
-            ImageWidget3->fn->setVisible(ImageWidget3, LE_TRUE);
-            ImageWidget4->fn->setVisible(ImageWidget4, LE_TRUE);
-            PanelWidget3->fn->setVisible(PanelWidget3, LE_TRUE);
+            MainMenu_ImageWidget3->fn->setVisible(MainMenu_ImageWidget3, LE_TRUE);
+            MainMenu_ImageWidget4->fn->setVisible(MainMenu_ImageWidget4, LE_TRUE);
+            MainMenu_PanelWidget3->fn->setVisible(MainMenu_PanelWidget3, LE_TRUE);
                 
             main_menu_state = MAIN_MENU_EXIT_PROGRESS_SCENE6;
             break;
         }
         case MAIN_MENU_EXIT_PROGRESS_SCENE6:
         {
-            ImageWidget2->fn->setVisible(ImageWidget2, LE_TRUE);
+            MainMenu_ImageWidget2->fn->setVisible(MainMenu_ImageWidget2, LE_TRUE);
             
             main_menu_state = MAIN_MENU_EXIT_PROGRESS_SCENE7;
             
@@ -683,7 +683,7 @@ void MainMenu_OnUpdate(void)
         }
         case MAIN_MENU_EXIT_PROGRESS_SCENE7:
         {
-            MainPanel->fn->setVisible(MainPanel, LE_TRUE); 
+            MainMenu_MainPanel->fn->setVisible(MainMenu_MainPanel, LE_TRUE); 
             
             main_menu_state = MAIN_MENU_SHOW_MAIN;
             
@@ -691,9 +691,9 @@ void MainMenu_OnUpdate(void)
         }        
         case MAIN_MENU_SHOW_MAIN:
         {
-            HourLabel->fn->setScheme(HourLabel, &WhiteTextScheme);
-            ColonLabel->fn->setScheme(ColonLabel, &WhiteTextScheme);
-            MinuteLabel->fn->setScheme(MinuteLabel, &WhiteTextScheme);            
+            MainMenu_ColonLabel->fn->setScheme(MainMenu_ColonLabel, &WhiteTextScheme);
+            MainMenu_HourLabel->fn->setScheme(MainMenu_HourLabel, &WhiteTextScheme);
+            MainMenu_MinuteLabel->fn->setScheme(MainMenu_MinuteLabel, &WhiteTextScheme);            
             
             main_menu_state = MAIN_MENU_PROCESS;
             
@@ -702,7 +702,7 @@ void MainMenu_OnUpdate(void)
         case MAIN_MENU_CHANGE_SCREEN:
         {
     
-            SliderButton0->fn->removeEventFilter(SliderButton0, main_eventFilter);
+            MainMenu_SliderButton0->fn->removeEventFilter(MainMenu_SliderButton0, main_eventFilter);
     
             SYS_TIME_TimerDestroy(timer);
 
@@ -724,56 +724,56 @@ void MainMenu_OnUpdate(void)
     }
 }
 
-void ListWheelWidget2_OnSelectionChanged(leListWheelWidget* lst, int32_t idx)
+void event_MainMenu_ListWheelWidget2_OnSelectionChanged(leListWheelWidget* lst, int32_t idx)
 {
-    ImageWidget8->fn->setImage(ImageWidget8, smart_favorites_images[idx]);
+    MainMenu_ImageWidget8->fn->setImage(MainMenu_ImageWidget8, smart_favorites_images[idx]);
 }
 
-void BakeButton_OnReleased(leButtonWidget* btn)
+void event_MainMenu_BakeButton_OnReleased(leButtonWidget* btn)
 {
     startMode(BAKE_MODE);
 }
 
-void CookButton_OnReleased(leButtonWidget* btn)
+void event_MainMenu_CookButton_OnReleased(leButtonWidget* btn)
 {
     startMode(COOK_MODE);
 }
 
-void BroilButton_OnReleased(leButtonWidget* btn)
+void event_MainMenu_BroilButton_OnReleased(leButtonWidget* btn)
 {
     startMode(BROIL_MODE);
 }
 
-void ReheatButton_OnReleased(leButtonWidget* btn)
+void event_MainMenu_ReheatButton_OnReleased(leButtonWidget* btn)
 {
     startMode(REHEAT_MODE);
 }
 
-void CancelButton_OnReleased(leButtonWidget* btn)
+void event_MainMenu_CancelButton_OnReleased(leButtonWidget* btn)
 {
     main_send_event(EVENT_STOP_COOKING);
 }
 
-void RestartButton_OnPressed(leButtonWidget* btn)
+void event_MainMenu_RestartButton_OnPressed(leButtonWidget* btn)
 {
     main_send_event(EVENT_PAUSE_COOKING);
 }
 
-void RestartButton_OnReleased(leButtonWidget* btn)
+void event_MainMenu_RestartButton_OnReleased(leButtonWidget* btn)
 {
     main_send_event(EVENT_CONTINUE_COOKING);
 }
 
-void ButtonWidget0_OnReleased(leButtonWidget* btn)
+void event_MainMenu_ButtonWidget0_OnReleased(leButtonWidget* btn)
 {
     main_send_event(EVENT_CHANGE_SCENE);
 }
 
-void DemoModeOnButton_OnPressed(leButtonWidget* btn)
+void event_MainMenu_DemoModeOnButton_OnPressed(leButtonWidget* btn)
 {
     demo_mode_on = false;
 }
-void DemoModeOnButton_OnReleased(leButtonWidget* btn)
+void event_MainMenu_DemoModeOnButton_OnReleased(leButtonWidget* btn)
 {
     demo_mode_on = true;
 }

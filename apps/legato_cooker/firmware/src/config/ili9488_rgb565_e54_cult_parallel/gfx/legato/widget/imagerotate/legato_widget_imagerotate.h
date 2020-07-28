@@ -72,9 +72,6 @@ typedef struct leImageRotateWidget leImageRotateWidget;
     \
     leImage*          (*getImage)(const THIS_TYPE* _this); \
     leResult          (*setImage)(THIS_TYPE* _this, const leImage* img); \
-    lePoint           (*getOrigin)(const THIS_TYPE* _this); \
-    leResult          (*setOriginX)(THIS_TYPE* _this, int32_t x); \
-    leResult          (*setOriginY)(THIS_TYPE* _this, int32_t y); \
     int32_t           (*getAngle)(const THIS_TYPE* _this); \
     leResult          (*setAngle)(THIS_TYPE* _this, int32_t a); \
     leImageFilterMode (*getFilter)(const THIS_TYPE* _this); \
@@ -114,9 +111,6 @@ typedef struct leImageRotateWidget
 
     const leImage* image; // pointer to image asset
 
-    leRect imageRect;
-
-    lePoint origin;
     int32_t angle;
 
     leImageFilterMode filter;

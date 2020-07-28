@@ -1,94 +1,83 @@
-// DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
-// DOM-IGNORE-END
-
 #include "gfx/legato/generated/screen/le_gen_screen_ColorScreen.h"
 
-// widget list for layer 0
-static leWidget* root0;
+// screen member widget declarations
+leWidget* root0;
 
-leWidget* PanelWidget2;
-leWidget* PanelWidget5;
-leRectangleWidget* ProgressRect;
-leWidget* PanelWidget4;
-leButtonWidget* ReheatButtonWidget;
-leButtonWidget* CookButtonWidget;
-leButtonWidget* ButtonWidget5;
-leWidget* QuickSelectionsPanel;
-leWidget* MenuItem1;
-leRectangleWidget* ButtonRect1Back;
-leRectangleWidget* Button1Rect;
-leImageWidget* ButtonImage1;
-leLabelWidget* MenuItem1Label;
-leButtonWidget* ButtonWidget1;
-leLabelWidget* LabelWidget2;
-leWidget* MenuItem2;
-leRectangleWidget* Button2RectBack;
-leRectangleWidget* Button2Rect;
-leImageWidget* ButtonImage2;
-leLabelWidget* MenuItem2Label;
-leButtonWidget* ButtonWidget2;
-leWidget* MenuItem3;
-leRectangleWidget* Button3RectBack;
-leRectangleWidget* Button3Rect;
-leImageWidget* ButtonImage3;
-leLabelWidget* MenuItem3Label;
-leButtonWidget* ButtonWidget3;
-leWidget* MenuItem4;
-leRectangleWidget* Button4RectBack;
-leRectangleWidget* Button4Rect;
-leImageWidget* Button4Image;
-leLabelWidget* MenuItem4Label;
-leButtonWidget* ButtonWidget4;
-leWidget* Screen2MainClockPanel;
-leLabelWidget* Screen2HourLabel;
-leLabelWidget* Screen2ColonLabel;
-leLabelWidget* Screen2MinuteLabel;
-leWidget* Screen2LabelPanel;
-leLabelWidget* Screen2GoodLabel;
-leLabelWidget* Screen2BytesLabel;
-leLabelWidget* Screen2SmartCookerLabel;
-leButtonWidget* ButtonWidget6;
-leButtonWidget* SliderButton2;
+leWidget* ColorScreen_PanelWidget2;
+leWidget* ColorScreen_PanelWidget5;
+leWidget* ColorScreen_PanelWidget4;
+leWidget* ColorScreen_QuickSelectionsPanel;
+leWidget* ColorScreen_Screen2MainClockPanel;
+leWidget* ColorScreen_Screen2LabelPanel;
+leButtonWidget* ColorScreen_SliderButton2;
+leRectangleWidget* ColorScreen_ProgressRect;
+leButtonWidget* ColorScreen_ReheatButtonWidget;
+leButtonWidget* ColorScreen_CookButtonWidget;
+leButtonWidget* ColorScreen_ButtonWidget5;
+leWidget* ColorScreen_MenuItem1;
+leLabelWidget* ColorScreen_LabelWidget2;
+leWidget* ColorScreen_MenuItem2;
+leWidget* ColorScreen_MenuItem3;
+leWidget* ColorScreen_MenuItem4;
+leRectangleWidget* ColorScreen_ButtonRect1Back;
+leRectangleWidget* ColorScreen_Button1Rect;
+leImageWidget* ColorScreen_ButtonImage1;
+leLabelWidget* ColorScreen_MenuItem1Label;
+leButtonWidget* ColorScreen_ButtonWidget1;
+leRectangleWidget* ColorScreen_Button2RectBack;
+leRectangleWidget* ColorScreen_Button2Rect;
+leImageWidget* ColorScreen_ButtonImage2;
+leLabelWidget* ColorScreen_MenuItem2Label;
+leButtonWidget* ColorScreen_ButtonWidget2;
+leRectangleWidget* ColorScreen_Button3RectBack;
+leRectangleWidget* ColorScreen_Button3Rect;
+leImageWidget* ColorScreen_ButtonImage3;
+leLabelWidget* ColorScreen_MenuItem3Label;
+leButtonWidget* ColorScreen_ButtonWidget3;
+leRectangleWidget* ColorScreen_Button4RectBack;
+leRectangleWidget* ColorScreen_Button4Rect;
+leImageWidget* ColorScreen_Button4Image;
+leLabelWidget* ColorScreen_MenuItem4Label;
+leButtonWidget* ColorScreen_ButtonWidget4;
+leLabelWidget* ColorScreen_Screen2HourLabel;
+leLabelWidget* ColorScreen_Screen2ColonLabel;
+leLabelWidget* ColorScreen_Screen2MinuteLabel;
+leLabelWidget* ColorScreen_Screen2GoodLabel;
+leLabelWidget* ColorScreen_Screen2BytesLabel;
+leLabelWidget* ColorScreen_Screen2SmartCookerLabel;
+leButtonWidget* ColorScreen_ButtonWidget6;
 
 // string list for this screen
-static leTableString tableString_SteakMenuItem;
-static leTableString tableString_QuickItems;
-static leTableString tableString_SalmonMenuItem;
-static leTableString tableString_PizzaMenuItem;
-static leTableString tableString_Pasta;
-static leTableString tableString_DefaultHour2;
-static leTableString tableString_Colon;
-static leTableString tableString_DefaultMinute2;
-static leTableString tableString_GoodBytes;
-static leTableString tableString_Bytes;
-static leTableString tableString_SmartCooker;
+static leTableString string_Hotdog;
+static leTableString string_Kabobs;
+static leTableString string_Steak;
+static leTableString string_Bacon;
+static leTableString string_Vegetables;
+static leTableString string_GoodBytes;
+static leTableString string_Bytes;
+static leTableString string_SmartCooker;
+static leTableString string_DefaultMinute;
+static leTableString string_Colon;
+static leTableString string_DefaultHour;
+static leTableString string_DefaultCookTime;
+static leTableString string_QuickItems;
+static leTableString string_SteakMenuItem;
+static leTableString string_SalmonMenuItem;
+static leTableString string_PizzaMenuItem;
+static leTableString string_Pasta;
+static leTableString string_DefaultHour2;
+static leTableString string_DefaultMinute2;
 
+static leBool initialized = LE_FALSE;
 static leBool showing = LE_FALSE;
 
 leResult screenInit_ColorScreen()
 {
+    if(initialized == LE_TRUE)
+        return LE_FAILURE;
+
+    initialized = LE_TRUE;
+
     return LE_SUCCESS;
 }
 
@@ -98,435 +87,470 @@ leResult screenShow_ColorScreen()
         return LE_FAILURE;
 
     // initialize static strings
-    leTableString_Constructor(&tableString_SteakMenuItem, string_SteakMenuItem);
-    leTableString_Constructor(&tableString_QuickItems, string_QuickItems);
-    leTableString_Constructor(&tableString_SalmonMenuItem, string_SalmonMenuItem);
-    leTableString_Constructor(&tableString_PizzaMenuItem, string_PizzaMenuItem);
-    leTableString_Constructor(&tableString_Pasta, string_Pasta);
-    leTableString_Constructor(&tableString_DefaultHour2, string_DefaultHour2);
-    leTableString_Constructor(&tableString_Colon, string_Colon);
-    leTableString_Constructor(&tableString_DefaultMinute2, string_DefaultMinute2);
-    leTableString_Constructor(&tableString_GoodBytes, string_GoodBytes);
-    leTableString_Constructor(&tableString_Bytes, string_Bytes);
-    leTableString_Constructor(&tableString_SmartCooker, string_SmartCooker);
+    leTableString_Constructor(&string_Hotdog, stringID_Hotdog);
+    leTableString_Constructor(&string_Kabobs, stringID_Kabobs);
+    leTableString_Constructor(&string_Steak, stringID_Steak);
+    leTableString_Constructor(&string_Bacon, stringID_Bacon);
+    leTableString_Constructor(&string_Vegetables, stringID_Vegetables);
+    leTableString_Constructor(&string_GoodBytes, stringID_GoodBytes);
+    leTableString_Constructor(&string_Bytes, stringID_Bytes);
+    leTableString_Constructor(&string_SmartCooker, stringID_SmartCooker);
+    leTableString_Constructor(&string_DefaultMinute, stringID_DefaultMinute);
+    leTableString_Constructor(&string_Colon, stringID_Colon);
+    leTableString_Constructor(&string_DefaultHour, stringID_DefaultHour);
+    leTableString_Constructor(&string_DefaultCookTime, stringID_DefaultCookTime);
+    leTableString_Constructor(&string_QuickItems, stringID_QuickItems);
+    leTableString_Constructor(&string_SteakMenuItem, stringID_SteakMenuItem);
+    leTableString_Constructor(&string_SalmonMenuItem, stringID_SalmonMenuItem);
+    leTableString_Constructor(&string_PizzaMenuItem, stringID_PizzaMenuItem);
+    leTableString_Constructor(&string_Pasta, stringID_Pasta);
+    leTableString_Constructor(&string_DefaultHour2, stringID_DefaultHour2);
+    leTableString_Constructor(&string_DefaultMinute2, stringID_DefaultMinute2);
 
     // layer 0
     root0 = leWidget_New();
-    root0->fn->setPosition(root0, 0, 0);
     root0->fn->setSize(root0, 480, 320);
     root0->fn->setBackgroundType(root0, LE_WIDGET_BACKGROUND_NONE);
     root0->fn->setMargins(root0, 0, 0, 0, 0);
+    root0->flags |= LE_WIDGET_IGNOREEVENTS;
+    root0->flags |= LE_WIDGET_IGNOREPICK;
 
-    PanelWidget2 = leWidget_New();
-    PanelWidget2->fn->setPosition(PanelWidget2, 0, 0);
-    PanelWidget2->fn->setSize(PanelWidget2, 480, 320);
-    PanelWidget2->fn->setScheme(PanelWidget2, &WhiteBackgroundScheme);
-    root0->fn->addChild(root0, PanelWidget2);
+    ColorScreen_PanelWidget2 = leWidget_New();
+    ColorScreen_PanelWidget2->fn->setPosition(ColorScreen_PanelWidget2, 0, 0);
+    ColorScreen_PanelWidget2->fn->setSize(ColorScreen_PanelWidget2, 480, 320);
+    ColorScreen_PanelWidget2->fn->setScheme(ColorScreen_PanelWidget2, &WhiteBackgroundScheme);
+    root0->fn->addChild(root0, (leWidget*)ColorScreen_PanelWidget2);
 
-    PanelWidget5 = leWidget_New();
-    PanelWidget5->fn->setPosition(PanelWidget5, 212, 22);
-    PanelWidget5->fn->setSize(PanelWidget5, 153, 290);
-    PanelWidget5->fn->setScheme(PanelWidget5, &VeryDarkGrayScheme);
-    root0->fn->addChild(root0, PanelWidget5);
+    ColorScreen_PanelWidget5 = leWidget_New();
+    ColorScreen_PanelWidget5->fn->setPosition(ColorScreen_PanelWidget5, 212, 22);
+    ColorScreen_PanelWidget5->fn->setSize(ColorScreen_PanelWidget5, 153, 290);
+    ColorScreen_PanelWidget5->fn->setScheme(ColorScreen_PanelWidget5, &VeryDarkGrayScheme);
+    root0->fn->addChild(root0, (leWidget*)ColorScreen_PanelWidget5);
 
-    ProgressRect = leRectangleWidget_New();
-    ProgressRect->fn->setPosition(ProgressRect, 0, 30);
-    ProgressRect->fn->setSize(ProgressRect, 153, 260);
-    ProgressRect->fn->setScheme(ProgressRect, &Button1Scheme);
-    ProgressRect->fn->setThickness(ProgressRect, 0);
-    PanelWidget5->fn->addChild(PanelWidget5, (leWidget*)ProgressRect);
+    ColorScreen_ProgressRect = leRectangleWidget_New();
+    ColorScreen_ProgressRect->fn->setPosition(ColorScreen_ProgressRect, 0, 30);
+    ColorScreen_ProgressRect->fn->setSize(ColorScreen_ProgressRect, 153, 260);
+    ColorScreen_ProgressRect->fn->setScheme(ColorScreen_ProgressRect, &Button1Scheme);
+    ColorScreen_ProgressRect->fn->setBorderType(ColorScreen_ProgressRect, LE_WIDGET_BORDER_NONE);
+    ColorScreen_ProgressRect->fn->setThickness(ColorScreen_ProgressRect, 0);
+    ColorScreen_PanelWidget5->fn->addChild(ColorScreen_PanelWidget5, (leWidget*)ColorScreen_ProgressRect);
 
-    PanelWidget4 = leWidget_New();
-    PanelWidget4->fn->setPosition(PanelWidget4, 365, 0);
-    PanelWidget4->fn->setSize(PanelWidget4, 115, 320);
-    PanelWidget4->fn->setScheme(PanelWidget4, &RightPanelScheme);
-    root0->fn->addChild(root0, PanelWidget4);
+    ColorScreen_PanelWidget4 = leWidget_New();
+    ColorScreen_PanelWidget4->fn->setPosition(ColorScreen_PanelWidget4, 365, 0);
+    ColorScreen_PanelWidget4->fn->setSize(ColorScreen_PanelWidget4, 115, 320);
+    ColorScreen_PanelWidget4->fn->setScheme(ColorScreen_PanelWidget4, &RightPanelScheme);
+    root0->fn->addChild(root0, (leWidget*)ColorScreen_PanelWidget4);
 
-    ReheatButtonWidget = leButtonWidget_New();
-    ReheatButtonWidget->fn->setPosition(ReheatButtonWidget, 5, 173);
-    ReheatButtonWidget->fn->setSize(ReheatButtonWidget, 110, 91);
-    ReheatButtonWidget->fn->setScheme(ReheatButtonWidget, &BlackBackground);
-    ReheatButtonWidget->fn->setBackgroundType(ReheatButtonWidget, LE_WIDGET_BACKGROUND_NONE);
-    ReheatButtonWidget->fn->setBorderType(ReheatButtonWidget, LE_WIDGET_BORDER_NONE);
-    ReheatButtonWidget->fn->setPressedImage(ReheatButtonWidget, &reheat2);
-    ReheatButtonWidget->fn->setReleasedImage(ReheatButtonWidget, &reheat2);
-    ReheatButtonWidget->fn->setPressedOffset(ReheatButtonWidget, 0);
-    ReheatButtonWidget->fn->setPressedEventCallback(ReheatButtonWidget, ReheatButtonWidget_OnPressed);
-    PanelWidget4->fn->addChild(PanelWidget4, (leWidget*)ReheatButtonWidget);
+    ColorScreen_ReheatButtonWidget = leButtonWidget_New();
+    ColorScreen_ReheatButtonWidget->fn->setPosition(ColorScreen_ReheatButtonWidget, 5, 173);
+    ColorScreen_ReheatButtonWidget->fn->setSize(ColorScreen_ReheatButtonWidget, 110, 91);
+    ColorScreen_ReheatButtonWidget->fn->setScheme(ColorScreen_ReheatButtonWidget, &BlackBackground);
+    ColorScreen_ReheatButtonWidget->fn->setBackgroundType(ColorScreen_ReheatButtonWidget, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_ReheatButtonWidget->fn->setBorderType(ColorScreen_ReheatButtonWidget, LE_WIDGET_BORDER_NONE);
+    ColorScreen_ReheatButtonWidget->fn->setPressedImage(ColorScreen_ReheatButtonWidget, (leImage*)&reheat2);
+    ColorScreen_ReheatButtonWidget->fn->setReleasedImage(ColorScreen_ReheatButtonWidget, (leImage*)&reheat2);
+    ColorScreen_ReheatButtonWidget->fn->setPressedOffset(ColorScreen_ReheatButtonWidget, 0);
+    ColorScreen_ReheatButtonWidget->fn->setPressedEventCallback(ColorScreen_ReheatButtonWidget, event_ColorScreen_ReheatButtonWidget_OnPressed);
+    ColorScreen_PanelWidget4->fn->addChild(ColorScreen_PanelWidget4, (leWidget*)ColorScreen_ReheatButtonWidget);
 
-    CookButtonWidget = leButtonWidget_New();
-    CookButtonWidget->fn->setPosition(CookButtonWidget, 0, 75);
-    CookButtonWidget->fn->setSize(CookButtonWidget, 115, 98);
-    CookButtonWidget->fn->setScheme(CookButtonWidget, &BlackBackground);
-    CookButtonWidget->fn->setBackgroundType(CookButtonWidget, LE_WIDGET_BACKGROUND_NONE);
-    CookButtonWidget->fn->setBorderType(CookButtonWidget, LE_WIDGET_BORDER_NONE);
-    CookButtonWidget->fn->setPressedImage(CookButtonWidget, &cook2);
-    CookButtonWidget->fn->setReleasedImage(CookButtonWidget, &cook2);
-    CookButtonWidget->fn->setPressedOffset(CookButtonWidget, 0);
-    CookButtonWidget->fn->setPressedEventCallback(CookButtonWidget, CookButtonWidget_OnPressed);
-    PanelWidget4->fn->addChild(PanelWidget4, (leWidget*)CookButtonWidget);
+    ColorScreen_CookButtonWidget = leButtonWidget_New();
+    ColorScreen_CookButtonWidget->fn->setPosition(ColorScreen_CookButtonWidget, 0, 75);
+    ColorScreen_CookButtonWidget->fn->setSize(ColorScreen_CookButtonWidget, 115, 98);
+    ColorScreen_CookButtonWidget->fn->setScheme(ColorScreen_CookButtonWidget, &BlackBackground);
+    ColorScreen_CookButtonWidget->fn->setBackgroundType(ColorScreen_CookButtonWidget, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_CookButtonWidget->fn->setBorderType(ColorScreen_CookButtonWidget, LE_WIDGET_BORDER_NONE);
+    ColorScreen_CookButtonWidget->fn->setPressedImage(ColorScreen_CookButtonWidget, (leImage*)&cook2);
+    ColorScreen_CookButtonWidget->fn->setReleasedImage(ColorScreen_CookButtonWidget, (leImage*)&cook2);
+    ColorScreen_CookButtonWidget->fn->setPressedOffset(ColorScreen_CookButtonWidget, 0);
+    ColorScreen_CookButtonWidget->fn->setPressedEventCallback(ColorScreen_CookButtonWidget, event_ColorScreen_CookButtonWidget_OnPressed);
+    ColorScreen_PanelWidget4->fn->addChild(ColorScreen_PanelWidget4, (leWidget*)ColorScreen_CookButtonWidget);
 
-    ButtonWidget5 = leButtonWidget_New();
-    ButtonWidget5->fn->setPosition(ButtonWidget5, 0, 280);
-    ButtonWidget5->fn->setSize(ButtonWidget5, 115, 40);
-    ButtonWidget5->fn->setBackgroundType(ButtonWidget5, LE_WIDGET_BACKGROUND_NONE);
-    ButtonWidget5->fn->setBorderType(ButtonWidget5, LE_WIDGET_BORDER_NONE);
-    ButtonWidget5->fn->setPressedImage(ButtonWidget5, &gscalesmall);
-    ButtonWidget5->fn->setReleasedImage(ButtonWidget5, &gscalesmall);
-    ButtonWidget5->fn->setPressedOffset(ButtonWidget5, 0);
-    ButtonWidget5->fn->setPressedEventCallback(ButtonWidget5, ButtonWidget5_OnPressed);
-    PanelWidget4->fn->addChild(PanelWidget4, (leWidget*)ButtonWidget5);
+    ColorScreen_ButtonWidget5 = leButtonWidget_New();
+    ColorScreen_ButtonWidget5->fn->setPosition(ColorScreen_ButtonWidget5, 0, 280);
+    ColorScreen_ButtonWidget5->fn->setSize(ColorScreen_ButtonWidget5, 115, 40);
+    ColorScreen_ButtonWidget5->fn->setBackgroundType(ColorScreen_ButtonWidget5, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_ButtonWidget5->fn->setBorderType(ColorScreen_ButtonWidget5, LE_WIDGET_BORDER_NONE);
+    ColorScreen_ButtonWidget5->fn->setPressedImage(ColorScreen_ButtonWidget5, (leImage*)&gscalesmall);
+    ColorScreen_ButtonWidget5->fn->setReleasedImage(ColorScreen_ButtonWidget5, (leImage*)&gscalesmall);
+    ColorScreen_ButtonWidget5->fn->setPressedOffset(ColorScreen_ButtonWidget5, 0);
+    ColorScreen_ButtonWidget5->fn->setPressedEventCallback(ColorScreen_ButtonWidget5, event_ColorScreen_ButtonWidget5_OnPressed);
+    ColorScreen_PanelWidget4->fn->addChild(ColorScreen_PanelWidget4, (leWidget*)ColorScreen_ButtonWidget5);
 
-    QuickSelectionsPanel = leWidget_New();
-    QuickSelectionsPanel->fn->setPosition(QuickSelectionsPanel, 0, 0);
-    QuickSelectionsPanel->fn->setSize(QuickSelectionsPanel, 212, 320);
-    QuickSelectionsPanel->fn->setBackgroundType(QuickSelectionsPanel, LE_WIDGET_BACKGROUND_NONE);
-    root0->fn->addChild(root0, QuickSelectionsPanel);
+    ColorScreen_QuickSelectionsPanel = leWidget_New();
+    ColorScreen_QuickSelectionsPanel->fn->setPosition(ColorScreen_QuickSelectionsPanel, 0, 0);
+    ColorScreen_QuickSelectionsPanel->fn->setSize(ColorScreen_QuickSelectionsPanel, 212, 320);
+    ColorScreen_QuickSelectionsPanel->fn->setBackgroundType(ColorScreen_QuickSelectionsPanel, LE_WIDGET_BACKGROUND_NONE);
+    root0->fn->addChild(root0, (leWidget*)ColorScreen_QuickSelectionsPanel);
 
-    MenuItem1 = leWidget_New();
-    MenuItem1->fn->setPosition(MenuItem1, 0, 31);
-    MenuItem1->fn->setSize(MenuItem1, 212, 70);
-    MenuItem1->fn->setBackgroundType(MenuItem1, LE_WIDGET_BACKGROUND_NONE);
-    QuickSelectionsPanel->fn->addChild(QuickSelectionsPanel, MenuItem1);
+    ColorScreen_MenuItem1 = leWidget_New();
+    ColorScreen_MenuItem1->fn->setPosition(ColorScreen_MenuItem1, 0, 31);
+    ColorScreen_MenuItem1->fn->setSize(ColorScreen_MenuItem1, 212, 70);
+    ColorScreen_MenuItem1->fn->setBackgroundType(ColorScreen_MenuItem1, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_QuickSelectionsPanel->fn->addChild(ColorScreen_QuickSelectionsPanel, (leWidget*)ColorScreen_MenuItem1);
 
-    ButtonRect1Back = leRectangleWidget_New();
-    ButtonRect1Back->fn->setPosition(ButtonRect1Back, 6, 57);
-    ButtonRect1Back->fn->setSize(ButtonRect1Back, 206, 8);
-    ButtonRect1Back->fn->setScheme(ButtonRect1Back, &VeryDarkGrayScheme);
-    ButtonRect1Back->fn->setThickness(ButtonRect1Back, 0);
-    MenuItem1->fn->addChild(MenuItem1, (leWidget*)ButtonRect1Back);
+    ColorScreen_ButtonRect1Back = leRectangleWidget_New();
+    ColorScreen_ButtonRect1Back->fn->setPosition(ColorScreen_ButtonRect1Back, 6, 57);
+    ColorScreen_ButtonRect1Back->fn->setSize(ColorScreen_ButtonRect1Back, 206, 8);
+    ColorScreen_ButtonRect1Back->fn->setScheme(ColorScreen_ButtonRect1Back, &VeryDarkGrayScheme);
+    ColorScreen_ButtonRect1Back->fn->setBorderType(ColorScreen_ButtonRect1Back, LE_WIDGET_BORDER_NONE);
+    ColorScreen_ButtonRect1Back->fn->setThickness(ColorScreen_ButtonRect1Back, 0);
+    ColorScreen_MenuItem1->fn->addChild(ColorScreen_MenuItem1, (leWidget*)ColorScreen_ButtonRect1Back);
 
-    Button1Rect = leRectangleWidget_New();
-    Button1Rect->fn->setPosition(Button1Rect, 0, 7);
-    Button1Rect->fn->setSize(Button1Rect, 212, 50);
-    Button1Rect->fn->setScheme(Button1Rect, &Button1Scheme);
-    Button1Rect->fn->setThickness(Button1Rect, 0);
-    MenuItem1->fn->addChild(MenuItem1, (leWidget*)Button1Rect);
+    ColorScreen_Button1Rect = leRectangleWidget_New();
+    ColorScreen_Button1Rect->fn->setPosition(ColorScreen_Button1Rect, 0, 7);
+    ColorScreen_Button1Rect->fn->setSize(ColorScreen_Button1Rect, 212, 50);
+    ColorScreen_Button1Rect->fn->setScheme(ColorScreen_Button1Rect, &Button1Scheme);
+    ColorScreen_Button1Rect->fn->setBorderType(ColorScreen_Button1Rect, LE_WIDGET_BORDER_NONE);
+    ColorScreen_Button1Rect->fn->setThickness(ColorScreen_Button1Rect, 0);
+    ColorScreen_MenuItem1->fn->addChild(ColorScreen_MenuItem1, (leWidget*)ColorScreen_Button1Rect);
 
-    ButtonImage1 = leImageWidget_New();
-    ButtonImage1->fn->setPosition(ButtonImage1, 13, 0);
-    ButtonImage1->fn->setSize(ButtonImage1, 70, 70);
-    ButtonImage1->fn->setBackgroundType(ButtonImage1, LE_WIDGET_BACKGROUND_NONE);
-    ButtonImage1->fn->setImage(ButtonImage1, &steak_photo_70);
-    MenuItem1->fn->addChild(MenuItem1, (leWidget*)ButtonImage1);
+    ColorScreen_ButtonImage1 = leImageWidget_New();
+    ColorScreen_ButtonImage1->fn->setPosition(ColorScreen_ButtonImage1, 13, 0);
+    ColorScreen_ButtonImage1->fn->setSize(ColorScreen_ButtonImage1, 70, 70);
+    ColorScreen_ButtonImage1->fn->setBackgroundType(ColorScreen_ButtonImage1, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_ButtonImage1->fn->setBorderType(ColorScreen_ButtonImage1, LE_WIDGET_BORDER_NONE);
+    ColorScreen_ButtonImage1->fn->setImage(ColorScreen_ButtonImage1, (leImage*)&steak_photo_70);
+    ColorScreen_MenuItem1->fn->addChild(ColorScreen_MenuItem1, (leWidget*)ColorScreen_ButtonImage1);
 
-    MenuItem1Label = leLabelWidget_New();
-    MenuItem1Label->fn->setPosition(MenuItem1Label, 99, 20);
-    MenuItem1Label->fn->setScheme(MenuItem1Label, &WhiteTextScheme);
-    MenuItem1Label->fn->setBackgroundType(MenuItem1Label, LE_WIDGET_BACKGROUND_NONE);
-    MenuItem1Label->fn->setString(MenuItem1Label, (leString*)&tableString_SteakMenuItem);
-    MenuItem1->fn->addChild(MenuItem1, (leWidget*)MenuItem1Label);
+    ColorScreen_MenuItem1Label = leLabelWidget_New();
+    ColorScreen_MenuItem1Label->fn->setPosition(ColorScreen_MenuItem1Label, 99, 20);
+    ColorScreen_MenuItem1Label->fn->setScheme(ColorScreen_MenuItem1Label, &WhiteTextScheme);
+    ColorScreen_MenuItem1Label->fn->setBackgroundType(ColorScreen_MenuItem1Label, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_MenuItem1Label->fn->setString(ColorScreen_MenuItem1Label, (leString*)&string_SteakMenuItem);
+    ColorScreen_MenuItem1->fn->addChild(ColorScreen_MenuItem1, (leWidget*)ColorScreen_MenuItem1Label);
 
-    ButtonWidget1 = leButtonWidget_New();
-    ButtonWidget1->fn->setPosition(ButtonWidget1, 0, 0);
-    ButtonWidget1->fn->setSize(ButtonWidget1, 212, 70);
-    ButtonWidget1->fn->setBackgroundType(ButtonWidget1, LE_WIDGET_BACKGROUND_NONE);
-    ButtonWidget1->fn->setBorderType(ButtonWidget1, LE_WIDGET_BORDER_NONE);
-    ButtonWidget1->fn->setPressedOffset(ButtonWidget1, 0);
-    ButtonWidget1->fn->setPressedEventCallback(ButtonWidget1, ButtonWidget1_OnPressed);
-    MenuItem1->fn->addChild(MenuItem1, (leWidget*)ButtonWidget1);
+    ColorScreen_ButtonWidget1 = leButtonWidget_New();
+    ColorScreen_ButtonWidget1->fn->setPosition(ColorScreen_ButtonWidget1, 0, 0);
+    ColorScreen_ButtonWidget1->fn->setSize(ColorScreen_ButtonWidget1, 212, 70);
+    ColorScreen_ButtonWidget1->fn->setBackgroundType(ColorScreen_ButtonWidget1, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_ButtonWidget1->fn->setBorderType(ColorScreen_ButtonWidget1, LE_WIDGET_BORDER_NONE);
+    ColorScreen_ButtonWidget1->fn->setPressedOffset(ColorScreen_ButtonWidget1, 0);
+    ColorScreen_ButtonWidget1->fn->setPressedEventCallback(ColorScreen_ButtonWidget1, event_ColorScreen_ButtonWidget1_OnPressed);
+    ColorScreen_MenuItem1->fn->addChild(ColorScreen_MenuItem1, (leWidget*)ColorScreen_ButtonWidget1);
 
-    LabelWidget2 = leLabelWidget_New();
-    LabelWidget2->fn->setPosition(LabelWidget2, 0, -1);
-    LabelWidget2->fn->setSize(LabelWidget2, 212, 31);
-    LabelWidget2->fn->setBackgroundType(LabelWidget2, LE_WIDGET_BACKGROUND_NONE);
-    LabelWidget2->fn->setHAlignment(LabelWidget2, LE_HALIGN_CENTER);
-    LabelWidget2->fn->setString(LabelWidget2, (leString*)&tableString_QuickItems);
-    QuickSelectionsPanel->fn->addChild(QuickSelectionsPanel, (leWidget*)LabelWidget2);
+    ColorScreen_LabelWidget2 = leLabelWidget_New();
+    ColorScreen_LabelWidget2->fn->setPosition(ColorScreen_LabelWidget2, 0, -1);
+    ColorScreen_LabelWidget2->fn->setSize(ColorScreen_LabelWidget2, 212, 31);
+    ColorScreen_LabelWidget2->fn->setBackgroundType(ColorScreen_LabelWidget2, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_LabelWidget2->fn->setHAlignment(ColorScreen_LabelWidget2, LE_HALIGN_CENTER);
+    ColorScreen_LabelWidget2->fn->setString(ColorScreen_LabelWidget2, (leString*)&string_QuickItems);
+    ColorScreen_QuickSelectionsPanel->fn->addChild(ColorScreen_QuickSelectionsPanel, (leWidget*)ColorScreen_LabelWidget2);
 
-    MenuItem2 = leWidget_New();
-    MenuItem2->fn->setPosition(MenuItem2, 0, 102);
-    MenuItem2->fn->setSize(MenuItem2, 212, 70);
-    MenuItem2->fn->setBackgroundType(MenuItem2, LE_WIDGET_BACKGROUND_NONE);
-    QuickSelectionsPanel->fn->addChild(QuickSelectionsPanel, MenuItem2);
+    ColorScreen_MenuItem2 = leWidget_New();
+    ColorScreen_MenuItem2->fn->setPosition(ColorScreen_MenuItem2, 0, 102);
+    ColorScreen_MenuItem2->fn->setSize(ColorScreen_MenuItem2, 212, 70);
+    ColorScreen_MenuItem2->fn->setBackgroundType(ColorScreen_MenuItem2, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_QuickSelectionsPanel->fn->addChild(ColorScreen_QuickSelectionsPanel, (leWidget*)ColorScreen_MenuItem2);
 
-    Button2RectBack = leRectangleWidget_New();
-    Button2RectBack->fn->setPosition(Button2RectBack, 6, 57);
-    Button2RectBack->fn->setSize(Button2RectBack, 206, 8);
-    Button2RectBack->fn->setScheme(Button2RectBack, &VeryDarkGrayScheme);
-    Button2RectBack->fn->setThickness(Button2RectBack, 0);
-    MenuItem2->fn->addChild(MenuItem2, (leWidget*)Button2RectBack);
+    ColorScreen_Button2RectBack = leRectangleWidget_New();
+    ColorScreen_Button2RectBack->fn->setPosition(ColorScreen_Button2RectBack, 6, 57);
+    ColorScreen_Button2RectBack->fn->setSize(ColorScreen_Button2RectBack, 206, 8);
+    ColorScreen_Button2RectBack->fn->setScheme(ColorScreen_Button2RectBack, &VeryDarkGrayScheme);
+    ColorScreen_Button2RectBack->fn->setBorderType(ColorScreen_Button2RectBack, LE_WIDGET_BORDER_NONE);
+    ColorScreen_Button2RectBack->fn->setThickness(ColorScreen_Button2RectBack, 0);
+    ColorScreen_MenuItem2->fn->addChild(ColorScreen_MenuItem2, (leWidget*)ColorScreen_Button2RectBack);
 
-    Button2Rect = leRectangleWidget_New();
-    Button2Rect->fn->setPosition(Button2Rect, 0, 7);
-    Button2Rect->fn->setSize(Button2Rect, 212, 50);
-    Button2Rect->fn->setScheme(Button2Rect, &Button2Scheme);
-    Button2Rect->fn->setThickness(Button2Rect, 0);
-    MenuItem2->fn->addChild(MenuItem2, (leWidget*)Button2Rect);
+    ColorScreen_Button2Rect = leRectangleWidget_New();
+    ColorScreen_Button2Rect->fn->setPosition(ColorScreen_Button2Rect, 0, 7);
+    ColorScreen_Button2Rect->fn->setSize(ColorScreen_Button2Rect, 212, 50);
+    ColorScreen_Button2Rect->fn->setScheme(ColorScreen_Button2Rect, &Button2Scheme);
+    ColorScreen_Button2Rect->fn->setBorderType(ColorScreen_Button2Rect, LE_WIDGET_BORDER_NONE);
+    ColorScreen_Button2Rect->fn->setThickness(ColorScreen_Button2Rect, 0);
+    ColorScreen_MenuItem2->fn->addChild(ColorScreen_MenuItem2, (leWidget*)ColorScreen_Button2Rect);
 
-    ButtonImage2 = leImageWidget_New();
-    ButtonImage2->fn->setPosition(ButtonImage2, 23, 0);
-    ButtonImage2->fn->setSize(ButtonImage2, 70, 70);
-    ButtonImage2->fn->setBackgroundType(ButtonImage2, LE_WIDGET_BACKGROUND_NONE);
-    ButtonImage2->fn->setImage(ButtonImage2, &salmon_photo_70);
-    MenuItem2->fn->addChild(MenuItem2, (leWidget*)ButtonImage2);
+    ColorScreen_ButtonImage2 = leImageWidget_New();
+    ColorScreen_ButtonImage2->fn->setPosition(ColorScreen_ButtonImage2, 23, 0);
+    ColorScreen_ButtonImage2->fn->setSize(ColorScreen_ButtonImage2, 70, 70);
+    ColorScreen_ButtonImage2->fn->setBackgroundType(ColorScreen_ButtonImage2, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_ButtonImage2->fn->setBorderType(ColorScreen_ButtonImage2, LE_WIDGET_BORDER_NONE);
+    ColorScreen_ButtonImage2->fn->setImage(ColorScreen_ButtonImage2, (leImage*)&salmon_photo_70);
+    ColorScreen_MenuItem2->fn->addChild(ColorScreen_MenuItem2, (leWidget*)ColorScreen_ButtonImage2);
 
-    MenuItem2Label = leLabelWidget_New();
-    MenuItem2Label->fn->setPosition(MenuItem2Label, 109, 19);
-    MenuItem2Label->fn->setScheme(MenuItem2Label, &UnselectedItemTextScheme);
-    MenuItem2Label->fn->setBackgroundType(MenuItem2Label, LE_WIDGET_BACKGROUND_NONE);
-    MenuItem2Label->fn->setString(MenuItem2Label, (leString*)&tableString_SalmonMenuItem);
-    MenuItem2->fn->addChild(MenuItem2, (leWidget*)MenuItem2Label);
+    ColorScreen_MenuItem2Label = leLabelWidget_New();
+    ColorScreen_MenuItem2Label->fn->setPosition(ColorScreen_MenuItem2Label, 109, 19);
+    ColorScreen_MenuItem2Label->fn->setScheme(ColorScreen_MenuItem2Label, &UnselectedItemTextScheme);
+    ColorScreen_MenuItem2Label->fn->setBackgroundType(ColorScreen_MenuItem2Label, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_MenuItem2Label->fn->setString(ColorScreen_MenuItem2Label, (leString*)&string_SalmonMenuItem);
+    ColorScreen_MenuItem2->fn->addChild(ColorScreen_MenuItem2, (leWidget*)ColorScreen_MenuItem2Label);
 
-    ButtonWidget2 = leButtonWidget_New();
-    ButtonWidget2->fn->setPosition(ButtonWidget2, 0, 0);
-    ButtonWidget2->fn->setSize(ButtonWidget2, 212, 70);
-    ButtonWidget2->fn->setBackgroundType(ButtonWidget2, LE_WIDGET_BACKGROUND_NONE);
-    ButtonWidget2->fn->setBorderType(ButtonWidget2, LE_WIDGET_BORDER_NONE);
-    ButtonWidget2->fn->setPressedEventCallback(ButtonWidget2, ButtonWidget2_OnPressed);
-    MenuItem2->fn->addChild(MenuItem2, (leWidget*)ButtonWidget2);
+    ColorScreen_ButtonWidget2 = leButtonWidget_New();
+    ColorScreen_ButtonWidget2->fn->setPosition(ColorScreen_ButtonWidget2, 0, 0);
+    ColorScreen_ButtonWidget2->fn->setSize(ColorScreen_ButtonWidget2, 212, 70);
+    ColorScreen_ButtonWidget2->fn->setBackgroundType(ColorScreen_ButtonWidget2, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_ButtonWidget2->fn->setBorderType(ColorScreen_ButtonWidget2, LE_WIDGET_BORDER_NONE);
+    ColorScreen_ButtonWidget2->fn->setPressedEventCallback(ColorScreen_ButtonWidget2, event_ColorScreen_ButtonWidget2_OnPressed);
+    ColorScreen_MenuItem2->fn->addChild(ColorScreen_MenuItem2, (leWidget*)ColorScreen_ButtonWidget2);
 
-    MenuItem3 = leWidget_New();
-    MenuItem3->fn->setPosition(MenuItem3, 0, 175);
-    MenuItem3->fn->setSize(MenuItem3, 212, 70);
-    MenuItem3->fn->setBackgroundType(MenuItem3, LE_WIDGET_BACKGROUND_NONE);
-    QuickSelectionsPanel->fn->addChild(QuickSelectionsPanel, MenuItem3);
+    ColorScreen_MenuItem3 = leWidget_New();
+    ColorScreen_MenuItem3->fn->setPosition(ColorScreen_MenuItem3, 0, 175);
+    ColorScreen_MenuItem3->fn->setSize(ColorScreen_MenuItem3, 212, 70);
+    ColorScreen_MenuItem3->fn->setBackgroundType(ColorScreen_MenuItem3, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_QuickSelectionsPanel->fn->addChild(ColorScreen_QuickSelectionsPanel, (leWidget*)ColorScreen_MenuItem3);
 
-    Button3RectBack = leRectangleWidget_New();
-    Button3RectBack->fn->setPosition(Button3RectBack, 6, 56);
-    Button3RectBack->fn->setSize(Button3RectBack, 206, 9);
-    Button3RectBack->fn->setScheme(Button3RectBack, &VeryDarkGrayScheme);
-    Button3RectBack->fn->setThickness(Button3RectBack, 0);
-    MenuItem3->fn->addChild(MenuItem3, (leWidget*)Button3RectBack);
+    ColorScreen_Button3RectBack = leRectangleWidget_New();
+    ColorScreen_Button3RectBack->fn->setPosition(ColorScreen_Button3RectBack, 6, 56);
+    ColorScreen_Button3RectBack->fn->setSize(ColorScreen_Button3RectBack, 206, 9);
+    ColorScreen_Button3RectBack->fn->setScheme(ColorScreen_Button3RectBack, &VeryDarkGrayScheme);
+    ColorScreen_Button3RectBack->fn->setBorderType(ColorScreen_Button3RectBack, LE_WIDGET_BORDER_NONE);
+    ColorScreen_Button3RectBack->fn->setThickness(ColorScreen_Button3RectBack, 0);
+    ColorScreen_MenuItem3->fn->addChild(ColorScreen_MenuItem3, (leWidget*)ColorScreen_Button3RectBack);
 
-    Button3Rect = leRectangleWidget_New();
-    Button3Rect->fn->setPosition(Button3Rect, 0, 7);
-    Button3Rect->fn->setSize(Button3Rect, 212, 50);
-    Button3Rect->fn->setScheme(Button3Rect, &Button3Scheme);
-    Button3Rect->fn->setThickness(Button3Rect, 0);
-    MenuItem3->fn->addChild(MenuItem3, (leWidget*)Button3Rect);
+    ColorScreen_Button3Rect = leRectangleWidget_New();
+    ColorScreen_Button3Rect->fn->setPosition(ColorScreen_Button3Rect, 0, 7);
+    ColorScreen_Button3Rect->fn->setSize(ColorScreen_Button3Rect, 212, 50);
+    ColorScreen_Button3Rect->fn->setScheme(ColorScreen_Button3Rect, &Button3Scheme);
+    ColorScreen_Button3Rect->fn->setBorderType(ColorScreen_Button3Rect, LE_WIDGET_BORDER_NONE);
+    ColorScreen_Button3Rect->fn->setThickness(ColorScreen_Button3Rect, 0);
+    ColorScreen_MenuItem3->fn->addChild(ColorScreen_MenuItem3, (leWidget*)ColorScreen_Button3Rect);
 
-    ButtonImage3 = leImageWidget_New();
-    ButtonImage3->fn->setPosition(ButtonImage3, 13, 0);
-    ButtonImage3->fn->setSize(ButtonImage3, 70, 70);
-    ButtonImage3->fn->setBackgroundType(ButtonImage3, LE_WIDGET_BACKGROUND_NONE);
-    ButtonImage3->fn->setImage(ButtonImage3, &pizza_photo70);
-    MenuItem3->fn->addChild(MenuItem3, (leWidget*)ButtonImage3);
+    ColorScreen_ButtonImage3 = leImageWidget_New();
+    ColorScreen_ButtonImage3->fn->setPosition(ColorScreen_ButtonImage3, 13, 0);
+    ColorScreen_ButtonImage3->fn->setSize(ColorScreen_ButtonImage3, 70, 70);
+    ColorScreen_ButtonImage3->fn->setBackgroundType(ColorScreen_ButtonImage3, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_ButtonImage3->fn->setBorderType(ColorScreen_ButtonImage3, LE_WIDGET_BORDER_NONE);
+    ColorScreen_ButtonImage3->fn->setImage(ColorScreen_ButtonImage3, (leImage*)&pizza_photo70);
+    ColorScreen_MenuItem3->fn->addChild(ColorScreen_MenuItem3, (leWidget*)ColorScreen_ButtonImage3);
 
-    MenuItem3Label = leLabelWidget_New();
-    MenuItem3Label->fn->setPosition(MenuItem3Label, 99, 21);
-    MenuItem3Label->fn->setScheme(MenuItem3Label, &UnselectedItemTextScheme);
-    MenuItem3Label->fn->setBackgroundType(MenuItem3Label, LE_WIDGET_BACKGROUND_NONE);
-    MenuItem3Label->fn->setString(MenuItem3Label, (leString*)&tableString_PizzaMenuItem);
-    MenuItem3->fn->addChild(MenuItem3, (leWidget*)MenuItem3Label);
+    ColorScreen_MenuItem3Label = leLabelWidget_New();
+    ColorScreen_MenuItem3Label->fn->setPosition(ColorScreen_MenuItem3Label, 99, 21);
+    ColorScreen_MenuItem3Label->fn->setScheme(ColorScreen_MenuItem3Label, &UnselectedItemTextScheme);
+    ColorScreen_MenuItem3Label->fn->setBackgroundType(ColorScreen_MenuItem3Label, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_MenuItem3Label->fn->setString(ColorScreen_MenuItem3Label, (leString*)&string_PizzaMenuItem);
+    ColorScreen_MenuItem3->fn->addChild(ColorScreen_MenuItem3, (leWidget*)ColorScreen_MenuItem3Label);
 
-    ButtonWidget3 = leButtonWidget_New();
-    ButtonWidget3->fn->setPosition(ButtonWidget3, 0, 0);
-    ButtonWidget3->fn->setSize(ButtonWidget3, 212, 70);
-    ButtonWidget3->fn->setBackgroundType(ButtonWidget3, LE_WIDGET_BACKGROUND_NONE);
-    ButtonWidget3->fn->setBorderType(ButtonWidget3, LE_WIDGET_BORDER_NONE);
-    ButtonWidget3->fn->setPressedEventCallback(ButtonWidget3, ButtonWidget3_OnPressed);
-    MenuItem3->fn->addChild(MenuItem3, (leWidget*)ButtonWidget3);
+    ColorScreen_ButtonWidget3 = leButtonWidget_New();
+    ColorScreen_ButtonWidget3->fn->setPosition(ColorScreen_ButtonWidget3, 0, 0);
+    ColorScreen_ButtonWidget3->fn->setSize(ColorScreen_ButtonWidget3, 212, 70);
+    ColorScreen_ButtonWidget3->fn->setBackgroundType(ColorScreen_ButtonWidget3, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_ButtonWidget3->fn->setBorderType(ColorScreen_ButtonWidget3, LE_WIDGET_BORDER_NONE);
+    ColorScreen_ButtonWidget3->fn->setPressedEventCallback(ColorScreen_ButtonWidget3, event_ColorScreen_ButtonWidget3_OnPressed);
+    ColorScreen_MenuItem3->fn->addChild(ColorScreen_MenuItem3, (leWidget*)ColorScreen_ButtonWidget3);
 
-    MenuItem4 = leWidget_New();
-    MenuItem4->fn->setPosition(MenuItem4, 0, 246);
-    MenuItem4->fn->setSize(MenuItem4, 212, 70);
-    MenuItem4->fn->setBackgroundType(MenuItem4, LE_WIDGET_BACKGROUND_NONE);
-    QuickSelectionsPanel->fn->addChild(QuickSelectionsPanel, MenuItem4);
+    ColorScreen_MenuItem4 = leWidget_New();
+    ColorScreen_MenuItem4->fn->setPosition(ColorScreen_MenuItem4, 0, 246);
+    ColorScreen_MenuItem4->fn->setSize(ColorScreen_MenuItem4, 212, 70);
+    ColorScreen_MenuItem4->fn->setBackgroundType(ColorScreen_MenuItem4, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_QuickSelectionsPanel->fn->addChild(ColorScreen_QuickSelectionsPanel, (leWidget*)ColorScreen_MenuItem4);
 
-    Button4RectBack = leRectangleWidget_New();
-    Button4RectBack->fn->setPosition(Button4RectBack, 6, 57);
-    Button4RectBack->fn->setSize(Button4RectBack, 206, 8);
-    Button4RectBack->fn->setScheme(Button4RectBack, &VeryDarkGrayScheme);
-    Button4RectBack->fn->setThickness(Button4RectBack, 0);
-    MenuItem4->fn->addChild(MenuItem4, (leWidget*)Button4RectBack);
+    ColorScreen_Button4RectBack = leRectangleWidget_New();
+    ColorScreen_Button4RectBack->fn->setPosition(ColorScreen_Button4RectBack, 6, 57);
+    ColorScreen_Button4RectBack->fn->setSize(ColorScreen_Button4RectBack, 206, 8);
+    ColorScreen_Button4RectBack->fn->setScheme(ColorScreen_Button4RectBack, &VeryDarkGrayScheme);
+    ColorScreen_Button4RectBack->fn->setBorderType(ColorScreen_Button4RectBack, LE_WIDGET_BORDER_NONE);
+    ColorScreen_Button4RectBack->fn->setThickness(ColorScreen_Button4RectBack, 0);
+    ColorScreen_MenuItem4->fn->addChild(ColorScreen_MenuItem4, (leWidget*)ColorScreen_Button4RectBack);
 
-    Button4Rect = leRectangleWidget_New();
-    Button4Rect->fn->setPosition(Button4Rect, 0, 7);
-    Button4Rect->fn->setSize(Button4Rect, 212, 50);
-    Button4Rect->fn->setScheme(Button4Rect, &Button4Scheme);
-    Button4Rect->fn->setThickness(Button4Rect, 0);
-    MenuItem4->fn->addChild(MenuItem4, (leWidget*)Button4Rect);
+    ColorScreen_Button4Rect = leRectangleWidget_New();
+    ColorScreen_Button4Rect->fn->setPosition(ColorScreen_Button4Rect, 0, 7);
+    ColorScreen_Button4Rect->fn->setSize(ColorScreen_Button4Rect, 212, 50);
+    ColorScreen_Button4Rect->fn->setScheme(ColorScreen_Button4Rect, &Button4Scheme);
+    ColorScreen_Button4Rect->fn->setBorderType(ColorScreen_Button4Rect, LE_WIDGET_BORDER_NONE);
+    ColorScreen_Button4Rect->fn->setThickness(ColorScreen_Button4Rect, 0);
+    ColorScreen_MenuItem4->fn->addChild(ColorScreen_MenuItem4, (leWidget*)ColorScreen_Button4Rect);
 
-    Button4Image = leImageWidget_New();
-    Button4Image->fn->setPosition(Button4Image, 23, 0);
-    Button4Image->fn->setSize(Button4Image, 70, 70);
-    Button4Image->fn->setBackgroundType(Button4Image, LE_WIDGET_BACKGROUND_NONE);
-    Button4Image->fn->setImage(Button4Image, &pasta_photo_70);
-    MenuItem4->fn->addChild(MenuItem4, (leWidget*)Button4Image);
+    ColorScreen_Button4Image = leImageWidget_New();
+    ColorScreen_Button4Image->fn->setPosition(ColorScreen_Button4Image, 23, 0);
+    ColorScreen_Button4Image->fn->setSize(ColorScreen_Button4Image, 70, 70);
+    ColorScreen_Button4Image->fn->setBackgroundType(ColorScreen_Button4Image, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_Button4Image->fn->setBorderType(ColorScreen_Button4Image, LE_WIDGET_BORDER_NONE);
+    ColorScreen_Button4Image->fn->setImage(ColorScreen_Button4Image, (leImage*)&pasta_photo_70);
+    ColorScreen_MenuItem4->fn->addChild(ColorScreen_MenuItem4, (leWidget*)ColorScreen_Button4Image);
 
-    MenuItem4Label = leLabelWidget_New();
-    MenuItem4Label->fn->setPosition(MenuItem4Label, 108, 21);
-    MenuItem4Label->fn->setScheme(MenuItem4Label, &UnselectedItemTextScheme);
-    MenuItem4Label->fn->setBackgroundType(MenuItem4Label, LE_WIDGET_BACKGROUND_NONE);
-    MenuItem4Label->fn->setString(MenuItem4Label, (leString*)&tableString_Pasta);
-    MenuItem4->fn->addChild(MenuItem4, (leWidget*)MenuItem4Label);
+    ColorScreen_MenuItem4Label = leLabelWidget_New();
+    ColorScreen_MenuItem4Label->fn->setPosition(ColorScreen_MenuItem4Label, 108, 21);
+    ColorScreen_MenuItem4Label->fn->setScheme(ColorScreen_MenuItem4Label, &UnselectedItemTextScheme);
+    ColorScreen_MenuItem4Label->fn->setBackgroundType(ColorScreen_MenuItem4Label, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_MenuItem4Label->fn->setString(ColorScreen_MenuItem4Label, (leString*)&string_Pasta);
+    ColorScreen_MenuItem4->fn->addChild(ColorScreen_MenuItem4, (leWidget*)ColorScreen_MenuItem4Label);
 
-    ButtonWidget4 = leButtonWidget_New();
-    ButtonWidget4->fn->setPosition(ButtonWidget4, 0, 0);
-    ButtonWidget4->fn->setSize(ButtonWidget4, 212, 70);
-    ButtonWidget4->fn->setBackgroundType(ButtonWidget4, LE_WIDGET_BACKGROUND_NONE);
-    ButtonWidget4->fn->setBorderType(ButtonWidget4, LE_WIDGET_BORDER_NONE);
-    ButtonWidget4->fn->setPressedEventCallback(ButtonWidget4, ButtonWidget4_OnPressed);
-    MenuItem4->fn->addChild(MenuItem4, (leWidget*)ButtonWidget4);
+    ColorScreen_ButtonWidget4 = leButtonWidget_New();
+    ColorScreen_ButtonWidget4->fn->setPosition(ColorScreen_ButtonWidget4, 0, 0);
+    ColorScreen_ButtonWidget4->fn->setSize(ColorScreen_ButtonWidget4, 212, 70);
+    ColorScreen_ButtonWidget4->fn->setBackgroundType(ColorScreen_ButtonWidget4, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_ButtonWidget4->fn->setBorderType(ColorScreen_ButtonWidget4, LE_WIDGET_BORDER_NONE);
+    ColorScreen_ButtonWidget4->fn->setPressedEventCallback(ColorScreen_ButtonWidget4, event_ColorScreen_ButtonWidget4_OnPressed);
+    ColorScreen_MenuItem4->fn->addChild(ColorScreen_MenuItem4, (leWidget*)ColorScreen_ButtonWidget4);
 
-    Screen2MainClockPanel = leWidget_New();
-    Screen2MainClockPanel->fn->setPosition(Screen2MainClockPanel, 212, 22);
-    Screen2MainClockPanel->fn->setSize(Screen2MainClockPanel, 153, 290);
-    Screen2MainClockPanel->fn->setBackgroundType(Screen2MainClockPanel, LE_WIDGET_BACKGROUND_NONE);
-    root0->fn->addChild(root0, Screen2MainClockPanel);
+    ColorScreen_Screen2MainClockPanel = leWidget_New();
+    ColorScreen_Screen2MainClockPanel->fn->setPosition(ColorScreen_Screen2MainClockPanel, 212, 22);
+    ColorScreen_Screen2MainClockPanel->fn->setSize(ColorScreen_Screen2MainClockPanel, 153, 290);
+    ColorScreen_Screen2MainClockPanel->fn->setBackgroundType(ColorScreen_Screen2MainClockPanel, LE_WIDGET_BACKGROUND_NONE);
+    root0->fn->addChild(root0, (leWidget*)ColorScreen_Screen2MainClockPanel);
 
-    Screen2HourLabel = leLabelWidget_New();
-    Screen2HourLabel->fn->setPosition(Screen2HourLabel, 0, 64);
-    Screen2HourLabel->fn->setSize(Screen2HourLabel, 153, 75);
-    Screen2HourLabel->fn->setScheme(Screen2HourLabel, &WhiteTextScheme);
-    Screen2HourLabel->fn->setBackgroundType(Screen2HourLabel, LE_WIDGET_BACKGROUND_NONE);
-    Screen2HourLabel->fn->setHAlignment(Screen2HourLabel, LE_HALIGN_CENTER);
-    Screen2HourLabel->fn->setString(Screen2HourLabel, (leString*)&tableString_DefaultHour2);
-    Screen2MainClockPanel->fn->addChild(Screen2MainClockPanel, (leWidget*)Screen2HourLabel);
+    ColorScreen_Screen2HourLabel = leLabelWidget_New();
+    ColorScreen_Screen2HourLabel->fn->setPosition(ColorScreen_Screen2HourLabel, 0, 64);
+    ColorScreen_Screen2HourLabel->fn->setSize(ColorScreen_Screen2HourLabel, 153, 75);
+    ColorScreen_Screen2HourLabel->fn->setScheme(ColorScreen_Screen2HourLabel, &WhiteTextScheme);
+    ColorScreen_Screen2HourLabel->fn->setBackgroundType(ColorScreen_Screen2HourLabel, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_Screen2HourLabel->fn->setHAlignment(ColorScreen_Screen2HourLabel, LE_HALIGN_CENTER);
+    ColorScreen_Screen2HourLabel->fn->setString(ColorScreen_Screen2HourLabel, (leString*)&string_DefaultHour2);
+    ColorScreen_Screen2MainClockPanel->fn->addChild(ColorScreen_Screen2MainClockPanel, (leWidget*)ColorScreen_Screen2HourLabel);
 
-    Screen2ColonLabel = leLabelWidget_New();
-    Screen2ColonLabel->fn->setPosition(Screen2ColonLabel, 26, 146);
-    Screen2ColonLabel->fn->setSize(Screen2ColonLabel, 26, 52);
-    Screen2ColonLabel->fn->setScheme(Screen2ColonLabel, &WhiteTextScheme);
-    Screen2ColonLabel->fn->setBackgroundType(Screen2ColonLabel, LE_WIDGET_BACKGROUND_NONE);
-    Screen2ColonLabel->fn->setString(Screen2ColonLabel, (leString*)&tableString_Colon);
-    Screen2MainClockPanel->fn->addChild(Screen2MainClockPanel, (leWidget*)Screen2ColonLabel);
+    ColorScreen_Screen2ColonLabel = leLabelWidget_New();
+    ColorScreen_Screen2ColonLabel->fn->setPosition(ColorScreen_Screen2ColonLabel, 26, 146);
+    ColorScreen_Screen2ColonLabel->fn->setSize(ColorScreen_Screen2ColonLabel, 26, 52);
+    ColorScreen_Screen2ColonLabel->fn->setScheme(ColorScreen_Screen2ColonLabel, &WhiteTextScheme);
+    ColorScreen_Screen2ColonLabel->fn->setBackgroundType(ColorScreen_Screen2ColonLabel, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_Screen2ColonLabel->fn->setString(ColorScreen_Screen2ColonLabel, (leString*)&string_Colon);
+    ColorScreen_Screen2MainClockPanel->fn->addChild(ColorScreen_Screen2MainClockPanel, (leWidget*)ColorScreen_Screen2ColonLabel);
 
-    Screen2MinuteLabel = leLabelWidget_New();
-    Screen2MinuteLabel->fn->setPosition(Screen2MinuteLabel, 51, 138);
-    Screen2MinuteLabel->fn->setSize(Screen2MinuteLabel, 101, 80);
-    Screen2MinuteLabel->fn->setScheme(Screen2MinuteLabel, &WhiteTextScheme);
-    Screen2MinuteLabel->fn->setBackgroundType(Screen2MinuteLabel, LE_WIDGET_BACKGROUND_NONE);
-    Screen2MinuteLabel->fn->setString(Screen2MinuteLabel, (leString*)&tableString_DefaultMinute2);
-    Screen2MainClockPanel->fn->addChild(Screen2MainClockPanel, (leWidget*)Screen2MinuteLabel);
+    ColorScreen_Screen2MinuteLabel = leLabelWidget_New();
+    ColorScreen_Screen2MinuteLabel->fn->setPosition(ColorScreen_Screen2MinuteLabel, 51, 138);
+    ColorScreen_Screen2MinuteLabel->fn->setSize(ColorScreen_Screen2MinuteLabel, 101, 80);
+    ColorScreen_Screen2MinuteLabel->fn->setScheme(ColorScreen_Screen2MinuteLabel, &WhiteTextScheme);
+    ColorScreen_Screen2MinuteLabel->fn->setBackgroundType(ColorScreen_Screen2MinuteLabel, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_Screen2MinuteLabel->fn->setString(ColorScreen_Screen2MinuteLabel, (leString*)&string_DefaultMinute2);
+    ColorScreen_Screen2MainClockPanel->fn->addChild(ColorScreen_Screen2MainClockPanel, (leWidget*)ColorScreen_Screen2MinuteLabel);
 
-    Screen2LabelPanel = leWidget_New();
-    Screen2LabelPanel->fn->setPosition(Screen2LabelPanel, 205, 0);
-    Screen2LabelPanel->fn->setSize(Screen2LabelPanel, 275, 76);
-    Screen2LabelPanel->fn->setBackgroundType(Screen2LabelPanel, LE_WIDGET_BACKGROUND_NONE);
-    root0->fn->addChild(root0, Screen2LabelPanel);
+    ColorScreen_Screen2LabelPanel = leWidget_New();
+    ColorScreen_Screen2LabelPanel->fn->setPosition(ColorScreen_Screen2LabelPanel, 205, 0);
+    ColorScreen_Screen2LabelPanel->fn->setSize(ColorScreen_Screen2LabelPanel, 275, 76);
+    ColorScreen_Screen2LabelPanel->fn->setBackgroundType(ColorScreen_Screen2LabelPanel, LE_WIDGET_BACKGROUND_NONE);
+    root0->fn->addChild(root0, (leWidget*)ColorScreen_Screen2LabelPanel);
 
-    Screen2GoodLabel = leLabelWidget_New();
-    Screen2GoodLabel->fn->setPosition(Screen2GoodLabel, 161, 0);
-    Screen2GoodLabel->fn->setSize(Screen2GoodLabel, 71, 29);
-    Screen2GoodLabel->fn->setScheme(Screen2GoodLabel, &WhiteTextScheme);
-    Screen2GoodLabel->fn->setBackgroundType(Screen2GoodLabel, LE_WIDGET_BACKGROUND_NONE);
-    Screen2GoodLabel->fn->setHAlignment(Screen2GoodLabel, LE_HALIGN_CENTER);
-    Screen2GoodLabel->fn->setString(Screen2GoodLabel, (leString*)&tableString_GoodBytes);
-    Screen2LabelPanel->fn->addChild(Screen2LabelPanel, (leWidget*)Screen2GoodLabel);
+    ColorScreen_Screen2GoodLabel = leLabelWidget_New();
+    ColorScreen_Screen2GoodLabel->fn->setPosition(ColorScreen_Screen2GoodLabel, 161, 0);
+    ColorScreen_Screen2GoodLabel->fn->setSize(ColorScreen_Screen2GoodLabel, 71, 29);
+    ColorScreen_Screen2GoodLabel->fn->setScheme(ColorScreen_Screen2GoodLabel, &WhiteTextScheme);
+    ColorScreen_Screen2GoodLabel->fn->setBackgroundType(ColorScreen_Screen2GoodLabel, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_Screen2GoodLabel->fn->setHAlignment(ColorScreen_Screen2GoodLabel, LE_HALIGN_CENTER);
+    ColorScreen_Screen2GoodLabel->fn->setString(ColorScreen_Screen2GoodLabel, (leString*)&string_GoodBytes);
+    ColorScreen_Screen2LabelPanel->fn->addChild(ColorScreen_Screen2LabelPanel, (leWidget*)ColorScreen_Screen2GoodLabel);
 
-    Screen2BytesLabel = leLabelWidget_New();
-    Screen2BytesLabel->fn->setPosition(Screen2BytesLabel, 0, 22);
-    Screen2BytesLabel->fn->setSize(Screen2BytesLabel, 268, 30);
-    Screen2BytesLabel->fn->setScheme(Screen2BytesLabel, &LabelBannerScheme);
-    Screen2BytesLabel->fn->setHAlignment(Screen2BytesLabel, LE_HALIGN_RIGHT);
-    Screen2BytesLabel->fn->setString(Screen2BytesLabel, (leString*)&tableString_Bytes);
-    Screen2LabelPanel->fn->addChild(Screen2LabelPanel, (leWidget*)Screen2BytesLabel);
+    ColorScreen_Screen2BytesLabel = leLabelWidget_New();
+    ColorScreen_Screen2BytesLabel->fn->setPosition(ColorScreen_Screen2BytesLabel, 0, 22);
+    ColorScreen_Screen2BytesLabel->fn->setSize(ColorScreen_Screen2BytesLabel, 268, 30);
+    ColorScreen_Screen2BytesLabel->fn->setScheme(ColorScreen_Screen2BytesLabel, &LabelBannerScheme);
+    ColorScreen_Screen2BytesLabel->fn->setHAlignment(ColorScreen_Screen2BytesLabel, LE_HALIGN_RIGHT);
+    ColorScreen_Screen2BytesLabel->fn->setString(ColorScreen_Screen2BytesLabel, (leString*)&string_Bytes);
+    ColorScreen_Screen2LabelPanel->fn->addChild(ColorScreen_Screen2LabelPanel, (leWidget*)ColorScreen_Screen2BytesLabel);
 
-    Screen2SmartCookerLabel = leLabelWidget_New();
-    Screen2SmartCookerLabel->fn->setPosition(Screen2SmartCookerLabel, 160, 48);
-    Screen2SmartCookerLabel->fn->setSize(Screen2SmartCookerLabel, 115, 25);
-    Screen2SmartCookerLabel->fn->setScheme(Screen2SmartCookerLabel, &WhiteTextScheme);
-    Screen2SmartCookerLabel->fn->setBackgroundType(Screen2SmartCookerLabel, LE_WIDGET_BACKGROUND_NONE);
-    Screen2SmartCookerLabel->fn->setHAlignment(Screen2SmartCookerLabel, LE_HALIGN_CENTER);
-    Screen2SmartCookerLabel->fn->setString(Screen2SmartCookerLabel, (leString*)&tableString_SmartCooker);
-    Screen2LabelPanel->fn->addChild(Screen2LabelPanel, (leWidget*)Screen2SmartCookerLabel);
+    ColorScreen_Screen2SmartCookerLabel = leLabelWidget_New();
+    ColorScreen_Screen2SmartCookerLabel->fn->setPosition(ColorScreen_Screen2SmartCookerLabel, 160, 48);
+    ColorScreen_Screen2SmartCookerLabel->fn->setSize(ColorScreen_Screen2SmartCookerLabel, 115, 25);
+    ColorScreen_Screen2SmartCookerLabel->fn->setScheme(ColorScreen_Screen2SmartCookerLabel, &WhiteTextScheme);
+    ColorScreen_Screen2SmartCookerLabel->fn->setBackgroundType(ColorScreen_Screen2SmartCookerLabel, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_Screen2SmartCookerLabel->fn->setHAlignment(ColorScreen_Screen2SmartCookerLabel, LE_HALIGN_CENTER);
+    ColorScreen_Screen2SmartCookerLabel->fn->setString(ColorScreen_Screen2SmartCookerLabel, (leString*)&string_SmartCooker);
+    ColorScreen_Screen2LabelPanel->fn->addChild(ColorScreen_Screen2LabelPanel, (leWidget*)ColorScreen_Screen2SmartCookerLabel);
 
-    ButtonWidget6 = leButtonWidget_New();
-    ButtonWidget6->fn->setPosition(ButtonWidget6, 0, 22);
-    ButtonWidget6->fn->setSize(ButtonWidget6, 160, 30);
-    ButtonWidget6->fn->setBackgroundType(ButtonWidget6, LE_WIDGET_BACKGROUND_NONE);
-    ButtonWidget6->fn->setBorderType(ButtonWidget6, LE_WIDGET_BORDER_NONE);
-    ButtonWidget6->fn->setToggleable(ButtonWidget6, LE_TRUE);
-    ButtonWidget6->fn->setPressedImage(ButtonWidget6, &DemoOff);
-    ButtonWidget6->fn->setReleasedImage(ButtonWidget6, &DemoOn);
-    ButtonWidget6->fn->setPressedEventCallback(ButtonWidget6, ButtonWidget6_OnPressed);
-    ButtonWidget6->fn->setReleasedEventCallback(ButtonWidget6, ButtonWidget6_OnReleased);
-    Screen2LabelPanel->fn->addChild(Screen2LabelPanel, (leWidget*)ButtonWidget6);
+    ColorScreen_ButtonWidget6 = leButtonWidget_New();
+    ColorScreen_ButtonWidget6->fn->setPosition(ColorScreen_ButtonWidget6, 0, 22);
+    ColorScreen_ButtonWidget6->fn->setSize(ColorScreen_ButtonWidget6, 160, 30);
+    ColorScreen_ButtonWidget6->fn->setBackgroundType(ColorScreen_ButtonWidget6, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_ButtonWidget6->fn->setBorderType(ColorScreen_ButtonWidget6, LE_WIDGET_BORDER_NONE);
+    ColorScreen_ButtonWidget6->fn->setToggleable(ColorScreen_ButtonWidget6, LE_TRUE);
+    ColorScreen_ButtonWidget6->fn->setPressedImage(ColorScreen_ButtonWidget6, (leImage*)&DemoOff);
+    ColorScreen_ButtonWidget6->fn->setReleasedImage(ColorScreen_ButtonWidget6, (leImage*)&DemoOn);
+    ColorScreen_ButtonWidget6->fn->setPressedEventCallback(ColorScreen_ButtonWidget6, event_ColorScreen_ButtonWidget6_OnPressed);
+    ColorScreen_ButtonWidget6->fn->setReleasedEventCallback(ColorScreen_ButtonWidget6, event_ColorScreen_ButtonWidget6_OnReleased);
+    ColorScreen_Screen2LabelPanel->fn->addChild(ColorScreen_Screen2LabelPanel, (leWidget*)ColorScreen_ButtonWidget6);
 
-    SliderButton2 = leButtonWidget_New();
-    SliderButton2->fn->setPosition(SliderButton2, 212, 52);
-    SliderButton2->fn->setSize(SliderButton2, 153, 260);
-    SliderButton2->fn->setBackgroundType(SliderButton2, LE_WIDGET_BACKGROUND_NONE);
-    SliderButton2->fn->setBorderType(SliderButton2, LE_WIDGET_BORDER_NONE);
-    root0->fn->addChild(root0, (leWidget*)SliderButton2);
+    ColorScreen_SliderButton2 = leButtonWidget_New();
+    ColorScreen_SliderButton2->fn->setPosition(ColorScreen_SliderButton2, 212, 52);
+    ColorScreen_SliderButton2->fn->setSize(ColorScreen_SliderButton2, 153, 260);
+    ColorScreen_SliderButton2->fn->setBackgroundType(ColorScreen_SliderButton2, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_SliderButton2->fn->setBorderType(ColorScreen_SliderButton2, LE_WIDGET_BORDER_NONE);
+    root0->fn->addChild(root0, (leWidget*)ColorScreen_SliderButton2);
 
     leAddRootWidget(root0, 0);
+    leSetLayerColorMode(0, LE_COLOR_MODE_RGB_565);
+
+    ColorScreen_OnShow(); // raise event
 
     showing = LE_TRUE;
-
-    ColorScreen_OnShow();
 
     return LE_SUCCESS;
 }
 
 void screenUpdate_ColorScreen()
 {
-    ColorScreen_OnUpdate();
+    ColorScreen_OnUpdate(); // raise event
 }
 
 void screenHide_ColorScreen()
 {
+    ColorScreen_OnHide(); // raise event
+
+
     leRemoveRootWidget(root0, 0);
-
     leWidget_Delete(root0);
-
     root0 = NULL;
 
-    PanelWidget2 = NULL;
-    PanelWidget5 = NULL;
-    ProgressRect = NULL;
-    PanelWidget4 = NULL;
-    ReheatButtonWidget = NULL;
-    CookButtonWidget = NULL;
-    ButtonWidget5 = NULL;
-    QuickSelectionsPanel = NULL;
-    MenuItem1 = NULL;
-    ButtonRect1Back = NULL;
-    Button1Rect = NULL;
-    ButtonImage1 = NULL;
-    MenuItem1Label = NULL;
-    ButtonWidget1 = NULL;
-    LabelWidget2 = NULL;
-    MenuItem2 = NULL;
-    Button2RectBack = NULL;
-    Button2Rect = NULL;
-    ButtonImage2 = NULL;
-    MenuItem2Label = NULL;
-    ButtonWidget2 = NULL;
-    MenuItem3 = NULL;
-    Button3RectBack = NULL;
-    Button3Rect = NULL;
-    ButtonImage3 = NULL;
-    MenuItem3Label = NULL;
-    ButtonWidget3 = NULL;
-    MenuItem4 = NULL;
-    Button4RectBack = NULL;
-    Button4Rect = NULL;
-    Button4Image = NULL;
-    MenuItem4Label = NULL;
-    ButtonWidget4 = NULL;
-    Screen2MainClockPanel = NULL;
-    Screen2HourLabel = NULL;
-    Screen2ColonLabel = NULL;
-    Screen2MinuteLabel = NULL;
-    Screen2LabelPanel = NULL;
-    Screen2GoodLabel = NULL;
-    Screen2BytesLabel = NULL;
-    Screen2SmartCookerLabel = NULL;
-    ButtonWidget6 = NULL;
-    SliderButton2 = NULL;
+    ColorScreen_PanelWidget2 = NULL;
+    ColorScreen_PanelWidget5 = NULL;
+    ColorScreen_PanelWidget4 = NULL;
+    ColorScreen_QuickSelectionsPanel = NULL;
+    ColorScreen_Screen2MainClockPanel = NULL;
+    ColorScreen_Screen2LabelPanel = NULL;
+    ColorScreen_SliderButton2 = NULL;
+    ColorScreen_ProgressRect = NULL;
+    ColorScreen_ReheatButtonWidget = NULL;
+    ColorScreen_CookButtonWidget = NULL;
+    ColorScreen_ButtonWidget5 = NULL;
+    ColorScreen_MenuItem1 = NULL;
+    ColorScreen_LabelWidget2 = NULL;
+    ColorScreen_MenuItem2 = NULL;
+    ColorScreen_MenuItem3 = NULL;
+    ColorScreen_MenuItem4 = NULL;
+    ColorScreen_ButtonRect1Back = NULL;
+    ColorScreen_Button1Rect = NULL;
+    ColorScreen_ButtonImage1 = NULL;
+    ColorScreen_MenuItem1Label = NULL;
+    ColorScreen_ButtonWidget1 = NULL;
+    ColorScreen_Button2RectBack = NULL;
+    ColorScreen_Button2Rect = NULL;
+    ColorScreen_ButtonImage2 = NULL;
+    ColorScreen_MenuItem2Label = NULL;
+    ColorScreen_ButtonWidget2 = NULL;
+    ColorScreen_Button3RectBack = NULL;
+    ColorScreen_Button3Rect = NULL;
+    ColorScreen_ButtonImage3 = NULL;
+    ColorScreen_MenuItem3Label = NULL;
+    ColorScreen_ButtonWidget3 = NULL;
+    ColorScreen_Button4RectBack = NULL;
+    ColorScreen_Button4Rect = NULL;
+    ColorScreen_Button4Image = NULL;
+    ColorScreen_MenuItem4Label = NULL;
+    ColorScreen_ButtonWidget4 = NULL;
+    ColorScreen_Screen2HourLabel = NULL;
+    ColorScreen_Screen2ColonLabel = NULL;
+    ColorScreen_Screen2MinuteLabel = NULL;
+    ColorScreen_Screen2GoodLabel = NULL;
+    ColorScreen_Screen2BytesLabel = NULL;
+    ColorScreen_Screen2SmartCookerLabel = NULL;
+    ColorScreen_ButtonWidget6 = NULL;
 
-    tableString_SteakMenuItem.fn->destructor(&tableString_SteakMenuItem);
-    tableString_QuickItems.fn->destructor(&tableString_QuickItems);
-    tableString_SalmonMenuItem.fn->destructor(&tableString_SalmonMenuItem);
-    tableString_PizzaMenuItem.fn->destructor(&tableString_PizzaMenuItem);
-    tableString_Pasta.fn->destructor(&tableString_Pasta);
-    tableString_DefaultHour2.fn->destructor(&tableString_DefaultHour2);
-    tableString_Colon.fn->destructor(&tableString_Colon);
-    tableString_DefaultMinute2.fn->destructor(&tableString_DefaultMinute2);
-    tableString_GoodBytes.fn->destructor(&tableString_GoodBytes);
-    tableString_Bytes.fn->destructor(&tableString_Bytes);
-    tableString_SmartCooker.fn->destructor(&tableString_SmartCooker);
+    string_Hotdog.fn->destructor(&string_Hotdog);
+    string_Kabobs.fn->destructor(&string_Kabobs);
+    string_Steak.fn->destructor(&string_Steak);
+    string_Bacon.fn->destructor(&string_Bacon);
+    string_Vegetables.fn->destructor(&string_Vegetables);
+    string_GoodBytes.fn->destructor(&string_GoodBytes);
+    string_Bytes.fn->destructor(&string_Bytes);
+    string_SmartCooker.fn->destructor(&string_SmartCooker);
+    string_DefaultMinute.fn->destructor(&string_DefaultMinute);
+    string_Colon.fn->destructor(&string_Colon);
+    string_DefaultHour.fn->destructor(&string_DefaultHour);
+    string_DefaultCookTime.fn->destructor(&string_DefaultCookTime);
+    string_QuickItems.fn->destructor(&string_QuickItems);
+    string_SteakMenuItem.fn->destructor(&string_SteakMenuItem);
+    string_SalmonMenuItem.fn->destructor(&string_SalmonMenuItem);
+    string_PizzaMenuItem.fn->destructor(&string_PizzaMenuItem);
+    string_Pasta.fn->destructor(&string_Pasta);
+    string_DefaultHour2.fn->destructor(&string_DefaultHour2);
+    string_DefaultMinute2.fn->destructor(&string_DefaultMinute2);
+
+
     showing = LE_FALSE;
-
-    ColorScreen_OnHide();
 }
 
 void screenDestroy_ColorScreen()
 {
+    if(initialized == LE_FALSE)
+        return;
 
+    initialized = LE_FALSE;
 }
 
 leWidget* screenGetRoot_ColorScreen(uint32_t lyrIdx)

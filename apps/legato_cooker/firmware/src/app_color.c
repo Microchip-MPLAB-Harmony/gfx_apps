@@ -104,11 +104,11 @@ static void updateClock(unsigned int high, unsigned int low)
     //create the time character string from hr, min, sec variables
     sprintf(charBuff, "%02u", high); 
     hrStr.fn->setFromCStr(&hrStr, charBuff);    
-    Screen2HourLabel->fn->setString(Screen2HourLabel, (leString*)&hrStr);   
+    ColorScreen_Screen2HourLabel->fn->setString(ColorScreen_Screen2HourLabel, (leString*)&hrStr);   
 
     sprintf(charBuff, "%02u", low); 
     minStr.fn->setFromCStr(&minStr, charBuff);    
-    Screen2MinuteLabel->fn->setString(Screen2MinuteLabel, (leString*)&minStr);   
+    ColorScreen_Screen2MinuteLabel->fn->setString(ColorScreen_Screen2MinuteLabel, (leString*)&minStr);   
 }
 
 static void Timer_Callback ( uintptr_t context)
@@ -150,11 +150,11 @@ static void Timer_Callback ( uintptr_t context)
                         demo_mode_event_idx + 1 : 0;
             }
             
-            ButtonWidget6->fn->setVisible(ButtonWidget6, clock_sec%2);
+            ColorScreen_ButtonWidget6->fn->setVisible(ColorScreen_ButtonWidget6, clock_sec%2);
         }
         else
         {
-            ButtonWidget6->fn->setVisible(ButtonWidget6, LE_TRUE);
+            ColorScreen_ButtonWidget6->fn->setVisible(ColorScreen_ButtonWidget6, LE_TRUE);
         }
     }  
 }
@@ -190,31 +190,31 @@ static void Set_SelectedMenuItem(int index)
     if (color_scene_state != COLOR_SCENE_PROCESS)
         return;
     
-    MenuItem1Label->fn->setScheme(MenuItem1Label, &UnselectedItemTextScheme);
-    MenuItem2Label->fn->setScheme(MenuItem2Label, &UnselectedItemTextScheme);
-    MenuItem3Label->fn->setScheme(MenuItem3Label, &UnselectedItemTextScheme);
-    MenuItem4Label->fn->setScheme(MenuItem4Label, &UnselectedItemTextScheme);
+    ColorScreen_MenuItem1Label->fn->setScheme(ColorScreen_MenuItem1Label, &UnselectedItemTextScheme);
+    ColorScreen_MenuItem2Label->fn->setScheme(ColorScreen_MenuItem2Label, &UnselectedItemTextScheme);
+    ColorScreen_MenuItem3Label->fn->setScheme(ColorScreen_MenuItem3Label, &UnselectedItemTextScheme);
+    ColorScreen_MenuItem4Label->fn->setScheme(ColorScreen_MenuItem4Label, &UnselectedItemTextScheme);
     
-    ButtonImage1->fn->setSize(ButtonImage1, 64, 64);
-    ButtonImage2->fn->setSize(ButtonImage2, 64, 64);
-    ButtonImage3->fn->setSize(ButtonImage3, 64, 64);
-    Button4Image->fn->setSize(Button4Image, 64, 64);
+    ColorScreen_ButtonImage1->fn->setSize(ColorScreen_ButtonImage1, 64, 64);
+    ColorScreen_ButtonImage2->fn->setSize(ColorScreen_ButtonImage2, 64, 64);
+    ColorScreen_ButtonImage3->fn->setSize(ColorScreen_ButtonImage3, 64, 64);
+    ColorScreen_Button4Image->fn->setSize(ColorScreen_Button4Image, 64, 64);
     
-    ButtonImage1->fn->setPosition(ButtonImage1, 15, 2);
-    ButtonImage2->fn->setPosition(ButtonImage2, 25, 2);
-    ButtonImage3->fn->setPosition(ButtonImage3, 15, 2);
-    Button4Image->fn->setPosition(Button4Image, 25, 2);
+    ColorScreen_ButtonImage1->fn->setPosition(ColorScreen_ButtonImage1, 15, 2);
+    ColorScreen_ButtonImage2->fn->setPosition(ColorScreen_ButtonImage2, 25, 2);
+    ColorScreen_ButtonImage3->fn->setPosition(ColorScreen_ButtonImage3, 15, 2);
+    ColorScreen_Button4Image->fn->setPosition(ColorScreen_Button4Image, 25, 2);
     
 
     switch(index)
     {
         case 0:
         {
-            MenuItem1Label->fn->setScheme(MenuItem1Label, &WhiteTextScheme);
-            ButtonImage1->fn->setSize(ButtonImage1, 70, 70);
-            ButtonImage1->fn->setPosition(ButtonImage1, 13, 0);
+            ColorScreen_MenuItem1Label->fn->setScheme(ColorScreen_MenuItem1Label, &WhiteTextScheme);
+            ColorScreen_ButtonImage1->fn->setSize(ColorScreen_ButtonImage1, 70, 70);
+            ColorScreen_ButtonImage1->fn->setPosition(ColorScreen_ButtonImage1, 13, 0);
             
-            ProgressRect->fn->setScheme(ProgressRect, &Button1Scheme);
+            ColorScreen_ProgressRect->fn->setScheme(ColorScreen_ProgressRect, &Button1Scheme);
             
             startCookSec = 200;
                     
@@ -222,11 +222,11 @@ static void Set_SelectedMenuItem(int index)
         }
         case 1:
         {
-            MenuItem2Label->fn->setScheme(MenuItem2Label, &WhiteTextScheme);
-            ButtonImage2->fn->setSize(ButtonImage2, 70, 70);
-            ButtonImage2->fn->setPosition(ButtonImage2, 23, 0);
+            ColorScreen_MenuItem2Label->fn->setScheme(ColorScreen_MenuItem2Label, &WhiteTextScheme);
+            ColorScreen_ButtonImage2->fn->setSize(ColorScreen_ButtonImage2, 70, 70);
+            ColorScreen_ButtonImage2->fn->setPosition(ColorScreen_ButtonImage2, 23, 0);
             
-            ProgressRect->fn->setScheme(ProgressRect, &Button2Scheme);
+            ColorScreen_ProgressRect->fn->setScheme(ColorScreen_ProgressRect, &Button2Scheme);
             
             startCookSec = 110;
                     
@@ -234,11 +234,11 @@ static void Set_SelectedMenuItem(int index)
         }
         case 2:
         {
-            MenuItem3Label->fn->setScheme(MenuItem3Label, &WhiteTextScheme);
-            ButtonImage3->fn->setSize(ButtonImage3, 70, 70);
-            ButtonImage3->fn->setPosition(ButtonImage3, 13, 0);                    
+            ColorScreen_MenuItem3Label->fn->setScheme(ColorScreen_MenuItem3Label, &WhiteTextScheme);
+            ColorScreen_ButtonImage3->fn->setSize(ColorScreen_ButtonImage3, 70, 70);
+            ColorScreen_ButtonImage3->fn->setPosition(ColorScreen_ButtonImage3, 13, 0);                    
                  
-            ProgressRect->fn->setScheme(ProgressRect, &Button3Scheme);
+            ColorScreen_ProgressRect->fn->setScheme(ColorScreen_ProgressRect, &Button3Scheme);
             
             startCookSec = 60;
             
@@ -246,11 +246,11 @@ static void Set_SelectedMenuItem(int index)
         }
         case 3:
         {
-            MenuItem4Label->fn->setScheme(MenuItem4Label, &WhiteTextScheme);
-            Button4Image->fn->setSize(Button4Image, 70, 70);
-            Button4Image->fn->setPosition(Button4Image, 23, 0);                    
+            ColorScreen_MenuItem4Label->fn->setScheme(ColorScreen_MenuItem4Label, &WhiteTextScheme);
+            ColorScreen_Button4Image->fn->setSize(ColorScreen_Button4Image, 70, 70);
+            ColorScreen_Button4Image->fn->setPosition(ColorScreen_Button4Image, 23, 0);                    
                     
-            ProgressRect->fn->setScheme(ProgressRect, &Button4Scheme);
+            ColorScreen_ProgressRect->fn->setScheme(ColorScreen_ProgressRect, &Button4Scheme);
             
             startCookSec = 50;
             
@@ -313,59 +313,59 @@ static leWidgetEventFilter color_eventFilter =
 void ColorScreen_OnShow(void)
 {
     //Hide the other menu items
-    MenuItem2->fn->setVisible(MenuItem2, LE_FALSE);
-    MenuItem3->fn->setVisible(MenuItem3, LE_FALSE);
-    MenuItem4->fn->setVisible(MenuItem4, LE_FALSE);
+    ColorScreen_MenuItem2->fn->setVisible(ColorScreen_MenuItem2, LE_FALSE);
+    ColorScreen_MenuItem3->fn->setVisible(ColorScreen_MenuItem3, LE_FALSE);
+    ColorScreen_MenuItem4->fn->setVisible(ColorScreen_MenuItem4, LE_FALSE);
 
     //Hide all the menu item images
-    ButtonImage1->fn->setVisible(ButtonImage1, LE_FALSE);
-    ButtonImage2->fn->setVisible(ButtonImage2, LE_FALSE);
-    ButtonImage3->fn->setVisible(ButtonImage3, LE_FALSE);
-    Button4Image->fn->setVisible(Button4Image, LE_FALSE);
+    ColorScreen_ButtonImage1->fn->setVisible(ColorScreen_ButtonImage1, LE_FALSE);
+    ColorScreen_ButtonImage2->fn->setVisible(ColorScreen_ButtonImage2, LE_FALSE);
+    ColorScreen_ButtonImage3->fn->setVisible(ColorScreen_ButtonImage3, LE_FALSE);
+    ColorScreen_Button4Image->fn->setVisible(ColorScreen_Button4Image, LE_FALSE);
 
     //Hide all the background gray rects
-    ButtonRect1Back->fn->setVisible(ButtonRect1Back, LE_FALSE);
-    Button2RectBack->fn->setVisible(Button2RectBack, LE_FALSE);
-    Button3RectBack->fn->setVisible(Button3RectBack, LE_FALSE);
-    Button4RectBack->fn->setVisible(Button4RectBack, LE_FALSE);
+    ColorScreen_ButtonRect1Back->fn->setVisible(ColorScreen_ButtonRect1Back, LE_FALSE);
+    ColorScreen_Button2RectBack->fn->setVisible(ColorScreen_Button2RectBack, LE_FALSE);
+    ColorScreen_Button3RectBack->fn->setVisible(ColorScreen_Button3RectBack, LE_FALSE);
+    ColorScreen_Button4RectBack->fn->setVisible(ColorScreen_Button4RectBack, LE_FALSE);
 
     //Hide all the menu labels
-    MenuItem1Label->fn->setVisible(MenuItem1Label, LE_FALSE);
-    MenuItem2Label->fn->setVisible(MenuItem2Label, LE_FALSE);
-    MenuItem3Label->fn->setVisible(MenuItem3Label, LE_FALSE);
-    MenuItem4Label->fn->setVisible(MenuItem4Label, LE_FALSE);
+    ColorScreen_MenuItem1Label->fn->setVisible(ColorScreen_MenuItem1Label, LE_FALSE);
+    ColorScreen_MenuItem2Label->fn->setVisible(ColorScreen_MenuItem2Label, LE_FALSE);
+    ColorScreen_MenuItem3Label->fn->setVisible(ColorScreen_MenuItem3Label, LE_FALSE);
+    ColorScreen_MenuItem4Label->fn->setVisible(ColorScreen_MenuItem4Label, LE_FALSE);
 
     // Hide the clock panel
-    Screen2MainClockPanel->fn->setVisible(Screen2MainClockPanel, LE_FALSE);
+    ColorScreen_Screen2MainClockPanel->fn->setVisible(ColorScreen_Screen2MainClockPanel, LE_FALSE);
 
     //Hide the Banner
-    Screen2LabelPanel->fn->setY(Screen2LabelPanel, -76);
+    ColorScreen_Screen2LabelPanel->fn->setY(ColorScreen_Screen2LabelPanel, -76);
 
     //Hide the mode buttons
-    CookButtonWidget->fn->setVisible(CookButtonWidget, LE_FALSE);
-    ReheatButtonWidget->fn->setVisible(ReheatButtonWidget, LE_FALSE);
+    ColorScreen_CookButtonWidget->fn->setVisible(ColorScreen_CookButtonWidget, LE_FALSE);
+    ColorScreen_ReheatButtonWidget->fn->setVisible(ColorScreen_ReheatButtonWidget, LE_FALSE);
 
     //Hide the progress rectangle
-    ProgressRect->fn->setX(ProgressRect, -153);
-    ProgressRect->fn->setY(ProgressRect, 30);
+    ColorScreen_ProgressRect->fn->setX(ColorScreen_ProgressRect, -153);
+    ColorScreen_ProgressRect->fn->setY(ColorScreen_ProgressRect, 30);
 
     //Hide the back panels
-    PanelWidget5->fn->setY(PanelWidget5, 320);
-    PanelWidget4->fn->setX(PanelWidget4, 480);
+    ColorScreen_PanelWidget5->fn->setY(ColorScreen_PanelWidget5, 320);
+    ColorScreen_PanelWidget4->fn->setX(ColorScreen_PanelWidget4, 480);
     
     leFixedString_Constructor(&hrStr, hrStrBuff, 16);
     hrStr.fn->setFont(&hrStr, leStringTable_GetStringFont(leGetState()->stringTable,
-                                                              string_DefaultHour2,
+                                                              stringID_DefaultHour2,
                                                               0));    
     
     leFixedString_Constructor(&minStr, minStrBuff, 16);
     minStr.fn->setFont(&minStr, leStringTable_GetStringFont(leGetState()->stringTable,
-                                                              string_DefaultMinute,
+                                                              stringID_DefaultMinute,
                                                               0));
     
-    ButtonWidget6->fn->setPressed(ButtonWidget6, (leBool) (demo_mode_on == false));
+    ColorScreen_ButtonWidget6->fn->setPressed(ColorScreen_ButtonWidget6, (leBool) (demo_mode_on == false));
     
-    SliderButton2->fn->installEventFilter(SliderButton2, color_eventFilter);
+    ColorScreen_SliderButton2->fn->installEventFilter(ColorScreen_SliderButton2, color_eventFilter);
     
     color_scene_state = COLOR_SCENE_INIT;
     event = NO_EVENTS;
@@ -403,9 +403,9 @@ void ColorScreen_OnUpdate(void)
         case COLOR_SCENE_PREPARE_MENU0:
         {
             //Move the panel in to the scene
-            QuickSelectionsPanel->fn->setX(QuickSelectionsPanel, 0);
+            ColorScreen_QuickSelectionsPanel->fn->setX(ColorScreen_QuickSelectionsPanel, 0);
             
-            Rect_PreAnimate(Button1Rect);
+            Rect_PreAnimate(ColorScreen_Button1Rect);
             
             color_scene_state = COLOR_SCENE_PREPARE_MENU1;
             
@@ -420,14 +420,14 @@ void ColorScreen_OnUpdate(void)
         }
         case COLOR_SCENE_PREPARE_MENU2:
         {
-            if (Rect_Animate(Button1Rect, 0, COLOR_BAR_WIDTH) == true)
+            if (Rect_Animate(ColorScreen_Button1Rect, 0, COLOR_BAR_WIDTH) == true)
             {
-                MenuItem1Label->fn->setVisible(MenuItem1Label, LE_TRUE);
-                ButtonImage1->fn->setVisible(ButtonImage1, LE_TRUE);
-                MenuItem2->fn->setVisible(MenuItem2, LE_TRUE);
-                ButtonImage2->fn->setVisible(ButtonImage2, LE_FALSE);
+                ColorScreen_MenuItem1Label->fn->setVisible(ColorScreen_MenuItem1Label, LE_TRUE);
+                ColorScreen_ButtonImage1->fn->setVisible(ColorScreen_ButtonImage1, LE_TRUE);
+                ColorScreen_MenuItem2->fn->setVisible(ColorScreen_MenuItem2, LE_TRUE);
+                ColorScreen_ButtonImage2->fn->setVisible(ColorScreen_ButtonImage2, LE_FALSE);
 
-                Rect_PreAnimate(Button2Rect);
+                Rect_PreAnimate(ColorScreen_Button2Rect);
 
                 color_scene_state = COLOR_SCENE_PREPARE_MENU3;
             }
@@ -435,14 +435,14 @@ void ColorScreen_OnUpdate(void)
         }
         case COLOR_SCENE_PREPARE_MENU3:
         {    
-            if (Rect_Animate(Button2Rect, 0, COLOR_BAR_WIDTH) == true)
+            if (Rect_Animate(ColorScreen_Button2Rect, 0, COLOR_BAR_WIDTH) == true)
             {
-                MenuItem2Label->fn->setVisible(MenuItem2Label, LE_TRUE);
-                ButtonImage2->fn->setVisible(ButtonImage2, LE_TRUE);                
-                MenuItem3->fn->setVisible(MenuItem3, LE_TRUE);
-                ButtonImage3->fn->setVisible(ButtonImage3, LE_FALSE);
+                ColorScreen_MenuItem2Label->fn->setVisible(ColorScreen_MenuItem2Label, LE_TRUE);
+                ColorScreen_ButtonImage2->fn->setVisible(ColorScreen_ButtonImage2, LE_TRUE);                
+                ColorScreen_MenuItem3->fn->setVisible(ColorScreen_MenuItem3, LE_TRUE);
+                ColorScreen_ButtonImage3->fn->setVisible(ColorScreen_ButtonImage3, LE_FALSE);
 
-                Rect_PreAnimate(Button3Rect);
+                Rect_PreAnimate(ColorScreen_Button3Rect);
 
                 color_scene_state = COLOR_SCENE_PREPARE_MENU4;
             }
@@ -450,15 +450,15 @@ void ColorScreen_OnUpdate(void)
         }
         case COLOR_SCENE_PREPARE_MENU4:
         {    
-            if (Rect_Animate(Button3Rect, 0, COLOR_BAR_WIDTH) == true)
+            if (Rect_Animate(ColorScreen_Button3Rect, 0, COLOR_BAR_WIDTH) == true)
             {
-                MenuItem3Label->fn->setVisible(MenuItem3Label, LE_TRUE);
-                ButtonImage3->fn->setVisible(ButtonImage3, LE_TRUE);
-                MenuItem4->fn->setVisible(MenuItem4, LE_TRUE);
+                ColorScreen_MenuItem3Label->fn->setVisible(ColorScreen_MenuItem3Label, LE_TRUE);
+                ColorScreen_ButtonImage3->fn->setVisible(ColorScreen_ButtonImage3, LE_TRUE);
+                ColorScreen_MenuItem4->fn->setVisible(ColorScreen_MenuItem4, LE_TRUE);
                 
-                Button4Image->fn->setVisible(Button4Image, LE_FALSE);
+                ColorScreen_Button4Image->fn->setVisible(ColorScreen_Button4Image, LE_FALSE);
 
-                Rect_PreAnimate(Button4Rect);
+                Rect_PreAnimate(ColorScreen_Button4Rect);
 
                 color_scene_state = COLOR_SCENE_PREPARE_MENU5;
             }
@@ -466,10 +466,10 @@ void ColorScreen_OnUpdate(void)
         }
         case COLOR_SCENE_PREPARE_MENU5:
         {    
-            if (Rect_Animate(Button4Rect, 0, COLOR_BAR_WIDTH) == true)
+            if (Rect_Animate(ColorScreen_Button4Rect, 0, COLOR_BAR_WIDTH) == true)
             {
-                MenuItem4Label->fn->setVisible(MenuItem4Label, LE_TRUE);                
-                Button4Image->fn->setVisible(Button4Image, LE_TRUE);
+                ColorScreen_MenuItem4Label->fn->setVisible(ColorScreen_MenuItem4Label, LE_TRUE);                
+                ColorScreen_Button4Image->fn->setVisible(ColorScreen_Button4Image, LE_TRUE);
                     
                 color_scene_state = COLOR_SCENE_PREPARE_MENU6;
             }            
@@ -477,10 +477,10 @@ void ColorScreen_OnUpdate(void)
         }
         case COLOR_SCENE_PREPARE_MENU6:
         {
-            ButtonRect1Back->fn->setVisible(ButtonRect1Back, LE_TRUE);
-            Button2RectBack->fn->setVisible(Button2RectBack, LE_TRUE);
-            Button3RectBack->fn->setVisible(Button3RectBack, LE_TRUE);
-            Button4RectBack->fn->setVisible(Button4RectBack, LE_TRUE);
+            ColorScreen_ButtonRect1Back->fn->setVisible(ColorScreen_ButtonRect1Back, LE_TRUE);
+            ColorScreen_Button2RectBack->fn->setVisible(ColorScreen_Button2RectBack, LE_TRUE);
+            ColorScreen_Button3RectBack->fn->setVisible(ColorScreen_Button3RectBack, LE_TRUE);
+            ColorScreen_Button4RectBack->fn->setVisible(ColorScreen_Button4RectBack, LE_TRUE);
             
             Set_SelectedMenuItem(0);
             
@@ -490,16 +490,16 @@ void ColorScreen_OnUpdate(void)
         case COLOR_SCENE_PREPARE_MENU7:
         {
             //animate the clock back panel            
-            y = PanelWidget5->fn->getY(PanelWidget5);
+            y = ColorScreen_PanelWidget5->fn->getY(ColorScreen_PanelWidget5);
 
             if ( y - CLOCK_BACK_PANEL_YPOS > MOVE_DIVIDER)
             {
-                PanelWidget5->fn->setY(PanelWidget5, y - (y - CLOCK_BACK_PANEL_YPOS)/MOVE_DIVIDER);
+                ColorScreen_PanelWidget5->fn->setY(ColorScreen_PanelWidget5, y - (y - CLOCK_BACK_PANEL_YPOS)/MOVE_DIVIDER);
             }
             else
             {
-                PanelWidget5->fn->setY(PanelWidget5, CLOCK_BACK_PANEL_YPOS);
-                Screen2MainClockPanel->fn->setVisible(Screen2MainClockPanel, LE_TRUE);   
+                ColorScreen_PanelWidget5->fn->setY(ColorScreen_PanelWidget5, CLOCK_BACK_PANEL_YPOS);
+                ColorScreen_Screen2MainClockPanel->fn->setVisible(ColorScreen_Screen2MainClockPanel, LE_TRUE);   
                 updateClock(clock_hr, clock_min);
                 
                 color_scene_state = COLOR_SCENE_PREPARE_MENU8;
@@ -510,17 +510,17 @@ void ColorScreen_OnUpdate(void)
         case COLOR_SCENE_PREPARE_MENU8:
         {
             //animate the modes panel
-            x = PanelWidget4->fn->getX(PanelWidget4);
+            x = ColorScreen_PanelWidget4->fn->getX(ColorScreen_PanelWidget4);
 
             if ( x - MODES_BACK_PANEL_XPOS > MOVE_DIVIDER)
             {
-                PanelWidget4->fn->setX(PanelWidget4, x - (x - MODES_BACK_PANEL_XPOS)/MOVE_DIVIDER);
+                ColorScreen_PanelWidget4->fn->setX(ColorScreen_PanelWidget4, x - (x - MODES_BACK_PANEL_XPOS)/MOVE_DIVIDER);
             }
             else
             {
-                PanelWidget4->fn->setX(PanelWidget4, MODES_BACK_PANEL_XPOS);
-                CookButtonWidget->fn->setVisible(CookButtonWidget, LE_TRUE);
-                ReheatButtonWidget->fn->setVisible(ReheatButtonWidget, LE_TRUE);             
+                ColorScreen_PanelWidget4->fn->setX(ColorScreen_PanelWidget4, MODES_BACK_PANEL_XPOS);
+                ColorScreen_CookButtonWidget->fn->setVisible(ColorScreen_CookButtonWidget, LE_TRUE);
+                ColorScreen_ReheatButtonWidget->fn->setVisible(ColorScreen_ReheatButtonWidget, LE_TRUE);             
                 color_scene_state = COLOR_SCENE_PREPARE_MENU9;
             }
             
@@ -529,15 +529,15 @@ void ColorScreen_OnUpdate(void)
         case COLOR_SCENE_PREPARE_MENU9:
         {
             //Animate the label panel
-            y = Screen2LabelPanel->fn->getY(Screen2LabelPanel);
+            y = ColorScreen_Screen2LabelPanel->fn->getY(ColorScreen_Screen2LabelPanel);
 
             if ( y < 0)
             {
-                Screen2LabelPanel->fn->setY(Screen2LabelPanel, y + 1);
+                ColorScreen_Screen2LabelPanel->fn->setY(ColorScreen_Screen2LabelPanel, y + 1);
             }
             else
             {
-                Screen2LabelPanel->fn->setY(Screen2LabelPanel, 0);
+                ColorScreen_Screen2LabelPanel->fn->setY(ColorScreen_Screen2LabelPanel, 0);
                 color_scene_state = COLOR_SCENE_PREPARE_MENU10;
             }            
 
@@ -552,10 +552,10 @@ void ColorScreen_OnUpdate(void)
         {
             if (last_sec != clock_sec)
             {
-                if (Screen2ColonLabel->fn->getVisible(Screen2ColonLabel) == LE_TRUE)
-                    Screen2ColonLabel->fn->setVisible(Screen2ColonLabel, LE_FALSE);
+                if (ColorScreen_Screen2ColonLabel->fn->getVisible(ColorScreen_Screen2ColonLabel) == LE_TRUE)
+                    ColorScreen_Screen2ColonLabel->fn->setVisible(ColorScreen_Screen2ColonLabel, LE_FALSE);
                 else
-                    Screen2ColonLabel->fn->setVisible(Screen2ColonLabel, LE_TRUE);
+                    ColorScreen_Screen2ColonLabel->fn->setVisible(ColorScreen_Screen2ColonLabel, LE_TRUE);
                 
                 last_sec = clock_sec;
             }
@@ -607,10 +607,10 @@ void ColorScreen_OnUpdate(void)
         }
         case COLOR_SCENE_PREPARE:
         {
-            CookButtonWidget->fn->setPressedImage(CookButtonWidget, &cancel2);
-            CookButtonWidget->fn->setReleasedImage(CookButtonWidget, &cancel2);
-            ReheatButtonWidget->fn->setVisible(ReheatButtonWidget, LE_FALSE);
-            Screen2ColonLabel->fn->setVisible(Screen2ColonLabel, LE_TRUE);
+            ColorScreen_CookButtonWidget->fn->setPressedImage(ColorScreen_CookButtonWidget, &cancel2);
+            ColorScreen_CookButtonWidget->fn->setReleasedImage(ColorScreen_CookButtonWidget, &cancel2);
+            ColorScreen_ReheatButtonWidget->fn->setVisible(ColorScreen_ReheatButtonWidget, LE_FALSE);
+            ColorScreen_Screen2ColonLabel->fn->setVisible(ColorScreen_Screen2ColonLabel, LE_TRUE);
             
             updateClock(cookSec/60, cookSec%60);
             
@@ -636,7 +636,7 @@ void ColorScreen_OnUpdate(void)
             
                     updateClock(cookSec/60, cookSec%60);
                     
-                    ProgressRect->fn->setX(ProgressRect, 
+                    ColorScreen_ProgressRect->fn->setX(ColorScreen_ProgressRect, 
                                                (-153 * cookSec) / startCookSec);                    
                     
                     event = NO_EVENTS;
@@ -654,7 +654,7 @@ void ColorScreen_OnUpdate(void)
                 {
                     updateClock(cookSec/60, cookSec%60);
                     
-                    ProgressRect->fn->setX(ProgressRect, 
+                    ColorScreen_ProgressRect->fn->setX(ColorScreen_ProgressRect, 
                                                (-153 * cookSec) / startCookSec);
                     
                     cookSec--;
@@ -663,10 +663,10 @@ void ColorScreen_OnUpdate(void)
                 {
                     cookSec = startCookSec;
                     
-                    ProgressRect->fn->setX(ProgressRect, 0);
+                    ColorScreen_ProgressRect->fn->setX(ColorScreen_ProgressRect, 0);
                     
-                            CookButtonWidget->fn->setPressedImage(CookButtonWidget, &ok2);
-                            CookButtonWidget->fn->setReleasedImage(CookButtonWidget, &ok2);
+                            ColorScreen_CookButtonWidget->fn->setPressedImage(ColorScreen_CookButtonWidget, &ok2);
+                            ColorScreen_CookButtonWidget->fn->setReleasedImage(ColorScreen_CookButtonWidget, &ok2);
                     
                     updateClock(0, 0);
 
@@ -684,13 +684,13 @@ void ColorScreen_OnUpdate(void)
         {
             if (last_sec != clock_sec)
             {
-                if (Screen2MainClockPanel->fn->getVisible(Screen2MainClockPanel) == LE_TRUE)
+                if (ColorScreen_Screen2MainClockPanel->fn->getVisible(ColorScreen_Screen2MainClockPanel) == LE_TRUE)
                 {
-                    Screen2MainClockPanel->fn->setVisible(Screen2MainClockPanel, LE_FALSE);
+                    ColorScreen_Screen2MainClockPanel->fn->setVisible(ColorScreen_Screen2MainClockPanel, LE_FALSE);
                 }
                 else
                 {
-                    Screen2MainClockPanel->fn->setVisible(Screen2MainClockPanel, LE_TRUE);
+                    ColorScreen_Screen2MainClockPanel->fn->setVisible(ColorScreen_Screen2MainClockPanel, LE_TRUE);
                 }
                 
                 last_sec = clock_sec;
@@ -700,7 +700,7 @@ void ColorScreen_OnUpdate(void)
             {
                 case STOP_COOKING:
             {
-                Screen2MainClockPanel->fn->setVisible(Screen2MainClockPanel, LE_TRUE);
+                ColorScreen_Screen2MainClockPanel->fn->setVisible(ColorScreen_Screen2MainClockPanel, LE_TRUE);
                 color_scene_state = COLOR_SCENE_RETURNING;
                 event = NO_EVENTS;
                     
@@ -712,12 +712,12 @@ void ColorScreen_OnUpdate(void)
             
                     updateClock(cookSec/60, cookSec%60);
                     
-                    ProgressRect->fn->setX(ProgressRect, 
+                    ColorScreen_ProgressRect->fn->setX(ColorScreen_ProgressRect, 
                                                (-153 * cookSec) / startCookSec);  
                     
-                    Screen2MainClockPanel->fn->setVisible(Screen2MainClockPanel, LE_TRUE);
-                    CookButtonWidget->fn->setPressedImage(CookButtonWidget, &cancel2);
-                    CookButtonWidget->fn->setReleasedImage(CookButtonWidget, &cancel2);                    
+                    ColorScreen_Screen2MainClockPanel->fn->setVisible(ColorScreen_Screen2MainClockPanel, LE_TRUE);
+                    ColorScreen_CookButtonWidget->fn->setPressedImage(ColorScreen_CookButtonWidget, &cancel2);
+                    ColorScreen_CookButtonWidget->fn->setReleasedImage(ColorScreen_CookButtonWidget, &cancel2);                    
                     
                     color_scene_state = COLOR_SCENE_COOKING;
                     
@@ -735,23 +735,23 @@ void ColorScreen_OnUpdate(void)
         {
             cookSec = startCookSec;
             
-            x = ProgressRect->fn->getX(ProgressRect);
+            x = ColorScreen_ProgressRect->fn->getX(ColorScreen_ProgressRect);
             
             if (x > -153)
             {
-                ProgressRect->fn->setX(ProgressRect, x - 10);
+                ColorScreen_ProgressRect->fn->setX(ColorScreen_ProgressRect, x - 10);
             }
             else
             {
                 updateClock(clock_hr, clock_min);
                 
-                ReheatButtonWidget->fn->setPressedImage(ReheatButtonWidget, &reheat2);
-                ReheatButtonWidget->fn->setReleasedImage(ReheatButtonWidget, &reheat2);
-                ReheatButtonWidget->fn->setVisible(ReheatButtonWidget, LE_TRUE);                
+                ColorScreen_ReheatButtonWidget->fn->setPressedImage(ColorScreen_ReheatButtonWidget, &reheat2);
+                ColorScreen_ReheatButtonWidget->fn->setReleasedImage(ColorScreen_ReheatButtonWidget, &reheat2);
+                ColorScreen_ReheatButtonWidget->fn->setVisible(ColorScreen_ReheatButtonWidget, LE_TRUE);                
 
-                CookButtonWidget->fn->setPressedImage(CookButtonWidget, &cook2);
-                CookButtonWidget->fn->setReleasedImage(CookButtonWidget, &cook2);
-                CookButtonWidget->fn->setVisible(CookButtonWidget, LE_TRUE);                
+                ColorScreen_CookButtonWidget->fn->setPressedImage(ColorScreen_CookButtonWidget, &cook2);
+                ColorScreen_CookButtonWidget->fn->setReleasedImage(ColorScreen_CookButtonWidget, &cook2);
+                ColorScreen_CookButtonWidget->fn->setVisible(ColorScreen_CookButtonWidget, LE_TRUE);                
                 
                 color_scene_state = COLOR_SCENE_PROCESS;
             }
@@ -761,7 +761,7 @@ void ColorScreen_OnUpdate(void)
         case COLOR_SCENE_EXIT:
         {
     
-            SliderButton2->fn->removeEventFilter(SliderButton2, color_eventFilter);
+            ColorScreen_SliderButton2->fn->removeEventFilter(ColorScreen_SliderButton2, color_eventFilter);
     
             GFX_DISP_INTF_PIN_BACKLIGHT_Clear();
             
@@ -777,32 +777,32 @@ void ColorScreen_OnUpdate(void)
     }
 }
 
-void ButtonWidget1_OnPressed(leButtonWidget* btn)
+void event_ColorScreen_ButtonWidget1_OnPressed(leButtonWidget* btn)
 {
     color_send_event(SELECT_ITEM_0);
 }
 
-void ButtonWidget4_OnPressed(leButtonWidget* btn)
+void event_ColorScreen_ButtonWidget4_OnPressed(leButtonWidget* btn)
 {
     color_send_event(SELECT_ITEM_3);
 }
 
-void ButtonWidget3_OnPressed(leButtonWidget* btn)
+void event_ColorScreen_ButtonWidget3_OnPressed(leButtonWidget* btn)
 {
     color_send_event(SELECT_ITEM_2);
 }
 
-void ButtonWidget2_OnPressed(leButtonWidget* btn)
+void event_ColorScreen_ButtonWidget2_OnPressed(leButtonWidget* btn)
 {
     color_send_event(SELECT_ITEM_1);
 }
 
-void ReheatButtonWidget_OnPressed(leButtonWidget* btn)
+void event_ColorScreen_ReheatButtonWidget_OnPressed(leButtonWidget* btn)
 {
     color_send_event(START_COOKING);
 }
 
-void CookButtonWidget_OnPressed(leButtonWidget* btn)
+void event_ColorScreen_CookButtonWidget_OnPressed(leButtonWidget* btn)
 {
     if (color_scene_state == COLOR_SCENE_PROCESS)
     {
@@ -815,18 +815,18 @@ void CookButtonWidget_OnPressed(leButtonWidget* btn)
     }
 }
 
-void ButtonWidget5_OnPressed(leButtonWidget* btn)
+void event_ColorScreen_ButtonWidget5_OnPressed(leButtonWidget* btn)
 {
     color_send_event(CHANGE_SCENE);
 }
 
-void ButtonWidget6_OnPressed(leButtonWidget* btn)
+void event_ColorScreen_ButtonWidget6_OnPressed(leButtonWidget* btn)
 {
     demo_mode_on = false;
 }
 
 
-void ButtonWidget6_OnReleased(leButtonWidget* btn)
+void event_ColorScreen_ButtonWidget6_OnReleased(leButtonWidget* btn)
 {
     demo_mode_on = true;
 }

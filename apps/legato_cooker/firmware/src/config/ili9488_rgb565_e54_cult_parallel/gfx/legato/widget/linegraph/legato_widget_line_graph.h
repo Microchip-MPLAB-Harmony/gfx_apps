@@ -140,6 +140,7 @@ typedef struct leLineGraphCategory
 {
     const leString* text;
     int32_t stackValue;
+    int32_t drawX;
 } leLineGraphCategory;
 
 /* internal use only */

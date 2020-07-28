@@ -1,32 +1,10 @@
-// DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
-// DOM-IGNORE-END
-
 #ifndef LE_GEN_SCREEN_COLORSCREEN_H
 #define LE_GEN_SCREEN_COLORSCREEN_H
 
-#include "gfx/legato/generated/le_gen_init.h"
+#include "gfx/legato/legato.h"
+
+#include "gfx/legato/generated/le_gen_scheme.h"
+#include "gfx/legato/generated/le_gen_assets.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -34,52 +12,62 @@ extern "C" {
 #endif
 // DOM-IGNORE-END
 
-// widget list for this screen
-// layer 0
-extern leWidget* PanelWidget2;
-extern leWidget* PanelWidget5;
-extern leRectangleWidget* ProgressRect;
-extern leWidget* PanelWidget4;
-extern leButtonWidget* ReheatButtonWidget;
-extern leButtonWidget* CookButtonWidget;
-extern leButtonWidget* ButtonWidget5;
-extern leWidget* QuickSelectionsPanel;
-extern leWidget* MenuItem1;
-extern leRectangleWidget* ButtonRect1Back;
-extern leRectangleWidget* Button1Rect;
-extern leImageWidget* ButtonImage1;
-extern leLabelWidget* MenuItem1Label;
-extern leButtonWidget* ButtonWidget1;
-extern leLabelWidget* LabelWidget2;
-extern leWidget* MenuItem2;
-extern leRectangleWidget* Button2RectBack;
-extern leRectangleWidget* Button2Rect;
-extern leImageWidget* ButtonImage2;
-extern leLabelWidget* MenuItem2Label;
-extern leButtonWidget* ButtonWidget2;
-extern leWidget* MenuItem3;
-extern leRectangleWidget* Button3RectBack;
-extern leRectangleWidget* Button3Rect;
-extern leImageWidget* ButtonImage3;
-extern leLabelWidget* MenuItem3Label;
-extern leButtonWidget* ButtonWidget3;
-extern leWidget* MenuItem4;
-extern leRectangleWidget* Button4RectBack;
-extern leRectangleWidget* Button4Rect;
-extern leImageWidget* Button4Image;
-extern leLabelWidget* MenuItem4Label;
-extern leButtonWidget* ButtonWidget4;
-extern leWidget* Screen2MainClockPanel;
-extern leLabelWidget* Screen2HourLabel;
-extern leLabelWidget* Screen2ColonLabel;
-extern leLabelWidget* Screen2MinuteLabel;
-extern leWidget* Screen2LabelPanel;
-extern leLabelWidget* Screen2GoodLabel;
-extern leLabelWidget* Screen2BytesLabel;
-extern leLabelWidget* Screen2SmartCookerLabel;
-extern leButtonWidget* ButtonWidget6;
-extern leButtonWidget* SliderButton2;
+// screen member widget declarations
+extern leWidget* ColorScreen_PanelWidget2;
+extern leWidget* ColorScreen_PanelWidget5;
+extern leWidget* ColorScreen_PanelWidget4;
+extern leWidget* ColorScreen_QuickSelectionsPanel;
+extern leWidget* ColorScreen_Screen2MainClockPanel;
+extern leWidget* ColorScreen_Screen2LabelPanel;
+extern leButtonWidget* ColorScreen_SliderButton2;
+extern leRectangleWidget* ColorScreen_ProgressRect;
+extern leButtonWidget* ColorScreen_ReheatButtonWidget;
+extern leButtonWidget* ColorScreen_CookButtonWidget;
+extern leButtonWidget* ColorScreen_ButtonWidget5;
+extern leWidget* ColorScreen_MenuItem1;
+extern leLabelWidget* ColorScreen_LabelWidget2;
+extern leWidget* ColorScreen_MenuItem2;
+extern leWidget* ColorScreen_MenuItem3;
+extern leWidget* ColorScreen_MenuItem4;
+extern leRectangleWidget* ColorScreen_ButtonRect1Back;
+extern leRectangleWidget* ColorScreen_Button1Rect;
+extern leImageWidget* ColorScreen_ButtonImage1;
+extern leLabelWidget* ColorScreen_MenuItem1Label;
+extern leButtonWidget* ColorScreen_ButtonWidget1;
+extern leRectangleWidget* ColorScreen_Button2RectBack;
+extern leRectangleWidget* ColorScreen_Button2Rect;
+extern leImageWidget* ColorScreen_ButtonImage2;
+extern leLabelWidget* ColorScreen_MenuItem2Label;
+extern leButtonWidget* ColorScreen_ButtonWidget2;
+extern leRectangleWidget* ColorScreen_Button3RectBack;
+extern leRectangleWidget* ColorScreen_Button3Rect;
+extern leImageWidget* ColorScreen_ButtonImage3;
+extern leLabelWidget* ColorScreen_MenuItem3Label;
+extern leButtonWidget* ColorScreen_ButtonWidget3;
+extern leRectangleWidget* ColorScreen_Button4RectBack;
+extern leRectangleWidget* ColorScreen_Button4Rect;
+extern leImageWidget* ColorScreen_Button4Image;
+extern leLabelWidget* ColorScreen_MenuItem4Label;
+extern leButtonWidget* ColorScreen_ButtonWidget4;
+extern leLabelWidget* ColorScreen_Screen2HourLabel;
+extern leLabelWidget* ColorScreen_Screen2ColonLabel;
+extern leLabelWidget* ColorScreen_Screen2MinuteLabel;
+extern leLabelWidget* ColorScreen_Screen2GoodLabel;
+extern leLabelWidget* ColorScreen_Screen2BytesLabel;
+extern leLabelWidget* ColorScreen_Screen2SmartCookerLabel;
+extern leButtonWidget* ColorScreen_ButtonWidget6;
 
+// event handlers
+// !!THESE MUST BE IMPLEMENTED IN THE APPLICATION CODE!!
+void event_ColorScreen_ReheatButtonWidget_OnPressed(leButtonWidget* btn);
+void event_ColorScreen_CookButtonWidget_OnPressed(leButtonWidget* btn);
+void event_ColorScreen_ButtonWidget5_OnPressed(leButtonWidget* btn);
+void event_ColorScreen_ButtonWidget1_OnPressed(leButtonWidget* btn);
+void event_ColorScreen_ButtonWidget2_OnPressed(leButtonWidget* btn);
+void event_ColorScreen_ButtonWidget3_OnPressed(leButtonWidget* btn);
+void event_ColorScreen_ButtonWidget4_OnPressed(leButtonWidget* btn);
+void event_ColorScreen_ButtonWidget6_OnPressed(leButtonWidget* btn);
+void event_ColorScreen_ButtonWidget6_OnReleased(leButtonWidget* btn);
 
 // screen lifecycle functions
 // DO NOT CALL THESE DIRECTLY
@@ -91,40 +79,10 @@ void screenUpdate_ColorScreen(); // called when Legato is updating
 
 leWidget* screenGetRoot_ColorScreen(uint32_t lyrIdx); // gets a root widget for this screen
 
-// event handlers
-void ColorScreen_OnShow(void);
-
-void ColorScreen_OnHide(void);
-
-void ColorScreen_OnUpdate(void);
-
-void ReheatButtonWidget_OnPressed(leButtonWidget* btn)
-;
-
-void CookButtonWidget_OnPressed(leButtonWidget* btn)
-;
-
-void ButtonWidget5_OnPressed(leButtonWidget* btn)
-;
-
-void ButtonWidget1_OnPressed(leButtonWidget* btn)
-;
-
-void ButtonWidget2_OnPressed(leButtonWidget* btn)
-;
-
-void ButtonWidget3_OnPressed(leButtonWidget* btn)
-;
-
-void ButtonWidget4_OnPressed(leButtonWidget* btn)
-;
-
-void ButtonWidget6_OnPressed(leButtonWidget* btn)
-;
-
-void ButtonWidget6_OnReleased(leButtonWidget* btn)
-;
-
+// Screen Events:
+void ColorScreen_OnShow(); // called when this screen is shown
+void ColorScreen_OnHide(); // called when this screen is hidden
+void ColorScreen_OnUpdate(); // called when this screen is updated
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
