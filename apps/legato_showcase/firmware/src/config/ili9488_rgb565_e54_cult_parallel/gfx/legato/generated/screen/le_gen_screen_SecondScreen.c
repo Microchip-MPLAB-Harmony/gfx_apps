@@ -59,8 +59,8 @@ leResult screenShow_SecondScreen()
         return LE_FAILURE;
 
     // initialize static strings
-    leTableString_Constructor(&tableString_TouchMe, string_TouchMe);
-    leTableString_Constructor(&tableString_TouchTestWidgetDemo, string_TouchTestWidgetDemo);
+    leTableString_Constructor(&tableString_TouchMe, stringID_TouchMe);
+    leTableString_Constructor(&tableString_TouchTestWidgetDemo, stringID_TouchTestWidgetDemo);
 
     // layer 0
     root0 = leWidget_New();

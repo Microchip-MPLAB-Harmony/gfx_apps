@@ -78,7 +78,7 @@ void AlphaBlendingDemoScreen_OnShow(void)
     
     alphaBlendingScreenEvent = EVENT_ALPHA_BLENDING_NONE;
     
-    font = leStringTable_GetStringFont(&stringTable, string_Keypad_0, 0);
+    font = leStringTable_GetStringFont(&stringTable, stringID_Keypad_0, 0);
     
     leDynamicString_Constructor(&alphaValueText);
     alphaValueText.fn->setFont(&alphaValueText, font);
@@ -96,10 +96,10 @@ static void UpdateAlphaValue(unsigned int value)
     sprintf(charBuff, "%u", value);
     
     alphaValueText.fn->setFromCStr(&alphaValueText, charBuff);
-    SliderValueLabelWidget->fn->setString(SliderValueLabelWidget, (leString*)&alphaValueText);    
+    AlphaBlendingDemoScreen_SliderValueLabelWidget->fn->setString(AlphaBlendingDemoScreen_SliderValueLabelWidget, (leString*)&alphaValueText);    
     
-    ImageWidget1->fn->setAlphaAmount(ImageWidget1, value);
-    ImageWidget2->fn->setAlphaAmount(ImageWidget2, 255 - value);
+    AlphaBlendingDemoScreen_ImageWidget1->fn->setAlphaAmount(AlphaBlendingDemoScreen_ImageWidget1, value);
+    AlphaBlendingDemoScreen_ImageWidget2->fn->setAlphaAmount(AlphaBlendingDemoScreen_ImageWidget2, 255 - value);
 }
 
 void AlphaBlendingDemoScreen_OnUpdate(void)
@@ -114,12 +114,12 @@ void AlphaBlendingDemoScreen_OnUpdate(void)
             break;
         case EVENT_ALPHA_BLENDING_ALPHA_UP:
         {
-            uint32_t sliderValue = SliderWidget1->fn->getValue(SliderWidget1);
+            uint32_t sliderValue = AlphaBlendingDemoScreen_SliderWidget1->fn->getValue(AlphaBlendingDemoScreen_SliderWidget1);
             
             if (sliderValue < 255)
             {
                 sliderValue++;
-                SliderWidget1->fn->setValue(SliderWidget1, sliderValue);
+                AlphaBlendingDemoScreen_SliderWidget1->fn->setValue(AlphaBlendingDemoScreen_SliderWidget1, sliderValue);
                 UpdateAlphaValue(sliderValue);
             }
             
@@ -127,12 +127,12 @@ void AlphaBlendingDemoScreen_OnUpdate(void)
         }
         case EVENT_ALPHA_BLENDING_ALPHA_DOWN:
         {
-            uint32_t sliderValue = SliderWidget1->fn->getValue(SliderWidget1);
+            uint32_t sliderValue = AlphaBlendingDemoScreen_SliderWidget1->fn->getValue(AlphaBlendingDemoScreen_SliderWidget1);
             
             if (sliderValue > 0)
             {
                 sliderValue--;
-                SliderWidget1->fn->setValue(SliderWidget1, sliderValue);
+                AlphaBlendingDemoScreen_SliderWidget1->fn->setValue(AlphaBlendingDemoScreen_SliderWidget1, sliderValue);
                 UpdateAlphaValue(sliderValue);
             }
             
@@ -140,7 +140,7 @@ void AlphaBlendingDemoScreen_OnUpdate(void)
         }
         case EVENT_ALPHA_BLENDING_SLIDER_VALUE_CHANGED:
         {
-            uint32_t sliderValue = SliderWidget1->fn->getValue(SliderWidget1);
+            uint32_t sliderValue = AlphaBlendingDemoScreen_SliderWidget1->fn->getValue(AlphaBlendingDemoScreen_SliderWidget1);
             UpdateAlphaValue(sliderValue);
             break;
         }
@@ -151,32 +151,32 @@ void AlphaBlendingDemoScreen_OnUpdate(void)
     alphaBlendingScreenEvent = EVENT_ALPHA_BLENDING_NONE;
 }
 
-void SliderWidget1_OnValueChanged(leSliderWidget* sld)
+void event_AlphaBlendingDemoScreen_SliderWidget1_OnValueChanged(leSliderWidget* sld)
 {
     alphaBlendingScreenEvent = EVENT_ALPHA_BLENDING_SLIDER_VALUE_CHANGED;
 }
 
-void AlphaHelpButton_OnReleased(leButtonWidget* btn)
+void event_AlphaBlendingDemoScreen_AlphaHelpButton_OnReleased(leButtonWidget* btn)
 {
     alphaBlendingScreenEvent = EVENT_ALPHA_BLENDING_SHOW_HELP;
 }
 
-void AlphaHomeButton_OnReleased(leButtonWidget* btn)
+void event_AlphaBlendingDemoScreen_AlphaHomeButton_OnReleased(leButtonWidget* btn)
 {
     alphaBlendingScreenEvent = EVENT_ALPHA_BLENDING_SHOW_MAIN;
 }
 
-void AlphaNextButton_OnReleased(leButtonWidget* btn)
+void event_AlphaBlendingDemoScreen_AlphaNextButton_OnReleased(leButtonWidget* btn)
 {
     alphaBlendingScreenEvent = EVENT_ALPHA_BLENDING_SHOW_NEXT;
 }
 
-void SliderUpButtonWidget_OnReleased(leButtonWidget* btn)
+void event_AlphaBlendingDemoScreen_SliderUpButtonWidget_OnReleased(leButtonWidget* btn)
 {
     alphaBlendingScreenEvent = EVENT_ALPHA_BLENDING_ALPHA_UP;
 }
 
-void SliderDownButtonWidget_OnReleased(leButtonWidget* btn)
+void event_AlphaBlendingDemoScreen_SliderDownButtonWidget_OnReleased(leButtonWidget* btn)
 {
     alphaBlendingScreenEvent = EVENT_ALPHA_BLENDING_ALPHA_DOWN;
 }
@@ -197,7 +197,7 @@ void AlphaBlendingHelpScreen_OnUpdate(void)
     alphaBlendingScreenEvent = EVENT_ALPHA_BLENDING_NONE;
 }
 
-void AlphaHelpCloseButton_OnReleased(leButtonWidget* btn)
+void event_AlphaBlendingHelpScreen_AlphaHelpCloseButton_OnReleased(leButtonWidget* btn)
 {
     alphaBlendingScreenEvent = EVENT_ALPHA_BLENDING_SHOW_DEMO;
 }

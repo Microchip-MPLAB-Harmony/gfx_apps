@@ -51,7 +51,7 @@ extern "C" {
 
 
 #define LE_DEFAULT_COLOR_MODE              LE_COLOR_MODE_RGB_565
-#define LE_TOUCH_ORIENTATION               90
+#define LE_TOUCH_ORIENTATION               0
 #define LE_DRIVER_LAYER_MODE               1
 
 #define LE_ASSERT_ENABLE                   0
@@ -81,33 +81,33 @@ extern "C" {
 #define LE_CIRCULARGAUGE_WIDGET_ENABLED    0
 #define LE_CIRCULARSLIDER_WIDGET_ENABLED   0
 #define LE_DRAWSURFACE_WIDGET_ENABLED      0
-#define LE_GRADIENT_WIDGET_ENABLED         0
+#define LE_GRADIENT_WIDGET_ENABLED         1
 #define LE_GROUPBOX_WIDGET_ENABLED         0
 #define LE_IMAGE_WIDGET_ENABLED            1
 #define LE_IMAGEROTATE_WIDGET_ENABLED      0
 #define LE_IMAGESCALE_WIDGET_ENABLED       0
-#define LE_IMAGESEQUENCE_WIDGET_ENABLED    0
-#define LE_KEYPAD_WIDGET_ENABLED           0
+#define LE_IMAGESEQUENCE_WIDGET_ENABLED    1
+#define LE_KEYPAD_WIDGET_ENABLED           1
 #define LE_LABEL_WIDGET_ENABLED            1
 #define LE_LINE_WIDGET_ENABLED             0
 #define LE_LINEGRAPH_WIDGET_ENABLED        0
 #define LE_LIST_WIDGET_ENABLED             0
-#define LE_LISTWHEEL_WIDGET_ENABLED        0
+#define LE_LISTWHEEL_WIDGET_ENABLED        1
 #define LE_PIECHART_WIDGET_ENABLED         0
 #define LE_PROGRESSBAR_WIDGET_ENABLED      0
 #define LE_RADIALMENU_WIDGET_ENABLED       0
-#define LE_RADIOBUTTON_WIDGET_ENABLED      0
-#define LE_RECTANGLE_WIDGET_ENABLED        0
+#define LE_RADIOBUTTON_WIDGET_ENABLED      1
+#define LE_RECTANGLE_WIDGET_ENABLED        1
 #define LE_SCROLLBAR_WIDGET_ENABLED        0
-#define LE_SLIDER_WIDGET_ENABLED           0
-#define LE_TEXTFIELD_WIDGET_ENABLED        0
-#define LE_TOUCHTEST_WIDGET_ENABLED        0
+#define LE_SLIDER_WIDGET_ENABLED           1
+#define LE_TEXTFIELD_WIDGET_ENABLED        1
+#define LE_TOUCHTEST_WIDGET_ENABLED        1
 #define LE_WINDOW_WIDGET_ENABLED           0
 
 // memory configuration
 #define LE_MEMORY_MANAGER_ENABLE           1
 #define LE_USE_DEBUG_ALLOCATOR             0
-#define LE_MALLOC_ZEROIZE                  0
+#define LE_MALLOC_ZEROIZE                  1
 
 #if LE_USE_DEBUG_ALLOCATOR == 1
 #define LE_USE_ALLOCATION_TRACKING         0
@@ -115,7 +115,7 @@ extern "C" {
 
 // variable heap configuration
 #define LE_VARIABLEHEAP_DEBUGLEVEL         0
-#define LE_VARIABLEHEAP_SIZE               2048
+#define LE_VARIABLEHEAP_SIZE               4096
 #define LE_VARIABLEHEAP_MINALLOCSIZE       32
 #define LE_VARIABLEHEAP_ALIGNMENT          4
 #define LE_VARIABLEHEAP_BESTFIT            1
@@ -143,7 +143,7 @@ extern "C" {
 
 // renderer config
 #define LE_ALPHA_BLENDING_ENABLED          1
-#define LE_SCRATCH_BUFFER_SIZE_KB          16
+#define LE_SCRATCH_BUFFER_SIZE_KB          176
 #define LE_USE_ARC_SCAN_FILL               1
 #define LE_ARC_SMOOTH_EDGE                 LE_FALSE
 

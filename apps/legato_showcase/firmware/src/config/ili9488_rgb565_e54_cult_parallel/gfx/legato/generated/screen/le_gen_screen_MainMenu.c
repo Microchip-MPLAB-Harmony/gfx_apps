@@ -1,55 +1,32 @@
-// DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
-// DOM-IGNORE-END
-
 #include "gfx/legato/generated/screen/le_gen_screen_MainMenu.h"
 
-// widget list for layer 0
-static leWidget* root0;
+// screen member widget declarations
+leWidget* root0;
 
-leGradientWidget* GradientWidget1;
-leButtonWidget* ListwheelDemoMenuButton;
-leButtonWidget* AlphaBlendingDemoMenuButton;
-leButtonWidget* SlideShowDemoMenuButton;
-leButtonWidget* TouchTestDemoMenuDemo;
-leButtonWidget* KeypadDemoMenuButton;
-leButtonWidget* MainMenuHelpButton;
-leLabelWidget* LabelWidget1;
-leLabelWidget* LabelWidget2;
-leImageWidget* ImageWidget3;
-leImageWidget* ImageWidget4;
-leButtonWidget* MainMenuSettingsButton;
-leButtonWidget* MainMenuNextButton;
+leGradientWidget* MainMenu_GradientWidget1;
+leButtonWidget* MainMenu_ListwheelDemoMenuButton;
+leButtonWidget* MainMenu_AlphaBlendingDemoMenuButton;
+leButtonWidget* MainMenu_SlideShowDemoMenuButton;
+leButtonWidget* MainMenu_TouchTestDemoMenuDemo;
+leButtonWidget* MainMenu_KeypadDemoMenuButton;
+leButtonWidget* MainMenu_MainMenuHelpButton;
+leLabelWidget* MainMenu_LabelWidget1;
+leLabelWidget* MainMenu_LabelWidget2;
+leImageWidget* MainMenu_ImageWidget3;
+leImageWidget* MainMenu_ImageWidget4;
+leButtonWidget* MainMenu_MainMenuSettingsButton;
+leButtonWidget* MainMenu_MainMenuNextButton;
 
-// string list for this screen
-static leTableString tableString_Harmony;
-static leTableString tableString_Title;
-
+static leBool initialized = LE_FALSE;
 static leBool showing = LE_FALSE;
 
 leResult screenInit_MainMenu()
 {
+    if(initialized == LE_TRUE)
+        return LE_FAILURE;
+
+    initialized = LE_TRUE;
+
     return LE_SUCCESS;
 }
 
@@ -58,182 +35,183 @@ leResult screenShow_MainMenu()
     if(showing == LE_TRUE)
         return LE_FAILURE;
 
-    // initialize static strings
-    leTableString_Constructor(&tableString_Harmony, string_Harmony);
-    leTableString_Constructor(&tableString_Title, string_Title);
-
     // layer 0
     root0 = leWidget_New();
-    root0->fn->setPosition(root0, 0, 0);
     root0->fn->setSize(root0, 480, 320);
     root0->fn->setBackgroundType(root0, LE_WIDGET_BACKGROUND_NONE);
     root0->fn->setMargins(root0, 0, 0, 0, 0);
+    root0->flags |= LE_WIDGET_IGNOREEVENTS;
+    root0->flags |= LE_WIDGET_IGNOREPICK;
 
-    GradientWidget1 = leGradientWidget_New();
-    GradientWidget1->fn->setPosition(GradientWidget1, 0, 0);
-    GradientWidget1->fn->setSize(GradientWidget1, 480, 320);
-    GradientWidget1->fn->setScheme(GradientWidget1, &BackgroundGradientScheme);
-    GradientWidget1->fn->setDirection(GradientWidget1, LE_DIRECTION_DOWN);
-    root0->fn->addChild(root0, (leWidget*)GradientWidget1);
+    MainMenu_GradientWidget1 = leGradientWidget_New();
+    MainMenu_GradientWidget1->fn->setPosition(MainMenu_GradientWidget1, 0, 0);
+    MainMenu_GradientWidget1->fn->setSize(MainMenu_GradientWidget1, 480, 320);
+    MainMenu_GradientWidget1->fn->setScheme(MainMenu_GradientWidget1, &BackgroundGradientScheme);
+    MainMenu_GradientWidget1->fn->setDirection(MainMenu_GradientWidget1, LE_DIRECTION_DOWN);
+    root0->fn->addChild(root0, (leWidget*)MainMenu_GradientWidget1);
 
-    ListwheelDemoMenuButton = leButtonWidget_New();
-    ListwheelDemoMenuButton->fn->setPosition(ListwheelDemoMenuButton, 10, 83);
-    ListwheelDemoMenuButton->fn->setSize(ListwheelDemoMenuButton, 85, 78);
-    ListwheelDemoMenuButton->fn->setBackgroundType(ListwheelDemoMenuButton, LE_WIDGET_BACKGROUND_NONE);
-    ListwheelDemoMenuButton->fn->setBorderType(ListwheelDemoMenuButton, LE_WIDGET_BORDER_NONE);
-    ListwheelDemoMenuButton->fn->setPressedImage(ListwheelDemoMenuButton, &GFX_Slide_80_drop);
-    ListwheelDemoMenuButton->fn->setReleasedImage(ListwheelDemoMenuButton, &GFX_Slide_80_drop);
-    ListwheelDemoMenuButton->fn->setReleasedEventCallback(ListwheelDemoMenuButton, ListwheelDemoMenuButton_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)ListwheelDemoMenuButton);
+    MainMenu_ListwheelDemoMenuButton = leButtonWidget_New();
+    MainMenu_ListwheelDemoMenuButton->fn->setPosition(MainMenu_ListwheelDemoMenuButton, 10, 83);
+    MainMenu_ListwheelDemoMenuButton->fn->setSize(MainMenu_ListwheelDemoMenuButton, 85, 78);
+    MainMenu_ListwheelDemoMenuButton->fn->setBackgroundType(MainMenu_ListwheelDemoMenuButton, LE_WIDGET_BACKGROUND_NONE);
+    MainMenu_ListwheelDemoMenuButton->fn->setBorderType(MainMenu_ListwheelDemoMenuButton, LE_WIDGET_BORDER_NONE);
+    MainMenu_ListwheelDemoMenuButton->fn->setPressedImage(MainMenu_ListwheelDemoMenuButton, (leImage*)&GFX_Slide_80_drop);
+    MainMenu_ListwheelDemoMenuButton->fn->setReleasedImage(MainMenu_ListwheelDemoMenuButton, (leImage*)&GFX_Slide_80_drop);
+    MainMenu_ListwheelDemoMenuButton->fn->setReleasedEventCallback(MainMenu_ListwheelDemoMenuButton, event_MainMenu_ListwheelDemoMenuButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)MainMenu_ListwheelDemoMenuButton);
 
-    AlphaBlendingDemoMenuButton = leButtonWidget_New();
-    AlphaBlendingDemoMenuButton->fn->setPosition(AlphaBlendingDemoMenuButton, 296, 87);
-    AlphaBlendingDemoMenuButton->fn->setSize(AlphaBlendingDemoMenuButton, 83, 74);
-    AlphaBlendingDemoMenuButton->fn->setBackgroundType(AlphaBlendingDemoMenuButton, LE_WIDGET_BACKGROUND_NONE);
-    AlphaBlendingDemoMenuButton->fn->setBorderType(AlphaBlendingDemoMenuButton, LE_WIDGET_BORDER_NONE);
-    AlphaBlendingDemoMenuButton->fn->setPressedImage(AlphaBlendingDemoMenuButton, &GFX_alpha_80x80_drop);
-    AlphaBlendingDemoMenuButton->fn->setReleasedImage(AlphaBlendingDemoMenuButton, &GFX_alpha_80x80_drop);
-    AlphaBlendingDemoMenuButton->fn->setReleasedEventCallback(AlphaBlendingDemoMenuButton, AlphaBlendingDemoMenuButton_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)AlphaBlendingDemoMenuButton);
+    MainMenu_AlphaBlendingDemoMenuButton = leButtonWidget_New();
+    MainMenu_AlphaBlendingDemoMenuButton->fn->setPosition(MainMenu_AlphaBlendingDemoMenuButton, 296, 87);
+    MainMenu_AlphaBlendingDemoMenuButton->fn->setSize(MainMenu_AlphaBlendingDemoMenuButton, 83, 74);
+    MainMenu_AlphaBlendingDemoMenuButton->fn->setBackgroundType(MainMenu_AlphaBlendingDemoMenuButton, LE_WIDGET_BACKGROUND_NONE);
+    MainMenu_AlphaBlendingDemoMenuButton->fn->setBorderType(MainMenu_AlphaBlendingDemoMenuButton, LE_WIDGET_BORDER_NONE);
+    MainMenu_AlphaBlendingDemoMenuButton->fn->setPressedImage(MainMenu_AlphaBlendingDemoMenuButton, (leImage*)&GFX_alpha_80x80_drop);
+    MainMenu_AlphaBlendingDemoMenuButton->fn->setReleasedImage(MainMenu_AlphaBlendingDemoMenuButton, (leImage*)&GFX_alpha_80x80_drop);
+    MainMenu_AlphaBlendingDemoMenuButton->fn->setReleasedEventCallback(MainMenu_AlphaBlendingDemoMenuButton, event_MainMenu_AlphaBlendingDemoMenuButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)MainMenu_AlphaBlendingDemoMenuButton);
 
-    SlideShowDemoMenuButton = leButtonWidget_New();
-    SlideShowDemoMenuButton->fn->setPosition(SlideShowDemoMenuButton, 386, 83);
-    SlideShowDemoMenuButton->fn->setSize(SlideShowDemoMenuButton, 84, 80);
-    SlideShowDemoMenuButton->fn->setBackgroundType(SlideShowDemoMenuButton, LE_WIDGET_BACKGROUND_NONE);
-    SlideShowDemoMenuButton->fn->setBorderType(SlideShowDemoMenuButton, LE_WIDGET_BORDER_NONE);
-    SlideShowDemoMenuButton->fn->setPressedImage(SlideShowDemoMenuButton, &GFX_SlideShow_80_drop);
-    SlideShowDemoMenuButton->fn->setReleasedImage(SlideShowDemoMenuButton, &GFX_SlideShow_80_drop);
-    SlideShowDemoMenuButton->fn->setReleasedEventCallback(SlideShowDemoMenuButton, SlideShowDemoMenuButton_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)SlideShowDemoMenuButton);
+    MainMenu_SlideShowDemoMenuButton = leButtonWidget_New();
+    MainMenu_SlideShowDemoMenuButton->fn->setPosition(MainMenu_SlideShowDemoMenuButton, 386, 83);
+    MainMenu_SlideShowDemoMenuButton->fn->setSize(MainMenu_SlideShowDemoMenuButton, 84, 80);
+    MainMenu_SlideShowDemoMenuButton->fn->setBackgroundType(MainMenu_SlideShowDemoMenuButton, LE_WIDGET_BACKGROUND_NONE);
+    MainMenu_SlideShowDemoMenuButton->fn->setBorderType(MainMenu_SlideShowDemoMenuButton, LE_WIDGET_BORDER_NONE);
+    MainMenu_SlideShowDemoMenuButton->fn->setPressedImage(MainMenu_SlideShowDemoMenuButton, (leImage*)&GFX_SlideShow_80_drop);
+    MainMenu_SlideShowDemoMenuButton->fn->setReleasedImage(MainMenu_SlideShowDemoMenuButton, (leImage*)&GFX_SlideShow_80_drop);
+    MainMenu_SlideShowDemoMenuButton->fn->setReleasedEventCallback(MainMenu_SlideShowDemoMenuButton, event_MainMenu_SlideShowDemoMenuButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)MainMenu_SlideShowDemoMenuButton);
 
-    TouchTestDemoMenuDemo = leButtonWidget_New();
-    TouchTestDemoMenuDemo->fn->setPosition(TouchTestDemoMenuDemo, 103, 83);
-    TouchTestDemoMenuDemo->fn->setSize(TouchTestDemoMenuDemo, 86, 81);
-    TouchTestDemoMenuDemo->fn->setBackgroundType(TouchTestDemoMenuDemo, LE_WIDGET_BACKGROUND_NONE);
-    TouchTestDemoMenuDemo->fn->setBorderType(TouchTestDemoMenuDemo, LE_WIDGET_BORDER_NONE);
-    TouchTestDemoMenuDemo->fn->setPressedImage(TouchTestDemoMenuDemo, &GFX_Touch_80);
-    TouchTestDemoMenuDemo->fn->setReleasedImage(TouchTestDemoMenuDemo, &GFX_Touch_80);
-    TouchTestDemoMenuDemo->fn->setReleasedEventCallback(TouchTestDemoMenuDemo, TouchTestDemoMenuDemo_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)TouchTestDemoMenuDemo);
+    MainMenu_TouchTestDemoMenuDemo = leButtonWidget_New();
+    MainMenu_TouchTestDemoMenuDemo->fn->setPosition(MainMenu_TouchTestDemoMenuDemo, 103, 83);
+    MainMenu_TouchTestDemoMenuDemo->fn->setSize(MainMenu_TouchTestDemoMenuDemo, 86, 81);
+    MainMenu_TouchTestDemoMenuDemo->fn->setBackgroundType(MainMenu_TouchTestDemoMenuDemo, LE_WIDGET_BACKGROUND_NONE);
+    MainMenu_TouchTestDemoMenuDemo->fn->setBorderType(MainMenu_TouchTestDemoMenuDemo, LE_WIDGET_BORDER_NONE);
+    MainMenu_TouchTestDemoMenuDemo->fn->setPressedImage(MainMenu_TouchTestDemoMenuDemo, (leImage*)&GFX_Touch_80);
+    MainMenu_TouchTestDemoMenuDemo->fn->setReleasedImage(MainMenu_TouchTestDemoMenuDemo, (leImage*)&GFX_Touch_80);
+    MainMenu_TouchTestDemoMenuDemo->fn->setReleasedEventCallback(MainMenu_TouchTestDemoMenuDemo, event_MainMenu_TouchTestDemoMenuDemo_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)MainMenu_TouchTestDemoMenuDemo);
 
-    KeypadDemoMenuButton = leButtonWidget_New();
-    KeypadDemoMenuButton->fn->setPosition(KeypadDemoMenuButton, 200, 84);
-    KeypadDemoMenuButton->fn->setSize(KeypadDemoMenuButton, 84, 77);
-    KeypadDemoMenuButton->fn->setBackgroundType(KeypadDemoMenuButton, LE_WIDGET_BACKGROUND_NONE);
-    KeypadDemoMenuButton->fn->setBorderType(KeypadDemoMenuButton, LE_WIDGET_BORDER_NONE);
-    KeypadDemoMenuButton->fn->setPressedImage(KeypadDemoMenuButton, &GFX_Keyboard_80_drop);
-    KeypadDemoMenuButton->fn->setReleasedImage(KeypadDemoMenuButton, &GFX_Keyboard_80_drop);
-    KeypadDemoMenuButton->fn->setReleasedEventCallback(KeypadDemoMenuButton, KeypadDemoMenuButton_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)KeypadDemoMenuButton);
+    MainMenu_KeypadDemoMenuButton = leButtonWidget_New();
+    MainMenu_KeypadDemoMenuButton->fn->setPosition(MainMenu_KeypadDemoMenuButton, 200, 84);
+    MainMenu_KeypadDemoMenuButton->fn->setSize(MainMenu_KeypadDemoMenuButton, 84, 77);
+    MainMenu_KeypadDemoMenuButton->fn->setBackgroundType(MainMenu_KeypadDemoMenuButton, LE_WIDGET_BACKGROUND_NONE);
+    MainMenu_KeypadDemoMenuButton->fn->setBorderType(MainMenu_KeypadDemoMenuButton, LE_WIDGET_BORDER_NONE);
+    MainMenu_KeypadDemoMenuButton->fn->setPressedImage(MainMenu_KeypadDemoMenuButton, (leImage*)&GFX_Keyboard_80_drop);
+    MainMenu_KeypadDemoMenuButton->fn->setReleasedImage(MainMenu_KeypadDemoMenuButton, (leImage*)&GFX_Keyboard_80_drop);
+    MainMenu_KeypadDemoMenuButton->fn->setReleasedEventCallback(MainMenu_KeypadDemoMenuButton, event_MainMenu_KeypadDemoMenuButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)MainMenu_KeypadDemoMenuButton);
 
-    MainMenuHelpButton = leButtonWidget_New();
-    MainMenuHelpButton->fn->setPosition(MainMenuHelpButton, 0, 260);
-    MainMenuHelpButton->fn->setSize(MainMenuHelpButton, 60, 60);
-    MainMenuHelpButton->fn->setAlphaAmount(MainMenuHelpButton, 220);
-    MainMenuHelpButton->fn->setBackgroundType(MainMenuHelpButton, LE_WIDGET_BACKGROUND_NONE);
-    MainMenuHelpButton->fn->setBorderType(MainMenuHelpButton, LE_WIDGET_BORDER_NONE);
-    MainMenuHelpButton->fn->setPressedImage(MainMenuHelpButton, &GFX_Help_60);
-    MainMenuHelpButton->fn->setReleasedImage(MainMenuHelpButton, &GFX_Help_60);
-    MainMenuHelpButton->fn->setReleasedEventCallback(MainMenuHelpButton, MainMenuHelpButton_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)MainMenuHelpButton);
+    MainMenu_MainMenuHelpButton = leButtonWidget_New();
+    MainMenu_MainMenuHelpButton->fn->setPosition(MainMenu_MainMenuHelpButton, 0, 260);
+    MainMenu_MainMenuHelpButton->fn->setSize(MainMenu_MainMenuHelpButton, 60, 60);
+    MainMenu_MainMenuHelpButton->fn->setAlphaAmount(MainMenu_MainMenuHelpButton, 220);
+    MainMenu_MainMenuHelpButton->fn->setBackgroundType(MainMenu_MainMenuHelpButton, LE_WIDGET_BACKGROUND_NONE);
+    MainMenu_MainMenuHelpButton->fn->setBorderType(MainMenu_MainMenuHelpButton, LE_WIDGET_BORDER_NONE);
+    MainMenu_MainMenuHelpButton->fn->setPressedImage(MainMenu_MainMenuHelpButton, (leImage*)&GFX_Help_60);
+    MainMenu_MainMenuHelpButton->fn->setReleasedImage(MainMenu_MainMenuHelpButton, (leImage*)&GFX_Help_60);
+    MainMenu_MainMenuHelpButton->fn->setReleasedEventCallback(MainMenu_MainMenuHelpButton, event_MainMenu_MainMenuHelpButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)MainMenu_MainMenuHelpButton);
 
-    LabelWidget1 = leLabelWidget_New();
-    LabelWidget1->fn->setPosition(LabelWidget1, 170, 169);
-    LabelWidget1->fn->setSize(LabelWidget1, 161, 32);
-    LabelWidget1->fn->setScheme(LabelWidget1, &BlackBackground);
-    LabelWidget1->fn->setBackgroundType(LabelWidget1, LE_WIDGET_BACKGROUND_NONE);
-    LabelWidget1->fn->setHAlignment(LabelWidget1, LE_HALIGN_CENTER);
-    LabelWidget1->fn->setString(LabelWidget1, (leString*)&tableString_Harmony);
-    root0->fn->addChild(root0, (leWidget*)LabelWidget1);
+    MainMenu_LabelWidget1 = leLabelWidget_New();
+    MainMenu_LabelWidget1->fn->setPosition(MainMenu_LabelWidget1, 170, 169);
+    MainMenu_LabelWidget1->fn->setSize(MainMenu_LabelWidget1, 161, 32);
+    MainMenu_LabelWidget1->fn->setScheme(MainMenu_LabelWidget1, &BlackBackground);
+    MainMenu_LabelWidget1->fn->setBackgroundType(MainMenu_LabelWidget1, LE_WIDGET_BACKGROUND_NONE);
+    MainMenu_LabelWidget1->fn->setHAlignment(MainMenu_LabelWidget1, LE_HALIGN_CENTER);
+    MainMenu_LabelWidget1->fn->setString(MainMenu_LabelWidget1, (leString*)&string_Harmony);
+    root0->fn->addChild(root0, (leWidget*)MainMenu_LabelWidget1);
 
-    LabelWidget2 = leLabelWidget_New();
-    LabelWidget2->fn->setPosition(LabelWidget2, 127, 203);
-    LabelWidget2->fn->setSize(LabelWidget2, 243, 31);
-    LabelWidget2->fn->setScheme(LabelWidget2, &BlackBackground);
-    LabelWidget2->fn->setBackgroundType(LabelWidget2, LE_WIDGET_BACKGROUND_NONE);
-    LabelWidget2->fn->setHAlignment(LabelWidget2, LE_HALIGN_CENTER);
-    LabelWidget2->fn->setString(LabelWidget2, (leString*)&tableString_Title);
-    root0->fn->addChild(root0, (leWidget*)LabelWidget2);
+    MainMenu_LabelWidget2 = leLabelWidget_New();
+    MainMenu_LabelWidget2->fn->setPosition(MainMenu_LabelWidget2, 127, 203);
+    MainMenu_LabelWidget2->fn->setSize(MainMenu_LabelWidget2, 243, 31);
+    MainMenu_LabelWidget2->fn->setScheme(MainMenu_LabelWidget2, &BlackBackground);
+    MainMenu_LabelWidget2->fn->setBackgroundType(MainMenu_LabelWidget2, LE_WIDGET_BACKGROUND_NONE);
+    MainMenu_LabelWidget2->fn->setHAlignment(MainMenu_LabelWidget2, LE_HALIGN_CENTER);
+    MainMenu_LabelWidget2->fn->setString(MainMenu_LabelWidget2, (leString*)&string_Title);
+    root0->fn->addChild(root0, (leWidget*)MainMenu_LabelWidget2);
 
-    ImageWidget3 = leImageWidget_New();
-    ImageWidget3->fn->setPosition(ImageWidget3, 2, 13);
-    ImageWidget3->fn->setSize(ImageWidget3, 153, 37);
-    ImageWidget3->fn->setBackgroundType(ImageWidget3, LE_WIDGET_BACKGROUND_NONE);
-    ImageWidget3->fn->setImage(ImageWidget3, &GFX_Microchip_logo_150x30);
-    root0->fn->addChild(root0, (leWidget*)ImageWidget3);
+    MainMenu_ImageWidget3 = leImageWidget_New();
+    MainMenu_ImageWidget3->fn->setPosition(MainMenu_ImageWidget3, 2, 13);
+    MainMenu_ImageWidget3->fn->setSize(MainMenu_ImageWidget3, 153, 37);
+    MainMenu_ImageWidget3->fn->setBackgroundType(MainMenu_ImageWidget3, LE_WIDGET_BACKGROUND_NONE);
+    MainMenu_ImageWidget3->fn->setBorderType(MainMenu_ImageWidget3, LE_WIDGET_BORDER_NONE);
+    MainMenu_ImageWidget3->fn->setImage(MainMenu_ImageWidget3, (leImage*)&GFX_Microchip_logo_150x30);
+    root0->fn->addChild(root0, (leWidget*)MainMenu_ImageWidget3);
 
-    ImageWidget4 = leImageWidget_New();
-    ImageWidget4->fn->setPosition(ImageWidget4, 386, 0);
-    ImageWidget4->fn->setSize(ImageWidget4, 94, 56);
-    ImageWidget4->fn->setAlphaAmount(ImageWidget4, 220);
-    ImageWidget4->fn->setBackgroundType(ImageWidget4, LE_WIDGET_BACKGROUND_NONE);
-    ImageWidget4->fn->setImage(ImageWidget4, &GFX_mplab_logo_80x80);
-    root0->fn->addChild(root0, (leWidget*)ImageWidget4);
+    MainMenu_ImageWidget4 = leImageWidget_New();
+    MainMenu_ImageWidget4->fn->setPosition(MainMenu_ImageWidget4, 386, 0);
+    MainMenu_ImageWidget4->fn->setSize(MainMenu_ImageWidget4, 94, 56);
+    MainMenu_ImageWidget4->fn->setAlphaAmount(MainMenu_ImageWidget4, 220);
+    MainMenu_ImageWidget4->fn->setBackgroundType(MainMenu_ImageWidget4, LE_WIDGET_BACKGROUND_NONE);
+    MainMenu_ImageWidget4->fn->setBorderType(MainMenu_ImageWidget4, LE_WIDGET_BORDER_NONE);
+    MainMenu_ImageWidget4->fn->setImage(MainMenu_ImageWidget4, (leImage*)&GFX_mplab_logo_80x80);
+    root0->fn->addChild(root0, (leWidget*)MainMenu_ImageWidget4);
 
-    MainMenuSettingsButton = leButtonWidget_New();
-    MainMenuSettingsButton->fn->setPosition(MainMenuSettingsButton, 420, 260);
-    MainMenuSettingsButton->fn->setSize(MainMenuSettingsButton, 60, 60);
-    MainMenuSettingsButton->fn->setBackgroundType(MainMenuSettingsButton, LE_WIDGET_BACKGROUND_NONE);
-    MainMenuSettingsButton->fn->setBorderType(MainMenuSettingsButton, LE_WIDGET_BORDER_NONE);
-    MainMenuSettingsButton->fn->setPressedImage(MainMenuSettingsButton, &GFX_Settings_60x60);
-    MainMenuSettingsButton->fn->setReleasedImage(MainMenuSettingsButton, &GFX_Settings_60x60);
-    MainMenuSettingsButton->fn->setReleasedEventCallback(MainMenuSettingsButton, MainMenuSettingsButton_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)MainMenuSettingsButton);
+    MainMenu_MainMenuSettingsButton = leButtonWidget_New();
+    MainMenu_MainMenuSettingsButton->fn->setPosition(MainMenu_MainMenuSettingsButton, 420, 260);
+    MainMenu_MainMenuSettingsButton->fn->setSize(MainMenu_MainMenuSettingsButton, 60, 60);
+    MainMenu_MainMenuSettingsButton->fn->setBackgroundType(MainMenu_MainMenuSettingsButton, LE_WIDGET_BACKGROUND_NONE);
+    MainMenu_MainMenuSettingsButton->fn->setBorderType(MainMenu_MainMenuSettingsButton, LE_WIDGET_BORDER_NONE);
+    MainMenu_MainMenuSettingsButton->fn->setPressedImage(MainMenu_MainMenuSettingsButton, (leImage*)&GFX_Settings_60x60);
+    MainMenu_MainMenuSettingsButton->fn->setReleasedImage(MainMenu_MainMenuSettingsButton, (leImage*)&GFX_Settings_60x60);
+    MainMenu_MainMenuSettingsButton->fn->setReleasedEventCallback(MainMenu_MainMenuSettingsButton, event_MainMenu_MainMenuSettingsButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)MainMenu_MainMenuSettingsButton);
 
-    MainMenuNextButton = leButtonWidget_New();
-    MainMenuNextButton->fn->setPosition(MainMenuNextButton, 359, 260);
-    MainMenuNextButton->fn->setSize(MainMenuNextButton, 60, 60);
-    MainMenuNextButton->fn->setBackgroundType(MainMenuNextButton, LE_WIDGET_BACKGROUND_NONE);
-    MainMenuNextButton->fn->setBorderType(MainMenuNextButton, LE_WIDGET_BORDER_NONE);
-    MainMenuNextButton->fn->setPressedImage(MainMenuNextButton, &GFX_NextScreen_60x60);
-    MainMenuNextButton->fn->setReleasedImage(MainMenuNextButton, &GFX_NextScreen_60x60);
-    MainMenuNextButton->fn->setReleasedEventCallback(MainMenuNextButton, MainMenuNextButton_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)MainMenuNextButton);
+    MainMenu_MainMenuNextButton = leButtonWidget_New();
+    MainMenu_MainMenuNextButton->fn->setPosition(MainMenu_MainMenuNextButton, 359, 260);
+    MainMenu_MainMenuNextButton->fn->setSize(MainMenu_MainMenuNextButton, 60, 60);
+    MainMenu_MainMenuNextButton->fn->setBackgroundType(MainMenu_MainMenuNextButton, LE_WIDGET_BACKGROUND_NONE);
+    MainMenu_MainMenuNextButton->fn->setBorderType(MainMenu_MainMenuNextButton, LE_WIDGET_BORDER_NONE);
+    MainMenu_MainMenuNextButton->fn->setPressedImage(MainMenu_MainMenuNextButton, (leImage*)&GFX_NextScreen_60x60);
+    MainMenu_MainMenuNextButton->fn->setReleasedImage(MainMenu_MainMenuNextButton, (leImage*)&GFX_NextScreen_60x60);
+    MainMenu_MainMenuNextButton->fn->setReleasedEventCallback(MainMenu_MainMenuNextButton, event_MainMenu_MainMenuNextButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)MainMenu_MainMenuNextButton);
 
     leAddRootWidget(root0, 0);
+    leSetLayerColorMode(0, LE_COLOR_MODE_RGB_565);
+
+    MainMenu_OnShow(); // raise event
 
     showing = LE_TRUE;
-
-    MainMenu_OnShow();
 
     return LE_SUCCESS;
 }
 
 void screenUpdate_MainMenu()
 {
-    MainMenu_OnUpdate();
+    MainMenu_OnUpdate(); // raise event
 }
 
 void screenHide_MainMenu()
 {
+
     leRemoveRootWidget(root0, 0);
-
     leWidget_Delete(root0);
-
     root0 = NULL;
 
-    GradientWidget1 = NULL;
-    ListwheelDemoMenuButton = NULL;
-    AlphaBlendingDemoMenuButton = NULL;
-    SlideShowDemoMenuButton = NULL;
-    TouchTestDemoMenuDemo = NULL;
-    KeypadDemoMenuButton = NULL;
-    MainMenuHelpButton = NULL;
-    LabelWidget1 = NULL;
-    LabelWidget2 = NULL;
-    ImageWidget3 = NULL;
-    ImageWidget4 = NULL;
-    MainMenuSettingsButton = NULL;
-    MainMenuNextButton = NULL;
+    MainMenu_GradientWidget1 = NULL;
+    MainMenu_ListwheelDemoMenuButton = NULL;
+    MainMenu_AlphaBlendingDemoMenuButton = NULL;
+    MainMenu_SlideShowDemoMenuButton = NULL;
+    MainMenu_TouchTestDemoMenuDemo = NULL;
+    MainMenu_KeypadDemoMenuButton = NULL;
+    MainMenu_MainMenuHelpButton = NULL;
+    MainMenu_LabelWidget1 = NULL;
+    MainMenu_LabelWidget2 = NULL;
+    MainMenu_ImageWidget3 = NULL;
+    MainMenu_ImageWidget4 = NULL;
+    MainMenu_MainMenuSettingsButton = NULL;
+    MainMenu_MainMenuNextButton = NULL;
 
-    tableString_Harmony.fn->destructor(&tableString_Harmony);
-    tableString_Title.fn->destructor(&tableString_Title);
+
     showing = LE_FALSE;
 }
 
 void screenDestroy_MainMenu()
 {
+    if(initialized == LE_FALSE)
+        return;
 
+    initialized = LE_FALSE;
 }
 
 leWidget* screenGetRoot_MainMenu(uint32_t lyrIdx)

@@ -222,7 +222,7 @@ static leResult setImage(leImageSequenceWidget* _this,
         
     _this->images[idx].image = imgAst;
         
-    if(_this->activeIdx == idx)
+    if(_this->activeIdx == (int32_t)idx)
     {
         _this->fn->invalidate(_this);
     }
@@ -280,7 +280,7 @@ static leResult setImageHAlignment(leImageSequenceWidget* _this,
         
     _this->images[idx].halign = align;
         
-    if(_this->activeIdx == idx)
+    if(_this->activeIdx == (int32_t)idx)
     {
         _this->fn->invalidate(_this);
     }
@@ -313,8 +313,10 @@ static leResult setImageVAlignment(leImageSequenceWidget* _this,
         
     _this->images[idx].valign = align;
         
-    if(_this->activeIdx == idx)
+    if(_this->activeIdx == (int32_t)idx)
+    {
         _this->fn->invalidate(_this);
+    }
         
     return LE_SUCCESS;
 }
@@ -396,7 +398,7 @@ static leResult showNextImage(leImageSequenceWidget* _this)
 {
     LE_ASSERT_THIS();
         
-    if(_this->activeIdx == _this->count - 1)
+    if(_this->activeIdx == (int32_t)_this->count - 1)
     {
         if(_this->repeat == LE_TRUE)
         {
@@ -549,8 +551,6 @@ static const leImageSequenceWidgetVTable imageSequenceWidgetVTable =
     .invalidateContents = (void*)_leWidget_InvalidateContents,
     .installEventFilter = (void*)_leWidget_InstallEventFilter,
     .removeEventFilter = (void*)_leWidget_RemoveEventFilter,
-
-    .update = (void*)_leWidget_Update,
 
     .touchDownEvent = (void*)_leWidget_TouchDownEvent,
     .touchUpEvent = (void*)_leWidget_TouchUpEvent,

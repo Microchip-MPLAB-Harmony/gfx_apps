@@ -87,12 +87,12 @@ void TouchTestHelpScreen_OnUpdate(void)
     }    
 }
 
-void TouchTestHelpCloseButton_OnReleased(leButtonWidget* btn)
+void event_TouchTestHelpScreen_TouchTestHelpCloseButton_OnReleased(leButtonWidget* btn)
 {
     touchTestScreenEvent = EVENT_TOUCHTEST_SHOW_DEMO;
 }
 
-void TouchTestHomeButton_OnReleased(leButtonWidget* btn)
+void event_TouchTestDemoScreen_TouchTestHomeButton_OnReleased(leButtonWidget* btn)
 {
     touchTestScreenEvent = EVENT_TOUCHTEST_SHOW_MAIN;
 }
@@ -112,12 +112,12 @@ void TouchTestDemoScreen_OnUpdate(void)
     }
 }
 
-void TouchTestHelpButton_OnReleased(leButtonWidget* btn)
+void event_TouchTestDemoScreen_TouchTestHelpButton_OnReleased(leButtonWidget* btn)
 {
     touchTestScreenEvent = EVENT_TOUCHTEST_SHOW_HELP;
 }
 
-void TouchTestNextButton_OnReleased(leButtonWidget* btn)
+void event_TouchTestDemoScreen_TouchTestNextButton_OnReleased(leButtonWidget* btn)
 {
     touchTestScreenEvent = EVENT_TOUCHTEST_SHOW_NEXT;
 }

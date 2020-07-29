@@ -80,17 +80,17 @@ void ListWheelDemoScreen_OnUpdate(void)
     }
 }
 
-void ListWheelHelpButton_OnReleased(leButtonWidget* btn)
+void event_ListWheelDemoScreen_ListWheelHelpButton_OnReleased(leButtonWidget* btn)
 {
     listWheelScreenEvent = EVENT_LISTWHEEL_SHOW_HELP;
 }
 
-void ListWheelHomeButton_OnReleased(leButtonWidget* btn)
+void event_ListWheelDemoScreen_ListWheelHomeButton_OnReleased(leButtonWidget* btn)
 {
     listWheelScreenEvent = EVENT_LISTWHEEL_SHOW_MAIN;
 }
 
-void ListWheel1_OnSelectionChanged(leListWheelWidget* lst, int32_t idx)
+void event_ListWheelDemoScreen_ListWheel1_OnSelectionChanged(leListWheelWidget* lst, int32_t idx)
 {
     if (idx == 2 || idx == 3)
         lst->fn->setSelectedItem(lst, 1);
@@ -98,7 +98,7 @@ void ListWheel1_OnSelectionChanged(leListWheelWidget* lst, int32_t idx)
         lst->fn->setSelectedItem(lst, 0);
 }
 
-void ListWheelNextButton_OnReleased(leButtonWidget* btn)
+void event_ListWheelDemoScreen_ListWheelNextButton_OnReleased(leButtonWidget* btn)
 {
     listWheelScreenEvent = EVENT_LISTWHEEL_SHOW_NEXT;
 }
@@ -119,7 +119,7 @@ void ListWheelHelpScreen_OnUpdate(void)
     }
 }
 
-void ListWheelHelpCloseButton_OnReleased(leButtonWidget* btn)
+void event_ListWheelHelpScreen_ListWheelHelpCloseButton_OnReleased(leButtonWidget* btn)
 {
     listWheelScreenEvent = EVENT_LISTWHEEL_SHOW_DEMO;
 }

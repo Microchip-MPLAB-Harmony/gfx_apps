@@ -89,42 +89,42 @@ void MainMenu_OnUpdate(void)
     }
 }
 
-void ListwheelDemoMenuButton_OnReleased(leButtonWidget* btn)
+void event_MainMenu_ListwheelDemoMenuButton_OnReleased(leButtonWidget* btn)
 {
     mainMenuEvent = EVENT_MAIN_SHOW_LIST_WHEEL_DEMO;    
 }
 
-void AlphaBlendingDemoMenuButton_OnReleased(leButtonWidget* btn)
+void event_MainMenu_AlphaBlendingDemoMenuButton_OnReleased(leButtonWidget* btn)
 {
     mainMenuEvent = EVENT_MAIN_SHOW_ALPHA_DEMO;
 }
 
-void SlideShowDemoMenuButton_OnReleased(leButtonWidget* btn)
+void event_MainMenu_SlideShowDemoMenuButton_OnReleased(leButtonWidget* btn)
 {
     mainMenuEvent = EVENT_MAIN_SHOW_SLIDESHOW_DEMO;
 }
 
-void TouchTestDemoMenuDemo_OnReleased(leButtonWidget* btn)
+void event_MainMenu_TouchTestDemoMenuDemo_OnReleased(leButtonWidget* btn)
 {
     mainMenuEvent = EVENT_MAIN_SHOW_TOUCH_TEST_DEMO;
 }
 
-void KeypadDemoMenuButton_OnReleased(leButtonWidget* btn)
+void event_MainMenu_KeypadDemoMenuButton_OnReleased(leButtonWidget* btn)
 {
     mainMenuEvent = EVENT_MAIN_SHOW_KEYPAD_DEMO;
 }
 
-void MainMenuHelpButton_OnReleased(leButtonWidget* btn)
+void event_MainMenu_MainMenuHelpButton_OnReleased(leButtonWidget* btn)
 {
     mainMenuEvent = EVENT_MAIN_SHOW_MAIN_MENU_HELP;
 }
 
-void MainMenuSettingsButton_OnReleased(leButtonWidget* btn)
+void event_MainMenu_MainMenuSettingsButton_OnReleased(leButtonWidget* btn)
 {
     mainMenuEvent = EVENT_MAIN_SHOW_MAIN_MENU_SETTINGS;
 }
 
-void MainMenuNextButton_OnReleased(leButtonWidget* btn)
+void event_MainMenu_MainMenuNextButton_OnReleased(leButtonWidget* btn)
 {
     mainMenuEvent = EVENT_MAIN_SHOW_NEXT_DEMO;
 }
@@ -144,7 +144,7 @@ void MainMenuHelp_OnUpdate(void)
     }
 }
 
-void MainMenuHelpCloseButton_OnReleased(leButtonWidget* btn)
+void event_MainMenuHelp_MainMenuHelpCloseButton_OnReleased(leButtonWidget* btn)
 {
     mainMenuEvent = EVENT_MAIN_SHOW_MAIN;
 }

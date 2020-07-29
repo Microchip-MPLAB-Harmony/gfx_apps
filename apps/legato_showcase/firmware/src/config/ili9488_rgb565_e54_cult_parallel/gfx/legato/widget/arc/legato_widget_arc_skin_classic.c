@@ -111,46 +111,13 @@ static void drawBackground(leArcWidget* arc)
     nextState(arc);
 }
 
-//Returns the relative position of the midpoint in the arc
-static lePoint _leArcWidget_GetMidPointAtAngle(leArcWidget* arc, int32_t angle)
-{
-    lePoint point;
-    
-    while (angle < 0)
-    {
-        angle += 360;
-    }
-
-    while (angle > 360)
-    {
-        angle -= 360;
-    }
-    
-    //arcCenterPoint.x = arc->widget.rect.width/2;
-    //arcCenterPoint.y = arc->widget.rect.height/2;
-    
-    //leUtils_PointToScreenSpace((leWidget*)arc, &arcCenterPoint);
-    
-    lePolarToXY(arc->radius, angle, &point);
-
-    //point.x = arcCenterPoint.x + point.x;
-    //point.y = arcCenterPoint.y + point.y;
-    
-    return point;
-}
-
 static void drawArc(leArcWidget* arc)
 {
     lePoint p;
     leRect arcRect;
-    leRect tipRect;
-    lePoint center;
 
     p.x = arc->widget.rect.width / 2;
     p.y = arc->widget.rect.width / 2;
-
-    center.x = arc->widget.rect.width / 2;
-    center.y = arc->widget.rect.height / 2;
 
     leUtils_PointToScreenSpace((leWidget*)arc, &p);
 
@@ -163,52 +130,10 @@ static void drawArc(leArcWidget* arc)
                        arc->startAngle,
                        arc->centerAngle,
                        arc->thickness,
+                       arc->roundEdge,
                        leScheme_GetRenderColor(arc->widget.scheme, LE_SCHM_FOREGROUND),
                        LE_FALSE,
                        paintState.alpha);
-
-    //Draw the edges
-    if (arc->roundEdge == LE_TRUE)
-    {
-        lePoint point = _leArcWidget_GetMidPointAtAngle(arc, arc->startAngle);
-        point.y *= -1;
-
-        leUtils_PointToScreenSpace((leWidget*)arc, &point);
-
-        tipRect.x = center.x + point.x;
-        tipRect.y = center.y + point.y;
-
-        tipRect.x -= arc->thickness / 4;
-        tipRect.y -= arc->thickness / 4;
-        tipRect.width = arc->thickness / 2;
-        tipRect.height = arc->thickness / 2;
-
-        leRenderer_ArcFill(&tipRect,
-                           0,
-                           360,
-                           arc->thickness / 2,
-                           leScheme_GetRenderColor(arc->widget.scheme, LE_SCHM_FOREGROUND),
-                           LE_FALSE,
-                           paintState.alpha);
-        
-        point = _leArcWidget_GetMidPointAtAngle(arc, arc->centerAngle);
-        point.y *= -1;
-
-        leUtils_PointToScreenSpace((leWidget*)arc, &point);
-
-        tipRect.x = center.x + point.x;
-        tipRect.y = center.y + point.y;
-        tipRect.x -= arc->thickness / 4;
-        tipRect.y -= arc->thickness / 4;
-
-        leRenderer_ArcFill(&tipRect,
-                           0,
-                           360,
-                           arc->thickness / 2,
-                           leScheme_GetRenderColor(arc->widget.scheme, LE_SCHM_FOREGROUND),
-                           LE_FALSE,
-                           paintState.alpha);
-    }
 
     nextState(arc);
 }

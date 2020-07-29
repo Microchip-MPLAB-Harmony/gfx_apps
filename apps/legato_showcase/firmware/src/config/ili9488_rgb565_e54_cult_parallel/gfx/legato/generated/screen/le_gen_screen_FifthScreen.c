@@ -67,9 +67,9 @@ leResult screenShow_FifthScreen()
         return LE_FAILURE;
 
     // initialize static strings
-    leTableString_Constructor(&tableString_SlideShowDemo, string_SlideShowDemo);
-    leTableString_Constructor(&tableString_msecs500, string_msecs500);
-    leTableString_Constructor(&tableString_secs2, string_secs2);
+    leTableString_Constructor(&tableString_SlideShowDemo, stringID_SlideShowDemo);
+    leTableString_Constructor(&tableString_msecs500, stringID_msecs500);
+    leTableString_Constructor(&tableString_secs2, stringID_secs2);
 
     // layer 0
     root0 = leWidget_New();

@@ -1,50 +1,27 @@
-// DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
-// DOM-IGNORE-END
-
 #include "gfx/legato/generated/screen/le_gen_screen_TouchTestDemoScreen.h"
 
-// widget list for layer 0
-static leWidget* root0;
+// screen member widget declarations
+leWidget* root0;
 
-leGradientWidget* GradientWidget2;
-leTouchTestWidget* TouchTestWidget1;
-leLabelWidget* LabelWidget6;
-leImageWidget* ImageWidget5;
-leButtonWidget* TouchTestHelpButton;
-leButtonWidget* TouchTestHomeButton;
-leLabelWidget* LabelWidget7;
-leButtonWidget* TouchTestNextButton;
+leGradientWidget* TouchTestDemoScreen_GradientWidget2;
+leTouchTestWidget* TouchTestDemoScreen_TouchTestWidget1;
+leLabelWidget* TouchTestDemoScreen_LabelWidget6;
+leImageWidget* TouchTestDemoScreen_ImageWidget5;
+leButtonWidget* TouchTestDemoScreen_TouchTestHelpButton;
+leButtonWidget* TouchTestDemoScreen_TouchTestHomeButton;
+leLabelWidget* TouchTestDemoScreen_LabelWidget7;
+leButtonWidget* TouchTestDemoScreen_TouchTestNextButton;
 
-// string list for this screen
-static leTableString tableString_TouchMe;
-static leTableString tableString_TouchTestWidgetDemo;
-
+static leBool initialized = LE_FALSE;
 static leBool showing = LE_FALSE;
 
 leResult screenInit_TouchTestDemoScreen()
 {
+    if(initialized == LE_TRUE)
+        return LE_FAILURE;
+
+    initialized = LE_TRUE;
+
     return LE_SUCCESS;
 }
 
@@ -53,124 +30,125 @@ leResult screenShow_TouchTestDemoScreen()
     if(showing == LE_TRUE)
         return LE_FAILURE;
 
-    // initialize static strings
-    leTableString_Constructor(&tableString_TouchMe, string_TouchMe);
-    leTableString_Constructor(&tableString_TouchTestWidgetDemo, string_TouchTestWidgetDemo);
-
     // layer 0
     root0 = leWidget_New();
-    root0->fn->setPosition(root0, 0, 0);
     root0->fn->setSize(root0, 480, 320);
     root0->fn->setBackgroundType(root0, LE_WIDGET_BACKGROUND_NONE);
     root0->fn->setMargins(root0, 0, 0, 0, 0);
+    root0->flags |= LE_WIDGET_IGNOREEVENTS;
+    root0->flags |= LE_WIDGET_IGNOREPICK;
 
-    GradientWidget2 = leGradientWidget_New();
-    GradientWidget2->fn->setPosition(GradientWidget2, 0, 0);
-    GradientWidget2->fn->setSize(GradientWidget2, 480, 320);
-    GradientWidget2->fn->setScheme(GradientWidget2, &BackgroundGradientScheme);
-    GradientWidget2->fn->setDirection(GradientWidget2, LE_DIRECTION_DOWN);
-    root0->fn->addChild(root0, (leWidget*)GradientWidget2);
+    TouchTestDemoScreen_GradientWidget2 = leGradientWidget_New();
+    TouchTestDemoScreen_GradientWidget2->fn->setPosition(TouchTestDemoScreen_GradientWidget2, 0, 0);
+    TouchTestDemoScreen_GradientWidget2->fn->setSize(TouchTestDemoScreen_GradientWidget2, 480, 320);
+    TouchTestDemoScreen_GradientWidget2->fn->setScheme(TouchTestDemoScreen_GradientWidget2, &BackgroundGradientScheme);
+    TouchTestDemoScreen_GradientWidget2->fn->setDirection(TouchTestDemoScreen_GradientWidget2, LE_DIRECTION_DOWN);
+    root0->fn->addChild(root0, (leWidget*)TouchTestDemoScreen_GradientWidget2);
 
-    TouchTestWidget1 = leTouchTestWidget_New();
-    TouchTestWidget1->fn->setPosition(TouchTestWidget1, 130, 42);
-    TouchTestWidget1->fn->setSize(TouchTestWidget1, 297, 169);
-    TouchTestWidget1->fn->setScheme(TouchTestWidget1, &TouchTestScheme);
-    root0->fn->addChild(root0, (leWidget*)TouchTestWidget1);
+    TouchTestDemoScreen_TouchTestWidget1 = leTouchTestWidget_New();
+    TouchTestDemoScreen_TouchTestWidget1->fn->setPosition(TouchTestDemoScreen_TouchTestWidget1, 130, 42);
+    TouchTestDemoScreen_TouchTestWidget1->fn->setSize(TouchTestDemoScreen_TouchTestWidget1, 297, 169);
+    TouchTestDemoScreen_TouchTestWidget1->fn->setScheme(TouchTestDemoScreen_TouchTestWidget1, &TouchTestScheme);
+    TouchTestDemoScreen_TouchTestWidget1->fn->setBorderType(TouchTestDemoScreen_TouchTestWidget1, LE_WIDGET_BORDER_NONE);
+    root0->fn->addChild(root0, (leWidget*)TouchTestDemoScreen_TouchTestWidget1);
 
-    LabelWidget6 = leLabelWidget_New();
-    LabelWidget6->fn->setPosition(LabelWidget6, 125, 215);
-    LabelWidget6->fn->setSize(LabelWidget6, 228, 25);
-    LabelWidget6->fn->setScheme(LabelWidget6, &BlackBackground);
-    LabelWidget6->fn->setBackgroundType(LabelWidget6, LE_WIDGET_BACKGROUND_NONE);
-    LabelWidget6->fn->setString(LabelWidget6, (leString*)&tableString_TouchMe);
-    root0->fn->addChild(root0, (leWidget*)LabelWidget6);
+    TouchTestDemoScreen_LabelWidget6 = leLabelWidget_New();
+    TouchTestDemoScreen_LabelWidget6->fn->setPosition(TouchTestDemoScreen_LabelWidget6, 125, 215);
+    TouchTestDemoScreen_LabelWidget6->fn->setSize(TouchTestDemoScreen_LabelWidget6, 228, 25);
+    TouchTestDemoScreen_LabelWidget6->fn->setScheme(TouchTestDemoScreen_LabelWidget6, &BlackBackground);
+    TouchTestDemoScreen_LabelWidget6->fn->setBackgroundType(TouchTestDemoScreen_LabelWidget6, LE_WIDGET_BACKGROUND_NONE);
+    TouchTestDemoScreen_LabelWidget6->fn->setString(TouchTestDemoScreen_LabelWidget6, (leString*)&string_TouchMe);
+    root0->fn->addChild(root0, (leWidget*)TouchTestDemoScreen_LabelWidget6);
 
-    ImageWidget5 = leImageWidget_New();
-    ImageWidget5->fn->setPosition(ImageWidget5, 45, 151);
-    ImageWidget5->fn->setSize(ImageWidget5, 81, 100);
-    ImageWidget5->fn->setBackgroundType(ImageWidget5, LE_WIDGET_BACKGROUND_NONE);
-    ImageWidget5->fn->setImage(ImageWidget5, &GFX_Touch_80);
-    root0->fn->addChild(root0, (leWidget*)ImageWidget5);
+    TouchTestDemoScreen_ImageWidget5 = leImageWidget_New();
+    TouchTestDemoScreen_ImageWidget5->fn->setPosition(TouchTestDemoScreen_ImageWidget5, 45, 151);
+    TouchTestDemoScreen_ImageWidget5->fn->setSize(TouchTestDemoScreen_ImageWidget5, 81, 100);
+    TouchTestDemoScreen_ImageWidget5->fn->setBackgroundType(TouchTestDemoScreen_ImageWidget5, LE_WIDGET_BACKGROUND_NONE);
+    TouchTestDemoScreen_ImageWidget5->fn->setBorderType(TouchTestDemoScreen_ImageWidget5, LE_WIDGET_BORDER_NONE);
+    TouchTestDemoScreen_ImageWidget5->fn->setImage(TouchTestDemoScreen_ImageWidget5, (leImage*)&GFX_Touch_80);
+    root0->fn->addChild(root0, (leWidget*)TouchTestDemoScreen_ImageWidget5);
 
-    TouchTestHelpButton = leButtonWidget_New();
-    TouchTestHelpButton->fn->setPosition(TouchTestHelpButton, 0, 260);
-    TouchTestHelpButton->fn->setSize(TouchTestHelpButton, 60, 60);
-    TouchTestHelpButton->fn->setAlphaAmount(TouchTestHelpButton, 220);
-    TouchTestHelpButton->fn->setBackgroundType(TouchTestHelpButton, LE_WIDGET_BACKGROUND_NONE);
-    TouchTestHelpButton->fn->setBorderType(TouchTestHelpButton, LE_WIDGET_BORDER_NONE);
-    TouchTestHelpButton->fn->setPressedImage(TouchTestHelpButton, &GFX_Help_60);
-    TouchTestHelpButton->fn->setReleasedImage(TouchTestHelpButton, &GFX_Help_60);
-    TouchTestHelpButton->fn->setReleasedEventCallback(TouchTestHelpButton, TouchTestHelpButton_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)TouchTestHelpButton);
+    TouchTestDemoScreen_TouchTestHelpButton = leButtonWidget_New();
+    TouchTestDemoScreen_TouchTestHelpButton->fn->setPosition(TouchTestDemoScreen_TouchTestHelpButton, 0, 260);
+    TouchTestDemoScreen_TouchTestHelpButton->fn->setSize(TouchTestDemoScreen_TouchTestHelpButton, 60, 60);
+    TouchTestDemoScreen_TouchTestHelpButton->fn->setAlphaAmount(TouchTestDemoScreen_TouchTestHelpButton, 220);
+    TouchTestDemoScreen_TouchTestHelpButton->fn->setBackgroundType(TouchTestDemoScreen_TouchTestHelpButton, LE_WIDGET_BACKGROUND_NONE);
+    TouchTestDemoScreen_TouchTestHelpButton->fn->setBorderType(TouchTestDemoScreen_TouchTestHelpButton, LE_WIDGET_BORDER_NONE);
+    TouchTestDemoScreen_TouchTestHelpButton->fn->setPressedImage(TouchTestDemoScreen_TouchTestHelpButton, (leImage*)&GFX_Help_60);
+    TouchTestDemoScreen_TouchTestHelpButton->fn->setReleasedImage(TouchTestDemoScreen_TouchTestHelpButton, (leImage*)&GFX_Help_60);
+    TouchTestDemoScreen_TouchTestHelpButton->fn->setReleasedEventCallback(TouchTestDemoScreen_TouchTestHelpButton, event_TouchTestDemoScreen_TouchTestHelpButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)TouchTestDemoScreen_TouchTestHelpButton);
 
-    TouchTestHomeButton = leButtonWidget_New();
-    TouchTestHomeButton->fn->setPosition(TouchTestHomeButton, 421, 260);
-    TouchTestHomeButton->fn->setSize(TouchTestHomeButton, 60, 60);
-    TouchTestHomeButton->fn->setAlphaAmount(TouchTestHomeButton, 220);
-    TouchTestHomeButton->fn->setBackgroundType(TouchTestHomeButton, LE_WIDGET_BACKGROUND_NONE);
-    TouchTestHomeButton->fn->setBorderType(TouchTestHomeButton, LE_WIDGET_BORDER_NONE);
-    TouchTestHomeButton->fn->setPressedImage(TouchTestHomeButton, &GFX_Home_60x60);
-    TouchTestHomeButton->fn->setReleasedImage(TouchTestHomeButton, &GFX_Home_60x60);
-    TouchTestHomeButton->fn->setReleasedEventCallback(TouchTestHomeButton, TouchTestHomeButton_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)TouchTestHomeButton);
+    TouchTestDemoScreen_TouchTestHomeButton = leButtonWidget_New();
+    TouchTestDemoScreen_TouchTestHomeButton->fn->setPosition(TouchTestDemoScreen_TouchTestHomeButton, 421, 260);
+    TouchTestDemoScreen_TouchTestHomeButton->fn->setSize(TouchTestDemoScreen_TouchTestHomeButton, 60, 60);
+    TouchTestDemoScreen_TouchTestHomeButton->fn->setAlphaAmount(TouchTestDemoScreen_TouchTestHomeButton, 220);
+    TouchTestDemoScreen_TouchTestHomeButton->fn->setBackgroundType(TouchTestDemoScreen_TouchTestHomeButton, LE_WIDGET_BACKGROUND_NONE);
+    TouchTestDemoScreen_TouchTestHomeButton->fn->setBorderType(TouchTestDemoScreen_TouchTestHomeButton, LE_WIDGET_BORDER_NONE);
+    TouchTestDemoScreen_TouchTestHomeButton->fn->setPressedImage(TouchTestDemoScreen_TouchTestHomeButton, (leImage*)&GFX_Home_60x60);
+    TouchTestDemoScreen_TouchTestHomeButton->fn->setReleasedImage(TouchTestDemoScreen_TouchTestHomeButton, (leImage*)&GFX_Home_60x60);
+    TouchTestDemoScreen_TouchTestHomeButton->fn->setReleasedEventCallback(TouchTestDemoScreen_TouchTestHomeButton, event_TouchTestDemoScreen_TouchTestHomeButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)TouchTestDemoScreen_TouchTestHomeButton);
 
-    LabelWidget7 = leLabelWidget_New();
-    LabelWidget7->fn->setPosition(LabelWidget7, 10, 5);
-    LabelWidget7->fn->setSize(LabelWidget7, 293, 25);
-    LabelWidget7->fn->setScheme(LabelWidget7, &whiteScheme);
-    LabelWidget7->fn->setBackgroundType(LabelWidget7, LE_WIDGET_BACKGROUND_NONE);
-    LabelWidget7->fn->setString(LabelWidget7, (leString*)&tableString_TouchTestWidgetDemo);
-    root0->fn->addChild(root0, (leWidget*)LabelWidget7);
+    TouchTestDemoScreen_LabelWidget7 = leLabelWidget_New();
+    TouchTestDemoScreen_LabelWidget7->fn->setPosition(TouchTestDemoScreen_LabelWidget7, 10, 5);
+    TouchTestDemoScreen_LabelWidget7->fn->setSize(TouchTestDemoScreen_LabelWidget7, 293, 25);
+    TouchTestDemoScreen_LabelWidget7->fn->setScheme(TouchTestDemoScreen_LabelWidget7, &whiteScheme);
+    TouchTestDemoScreen_LabelWidget7->fn->setBackgroundType(TouchTestDemoScreen_LabelWidget7, LE_WIDGET_BACKGROUND_NONE);
+    TouchTestDemoScreen_LabelWidget7->fn->setString(TouchTestDemoScreen_LabelWidget7, (leString*)&string_TouchTestWidgetDemo);
+    root0->fn->addChild(root0, (leWidget*)TouchTestDemoScreen_LabelWidget7);
 
-    TouchTestNextButton = leButtonWidget_New();
-    TouchTestNextButton->fn->setPosition(TouchTestNextButton, 360, 260);
-    TouchTestNextButton->fn->setSize(TouchTestNextButton, 60, 60);
-    TouchTestNextButton->fn->setBackgroundType(TouchTestNextButton, LE_WIDGET_BACKGROUND_NONE);
-    TouchTestNextButton->fn->setBorderType(TouchTestNextButton, LE_WIDGET_BORDER_NONE);
-    TouchTestNextButton->fn->setPressedImage(TouchTestNextButton, &GFX_NextScreen_60x60);
-    TouchTestNextButton->fn->setReleasedImage(TouchTestNextButton, &GFX_NextScreen_60x60);
-    TouchTestNextButton->fn->setReleasedEventCallback(TouchTestNextButton, TouchTestNextButton_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)TouchTestNextButton);
+    TouchTestDemoScreen_TouchTestNextButton = leButtonWidget_New();
+    TouchTestDemoScreen_TouchTestNextButton->fn->setPosition(TouchTestDemoScreen_TouchTestNextButton, 360, 260);
+    TouchTestDemoScreen_TouchTestNextButton->fn->setSize(TouchTestDemoScreen_TouchTestNextButton, 60, 60);
+    TouchTestDemoScreen_TouchTestNextButton->fn->setBackgroundType(TouchTestDemoScreen_TouchTestNextButton, LE_WIDGET_BACKGROUND_NONE);
+    TouchTestDemoScreen_TouchTestNextButton->fn->setBorderType(TouchTestDemoScreen_TouchTestNextButton, LE_WIDGET_BORDER_NONE);
+    TouchTestDemoScreen_TouchTestNextButton->fn->setPressedImage(TouchTestDemoScreen_TouchTestNextButton, (leImage*)&GFX_NextScreen_60x60);
+    TouchTestDemoScreen_TouchTestNextButton->fn->setReleasedImage(TouchTestDemoScreen_TouchTestNextButton, (leImage*)&GFX_NextScreen_60x60);
+    TouchTestDemoScreen_TouchTestNextButton->fn->setReleasedEventCallback(TouchTestDemoScreen_TouchTestNextButton, event_TouchTestDemoScreen_TouchTestNextButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)TouchTestDemoScreen_TouchTestNextButton);
 
     leAddRootWidget(root0, 0);
+    leSetLayerColorMode(0, LE_COLOR_MODE_RGB_565);
+
+    TouchTestDemoScreen_OnShow(); // raise event
 
     showing = LE_TRUE;
-
-    TouchTestDemoScreen_OnShow();
 
     return LE_SUCCESS;
 }
 
 void screenUpdate_TouchTestDemoScreen()
 {
-    TouchTestDemoScreen_OnUpdate();
+    TouchTestDemoScreen_OnUpdate(); // raise event
 }
 
 void screenHide_TouchTestDemoScreen()
 {
+
     leRemoveRootWidget(root0, 0);
-
     leWidget_Delete(root0);
-
     root0 = NULL;
 
-    GradientWidget2 = NULL;
-    TouchTestWidget1 = NULL;
-    LabelWidget6 = NULL;
-    ImageWidget5 = NULL;
-    TouchTestHelpButton = NULL;
-    TouchTestHomeButton = NULL;
-    LabelWidget7 = NULL;
-    TouchTestNextButton = NULL;
+    TouchTestDemoScreen_GradientWidget2 = NULL;
+    TouchTestDemoScreen_TouchTestWidget1 = NULL;
+    TouchTestDemoScreen_LabelWidget6 = NULL;
+    TouchTestDemoScreen_ImageWidget5 = NULL;
+    TouchTestDemoScreen_TouchTestHelpButton = NULL;
+    TouchTestDemoScreen_TouchTestHomeButton = NULL;
+    TouchTestDemoScreen_LabelWidget7 = NULL;
+    TouchTestDemoScreen_TouchTestNextButton = NULL;
 
-    tableString_TouchMe.fn->destructor(&tableString_TouchMe);
-    tableString_TouchTestWidgetDemo.fn->destructor(&tableString_TouchTestWidgetDemo);
+
     showing = LE_FALSE;
 }
 
 void screenDestroy_TouchTestDemoScreen()
 {
+    if(initialized == LE_FALSE)
+        return;
 
+    initialized = LE_FALSE;
 }
 
 leWidget* screenGetRoot_TouchTestDemoScreen(uint32_t lyrIdx)

@@ -1,50 +1,26 @@
-// DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
-// DOM-IGNORE-END
-
 #include "gfx/legato/generated/screen/le_gen_screen_KeypadHelpScreen.h"
 
-// widget list for layer 0
-static leWidget* root0;
+// screen member widget declarations
+leWidget* root0;
 
-leWidget* PanelWidget6;
-leImageWidget* ImageWidget20;
-leButtonWidget* KeypadHelpCloseButton;
-leLabelWidget* LabelWidget29;
-leLabelWidget* LabelWidget30;
-leLabelWidget* LabelWidget32;
-leImageWidget* ImageWidget22;
+leWidget* KeypadHelpScreen_PanelWidget6;
+leImageWidget* KeypadHelpScreen_ImageWidget20;
+leButtonWidget* KeypadHelpScreen_KeypadHelpCloseButton;
+leLabelWidget* KeypadHelpScreen_LabelWidget29;
+leLabelWidget* KeypadHelpScreen_LabelWidget30;
+leLabelWidget* KeypadHelpScreen_LabelWidget32;
+leImageWidget* KeypadHelpScreen_ImageWidget22;
 
-// string list for this screen
-static leTableString tableString_Help;
-static leTableString tableString_TouchTextField;
-static leTableString tableString_HomeHelpText;
-
+static leBool initialized = LE_FALSE;
 static leBool showing = LE_FALSE;
 
 leResult screenInit_KeypadHelpScreen()
 {
+    if(initialized == LE_TRUE)
+        return LE_FAILURE;
+
+    initialized = LE_TRUE;
+
     return LE_SUCCESS;
 }
 
@@ -53,106 +29,105 @@ leResult screenShow_KeypadHelpScreen()
     if(showing == LE_TRUE)
         return LE_FAILURE;
 
-    // initialize static strings
-    leTableString_Constructor(&tableString_Help, string_Help);
-    leTableString_Constructor(&tableString_TouchTextField, string_TouchTextField);
-    leTableString_Constructor(&tableString_HomeHelpText, string_HomeHelpText);
-
     // layer 0
     root0 = leWidget_New();
-    root0->fn->setPosition(root0, 0, 0);
     root0->fn->setSize(root0, 480, 320);
     root0->fn->setBackgroundType(root0, LE_WIDGET_BACKGROUND_NONE);
     root0->fn->setMargins(root0, 0, 0, 0, 0);
+    root0->flags |= LE_WIDGET_IGNOREEVENTS;
+    root0->flags |= LE_WIDGET_IGNOREPICK;
 
-    PanelWidget6 = leWidget_New();
-    PanelWidget6->fn->setPosition(PanelWidget6, 0, 0);
-    PanelWidget6->fn->setSize(PanelWidget6, 480, 320);
-    PanelWidget6->fn->setScheme(PanelWidget6, &whiteScheme);
-    root0->fn->addChild(root0, PanelWidget6);
+    KeypadHelpScreen_PanelWidget6 = leWidget_New();
+    KeypadHelpScreen_PanelWidget6->fn->setPosition(KeypadHelpScreen_PanelWidget6, 0, 0);
+    KeypadHelpScreen_PanelWidget6->fn->setSize(KeypadHelpScreen_PanelWidget6, 480, 320);
+    KeypadHelpScreen_PanelWidget6->fn->setScheme(KeypadHelpScreen_PanelWidget6, &whiteScheme);
+    root0->fn->addChild(root0, (leWidget*)KeypadHelpScreen_PanelWidget6);
 
-    ImageWidget20 = leImageWidget_New();
-    ImageWidget20->fn->setPosition(ImageWidget20, 0, 0);
-    ImageWidget20->fn->setSize(ImageWidget20, 40, 40);
-    ImageWidget20->fn->setBackgroundType(ImageWidget20, LE_WIDGET_BACKGROUND_NONE);
-    ImageWidget20->fn->setImage(ImageWidget20, &GFX_Help_40x40);
-    root0->fn->addChild(root0, (leWidget*)ImageWidget20);
+    KeypadHelpScreen_ImageWidget20 = leImageWidget_New();
+    KeypadHelpScreen_ImageWidget20->fn->setPosition(KeypadHelpScreen_ImageWidget20, 0, 0);
+    KeypadHelpScreen_ImageWidget20->fn->setSize(KeypadHelpScreen_ImageWidget20, 40, 40);
+    KeypadHelpScreen_ImageWidget20->fn->setBackgroundType(KeypadHelpScreen_ImageWidget20, LE_WIDGET_BACKGROUND_NONE);
+    KeypadHelpScreen_ImageWidget20->fn->setBorderType(KeypadHelpScreen_ImageWidget20, LE_WIDGET_BORDER_NONE);
+    KeypadHelpScreen_ImageWidget20->fn->setImage(KeypadHelpScreen_ImageWidget20, (leImage*)&GFX_Help_40x40);
+    root0->fn->addChild(root0, (leWidget*)KeypadHelpScreen_ImageWidget20);
 
-    KeypadHelpCloseButton = leButtonWidget_New();
-    KeypadHelpCloseButton->fn->setPosition(KeypadHelpCloseButton, 440, 0);
-    KeypadHelpCloseButton->fn->setSize(KeypadHelpCloseButton, 40, 40);
-    KeypadHelpCloseButton->fn->setBackgroundType(KeypadHelpCloseButton, LE_WIDGET_BACKGROUND_NONE);
-    KeypadHelpCloseButton->fn->setPressedImage(KeypadHelpCloseButton, &GFX_CloseX_40x40);
-    KeypadHelpCloseButton->fn->setReleasedImage(KeypadHelpCloseButton, &GFX_CloseX_40x40);
-    KeypadHelpCloseButton->fn->setReleasedEventCallback(KeypadHelpCloseButton, KeypadHelpCloseButton_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)KeypadHelpCloseButton);
+    KeypadHelpScreen_KeypadHelpCloseButton = leButtonWidget_New();
+    KeypadHelpScreen_KeypadHelpCloseButton->fn->setPosition(KeypadHelpScreen_KeypadHelpCloseButton, 440, 0);
+    KeypadHelpScreen_KeypadHelpCloseButton->fn->setSize(KeypadHelpScreen_KeypadHelpCloseButton, 40, 40);
+    KeypadHelpScreen_KeypadHelpCloseButton->fn->setBackgroundType(KeypadHelpScreen_KeypadHelpCloseButton, LE_WIDGET_BACKGROUND_NONE);
+    KeypadHelpScreen_KeypadHelpCloseButton->fn->setPressedImage(KeypadHelpScreen_KeypadHelpCloseButton, (leImage*)&GFX_CloseX_40x40);
+    KeypadHelpScreen_KeypadHelpCloseButton->fn->setReleasedImage(KeypadHelpScreen_KeypadHelpCloseButton, (leImage*)&GFX_CloseX_40x40);
+    KeypadHelpScreen_KeypadHelpCloseButton->fn->setReleasedEventCallback(KeypadHelpScreen_KeypadHelpCloseButton, event_KeypadHelpScreen_KeypadHelpCloseButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)KeypadHelpScreen_KeypadHelpCloseButton);
 
-    LabelWidget29 = leLabelWidget_New();
-    LabelWidget29->fn->setPosition(LabelWidget29, 48, 6);
-    LabelWidget29->fn->setBackgroundType(LabelWidget29, LE_WIDGET_BACKGROUND_NONE);
-    LabelWidget29->fn->setString(LabelWidget29, (leString*)&tableString_Help);
-    root0->fn->addChild(root0, (leWidget*)LabelWidget29);
+    KeypadHelpScreen_LabelWidget29 = leLabelWidget_New();
+    KeypadHelpScreen_LabelWidget29->fn->setPosition(KeypadHelpScreen_LabelWidget29, 48, 6);
+    KeypadHelpScreen_LabelWidget29->fn->setBackgroundType(KeypadHelpScreen_LabelWidget29, LE_WIDGET_BACKGROUND_NONE);
+    KeypadHelpScreen_LabelWidget29->fn->setString(KeypadHelpScreen_LabelWidget29, (leString*)&string_Help);
+    root0->fn->addChild(root0, (leWidget*)KeypadHelpScreen_LabelWidget29);
 
-    LabelWidget30 = leLabelWidget_New();
-    LabelWidget30->fn->setPosition(LabelWidget30, 29, 47);
-    LabelWidget30->fn->setSize(LabelWidget30, 299, 25);
-    LabelWidget30->fn->setBackgroundType(LabelWidget30, LE_WIDGET_BACKGROUND_NONE);
-    LabelWidget30->fn->setString(LabelWidget30, (leString*)&tableString_TouchTextField);
-    root0->fn->addChild(root0, (leWidget*)LabelWidget30);
+    KeypadHelpScreen_LabelWidget30 = leLabelWidget_New();
+    KeypadHelpScreen_LabelWidget30->fn->setPosition(KeypadHelpScreen_LabelWidget30, 29, 47);
+    KeypadHelpScreen_LabelWidget30->fn->setSize(KeypadHelpScreen_LabelWidget30, 385, 25);
+    KeypadHelpScreen_LabelWidget30->fn->setBackgroundType(KeypadHelpScreen_LabelWidget30, LE_WIDGET_BACKGROUND_NONE);
+    KeypadHelpScreen_LabelWidget30->fn->setString(KeypadHelpScreen_LabelWidget30, (leString*)&string_TouchTextField);
+    root0->fn->addChild(root0, (leWidget*)KeypadHelpScreen_LabelWidget30);
 
-    LabelWidget32 = leLabelWidget_New();
-    LabelWidget32->fn->setPosition(LabelWidget32, 56, 71);
-    LabelWidget32->fn->setSize(LabelWidget32, 300, 25);
-    LabelWidget32->fn->setBackgroundType(LabelWidget32, LE_WIDGET_BACKGROUND_NONE);
-    LabelWidget32->fn->setString(LabelWidget32, (leString*)&tableString_HomeHelpText);
-    root0->fn->addChild(root0, (leWidget*)LabelWidget32);
+    KeypadHelpScreen_LabelWidget32 = leLabelWidget_New();
+    KeypadHelpScreen_LabelWidget32->fn->setPosition(KeypadHelpScreen_LabelWidget32, 56, 71);
+    KeypadHelpScreen_LabelWidget32->fn->setSize(KeypadHelpScreen_LabelWidget32, 300, 25);
+    KeypadHelpScreen_LabelWidget32->fn->setBackgroundType(KeypadHelpScreen_LabelWidget32, LE_WIDGET_BACKGROUND_NONE);
+    KeypadHelpScreen_LabelWidget32->fn->setString(KeypadHelpScreen_LabelWidget32, (leString*)&string_HomeHelpText);
+    root0->fn->addChild(root0, (leWidget*)KeypadHelpScreen_LabelWidget32);
 
-    ImageWidget22 = leImageWidget_New();
-    ImageWidget22->fn->setPosition(ImageWidget22, 32, 75);
-    ImageWidget22->fn->setSize(ImageWidget22, 20, 20);
-    ImageWidget22->fn->setBackgroundType(ImageWidget22, LE_WIDGET_BACKGROUND_NONE);
-    ImageWidget22->fn->setImage(ImageWidget22, &GFX_Home_20x20);
-    root0->fn->addChild(root0, (leWidget*)ImageWidget22);
+    KeypadHelpScreen_ImageWidget22 = leImageWidget_New();
+    KeypadHelpScreen_ImageWidget22->fn->setPosition(KeypadHelpScreen_ImageWidget22, 32, 75);
+    KeypadHelpScreen_ImageWidget22->fn->setSize(KeypadHelpScreen_ImageWidget22, 20, 20);
+    KeypadHelpScreen_ImageWidget22->fn->setBackgroundType(KeypadHelpScreen_ImageWidget22, LE_WIDGET_BACKGROUND_NONE);
+    KeypadHelpScreen_ImageWidget22->fn->setBorderType(KeypadHelpScreen_ImageWidget22, LE_WIDGET_BORDER_NONE);
+    KeypadHelpScreen_ImageWidget22->fn->setImage(KeypadHelpScreen_ImageWidget22, (leImage*)&GFX_Home_20x20);
+    root0->fn->addChild(root0, (leWidget*)KeypadHelpScreen_ImageWidget22);
 
     leAddRootWidget(root0, 0);
+    leSetLayerColorMode(0, LE_COLOR_MODE_RGB_565);
+
+    KeypadHelpScreen_OnShow(); // raise event
 
     showing = LE_TRUE;
-
-    KeypadHelpScreen_OnShow();
 
     return LE_SUCCESS;
 }
 
 void screenUpdate_KeypadHelpScreen()
 {
-    KeypadHelpScreen_OnUpdate();
+    KeypadHelpScreen_OnUpdate(); // raise event
 }
 
 void screenHide_KeypadHelpScreen()
 {
+
     leRemoveRootWidget(root0, 0);
-
     leWidget_Delete(root0);
-
     root0 = NULL;
 
-    PanelWidget6 = NULL;
-    ImageWidget20 = NULL;
-    KeypadHelpCloseButton = NULL;
-    LabelWidget29 = NULL;
-    LabelWidget30 = NULL;
-    LabelWidget32 = NULL;
-    ImageWidget22 = NULL;
+    KeypadHelpScreen_PanelWidget6 = NULL;
+    KeypadHelpScreen_ImageWidget20 = NULL;
+    KeypadHelpScreen_KeypadHelpCloseButton = NULL;
+    KeypadHelpScreen_LabelWidget29 = NULL;
+    KeypadHelpScreen_LabelWidget30 = NULL;
+    KeypadHelpScreen_LabelWidget32 = NULL;
+    KeypadHelpScreen_ImageWidget22 = NULL;
 
-    tableString_Help.fn->destructor(&tableString_Help);
-    tableString_TouchTextField.fn->destructor(&tableString_TouchTextField);
-    tableString_HomeHelpText.fn->destructor(&tableString_HomeHelpText);
+
     showing = LE_FALSE;
 }
 
 void screenDestroy_KeypadHelpScreen()
 {
+    if(initialized == LE_FALSE)
+        return;
 
+    initialized = LE_FALSE;
 }
 
 leWidget* screenGetRoot_KeypadHelpScreen(uint32_t lyrIdx)

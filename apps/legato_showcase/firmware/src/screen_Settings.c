@@ -71,12 +71,12 @@ void SettingsScreen_OnShow(void)
             
     switch(language)
     {
-    	case language_Chinese:
-            RadioButtonChinese->fn->setSelected(RadioButtonChinese);
-        	break;
+//    	case language_Chinese:
+//            SettingsScreen_RadioButtonChinese->fn->setSelected(SettingsScreen_RadioButtonChinese);
+//        	break;
     	case language_English:
     	default:
-            RadioButtonEnglish->fn->setSelected(RadioButtonEnglish);
+            SettingsScreen_RadioButtonEnglish->fn->setSelected(SettingsScreen_RadioButtonEnglish);
     		break;
     }
 }
@@ -86,11 +86,11 @@ void SettingsScreen_OnUpdate(void)
     switch(settingsScreenEvent)
     {
         case EVENT_SETTINGS_SET_LANGUAGE_CHINESE:
-            RadioButtonChinese->fn->setSelected(RadioButtonChinese);
+            SettingsScreen_RadioButtonChinese->fn->setSelected(SettingsScreen_RadioButtonChinese);
             leSetStringLanguage(1);
             break;
         case EVENT_SETTINGS_SET_LANGUAGE_ENGLISH:
-            RadioButtonEnglish->fn->setSelected(RadioButtonEnglish);
+            SettingsScreen_RadioButtonEnglish->fn->setSelected(SettingsScreen_RadioButtonEnglish);
             leSetStringLanguage(0);
             break;
         case EVENT_SETTINGS_SHOW_MAIN_MENU:
@@ -103,17 +103,17 @@ void SettingsScreen_OnUpdate(void)
     settingsScreenEvent = EVENT_SETTINGS_NONE;
 }
 
-void SettingsHomeButton_OnReleased(leButtonWidget* btn)
+void event_SettingsScreen_SettingsHomeButton_OnReleased(leButtonWidget* btn)
 {
     settingsScreenEvent = EVENT_SETTINGS_SHOW_MAIN_MENU;
 }
 
-void ButtonWidgetChinese_OnReleased(leButtonWidget* btn)
+void event_SettingsScreen_ButtonWidgetChinese_OnReleased(leButtonWidget* btn)
 {
     settingsScreenEvent = EVENT_SETTINGS_SET_LANGUAGE_CHINESE;
 }
 
-void ButtonWidgetEnglish_OnReleased(leButtonWidget* btn)
+void event_SettingsScreen_ButtonWidgetEnglish_OnReleased(leButtonWidget* btn)
 {
     settingsScreenEvent = EVENT_SETTINGS_SET_LANGUAGE_ENGLISH;
 }

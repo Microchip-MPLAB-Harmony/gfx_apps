@@ -79,7 +79,7 @@ static uint32_t eventScreenTable[] =
 
 static void Timer_Callback ( uintptr_t context)
 {
-    ImageSequenceWidget1->fn->showNextImage(ImageSequenceWidget1);
+    SlideShowDemoScreen_ImageSequenceWidget1->fn->showNextImage(SlideShowDemoScreen_ImageSequenceWidget1);
 }
 
 void SlideShowDemoScreen_OnShow(void)
@@ -105,7 +105,7 @@ void SlideShowDemoScreen_OnUpdate(void)
             break;
         case EVENT_SLIDESHOW_FF_START:
         {
-            SlideShowFFButton->fn->setPressed(SlideShowPlayButton, LE_FALSE);
+            SlideShowDemoScreen_SlideShowFFButton->fn->setPressed(SlideShowDemoScreen_SlideShowPlayButton, LE_FALSE);
         
             //Start Fast Forward show
             if (handleTimer != SYS_TIME_HANDLE_INVALID)
@@ -113,7 +113,7 @@ void SlideShowDemoScreen_OnUpdate(void)
 
             handleTimer = SYS_TIME_CallbackRegisterMS(Timer_Callback, 1, SLIDESHOW_TIMER_PERIOD_FF_MS, SYS_TIME_PERIODIC);
 
-            SSStatusImageWidget->fn->setImage(SSStatusImageWidget,&GFX_FF_Green_20x20);
+            SlideShowDemoScreen_SSStatusImageWidget->fn->setImage(SlideShowDemoScreen_SSStatusImageWidget,&GFX_FF_Green_20x20);
             break;
         }
         case EVENT_SLIDESHOW_FF_STOP:
@@ -122,13 +122,13 @@ void SlideShowDemoScreen_OnUpdate(void)
                 SYS_TIME_TimerDestroy(handleTimer);
             
             handleTimer = SYS_TIME_HANDLE_INVALID;
-            SSStatusImageWidget->fn->setImage(SSStatusImageWidget, &GFX_Pause_Pink_20x20);
+            SlideShowDemoScreen_SSStatusImageWidget->fn->setImage(SlideShowDemoScreen_SSStatusImageWidget, &GFX_Pause_Pink_20x20);
             
             break;
         }
         case EVENT_SLIDESHOW_PLAY_START:
         {
-            SlideShowFFButton->fn->setPressed(SlideShowFFButton, LE_FALSE);
+            SlideShowDemoScreen_SlideShowFFButton->fn->setPressed(SlideShowDemoScreen_SlideShowFFButton, LE_FALSE);
         
             //Start Fast Forward show
             if (handleTimer != SYS_TIME_HANDLE_INVALID)
@@ -136,7 +136,7 @@ void SlideShowDemoScreen_OnUpdate(void)
 
             handleTimer = SYS_TIME_CallbackRegisterMS(Timer_Callback, 1, SLIDESHOW_TIMER_PERIOD_PLAY_MS, SYS_TIME_PERIODIC);
 
-            SSStatusImageWidget->fn->setImage(SSStatusImageWidget,&GFX_FF_Green_20x20);
+            SlideShowDemoScreen_SSStatusImageWidget->fn->setImage(SlideShowDemoScreen_SSStatusImageWidget,&GFX_FF_Green_20x20);
             
             break;
         }
@@ -146,15 +146,15 @@ void SlideShowDemoScreen_OnUpdate(void)
                 SYS_TIME_TimerDestroy(handleTimer);
             
             handleTimer = SYS_TIME_HANDLE_INVALID;
-            SSStatusImageWidget->fn->setImage(SSStatusImageWidget, &GFX_Pause_Pink_20x20);
+            SlideShowDemoScreen_SSStatusImageWidget->fn->setImage(SlideShowDemoScreen_SSStatusImageWidget, &GFX_Pause_Pink_20x20);
             
             break;
         }
         case EVENT_SLIDESHOW_NEXT_IMG:
-            ImageSequenceWidget1->fn->showNextImage(ImageSequenceWidget1);
+            SlideShowDemoScreen_ImageSequenceWidget1->fn->showNextImage(SlideShowDemoScreen_ImageSequenceWidget1);
             break;
         case EVENT_SLIDESHOW_PREV_IMG:
-            ImageSequenceWidget1->fn->showPreviousImage(ImageSequenceWidget1);
+            SlideShowDemoScreen_ImageSequenceWidget1->fn->showPreviousImage(SlideShowDemoScreen_ImageSequenceWidget1);
             break;
         default:
             break;
@@ -163,42 +163,42 @@ void SlideShowDemoScreen_OnUpdate(void)
     slideShowScreenEvent = EVENT_SLIDESHOW_NONE;
 }
 
-void SlideshowHelpButton_OnReleased(leButtonWidget* btn)
+void event_SlideShowDemoScreen_SlideshowHelpButton_OnReleased(leButtonWidget* btn)
 {
     slideShowScreenEvent = EVENT_SLIDESHOW_SHOW_HELP;
 }
 
-void SlideShowHomeButton_OnReleased(leButtonWidget* btn)
+void event_SlideShowDemoScreen_SlideShowHomeButton_OnReleased(leButtonWidget* btn)
 {
     slideShowScreenEvent = EVENT_SLIDESHOW_SHOW_MAIN;
 }
 
-void SlideShowFFButton_OnPressed(leButtonWidget* btn)
+void event_SlideShowDemoScreen_SlideShowFFButton_OnPressed(leButtonWidget* btn)
 {
     slideShowScreenEvent = EVENT_SLIDESHOW_FF_START;
 }
 
-void SlideShowFFButton_OnReleased(leButtonWidget* btn)
+void event_SlideShowDemoScreen_SlideShowFFButton_OnReleased(leButtonWidget* btn)
 {
     slideShowScreenEvent = EVENT_SLIDESHOW_FF_STOP;
 }
 
-void SlideShowPlayButton_OnPressed(leButtonWidget* btn)
+void event_SlideShowDemoScreen_SlideShowPlayButton_OnPressed(leButtonWidget* btn)
 {
     slideShowScreenEvent = EVENT_SLIDESHOW_PLAY_START;
 }
 
-void SlideShowPlayButton_OnReleased(leButtonWidget* btn)
+void event_SlideShowDemoScreen_SlideShowPlayButton_OnReleased(leButtonWidget* btn)
 {
     slideShowScreenEvent = EVENT_SLIDESHOW_PLAY_STOP;
 }
 
-void SlideShowPrevButton_OnReleased(leButtonWidget* btn)
+void event_SlideShowDemoScreen_SlideShowPrevButton_OnReleased(leButtonWidget* btn)
 {
    slideShowScreenEvent = EVENT_SLIDESHOW_PREV_IMG; 
 }
 
-void SlideshowNextButton_OnReleased(leButtonWidget* btn)
+void event_SlideShowDemoScreen_SlideshowNextButton_OnReleased(leButtonWidget* btn)
 {
     slideShowScreenEvent = EVENT_SLIDESHOW_NEXT_IMG; 
 }
@@ -211,7 +211,7 @@ void SlideshowHelpScreen_OnShow(void)
 
 void SlideshowHelpScreen_OnUpdate(void)
 {
-    if (slideShowScreenEvent == EVENT_SLIDESHOW_SHOW_MAIN)
+    if (slideShowScreenEvent == EVENT_SLIDESHOW_SHOW_DEMO)
     {
         legato_showScreen(eventScreenTable[slideShowScreenEvent]);
     }
@@ -219,7 +219,7 @@ void SlideshowHelpScreen_OnUpdate(void)
     slideShowScreenEvent = EVENT_SLIDESHOW_NONE;
 }
 
-void SlideShowHelpCloseButton_OnReleased(leButtonWidget* btn)
+void event_SlideshowHelpScreen_SlideShowHelpCloseButton_OnReleased(leButtonWidget* btn)
 {
-    slideShowScreenEvent = EVENT_SLIDESHOW_SHOW_MAIN;
+    slideShowScreenEvent = EVENT_SLIDESHOW_SHOW_DEMO;
 }

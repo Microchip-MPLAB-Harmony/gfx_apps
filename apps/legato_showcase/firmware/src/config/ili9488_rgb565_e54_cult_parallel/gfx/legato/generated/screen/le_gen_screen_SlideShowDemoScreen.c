@@ -1,53 +1,29 @@
-// DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
-// DOM-IGNORE-END
-
 #include "gfx/legato/generated/screen/le_gen_screen_SlideShowDemoScreen.h"
 
-// widget list for layer 0
-static leWidget* root0;
+// screen member widget declarations
+leWidget* root0;
 
-leGradientWidget* GradientWidget6;
-leImageSequenceWidget* ImageSequenceWidget1;
-leButtonWidget* SlideshowHelpButton;
-leButtonWidget* SlideShowHomeButton;
-leLabelWidget* LabelWidget10;
-leButtonWidget* SlideShowPrevButton;
-leButtonWidget* SlideshowNextButton;
-leButtonWidget* SlideShowFFButton;
-leButtonWidget* SlideShowPlayButton;
-leImageWidget* SSStatusImageWidget;
+leGradientWidget* SlideShowDemoScreen_GradientWidget6;
+leImageSequenceWidget* SlideShowDemoScreen_ImageSequenceWidget1;
+leButtonWidget* SlideShowDemoScreen_SlideshowHelpButton;
+leButtonWidget* SlideShowDemoScreen_SlideShowHomeButton;
+leLabelWidget* SlideShowDemoScreen_LabelWidget10;
+leButtonWidget* SlideShowDemoScreen_SlideShowPrevButton;
+leButtonWidget* SlideShowDemoScreen_SlideshowNextButton;
+leButtonWidget* SlideShowDemoScreen_SlideShowFFButton;
+leButtonWidget* SlideShowDemoScreen_SlideShowPlayButton;
+leImageWidget* SlideShowDemoScreen_SSStatusImageWidget;
 
-// string list for this screen
-static leTableString tableString_SlideShowDemo;
-static leTableString tableString_msecs500;
-static leTableString tableString_secs2;
-
+static leBool initialized = LE_FALSE;
 static leBool showing = LE_FALSE;
 
 leResult screenInit_SlideShowDemoScreen()
 {
+    if(initialized == LE_TRUE)
+        return LE_FAILURE;
+
+    initialized = LE_TRUE;
+
     return LE_SUCCESS;
 }
 
@@ -56,158 +32,159 @@ leResult screenShow_SlideShowDemoScreen()
     if(showing == LE_TRUE)
         return LE_FAILURE;
 
-    // initialize static strings
-    leTableString_Constructor(&tableString_SlideShowDemo, string_SlideShowDemo);
-    leTableString_Constructor(&tableString_msecs500, string_msecs500);
-    leTableString_Constructor(&tableString_secs2, string_secs2);
-
     // layer 0
     root0 = leWidget_New();
-    root0->fn->setPosition(root0, 0, 0);
     root0->fn->setSize(root0, 480, 320);
     root0->fn->setBackgroundType(root0, LE_WIDGET_BACKGROUND_NONE);
     root0->fn->setMargins(root0, 0, 0, 0, 0);
+    root0->flags |= LE_WIDGET_IGNOREEVENTS;
+    root0->flags |= LE_WIDGET_IGNOREPICK;
 
-    GradientWidget6 = leGradientWidget_New();
-    GradientWidget6->fn->setPosition(GradientWidget6, 0, 0);
-    GradientWidget6->fn->setSize(GradientWidget6, 480, 320);
-    GradientWidget6->fn->setScheme(GradientWidget6, &BackgroundGradientScheme);
-    GradientWidget6->fn->setDirection(GradientWidget6, LE_DIRECTION_DOWN);
-    root0->fn->addChild(root0, (leWidget*)GradientWidget6);
+    SlideShowDemoScreen_GradientWidget6 = leGradientWidget_New();
+    SlideShowDemoScreen_GradientWidget6->fn->setPosition(SlideShowDemoScreen_GradientWidget6, 0, 0);
+    SlideShowDemoScreen_GradientWidget6->fn->setSize(SlideShowDemoScreen_GradientWidget6, 480, 320);
+    SlideShowDemoScreen_GradientWidget6->fn->setScheme(SlideShowDemoScreen_GradientWidget6, &BackgroundGradientScheme);
+    SlideShowDemoScreen_GradientWidget6->fn->setDirection(SlideShowDemoScreen_GradientWidget6, LE_DIRECTION_DOWN);
+    root0->fn->addChild(root0, (leWidget*)SlideShowDemoScreen_GradientWidget6);
 
-    ImageSequenceWidget1 = leImageSequenceWidget_New();
-    ImageSequenceWidget1->fn->setPosition(ImageSequenceWidget1, 107, 41);
-    ImageSequenceWidget1->fn->setSize(ImageSequenceWidget1, 279, 161);
-    ImageSequenceWidget1->fn->setBackgroundType(ImageSequenceWidget1, LE_WIDGET_BACKGROUND_NONE);
-    ImageSequenceWidget1->fn->setImageCount(ImageSequenceWidget1, 3);
-    ImageSequenceWidget1->fn->setImage(ImageSequenceWidget1, 0, &USA);
-    ImageSequenceWidget1->fn->setImage(ImageSequenceWidget1, 1, &MicrochipLogo);
-    ImageSequenceWidget1->fn->setImage(ImageSequenceWidget1, 2, &NewHarmonyLogo);
-    ImageSequenceWidget1->fn->play(ImageSequenceWidget1);
-    ImageSequenceWidget1->fn->setRepeat(ImageSequenceWidget1, LE_TRUE);
-    root0->fn->addChild(root0, (leWidget*)ImageSequenceWidget1);
+    SlideShowDemoScreen_ImageSequenceWidget1 = leImageSequenceWidget_New();
+    SlideShowDemoScreen_ImageSequenceWidget1->fn->setPosition(SlideShowDemoScreen_ImageSequenceWidget1, 107, 41);
+    SlideShowDemoScreen_ImageSequenceWidget1->fn->setSize(SlideShowDemoScreen_ImageSequenceWidget1, 279, 161);
+    SlideShowDemoScreen_ImageSequenceWidget1->fn->setBackgroundType(SlideShowDemoScreen_ImageSequenceWidget1, LE_WIDGET_BACKGROUND_NONE);
+    SlideShowDemoScreen_ImageSequenceWidget1->fn->play(SlideShowDemoScreen_ImageSequenceWidget1);
+    SlideShowDemoScreen_ImageSequenceWidget1->fn->setRepeat(SlideShowDemoScreen_ImageSequenceWidget1, LE_TRUE);
+    SlideShowDemoScreen_ImageSequenceWidget1->fn->setImageCount(SlideShowDemoScreen_ImageSequenceWidget1, 3);
+    SlideShowDemoScreen_ImageSequenceWidget1->fn->setImage(SlideShowDemoScreen_ImageSequenceWidget1, 0, &USA);
+    SlideShowDemoScreen_ImageSequenceWidget1->fn->setImageDelay(SlideShowDemoScreen_ImageSequenceWidget1, 0, 1000);
+    SlideShowDemoScreen_ImageSequenceWidget1->fn->setImage(SlideShowDemoScreen_ImageSequenceWidget1, 1, &MicrochipLogo);
+    SlideShowDemoScreen_ImageSequenceWidget1->fn->setImageDelay(SlideShowDemoScreen_ImageSequenceWidget1, 1, 1000);
+    SlideShowDemoScreen_ImageSequenceWidget1->fn->setImage(SlideShowDemoScreen_ImageSequenceWidget1, 2, &NewHarmonyLogo);
+    SlideShowDemoScreen_ImageSequenceWidget1->fn->setImageDelay(SlideShowDemoScreen_ImageSequenceWidget1, 2, 1000);
+    root0->fn->addChild(root0, (leWidget*)SlideShowDemoScreen_ImageSequenceWidget1);
 
-    SlideshowHelpButton = leButtonWidget_New();
-    SlideshowHelpButton->fn->setPosition(SlideshowHelpButton, 0, 260);
-    SlideshowHelpButton->fn->setSize(SlideshowHelpButton, 60, 60);
-    SlideshowHelpButton->fn->setBackgroundType(SlideshowHelpButton, LE_WIDGET_BACKGROUND_NONE);
-    SlideshowHelpButton->fn->setBorderType(SlideshowHelpButton, LE_WIDGET_BORDER_NONE);
-    SlideshowHelpButton->fn->setPressedImage(SlideshowHelpButton, &GFX_Help_60);
-    SlideshowHelpButton->fn->setReleasedImage(SlideshowHelpButton, &GFX_Help_60);
-    SlideshowHelpButton->fn->setReleasedEventCallback(SlideshowHelpButton, SlideshowHelpButton_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)SlideshowHelpButton);
+    SlideShowDemoScreen_SlideshowHelpButton = leButtonWidget_New();
+    SlideShowDemoScreen_SlideshowHelpButton->fn->setPosition(SlideShowDemoScreen_SlideshowHelpButton, 0, 260);
+    SlideShowDemoScreen_SlideshowHelpButton->fn->setSize(SlideShowDemoScreen_SlideshowHelpButton, 60, 60);
+    SlideShowDemoScreen_SlideshowHelpButton->fn->setBackgroundType(SlideShowDemoScreen_SlideshowHelpButton, LE_WIDGET_BACKGROUND_NONE);
+    SlideShowDemoScreen_SlideshowHelpButton->fn->setBorderType(SlideShowDemoScreen_SlideshowHelpButton, LE_WIDGET_BORDER_NONE);
+    SlideShowDemoScreen_SlideshowHelpButton->fn->setPressedImage(SlideShowDemoScreen_SlideshowHelpButton, (leImage*)&GFX_Help_60);
+    SlideShowDemoScreen_SlideshowHelpButton->fn->setReleasedImage(SlideShowDemoScreen_SlideshowHelpButton, (leImage*)&GFX_Help_60);
+    SlideShowDemoScreen_SlideshowHelpButton->fn->setReleasedEventCallback(SlideShowDemoScreen_SlideshowHelpButton, event_SlideShowDemoScreen_SlideshowHelpButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)SlideShowDemoScreen_SlideshowHelpButton);
 
-    SlideShowHomeButton = leButtonWidget_New();
-    SlideShowHomeButton->fn->setPosition(SlideShowHomeButton, 421, 260);
-    SlideShowHomeButton->fn->setSize(SlideShowHomeButton, 60, 60);
-    SlideShowHomeButton->fn->setBackgroundType(SlideShowHomeButton, LE_WIDGET_BACKGROUND_NONE);
-    SlideShowHomeButton->fn->setBorderType(SlideShowHomeButton, LE_WIDGET_BORDER_NONE);
-    SlideShowHomeButton->fn->setPressedImage(SlideShowHomeButton, &GFX_Home_60x60);
-    SlideShowHomeButton->fn->setReleasedImage(SlideShowHomeButton, &GFX_Home_60x60);
-    SlideShowHomeButton->fn->setReleasedEventCallback(SlideShowHomeButton, SlideShowHomeButton_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)SlideShowHomeButton);
+    SlideShowDemoScreen_SlideShowHomeButton = leButtonWidget_New();
+    SlideShowDemoScreen_SlideShowHomeButton->fn->setPosition(SlideShowDemoScreen_SlideShowHomeButton, 421, 260);
+    SlideShowDemoScreen_SlideShowHomeButton->fn->setSize(SlideShowDemoScreen_SlideShowHomeButton, 60, 60);
+    SlideShowDemoScreen_SlideShowHomeButton->fn->setBackgroundType(SlideShowDemoScreen_SlideShowHomeButton, LE_WIDGET_BACKGROUND_NONE);
+    SlideShowDemoScreen_SlideShowHomeButton->fn->setBorderType(SlideShowDemoScreen_SlideShowHomeButton, LE_WIDGET_BORDER_NONE);
+    SlideShowDemoScreen_SlideShowHomeButton->fn->setPressedImage(SlideShowDemoScreen_SlideShowHomeButton, (leImage*)&GFX_Home_60x60);
+    SlideShowDemoScreen_SlideShowHomeButton->fn->setReleasedImage(SlideShowDemoScreen_SlideShowHomeButton, (leImage*)&GFX_Home_60x60);
+    SlideShowDemoScreen_SlideShowHomeButton->fn->setReleasedEventCallback(SlideShowDemoScreen_SlideShowHomeButton, event_SlideShowDemoScreen_SlideShowHomeButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)SlideShowDemoScreen_SlideShowHomeButton);
 
-    LabelWidget10 = leLabelWidget_New();
-    LabelWidget10->fn->setPosition(LabelWidget10, 10, 6);
-    LabelWidget10->fn->setSize(LabelWidget10, 251, 25);
-    LabelWidget10->fn->setScheme(LabelWidget10, &whiteScheme);
-    LabelWidget10->fn->setBackgroundType(LabelWidget10, LE_WIDGET_BACKGROUND_NONE);
-    LabelWidget10->fn->setString(LabelWidget10, (leString*)&tableString_SlideShowDemo);
-    root0->fn->addChild(root0, (leWidget*)LabelWidget10);
+    SlideShowDemoScreen_LabelWidget10 = leLabelWidget_New();
+    SlideShowDemoScreen_LabelWidget10->fn->setPosition(SlideShowDemoScreen_LabelWidget10, 10, 6);
+    SlideShowDemoScreen_LabelWidget10->fn->setSize(SlideShowDemoScreen_LabelWidget10, 251, 25);
+    SlideShowDemoScreen_LabelWidget10->fn->setScheme(SlideShowDemoScreen_LabelWidget10, &whiteScheme);
+    SlideShowDemoScreen_LabelWidget10->fn->setBackgroundType(SlideShowDemoScreen_LabelWidget10, LE_WIDGET_BACKGROUND_NONE);
+    SlideShowDemoScreen_LabelWidget10->fn->setString(SlideShowDemoScreen_LabelWidget10, (leString*)&string_SlideShowDemo);
+    root0->fn->addChild(root0, (leWidget*)SlideShowDemoScreen_LabelWidget10);
 
-    SlideShowPrevButton = leButtonWidget_New();
-    SlideShowPrevButton->fn->setPosition(SlideShowPrevButton, 0, 90);
-    SlideShowPrevButton->fn->setSize(SlideShowPrevButton, 50, 74);
-    SlideShowPrevButton->fn->setBackgroundType(SlideShowPrevButton, LE_WIDGET_BACKGROUND_NONE);
-    SlideShowPrevButton->fn->setBorderType(SlideShowPrevButton, LE_WIDGET_BORDER_NONE);
-    SlideShowPrevButton->fn->setPressedImage(SlideShowPrevButton, &GFX_ArrowLeft_20x60);
-    SlideShowPrevButton->fn->setReleasedImage(SlideShowPrevButton, &GFX_ArrowLeft_20x60);
-    SlideShowPrevButton->fn->setReleasedEventCallback(SlideShowPrevButton, SlideShowPrevButton_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)SlideShowPrevButton);
+    SlideShowDemoScreen_SlideShowPrevButton = leButtonWidget_New();
+    SlideShowDemoScreen_SlideShowPrevButton->fn->setPosition(SlideShowDemoScreen_SlideShowPrevButton, 0, 90);
+    SlideShowDemoScreen_SlideShowPrevButton->fn->setSize(SlideShowDemoScreen_SlideShowPrevButton, 50, 74);
+    SlideShowDemoScreen_SlideShowPrevButton->fn->setBackgroundType(SlideShowDemoScreen_SlideShowPrevButton, LE_WIDGET_BACKGROUND_NONE);
+    SlideShowDemoScreen_SlideShowPrevButton->fn->setBorderType(SlideShowDemoScreen_SlideShowPrevButton, LE_WIDGET_BORDER_NONE);
+    SlideShowDemoScreen_SlideShowPrevButton->fn->setPressedImage(SlideShowDemoScreen_SlideShowPrevButton, (leImage*)&GFX_ArrowLeft_20x60);
+    SlideShowDemoScreen_SlideShowPrevButton->fn->setReleasedImage(SlideShowDemoScreen_SlideShowPrevButton, (leImage*)&GFX_ArrowLeft_20x60);
+    SlideShowDemoScreen_SlideShowPrevButton->fn->setReleasedEventCallback(SlideShowDemoScreen_SlideShowPrevButton, event_SlideShowDemoScreen_SlideShowPrevButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)SlideShowDemoScreen_SlideShowPrevButton);
 
-    SlideshowNextButton = leButtonWidget_New();
-    SlideshowNextButton->fn->setPosition(SlideshowNextButton, 430, 90);
-    SlideshowNextButton->fn->setSize(SlideshowNextButton, 49, 65);
-    SlideshowNextButton->fn->setBackgroundType(SlideshowNextButton, LE_WIDGET_BACKGROUND_NONE);
-    SlideshowNextButton->fn->setBorderType(SlideshowNextButton, LE_WIDGET_BORDER_NONE);
-    SlideshowNextButton->fn->setPressedImage(SlideshowNextButton, &GFX_ArrowRight_20x60);
-    SlideshowNextButton->fn->setReleasedImage(SlideshowNextButton, &GFX_ArrowRight_20x60);
-    SlideshowNextButton->fn->setReleasedEventCallback(SlideshowNextButton, SlideshowNextButton_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)SlideshowNextButton);
+    SlideShowDemoScreen_SlideshowNextButton = leButtonWidget_New();
+    SlideShowDemoScreen_SlideshowNextButton->fn->setPosition(SlideShowDemoScreen_SlideshowNextButton, 430, 90);
+    SlideShowDemoScreen_SlideshowNextButton->fn->setSize(SlideShowDemoScreen_SlideshowNextButton, 49, 65);
+    SlideShowDemoScreen_SlideshowNextButton->fn->setBackgroundType(SlideShowDemoScreen_SlideshowNextButton, LE_WIDGET_BACKGROUND_NONE);
+    SlideShowDemoScreen_SlideshowNextButton->fn->setBorderType(SlideShowDemoScreen_SlideshowNextButton, LE_WIDGET_BORDER_NONE);
+    SlideShowDemoScreen_SlideshowNextButton->fn->setPressedImage(SlideShowDemoScreen_SlideshowNextButton, (leImage*)&GFX_ArrowRight_20x60);
+    SlideShowDemoScreen_SlideshowNextButton->fn->setReleasedImage(SlideShowDemoScreen_SlideshowNextButton, (leImage*)&GFX_ArrowRight_20x60);
+    SlideShowDemoScreen_SlideshowNextButton->fn->setReleasedEventCallback(SlideShowDemoScreen_SlideshowNextButton, event_SlideShowDemoScreen_SlideshowNextButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)SlideShowDemoScreen_SlideshowNextButton);
 
-    SlideShowFFButton = leButtonWidget_New();
-    SlideShowFFButton->fn->setPosition(SlideShowFFButton, 261, 220);
-    SlideShowFFButton->fn->setSize(SlideShowFFButton, 99, 38);
-    SlideShowFFButton->fn->setToggleable(SlideShowFFButton, LE_TRUE);
-    SlideShowFFButton->fn->setString(SlideShowFFButton, (leString*)&tableString_msecs500);
-    SlideShowFFButton->fn->setPressedImage(SlideShowFFButton, &GFX_Stop_30x30);
-    SlideShowFFButton->fn->setReleasedImage(SlideShowFFButton, &GFX_FF_30x30);
-    SlideShowFFButton->fn->setPressedEventCallback(SlideShowFFButton, SlideShowFFButton_OnPressed);
-    SlideShowFFButton->fn->setReleasedEventCallback(SlideShowFFButton, SlideShowFFButton_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)SlideShowFFButton);
+    SlideShowDemoScreen_SlideShowFFButton = leButtonWidget_New();
+    SlideShowDemoScreen_SlideShowFFButton->fn->setPosition(SlideShowDemoScreen_SlideShowFFButton, 261, 220);
+    SlideShowDemoScreen_SlideShowFFButton->fn->setSize(SlideShowDemoScreen_SlideShowFFButton, 99, 38);
+    SlideShowDemoScreen_SlideShowFFButton->fn->setToggleable(SlideShowDemoScreen_SlideShowFFButton, LE_TRUE);
+    SlideShowDemoScreen_SlideShowFFButton->fn->setString(SlideShowDemoScreen_SlideShowFFButton, (leString*)&string_msecs500);
+    SlideShowDemoScreen_SlideShowFFButton->fn->setPressedImage(SlideShowDemoScreen_SlideShowFFButton, (leImage*)&GFX_Stop_30x30);
+    SlideShowDemoScreen_SlideShowFFButton->fn->setReleasedImage(SlideShowDemoScreen_SlideShowFFButton, (leImage*)&GFX_FF_30x30);
+    SlideShowDemoScreen_SlideShowFFButton->fn->setPressedEventCallback(SlideShowDemoScreen_SlideShowFFButton, event_SlideShowDemoScreen_SlideShowFFButton_OnPressed);
+    SlideShowDemoScreen_SlideShowFFButton->fn->setReleasedEventCallback(SlideShowDemoScreen_SlideShowFFButton, event_SlideShowDemoScreen_SlideShowFFButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)SlideShowDemoScreen_SlideShowFFButton);
 
-    SlideShowPlayButton = leButtonWidget_New();
-    SlideShowPlayButton->fn->setPosition(SlideShowPlayButton, 138, 220);
-    SlideShowPlayButton->fn->setSize(SlideShowPlayButton, 92, 37);
-    SlideShowPlayButton->fn->setToggleable(SlideShowPlayButton, LE_TRUE);
-    SlideShowPlayButton->fn->setString(SlideShowPlayButton, (leString*)&tableString_secs2);
-    SlideShowPlayButton->fn->setPressedImage(SlideShowPlayButton, &GFX_Stop_30x30);
-    SlideShowPlayButton->fn->setReleasedImage(SlideShowPlayButton, &GFX_Play_30x30);
-    SlideShowPlayButton->fn->setPressedEventCallback(SlideShowPlayButton, SlideShowPlayButton_OnPressed);
-    SlideShowPlayButton->fn->setReleasedEventCallback(SlideShowPlayButton, SlideShowPlayButton_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)SlideShowPlayButton);
+    SlideShowDemoScreen_SlideShowPlayButton = leButtonWidget_New();
+    SlideShowDemoScreen_SlideShowPlayButton->fn->setPosition(SlideShowDemoScreen_SlideShowPlayButton, 138, 220);
+    SlideShowDemoScreen_SlideShowPlayButton->fn->setSize(SlideShowDemoScreen_SlideShowPlayButton, 92, 37);
+    SlideShowDemoScreen_SlideShowPlayButton->fn->setToggleable(SlideShowDemoScreen_SlideShowPlayButton, LE_TRUE);
+    SlideShowDemoScreen_SlideShowPlayButton->fn->setString(SlideShowDemoScreen_SlideShowPlayButton, (leString*)&string_secs2);
+    SlideShowDemoScreen_SlideShowPlayButton->fn->setPressedImage(SlideShowDemoScreen_SlideShowPlayButton, (leImage*)&GFX_Stop_30x30);
+    SlideShowDemoScreen_SlideShowPlayButton->fn->setReleasedImage(SlideShowDemoScreen_SlideShowPlayButton, (leImage*)&GFX_Play_30x30);
+    SlideShowDemoScreen_SlideShowPlayButton->fn->setPressedEventCallback(SlideShowDemoScreen_SlideShowPlayButton, event_SlideShowDemoScreen_SlideShowPlayButton_OnPressed);
+    SlideShowDemoScreen_SlideShowPlayButton->fn->setReleasedEventCallback(SlideShowDemoScreen_SlideShowPlayButton, event_SlideShowDemoScreen_SlideShowPlayButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)SlideShowDemoScreen_SlideShowPlayButton);
 
-    SSStatusImageWidget = leImageWidget_New();
-    SSStatusImageWidget->fn->setPosition(SSStatusImageWidget, 349, 10);
-    SSStatusImageWidget->fn->setSize(SSStatusImageWidget, 20, 20);
-    SSStatusImageWidget->fn->setBackgroundType(SSStatusImageWidget, LE_WIDGET_BACKGROUND_NONE);
-    SSStatusImageWidget->fn->setImage(SSStatusImageWidget, &GFX_Pause_Pink_20x20);
-    root0->fn->addChild(root0, (leWidget*)SSStatusImageWidget);
+    SlideShowDemoScreen_SSStatusImageWidget = leImageWidget_New();
+    SlideShowDemoScreen_SSStatusImageWidget->fn->setPosition(SlideShowDemoScreen_SSStatusImageWidget, 349, 10);
+    SlideShowDemoScreen_SSStatusImageWidget->fn->setSize(SlideShowDemoScreen_SSStatusImageWidget, 20, 20);
+    SlideShowDemoScreen_SSStatusImageWidget->fn->setBackgroundType(SlideShowDemoScreen_SSStatusImageWidget, LE_WIDGET_BACKGROUND_NONE);
+    SlideShowDemoScreen_SSStatusImageWidget->fn->setBorderType(SlideShowDemoScreen_SSStatusImageWidget, LE_WIDGET_BORDER_NONE);
+    SlideShowDemoScreen_SSStatusImageWidget->fn->setImage(SlideShowDemoScreen_SSStatusImageWidget, (leImage*)&GFX_Pause_Pink_20x20);
+    root0->fn->addChild(root0, (leWidget*)SlideShowDemoScreen_SSStatusImageWidget);
 
     leAddRootWidget(root0, 0);
+    leSetLayerColorMode(0, LE_COLOR_MODE_RGB_565);
+
+    SlideShowDemoScreen_OnShow(); // raise event
 
     showing = LE_TRUE;
-
-    SlideShowDemoScreen_OnShow();
 
     return LE_SUCCESS;
 }
 
 void screenUpdate_SlideShowDemoScreen()
 {
-    SlideShowDemoScreen_OnUpdate();
+    SlideShowDemoScreen_OnUpdate(); // raise event
 }
 
 void screenHide_SlideShowDemoScreen()
 {
+    SlideShowDemoScreen_OnHide(); // raise event
+
+
     leRemoveRootWidget(root0, 0);
-
     leWidget_Delete(root0);
-
     root0 = NULL;
 
-    GradientWidget6 = NULL;
-    ImageSequenceWidget1 = NULL;
-    SlideshowHelpButton = NULL;
-    SlideShowHomeButton = NULL;
-    LabelWidget10 = NULL;
-    SlideShowPrevButton = NULL;
-    SlideshowNextButton = NULL;
-    SlideShowFFButton = NULL;
-    SlideShowPlayButton = NULL;
-    SSStatusImageWidget = NULL;
+    SlideShowDemoScreen_GradientWidget6 = NULL;
+    SlideShowDemoScreen_ImageSequenceWidget1 = NULL;
+    SlideShowDemoScreen_SlideshowHelpButton = NULL;
+    SlideShowDemoScreen_SlideShowHomeButton = NULL;
+    SlideShowDemoScreen_LabelWidget10 = NULL;
+    SlideShowDemoScreen_SlideShowPrevButton = NULL;
+    SlideShowDemoScreen_SlideshowNextButton = NULL;
+    SlideShowDemoScreen_SlideShowFFButton = NULL;
+    SlideShowDemoScreen_SlideShowPlayButton = NULL;
+    SlideShowDemoScreen_SSStatusImageWidget = NULL;
 
-    tableString_SlideShowDemo.fn->destructor(&tableString_SlideShowDemo);
-    tableString_msecs500.fn->destructor(&tableString_msecs500);
-    tableString_secs2.fn->destructor(&tableString_secs2);
+
     showing = LE_FALSE;
-
-    SlideShowDemoScreen_OnHide();
 }
 
 void screenDestroy_SlideShowDemoScreen()
 {
+    if(initialized == LE_FALSE)
+        return;
 
+    initialized = LE_FALSE;
 }
 
 leWidget* screenGetRoot_SlideShowDemoScreen(uint32_t lyrIdx)

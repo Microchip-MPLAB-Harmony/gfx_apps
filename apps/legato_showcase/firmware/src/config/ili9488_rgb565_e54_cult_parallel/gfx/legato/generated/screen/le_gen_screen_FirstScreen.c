@@ -80,24 +80,24 @@ leResult screenShow_FirstScreen()
         return LE_FAILURE;
 
     // initialize static strings
-    leTableString_Constructor(&tableString_colon, string_colon);
-    leTableString_Constructor(&tableString_num12, string_num12);
-    leTableString_Constructor(&tableString_num1, string_num1);
-    leTableString_Constructor(&tableString_num2, string_num2);
-    leTableString_Constructor(&tableString_num3, string_num3);
-    leTableString_Constructor(&tableString_num4, string_num4);
-    leTableString_Constructor(&tableString_num5, string_num5);
-    leTableString_Constructor(&tableString_num6, string_num6);
-    leTableString_Constructor(&tableString_num7, string_num7);
-    leTableString_Constructor(&tableString_num8, string_num8);
-    leTableString_Constructor(&tableString_num9, string_num9);
-    leTableString_Constructor(&tableString_num10, string_num10);
-    leTableString_Constructor(&tableString_num11, string_num11);
-    leTableString_Constructor(&tableString_num0, string_num0);
-    leTableString_Constructor(&tableString_AM, string_AM);
-    leTableString_Constructor(&tableString_PM, string_PM);
-    leTableString_Constructor(&tableString_SetTime, string_SetTime);
-    leTableString_Constructor(&tableString_ListWheelDemo, string_ListWheelDemo);
+    leTableString_Constructor(&tableString_colon, stringID_colon);
+    leTableString_Constructor(&tableString_num12, stringID_num12);
+    leTableString_Constructor(&tableString_num1, stringID_num1);
+    leTableString_Constructor(&tableString_num2, stringID_num2);
+    leTableString_Constructor(&tableString_num3, stringID_num3);
+    leTableString_Constructor(&tableString_num4, stringID_num4);
+    leTableString_Constructor(&tableString_num5, stringID_num5);
+    leTableString_Constructor(&tableString_num6, stringID_num6);
+    leTableString_Constructor(&tableString_num7, stringID_num7);
+    leTableString_Constructor(&tableString_num8, stringID_num8);
+    leTableString_Constructor(&tableString_num9, stringID_num9);
+    leTableString_Constructor(&tableString_num10, stringID_num10);
+    leTableString_Constructor(&tableString_num11, stringID_num11);
+    leTableString_Constructor(&tableString_num0, stringID_num0);
+    leTableString_Constructor(&tableString_AM, stringID_AM);
+    leTableString_Constructor(&tableString_PM, stringID_PM);
+    leTableString_Constructor(&tableString_SetTime, stringID_SetTime);
+    leTableString_Constructor(&tableString_ListWheelDemo, stringID_ListWheelDemo);
 
     // layer 0
     root0 = leWidget_New();

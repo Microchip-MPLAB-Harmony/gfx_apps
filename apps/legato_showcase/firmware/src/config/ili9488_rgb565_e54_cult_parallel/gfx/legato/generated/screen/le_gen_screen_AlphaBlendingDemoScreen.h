@@ -1,32 +1,10 @@
-// DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
-// DOM-IGNORE-END
-
 #ifndef LE_GEN_SCREEN_ALPHABLENDINGDEMOSCREEN_H
 #define LE_GEN_SCREEN_ALPHABLENDINGDEMOSCREEN_H
 
-#include "gfx/legato/generated/le_gen_init.h"
+#include "gfx/legato/legato.h"
+
+#include "gfx/legato/generated/le_gen_scheme.h"
+#include "gfx/legato/generated/le_gen_assets.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -34,22 +12,29 @@ extern "C" {
 #endif
 // DOM-IGNORE-END
 
-// widget list for this screen
-// layer 0
-extern leGradientWidget* GradientWidget5;
-extern leWidget* PanelWidget1;
-extern leSliderWidget* SliderWidget1;
-extern leLabelWidget* SliderValueLabelWidget;
-extern leWidget* PanelWidget2;
-extern leImageWidget* ImageWidget1;
-extern leImageWidget* ImageWidget2;
-extern leButtonWidget* AlphaHelpButton;
-extern leButtonWidget* AlphaHomeButton;
-extern leLabelWidget* LabelWidget9;
-extern leButtonWidget* AlphaNextButton;
-extern leButtonWidget* SliderUpButtonWidget;
-extern leButtonWidget* SliderDownButtonWidget;
+// screen member widget declarations
+extern leGradientWidget* AlphaBlendingDemoScreen_GradientWidget5;
+extern leWidget* AlphaBlendingDemoScreen_PanelWidget1;
+extern leWidget* AlphaBlendingDemoScreen_PanelWidget2;
+extern leButtonWidget* AlphaBlendingDemoScreen_AlphaHelpButton;
+extern leButtonWidget* AlphaBlendingDemoScreen_AlphaHomeButton;
+extern leLabelWidget* AlphaBlendingDemoScreen_LabelWidget9;
+extern leButtonWidget* AlphaBlendingDemoScreen_AlphaNextButton;
+extern leButtonWidget* AlphaBlendingDemoScreen_SliderUpButtonWidget;
+extern leButtonWidget* AlphaBlendingDemoScreen_SliderDownButtonWidget;
+extern leSliderWidget* AlphaBlendingDemoScreen_SliderWidget1;
+extern leLabelWidget* AlphaBlendingDemoScreen_SliderValueLabelWidget;
+extern leImageWidget* AlphaBlendingDemoScreen_ImageWidget1;
+extern leImageWidget* AlphaBlendingDemoScreen_ImageWidget2;
 
+// event handlers
+// !!THESE MUST BE IMPLEMENTED IN THE APPLICATION CODE!!
+void event_AlphaBlendingDemoScreen_AlphaHelpButton_OnReleased(leButtonWidget* btn);
+void event_AlphaBlendingDemoScreen_AlphaHomeButton_OnReleased(leButtonWidget* btn);
+void event_AlphaBlendingDemoScreen_AlphaNextButton_OnReleased(leButtonWidget* btn);
+void event_AlphaBlendingDemoScreen_SliderUpButtonWidget_OnReleased(leButtonWidget* btn);
+void event_AlphaBlendingDemoScreen_SliderDownButtonWidget_OnReleased(leButtonWidget* btn);
+void event_AlphaBlendingDemoScreen_SliderWidget1_OnValueChanged(leSliderWidget* scr);
 
 // screen lifecycle functions
 // DO NOT CALL THESE DIRECTLY
@@ -61,31 +46,10 @@ void screenUpdate_AlphaBlendingDemoScreen(); // called when Legato is updating
 
 leWidget* screenGetRoot_AlphaBlendingDemoScreen(uint32_t lyrIdx); // gets a root widget for this screen
 
-// event handlers
-void AlphaBlendingDemoScreen_OnShow(void);
-
-void AlphaBlendingDemoScreen_OnHide(void);
-
-void AlphaBlendingDemoScreen_OnUpdate(void);
-
-void SliderWidget1_OnValueChanged(leSliderWidget* sld)
-;
-
-void AlphaHelpButton_OnReleased(leButtonWidget* btn)
-;
-
-void AlphaHomeButton_OnReleased(leButtonWidget* btn)
-;
-
-void AlphaNextButton_OnReleased(leButtonWidget* btn)
-;
-
-void SliderUpButtonWidget_OnReleased(leButtonWidget* btn)
-;
-
-void SliderDownButtonWidget_OnReleased(leButtonWidget* btn)
-;
-
+// Screen Events:
+void AlphaBlendingDemoScreen_OnShow(); // called when this screen is shown
+void AlphaBlendingDemoScreen_OnHide(); // called when this screen is hidden
+void AlphaBlendingDemoScreen_OnUpdate(); // called when this screen is updated
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

@@ -1,44 +1,24 @@
-// DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
-// DOM-IGNORE-END
-
 #include "gfx/legato/generated/screen/le_gen_screen_SplashScreen.h"
 
-// widget list for layer 0
-static leWidget* root0;
+// screen member widget declarations
+leWidget* root0;
 
-leWidget* PanelWidget;
-leImageWidget* SplashBar;
-leImageWidget* SplashMicrochipLogo;
-leImageWidget* SplashPic32Logo;
-leImageWidget* SplashHarmonyLogo;
+leWidget* SplashScreen_PanelWidget;
+leImageWidget* SplashScreen_SplashPic32Logo;
+leImageWidget* SplashScreen_SplashHarmonyLogo;
+leImageWidget* SplashScreen_SplashBar;
+leImageWidget* SplashScreen_SplashMicrochipLogo;
 
-
+static leBool initialized = LE_FALSE;
 static leBool showing = LE_FALSE;
 
 leResult screenInit_SplashScreen()
 {
+    if(initialized == LE_TRUE)
+        return LE_FAILURE;
+
+    initialized = LE_TRUE;
+
     return LE_SUCCESS;
 }
 
@@ -49,82 +29,92 @@ leResult screenShow_SplashScreen()
 
     // layer 0
     root0 = leWidget_New();
-    root0->fn->setPosition(root0, 0, 0);
     root0->fn->setSize(root0, 480, 320);
     root0->fn->setBackgroundType(root0, LE_WIDGET_BACKGROUND_NONE);
     root0->fn->setMargins(root0, 0, 0, 0, 0);
+    root0->flags |= LE_WIDGET_IGNOREEVENTS;
+    root0->flags |= LE_WIDGET_IGNOREPICK;
 
-    PanelWidget = leWidget_New();
-    PanelWidget->fn->setPosition(PanelWidget, 0, 0);
-    PanelWidget->fn->setSize(PanelWidget, 480, 321);
-    PanelWidget->fn->setScheme(PanelWidget, &whiteScheme);
-    root0->fn->addChild(root0, PanelWidget);
+    SplashScreen_PanelWidget = leWidget_New();
+    SplashScreen_PanelWidget->fn->setPosition(SplashScreen_PanelWidget, 0, 0);
+    SplashScreen_PanelWidget->fn->setSize(SplashScreen_PanelWidget, 480, 321);
+    SplashScreen_PanelWidget->fn->setScheme(SplashScreen_PanelWidget, &whiteScheme);
+    root0->fn->addChild(root0, (leWidget*)SplashScreen_PanelWidget);
 
-    SplashBar = leImageWidget_New();
-    SplashBar->fn->setPosition(SplashBar, 481, 255);
-    SplashBar->fn->setSize(SplashBar, 480, 65);
-    SplashBar->fn->setBackgroundType(SplashBar, LE_WIDGET_BACKGROUND_NONE);
-    SplashBar->fn->setImage(SplashBar, &Bar);
-    PanelWidget->fn->addChild(PanelWidget, (leWidget*)SplashBar);
+    SplashScreen_SplashBar = leImageWidget_New();
+    SplashScreen_SplashBar->fn->setPosition(SplashScreen_SplashBar, 481, 255);
+    SplashScreen_SplashBar->fn->setSize(SplashScreen_SplashBar, 480, 65);
+    SplashScreen_SplashBar->fn->setBackgroundType(SplashScreen_SplashBar, LE_WIDGET_BACKGROUND_NONE);
+    SplashScreen_SplashBar->fn->setBorderType(SplashScreen_SplashBar, LE_WIDGET_BORDER_NONE);
+    SplashScreen_SplashBar->fn->setImage(SplashScreen_SplashBar, (leImage*)&Bar);
+    SplashScreen_PanelWidget->fn->addChild(SplashScreen_PanelWidget, (leWidget*)SplashScreen_SplashBar);
 
-    SplashMicrochipLogo = leImageWidget_New();
-    SplashMicrochipLogo->fn->setPosition(SplashMicrochipLogo, 17, 273);
-    SplashMicrochipLogo->fn->setSize(SplashMicrochipLogo, 144, 39);
-    SplashMicrochipLogo->fn->setVisible(SplashMicrochipLogo, LE_FALSE);
-    SplashMicrochipLogo->fn->setBackgroundType(SplashMicrochipLogo, LE_WIDGET_BACKGROUND_NONE);
-    SplashMicrochipLogo->fn->setImage(SplashMicrochipLogo, &MicrochipLogo_1);
-    PanelWidget->fn->addChild(PanelWidget, (leWidget*)SplashMicrochipLogo);
+    SplashScreen_SplashMicrochipLogo = leImageWidget_New();
+    SplashScreen_SplashMicrochipLogo->fn->setPosition(SplashScreen_SplashMicrochipLogo, 17, 273);
+    SplashScreen_SplashMicrochipLogo->fn->setSize(SplashScreen_SplashMicrochipLogo, 144, 39);
+    SplashScreen_SplashMicrochipLogo->fn->setVisible(SplashScreen_SplashMicrochipLogo, LE_FALSE);
+    SplashScreen_SplashMicrochipLogo->fn->setBackgroundType(SplashScreen_SplashMicrochipLogo, LE_WIDGET_BACKGROUND_NONE);
+    SplashScreen_SplashMicrochipLogo->fn->setBorderType(SplashScreen_SplashMicrochipLogo, LE_WIDGET_BORDER_NONE);
+    SplashScreen_SplashMicrochipLogo->fn->setImage(SplashScreen_SplashMicrochipLogo, (leImage*)&MicrochipLogo_1);
+    SplashScreen_PanelWidget->fn->addChild(SplashScreen_PanelWidget, (leWidget*)SplashScreen_SplashMicrochipLogo);
 
-    SplashPic32Logo = leImageWidget_New();
-    SplashPic32Logo->fn->setPosition(SplashPic32Logo, 120, 40);
-    SplashPic32Logo->fn->setSize(SplashPic32Logo, 240, 139);
-    SplashPic32Logo->fn->setBackgroundType(SplashPic32Logo, LE_WIDGET_BACKGROUND_NONE);
-    SplashPic32Logo->fn->setImage(SplashPic32Logo, &PIC32Logo);
-    root0->fn->addChild(root0, (leWidget*)SplashPic32Logo);
+    SplashScreen_SplashPic32Logo = leImageWidget_New();
+    SplashScreen_SplashPic32Logo->fn->setPosition(SplashScreen_SplashPic32Logo, 120, 40);
+    SplashScreen_SplashPic32Logo->fn->setSize(SplashScreen_SplashPic32Logo, 240, 139);
+    SplashScreen_SplashPic32Logo->fn->setBackgroundType(SplashScreen_SplashPic32Logo, LE_WIDGET_BACKGROUND_NONE);
+    SplashScreen_SplashPic32Logo->fn->setBorderType(SplashScreen_SplashPic32Logo, LE_WIDGET_BORDER_NONE);
+    SplashScreen_SplashPic32Logo->fn->setImage(SplashScreen_SplashPic32Logo, (leImage*)&PIC32Logo);
+    root0->fn->addChild(root0, (leWidget*)SplashScreen_SplashPic32Logo);
 
-    SplashHarmonyLogo = leImageWidget_New();
-    SplashHarmonyLogo->fn->setPosition(SplashHarmonyLogo, 120, 40);
-    SplashHarmonyLogo->fn->setSize(SplashHarmonyLogo, 240, 139);
-    SplashHarmonyLogo->fn->setVisible(SplashHarmonyLogo, LE_FALSE);
-    SplashHarmonyLogo->fn->setScheme(SplashHarmonyLogo, &whiteScheme);
-    SplashHarmonyLogo->fn->setImage(SplashHarmonyLogo, &HarmonyLogo);
-    root0->fn->addChild(root0, (leWidget*)SplashHarmonyLogo);
+    SplashScreen_SplashHarmonyLogo = leImageWidget_New();
+    SplashScreen_SplashHarmonyLogo->fn->setPosition(SplashScreen_SplashHarmonyLogo, 120, 40);
+    SplashScreen_SplashHarmonyLogo->fn->setSize(SplashScreen_SplashHarmonyLogo, 240, 139);
+    SplashScreen_SplashHarmonyLogo->fn->setVisible(SplashScreen_SplashHarmonyLogo, LE_FALSE);
+    SplashScreen_SplashHarmonyLogo->fn->setScheme(SplashScreen_SplashHarmonyLogo, &whiteScheme);
+    SplashScreen_SplashHarmonyLogo->fn->setBorderType(SplashScreen_SplashHarmonyLogo, LE_WIDGET_BORDER_NONE);
+    SplashScreen_SplashHarmonyLogo->fn->setImage(SplashScreen_SplashHarmonyLogo, (leImage*)&HarmonyLogo);
+    root0->fn->addChild(root0, (leWidget*)SplashScreen_SplashHarmonyLogo);
 
     leAddRootWidget(root0, 0);
+    leSetLayerColorMode(0, LE_COLOR_MODE_RGB_565);
+
+    SplashScreen_OnShow(); // raise event
 
     showing = LE_TRUE;
-
-    SplashScreen_OnShow();
 
     return LE_SUCCESS;
 }
 
 void screenUpdate_SplashScreen()
 {
-    SplashScreen_OnUpdate();
+    SplashScreen_OnUpdate(); // raise event
 }
 
 void screenHide_SplashScreen()
 {
+    SplashScreen_OnHide(); // raise event
+
+
     leRemoveRootWidget(root0, 0);
-
     leWidget_Delete(root0);
-
     root0 = NULL;
 
-    PanelWidget = NULL;
-    SplashBar = NULL;
-    SplashMicrochipLogo = NULL;
-    SplashPic32Logo = NULL;
-    SplashHarmonyLogo = NULL;
-    showing = LE_FALSE;
+    SplashScreen_PanelWidget = NULL;
+    SplashScreen_SplashPic32Logo = NULL;
+    SplashScreen_SplashHarmonyLogo = NULL;
+    SplashScreen_SplashBar = NULL;
+    SplashScreen_SplashMicrochipLogo = NULL;
 
-    SplashScreen_OnHide();
+
+    showing = LE_FALSE;
 }
 
 void screenDestroy_SplashScreen()
 {
+    if(initialized == LE_FALSE)
+        return;
 
+    initialized = LE_FALSE;
 }
 
 leWidget* screenGetRoot_SplashScreen(uint32_t lyrIdx)

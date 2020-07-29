@@ -4057,8 +4057,8 @@
         <ElementPosition dnOrder="15" id="nvmctrl" x="20" y="20"/>
         <ElementPosition dnOrder="16" id="sercom4" x="225" y="352"/>
         <ElementPosition dnOrder="17" id="sys_input" x="770" y="100"/>
-        <ElementPosition dnOrder="18" id="sys_time" x="553" y="447"/>
-        <ElementPosition dnOrder="19" id="tc0" x="178" y="445"/>
+        <ElementPosition dnOrder="18" id="sys_time" x="557" y="446"/>
+        <ElementPosition dnOrder="19" id="tc0" x="226" y="461"/>
         <ElementPosition dnOrder="20" id="tc1" x="30" y="240"/>
         <ElementPosition dnOrder="21" id="tc4" x="30" y="160"/>
       </ElementPositions>

@@ -68,9 +68,9 @@ leResult screenShow_FourthScreen()
         return LE_FAILURE;
 
     // initialize static strings
-    leTableString_Constructor(&tableString_AlphaBlendingDemo, string_AlphaBlendingDemo);
-    leTableString_Constructor(&tableString_UpRight, string_UpRight);
-    leTableString_Constructor(&tableString_DownLeft, string_DownLeft);
+    leTableString_Constructor(&tableString_AlphaBlendingDemo, stringID_AlphaBlendingDemo);
+    leTableString_Constructor(&tableString_UpRight, stringID_UpRight);
+    leTableString_Constructor(&tableString_DownLeft, stringID_DownLeft);
 
     // layer 0
     root0 = leWidget_New();

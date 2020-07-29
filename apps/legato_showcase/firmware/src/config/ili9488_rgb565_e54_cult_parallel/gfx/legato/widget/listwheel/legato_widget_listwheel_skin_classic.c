@@ -346,6 +346,7 @@ static void nextState(leListWheelWidget* whl)
                 return;
             }
         }
+        // fall through
         case DRAW_STRING:
         {            
             //printf("\n");
@@ -361,6 +362,7 @@ static void nextState(leListWheelWidget* whl)
                 return;
             }
         }
+        // fall through
         case DRAW_ICON:
         {
             if(whl->showIndicators == LE_TRUE)
@@ -371,9 +373,10 @@ static void nextState(leListWheelWidget* whl)
                 return;
             }
         }
+        // fall through
         case DRAW_INDICATORS:
         {
-            if(whl->widget.borderType != LE_WIDGET_BORDER_NONE)
+            if(whl->widget.style.borderType != LE_WIDGET_BORDER_NONE)
             {
                 whl->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
                 whl->widget.status.drawState = DRAW_BORDER;
@@ -381,6 +384,7 @@ static void nextState(leListWheelWidget* whl)
                 return;
             }
         }
+        // fall through
         case DRAW_BORDER:
         {
             whl->widget.status.drawState = DONE;
@@ -975,7 +979,7 @@ static void drawIndicators(leListWheelWidget* whl)
                         paintState.alpha);
     
     //if the widget has no border, draw the vertical indicator borders
-    if (whl->widget.borderType == LE_WIDGET_BORDER_NONE)
+    if (whl->widget.style.borderType == LE_WIDGET_BORDER_NONE)
     {
         //left line
         drawRect.x = rect.x;
@@ -1003,12 +1007,12 @@ static void drawIndicators(leListWheelWidget* whl)
 
 static void drawBorder(leListWheelWidget* whl)
 {
-    if(whl->widget.borderType == LE_WIDGET_BORDER_LINE)
+    if(whl->widget.style.borderType == LE_WIDGET_BORDER_LINE)
     {
         leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)whl,
                                                     paintState.alpha);
     }
-    else if(whl->widget.borderType == LE_WIDGET_BORDER_BEVEL)
+    else if(whl->widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         leWidget_SkinClassic_DrawStandardLoweredBorder((leWidget*)whl,
                                                        paintState.alpha);

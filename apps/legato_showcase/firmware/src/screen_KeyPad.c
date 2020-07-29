@@ -92,31 +92,31 @@ void KeypadDemoScreen_OnUpdate(void)
     }   
 }
 
-void KeypadHelpButton_OnReleased(leButtonWidget* btn)
+void event_KeypadDemoScreen_KeypadHelpButton_OnReleased(leButtonWidget* btn)
 {
     keyPadScreenEvent = EVENT_KEYPAD_SHOW_HELP;
 }
 
-void KeypadHomeButton_OnReleased(leButtonWidget* btn)
+void event_KeypadDemoScreen_KeypadHomeButton_OnReleased(leButtonWidget* btn)
 {
     keyPadScreenEvent = EVENT_KEYPAD_SHOW_MAIN;
 }
 
-void KeypadNextButton_OnReleased(leButtonWidget* btn)
+void event_KeypadDemoScreen_KeypadNextButton_OnReleased(leButtonWidget* btn)
 {
     keyPadScreenEvent = EVENT_KEYPAD_SHOW_NEXT;
 }
 
-void TextFieldWidget1_OnFocusChanged(leTextFieldWidget* txt, leBool focused)
+void event_KeypadDemoScreen_TextFieldWidget1_OnFocusChanged(leTextFieldWidget* txt, leBool focused)
 {
     if (focused == LE_TRUE)
     {
-        KeyPadWidget1->fn->setVisible(KeyPadWidget1, LE_TRUE);
+        KeypadDemoScreen_KeyPadWidget1->fn->setVisible(KeypadDemoScreen_KeyPadWidget1, LE_TRUE);
     }
 }
    
 //Keypad Help Screen Event Handlers
-void KeypadHelpCloseButton_OnReleased(leButtonWidget* btn)
+void event_KeypadHelpScreen_KeypadHelpCloseButton_OnReleased(leButtonWidget* btn)
 {
     keyPadScreenEvent = EVENT_KEYPAD_SHOW_DEMO;
 }

@@ -47,8 +47,6 @@ static void drawBorder(leWidget* wdg);
 
 static void drawBackground(leWidget* wdg)
 {
-    //leRect rect;
-    
     //printf("button painting\n");
     
     if(wdg->style.backgroundType == LE_WIDGET_BACKGROUND_FILL)

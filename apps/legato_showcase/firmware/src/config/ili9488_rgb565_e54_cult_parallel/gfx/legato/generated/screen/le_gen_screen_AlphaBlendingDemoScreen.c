@@ -1,56 +1,32 @@
-// DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
-// DOM-IGNORE-END
-
 #include "gfx/legato/generated/screen/le_gen_screen_AlphaBlendingDemoScreen.h"
 
-// widget list for layer 0
-static leWidget* root0;
+// screen member widget declarations
+leWidget* root0;
 
-leGradientWidget* GradientWidget5;
-leWidget* PanelWidget1;
-leSliderWidget* SliderWidget1;
-leLabelWidget* SliderValueLabelWidget;
-leWidget* PanelWidget2;
-leImageWidget* ImageWidget1;
-leImageWidget* ImageWidget2;
-leButtonWidget* AlphaHelpButton;
-leButtonWidget* AlphaHomeButton;
-leLabelWidget* LabelWidget9;
-leButtonWidget* AlphaNextButton;
-leButtonWidget* SliderUpButtonWidget;
-leButtonWidget* SliderDownButtonWidget;
+leGradientWidget* AlphaBlendingDemoScreen_GradientWidget5;
+leWidget* AlphaBlendingDemoScreen_PanelWidget1;
+leWidget* AlphaBlendingDemoScreen_PanelWidget2;
+leButtonWidget* AlphaBlendingDemoScreen_AlphaHelpButton;
+leButtonWidget* AlphaBlendingDemoScreen_AlphaHomeButton;
+leLabelWidget* AlphaBlendingDemoScreen_LabelWidget9;
+leButtonWidget* AlphaBlendingDemoScreen_AlphaNextButton;
+leButtonWidget* AlphaBlendingDemoScreen_SliderUpButtonWidget;
+leButtonWidget* AlphaBlendingDemoScreen_SliderDownButtonWidget;
+leSliderWidget* AlphaBlendingDemoScreen_SliderWidget1;
+leLabelWidget* AlphaBlendingDemoScreen_SliderValueLabelWidget;
+leImageWidget* AlphaBlendingDemoScreen_ImageWidget1;
+leImageWidget* AlphaBlendingDemoScreen_ImageWidget2;
 
-// string list for this screen
-static leTableString tableString_AlphaBlendingDemo;
-static leTableString tableString_UpRight;
-static leTableString tableString_DownLeft;
-
+static leBool initialized = LE_FALSE;
 static leBool showing = LE_FALSE;
 
 leResult screenInit_AlphaBlendingDemoScreen()
 {
+    if(initialized == LE_TRUE)
+        return LE_FAILURE;
+
+    initialized = LE_TRUE;
+
     return LE_SUCCESS;
 }
 
@@ -59,176 +35,174 @@ leResult screenShow_AlphaBlendingDemoScreen()
     if(showing == LE_TRUE)
         return LE_FAILURE;
 
-    // initialize static strings
-    leTableString_Constructor(&tableString_AlphaBlendingDemo, string_AlphaBlendingDemo);
-    leTableString_Constructor(&tableString_UpRight, string_UpRight);
-    leTableString_Constructor(&tableString_DownLeft, string_DownLeft);
-
     // layer 0
     root0 = leWidget_New();
-    root0->fn->setPosition(root0, 0, 0);
     root0->fn->setSize(root0, 480, 320);
     root0->fn->setBackgroundType(root0, LE_WIDGET_BACKGROUND_NONE);
     root0->fn->setMargins(root0, 0, 0, 0, 0);
+    root0->flags |= LE_WIDGET_IGNOREEVENTS;
+    root0->flags |= LE_WIDGET_IGNOREPICK;
 
-    GradientWidget5 = leGradientWidget_New();
-    GradientWidget5->fn->setPosition(GradientWidget5, 0, 0);
-    GradientWidget5->fn->setSize(GradientWidget5, 480, 320);
-    GradientWidget5->fn->setScheme(GradientWidget5, &BackgroundGradientScheme);
-    GradientWidget5->fn->setDirection(GradientWidget5, LE_DIRECTION_DOWN);
-    root0->fn->addChild(root0, (leWidget*)GradientWidget5);
+    AlphaBlendingDemoScreen_GradientWidget5 = leGradientWidget_New();
+    AlphaBlendingDemoScreen_GradientWidget5->fn->setPosition(AlphaBlendingDemoScreen_GradientWidget5, 0, 0);
+    AlphaBlendingDemoScreen_GradientWidget5->fn->setSize(AlphaBlendingDemoScreen_GradientWidget5, 480, 320);
+    AlphaBlendingDemoScreen_GradientWidget5->fn->setScheme(AlphaBlendingDemoScreen_GradientWidget5, &BackgroundGradientScheme);
+    AlphaBlendingDemoScreen_GradientWidget5->fn->setDirection(AlphaBlendingDemoScreen_GradientWidget5, LE_DIRECTION_DOWN);
+    root0->fn->addChild(root0, (leWidget*)AlphaBlendingDemoScreen_GradientWidget5);
 
-    PanelWidget1 = leWidget_New();
-    PanelWidget1->fn->setPosition(PanelWidget1, 370, 29);
-    PanelWidget1->fn->setSize(PanelWidget1, 119, 187);
-    PanelWidget1->fn->setBackgroundType(PanelWidget1, LE_WIDGET_BACKGROUND_NONE);
-    root0->fn->addChild(root0, PanelWidget1);
+    AlphaBlendingDemoScreen_PanelWidget1 = leWidget_New();
+    AlphaBlendingDemoScreen_PanelWidget1->fn->setPosition(AlphaBlendingDemoScreen_PanelWidget1, 370, 29);
+    AlphaBlendingDemoScreen_PanelWidget1->fn->setSize(AlphaBlendingDemoScreen_PanelWidget1, 119, 187);
+    AlphaBlendingDemoScreen_PanelWidget1->fn->setBackgroundType(AlphaBlendingDemoScreen_PanelWidget1, LE_WIDGET_BACKGROUND_NONE);
+    root0->fn->addChild(root0, (leWidget*)AlphaBlendingDemoScreen_PanelWidget1);
 
-    SliderWidget1 = leSliderWidget_New();
-    SliderWidget1->fn->setPosition(SliderWidget1, 1, 42);
-    SliderWidget1->fn->setSize(SliderWidget1, 48, 106);
-    SliderWidget1->fn->setBackgroundType(SliderWidget1, LE_WIDGET_BACKGROUND_NONE);
-    SliderWidget1->fn->setMaximumValue(SliderWidget1, 255);
-    SliderWidget1->fn->setValue(SliderWidget1, 127);
-    SliderWidget1->fn->setGripSize(SliderWidget1, 15);
-    SliderWidget1->fn->setValueChangedEventCallback(SliderWidget1, SliderWidget1_OnValueChanged);
-    PanelWidget1->fn->addChild(PanelWidget1, (leWidget*)SliderWidget1);
+    AlphaBlendingDemoScreen_SliderWidget1 = leSliderWidget_New();
+    AlphaBlendingDemoScreen_SliderWidget1->fn->setPosition(AlphaBlendingDemoScreen_SliderWidget1, 1, 42);
+    AlphaBlendingDemoScreen_SliderWidget1->fn->setSize(AlphaBlendingDemoScreen_SliderWidget1, 48, 106);
+    AlphaBlendingDemoScreen_SliderWidget1->fn->setBackgroundType(AlphaBlendingDemoScreen_SliderWidget1, LE_WIDGET_BACKGROUND_NONE);
+    AlphaBlendingDemoScreen_SliderWidget1->fn->setMaximumValue(AlphaBlendingDemoScreen_SliderWidget1, 255);
+    AlphaBlendingDemoScreen_SliderWidget1->fn->setValue(AlphaBlendingDemoScreen_SliderWidget1, 127);
+    AlphaBlendingDemoScreen_SliderWidget1->fn->setGripSize(AlphaBlendingDemoScreen_SliderWidget1, 15);
+    AlphaBlendingDemoScreen_SliderWidget1->fn->setValueChangedEventCallback(AlphaBlendingDemoScreen_SliderWidget1, event_AlphaBlendingDemoScreen_SliderWidget1_OnValueChanged);
+    AlphaBlendingDemoScreen_PanelWidget1->fn->addChild(AlphaBlendingDemoScreen_PanelWidget1, (leWidget*)AlphaBlendingDemoScreen_SliderWidget1);
 
-    SliderValueLabelWidget = leLabelWidget_New();
-    SliderValueLabelWidget->fn->setPosition(SliderValueLabelWidget, 58, 78);
-    SliderValueLabelWidget->fn->setSize(SliderValueLabelWidget, 50, 32);
-    SliderValueLabelWidget->fn->setBackgroundType(SliderValueLabelWidget, LE_WIDGET_BACKGROUND_NONE);
-    PanelWidget1->fn->addChild(PanelWidget1, (leWidget*)SliderValueLabelWidget);
+    AlphaBlendingDemoScreen_SliderValueLabelWidget = leLabelWidget_New();
+    AlphaBlendingDemoScreen_SliderValueLabelWidget->fn->setPosition(AlphaBlendingDemoScreen_SliderValueLabelWidget, 58, 78);
+    AlphaBlendingDemoScreen_SliderValueLabelWidget->fn->setSize(AlphaBlendingDemoScreen_SliderValueLabelWidget, 50, 32);
+    AlphaBlendingDemoScreen_SliderValueLabelWidget->fn->setBackgroundType(AlphaBlendingDemoScreen_SliderValueLabelWidget, LE_WIDGET_BACKGROUND_NONE);
+    AlphaBlendingDemoScreen_SliderValueLabelWidget->fn->setString(AlphaBlendingDemoScreen_SliderValueLabelWidget, (leString*)&string_AlphaBlendDefaultValue);
+    AlphaBlendingDemoScreen_PanelWidget1->fn->addChild(AlphaBlendingDemoScreen_PanelWidget1, (leWidget*)AlphaBlendingDemoScreen_SliderValueLabelWidget);
 
-    PanelWidget2 = leWidget_New();
-    PanelWidget2->fn->setPosition(PanelWidget2, 61, 36);
-    PanelWidget2->fn->setSize(PanelWidget2, 299, 180);
-    PanelWidget2->fn->setBorderType(PanelWidget2, LE_WIDGET_BORDER_LINE);
-    root0->fn->addChild(root0, PanelWidget2);
+    AlphaBlendingDemoScreen_PanelWidget2 = leWidget_New();
+    AlphaBlendingDemoScreen_PanelWidget2->fn->setPosition(AlphaBlendingDemoScreen_PanelWidget2, 61, 36);
+    AlphaBlendingDemoScreen_PanelWidget2->fn->setSize(AlphaBlendingDemoScreen_PanelWidget2, 299, 180);
+    AlphaBlendingDemoScreen_PanelWidget2->fn->setBorderType(AlphaBlendingDemoScreen_PanelWidget2, LE_WIDGET_BORDER_LINE);
+    root0->fn->addChild(root0, (leWidget*)AlphaBlendingDemoScreen_PanelWidget2);
 
-    ImageWidget1 = leImageWidget_New();
-    ImageWidget1->fn->setPosition(ImageWidget1, 0, 0);
-    ImageWidget1->fn->setSize(ImageWidget1, 305, 180);
-    ImageWidget1->fn->setAlphaEnabled(ImageWidget1, LE_TRUE);
-    ImageWidget1->fn->setAlphaAmount(ImageWidget1, 127);
-    ImageWidget1->fn->setBackgroundType(ImageWidget1, LE_WIDGET_BACKGROUND_NONE);
-    ImageWidget1->fn->setBorderType(ImageWidget1, LE_WIDGET_BORDER_LINE);
-    ImageWidget1->fn->setImage(ImageWidget1, &NewHarmonyLogo);
-    PanelWidget2->fn->addChild(PanelWidget2, (leWidget*)ImageWidget1);
+    AlphaBlendingDemoScreen_ImageWidget1 = leImageWidget_New();
+    AlphaBlendingDemoScreen_ImageWidget1->fn->setPosition(AlphaBlendingDemoScreen_ImageWidget1, 0, 0);
+    AlphaBlendingDemoScreen_ImageWidget1->fn->setSize(AlphaBlendingDemoScreen_ImageWidget1, 305, 180);
+    AlphaBlendingDemoScreen_ImageWidget1->fn->setAlphaEnabled(AlphaBlendingDemoScreen_ImageWidget1, LE_TRUE);
+    AlphaBlendingDemoScreen_ImageWidget1->fn->setAlphaAmount(AlphaBlendingDemoScreen_ImageWidget1, 127);
+    AlphaBlendingDemoScreen_ImageWidget1->fn->setBackgroundType(AlphaBlendingDemoScreen_ImageWidget1, LE_WIDGET_BACKGROUND_NONE);
+    AlphaBlendingDemoScreen_ImageWidget1->fn->setBorderType(AlphaBlendingDemoScreen_ImageWidget1, LE_WIDGET_BORDER_LINE);
+    AlphaBlendingDemoScreen_ImageWidget1->fn->setImage(AlphaBlendingDemoScreen_ImageWidget1, (leImage*)&NewHarmonyLogo);
+    AlphaBlendingDemoScreen_PanelWidget2->fn->addChild(AlphaBlendingDemoScreen_PanelWidget2, (leWidget*)AlphaBlendingDemoScreen_ImageWidget1);
 
-    ImageWidget2 = leImageWidget_New();
-    ImageWidget2->fn->setPosition(ImageWidget2, 0, 0);
-    ImageWidget2->fn->setSize(ImageWidget2, 304, 180);
-    ImageWidget2->fn->setAlphaEnabled(ImageWidget2, LE_TRUE);
-    ImageWidget2->fn->setAlphaAmount(ImageWidget2, 127);
-    ImageWidget2->fn->setBackgroundType(ImageWidget2, LE_WIDGET_BACKGROUND_NONE);
-    ImageWidget2->fn->setBorderType(ImageWidget2, LE_WIDGET_BORDER_LINE);
-    ImageWidget2->fn->setImage(ImageWidget2, &MicrochipLogo);
-    PanelWidget2->fn->addChild(PanelWidget2, (leWidget*)ImageWidget2);
+    AlphaBlendingDemoScreen_ImageWidget2 = leImageWidget_New();
+    AlphaBlendingDemoScreen_ImageWidget2->fn->setPosition(AlphaBlendingDemoScreen_ImageWidget2, 0, 0);
+    AlphaBlendingDemoScreen_ImageWidget2->fn->setSize(AlphaBlendingDemoScreen_ImageWidget2, 304, 180);
+    AlphaBlendingDemoScreen_ImageWidget2->fn->setAlphaEnabled(AlphaBlendingDemoScreen_ImageWidget2, LE_TRUE);
+    AlphaBlendingDemoScreen_ImageWidget2->fn->setAlphaAmount(AlphaBlendingDemoScreen_ImageWidget2, 127);
+    AlphaBlendingDemoScreen_ImageWidget2->fn->setBackgroundType(AlphaBlendingDemoScreen_ImageWidget2, LE_WIDGET_BACKGROUND_NONE);
+    AlphaBlendingDemoScreen_ImageWidget2->fn->setBorderType(AlphaBlendingDemoScreen_ImageWidget2, LE_WIDGET_BORDER_LINE);
+    AlphaBlendingDemoScreen_ImageWidget2->fn->setImage(AlphaBlendingDemoScreen_ImageWidget2, (leImage*)&MicrochipLogo);
+    AlphaBlendingDemoScreen_PanelWidget2->fn->addChild(AlphaBlendingDemoScreen_PanelWidget2, (leWidget*)AlphaBlendingDemoScreen_ImageWidget2);
 
-    AlphaHelpButton = leButtonWidget_New();
-    AlphaHelpButton->fn->setPosition(AlphaHelpButton, 0, 260);
-    AlphaHelpButton->fn->setSize(AlphaHelpButton, 60, 60);
-    AlphaHelpButton->fn->setBackgroundType(AlphaHelpButton, LE_WIDGET_BACKGROUND_NONE);
-    AlphaHelpButton->fn->setBorderType(AlphaHelpButton, LE_WIDGET_BORDER_NONE);
-    AlphaHelpButton->fn->setPressedImage(AlphaHelpButton, &GFX_Help_60);
-    AlphaHelpButton->fn->setReleasedImage(AlphaHelpButton, &GFX_Help_60);
-    AlphaHelpButton->fn->setReleasedEventCallback(AlphaHelpButton, AlphaHelpButton_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)AlphaHelpButton);
+    AlphaBlendingDemoScreen_AlphaHelpButton = leButtonWidget_New();
+    AlphaBlendingDemoScreen_AlphaHelpButton->fn->setPosition(AlphaBlendingDemoScreen_AlphaHelpButton, 0, 260);
+    AlphaBlendingDemoScreen_AlphaHelpButton->fn->setSize(AlphaBlendingDemoScreen_AlphaHelpButton, 60, 60);
+    AlphaBlendingDemoScreen_AlphaHelpButton->fn->setBackgroundType(AlphaBlendingDemoScreen_AlphaHelpButton, LE_WIDGET_BACKGROUND_NONE);
+    AlphaBlendingDemoScreen_AlphaHelpButton->fn->setBorderType(AlphaBlendingDemoScreen_AlphaHelpButton, LE_WIDGET_BORDER_NONE);
+    AlphaBlendingDemoScreen_AlphaHelpButton->fn->setPressedImage(AlphaBlendingDemoScreen_AlphaHelpButton, (leImage*)&GFX_Help_60);
+    AlphaBlendingDemoScreen_AlphaHelpButton->fn->setReleasedImage(AlphaBlendingDemoScreen_AlphaHelpButton, (leImage*)&GFX_Help_60);
+    AlphaBlendingDemoScreen_AlphaHelpButton->fn->setReleasedEventCallback(AlphaBlendingDemoScreen_AlphaHelpButton, event_AlphaBlendingDemoScreen_AlphaHelpButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)AlphaBlendingDemoScreen_AlphaHelpButton);
 
-    AlphaHomeButton = leButtonWidget_New();
-    AlphaHomeButton->fn->setPosition(AlphaHomeButton, 421, 260);
-    AlphaHomeButton->fn->setSize(AlphaHomeButton, 60, 60);
-    AlphaHomeButton->fn->setBackgroundType(AlphaHomeButton, LE_WIDGET_BACKGROUND_NONE);
-    AlphaHomeButton->fn->setBorderType(AlphaHomeButton, LE_WIDGET_BORDER_NONE);
-    AlphaHomeButton->fn->setPressedImage(AlphaHomeButton, &GFX_Home_60x60);
-    AlphaHomeButton->fn->setReleasedImage(AlphaHomeButton, &GFX_Home_60x60);
-    AlphaHomeButton->fn->setReleasedEventCallback(AlphaHomeButton, AlphaHomeButton_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)AlphaHomeButton);
+    AlphaBlendingDemoScreen_AlphaHomeButton = leButtonWidget_New();
+    AlphaBlendingDemoScreen_AlphaHomeButton->fn->setPosition(AlphaBlendingDemoScreen_AlphaHomeButton, 421, 260);
+    AlphaBlendingDemoScreen_AlphaHomeButton->fn->setSize(AlphaBlendingDemoScreen_AlphaHomeButton, 60, 60);
+    AlphaBlendingDemoScreen_AlphaHomeButton->fn->setBackgroundType(AlphaBlendingDemoScreen_AlphaHomeButton, LE_WIDGET_BACKGROUND_NONE);
+    AlphaBlendingDemoScreen_AlphaHomeButton->fn->setBorderType(AlphaBlendingDemoScreen_AlphaHomeButton, LE_WIDGET_BORDER_NONE);
+    AlphaBlendingDemoScreen_AlphaHomeButton->fn->setPressedImage(AlphaBlendingDemoScreen_AlphaHomeButton, (leImage*)&GFX_Home_60x60);
+    AlphaBlendingDemoScreen_AlphaHomeButton->fn->setReleasedImage(AlphaBlendingDemoScreen_AlphaHomeButton, (leImage*)&GFX_Home_60x60);
+    AlphaBlendingDemoScreen_AlphaHomeButton->fn->setReleasedEventCallback(AlphaBlendingDemoScreen_AlphaHomeButton, event_AlphaBlendingDemoScreen_AlphaHomeButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)AlphaBlendingDemoScreen_AlphaHomeButton);
 
-    LabelWidget9 = leLabelWidget_New();
-    LabelWidget9->fn->setPosition(LabelWidget9, 10, 5);
-    LabelWidget9->fn->setSize(LabelWidget9, 297, 25);
-    LabelWidget9->fn->setScheme(LabelWidget9, &whiteScheme);
-    LabelWidget9->fn->setBackgroundType(LabelWidget9, LE_WIDGET_BACKGROUND_NONE);
-    LabelWidget9->fn->setString(LabelWidget9, (leString*)&tableString_AlphaBlendingDemo);
-    root0->fn->addChild(root0, (leWidget*)LabelWidget9);
+    AlphaBlendingDemoScreen_LabelWidget9 = leLabelWidget_New();
+    AlphaBlendingDemoScreen_LabelWidget9->fn->setPosition(AlphaBlendingDemoScreen_LabelWidget9, 10, 5);
+    AlphaBlendingDemoScreen_LabelWidget9->fn->setSize(AlphaBlendingDemoScreen_LabelWidget9, 297, 25);
+    AlphaBlendingDemoScreen_LabelWidget9->fn->setScheme(AlphaBlendingDemoScreen_LabelWidget9, &whiteScheme);
+    AlphaBlendingDemoScreen_LabelWidget9->fn->setBackgroundType(AlphaBlendingDemoScreen_LabelWidget9, LE_WIDGET_BACKGROUND_NONE);
+    AlphaBlendingDemoScreen_LabelWidget9->fn->setString(AlphaBlendingDemoScreen_LabelWidget9, (leString*)&string_AlphaBlendingDemo);
+    root0->fn->addChild(root0, (leWidget*)AlphaBlendingDemoScreen_LabelWidget9);
 
-    AlphaNextButton = leButtonWidget_New();
-    AlphaNextButton->fn->setPosition(AlphaNextButton, 359, 260);
-    AlphaNextButton->fn->setSize(AlphaNextButton, 60, 60);
-    AlphaNextButton->fn->setBackgroundType(AlphaNextButton, LE_WIDGET_BACKGROUND_NONE);
-    AlphaNextButton->fn->setBorderType(AlphaNextButton, LE_WIDGET_BORDER_NONE);
-    AlphaNextButton->fn->setPressedImage(AlphaNextButton, &GFX_NextScreen_60x60);
-    AlphaNextButton->fn->setReleasedImage(AlphaNextButton, &GFX_NextScreen_60x60);
-    AlphaNextButton->fn->setReleasedEventCallback(AlphaNextButton, AlphaNextButton_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)AlphaNextButton);
+    AlphaBlendingDemoScreen_AlphaNextButton = leButtonWidget_New();
+    AlphaBlendingDemoScreen_AlphaNextButton->fn->setPosition(AlphaBlendingDemoScreen_AlphaNextButton, 359, 260);
+    AlphaBlendingDemoScreen_AlphaNextButton->fn->setSize(AlphaBlendingDemoScreen_AlphaNextButton, 60, 60);
+    AlphaBlendingDemoScreen_AlphaNextButton->fn->setBackgroundType(AlphaBlendingDemoScreen_AlphaNextButton, LE_WIDGET_BACKGROUND_NONE);
+    AlphaBlendingDemoScreen_AlphaNextButton->fn->setBorderType(AlphaBlendingDemoScreen_AlphaNextButton, LE_WIDGET_BORDER_NONE);
+    AlphaBlendingDemoScreen_AlphaNextButton->fn->setPressedImage(AlphaBlendingDemoScreen_AlphaNextButton, (leImage*)&GFX_NextScreen_60x60);
+    AlphaBlendingDemoScreen_AlphaNextButton->fn->setReleasedImage(AlphaBlendingDemoScreen_AlphaNextButton, (leImage*)&GFX_NextScreen_60x60);
+    AlphaBlendingDemoScreen_AlphaNextButton->fn->setReleasedEventCallback(AlphaBlendingDemoScreen_AlphaNextButton, event_AlphaBlendingDemoScreen_AlphaNextButton_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)AlphaBlendingDemoScreen_AlphaNextButton);
 
-    SliderUpButtonWidget = leButtonWidget_New();
-    SliderUpButtonWidget->fn->setPosition(SliderUpButtonWidget, 370, 31);
-    SliderUpButtonWidget->fn->setSize(SliderUpButtonWidget, 50, 36);
-    SliderUpButtonWidget->fn->setScheme(SliderUpButtonWidget, &BlackBackground);
-    SliderUpButtonWidget->fn->setBackgroundType(SliderUpButtonWidget, LE_WIDGET_BACKGROUND_NONE);
-    SliderUpButtonWidget->fn->setString(SliderUpButtonWidget, (leString*)&tableString_UpRight);
-    SliderUpButtonWidget->fn->setReleasedEventCallback(SliderUpButtonWidget, SliderUpButtonWidget_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)SliderUpButtonWidget);
+    AlphaBlendingDemoScreen_SliderUpButtonWidget = leButtonWidget_New();
+    AlphaBlendingDemoScreen_SliderUpButtonWidget->fn->setPosition(AlphaBlendingDemoScreen_SliderUpButtonWidget, 370, 31);
+    AlphaBlendingDemoScreen_SliderUpButtonWidget->fn->setSize(AlphaBlendingDemoScreen_SliderUpButtonWidget, 50, 36);
+    AlphaBlendingDemoScreen_SliderUpButtonWidget->fn->setScheme(AlphaBlendingDemoScreen_SliderUpButtonWidget, &BlackBackground);
+    AlphaBlendingDemoScreen_SliderUpButtonWidget->fn->setBackgroundType(AlphaBlendingDemoScreen_SliderUpButtonWidget, LE_WIDGET_BACKGROUND_NONE);
+    AlphaBlendingDemoScreen_SliderUpButtonWidget->fn->setString(AlphaBlendingDemoScreen_SliderUpButtonWidget, (leString*)&string_UpRight);
+    AlphaBlendingDemoScreen_SliderUpButtonWidget->fn->setReleasedEventCallback(AlphaBlendingDemoScreen_SliderUpButtonWidget, event_AlphaBlendingDemoScreen_SliderUpButtonWidget_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)AlphaBlendingDemoScreen_SliderUpButtonWidget);
 
-    SliderDownButtonWidget = leButtonWidget_New();
-    SliderDownButtonWidget->fn->setPosition(SliderDownButtonWidget, 370, 180);
-    SliderDownButtonWidget->fn->setSize(SliderDownButtonWidget, 50, 36);
-    SliderDownButtonWidget->fn->setScheme(SliderDownButtonWidget, &BlackBackground);
-    SliderDownButtonWidget->fn->setBackgroundType(SliderDownButtonWidget, LE_WIDGET_BACKGROUND_NONE);
-    SliderDownButtonWidget->fn->setString(SliderDownButtonWidget, (leString*)&tableString_DownLeft);
-    SliderDownButtonWidget->fn->setReleasedEventCallback(SliderDownButtonWidget, SliderDownButtonWidget_OnReleased);
-    root0->fn->addChild(root0, (leWidget*)SliderDownButtonWidget);
+    AlphaBlendingDemoScreen_SliderDownButtonWidget = leButtonWidget_New();
+    AlphaBlendingDemoScreen_SliderDownButtonWidget->fn->setPosition(AlphaBlendingDemoScreen_SliderDownButtonWidget, 370, 180);
+    AlphaBlendingDemoScreen_SliderDownButtonWidget->fn->setSize(AlphaBlendingDemoScreen_SliderDownButtonWidget, 50, 36);
+    AlphaBlendingDemoScreen_SliderDownButtonWidget->fn->setScheme(AlphaBlendingDemoScreen_SliderDownButtonWidget, &BlackBackground);
+    AlphaBlendingDemoScreen_SliderDownButtonWidget->fn->setBackgroundType(AlphaBlendingDemoScreen_SliderDownButtonWidget, LE_WIDGET_BACKGROUND_NONE);
+    AlphaBlendingDemoScreen_SliderDownButtonWidget->fn->setString(AlphaBlendingDemoScreen_SliderDownButtonWidget, (leString*)&string_DownLeft);
+    AlphaBlendingDemoScreen_SliderDownButtonWidget->fn->setReleasedEventCallback(AlphaBlendingDemoScreen_SliderDownButtonWidget, event_AlphaBlendingDemoScreen_SliderDownButtonWidget_OnReleased);
+    root0->fn->addChild(root0, (leWidget*)AlphaBlendingDemoScreen_SliderDownButtonWidget);
 
     leAddRootWidget(root0, 0);
+    leSetLayerColorMode(0, LE_COLOR_MODE_RGB_565);
+
+    AlphaBlendingDemoScreen_OnShow(); // raise event
 
     showing = LE_TRUE;
-
-    AlphaBlendingDemoScreen_OnShow();
 
     return LE_SUCCESS;
 }
 
 void screenUpdate_AlphaBlendingDemoScreen()
 {
-    AlphaBlendingDemoScreen_OnUpdate();
+    AlphaBlendingDemoScreen_OnUpdate(); // raise event
 }
 
 void screenHide_AlphaBlendingDemoScreen()
 {
+    AlphaBlendingDemoScreen_OnHide(); // raise event
+
+
     leRemoveRootWidget(root0, 0);
-
     leWidget_Delete(root0);
-
     root0 = NULL;
 
-    GradientWidget5 = NULL;
-    PanelWidget1 = NULL;
-    SliderWidget1 = NULL;
-    SliderValueLabelWidget = NULL;
-    PanelWidget2 = NULL;
-    ImageWidget1 = NULL;
-    ImageWidget2 = NULL;
-    AlphaHelpButton = NULL;
-    AlphaHomeButton = NULL;
-    LabelWidget9 = NULL;
-    AlphaNextButton = NULL;
-    SliderUpButtonWidget = NULL;
-    SliderDownButtonWidget = NULL;
+    AlphaBlendingDemoScreen_GradientWidget5 = NULL;
+    AlphaBlendingDemoScreen_PanelWidget1 = NULL;
+    AlphaBlendingDemoScreen_PanelWidget2 = NULL;
+    AlphaBlendingDemoScreen_AlphaHelpButton = NULL;
+    AlphaBlendingDemoScreen_AlphaHomeButton = NULL;
+    AlphaBlendingDemoScreen_LabelWidget9 = NULL;
+    AlphaBlendingDemoScreen_AlphaNextButton = NULL;
+    AlphaBlendingDemoScreen_SliderUpButtonWidget = NULL;
+    AlphaBlendingDemoScreen_SliderDownButtonWidget = NULL;
+    AlphaBlendingDemoScreen_SliderWidget1 = NULL;
+    AlphaBlendingDemoScreen_SliderValueLabelWidget = NULL;
+    AlphaBlendingDemoScreen_ImageWidget1 = NULL;
+    AlphaBlendingDemoScreen_ImageWidget2 = NULL;
 
-    tableString_AlphaBlendingDemo.fn->destructor(&tableString_AlphaBlendingDemo);
-    tableString_UpRight.fn->destructor(&tableString_UpRight);
-    tableString_DownLeft.fn->destructor(&tableString_DownLeft);
+
     showing = LE_FALSE;
-
-    AlphaBlendingDemoScreen_OnHide();
 }
 
 void screenDestroy_AlphaBlendingDemoScreen()
 {
+    if(initialized == LE_FALSE)
+        return;
 
+    initialized = LE_FALSE;
 }
 
 leWidget* screenGetRoot_AlphaBlendingDemoScreen(uint32_t lyrIdx)

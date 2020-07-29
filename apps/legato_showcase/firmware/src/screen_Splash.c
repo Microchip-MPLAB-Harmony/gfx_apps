@@ -79,18 +79,18 @@ static enum
 
 static void setup()
 {
-    SplashBar->fn->setX(SplashBar, barPosX);
+    SplashScreen_SplashBar->fn->setX(SplashScreen_SplashBar, barPosX);
                 
-    SplashPic32Logo->fn->setAlphaEnabled(SplashPic32Logo, LE_TRUE);
-    SplashPic32Logo->fn->setAlphaAmount(SplashPic32Logo, splashAlpha);
+    SplashScreen_SplashPic32Logo->fn->setAlphaEnabled(SplashScreen_SplashPic32Logo, LE_TRUE);
+    SplashScreen_SplashPic32Logo->fn->setAlphaAmount(SplashScreen_SplashPic32Logo, splashAlpha);
 
-    SplashHarmonyLogo->fn->setAlphaEnabled(SplashHarmonyLogo, LE_TRUE);
-    SplashHarmonyLogo->fn->setVisible(SplashHarmonyLogo, LE_TRUE);
-    SplashHarmonyLogo->fn->setAlphaAmount(SplashHarmonyLogo, 255 - splashAlpha);
+    SplashScreen_SplashHarmonyLogo->fn->setAlphaEnabled(SplashScreen_SplashHarmonyLogo, LE_TRUE);
+    SplashScreen_SplashHarmonyLogo->fn->setVisible(SplashScreen_SplashHarmonyLogo, LE_TRUE);
+    SplashScreen_SplashHarmonyLogo->fn->setAlphaAmount(SplashScreen_SplashHarmonyLogo, 255 - splashAlpha);
 
-    SplashMicrochipLogo->fn->setVisible(SplashMicrochipLogo, LE_FALSE);
-    SplashMicrochipLogo->fn->setAlphaEnabled(SplashMicrochipLogo, LE_TRUE);
-    SplashMicrochipLogo->fn->setAlphaAmount(SplashMicrochipLogo, 0);
+    SplashScreen_SplashMicrochipLogo->fn->setVisible(SplashScreen_SplashMicrochipLogo, LE_FALSE);
+    SplashScreen_SplashMicrochipLogo->fn->setAlphaEnabled(SplashScreen_SplashMicrochipLogo, LE_TRUE);
+    SplashScreen_SplashMicrochipLogo->fn->setAlphaAmount(SplashScreen_SplashMicrochipLogo, 0);
 
     triggerTick = currentTick + DELAY_IN_TICKS;
     
@@ -115,7 +115,7 @@ static void moveBar()
         screenState = SCREEN_SWAP_LOGO_ALPHA;
     }            
 
-    SplashBar->fn->setX(SplashBar, barPosX);      
+    SplashScreen_SplashBar->fn->setX(SplashScreen_SplashBar, barPosX);      
 }
 
 static void swapLogoAlpha()
@@ -127,8 +127,8 @@ static void swapLogoAlpha()
         splashAlpha -= ALPHA_BLEND_DELTA;
         triggerTick = currentTick + DELAY_IN_TICKS;
 
-        SplashPic32Logo->fn->setAlphaAmount(SplashPic32Logo, splashAlpha);
-        SplashHarmonyLogo->fn->setAlphaAmount(SplashHarmonyLogo, 255 - splashAlpha);
+        SplashScreen_SplashPic32Logo->fn->setAlphaAmount(SplashScreen_SplashPic32Logo, splashAlpha);
+        SplashScreen_SplashHarmonyLogo->fn->setAlphaAmount(SplashScreen_SplashHarmonyLogo, 255 - splashAlpha);
     }
 
     /*switch(appSplashData.splashAlpha)
@@ -139,28 +139,28 @@ static void swapLogoAlpha()
 
             lastSet = 20;
 
-            SplashPic32Logo->fn->setImage(SplashPic32Logo, &CrossFade3);
+            SplashScreen_SplashPic32Logo->fn->setImage(SplashScreen_SplashPic32Logo, &CrossFade3);
             break;
         case 40:
             if(lastSet == 40)
                 break;
 
             lastSet = 40;
-            SplashPic32Logo->fn->setImage(SplashPic32Logo, &CrossFade2);
+            SplashScreen_SplashPic32Logo->fn->setImage(SplashScreen_SplashPic32Logo, &CrossFade2);
             break;
         case 60:
             if(lastSet == 60)
                 break;
 
             lastSet = 60;
-            SplashPic32Logo->fn->setImage(SplashPic32Logo, &CrossFade1);
+            SplashScreen_SplashPic32Logo->fn->setImage(SplashScreen_SplashPic32Logo, &CrossFade1);
             break;
         case 80:
             if(lastSet == 80)
                 break;
 
             lastSet = 80;
-            SplashPic32Logo->fn->setImage(SplashPic32Logo, &CrossFade0);
+            SplashScreen_SplashPic32Logo->fn->setImage(SplashScreen_SplashPic32Logo, &CrossFade0);
             break;
         default:
             break;
@@ -168,10 +168,10 @@ static void swapLogoAlpha()
 
     if(splashAlpha <= ALPHA_BLEND_DELTA)
     {
-        SplashPic32Logo->fn->setVisible(SplashPic32Logo, LE_FALSE);
-        SplashPic32Logo->fn->setAlphaEnabled(SplashPic32Logo, LE_FALSE);
+        SplashScreen_SplashPic32Logo->fn->setVisible(SplashScreen_SplashPic32Logo, LE_FALSE);
+        SplashScreen_SplashPic32Logo->fn->setAlphaEnabled(SplashScreen_SplashPic32Logo, LE_FALSE);
 
-        SplashHarmonyLogo->fn->setAlphaEnabled(SplashHarmonyLogo, LE_FALSE);
+        SplashScreen_SplashHarmonyLogo->fn->setAlphaEnabled(SplashScreen_SplashHarmonyLogo, LE_FALSE);
         
         screenState = SCREEN_SHOW_SMALL_ICON;
     }
@@ -179,8 +179,8 @@ static void swapLogoAlpha()
 
 static void showSmallIcon()
 {
-    SplashMicrochipLogo->fn->setVisible(SplashMicrochipLogo, LE_TRUE);
-    SplashMicrochipLogo->fn->setAlphaEnabled(SplashMicrochipLogo, LE_FALSE);
+    SplashScreen_SplashMicrochipLogo->fn->setVisible(SplashScreen_SplashMicrochipLogo, LE_TRUE);
+    SplashScreen_SplashMicrochipLogo->fn->setAlphaEnabled(SplashScreen_SplashMicrochipLogo, LE_FALSE);
     
     delayCount = 0;
     
@@ -209,7 +209,7 @@ static void endDelay()
 void SplashScreen_OnShow()
 {
     splashAlpha = 255;        
-    barPosX = leGetDisplayRect().width;
+    barPosX = 480;
     
     screenState = SCREEN_SETUP;
 }
