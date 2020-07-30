@@ -36,7 +36,7 @@ const uint8_t stringTable_data[4] =
 };
 
 /* font asset pointer list */
-leFont* fontList[2] =
+leFont* fontList[1] =
 {
     (leFont*)&TempLabelFont,
 };
@@ -52,3 +52,4 @@ const leStringTable stringTable =
     fontList, // font lookup table
     LE_STRING_ENCODING_ASCII // encoding standard
 };
+

@@ -139,11 +139,6 @@ static int32_t _getScrollBarRowLocation(const leListWidget* _this, uint32_t idx)
         height += rect.height;
     }
     
-    if(y == 0)
-    {
-        y = height;
-    }
-    
     if(height == 0)
         return 0;
     

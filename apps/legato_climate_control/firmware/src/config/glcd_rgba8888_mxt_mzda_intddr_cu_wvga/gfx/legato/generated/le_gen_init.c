@@ -11,7 +11,7 @@ void legato_initialize(void)
 
     currentScreen = -1;
 
-    legato_showScreen(screenID_Splash);
+    legato_showScreen(screenID_screen1);
 }
 
 uint32_t legato_getCurrentScreen(void)
