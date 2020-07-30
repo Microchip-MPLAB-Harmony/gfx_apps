@@ -430,6 +430,7 @@
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
       <itemPath>../src/config/glcd_gpu_rgb565_mxt_mzdas_sk/harmony.prj</itemPath>
+      <itemPath>../src/config/glcd_gpu_rgb565_mxt_mzdas_sk/glcd_gpu_rgb565_mxt_mzdas_sk.xml</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -443,9 +444,9 @@
         <targetDevice>PIC32MZ2064DAR169</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool>ICD4Tool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.40</languageToolchainVersion>
+        <languageToolchainVersion>2.41</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>

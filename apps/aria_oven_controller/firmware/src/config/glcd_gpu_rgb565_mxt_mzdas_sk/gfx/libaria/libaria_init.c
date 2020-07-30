@@ -278,7 +278,7 @@ int32_t libaria_initialize(void)
     screen = laScreen_New(LA_FALSE, LA_FALSE, &ScreenCreate_infoScreen);
     laContext_AddScreen(screen);
 
-    laContext_SetActiveScreen(3);
+    laContext_SetActiveScreen(0);
 
 	return 0;
 }

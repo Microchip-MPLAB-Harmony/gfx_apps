@@ -346,7 +346,7 @@ extern GFXU_ImageAsset start;
 /*********************************
  * GFX Font Asset
  * Name:         Vani_Clock
- * Height:       122
+ * Height:       92
  * Style:        Plain
  * Glyph Count:  5
  * Range Count:  3
@@ -359,7 +359,7 @@ extern GFXU_FontAsset Vani_Clock;
 /*********************************
  * GFX Font Asset
  * Name:         Vani_Title
- * Height:       31
+ * Height:       24
  * Style:        Plain
  * Glyph Count:  34
  * Range Count:  15
@@ -384,7 +384,7 @@ extern GFXU_FontAsset Vani_Title;
 /*********************************
  * GFX Font Asset
  * Name:         Vani_Instr
- * Height:       20
+ * Height:       15
  * Style:        Plain
  * Glyph Count:  0
  * Range Count:  0
