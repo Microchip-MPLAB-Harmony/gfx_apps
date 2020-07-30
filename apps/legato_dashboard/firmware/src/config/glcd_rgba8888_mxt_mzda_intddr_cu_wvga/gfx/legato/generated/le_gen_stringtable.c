@@ -46,3 +46,4 @@ const leStringTable stringTable =
     NULL, // font lookup table
     LE_STRING_ENCODING_ASCII // encoding standard
 };
+

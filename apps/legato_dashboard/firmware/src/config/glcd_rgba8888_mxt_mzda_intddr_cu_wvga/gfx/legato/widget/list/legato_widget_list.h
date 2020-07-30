@@ -208,7 +208,7 @@ typedef struct leListWidget
     leRelativePosition iconPos; // icon position for the list icons
     uint32_t iconMargin; // margin for the list icons
 
-    uint32_t itemDown; // tracks whether an input event is in process
+    int32_t itemDown; // tracks whether an input event is in process
 
     leScrollBarWidget* scrollbar; // internal scrollbar for this widget
 

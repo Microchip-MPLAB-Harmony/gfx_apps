@@ -183,6 +183,7 @@ static void nextState(leTextFieldWidget* txt)
                 return;
             }
         }
+        // fall through
         case DRAW_BACKGROUND:
         {
             if(txt->text.fn->length(&txt->text) > 0 ||
@@ -194,6 +195,7 @@ static void nextState(leTextFieldWidget* txt)
                 return;
             }
         }
+        // fall through
         case DRAW_STRING:
         {
             if(txt->cursorEnable == LE_TRUE && txt->cursorVisible == LE_TRUE)
@@ -204,6 +206,7 @@ static void nextState(leTextFieldWidget* txt)
                 return; 
             }
         }
+        // fall through
         case DRAW_CURSOR:
         {
             if(txt->editWidget.widget.style.borderType != LE_WIDGET_BORDER_NONE)
@@ -214,6 +217,7 @@ static void nextState(leTextFieldWidget* txt)
                 return;
             }
         }
+        // fall through
         case DRAW_BORDER:
         {
             txt->editWidget.widget.status.drawState = DONE;
@@ -306,7 +310,7 @@ static void drawBorder(leTextFieldWidget* txt)
         leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)txt,
                                                     paintState.alpha);
     }
-    else if(txt->editWidget.widget.borderType == LE_WIDGET_BORDER_BEVEL)
+    else if(txt->editWidget.widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         leWidget_SkinClassic_DrawStandardLoweredBorder((leWidget*)txt,
                                                        paintState.alpha);

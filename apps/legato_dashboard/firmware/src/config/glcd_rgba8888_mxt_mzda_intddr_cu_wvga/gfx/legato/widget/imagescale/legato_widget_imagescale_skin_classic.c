@@ -208,6 +208,7 @@ static void nextState(leImageScaleWidget* img)
                 return;
             }
         }
+        // fall through
         case DRAW_BACKGROUND:
         {
             if(img->image != NULL)
@@ -218,9 +219,10 @@ static void nextState(leImageScaleWidget* img)
                 return;
             }
         }
+        // fall through
         case DRAW_IMAGE:
         {            
-            if(img->widget.borderType != LE_WIDGET_BORDER_NONE)
+            if(img->widget.style.borderType != LE_WIDGET_BORDER_NONE)
             {
                 img->widget.drawFunc = (leWidget_DrawFunction_FnPtr)&drawBorder;
                 img->widget.status.drawState = DRAW_BORDER;
@@ -228,6 +230,7 @@ static void nextState(leImageScaleWidget* img)
                 return;
             }
         }
+        // fall through
         case DRAW_BORDER:
         {           
             
@@ -267,12 +270,12 @@ static void drawImage(leImageScaleWidget* img)
 
 static void drawBorder(leImageScaleWidget* img)
 {
-    if(img->widget.borderType == LE_WIDGET_BORDER_LINE)
+    if(img->widget.style.borderType == LE_WIDGET_BORDER_LINE)
     {
         leWidget_SkinClassic_DrawStandardLineBorder((leWidget*)img,
                                                     paintState.alpha);
     }
-    else if(img->widget.borderType == LE_WIDGET_BORDER_BEVEL)
+    else if(img->widget.style.borderType == LE_WIDGET_BORDER_BEVEL)
     {
         leWidget_SkinClassic_DrawStandardRaisedBorder((leWidget*)img,
                                                       paintState.alpha);

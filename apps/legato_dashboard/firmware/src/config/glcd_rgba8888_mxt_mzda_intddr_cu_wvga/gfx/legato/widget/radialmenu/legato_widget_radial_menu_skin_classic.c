@@ -78,6 +78,7 @@ static void nextState(leRadialMenuWidget* mn)
                 return;
             }
         }
+        // fall through
         case DRAW_BACKGROUND:
         {
             if(mn->drawEllipse == LE_TRUE)
@@ -88,6 +89,7 @@ static void nextState(leRadialMenuWidget* mn)
                 return;
             }
         }
+        // fall through
         case DRAW_ELLIPSE:
         {
             if(mn->widgetList.size > 0)
@@ -98,6 +100,7 @@ static void nextState(leRadialMenuWidget* mn)
                 return;
             }
         }
+        // fall through
         default:
         {
             mn->widget.status.drawState = DONE;

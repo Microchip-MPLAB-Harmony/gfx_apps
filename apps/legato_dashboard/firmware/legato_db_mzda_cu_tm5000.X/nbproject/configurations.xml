@@ -620,6 +620,8 @@
       <packs>
         <pack name="PIC32MZ-DA_DFP" vendor="Microchip" version="1.0.69"/>
       </packs>
+      <ScriptingSettings>
+      </ScriptingSettings>
       <compileType>
         <linkerTool>
           <linkerLibItems>

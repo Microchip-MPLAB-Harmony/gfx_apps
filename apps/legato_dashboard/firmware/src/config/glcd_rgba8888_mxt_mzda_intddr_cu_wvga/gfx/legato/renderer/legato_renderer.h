@@ -882,6 +882,7 @@ leResult leRenderer_ArcLine(int32_t x,
                                 int32_t startAngle,
                                 int32_t centerAngle,
                                 uint32_t thickness,
+                                leBool rounded,
                                 leColor clr,
                                 leBool antialias,
                                 uint32_t a)
@@ -899,6 +900,7 @@ leResult leRenderer_ArcLine(int32_t x,
     uint32_t radius - the radius of the arc
     uint32_t startAngle - the arc starting angle
     uint32_t spanAngle - the arc span/center angle
+    leBool rounded - indicates that the arc should draw rounded ends
     leColor clr - the color to write
     leBool antialias - indicates that an antialiased arc should be drawn (not supported yet)
     uint32_t a - the global alpha blending value to use
@@ -910,6 +912,7 @@ leResult leRenderer_ArcFill(const leRect* drawRect,
                             int32_t startAngle,
                             int32_t spanAngle,
                             uint32_t thickness,
+                            leBool rounded,
                             leColor clr,
                             leBool antialias,
                             uint32_t a);
