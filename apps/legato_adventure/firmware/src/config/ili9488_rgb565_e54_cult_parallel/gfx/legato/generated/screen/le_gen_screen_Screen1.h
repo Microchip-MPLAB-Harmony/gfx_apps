@@ -20,13 +20,13 @@ extern leButtonWidget* Screen1_ButtonWidget_RunLeft;
 extern leButtonWidget* Screen1_ButtonWidget_RunRight;
 extern leButtonWidget* Screen1_ButtonWidget_Jump;
 extern leButtonWidget* Screen1_ButtonWidget_ScreenChange;
-extern leImageSequenceWidget* Screen1_ImageSequenceWidget_DizzieLeft;
-extern leImageSequenceWidget* Screen1_ImageSequenceWidget_DizzieRight;
-extern leImageSequenceWidget* Screen1_ImageSequenceWidget_IdleLeft;
-extern leImageSequenceWidget* Screen1_ImageSequenceWidget_IdleRight;
-extern leImageSequenceWidget* Screen1_ImageSequenceWidget_RunLeft;
-extern leImageSequenceWidget* Screen1_ImageSequenceWidget_RunRight;
 extern leImageSequenceWidget* Screen1_ImageSequenceWidget_JumpRight;
+extern leImageSequenceWidget* Screen1_ImageSequenceWidget_RunRight;
+extern leImageSequenceWidget* Screen1_ImageSequenceWidget_RunLeft;
+extern leImageSequenceWidget* Screen1_ImageSequenceWidget_IdleRight;
+extern leImageSequenceWidget* Screen1_ImageSequenceWidget_IdleLeft;
+extern leImageSequenceWidget* Screen1_ImageSequenceWidget_DizzieRight;
+extern leImageSequenceWidget* Screen1_ImageSequenceWidget_DizzieLeft;
 
 // event handlers
 // !!THESE MUST BE IMPLEMENTED IN THE APPLICATION CODE!!
