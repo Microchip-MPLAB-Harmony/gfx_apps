@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <project>
     <fileVersion>3</fileVersion>
     <configuration>
@@ -190,11 +190,11 @@
                 </option>
                 <option>
                     <name>GenLocaleTags</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>GenLocaleDisplayOnly</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>DSPExtension</name>
@@ -220,6 +220,7 @@
                 <debug>1</debug>
                 <option>
                     <name>CCDefines</name>
+                    <state>__FPU_PRESENT=1</state>
                     <state>__FPU_PRESENT=1</state>
                 </option>
                 <option>
@@ -260,19 +261,19 @@
                 </option>
                 <option>
                     <name>CCDiagSuppress</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>CCDiagRemark</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>CCDiagWarning</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>CCDiagError</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>CCObjPrefix</name>
@@ -301,7 +302,7 @@
                 </option>
                 <option>
                     <name>IExtraOptions</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>CCLangConformance</name>
@@ -337,7 +338,7 @@
                 </option>
                 <option>
                     <name>PreInclude</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>CompilerMisraOverride</name>
@@ -345,6 +346,11 @@
                 </option>
                 <option>
                     <name>CCIncludePath2</name>
+                    <state>$PROJ_DIR$\..\src</state>
+                    <state>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2</state>
+                    <state>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP</state>
+                    <state>$PROJ_DIR$\..\src\packs\CMSIS\CMSIS\Core_A\Include</state>
+                    <state>$PROJ_DIR$\..\src\packs\CMSIS</state>
                     <state>$PROJ_DIR$\..\..\firmware\src</state>
                     <state>$PROJ_DIR$\..\..\firmware\src\config\lcdc_rgba8888_mxt_a5d2</state>
                     <state>$PROJ_DIR$\..\..\firmware\src\packs\ATSAMA5D27_DFP</state>
@@ -508,15 +514,15 @@
                 </option>
                 <option>
                     <name>AWarnOne</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>AWarnRange1</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>AWarnRange2</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>ADebug</name>
@@ -528,7 +534,6 @@
                 </option>
                 <option>
                     <name>ADefines</name>
-                    <state></state>
                 </option>
                 <option>
                     <name>AList</name>
@@ -633,7 +638,7 @@
                 </option>
                 <option>
                     <name>AExtraOptionsV2</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>AsmNoLiteralPool</name>
@@ -675,8 +680,8 @@
             <name>CUSTOM</name>
             <archiveVersion>3</archiveVersion>
             <data>
-                <extensions></extensions>
-                <cmdline></cmdline>
+                <extensions />
+                <cmdline />
                 <hasPrio>0</hasPrio>
             </data>
         </settings>
@@ -689,8 +694,8 @@
             <name>BUILDACTION</name>
             <archiveVersion>1</archiveVersion>
             <data>
-                <prebuild></prebuild>
-                <postbuild></postbuild>
+                <prebuild />
+                <postbuild />
             </data>
         </settings>
         <settings>
@@ -722,31 +727,31 @@
                 </option>
                 <option>
                     <name>IlinkKeepSymbols</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkRawBinaryFile</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkRawBinarySymbol</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkRawBinarySegment</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkRawBinaryAlign</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkDefines</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkConfigDefines</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkMapFile</name>
@@ -778,11 +783,11 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state>$PROJ_DIR$\..\..\firmware\src\config\lcdc_rgba8888_mxt_a5d2\ddr.icf</state>
+                    <state>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\ddr.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkEnableRemarks</name>
@@ -790,19 +795,19 @@
                 </option>
                 <option>
                     <name>IlinkSuppressDiags</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkTreatAsRem</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkTreatAsWarn</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkTreatAsErr</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkWarningsAreErrors</name>
@@ -814,7 +819,7 @@
                 </option>
                 <option>
                     <name>IlinkExtraOptions</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkLowLevelInterfaceSlave</name>
@@ -826,7 +831,7 @@
                 </option>
                 <option>
                     <name>IlinkAdditionalLibs</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkOverrideProgramEntryLabel</name>
@@ -961,11 +966,11 @@
                 </option>
                 <option>
                     <name>IlinkStackControlFile</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkStackCallGraphFile</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>CrcAlgorithm</name>
@@ -987,7 +992,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile_AltDefault</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkEncInput</name>
@@ -1028,7 +1033,7 @@
                 <debug>1</debug>
                 <option>
                     <name>IarchiveInputs</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IarchiveOverride</name>
@@ -1077,11 +1082,11 @@
                 </option>
                 <option>
                     <name>Input description</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>Output description</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>GOutputBinary</name>
@@ -1103,7 +1108,7 @@
                 </option>
                 <option>
                     <name>RTDescription</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>OGProductVersion</name>
@@ -1111,7 +1116,7 @@
                 </option>
                 <option>
                     <name>OGLastSavedByProductVersion</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>GeneralEnableMisra</name>
@@ -1157,7 +1162,7 @@
                 </option>
                 <option>
                     <name>RTConfigPath2</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>GBECoreSlave</name>
@@ -1235,11 +1240,11 @@
                 </option>
                 <option>
                     <name>GenLocaleTags</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>GenLocaleDisplayOnly</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>DSPExtension</name>
@@ -1265,6 +1270,7 @@
                 <debug>0</debug>
                 <option>
                     <name>CCDefines</name>
+                    <state>__FPU_PRESENT=1</state>
                     <state>NDEBUG</state>
                     <state>__FPU_PRESENT=1</state>
                 </option>
@@ -1306,19 +1312,19 @@
                 </option>
                 <option>
                     <name>CCDiagSuppress</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>CCDiagRemark</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>CCDiagWarning</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>CCDiagError</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>CCObjPrefix</name>
@@ -1347,7 +1353,7 @@
                 </option>
                 <option>
                     <name>IExtraOptions</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>CCLangConformance</name>
@@ -1375,7 +1381,7 @@
                 </option>
                 <option>
                     <name>OutputFile</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>CCLibConfigHeader</name>
@@ -1383,7 +1389,7 @@
                 </option>
                 <option>
                     <name>PreInclude</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>CompilerMisraOverride</name>
@@ -1391,6 +1397,11 @@
                 </option>
                 <option>
                     <name>CCIncludePath2</name>
+                    <state>$PROJ_DIR$\..\src</state>
+                    <state>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2</state>
+                    <state>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP</state>
+                    <state>$PROJ_DIR$\..\src\packs\CMSIS\CMSIS\Core_A\Include</state>
+                    <state>$PROJ_DIR$\..\src\packs\CMSIS</state>
                     <state>$PROJ_DIR$\..\..\firmware\src</state>
                     <state>$PROJ_DIR$\..\..\firmware\src\config\lcdc_rgba8888_mxt_a5d2</state>
                     <state>$PROJ_DIR$\..\..\firmware\src\packs\ATSAMA5D27_DFP</state>
@@ -1554,15 +1565,15 @@
                 </option>
                 <option>
                     <name>AWarnOne</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>AWarnRange1</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>AWarnRange2</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>ADebug</name>
@@ -1574,7 +1585,6 @@
                 </option>
                 <option>
                     <name>ADefines</name>
-                    <state></state>
                 </option>
                 <option>
                     <name>AList</name>
@@ -1650,7 +1660,7 @@
                 </option>
                 <option>
                     <name>AOutputFile</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>ALimitErrorsCheck</name>
@@ -1679,7 +1689,7 @@
                 </option>
                 <option>
                     <name>AExtraOptionsV2</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>AsmNoLiteralPool</name>
@@ -1705,7 +1715,7 @@
                 </option>
                 <option>
                     <name>OOCOutputFile</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>OOCCommandLineProducer</name>
@@ -1721,8 +1731,8 @@
             <name>CUSTOM</name>
             <archiveVersion>3</archiveVersion>
             <data>
-                <extensions></extensions>
-                <cmdline></cmdline>
+                <extensions />
+                <cmdline />
                 <hasPrio>0</hasPrio>
             </data>
         </settings>
@@ -1735,8 +1745,8 @@
             <name>BUILDACTION</name>
             <archiveVersion>1</archiveVersion>
             <data>
-                <prebuild></prebuild>
-                <postbuild></postbuild>
+                <prebuild />
+                <postbuild />
             </data>
         </settings>
         <settings>
@@ -1768,31 +1778,31 @@
                 </option>
                 <option>
                     <name>IlinkKeepSymbols</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkRawBinaryFile</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkRawBinarySymbol</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkRawBinarySegment</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkRawBinaryAlign</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkDefines</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkConfigDefines</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkMapFile</name>
@@ -1824,11 +1834,11 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state>$PROJ_DIR$\..\..\firmware\src\config\lcdc_rgba8888_mxt_a5d2\ddr.icf</state>
+                    <state>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\ddr.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkEnableRemarks</name>
@@ -1836,19 +1846,19 @@
                 </option>
                 <option>
                     <name>IlinkSuppressDiags</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkTreatAsRem</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkTreatAsWarn</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkTreatAsErr</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkWarningsAreErrors</name>
@@ -1860,7 +1870,7 @@
                 </option>
                 <option>
                     <name>IlinkExtraOptions</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkLowLevelInterfaceSlave</name>
@@ -1872,7 +1882,7 @@
                 </option>
                 <option>
                     <name>IlinkAdditionalLibs</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkOverrideProgramEntryLabel</name>
@@ -1884,7 +1894,7 @@
                 </option>
                 <option>
                     <name>IlinkProgramEntryLabel</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>DoFill</name>
@@ -2007,11 +2017,11 @@
                 </option>
                 <option>
                     <name>IlinkStackControlFile</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkStackCallGraphFile</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>CrcAlgorithm</name>
@@ -2033,7 +2043,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile_AltDefault</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IlinkEncInput</name>
@@ -2074,7 +2084,7 @@
                 <debug>0</debug>
                 <option>
                     <name>IarchiveInputs</name>
-                    <state></state>
+                    <state />
                 </option>
                 <option>
                     <name>IarchiveOverride</name>
@@ -2092,394 +2102,688 @@
             <data />
         </settings>
     </configuration>
+    <file>
+        <name>$PROJ_DIR$\..\src\app_splash.h</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\..\src\app_splash_single_layer.c</name>
+    </file>
     <group>
-        <name>IAR Project Connection File</name>
+        <name>Harmony3</name>
         <group>
             <name>Header Files</name>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\acc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\adc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\aes.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\aesb.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\aic.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\app.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\atsama5d27.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\aximx.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\bsp\bsp.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\chipid.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\classd.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\CMSIS\CMSIS\Core_A\Include\cmsis_compiler.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\CMSIS\CMSIS\Core_A\Include\cmsis_cp15.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\CMSIS\CMSIS\Core_A\Include\cmsis_gcc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\CMSIS\CMSIS\Core_A\Include\cmsis_iccarm.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\configuration.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\CMSIS\CMSIS\Core_A\Include\core_ca.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\definitions.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\device.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\device_cache.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\driver\driver.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\driver\driver_common.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\driver\controller\lcdc\drv_gfx_lcdc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\driver\i2c\drv_i2c.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\driver\i2c\drv_i2c_definitions.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\driver\input\drv_maxtouch.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\flexcom.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\gfx.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\gfx_assets.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_color.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_common.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\gfx_config.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_context.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_default_impl.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_display.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_draw.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_draw_arc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_draw_blit.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_draw_circle.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_draw_ellipse.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_draw_line.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_draw_pixel.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_draw_rect.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_draw_stretchblit.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_driver_interface.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_hal.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_interface.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_layer.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_math.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_pixel_buffer.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_processor_interface.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_rect.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_util.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\gfx_utils.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\inc\gfxu_binary.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\gfxu_config.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\inc\gfxu_font.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\inc\gfxu_global.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\inc\gfxu_image.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\inc\gfxu_image_jpg_common.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\inc\gfxu_image_utils.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\inc\gfxu_palette.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\inc\gfxu_string.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\inc\gfxu_string_utils.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\gmac.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\i2sc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\icm.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\isc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\l2cc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\lcdc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\libaria.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_array.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_common.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\libaria_config.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_context.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_draw.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_editwidget.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_event.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\libaria_events.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_global.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\libaria_harmony.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\libaria_init.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_input.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_layer.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_list.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\libaria_macros.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_math.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_radiobutton_group.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_rectarray.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_scheme.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_screen.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_string.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_utils.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_arc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_bar_graph.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_button.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_checkbox.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_circle.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_circular_gauge.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_circular_slider.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_drawsurface.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_gradient.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_groupbox.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_image.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_imageplus.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_imagesequence.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_keypad.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_label.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_line.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_line_graph.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_list.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_listwheel.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_pie_chart.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_progressbar.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_radial_menu.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_radiobutton.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_rectangle.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_scrollbar.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_skin_classic_common.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_slider.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_textfield.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_touchtest.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_window.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\third_party\lodepng\lodepng.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\matrix.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\mcan.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\mpddrc.h</name>
-            </file>
+            <group>
+                <name>config</name>
+                <group>
+                    <name>lcdc_rgba8888_mxt_a5d2</name>
+                    <group>
+                        <name>gfx</name>
+                        <group>
+                            <name>hal</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\gfx.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_color.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_common.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_context.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_default_impl.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_display.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_driver_interface.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_hal.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_interface.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_layer.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_pixel_buffer.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_processor_interface.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_rect.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_util.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_draw.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_draw_arc.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_draw_blit.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_draw_circle.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_draw_ellipse.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_draw_line.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_draw_pixel.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_draw_rect.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_draw_stretchblit.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\inc\gfx_math.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\gfx_config.h</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>utils</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\gfx_utils.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\gfxu_config.h</name>
+                            </file>
+                            <group>
+                                <name>inc</name>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\inc\gfxu_binary.h</name>
+                                </file>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\inc\gfxu_font.h</name>
+                                </file>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\inc\gfxu_global.h</name>
+                                </file>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\inc\gfxu_image.h</name>
+                                </file>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\inc\gfxu_image_utils.h</name>
+                                </file>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\inc\gfxu_palette.h</name>
+                                </file>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\inc\gfxu_string.h</name>
+                                </file>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\inc\gfxu_string_utils.h</name>
+                                </file>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\inc\gfxu_image_jpg_common.h</name>
+                                </file>
+                            </group>
+                        </group>
+                        <group>
+                            <name>third_party</name>
+                            <group>
+                                <name>lodepng</name>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\third_party\lodepng\lodepng.h</name>
+                                </file>
+                            </group>
+                        </group>
+                        <group>
+                            <name>libaria</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\libaria_harmony.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\libaria_config.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\libaria_init.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\libaria.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_array.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_common.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_context.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_draw.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_editwidget.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_event.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_global.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_input.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_layer.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_math.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_list.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_rectarray.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_scheme.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_screen.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_string.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_utils.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_skin_classic_common.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_arc.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_bar_graph.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_button.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_checkbox.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_circle.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_circular_gauge.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_circular_slider.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_drawsurface.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_gradient.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_groupbox.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_image.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_imageplus.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_imagesequence.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_keypad.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_label.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_line.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_line_graph.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_list.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_listwheel.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_pie_chart.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_progressbar.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_radial_menu.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_radiobutton.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_radiobutton_group.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_rectangle.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_scrollbar.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_slider.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_textfield.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_touchtest.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\inc\libaria_widget_window.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\libaria_events.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\libaria_macros.h</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>driver</name>
+                            <group>
+                                <name>lcdc</name>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\driver\controller\lcdc\drv_gfx_lcdc.h</name>
+                                </file>
+                            </group>
+                        </group>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\gfx_assets.h</name>
+                        </file>
+                    </group>
+                    <file>
+                        <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\device_cache.h</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\toolchain_specifics.h</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\definitions.h</name>
+                    </file>
+                    <group>
+                        <name>peripheral</name>
+                        <group>
+                            <name>mmu</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\mmu\plib_mmu.h</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>matrix</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\matrix\plib_matrix.h</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>clk</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\clk\plib_clk.h</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>pio</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\pio\plib_pio.h</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>aic</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\aic\plib_aic.h</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>tc</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\tc\plib_tc0.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\tc\plib_tc_common.h</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>lcdc</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\lcdc\plib_lcdc.h</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>twihs</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\twihs\plib_twihs_master.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\twihs\plib_twihs1.h</name>
+                            </file>
+                        </group>
+                    </group>
+                    <group>
+                        <name>driver</name>
+                        <group>
+                            <name>i2c</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\driver\i2c\drv_i2c.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\driver\i2c\drv_i2c_definitions.h</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>input</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\driver\input\drv_maxtouch.h</name>
+                            </file>
+                        </group>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\driver\driver.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\driver\driver_common.h</name>
+                        </file>
+                    </group>
+                    <group>
+                        <name>system</name>
+                        <group>
+                            <name>time</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\time\sys_time.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\time\sys_time_definitions.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\time\src\sys_time_local.h</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>input</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\input\sys_input.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\input\sys_input_gesture.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\input\sys_input_keyboard.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\input\sys_input_listener.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\input\sys_input_mouse.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\input\sys_input_touch.h</name>
+                            </file>
+                        </group>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\system.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\system_common.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\system_module.h</name>
+                        </file>
+                        <group>
+                            <name>int</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\int\sys_int.h</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\int\sys_int_mapping.h</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>cache</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\cache\sys_cache.h</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>debug</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\debug\sys_debug.h</name>
+                            </file>
+                        </group>
+                    </group>
+                    <group>
+                        <name>bsp</name>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\bsp\bsp.h</name>
+                        </file>
+                    </group>
+                    <file>
+                        <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\user.h</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\configuration.h</name>
+                    </file>
+                </group>
+            </group>
+            <group>
+                <name>packs</name>
+                <group>
+                    <name>ATSAMA5D27_DFP</name>
+                    <file>
+                        <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\device.h</name>
+                    </file>
+                    <group>
+                        <name>component</name>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\acc.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\adc.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\aes.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\aesb.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\aic.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\aximx.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\chipid.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\classd.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\flexcom.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\gmac.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\i2sc.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\icm.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\isc.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\l2cc.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\lcdc.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\matrix.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\mcan.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\mpddrc.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\pdmic.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\pio.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\pit.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\pmc.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\ptc.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\pwm.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\qspi.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\rstc.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\rtc.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\rxlp.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\sckc.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\sdmmc.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\secumod.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\sfc.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\sfr.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\sfrbu.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\sha.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\shdwc.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\smc.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\spi.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\ssc.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\tc.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\tdes.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\trng.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\twihs.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\uart.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\udphs.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\uhphs.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\wdt.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\xdmac.h</name>
+                        </file>
+                    </group>
+                    <file>
+                        <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\atsama5d27.h</name>
+                    </file>
+                    <group>
+                        <name>pio</name>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\pio\sama5d27.h</name>
+                        </file>
+                    </group>
+                </group>
+                <group>
+                    <name>CMSIS</name>
+                    <group>
+                        <name>CMSIS</name>
+                        <group>
+                            <name>Core_A</name>
+                            <group>
+                                <name>Include</name>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\packs\CMSIS\CMSIS\Core_A\Include\cmsis_compiler.h</name>
+                                </file>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\packs\CMSIS\CMSIS\Core_A\Include\cmsis_gcc.h</name>
+                                </file>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\packs\CMSIS\CMSIS\Core_A\Include\cmsis_iccarm.h</name>
+                                </file>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\packs\CMSIS\CMSIS\Core_A\Include\cmsis_cp15.h</name>
+                                </file>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\packs\CMSIS\CMSIS\Core_A\Include\core_ca.h</name>
+                                </file>
+                            </group>
+                        </group>
+                    </group>
+                </group>
+            </group>
             <file>
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\osal\osal.h</name>
             </file>
@@ -2490,668 +2794,581 @@
                 <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\osal\osal_impl_basic.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\pdmic.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\pio.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\pio_ctrl.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\pit.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\aic\plib_aic.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\clk\plib_clk.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\lcdc\plib_lcdc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\matrix\plib_matrix.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\mmu\plib_mmu.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\pio\plib_pio.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\tc\plib_tc0.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\tc\plib_tc_common.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\twihs\plib_twihs1.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\twihs\plib_twihs_master.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\pmc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\ptc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\pwm.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\qspi.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\rstc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\rtc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\rxlp.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\pio\sama5d27.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\sckc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\sdmmc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\secumod.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\sfc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\sfr.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\sfrbu.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\sha.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\shdwc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\smc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\spi.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\ssc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\cache\sys_cache.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\input\sys_input.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\input\sys_input_gesture.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\input\sys_input_keyboard.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\input\sys_input_listener.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\input\sys_input_mouse.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\input\sys_input_touch.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\int\sys_int.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\int\sys_int_mapping.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\time\sys_time.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\time\sys_time_definitions.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\time\src\sys_time_local.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\system.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\system_common.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\system_module.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\tc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\tdes.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\toolchain_specifics.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\trng.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\twihs.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\uart.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\udphs.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\uhphs.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\user.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\wdt.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\packs\ATSAMA5D27_DFP\component\xdmac.h</name>
+                <name>$PROJ_DIR$\..\src\app.h</name>
             </file>
         </group>
         <group>
             <name>Source Files</name>
-            <file>
-                <name>$PROJ_DIR$\..\src\app.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\bsp\bsp.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\cstartup.s</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\driver\controller\lcdc\drv_gfx_lcdc.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\driver\i2c\src\drv_i2c.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\driver\i2c\src\drv_i2c_local.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\driver\input\drv_maxtouch.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\fault_handlers.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\gfx_assets.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_color.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_color_blend.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_color_convert.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_color_lerp.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_color_value.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_context.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_default_impl.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_display.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_display_def.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_draw_arc.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_draw_blit.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_draw_circle.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_draw_ellipse.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_draw_line.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_draw_pixel.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_draw_rect.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_draw_stretchblit.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_driver_def.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_driver_interface.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_get.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_interface.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_layer.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_math.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_pixel_buffer.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_processor_def.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_processor_interface.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_rect.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_set.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_util.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image_jpg_common.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image_jpg_external.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image_jpg_internal.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image_png_external.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image_png_internal.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image_raw_external.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image_raw_internal.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image_rle_external.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image_rle_internal.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image_utils.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_palette.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_string.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_string_external.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_string_internal.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_string_query.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_string_utils.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_stringbuffer_external.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\stdio\iar_monitor.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\initialization.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\interrupts.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\third_party\decoder\src\jidctint.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_array.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_context.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_context_paint.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_draw.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_editwidget.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_event.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\libaria_events.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\libaria_harmony.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\libaria_init.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_input.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_layer.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_list.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\libaria_macros.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_radiobutton_group.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_rectarray.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_scheme.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_screen.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_string.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_utils.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_arc.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_arc_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_bar_graph.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_bar_graph_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_button.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_button_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_checkbox.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_checkbox_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_circle.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_circle_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_circular_gauge.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_circular_gauge_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_circular_slider.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_circular_slider_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_drawsurface.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_drawsurface_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_gradient.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_gradient_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_groupbox.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_groupbox_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_image.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_image_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_imageplus.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_imageplus_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_imagesequence.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_imagesequence_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_keypad.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_keypad_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_label.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_label_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_line.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_line_graph.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_line_graph_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_line_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_list.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_list_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_listwheel.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_listwheel_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_pie_chart.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_pie_chart_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_progressbar.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_progressbar_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_radial_menu.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_radial_menu_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_radiobutton.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_radiobutton_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_rectangle.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_rectangle_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_scrollbar.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_scrollbar_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_skin_classic_common.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_slider.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_slider_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_textfield.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_textfield_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_touchtest.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_touchtest_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_window.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_window_skin_classic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\third_party\src\lodepng\lodepng.c</name>
-            </file>
+            <group>
+                <name>config</name>
+                <group>
+                    <name>lcdc_rgba8888_mxt_a5d2</name>
+                    <group>
+                        <name>gfx</name>
+                        <group>
+                            <name>hal</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_color.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_context.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_default_impl.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_display.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_display_def.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_driver_interface.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_driver_def.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_processor_def.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_get.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_interface.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_layer.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_pixel_buffer.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_processor_interface.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_rect.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_util.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_set.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_color_blend.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_color_convert.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_color_lerp.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_color_value.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_draw_arc.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_draw_blit.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_draw_circle.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_draw_ellipse.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_draw_line.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_draw_pixel.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_draw_rect.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_draw_stretchblit.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\hal\src\gfx_math.c</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>utils</name>
+                            <group>
+                                <name>src</name>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image_jpg_common.c</name>
+                                </file>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image_jpg_internal.c</name>
+                                </file>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image_jpg_external.c</name>
+                                </file>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image_png_external.c</name>
+                                </file>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image_png_internal.c</name>
+                                </file>
+                            </group>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image_raw_external.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image_raw_internal.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image_rle_external.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image_rle_internal.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_image_utils.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_palette.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_string.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_string_external.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_stringbuffer_external.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_string_internal.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_string_query.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\utils\src\gfxu_string_utils.c</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>third_party</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\third_party\decoder\src\jidctint.c</name>
+                            </file>
+                            <group>
+                                <name>lodepng</name>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\third_party\src\lodepng\lodepng.c</name>
+                                </file>
+                            </group>
+                        </group>
+                        <group>
+                            <name>libaria</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\libaria_harmony.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\libaria_init.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_array.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_context.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_context_paint.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_draw.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_editwidget.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_event.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_input.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_layer.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_list.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_rectarray.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_scheme.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_screen.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_string.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_utils.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_skin_classic_common.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_arc.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_arc_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_bar_graph.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_bar_graph_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_button.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_button_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_checkbox.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_checkbox_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_circle.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_circle_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_circular_gauge.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_circular_gauge_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_circular_slider.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_circular_slider_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_drawsurface.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_drawsurface_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_gradient.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_gradient_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_groupbox.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_groupbox_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_image.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_image_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_imageplus.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_imageplus_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_imagesequence.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_imagesequence_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_keypad.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_keypad_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_label.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_label_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_line.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_line_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_line_graph.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_line_graph_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_list.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_list_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_listwheel.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_listwheel_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_pie_chart.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_pie_chart_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_progressbar.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_progressbar_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_radial_menu.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_radial_menu_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_radiobutton.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_radiobutton_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_radiobutton_group.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_rectangle.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_rectangle_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_scrollbar.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_scrollbar_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_slider.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_slider_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_textfield.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_textfield_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_touchtest.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_touchtest_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_window.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\src\libaria_widget_window_skin_classic.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\libaria_events.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\libaria\libaria_macros.c</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>driver</name>
+                            <group>
+                                <name>lcdc</name>
+                                <file>
+                                    <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\driver\controller\lcdc\drv_gfx_lcdc.c</name>
+                                </file>
+                            </group>
+                        </group>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\gfx\gfx_assets.c</name>
+                        </file>
+                    </group>
+                    <file>
+                        <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\initialization.c</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\interrupts.c</name>
+                    </file>
+                    <group>
+                        <name>stdio</name>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\stdio\iar_monitor.c</name>
+                        </file>
+                    </group>
+                    <group>
+                        <name>peripheral</name>
+                        <group>
+                            <name>mmu</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\mmu\plib_mmu.c</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>matrix</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\matrix\plib_matrix.c</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>clk</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\clk\plib_clk.c</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>pio</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\pio\plib_pio.c</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>aic</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\aic\plib_aic.c</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>tc</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\tc\plib_tc0.c</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>lcdc</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\lcdc\plib_lcdc.c</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>twihs</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\twihs\plib_twihs1.c</name>
+                            </file>
+                        </group>
+                    </group>
+                    <file>
+                        <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\cstartup.s</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\fault_handlers.c</name>
+                    </file>
+                    <group>
+                        <name>driver</name>
+                        <group>
+                            <name>i2c</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\driver\i2c\src\drv_i2c.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\driver\i2c\src\drv_i2c_local.h</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>input</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\driver\input\drv_maxtouch.c</name>
+                            </file>
+                        </group>
+                    </group>
+                    <group>
+                        <name>system</name>
+                        <group>
+                            <name>time</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\time\src\sys_time.c</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>input</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\input\sys_input.c</name>
+                            </file>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\input\sys_input_listener.c</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>int</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\int\src\sys_int.c</name>
+                            </file>
+                        </group>
+                        <group>
+                            <name>cache</name>
+                            <file>
+                                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\cache\sys_cache.c</name>
+                            </file>
+                        </group>
+                    </group>
+                    <group>
+                        <name>bsp</name>
+                        <file>
+                            <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\bsp\bsp.c</name>
+                        </file>
+                    </group>
+                    <file>
+                        <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\tasks.c</name>
+                    </file>
+                </group>
+            </group>
             <file>
                 <name>$PROJ_DIR$\..\src\main.c</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\aic\plib_aic.c</name>
+                <name>$PROJ_DIR$\..\src\app.c</name>
             </file>
+        </group>
+        <group>
+            <name>Linker File</name>
             <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\clk\plib_clk.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\lcdc\plib_lcdc.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\matrix\plib_matrix.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\mmu\plib_mmu.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\pio\plib_pio.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\tc\plib_tc0.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\peripheral\twihs\plib_twihs1.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\cache\sys_cache.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\input\sys_input.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\input\sys_input_listener.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\int\src\sys_int.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\system\time\src\sys_time.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\tasks.c</name>
+                <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\ddr.icf</name>
             </file>
         </group>
     </group>
-    <file>
-        <name>$PROJ_DIR$\..\src\app_splash.h</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\..\src\app_splash_single_layer.c</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\..\src\config\lcdc_rgba8888_mxt_a5d2\lcdc_rgba8888_mxt_a5d2.ipcf</name>
-    </file>
-</project>
+    </project>
