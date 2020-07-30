@@ -4,7 +4,7 @@
 
 
 project: legato_adventure
-creation_date: 2020-07-27T16:16:14.817-07:00[America/Phoenix]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2020-07-30T13:13:51.704-07:00[America/Phoenix]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mhc_mode: IDE            # [IDE|Standalone|Headless]
 mplabx_version: v5.40        # if MPLAB X plugin only
@@ -29,5 +29,5 @@ modules:
     - {name: "net", version: "v3.4.0"}
     - {name: "repo-scripts", version: "unknown"}
     - {name: "touch", version: "v3.6.0"}
-    - {name: "usb", version: "unknown"}
+    - {name: "usb", version: "v3.6.0"}
 

@@ -58,6 +58,7 @@ static leResult _draw(const leImage* img,
     leRect imgRect, sourceClipRect;
     uint32_t itr, clr;
     uint8_t* ptr;
+    int32_t pngError;
 
 #if LE_STREAMING_ENABLED == 1
     leStream stream;
@@ -114,13 +115,18 @@ static leResult _draw(const leImage* img,
 #if LE_STREAMING_ENABLED == 1
     }
 #endif
-    lodepng_decode_memory(&decodedData,
-                          (unsigned int*)&width,
-                          (unsigned int*)&height,
-                          encodedData,
-                          img->header.size,
-                          img->buffer.mode == LE_COLOR_MODE_RGBA_8888 ? LCT_RGBA : LCT_RGB,
-                          8);
+    pngError = lodepng_decode_memory(&decodedData,
+                                    (unsigned int*)&width,
+                                    (unsigned int*)&height,
+                                     encodedData,
+                                     img->header.size,
+                                     img->buffer.mode == LE_COLOR_MODE_RGBA_8888 ? LCT_RGBA : LCT_RGB,
+                                     8);
+
+    LE_ASSERT(pngError == 0);
+
+    if(pngError != 0)
+        return LE_FAILURE;
 
 #if LE_STREAMING_ENABLED == 1
     if(img->header.location != LE_STREAM_LOCATION_ID_INTERNAL)

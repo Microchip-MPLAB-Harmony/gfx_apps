@@ -13,15 +13,6 @@ leLabelWidget* Screen2_LabelWidget4;
 leLabelWidget* Screen2_LabelWidget5;
 leButtonWidget* Screen2_ButtonWidget0;
 
-// string list for this screen
-static leTableString string_String_Demonstrated;
-static leTableString string_String_Device;
-static leTableString string_String_GfxController;
-static leTableString string_String_ColorDepth;
-static leTableString string_String_Library;
-static leTableString string_String_Features;
-static leTableString string_String_PressHere;
-
 static leBool initialized = LE_FALSE;
 static leBool showing = LE_FALSE;
 
@@ -39,15 +30,6 @@ leResult screenShow_Screen2()
 {
     if(showing == LE_TRUE)
         return LE_FAILURE;
-
-    // initialize static strings
-    leTableString_Constructor(&string_String_Demonstrated, stringID_String_Demonstrated);
-    leTableString_Constructor(&string_String_Device, stringID_String_Device);
-    leTableString_Constructor(&string_String_GfxController, stringID_String_GfxController);
-    leTableString_Constructor(&string_String_ColorDepth, stringID_String_ColorDepth);
-    leTableString_Constructor(&string_String_Library, stringID_String_Library);
-    leTableString_Constructor(&string_String_Features, stringID_String_Features);
-    leTableString_Constructor(&string_String_PressHere, stringID_String_PressHere);
 
     // layer 0
     root0 = leWidget_New();
@@ -148,14 +130,6 @@ void screenHide_Screen2()
     Screen2_LabelWidget4 = NULL;
     Screen2_LabelWidget5 = NULL;
     Screen2_ButtonWidget0 = NULL;
-
-    string_String_Demonstrated.fn->destructor(&string_String_Demonstrated);
-    string_String_Device.fn->destructor(&string_String_Device);
-    string_String_GfxController.fn->destructor(&string_String_GfxController);
-    string_String_ColorDepth.fn->destructor(&string_String_ColorDepth);
-    string_String_Library.fn->destructor(&string_String_Library);
-    string_String_Features.fn->destructor(&string_String_Features);
-    string_String_PressHere.fn->destructor(&string_String_PressHere);
 
 
     showing = LE_FALSE;

@@ -118,16 +118,16 @@
         <File dnOrder="12">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_fonts.c</Name>
-          <Security dnOrder="2"/>
+          <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/generated/font/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\font\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">B4C40717414AA17581927574D20ED863</GeneratedChecksum>
-          <UserChecksum dnOrder="6">B4C40717414AA17581927574D20ED863</UserChecksum>
+          <GeneratedChecksum dnOrder="5">27F15F92916437D9E19E1CC4403F77CA</GeneratedChecksum>
+          <UserChecksum dnOrder="6">27F15F92916437D9E19E1CC4403F77CA</UserChecksum>
         </File>
         <File dnOrder="13">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_globalpalette.c</Name>
-          <Security dnOrder="2"/>
+          <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/generated/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\</PhysicalPath>
           <GeneratedChecksum dnOrder="5">2D48DB8AD17CFF23FA87412540899BA2</GeneratedChecksum>
@@ -136,7 +136,7 @@
         <File dnOrder="14">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_harmony.c</Name>
-          <Security dnOrder="2"/>
+          <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/generated/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\</PhysicalPath>
           <GeneratedChecksum dnOrder="5">7B27ABEA143D66C8E8F9A9E2A0E7BAFE</GeneratedChecksum>
@@ -145,7 +145,7 @@
         <File dnOrder="15">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_images.c</Name>
-          <Security dnOrder="2"/>
+          <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/generated/image/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\image\</PhysicalPath>
           <GeneratedChecksum dnOrder="5">4D70C12C10871B68B1F28811CDD6180F</GeneratedChecksum>
@@ -154,16 +154,16 @@
         <File dnOrder="16">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_init.c</Name>
-          <Security dnOrder="2"/>
+          <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/generated/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">D8170ABF1324EA0C8D3C431B161CD350</GeneratedChecksum>
-          <UserChecksum dnOrder="6">D8170ABF1324EA0C8D3C431B161CD350</UserChecksum>
+          <GeneratedChecksum dnOrder="5">2764DCF860B6922BE9328562239C488B</GeneratedChecksum>
+          <UserChecksum dnOrder="6">2764DCF860B6922BE9328562239C488B</UserChecksum>
         </File>
         <File dnOrder="17">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_scheme.c</Name>
-          <Security dnOrder="2"/>
+          <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/generated/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\</PhysicalPath>
           <GeneratedChecksum dnOrder="5">0CCCFBD2927BF2B455249EB8F0E33CA8</GeneratedChecksum>
@@ -172,7 +172,7 @@
         <File dnOrder="18">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_screen_Screen0.c</Name>
-          <Security dnOrder="2"/>
+          <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/generated/screen/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\screen\</PhysicalPath>
           <GeneratedChecksum dnOrder="5">6590860CC45404B529775DEA8754D51C</GeneratedChecksum>
@@ -181,29 +181,29 @@
         <File dnOrder="19">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_screen_Screen1.c</Name>
-          <Security dnOrder="2"/>
+          <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/generated/screen/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\screen\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">43317F4CF5B9EF39D527A91AE800F2EE</GeneratedChecksum>
-          <UserChecksum dnOrder="6">43317F4CF5B9EF39D527A91AE800F2EE</UserChecksum>
+          <GeneratedChecksum dnOrder="5">50E9C4953363E632C90D4CC840E28947</GeneratedChecksum>
+          <UserChecksum dnOrder="6">50E9C4953363E632C90D4CC840E28947</UserChecksum>
         </File>
         <File dnOrder="20">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_screen_Screen2.c</Name>
-          <Security dnOrder="2"/>
+          <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/generated/screen/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\screen\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">109BFE863FF303B2AE57846504F60D0F</GeneratedChecksum>
-          <UserChecksum dnOrder="6">109BFE863FF303B2AE57846504F60D0F</UserChecksum>
+          <GeneratedChecksum dnOrder="5">F14AD31410D32FA0DB3AE0F5AF54F3DC</GeneratedChecksum>
+          <UserChecksum dnOrder="6">F14AD31410D32FA0DB3AE0F5AF54F3DC</UserChecksum>
         </File>
         <File dnOrder="21">
           <Type dnOrder="0">SOURCE</Type>
           <Name dnOrder="1">le_gen_stringtable.c</Name>
-          <Security dnOrder="2"/>
+          <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/generated/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">1673E284483B74FF9FC4385DD35F28D1</GeneratedChecksum>
-          <UserChecksum dnOrder="6">1673E284483B74FF9FC4385DD35F28D1</UserChecksum>
+          <GeneratedChecksum dnOrder="5">77478509871696BF33BFF6CB2F932109</GeneratedChecksum>
+          <UserChecksum dnOrder="6">77478509871696BF33BFF6CB2F932109</UserChecksum>
         </File>
         <File dnOrder="22">
           <Type dnOrder="0">SOURCE</Type>
@@ -409,8 +409,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/image/png</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato/image/png/</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">F7C36097DBF4B6FBA937A98ADCFF7EE8</GeneratedChecksum>
-          <UserChecksum dnOrder="6">F7C36097DBF4B6FBA937A98ADCFF7EE8</UserChecksum>
+          <GeneratedChecksum dnOrder="5">6CB8CE5E216B81103030A3D8A4C899AA</GeneratedChecksum>
+          <UserChecksum dnOrder="6">6CB8CE5E216B81103030A3D8A4C899AA</UserChecksum>
         </File>
         <File dnOrder="45">
           <Type dnOrder="0">SOURCE</Type>
@@ -697,8 +697,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/string</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato/string/</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">24A9753F60FEA8EB34BD822041B0C53D</GeneratedChecksum>
-          <UserChecksum dnOrder="6">24A9753F60FEA8EB34BD822041B0C53D</UserChecksum>
+          <GeneratedChecksum dnOrder="5">9F9490F1010E3E44A093406DE5FC10F3</GeneratedChecksum>
+          <UserChecksum dnOrder="6">9F9490F1010E3E44A093406DE5FC10F3</UserChecksum>
         </File>
         <File dnOrder="77">
           <Type dnOrder="0">SOURCE</Type>
@@ -724,8 +724,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/string</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato/string/</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">F854DEE4AB87DDFAAAC2ACDE8DDBBCEE</GeneratedChecksum>
-          <UserChecksum dnOrder="6">F854DEE4AB87DDFAAAC2ACDE8DDBBCEE</UserChecksum>
+          <GeneratedChecksum dnOrder="5">40C1D751635A0126FCB40529C5885A18</GeneratedChecksum>
+          <UserChecksum dnOrder="6">40C1D751635A0126FCB40529C5885A18</UserChecksum>
         </File>
         <File dnOrder="80">
           <Type dnOrder="0">SOURCE</Type>
@@ -1660,8 +1660,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/</LogicalPath>
           <PhysicalPath dnOrder="4">/</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">4DD83BEDF07ACC737D34960CF8B76CCA</GeneratedChecksum>
-          <UserChecksum dnOrder="6">4DD83BEDF07ACC737D34960CF8B76CCA</UserChecksum>
+          <GeneratedChecksum dnOrder="5">2408BC971AACF40B5DE0EC529C97F938</GeneratedChecksum>
+          <UserChecksum dnOrder="6">2408BC971AACF40B5DE0EC529C97F938</UserChecksum>
         </File>
         <File dnOrder="184">
           <Type dnOrder="0">HEADER</Type>
@@ -1819,16 +1819,16 @@
         <File dnOrder="201">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_assets.h</Name>
-          <Security dnOrder="2"/>
+          <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/generated/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">0A1CFE5521F555EB64C81903CCA5A56D</GeneratedChecksum>
-          <UserChecksum dnOrder="6">0A1CFE5521F555EB64C81903CCA5A56D</UserChecksum>
+          <GeneratedChecksum dnOrder="5">81C92E6177D91948BB15F7D3DD0A1F13</GeneratedChecksum>
+          <UserChecksum dnOrder="6">81C92E6177D91948BB15F7D3DD0A1F13</UserChecksum>
         </File>
         <File dnOrder="202">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_harmony.h</Name>
-          <Security dnOrder="2"/>
+          <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/generated/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\</PhysicalPath>
           <GeneratedChecksum dnOrder="5">B304831F3C1AFA7F7A497602EDC016F8</GeneratedChecksum>
@@ -1837,7 +1837,7 @@
         <File dnOrder="203">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_init.h</Name>
-          <Security dnOrder="2"/>
+          <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/generated/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\</PhysicalPath>
           <GeneratedChecksum dnOrder="5">8B2E96B0598410D300C64E6E32AAACA8</GeneratedChecksum>
@@ -1846,7 +1846,7 @@
         <File dnOrder="204">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_scheme.h</Name>
-          <Security dnOrder="2"/>
+          <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/generated/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\</PhysicalPath>
           <GeneratedChecksum dnOrder="5">DEAF197860F91B2CE18CA375CE475887</GeneratedChecksum>
@@ -1855,7 +1855,7 @@
         <File dnOrder="205">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_screen_Screen0.h</Name>
-          <Security dnOrder="2"/>
+          <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/generated/screen/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\screen\</PhysicalPath>
           <GeneratedChecksum dnOrder="5">EEED820CCEFB4EACF31133656A7B3E43</GeneratedChecksum>
@@ -1864,16 +1864,16 @@
         <File dnOrder="206">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_screen_Screen1.h</Name>
-          <Security dnOrder="2"/>
+          <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/generated/screen/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\screen\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">52C6143A98FF6A99B12E4B6F9F50B382</GeneratedChecksum>
-          <UserChecksum dnOrder="6">52C6143A98FF6A99B12E4B6F9F50B382</UserChecksum>
+          <GeneratedChecksum dnOrder="5">37E3D99A88F5124820035DD4ACB23015</GeneratedChecksum>
+          <UserChecksum dnOrder="6">37E3D99A88F5124820035DD4ACB23015</UserChecksum>
         </File>
         <File dnOrder="207">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">le_gen_screen_Screen2.h</Name>
-          <Security dnOrder="2"/>
+          <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/generated/screen/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\screen\</PhysicalPath>
           <GeneratedChecksum dnOrder="5">58137B3E9E849435BF79317C9E4D9160</GeneratedChecksum>
@@ -1918,7 +1918,7 @@
         <File dnOrder="212">
           <Type dnOrder="0">HEADER</Type>
           <Name dnOrder="1">legato_config.h</Name>
-          <Security dnOrder="2"/>
+          <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ssd1963_rgb565_mxt_wvga/gfx/legato/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\</PhysicalPath>
           <GeneratedChecksum dnOrder="5">8CAE3828DBF45579BEE8503903EBDB63</GeneratedChecksum>
