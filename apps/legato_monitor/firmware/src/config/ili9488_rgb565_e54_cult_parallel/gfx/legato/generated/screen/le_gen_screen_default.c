@@ -12,10 +12,6 @@ leImageWidget* default_HeartImage;
 leImageWidget* default_ImageWidget6;
 leButtonWidget* default_ButtonWidget0;
 
-// string list for this screen
-static leTableString string_ClearVal;
-static leTableString string_DefaultTime;
-
 static leBool initialized = LE_FALSE;
 static leBool showing = LE_FALSE;
 
@@ -33,10 +29,6 @@ leResult screenShow_default()
 {
     if(showing == LE_TRUE)
         return LE_FAILURE;
-
-    // initialize static strings
-    leTableString_Constructor(&string_ClearVal, stringID_ClearVal);
-    leTableString_Constructor(&string_DefaultTime, stringID_DefaultTime);
 
     // layer 0
     root0 = leWidget_New();
@@ -147,9 +139,6 @@ void screenHide_default()
     default_HeartImage = NULL;
     default_ImageWidget6 = NULL;
     default_ButtonWidget0 = NULL;
-
-    string_ClearVal.fn->destructor(&string_ClearVal);
-    string_DefaultTime.fn->destructor(&string_DefaultTime);
 
 
     showing = LE_FALSE;
