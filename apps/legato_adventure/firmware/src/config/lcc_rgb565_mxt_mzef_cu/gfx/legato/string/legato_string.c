@@ -123,10 +123,6 @@ uint32_t _leString_GetLineCount(const leString* _this)
         {
             count += 1;
         }
-        else if(chr == '\0')
-        {
-            break;
-        }
     }
     
     return count;
@@ -158,7 +154,7 @@ leResult _leString_GetLineIndices(const leString* _this,
     {
         chr = _this->fn->charAt(_this, idx);
         
-        if(chr == LE_STRING_LINEBREAK || chr == '\0')
+        if(chr == LE_STRING_LINEBREAK)
         {
             *end = idx;
             
@@ -166,8 +162,7 @@ leResult _leString_GetLineIndices(const leString* _this,
                 return LE_SUCCESS;
                 
             count += 1;
-                
-            /* TODO test this */
+
             *start = idx + 1;
         }
     }
@@ -244,7 +239,7 @@ leResult _leString_GetCharRect(const leString* _this,
     {
         chr = _this->fn->charAt(_this, idx);
         
-        if(chr == LE_STRING_LINEBREAK || chr == '\0')
+        if(chr == LE_STRING_LINEBREAK)
         {
         }
         else if(idx == charIdx)
@@ -267,7 +262,6 @@ leResult _leString_GetCharRect(const leString* _this,
     return LE_FAILURE;
 }
 
-// TODO does not support multiline
 leResult _leString_GetCharIndexAtPoint(const leString* _this,
                                        const lePoint* pt,
                                        uint32_t* charIdx)
@@ -299,11 +293,7 @@ leResult _leString_GetCharIndexAtPoint(const leString* _this,
     {
         chr = _this->fn->charAt(_this, idx);
 
-        if(chr == '\0')
-        {
-            break;
-        }
-        else if(chr == LE_STRING_LINEBREAK)
+        if(chr == LE_STRING_LINEBREAK)
         {
             rect.x = 0;
             rect.y += fnt->height;

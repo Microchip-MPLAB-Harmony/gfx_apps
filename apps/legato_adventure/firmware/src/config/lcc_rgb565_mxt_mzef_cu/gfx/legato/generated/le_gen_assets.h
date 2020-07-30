@@ -518,9 +518,9 @@ extern leImage mchp_logo;
  * Legato Font Asset
  * Name:         NotoSans_Regular
  * Height:       21
- * Baseline:     0
+ * Baseline:     15
  * Style:        Antialias
- * Glyph Count:  0
+ * Glyph Count:  16
  * Range Count:  10
  * Glyph Ranges: 0x20
                  0x44
@@ -539,9 +539,9 @@ extern leRasterFont NotoSans_Regular;
  * Legato Font Asset
  * Name:         NotoSans_Regular_Small
  * Height:       21
- * Baseline:     0
+ * Baseline:     12
  * Style:        Antialias
- * Glyph Count:  0
+ * Glyph Count:  57
  * Range Count:  13
  * Glyph Ranges: 0x20
                  0x28-0x29
@@ -581,6 +581,18 @@ extern leRasterFont NotoSans_Regular_Small;
 
 extern const leStringTable stringTable;
 
+
+// string list
+extern leTableString string_String_Demonstrated;
+extern leTableString string_String_Resolution;
+extern leTableString string_String_ColorDepth;
+extern leTableString string_String_Library;
+extern leTableString string_String_Features;
+extern leTableString string_String_Device;
+extern leTableString string_String_PressHere;
+extern leTableString string_String_GfxController;
+
+void initializeStrings(void);
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }
