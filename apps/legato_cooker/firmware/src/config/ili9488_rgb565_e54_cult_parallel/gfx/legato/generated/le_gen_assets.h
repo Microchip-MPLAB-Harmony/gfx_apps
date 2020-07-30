@@ -549,6 +549,42 @@ extern leRasterFont NotoSans_Regular_Time2;
 
 extern const leStringTable stringTable;
 
+
+// string list
+extern leTableString string_PizzaMenuItem;
+extern leTableString string_Vegetables;
+extern leTableString string_Start;
+extern leTableString string_DefaultMinute2;
+extern leTableString string_GoodBytes;
+extern leTableString string_Heat;
+extern leTableString string_Ham;
+extern leTableString string_Bytes;
+extern leTableString string_SteakMenuItem;
+extern leTableString string_Hotdog;
+extern leTableString string_Seafood;
+extern leTableString string_Meat;
+extern leTableString string_Poultry;
+extern leTableString string_Sausage;
+extern leTableString string_Steak;
+extern leTableString string_Pasta;
+extern leTableString string_DefaultHour;
+extern leTableString string_QuickItems;
+extern leTableString string_by;
+extern leTableString string_Done;
+extern leTableString string_QuickSelect;
+extern leTableString string_DefaultCookTime;
+extern leTableString string_DefaultMinute;
+extern leTableString string_SalmonMenuItem;
+extern leTableString string_Colon;
+extern leTableString string_Breakfast;
+extern leTableString string_Kabobs;
+extern leTableString string_DefaultTime2;
+extern leTableString string_Favorites;
+extern leTableString string_SmartCooker;
+extern leTableString string_Bacon;
+extern leTableString string_DefaultHour2;
+
+void initializeStrings(void);
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }

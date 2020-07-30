@@ -6,6 +6,8 @@ void legato_initialize(void)
 {
     leSetStringTable(&stringTable);
 
+    initializeStrings();
+
     screenInit_Intro();
     screenInit_MainMenu();
     screenInit_ColorScreen();

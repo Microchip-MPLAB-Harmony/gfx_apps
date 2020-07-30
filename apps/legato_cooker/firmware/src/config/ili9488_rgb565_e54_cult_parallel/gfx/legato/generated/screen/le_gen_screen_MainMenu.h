@@ -28,28 +28,28 @@ extern leButtonWidget* MainMenu_ButtonWidget0;
 extern leImageWidget* MainMenu_ImageWidget9;
 extern leButtonWidget* MainMenu_DemoModeOnButton;
 extern leListWheelWidget* MainMenu_ListWheelWidget2;
-extern leButtonWidget* MainMenu_BakeButton;
-extern leButtonWidget* MainMenu_CookButton;
-extern leButtonWidget* MainMenu_BroilButton;
 extern leButtonWidget* MainMenu_ReheatButton;
-extern leLabelWidget* MainMenu_LabelWidget0;
-extern leLabelWidget* MainMenu_LabelWidget3;
+extern leButtonWidget* MainMenu_BroilButton;
+extern leButtonWidget* MainMenu_CookButton;
+extern leButtonWidget* MainMenu_BakeButton;
 extern leLabelWidget* MainMenu_LabelWidget1;
-extern leLabelWidget* MainMenu_MinuteLabel;
-extern leLabelWidget* MainMenu_ColonLabel;
-extern leImageWidget* MainMenu_ImageWidget6;
+extern leLabelWidget* MainMenu_LabelWidget3;
+extern leLabelWidget* MainMenu_LabelWidget0;
 extern leLabelWidget* MainMenu_HourLabel;
-extern leImageWidget* MainMenu_ImageWidget0;
-extern leRectangleWidget* MainMenu_RectangleWidget0;
-extern leRectangleWidget* MainMenu_RectangleWidget1;
-extern leRectangleWidget* MainMenu_RectangleWidget2;
-extern leRectangleWidget* MainMenu_RectangleWidget3;
-extern leImageWidget* MainMenu_ModeImageWidget;
-extern leLabelWidget* MainMenu_CookTimeLabel;
-extern leProgressBarWidget* MainMenu_ProgressBarWidget0;
-extern leButtonWidget* MainMenu_CancelButton;
-extern leButtonWidget* MainMenu_RestartButton;
+extern leImageWidget* MainMenu_ImageWidget6;
+extern leLabelWidget* MainMenu_ColonLabel;
+extern leLabelWidget* MainMenu_MinuteLabel;
 extern leButtonWidget* MainMenu_SliderButton0;
+extern leButtonWidget* MainMenu_RestartButton;
+extern leButtonWidget* MainMenu_CancelButton;
+extern leProgressBarWidget* MainMenu_ProgressBarWidget0;
+extern leLabelWidget* MainMenu_CookTimeLabel;
+extern leImageWidget* MainMenu_ModeImageWidget;
+extern leRectangleWidget* MainMenu_RectangleWidget3;
+extern leRectangleWidget* MainMenu_RectangleWidget2;
+extern leRectangleWidget* MainMenu_RectangleWidget1;
+extern leRectangleWidget* MainMenu_RectangleWidget0;
+extern leImageWidget* MainMenu_ImageWidget0;
 
 // event handlers
 // !!THESE MUST BE IMPLEMENTED IN THE APPLICATION CODE!!
@@ -57,12 +57,12 @@ void event_MainMenu_ButtonWidget0_OnReleased(leButtonWidget* btn);
 void event_MainMenu_DemoModeOnButton_OnPressed(leButtonWidget* btn);
 void event_MainMenu_DemoModeOnButton_OnReleased(leButtonWidget* btn);
 void event_MainMenu_ListWheelWidget2_OnSelectionChanged(leListWheelWidget* wgt, int32_t idx);
-void event_MainMenu_BakeButton_OnReleased(leButtonWidget* btn);
-void event_MainMenu_CookButton_OnReleased(leButtonWidget* btn);
-void event_MainMenu_BroilButton_OnReleased(leButtonWidget* btn);
 void event_MainMenu_ReheatButton_OnReleased(leButtonWidget* btn);
-void event_MainMenu_CancelButton_OnReleased(leButtonWidget* btn);
+void event_MainMenu_BroilButton_OnReleased(leButtonWidget* btn);
+void event_MainMenu_CookButton_OnReleased(leButtonWidget* btn);
+void event_MainMenu_BakeButton_OnReleased(leButtonWidget* btn);
 void event_MainMenu_RestartButton_OnReleased(leButtonWidget* btn);
+void event_MainMenu_CancelButton_OnReleased(leButtonWidget* btn);
 
 // screen lifecycle functions
 // DO NOT CALL THESE DIRECTLY
