@@ -129,8 +129,6 @@ void LibAria_DemoModeAddInputEvent(uint32_t dt_ms,
         demoModeEvents.demoEvents[demoModeEvents.numEvents].x = x;
         demoModeEvents.demoEvents[demoModeEvents.numEvents].y = y;
         demoModeEvents.numEvents++;
-
-        //SYS_PRINT("\nLibAria_DemoModeAddInputEvent(%u, %u, %d, %d, %d);\r", dt_ms, te, index, x, y);
     }
 }
 

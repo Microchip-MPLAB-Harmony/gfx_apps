@@ -470,7 +470,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.40</languageToolchainVersion>
+        <languageToolchainVersion>2.41</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
@@ -512,7 +512,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/glcd_rgba8888_mxt_mzda_intddr_sk;../src/packs/PIC32MZ2064DAR169_DFP;"/>
+                  value="../src;../src/config/glcd_rgba8888_mxt_mzda_intddr_sk;../src/packs/PIC32MZ2064DAR169_DFP"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
