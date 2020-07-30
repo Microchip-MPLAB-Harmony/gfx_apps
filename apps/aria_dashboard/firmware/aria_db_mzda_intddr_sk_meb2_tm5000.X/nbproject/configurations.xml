@@ -447,6 +447,7 @@
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
       <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk_wvga/harmony.prj</itemPath>
+      <itemPath>../src/config/glcd_rgba8888_mxt_mzda_intddr_sk_wvga/glcd_rgba8888_mxt_mzda_intddr_sk_wvga.xml</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -460,9 +461,9 @@
         <targetDevice>PIC32MZ2064DAR169</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool></platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>2.40</languageToolchainVersion>
+        <languageToolchainVersion>2.41</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
