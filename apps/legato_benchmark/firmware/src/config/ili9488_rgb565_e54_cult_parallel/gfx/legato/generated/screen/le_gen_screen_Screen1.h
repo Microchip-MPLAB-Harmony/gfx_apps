@@ -17,21 +17,21 @@ extern leWidget* Screen1_FPSBackground;
 extern leLabelWidget* Screen1_FPSCounterValue;
 extern leWidget* Screen1_FPSSideContainer;
 extern leButtonWidget* Screen1_FPSUpdateValue;
-extern leLabelWidget* Screen1_FPSSizeLabel;
-extern leLabelWidget* Screen1_FPSStringSize;
-extern leButtonWidget* Screen1_FPSNextButton;
-extern leLabelWidget* Screen1_FPSContainerTitle;
-extern leButtonWidget* Screen1_FPSCounterSizeUp;
-extern leButtonWidget* Screen1_FPSCounterSizeDown;
-extern leLabelWidget* Screen1_FPSRefreshValue;
-extern leLabelWidget* Screen1_FPSRefreshLabel;
 extern leLabelWidget* Screen1_FPSUpdateLabel;
+extern leLabelWidget* Screen1_FPSRefreshLabel;
+extern leLabelWidget* Screen1_FPSRefreshValue;
+extern leButtonWidget* Screen1_FPSCounterSizeDown;
+extern leButtonWidget* Screen1_FPSCounterSizeUp;
+extern leLabelWidget* Screen1_FPSContainerTitle;
+extern leButtonWidget* Screen1_FPSNextButton;
+extern leLabelWidget* Screen1_FPSStringSize;
+extern leLabelWidget* Screen1_FPSSizeLabel;
 
 // event handlers
 // !!THESE MUST BE IMPLEMENTED IN THE APPLICATION CODE!!
-void event_Screen1_FPSNextButton_OnPressed(leButtonWidget* btn);
-void event_Screen1_FPSCounterSizeUp_OnPressed(leButtonWidget* btn);
 void event_Screen1_FPSCounterSizeDown_OnPressed(leButtonWidget* btn);
+void event_Screen1_FPSCounterSizeUp_OnPressed(leButtonWidget* btn);
+void event_Screen1_FPSNextButton_OnPressed(leButtonWidget* btn);
 
 // screen lifecycle functions
 // DO NOT CALL THESE DIRECTLY

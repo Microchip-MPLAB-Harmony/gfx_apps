@@ -16,27 +16,27 @@ extern "C" {
 extern leWidget* Screen3_ImageBackground;
 extern leImageWidget* Screen3_ImageRenderArea;
 extern leWidget* Screen3_ImageSideContainer;
-extern leButtonWidget* Screen3_ImageUpdateValue;
-extern leButtonWidget* Screen3_ImageTypeNextButton;
-extern leButtonWidget* Screen3_ImageTypePrevButton;
-extern leLabelWidget* Screen3_ImageTypeValue;
-extern leLabelWidget* Screen3_ImageTypeLabel;
-extern leLabelWidget* Screen3_ImageSizeValue;
-extern leLabelWidget* Screen3_ImageSizeLabel;
-extern leButtonWidget* Screen3_ImageSizeUpButton;
-extern leButtonWidget* Screen3_ImageSizeDownButton;
-extern leButtonWidget* Screen3_ImageNextButton;
-extern leLabelWidget* Screen3_ImageContainerTitle;
-extern leLabelWidget* Screen3_ImageRefreshValue;
-extern leLabelWidget* Screen3_ImageRefreshLabel;
 extern leLabelWidget* Screen3_ImageUpdateLabel;
+extern leLabelWidget* Screen3_ImageRefreshLabel;
+extern leLabelWidget* Screen3_ImageRefreshValue;
+extern leLabelWidget* Screen3_ImageContainerTitle;
+extern leButtonWidget* Screen3_ImageNextButton;
+extern leButtonWidget* Screen3_ImageSizeDownButton;
+extern leButtonWidget* Screen3_ImageSizeUpButton;
+extern leLabelWidget* Screen3_ImageSizeLabel;
+extern leLabelWidget* Screen3_ImageSizeValue;
+extern leLabelWidget* Screen3_ImageTypeLabel;
+extern leLabelWidget* Screen3_ImageTypeValue;
+extern leButtonWidget* Screen3_ImageTypePrevButton;
+extern leButtonWidget* Screen3_ImageTypeNextButton;
+extern leButtonWidget* Screen3_ImageUpdateValue;
 
 // event handlers
 // !!THESE MUST BE IMPLEMENTED IN THE APPLICATION CODE!!
-void event_Screen3_ImageTypeNextButton_OnPressed(leButtonWidget* btn);
-void event_Screen3_ImageTypePrevButton_OnPressed(leButtonWidget* btn);
-void event_Screen3_ImageSizeUpButton_OnPressed(leButtonWidget* btn);
 void event_Screen3_ImageSizeDownButton_OnPressed(leButtonWidget* btn);
+void event_Screen3_ImageSizeUpButton_OnPressed(leButtonWidget* btn);
+void event_Screen3_ImageTypePrevButton_OnPressed(leButtonWidget* btn);
+void event_Screen3_ImageTypeNextButton_OnPressed(leButtonWidget* btn);
 
 // screen lifecycle functions
 // DO NOT CALL THESE DIRECTLY
