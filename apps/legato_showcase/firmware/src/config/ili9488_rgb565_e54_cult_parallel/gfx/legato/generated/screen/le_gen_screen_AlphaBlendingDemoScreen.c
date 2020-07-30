@@ -61,7 +61,6 @@ leResult screenShow_AlphaBlendingDemoScreen()
     AlphaBlendingDemoScreen_SliderWidget1->fn->setSize(AlphaBlendingDemoScreen_SliderWidget1, 48, 106);
     AlphaBlendingDemoScreen_SliderWidget1->fn->setBackgroundType(AlphaBlendingDemoScreen_SliderWidget1, LE_WIDGET_BACKGROUND_NONE);
     AlphaBlendingDemoScreen_SliderWidget1->fn->setMaximumValue(AlphaBlendingDemoScreen_SliderWidget1, 255);
-    AlphaBlendingDemoScreen_SliderWidget1->fn->setValue(AlphaBlendingDemoScreen_SliderWidget1, 127);
     AlphaBlendingDemoScreen_SliderWidget1->fn->setGripSize(AlphaBlendingDemoScreen_SliderWidget1, 15);
     AlphaBlendingDemoScreen_SliderWidget1->fn->setValueChangedEventCallback(AlphaBlendingDemoScreen_SliderWidget1, event_AlphaBlendingDemoScreen_SliderWidget1_OnValueChanged);
     AlphaBlendingDemoScreen_PanelWidget1->fn->addChild(AlphaBlendingDemoScreen_PanelWidget1, (leWidget*)AlphaBlendingDemoScreen_SliderWidget1);

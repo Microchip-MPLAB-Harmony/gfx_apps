@@ -175,8 +175,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\screen\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">A5D07E4CE9FE1CD686AC9D8C5BA6EAF4</GeneratedChecksum>
-          <UserChecksum dnOrder="6">A5D07E4CE9FE1CD686AC9D8C5BA6EAF4</UserChecksum>
+          <GeneratedChecksum dnOrder="5">E67603289252A2410079E7EE022CE52B</GeneratedChecksum>
+          <UserChecksum dnOrder="6">E67603289252A2410079E7EE022CE52B</UserChecksum>
         </File>
         <File dnOrder="19">
           <Type dnOrder="0">SOURCE</Type>
