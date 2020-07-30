@@ -1107,7 +1107,7 @@ extern GFXU_FontAsset NotoSans_Bold;
 /*********************************
  * GFX Font Asset
  * Name:         NotoSans_Bold_Small
- * Height:       17
+ * Height:       16
  * Style:        Bold, Antialias
  * Glyph Count:  17
  * Range Count:  12
@@ -1129,7 +1129,7 @@ extern GFXU_FontAsset NotoSans_Bold_Small;
 /*********************************
  * GFX Font Asset
  * Name:         NotoSans_Regular
- * Height:       23
+ * Height:       21
  * Style:        Bold, Antialias
  * Glyph Count:  42
  * Range Count:  19
@@ -1158,7 +1158,7 @@ extern GFXU_FontAsset NotoSans_Regular;
 /*********************************
  * GFX Font Asset
  * Name:         NotoSans_Regular_Large
- * Height:       39
+ * Height:       37
  * Style:        Antialias
  * Glyph Count:  26
  * Range Count:  11

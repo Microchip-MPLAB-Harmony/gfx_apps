@@ -71,14 +71,14 @@
 #define GFX_GLCD_CONFIG_CLK_DIVIDER 16
 
 /*** GLCD Layer 0 Configuration ***/
-#define  GFX_GLCD_LAYER0_BASEADDR                      0xA8900000
-#define  GFX_GLCD_LAYER0_DBL_BASEADDR                  0xA897F800
+#define  GFX_GLCD_LAYER0_BASEADDR                      0xA8A7D800
+#define  GFX_GLCD_LAYER0_DBL_BASEADDR                  0xA89FE000
 /*** GLCD Layer 1 Configuration ***/
-#define  GFX_GLCD_LAYER1_BASEADDR                      0xA89FF000
-#define  GFX_GLCD_LAYER1_DBL_BASEADDR                  0xA8A7E800
+#define  GFX_GLCD_LAYER1_BASEADDR                      0xA897E800
+#define  GFX_GLCD_LAYER1_DBL_BASEADDR                  0xA88FF000
 /*** GLCD Layer 2 Configuration ***/
-#define  GFX_GLCD_LAYER2_BASEADDR                      0xA8AFE000
-#define  GFX_GLCD_LAYER2_DBL_BASEADDR                  0xA8B7D800
+#define  GFX_GLCD_LAYER2_BASEADDR                      0xA887F800
+#define  GFX_GLCD_LAYER2_DBL_BASEADDR                  0xA8800000
 
 #define LCDC_DEFAULT_GFX_COLOR_MODE GFX_COLOR_MODE_RGBA_8888
 #define FRAMEBUFFER_PTR_TYPE    uint32_t*
