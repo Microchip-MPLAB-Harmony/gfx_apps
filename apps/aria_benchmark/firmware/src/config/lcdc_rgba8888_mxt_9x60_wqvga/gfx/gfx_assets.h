@@ -464,12 +464,13 @@ extern GFXU_FontAsset ArialNarrowMed;
  * Name:         ArialTiny
  * Height:       14
  * Style:        Plain
- * Glyph Count:  48
- * Range Count:  16
+ * Glyph Count:  50
+ * Range Count:  17
  * Glyph Ranges: 0x20
 			     0x28-0x29
 			     0x2D
-			     0x30-0x3A
+			     0x2F-0x3A
+			     0x41
 			     0x44-0x48
 			     0x4A
 			     0x4C
@@ -554,7 +555,7 @@ extern GFXU_FontAsset ArialTinyAve;
  * Name:         stringTable
  * Encoding:     ASCII
  * Languages:    default
- * String Count: 30
+ * String Count: 31
  ***********************************/
 // language IDs
 #define language_default    0
@@ -588,8 +589,9 @@ extern GFXU_FontAsset ArialTinyAve;
 #define string_RefreshRate    25
 #define string_RefreshRateCount    26
 #define string_Size    27
-#define string_StringSize    28
-#define string_ave    29
+#define string_StringNA    28
+#define string_StringSize    29
+#define string_ave    30
  
 extern GFXU_StringTableAsset stringTable;
 

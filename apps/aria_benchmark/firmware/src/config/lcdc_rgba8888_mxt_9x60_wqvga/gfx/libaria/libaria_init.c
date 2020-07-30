@@ -940,7 +940,7 @@ static void ScreenCreate_FPSImages(laScreen* screen)
     laWidget_SetSize((laWidget*)ImageRefRateCountLabel, 101, 24);
     laWidget_SetBackgroundType((laWidget*)ImageRefRateCountLabel, LA_WIDGET_BACKGROUND_NONE);
     laWidget_SetBorderType((laWidget*)ImageRefRateCountLabel, LA_WIDGET_BORDER_NONE);
-    laLabelWidget_SetText(ImageRefRateCountLabel, laString_CreateFromID(string_NumsLittle));
+    laLabelWidget_SetText(ImageRefRateCountLabel, laString_CreateFromID(string_StringNA));
     laWidget_AddChild((laWidget*)PanelWidget48, (laWidget*)ImageRefRateCountLabel);
 
     LabelWidget53 = laLabelWidget_New();
