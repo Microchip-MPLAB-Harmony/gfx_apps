@@ -25,28 +25,28 @@ extern leRectangleWidget* Screen2_RectMotionWidget3;
 extern leRectangleWidget* Screen2_RectMotionWidget2;
 extern leRectangleWidget* Screen2_RectMotionWidget1;
 extern leWidget* Screen2_MotionSideContainer;
-extern leButtonWidget* Screen2_MotionUpdateValue;
-extern leButtonWidget* Screen2_MotionSizeUpButton;
-extern leButtonWidget* Screen2_MotionSizeDownButton;
-extern leLabelWidget* Screen2_MotionRectSizeValue;
-extern leLabelWidget* Screen2_MotionRectSizeLabel;
-extern leLabelWidget* Screen2_MotionRectCount;
-extern leLabelWidget* Screen2_MotionNumLabel;
-extern leButtonWidget* Screen2_MotionPlusButton;
-extern leButtonWidget* Screen2_MotionMinusButton;
-extern leButtonWidget* Screen2_MotionNextButton;
-extern leLabelWidget* Screen2_MotionContainerTitle;
-extern leLabelWidget* Screen2_MotionRefreshValue;
-extern leLabelWidget* Screen2_MotionRefreshLabel;
 extern leLabelWidget* Screen2_MotionUpdateLabel;
+extern leLabelWidget* Screen2_MotionRefreshLabel;
+extern leLabelWidget* Screen2_MotionRefreshValue;
+extern leLabelWidget* Screen2_MotionContainerTitle;
+extern leButtonWidget* Screen2_MotionNextButton;
+extern leButtonWidget* Screen2_MotionMinusButton;
+extern leButtonWidget* Screen2_MotionPlusButton;
+extern leLabelWidget* Screen2_MotionNumLabel;
+extern leLabelWidget* Screen2_MotionRectCount;
+extern leLabelWidget* Screen2_MotionRectSizeLabel;
+extern leLabelWidget* Screen2_MotionRectSizeValue;
+extern leButtonWidget* Screen2_MotionSizeDownButton;
+extern leButtonWidget* Screen2_MotionSizeUpButton;
+extern leButtonWidget* Screen2_MotionUpdateValue;
 
 // event handlers
 // !!THESE MUST BE IMPLEMENTED IN THE APPLICATION CODE!!
-void event_Screen2_MotionSizeUpButton_OnPressed(leButtonWidget* btn);
-void event_Screen2_MotionSizeDownButton_OnPressed(leButtonWidget* btn);
-void event_Screen2_MotionPlusButton_OnPressed(leButtonWidget* btn);
-void event_Screen2_MotionMinusButton_OnPressed(leButtonWidget* btn);
 void event_Screen2_MotionNextButton_OnPressed(leButtonWidget* btn);
+void event_Screen2_MotionMinusButton_OnPressed(leButtonWidget* btn);
+void event_Screen2_MotionPlusButton_OnPressed(leButtonWidget* btn);
+void event_Screen2_MotionSizeDownButton_OnPressed(leButtonWidget* btn);
+void event_Screen2_MotionSizeUpButton_OnPressed(leButtonWidget* btn);
 
 // screen lifecycle functions
 // DO NOT CALL THESE DIRECTLY

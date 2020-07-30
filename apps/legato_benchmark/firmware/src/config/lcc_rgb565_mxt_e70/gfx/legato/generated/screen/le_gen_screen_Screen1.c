@@ -7,26 +7,15 @@ leWidget* Screen1_FPSBackground;
 leLabelWidget* Screen1_FPSCounterValue;
 leWidget* Screen1_FPSSideContainer;
 leButtonWidget* Screen1_FPSUpdateValue;
-leLabelWidget* Screen1_FPSSizeLabel;
-leLabelWidget* Screen1_FPSStringSize;
-leButtonWidget* Screen1_FPSNextButton;
-leLabelWidget* Screen1_FPSContainerTitle;
-leButtonWidget* Screen1_FPSCounterSizeUp;
-leButtonWidget* Screen1_FPSCounterSizeDown;
-leLabelWidget* Screen1_FPSRefreshValue;
-leLabelWidget* Screen1_FPSRefreshLabel;
 leLabelWidget* Screen1_FPSUpdateLabel;
-
-// string list for this screen
-static leTableString string_NumsLarge;
-static leTableString string_NumsLittle;
-static leTableString string_Size;
-static leTableString string_Next;
-static leTableString string_DynamicString;
-static leTableString string_Plus;
-static leTableString string_Minus;
-static leTableString string_RefreshRate;
-static leTableString string_FPS;
+leLabelWidget* Screen1_FPSRefreshLabel;
+leLabelWidget* Screen1_FPSRefreshValue;
+leButtonWidget* Screen1_FPSCounterSizeDown;
+leButtonWidget* Screen1_FPSCounterSizeUp;
+leLabelWidget* Screen1_FPSContainerTitle;
+leButtonWidget* Screen1_FPSNextButton;
+leLabelWidget* Screen1_FPSStringSize;
+leLabelWidget* Screen1_FPSSizeLabel;
 
 static leBool initialized = LE_FALSE;
 static leBool showing = LE_FALSE;
@@ -45,17 +34,6 @@ leResult screenShow_Screen1()
 {
     if(showing == LE_TRUE)
         return LE_FAILURE;
-
-    // initialize static strings
-    leTableString_Constructor(&string_NumsLarge, stringID_NumsLarge);
-    leTableString_Constructor(&string_NumsLittle, stringID_NumsLittle);
-    leTableString_Constructor(&string_Size, stringID_Size);
-    leTableString_Constructor(&string_Next, stringID_Next);
-    leTableString_Constructor(&string_DynamicString, stringID_DynamicString);
-    leTableString_Constructor(&string_Plus, stringID_Plus);
-    leTableString_Constructor(&string_Minus, stringID_Minus);
-    leTableString_Constructor(&string_RefreshRate, stringID_RefreshRate);
-    leTableString_Constructor(&string_FPS, stringID_FPS);
 
     // layer 0
     root0 = leWidget_New();
@@ -87,52 +65,19 @@ leResult screenShow_Screen1()
     Screen1_FPSSideContainer->fn->setBorderType(Screen1_FPSSideContainer, LE_WIDGET_BORDER_LINE);
     root0->fn->addChild(root0, (leWidget*)Screen1_FPSSideContainer);
 
-    Screen1_FPSSizeLabel = leLabelWidget_New();
-    Screen1_FPSSizeLabel->fn->setPosition(Screen1_FPSSizeLabel, 2, 121);
-    Screen1_FPSSizeLabel->fn->setSize(Screen1_FPSSizeLabel, 64, 25);
-    Screen1_FPSSizeLabel->fn->setBackgroundType(Screen1_FPSSizeLabel, LE_WIDGET_BACKGROUND_NONE);
-    Screen1_FPSSizeLabel->fn->setString(Screen1_FPSSizeLabel, (leString*)&string_Size);
-    Screen1_FPSSideContainer->fn->addChild(Screen1_FPSSideContainer, (leWidget*)Screen1_FPSSizeLabel);
+    Screen1_FPSUpdateLabel = leLabelWidget_New();
+    Screen1_FPSUpdateLabel->fn->setPosition(Screen1_FPSUpdateLabel, 1, 22);
+    Screen1_FPSUpdateLabel->fn->setSize(Screen1_FPSUpdateLabel, 106, 25);
+    Screen1_FPSUpdateLabel->fn->setBackgroundType(Screen1_FPSUpdateLabel, LE_WIDGET_BACKGROUND_NONE);
+    Screen1_FPSUpdateLabel->fn->setString(Screen1_FPSUpdateLabel, (leString*)&string_FPS);
+    Screen1_FPSSideContainer->fn->addChild(Screen1_FPSSideContainer, (leWidget*)Screen1_FPSUpdateLabel);
 
-    Screen1_FPSStringSize = leLabelWidget_New();
-    Screen1_FPSStringSize->fn->setPosition(Screen1_FPSStringSize, 68, 123);
-    Screen1_FPSStringSize->fn->setSize(Screen1_FPSStringSize, 24, 25);
-    Screen1_FPSStringSize->fn->setBackgroundType(Screen1_FPSStringSize, LE_WIDGET_BACKGROUND_NONE);
-    Screen1_FPSStringSize->fn->setHAlignment(Screen1_FPSStringSize, LE_HALIGN_CENTER);
-    Screen1_FPSStringSize->fn->setString(Screen1_FPSStringSize, (leString*)&string_NumsLittle);
-    Screen1_FPSSideContainer->fn->addChild(Screen1_FPSSideContainer, (leWidget*)Screen1_FPSStringSize);
-
-    Screen1_FPSNextButton = leButtonWidget_New();
-    Screen1_FPSNextButton->fn->setPosition(Screen1_FPSNextButton, 57, 229);
-    Screen1_FPSNextButton->fn->setSize(Screen1_FPSNextButton, 55, 30);
-    Screen1_FPSNextButton->fn->setBackgroundType(Screen1_FPSNextButton, LE_WIDGET_BACKGROUND_NONE);
-    Screen1_FPSNextButton->fn->setString(Screen1_FPSNextButton, (leString*)&string_Next);
-    Screen1_FPSNextButton->fn->setPressedEventCallback(Screen1_FPSNextButton, event_Screen1_FPSNextButton_OnPressed);
-    Screen1_FPSSideContainer->fn->addChild(Screen1_FPSSideContainer, (leWidget*)Screen1_FPSNextButton);
-
-    Screen1_FPSContainerTitle = leLabelWidget_New();
-    Screen1_FPSContainerTitle->fn->setPosition(Screen1_FPSContainerTitle, 2, 2);
-    Screen1_FPSContainerTitle->fn->setSize(Screen1_FPSContainerTitle, 109, 25);
-    Screen1_FPSContainerTitle->fn->setBackgroundType(Screen1_FPSContainerTitle, LE_WIDGET_BACKGROUND_NONE);
-    Screen1_FPSContainerTitle->fn->setHAlignment(Screen1_FPSContainerTitle, LE_HALIGN_CENTER);
-    Screen1_FPSContainerTitle->fn->setString(Screen1_FPSContainerTitle, (leString*)&string_DynamicString);
-    Screen1_FPSSideContainer->fn->addChild(Screen1_FPSSideContainer, (leWidget*)Screen1_FPSContainerTitle);
-
-    Screen1_FPSCounterSizeUp = leButtonWidget_New();
-    Screen1_FPSCounterSizeUp->fn->setPosition(Screen1_FPSCounterSizeUp, 57, 148);
-    Screen1_FPSCounterSizeUp->fn->setSize(Screen1_FPSCounterSizeUp, 55, 30);
-    Screen1_FPSCounterSizeUp->fn->setBackgroundType(Screen1_FPSCounterSizeUp, LE_WIDGET_BACKGROUND_NONE);
-    Screen1_FPSCounterSizeUp->fn->setString(Screen1_FPSCounterSizeUp, (leString*)&string_Plus);
-    Screen1_FPSCounterSizeUp->fn->setPressedEventCallback(Screen1_FPSCounterSizeUp, event_Screen1_FPSCounterSizeUp_OnPressed);
-    Screen1_FPSSideContainer->fn->addChild(Screen1_FPSSideContainer, (leWidget*)Screen1_FPSCounterSizeUp);
-
-    Screen1_FPSCounterSizeDown = leButtonWidget_New();
-    Screen1_FPSCounterSizeDown->fn->setPosition(Screen1_FPSCounterSizeDown, 1, 148);
-    Screen1_FPSCounterSizeDown->fn->setSize(Screen1_FPSCounterSizeDown, 55, 30);
-    Screen1_FPSCounterSizeDown->fn->setBackgroundType(Screen1_FPSCounterSizeDown, LE_WIDGET_BACKGROUND_NONE);
-    Screen1_FPSCounterSizeDown->fn->setString(Screen1_FPSCounterSizeDown, (leString*)&string_Minus);
-    Screen1_FPSCounterSizeDown->fn->setPressedEventCallback(Screen1_FPSCounterSizeDown, event_Screen1_FPSCounterSizeDown_OnPressed);
-    Screen1_FPSSideContainer->fn->addChild(Screen1_FPSSideContainer, (leWidget*)Screen1_FPSCounterSizeDown);
+    Screen1_FPSRefreshLabel = leLabelWidget_New();
+    Screen1_FPSRefreshLabel->fn->setPosition(Screen1_FPSRefreshLabel, 1, 72);
+    Screen1_FPSRefreshLabel->fn->setSize(Screen1_FPSRefreshLabel, 109, 23);
+    Screen1_FPSRefreshLabel->fn->setBackgroundType(Screen1_FPSRefreshLabel, LE_WIDGET_BACKGROUND_NONE);
+    Screen1_FPSRefreshLabel->fn->setString(Screen1_FPSRefreshLabel, (leString*)&string_RefreshRate);
+    Screen1_FPSSideContainer->fn->addChild(Screen1_FPSSideContainer, (leWidget*)Screen1_FPSRefreshLabel);
 
     Screen1_FPSRefreshValue = leLabelWidget_New();
     Screen1_FPSRefreshValue->fn->setPosition(Screen1_FPSRefreshValue, 4, 94);
@@ -142,19 +87,52 @@ leResult screenShow_Screen1()
     Screen1_FPSRefreshValue->fn->setString(Screen1_FPSRefreshValue, (leString*)&string_NumsLittle);
     Screen1_FPSSideContainer->fn->addChild(Screen1_FPSSideContainer, (leWidget*)Screen1_FPSRefreshValue);
 
-    Screen1_FPSRefreshLabel = leLabelWidget_New();
-    Screen1_FPSRefreshLabel->fn->setPosition(Screen1_FPSRefreshLabel, 1, 72);
-    Screen1_FPSRefreshLabel->fn->setSize(Screen1_FPSRefreshLabel, 109, 23);
-    Screen1_FPSRefreshLabel->fn->setBackgroundType(Screen1_FPSRefreshLabel, LE_WIDGET_BACKGROUND_NONE);
-    Screen1_FPSRefreshLabel->fn->setString(Screen1_FPSRefreshLabel, (leString*)&string_RefreshRate);
-    Screen1_FPSSideContainer->fn->addChild(Screen1_FPSSideContainer, (leWidget*)Screen1_FPSRefreshLabel);
+    Screen1_FPSCounterSizeDown = leButtonWidget_New();
+    Screen1_FPSCounterSizeDown->fn->setPosition(Screen1_FPSCounterSizeDown, 1, 148);
+    Screen1_FPSCounterSizeDown->fn->setSize(Screen1_FPSCounterSizeDown, 55, 30);
+    Screen1_FPSCounterSizeDown->fn->setBackgroundType(Screen1_FPSCounterSizeDown, LE_WIDGET_BACKGROUND_NONE);
+    Screen1_FPSCounterSizeDown->fn->setString(Screen1_FPSCounterSizeDown, (leString*)&string_Minus);
+    Screen1_FPSCounterSizeDown->fn->setPressedEventCallback(Screen1_FPSCounterSizeDown, event_Screen1_FPSCounterSizeDown_OnPressed);
+    Screen1_FPSSideContainer->fn->addChild(Screen1_FPSSideContainer, (leWidget*)Screen1_FPSCounterSizeDown);
 
-    Screen1_FPSUpdateLabel = leLabelWidget_New();
-    Screen1_FPSUpdateLabel->fn->setPosition(Screen1_FPSUpdateLabel, 1, 22);
-    Screen1_FPSUpdateLabel->fn->setSize(Screen1_FPSUpdateLabel, 106, 25);
-    Screen1_FPSUpdateLabel->fn->setBackgroundType(Screen1_FPSUpdateLabel, LE_WIDGET_BACKGROUND_NONE);
-    Screen1_FPSUpdateLabel->fn->setString(Screen1_FPSUpdateLabel, (leString*)&string_FPS);
-    Screen1_FPSSideContainer->fn->addChild(Screen1_FPSSideContainer, (leWidget*)Screen1_FPSUpdateLabel);
+    Screen1_FPSCounterSizeUp = leButtonWidget_New();
+    Screen1_FPSCounterSizeUp->fn->setPosition(Screen1_FPSCounterSizeUp, 57, 148);
+    Screen1_FPSCounterSizeUp->fn->setSize(Screen1_FPSCounterSizeUp, 55, 30);
+    Screen1_FPSCounterSizeUp->fn->setBackgroundType(Screen1_FPSCounterSizeUp, LE_WIDGET_BACKGROUND_NONE);
+    Screen1_FPSCounterSizeUp->fn->setString(Screen1_FPSCounterSizeUp, (leString*)&string_Plus);
+    Screen1_FPSCounterSizeUp->fn->setPressedEventCallback(Screen1_FPSCounterSizeUp, event_Screen1_FPSCounterSizeUp_OnPressed);
+    Screen1_FPSSideContainer->fn->addChild(Screen1_FPSSideContainer, (leWidget*)Screen1_FPSCounterSizeUp);
+
+    Screen1_FPSContainerTitle = leLabelWidget_New();
+    Screen1_FPSContainerTitle->fn->setPosition(Screen1_FPSContainerTitle, 2, 2);
+    Screen1_FPSContainerTitle->fn->setSize(Screen1_FPSContainerTitle, 109, 25);
+    Screen1_FPSContainerTitle->fn->setBackgroundType(Screen1_FPSContainerTitle, LE_WIDGET_BACKGROUND_NONE);
+    Screen1_FPSContainerTitle->fn->setHAlignment(Screen1_FPSContainerTitle, LE_HALIGN_CENTER);
+    Screen1_FPSContainerTitle->fn->setString(Screen1_FPSContainerTitle, (leString*)&string_DynamicString);
+    Screen1_FPSSideContainer->fn->addChild(Screen1_FPSSideContainer, (leWidget*)Screen1_FPSContainerTitle);
+
+    Screen1_FPSNextButton = leButtonWidget_New();
+    Screen1_FPSNextButton->fn->setPosition(Screen1_FPSNextButton, 57, 229);
+    Screen1_FPSNextButton->fn->setSize(Screen1_FPSNextButton, 55, 30);
+    Screen1_FPSNextButton->fn->setBackgroundType(Screen1_FPSNextButton, LE_WIDGET_BACKGROUND_NONE);
+    Screen1_FPSNextButton->fn->setString(Screen1_FPSNextButton, (leString*)&string_Next);
+    Screen1_FPSNextButton->fn->setPressedEventCallback(Screen1_FPSNextButton, event_Screen1_FPSNextButton_OnPressed);
+    Screen1_FPSSideContainer->fn->addChild(Screen1_FPSSideContainer, (leWidget*)Screen1_FPSNextButton);
+
+    Screen1_FPSStringSize = leLabelWidget_New();
+    Screen1_FPSStringSize->fn->setPosition(Screen1_FPSStringSize, 68, 123);
+    Screen1_FPSStringSize->fn->setSize(Screen1_FPSStringSize, 24, 25);
+    Screen1_FPSStringSize->fn->setBackgroundType(Screen1_FPSStringSize, LE_WIDGET_BACKGROUND_NONE);
+    Screen1_FPSStringSize->fn->setHAlignment(Screen1_FPSStringSize, LE_HALIGN_CENTER);
+    Screen1_FPSStringSize->fn->setString(Screen1_FPSStringSize, (leString*)&string_NumsLittle);
+    Screen1_FPSSideContainer->fn->addChild(Screen1_FPSSideContainer, (leWidget*)Screen1_FPSStringSize);
+
+    Screen1_FPSSizeLabel = leLabelWidget_New();
+    Screen1_FPSSizeLabel->fn->setPosition(Screen1_FPSSizeLabel, 2, 121);
+    Screen1_FPSSizeLabel->fn->setSize(Screen1_FPSSizeLabel, 64, 25);
+    Screen1_FPSSizeLabel->fn->setBackgroundType(Screen1_FPSSizeLabel, LE_WIDGET_BACKGROUND_NONE);
+    Screen1_FPSSizeLabel->fn->setString(Screen1_FPSSizeLabel, (leString*)&string_Size);
+    Screen1_FPSSideContainer->fn->addChild(Screen1_FPSSideContainer, (leWidget*)Screen1_FPSSizeLabel);
 
     Screen1_FPSUpdateValue = leButtonWidget_New();
     Screen1_FPSUpdateValue->fn->setPosition(Screen1_FPSUpdateValue, 362, 50);
@@ -192,25 +170,15 @@ void screenHide_Screen1()
     Screen1_FPSCounterValue = NULL;
     Screen1_FPSSideContainer = NULL;
     Screen1_FPSUpdateValue = NULL;
-    Screen1_FPSSizeLabel = NULL;
-    Screen1_FPSStringSize = NULL;
-    Screen1_FPSNextButton = NULL;
-    Screen1_FPSContainerTitle = NULL;
-    Screen1_FPSCounterSizeUp = NULL;
-    Screen1_FPSCounterSizeDown = NULL;
-    Screen1_FPSRefreshValue = NULL;
-    Screen1_FPSRefreshLabel = NULL;
     Screen1_FPSUpdateLabel = NULL;
-
-    string_NumsLarge.fn->destructor(&string_NumsLarge);
-    string_NumsLittle.fn->destructor(&string_NumsLittle);
-    string_Size.fn->destructor(&string_Size);
-    string_Next.fn->destructor(&string_Next);
-    string_DynamicString.fn->destructor(&string_DynamicString);
-    string_Plus.fn->destructor(&string_Plus);
-    string_Minus.fn->destructor(&string_Minus);
-    string_RefreshRate.fn->destructor(&string_RefreshRate);
-    string_FPS.fn->destructor(&string_FPS);
+    Screen1_FPSRefreshLabel = NULL;
+    Screen1_FPSRefreshValue = NULL;
+    Screen1_FPSCounterSizeDown = NULL;
+    Screen1_FPSCounterSizeUp = NULL;
+    Screen1_FPSContainerTitle = NULL;
+    Screen1_FPSNextButton = NULL;
+    Screen1_FPSStringSize = NULL;
+    Screen1_FPSSizeLabel = NULL;
 
 
     showing = LE_FALSE;

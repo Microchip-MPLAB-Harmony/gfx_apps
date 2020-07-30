@@ -456,6 +456,40 @@ extern leRasterFont ArialTinyAve;
 
 extern const leStringTable stringTable;
 
+
+// string list
+extern leTableString string_Previous;
+extern leTableString string_Size;
+extern leTableString string_FPS;
+extern leTableString string_PreProcessedBlit;
+extern leTableString string_ImageRendering;
+extern leTableString string_Next;
+extern leTableString string_GPUOff;
+extern leTableString string_RefreshRate;
+extern leTableString string_Raw565;
+extern leTableString string_MotionUpdates;
+extern leTableString string_RawRLE565;
+extern leTableString string_NumsSmall;
+extern leTableString string_JPG24Bit;
+extern leTableString string_RectanglesNum;
+extern leTableString string_DynamicString;
+extern leTableString string_GPUOn;
+extern leTableString string_Fullscreen;
+extern leTableString string_StringSize;
+extern leTableString string_ave;
+extern leTableString string_NumsLittle;
+extern leTableString string_FPSCountString;
+extern leTableString string_Minus;
+extern leTableString string_PNG8888;
+extern leTableString string_NumsTiny;
+extern leTableString string_NumsMed;
+extern leTableString string_NextSymbol;
+extern leTableString string_Plus;
+extern leTableString string_RefreshRateCount;
+extern leTableString string_ImageType;
+extern leTableString string_NumsLarge;
+
+void initializeStrings(void);
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }
