@@ -581,6 +581,18 @@ extern leRasterFont NotoSans_Regular_Small;
 
 extern const leStringTable stringTable;
 
+
+// string list
+extern leTableString string_String_Demonstrated;
+extern leTableString string_String_Features;
+extern leTableString string_String_Library;
+extern leTableString string_String_ColorDepth;
+extern leTableString string_String_Device;
+extern leTableString string_String_Resolution;
+extern leTableString string_String_GfxController;
+extern leTableString string_String_PressHere;
+
+void initializeStrings(void);
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }
