@@ -19,26 +19,26 @@ leWidget* ColorScreen_MenuItem3;
 leWidget* ColorScreen_MenuItem2;
 leLabelWidget* ColorScreen_LabelWidget2;
 leWidget* ColorScreen_MenuItem1;
-leButtonWidget* ColorScreen_ButtonWidget4;
-leLabelWidget* ColorScreen_MenuItem4Label;
-leImageWidget* ColorScreen_Button4Image;
 leRectangleWidget* ColorScreen_Button4Rect;
 leRectangleWidget* ColorScreen_Button4RectBack;
-leButtonWidget* ColorScreen_ButtonWidget3;
-leLabelWidget* ColorScreen_MenuItem3Label;
-leImageWidget* ColorScreen_ButtonImage3;
+leLabelWidget* ColorScreen_MenuItem4Label;
+leImageWidget* ColorScreen_Button4Image;
+leButtonWidget* ColorScreen_ButtonWidget4;
 leRectangleWidget* ColorScreen_Button3Rect;
 leRectangleWidget* ColorScreen_Button3RectBack;
-leButtonWidget* ColorScreen_ButtonWidget2;
-leLabelWidget* ColorScreen_MenuItem2Label;
-leImageWidget* ColorScreen_ButtonImage2;
+leLabelWidget* ColorScreen_MenuItem3Label;
+leImageWidget* ColorScreen_ButtonImage3;
+leButtonWidget* ColorScreen_ButtonWidget3;
 leRectangleWidget* ColorScreen_Button2Rect;
 leRectangleWidget* ColorScreen_Button2RectBack;
-leButtonWidget* ColorScreen_ButtonWidget1;
-leLabelWidget* ColorScreen_MenuItem1Label;
-leImageWidget* ColorScreen_ButtonImage1;
+leImageWidget* ColorScreen_ButtonImage2;
+leLabelWidget* ColorScreen_MenuItem2Label;
+leButtonWidget* ColorScreen_ButtonWidget2;
 leRectangleWidget* ColorScreen_Button1Rect;
 leRectangleWidget* ColorScreen_ButtonRect1Back;
+leLabelWidget* ColorScreen_MenuItem1Label;
+leImageWidget* ColorScreen_ButtonImage1;
+leButtonWidget* ColorScreen_ButtonWidget1;
 leLabelWidget* ColorScreen_Screen2MinuteLabel;
 leLabelWidget* ColorScreen_Screen2ColonLabel;
 leLabelWidget* ColorScreen_Screen2HourLabel;
@@ -146,29 +146,6 @@ leResult screenShow_ColorScreen()
     ColorScreen_MenuItem4->fn->setBackgroundType(ColorScreen_MenuItem4, LE_WIDGET_BACKGROUND_NONE);
     ColorScreen_QuickSelectionsPanel->fn->addChild(ColorScreen_QuickSelectionsPanel, (leWidget*)ColorScreen_MenuItem4);
 
-    ColorScreen_ButtonWidget4 = leButtonWidget_New();
-    ColorScreen_ButtonWidget4->fn->setPosition(ColorScreen_ButtonWidget4, 0, 0);
-    ColorScreen_ButtonWidget4->fn->setSize(ColorScreen_ButtonWidget4, 212, 70);
-    ColorScreen_ButtonWidget4->fn->setBackgroundType(ColorScreen_ButtonWidget4, LE_WIDGET_BACKGROUND_NONE);
-    ColorScreen_ButtonWidget4->fn->setBorderType(ColorScreen_ButtonWidget4, LE_WIDGET_BORDER_NONE);
-    ColorScreen_ButtonWidget4->fn->setPressedEventCallback(ColorScreen_ButtonWidget4, event_ColorScreen_ButtonWidget4_OnPressed);
-    ColorScreen_MenuItem4->fn->addChild(ColorScreen_MenuItem4, (leWidget*)ColorScreen_ButtonWidget4);
-
-    ColorScreen_MenuItem4Label = leLabelWidget_New();
-    ColorScreen_MenuItem4Label->fn->setPosition(ColorScreen_MenuItem4Label, 108, 21);
-    ColorScreen_MenuItem4Label->fn->setScheme(ColorScreen_MenuItem4Label, &UnselectedItemTextScheme);
-    ColorScreen_MenuItem4Label->fn->setBackgroundType(ColorScreen_MenuItem4Label, LE_WIDGET_BACKGROUND_NONE);
-    ColorScreen_MenuItem4Label->fn->setString(ColorScreen_MenuItem4Label, (leString*)&string_Pasta);
-    ColorScreen_MenuItem4->fn->addChild(ColorScreen_MenuItem4, (leWidget*)ColorScreen_MenuItem4Label);
-
-    ColorScreen_Button4Image = leImageWidget_New();
-    ColorScreen_Button4Image->fn->setPosition(ColorScreen_Button4Image, 23, 0);
-    ColorScreen_Button4Image->fn->setSize(ColorScreen_Button4Image, 70, 70);
-    ColorScreen_Button4Image->fn->setBackgroundType(ColorScreen_Button4Image, LE_WIDGET_BACKGROUND_NONE);
-    ColorScreen_Button4Image->fn->setBorderType(ColorScreen_Button4Image, LE_WIDGET_BORDER_NONE);
-    ColorScreen_Button4Image->fn->setImage(ColorScreen_Button4Image, (leImage*)&pasta_photo_70);
-    ColorScreen_MenuItem4->fn->addChild(ColorScreen_MenuItem4, (leWidget*)ColorScreen_Button4Image);
-
     ColorScreen_Button4Rect = leRectangleWidget_New();
     ColorScreen_Button4Rect->fn->setPosition(ColorScreen_Button4Rect, 0, 7);
     ColorScreen_Button4Rect->fn->setSize(ColorScreen_Button4Rect, 212, 50);
@@ -185,34 +162,34 @@ leResult screenShow_ColorScreen()
     ColorScreen_Button4RectBack->fn->setThickness(ColorScreen_Button4RectBack, 0);
     ColorScreen_MenuItem4->fn->addChild(ColorScreen_MenuItem4, (leWidget*)ColorScreen_Button4RectBack);
 
+    ColorScreen_MenuItem4Label = leLabelWidget_New();
+    ColorScreen_MenuItem4Label->fn->setPosition(ColorScreen_MenuItem4Label, 108, 21);
+    ColorScreen_MenuItem4Label->fn->setScheme(ColorScreen_MenuItem4Label, &UnselectedItemTextScheme);
+    ColorScreen_MenuItem4Label->fn->setBackgroundType(ColorScreen_MenuItem4Label, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_MenuItem4Label->fn->setString(ColorScreen_MenuItem4Label, (leString*)&string_Pasta);
+    ColorScreen_MenuItem4->fn->addChild(ColorScreen_MenuItem4, (leWidget*)ColorScreen_MenuItem4Label);
+
+    ColorScreen_Button4Image = leImageWidget_New();
+    ColorScreen_Button4Image->fn->setPosition(ColorScreen_Button4Image, 23, 0);
+    ColorScreen_Button4Image->fn->setSize(ColorScreen_Button4Image, 70, 70);
+    ColorScreen_Button4Image->fn->setBackgroundType(ColorScreen_Button4Image, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_Button4Image->fn->setBorderType(ColorScreen_Button4Image, LE_WIDGET_BORDER_NONE);
+    ColorScreen_Button4Image->fn->setImage(ColorScreen_Button4Image, (leImage*)&pasta_photo_70);
+    ColorScreen_MenuItem4->fn->addChild(ColorScreen_MenuItem4, (leWidget*)ColorScreen_Button4Image);
+
+    ColorScreen_ButtonWidget4 = leButtonWidget_New();
+    ColorScreen_ButtonWidget4->fn->setPosition(ColorScreen_ButtonWidget4, 0, 0);
+    ColorScreen_ButtonWidget4->fn->setSize(ColorScreen_ButtonWidget4, 212, 70);
+    ColorScreen_ButtonWidget4->fn->setBackgroundType(ColorScreen_ButtonWidget4, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_ButtonWidget4->fn->setBorderType(ColorScreen_ButtonWidget4, LE_WIDGET_BORDER_NONE);
+    ColorScreen_ButtonWidget4->fn->setPressedEventCallback(ColorScreen_ButtonWidget4, event_ColorScreen_ButtonWidget4_OnPressed);
+    ColorScreen_MenuItem4->fn->addChild(ColorScreen_MenuItem4, (leWidget*)ColorScreen_ButtonWidget4);
+
     ColorScreen_MenuItem3 = leWidget_New();
     ColorScreen_MenuItem3->fn->setPosition(ColorScreen_MenuItem3, 0, 175);
     ColorScreen_MenuItem3->fn->setSize(ColorScreen_MenuItem3, 212, 70);
     ColorScreen_MenuItem3->fn->setBackgroundType(ColorScreen_MenuItem3, LE_WIDGET_BACKGROUND_NONE);
     ColorScreen_QuickSelectionsPanel->fn->addChild(ColorScreen_QuickSelectionsPanel, (leWidget*)ColorScreen_MenuItem3);
-
-    ColorScreen_ButtonWidget3 = leButtonWidget_New();
-    ColorScreen_ButtonWidget3->fn->setPosition(ColorScreen_ButtonWidget3, 0, 0);
-    ColorScreen_ButtonWidget3->fn->setSize(ColorScreen_ButtonWidget3, 212, 70);
-    ColorScreen_ButtonWidget3->fn->setBackgroundType(ColorScreen_ButtonWidget3, LE_WIDGET_BACKGROUND_NONE);
-    ColorScreen_ButtonWidget3->fn->setBorderType(ColorScreen_ButtonWidget3, LE_WIDGET_BORDER_NONE);
-    ColorScreen_ButtonWidget3->fn->setPressedEventCallback(ColorScreen_ButtonWidget3, event_ColorScreen_ButtonWidget3_OnPressed);
-    ColorScreen_MenuItem3->fn->addChild(ColorScreen_MenuItem3, (leWidget*)ColorScreen_ButtonWidget3);
-
-    ColorScreen_MenuItem3Label = leLabelWidget_New();
-    ColorScreen_MenuItem3Label->fn->setPosition(ColorScreen_MenuItem3Label, 99, 21);
-    ColorScreen_MenuItem3Label->fn->setScheme(ColorScreen_MenuItem3Label, &UnselectedItemTextScheme);
-    ColorScreen_MenuItem3Label->fn->setBackgroundType(ColorScreen_MenuItem3Label, LE_WIDGET_BACKGROUND_NONE);
-    ColorScreen_MenuItem3Label->fn->setString(ColorScreen_MenuItem3Label, (leString*)&string_PizzaMenuItem);
-    ColorScreen_MenuItem3->fn->addChild(ColorScreen_MenuItem3, (leWidget*)ColorScreen_MenuItem3Label);
-
-    ColorScreen_ButtonImage3 = leImageWidget_New();
-    ColorScreen_ButtonImage3->fn->setPosition(ColorScreen_ButtonImage3, 13, 0);
-    ColorScreen_ButtonImage3->fn->setSize(ColorScreen_ButtonImage3, 70, 70);
-    ColorScreen_ButtonImage3->fn->setBackgroundType(ColorScreen_ButtonImage3, LE_WIDGET_BACKGROUND_NONE);
-    ColorScreen_ButtonImage3->fn->setBorderType(ColorScreen_ButtonImage3, LE_WIDGET_BORDER_NONE);
-    ColorScreen_ButtonImage3->fn->setImage(ColorScreen_ButtonImage3, (leImage*)&pizza_photo70);
-    ColorScreen_MenuItem3->fn->addChild(ColorScreen_MenuItem3, (leWidget*)ColorScreen_ButtonImage3);
 
     ColorScreen_Button3Rect = leRectangleWidget_New();
     ColorScreen_Button3Rect->fn->setPosition(ColorScreen_Button3Rect, 0, 7);
@@ -230,34 +207,34 @@ leResult screenShow_ColorScreen()
     ColorScreen_Button3RectBack->fn->setThickness(ColorScreen_Button3RectBack, 0);
     ColorScreen_MenuItem3->fn->addChild(ColorScreen_MenuItem3, (leWidget*)ColorScreen_Button3RectBack);
 
+    ColorScreen_MenuItem3Label = leLabelWidget_New();
+    ColorScreen_MenuItem3Label->fn->setPosition(ColorScreen_MenuItem3Label, 99, 21);
+    ColorScreen_MenuItem3Label->fn->setScheme(ColorScreen_MenuItem3Label, &UnselectedItemTextScheme);
+    ColorScreen_MenuItem3Label->fn->setBackgroundType(ColorScreen_MenuItem3Label, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_MenuItem3Label->fn->setString(ColorScreen_MenuItem3Label, (leString*)&string_PizzaMenuItem);
+    ColorScreen_MenuItem3->fn->addChild(ColorScreen_MenuItem3, (leWidget*)ColorScreen_MenuItem3Label);
+
+    ColorScreen_ButtonImage3 = leImageWidget_New();
+    ColorScreen_ButtonImage3->fn->setPosition(ColorScreen_ButtonImage3, 13, 0);
+    ColorScreen_ButtonImage3->fn->setSize(ColorScreen_ButtonImage3, 70, 70);
+    ColorScreen_ButtonImage3->fn->setBackgroundType(ColorScreen_ButtonImage3, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_ButtonImage3->fn->setBorderType(ColorScreen_ButtonImage3, LE_WIDGET_BORDER_NONE);
+    ColorScreen_ButtonImage3->fn->setImage(ColorScreen_ButtonImage3, (leImage*)&pizza_photo70);
+    ColorScreen_MenuItem3->fn->addChild(ColorScreen_MenuItem3, (leWidget*)ColorScreen_ButtonImage3);
+
+    ColorScreen_ButtonWidget3 = leButtonWidget_New();
+    ColorScreen_ButtonWidget3->fn->setPosition(ColorScreen_ButtonWidget3, 0, 0);
+    ColorScreen_ButtonWidget3->fn->setSize(ColorScreen_ButtonWidget3, 212, 70);
+    ColorScreen_ButtonWidget3->fn->setBackgroundType(ColorScreen_ButtonWidget3, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_ButtonWidget3->fn->setBorderType(ColorScreen_ButtonWidget3, LE_WIDGET_BORDER_NONE);
+    ColorScreen_ButtonWidget3->fn->setPressedEventCallback(ColorScreen_ButtonWidget3, event_ColorScreen_ButtonWidget3_OnPressed);
+    ColorScreen_MenuItem3->fn->addChild(ColorScreen_MenuItem3, (leWidget*)ColorScreen_ButtonWidget3);
+
     ColorScreen_MenuItem2 = leWidget_New();
     ColorScreen_MenuItem2->fn->setPosition(ColorScreen_MenuItem2, 0, 102);
     ColorScreen_MenuItem2->fn->setSize(ColorScreen_MenuItem2, 212, 70);
     ColorScreen_MenuItem2->fn->setBackgroundType(ColorScreen_MenuItem2, LE_WIDGET_BACKGROUND_NONE);
     ColorScreen_QuickSelectionsPanel->fn->addChild(ColorScreen_QuickSelectionsPanel, (leWidget*)ColorScreen_MenuItem2);
-
-    ColorScreen_ButtonWidget2 = leButtonWidget_New();
-    ColorScreen_ButtonWidget2->fn->setPosition(ColorScreen_ButtonWidget2, 0, 0);
-    ColorScreen_ButtonWidget2->fn->setSize(ColorScreen_ButtonWidget2, 212, 70);
-    ColorScreen_ButtonWidget2->fn->setBackgroundType(ColorScreen_ButtonWidget2, LE_WIDGET_BACKGROUND_NONE);
-    ColorScreen_ButtonWidget2->fn->setBorderType(ColorScreen_ButtonWidget2, LE_WIDGET_BORDER_NONE);
-    ColorScreen_ButtonWidget2->fn->setPressedEventCallback(ColorScreen_ButtonWidget2, event_ColorScreen_ButtonWidget2_OnPressed);
-    ColorScreen_MenuItem2->fn->addChild(ColorScreen_MenuItem2, (leWidget*)ColorScreen_ButtonWidget2);
-
-    ColorScreen_MenuItem2Label = leLabelWidget_New();
-    ColorScreen_MenuItem2Label->fn->setPosition(ColorScreen_MenuItem2Label, 109, 19);
-    ColorScreen_MenuItem2Label->fn->setScheme(ColorScreen_MenuItem2Label, &UnselectedItemTextScheme);
-    ColorScreen_MenuItem2Label->fn->setBackgroundType(ColorScreen_MenuItem2Label, LE_WIDGET_BACKGROUND_NONE);
-    ColorScreen_MenuItem2Label->fn->setString(ColorScreen_MenuItem2Label, (leString*)&string_SalmonMenuItem);
-    ColorScreen_MenuItem2->fn->addChild(ColorScreen_MenuItem2, (leWidget*)ColorScreen_MenuItem2Label);
-
-    ColorScreen_ButtonImage2 = leImageWidget_New();
-    ColorScreen_ButtonImage2->fn->setPosition(ColorScreen_ButtonImage2, 23, 0);
-    ColorScreen_ButtonImage2->fn->setSize(ColorScreen_ButtonImage2, 70, 70);
-    ColorScreen_ButtonImage2->fn->setBackgroundType(ColorScreen_ButtonImage2, LE_WIDGET_BACKGROUND_NONE);
-    ColorScreen_ButtonImage2->fn->setBorderType(ColorScreen_ButtonImage2, LE_WIDGET_BORDER_NONE);
-    ColorScreen_ButtonImage2->fn->setImage(ColorScreen_ButtonImage2, (leImage*)&salmon_photo_70);
-    ColorScreen_MenuItem2->fn->addChild(ColorScreen_MenuItem2, (leWidget*)ColorScreen_ButtonImage2);
 
     ColorScreen_Button2Rect = leRectangleWidget_New();
     ColorScreen_Button2Rect->fn->setPosition(ColorScreen_Button2Rect, 0, 7);
@@ -275,6 +252,29 @@ leResult screenShow_ColorScreen()
     ColorScreen_Button2RectBack->fn->setThickness(ColorScreen_Button2RectBack, 0);
     ColorScreen_MenuItem2->fn->addChild(ColorScreen_MenuItem2, (leWidget*)ColorScreen_Button2RectBack);
 
+    ColorScreen_ButtonImage2 = leImageWidget_New();
+    ColorScreen_ButtonImage2->fn->setPosition(ColorScreen_ButtonImage2, 23, 0);
+    ColorScreen_ButtonImage2->fn->setSize(ColorScreen_ButtonImage2, 70, 70);
+    ColorScreen_ButtonImage2->fn->setBackgroundType(ColorScreen_ButtonImage2, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_ButtonImage2->fn->setBorderType(ColorScreen_ButtonImage2, LE_WIDGET_BORDER_NONE);
+    ColorScreen_ButtonImage2->fn->setImage(ColorScreen_ButtonImage2, (leImage*)&salmon_photo_70);
+    ColorScreen_MenuItem2->fn->addChild(ColorScreen_MenuItem2, (leWidget*)ColorScreen_ButtonImage2);
+
+    ColorScreen_MenuItem2Label = leLabelWidget_New();
+    ColorScreen_MenuItem2Label->fn->setPosition(ColorScreen_MenuItem2Label, 109, 19);
+    ColorScreen_MenuItem2Label->fn->setScheme(ColorScreen_MenuItem2Label, &UnselectedItemTextScheme);
+    ColorScreen_MenuItem2Label->fn->setBackgroundType(ColorScreen_MenuItem2Label, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_MenuItem2Label->fn->setString(ColorScreen_MenuItem2Label, (leString*)&string_SalmonMenuItem);
+    ColorScreen_MenuItem2->fn->addChild(ColorScreen_MenuItem2, (leWidget*)ColorScreen_MenuItem2Label);
+
+    ColorScreen_ButtonWidget2 = leButtonWidget_New();
+    ColorScreen_ButtonWidget2->fn->setPosition(ColorScreen_ButtonWidget2, 0, 0);
+    ColorScreen_ButtonWidget2->fn->setSize(ColorScreen_ButtonWidget2, 212, 70);
+    ColorScreen_ButtonWidget2->fn->setBackgroundType(ColorScreen_ButtonWidget2, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_ButtonWidget2->fn->setBorderType(ColorScreen_ButtonWidget2, LE_WIDGET_BORDER_NONE);
+    ColorScreen_ButtonWidget2->fn->setPressedEventCallback(ColorScreen_ButtonWidget2, event_ColorScreen_ButtonWidget2_OnPressed);
+    ColorScreen_MenuItem2->fn->addChild(ColorScreen_MenuItem2, (leWidget*)ColorScreen_ButtonWidget2);
+
     ColorScreen_LabelWidget2 = leLabelWidget_New();
     ColorScreen_LabelWidget2->fn->setPosition(ColorScreen_LabelWidget2, 0, -1);
     ColorScreen_LabelWidget2->fn->setSize(ColorScreen_LabelWidget2, 212, 31);
@@ -288,30 +288,6 @@ leResult screenShow_ColorScreen()
     ColorScreen_MenuItem1->fn->setSize(ColorScreen_MenuItem1, 212, 70);
     ColorScreen_MenuItem1->fn->setBackgroundType(ColorScreen_MenuItem1, LE_WIDGET_BACKGROUND_NONE);
     ColorScreen_QuickSelectionsPanel->fn->addChild(ColorScreen_QuickSelectionsPanel, (leWidget*)ColorScreen_MenuItem1);
-
-    ColorScreen_ButtonWidget1 = leButtonWidget_New();
-    ColorScreen_ButtonWidget1->fn->setPosition(ColorScreen_ButtonWidget1, 0, 0);
-    ColorScreen_ButtonWidget1->fn->setSize(ColorScreen_ButtonWidget1, 212, 70);
-    ColorScreen_ButtonWidget1->fn->setBackgroundType(ColorScreen_ButtonWidget1, LE_WIDGET_BACKGROUND_NONE);
-    ColorScreen_ButtonWidget1->fn->setBorderType(ColorScreen_ButtonWidget1, LE_WIDGET_BORDER_NONE);
-    ColorScreen_ButtonWidget1->fn->setPressedOffset(ColorScreen_ButtonWidget1, 0);
-    ColorScreen_ButtonWidget1->fn->setPressedEventCallback(ColorScreen_ButtonWidget1, event_ColorScreen_ButtonWidget1_OnPressed);
-    ColorScreen_MenuItem1->fn->addChild(ColorScreen_MenuItem1, (leWidget*)ColorScreen_ButtonWidget1);
-
-    ColorScreen_MenuItem1Label = leLabelWidget_New();
-    ColorScreen_MenuItem1Label->fn->setPosition(ColorScreen_MenuItem1Label, 99, 20);
-    ColorScreen_MenuItem1Label->fn->setScheme(ColorScreen_MenuItem1Label, &WhiteTextScheme);
-    ColorScreen_MenuItem1Label->fn->setBackgroundType(ColorScreen_MenuItem1Label, LE_WIDGET_BACKGROUND_NONE);
-    ColorScreen_MenuItem1Label->fn->setString(ColorScreen_MenuItem1Label, (leString*)&string_SteakMenuItem);
-    ColorScreen_MenuItem1->fn->addChild(ColorScreen_MenuItem1, (leWidget*)ColorScreen_MenuItem1Label);
-
-    ColorScreen_ButtonImage1 = leImageWidget_New();
-    ColorScreen_ButtonImage1->fn->setPosition(ColorScreen_ButtonImage1, 13, 0);
-    ColorScreen_ButtonImage1->fn->setSize(ColorScreen_ButtonImage1, 70, 70);
-    ColorScreen_ButtonImage1->fn->setBackgroundType(ColorScreen_ButtonImage1, LE_WIDGET_BACKGROUND_NONE);
-    ColorScreen_ButtonImage1->fn->setBorderType(ColorScreen_ButtonImage1, LE_WIDGET_BORDER_NONE);
-    ColorScreen_ButtonImage1->fn->setImage(ColorScreen_ButtonImage1, (leImage*)&steak_photo_70);
-    ColorScreen_MenuItem1->fn->addChild(ColorScreen_MenuItem1, (leWidget*)ColorScreen_ButtonImage1);
 
     ColorScreen_Button1Rect = leRectangleWidget_New();
     ColorScreen_Button1Rect->fn->setPosition(ColorScreen_Button1Rect, 0, 7);
@@ -328,6 +304,30 @@ leResult screenShow_ColorScreen()
     ColorScreen_ButtonRect1Back->fn->setBorderType(ColorScreen_ButtonRect1Back, LE_WIDGET_BORDER_NONE);
     ColorScreen_ButtonRect1Back->fn->setThickness(ColorScreen_ButtonRect1Back, 0);
     ColorScreen_MenuItem1->fn->addChild(ColorScreen_MenuItem1, (leWidget*)ColorScreen_ButtonRect1Back);
+
+    ColorScreen_MenuItem1Label = leLabelWidget_New();
+    ColorScreen_MenuItem1Label->fn->setPosition(ColorScreen_MenuItem1Label, 99, 20);
+    ColorScreen_MenuItem1Label->fn->setScheme(ColorScreen_MenuItem1Label, &WhiteTextScheme);
+    ColorScreen_MenuItem1Label->fn->setBackgroundType(ColorScreen_MenuItem1Label, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_MenuItem1Label->fn->setString(ColorScreen_MenuItem1Label, (leString*)&string_SteakMenuItem);
+    ColorScreen_MenuItem1->fn->addChild(ColorScreen_MenuItem1, (leWidget*)ColorScreen_MenuItem1Label);
+
+    ColorScreen_ButtonImage1 = leImageWidget_New();
+    ColorScreen_ButtonImage1->fn->setPosition(ColorScreen_ButtonImage1, 13, 0);
+    ColorScreen_ButtonImage1->fn->setSize(ColorScreen_ButtonImage1, 70, 70);
+    ColorScreen_ButtonImage1->fn->setBackgroundType(ColorScreen_ButtonImage1, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_ButtonImage1->fn->setBorderType(ColorScreen_ButtonImage1, LE_WIDGET_BORDER_NONE);
+    ColorScreen_ButtonImage1->fn->setImage(ColorScreen_ButtonImage1, (leImage*)&steak_photo_70);
+    ColorScreen_MenuItem1->fn->addChild(ColorScreen_MenuItem1, (leWidget*)ColorScreen_ButtonImage1);
+
+    ColorScreen_ButtonWidget1 = leButtonWidget_New();
+    ColorScreen_ButtonWidget1->fn->setPosition(ColorScreen_ButtonWidget1, 0, 0);
+    ColorScreen_ButtonWidget1->fn->setSize(ColorScreen_ButtonWidget1, 212, 70);
+    ColorScreen_ButtonWidget1->fn->setBackgroundType(ColorScreen_ButtonWidget1, LE_WIDGET_BACKGROUND_NONE);
+    ColorScreen_ButtonWidget1->fn->setBorderType(ColorScreen_ButtonWidget1, LE_WIDGET_BORDER_NONE);
+    ColorScreen_ButtonWidget1->fn->setPressedOffset(ColorScreen_ButtonWidget1, 0);
+    ColorScreen_ButtonWidget1->fn->setPressedEventCallback(ColorScreen_ButtonWidget1, event_ColorScreen_ButtonWidget1_OnPressed);
+    ColorScreen_MenuItem1->fn->addChild(ColorScreen_MenuItem1, (leWidget*)ColorScreen_ButtonWidget1);
 
     ColorScreen_Screen2MainClockPanel = leWidget_New();
     ColorScreen_Screen2MainClockPanel->fn->setPosition(ColorScreen_Screen2MainClockPanel, 212, 22);
@@ -451,26 +451,26 @@ void screenHide_ColorScreen()
     ColorScreen_MenuItem2 = NULL;
     ColorScreen_LabelWidget2 = NULL;
     ColorScreen_MenuItem1 = NULL;
-    ColorScreen_ButtonWidget4 = NULL;
-    ColorScreen_MenuItem4Label = NULL;
-    ColorScreen_Button4Image = NULL;
     ColorScreen_Button4Rect = NULL;
     ColorScreen_Button4RectBack = NULL;
-    ColorScreen_ButtonWidget3 = NULL;
-    ColorScreen_MenuItem3Label = NULL;
-    ColorScreen_ButtonImage3 = NULL;
+    ColorScreen_MenuItem4Label = NULL;
+    ColorScreen_Button4Image = NULL;
+    ColorScreen_ButtonWidget4 = NULL;
     ColorScreen_Button3Rect = NULL;
     ColorScreen_Button3RectBack = NULL;
-    ColorScreen_ButtonWidget2 = NULL;
-    ColorScreen_MenuItem2Label = NULL;
-    ColorScreen_ButtonImage2 = NULL;
+    ColorScreen_MenuItem3Label = NULL;
+    ColorScreen_ButtonImage3 = NULL;
+    ColorScreen_ButtonWidget3 = NULL;
     ColorScreen_Button2Rect = NULL;
     ColorScreen_Button2RectBack = NULL;
-    ColorScreen_ButtonWidget1 = NULL;
-    ColorScreen_MenuItem1Label = NULL;
-    ColorScreen_ButtonImage1 = NULL;
+    ColorScreen_ButtonImage2 = NULL;
+    ColorScreen_MenuItem2Label = NULL;
+    ColorScreen_ButtonWidget2 = NULL;
     ColorScreen_Button1Rect = NULL;
     ColorScreen_ButtonRect1Back = NULL;
+    ColorScreen_MenuItem1Label = NULL;
+    ColorScreen_ButtonImage1 = NULL;
+    ColorScreen_ButtonWidget1 = NULL;
     ColorScreen_Screen2MinuteLabel = NULL;
     ColorScreen_Screen2ColonLabel = NULL;
     ColorScreen_Screen2HourLabel = NULL;

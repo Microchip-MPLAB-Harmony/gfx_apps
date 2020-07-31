@@ -29,17 +29,17 @@ leLabelWidget* MainMenu_HourLabel;
 leImageWidget* MainMenu_ImageWidget6;
 leLabelWidget* MainMenu_ColonLabel;
 leLabelWidget* MainMenu_MinuteLabel;
-leButtonWidget* MainMenu_SliderButton0;
-leButtonWidget* MainMenu_RestartButton;
-leButtonWidget* MainMenu_CancelButton;
+leImageWidget* MainMenu_ImageWidget0;
 leProgressBarWidget* MainMenu_ProgressBarWidget0;
-leLabelWidget* MainMenu_CookTimeLabel;
 leImageWidget* MainMenu_ModeImageWidget;
 leRectangleWidget* MainMenu_RectangleWidget3;
 leRectangleWidget* MainMenu_RectangleWidget2;
 leRectangleWidget* MainMenu_RectangleWidget1;
 leRectangleWidget* MainMenu_RectangleWidget0;
-leImageWidget* MainMenu_ImageWidget0;
+leLabelWidget* MainMenu_CookTimeLabel;
+leButtonWidget* MainMenu_RestartButton;
+leButtonWidget* MainMenu_SliderButton0;
+leButtonWidget* MainMenu_CancelButton;
 
 static leBool initialized = LE_FALSE;
 static leBool showing = LE_FALSE;
@@ -273,32 +273,14 @@ leResult screenShow_MainMenu()
     MainMenu_PanelWidget0->fn->setScheme(MainMenu_PanelWidget0, &BlackBackground);
     root0->fn->addChild(root0, (leWidget*)MainMenu_PanelWidget0);
 
-    MainMenu_SliderButton0 = leButtonWidget_New();
-    MainMenu_SliderButton0->fn->setPosition(MainMenu_SliderButton0, 106, 88);
-    MainMenu_SliderButton0->fn->setSize(MainMenu_SliderButton0, 276, 70);
-    MainMenu_SliderButton0->fn->setBackgroundType(MainMenu_SliderButton0, LE_WIDGET_BACKGROUND_NONE);
-    MainMenu_SliderButton0->fn->setBorderType(MainMenu_SliderButton0, LE_WIDGET_BORDER_NONE);
-    MainMenu_PanelWidget0->fn->addChild(MainMenu_PanelWidget0, (leWidget*)MainMenu_SliderButton0);
-
-    MainMenu_RestartButton = leButtonWidget_New();
-    MainMenu_RestartButton->fn->setPosition(MainMenu_RestartButton, 0, 62);
-    MainMenu_RestartButton->fn->setSize(MainMenu_RestartButton, 100, 100);
-    MainMenu_RestartButton->fn->setBackgroundType(MainMenu_RestartButton, LE_WIDGET_BACKGROUND_NONE);
-    MainMenu_RestartButton->fn->setBorderType(MainMenu_RestartButton, LE_WIDGET_BORDER_NONE);
-    MainMenu_RestartButton->fn->setToggleable(MainMenu_RestartButton, LE_TRUE);
-    MainMenu_RestartButton->fn->setPressedOffset(MainMenu_RestartButton, 0);
-    MainMenu_RestartButton->fn->setReleasedEventCallback(MainMenu_RestartButton, event_MainMenu_RestartButton_OnReleased);
-    MainMenu_PanelWidget0->fn->addChild(MainMenu_PanelWidget0, (leWidget*)MainMenu_RestartButton);
-
-    MainMenu_CancelButton = leButtonWidget_New();
-    MainMenu_CancelButton->fn->setPosition(MainMenu_CancelButton, 377, 69);
-    MainMenu_CancelButton->fn->setSize(MainMenu_CancelButton, 100, 100);
-    MainMenu_CancelButton->fn->setBackgroundType(MainMenu_CancelButton, LE_WIDGET_BACKGROUND_NONE);
-    MainMenu_CancelButton->fn->setBorderType(MainMenu_CancelButton, LE_WIDGET_BORDER_NONE);
-    MainMenu_CancelButton->fn->setPressedImage(MainMenu_CancelButton, (leImage*)&cancel_80);
-    MainMenu_CancelButton->fn->setReleasedImage(MainMenu_CancelButton, (leImage*)&cancel_80);
-    MainMenu_CancelButton->fn->setReleasedEventCallback(MainMenu_CancelButton, event_MainMenu_CancelButton_OnReleased);
-    MainMenu_PanelWidget0->fn->addChild(MainMenu_PanelWidget0, (leWidget*)MainMenu_CancelButton);
+    MainMenu_ImageWidget0 = leImageWidget_New();
+    MainMenu_ImageWidget0->fn->setPosition(MainMenu_ImageWidget0, 30, 0);
+    MainMenu_ImageWidget0->fn->setSize(MainMenu_ImageWidget0, 415, 218);
+    MainMenu_ImageWidget0->fn->setScheme(MainMenu_ImageWidget0, &BlackBackground);
+    MainMenu_ImageWidget0->fn->setBackgroundType(MainMenu_ImageWidget0, LE_WIDGET_BACKGROUND_NONE);
+    MainMenu_ImageWidget0->fn->setBorderType(MainMenu_ImageWidget0, LE_WIDGET_BORDER_NONE);
+    MainMenu_ImageWidget0->fn->setImage(MainMenu_ImageWidget0, (leImage*)&main_rect);
+    MainMenu_PanelWidget0->fn->addChild(MainMenu_PanelWidget0, (leWidget*)MainMenu_ImageWidget0);
 
     MainMenu_ProgressBarWidget0 = leProgressBarWidget_New();
     MainMenu_ProgressBarWidget0->fn->setPosition(MainMenu_ProgressBarWidget0, 106, 117);
@@ -307,15 +289,6 @@ leResult screenShow_MainMenu()
     MainMenu_ProgressBarWidget0->fn->setBorderType(MainMenu_ProgressBarWidget0, LE_WIDGET_BORDER_NONE);
     MainMenu_ProgressBarWidget0->fn->setValue(MainMenu_ProgressBarWidget0, 50);
     MainMenu_PanelWidget0->fn->addChild(MainMenu_PanelWidget0, (leWidget*)MainMenu_ProgressBarWidget0);
-
-    MainMenu_CookTimeLabel = leLabelWidget_New();
-    MainMenu_CookTimeLabel->fn->setPosition(MainMenu_CookTimeLabel, 149, 29);
-    MainMenu_CookTimeLabel->fn->setSize(MainMenu_CookTimeLabel, 189, 64);
-    MainMenu_CookTimeLabel->fn->setScheme(MainMenu_CookTimeLabel, &WhiteTextScheme);
-    MainMenu_CookTimeLabel->fn->setBackgroundType(MainMenu_CookTimeLabel, LE_WIDGET_BACKGROUND_NONE);
-    MainMenu_CookTimeLabel->fn->setHAlignment(MainMenu_CookTimeLabel, LE_HALIGN_CENTER);
-    MainMenu_CookTimeLabel->fn->setString(MainMenu_CookTimeLabel, (leString*)&string_DefaultCookTime);
-    MainMenu_PanelWidget0->fn->addChild(MainMenu_PanelWidget0, (leWidget*)MainMenu_CookTimeLabel);
 
     MainMenu_ModeImageWidget = leImageWidget_New();
     MainMenu_ModeImageWidget->fn->setPosition(MainMenu_ModeImageWidget, 0, 62);
@@ -360,14 +333,41 @@ leResult screenShow_MainMenu()
     MainMenu_RectangleWidget0->fn->setThickness(MainMenu_RectangleWidget0, 0);
     MainMenu_PanelWidget0->fn->addChild(MainMenu_PanelWidget0, (leWidget*)MainMenu_RectangleWidget0);
 
-    MainMenu_ImageWidget0 = leImageWidget_New();
-    MainMenu_ImageWidget0->fn->setPosition(MainMenu_ImageWidget0, 30, 0);
-    MainMenu_ImageWidget0->fn->setSize(MainMenu_ImageWidget0, 415, 218);
-    MainMenu_ImageWidget0->fn->setScheme(MainMenu_ImageWidget0, &BlackBackground);
-    MainMenu_ImageWidget0->fn->setBackgroundType(MainMenu_ImageWidget0, LE_WIDGET_BACKGROUND_NONE);
-    MainMenu_ImageWidget0->fn->setBorderType(MainMenu_ImageWidget0, LE_WIDGET_BORDER_NONE);
-    MainMenu_ImageWidget0->fn->setImage(MainMenu_ImageWidget0, (leImage*)&main_rect);
-    MainMenu_PanelWidget0->fn->addChild(MainMenu_PanelWidget0, (leWidget*)MainMenu_ImageWidget0);
+    MainMenu_CookTimeLabel = leLabelWidget_New();
+    MainMenu_CookTimeLabel->fn->setPosition(MainMenu_CookTimeLabel, 149, 29);
+    MainMenu_CookTimeLabel->fn->setSize(MainMenu_CookTimeLabel, 189, 64);
+    MainMenu_CookTimeLabel->fn->setScheme(MainMenu_CookTimeLabel, &WhiteTextScheme);
+    MainMenu_CookTimeLabel->fn->setBackgroundType(MainMenu_CookTimeLabel, LE_WIDGET_BACKGROUND_NONE);
+    MainMenu_CookTimeLabel->fn->setHAlignment(MainMenu_CookTimeLabel, LE_HALIGN_CENTER);
+    MainMenu_CookTimeLabel->fn->setString(MainMenu_CookTimeLabel, (leString*)&string_DefaultCookTime);
+    MainMenu_PanelWidget0->fn->addChild(MainMenu_PanelWidget0, (leWidget*)MainMenu_CookTimeLabel);
+
+    MainMenu_RestartButton = leButtonWidget_New();
+    MainMenu_RestartButton->fn->setPosition(MainMenu_RestartButton, 0, 62);
+    MainMenu_RestartButton->fn->setSize(MainMenu_RestartButton, 100, 100);
+    MainMenu_RestartButton->fn->setBackgroundType(MainMenu_RestartButton, LE_WIDGET_BACKGROUND_NONE);
+    MainMenu_RestartButton->fn->setBorderType(MainMenu_RestartButton, LE_WIDGET_BORDER_NONE);
+    MainMenu_RestartButton->fn->setToggleable(MainMenu_RestartButton, LE_TRUE);
+    MainMenu_RestartButton->fn->setPressedOffset(MainMenu_RestartButton, 0);
+    MainMenu_RestartButton->fn->setReleasedEventCallback(MainMenu_RestartButton, event_MainMenu_RestartButton_OnReleased);
+    MainMenu_PanelWidget0->fn->addChild(MainMenu_PanelWidget0, (leWidget*)MainMenu_RestartButton);
+
+    MainMenu_SliderButton0 = leButtonWidget_New();
+    MainMenu_SliderButton0->fn->setPosition(MainMenu_SliderButton0, 106, 88);
+    MainMenu_SliderButton0->fn->setSize(MainMenu_SliderButton0, 276, 70);
+    MainMenu_SliderButton0->fn->setBackgroundType(MainMenu_SliderButton0, LE_WIDGET_BACKGROUND_NONE);
+    MainMenu_SliderButton0->fn->setBorderType(MainMenu_SliderButton0, LE_WIDGET_BORDER_NONE);
+    MainMenu_PanelWidget0->fn->addChild(MainMenu_PanelWidget0, (leWidget*)MainMenu_SliderButton0);
+
+    MainMenu_CancelButton = leButtonWidget_New();
+    MainMenu_CancelButton->fn->setPosition(MainMenu_CancelButton, 377, 69);
+    MainMenu_CancelButton->fn->setSize(MainMenu_CancelButton, 100, 100);
+    MainMenu_CancelButton->fn->setBackgroundType(MainMenu_CancelButton, LE_WIDGET_BACKGROUND_NONE);
+    MainMenu_CancelButton->fn->setBorderType(MainMenu_CancelButton, LE_WIDGET_BORDER_NONE);
+    MainMenu_CancelButton->fn->setPressedImage(MainMenu_CancelButton, (leImage*)&cancel_80);
+    MainMenu_CancelButton->fn->setReleasedImage(MainMenu_CancelButton, (leImage*)&cancel_80);
+    MainMenu_CancelButton->fn->setReleasedEventCallback(MainMenu_CancelButton, event_MainMenu_CancelButton_OnReleased);
+    MainMenu_PanelWidget0->fn->addChild(MainMenu_PanelWidget0, (leWidget*)MainMenu_CancelButton);
 
     MainMenu_ButtonWidget0 = leButtonWidget_New();
     MainMenu_ButtonWidget0->fn->setPosition(MainMenu_ButtonWidget0, 360, 0);
@@ -449,17 +449,17 @@ void screenHide_MainMenu()
     MainMenu_ImageWidget6 = NULL;
     MainMenu_ColonLabel = NULL;
     MainMenu_MinuteLabel = NULL;
-    MainMenu_SliderButton0 = NULL;
-    MainMenu_RestartButton = NULL;
-    MainMenu_CancelButton = NULL;
+    MainMenu_ImageWidget0 = NULL;
     MainMenu_ProgressBarWidget0 = NULL;
-    MainMenu_CookTimeLabel = NULL;
     MainMenu_ModeImageWidget = NULL;
     MainMenu_RectangleWidget3 = NULL;
     MainMenu_RectangleWidget2 = NULL;
     MainMenu_RectangleWidget1 = NULL;
     MainMenu_RectangleWidget0 = NULL;
-    MainMenu_ImageWidget0 = NULL;
+    MainMenu_CookTimeLabel = NULL;
+    MainMenu_RestartButton = NULL;
+    MainMenu_SliderButton0 = NULL;
+    MainMenu_CancelButton = NULL;
 
 
     showing = LE_FALSE;

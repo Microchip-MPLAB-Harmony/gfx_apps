@@ -39,17 +39,17 @@ extern leLabelWidget* MainMenu_HourLabel;
 extern leImageWidget* MainMenu_ImageWidget6;
 extern leLabelWidget* MainMenu_ColonLabel;
 extern leLabelWidget* MainMenu_MinuteLabel;
-extern leButtonWidget* MainMenu_SliderButton0;
-extern leButtonWidget* MainMenu_RestartButton;
-extern leButtonWidget* MainMenu_CancelButton;
+extern leImageWidget* MainMenu_ImageWidget0;
 extern leProgressBarWidget* MainMenu_ProgressBarWidget0;
-extern leLabelWidget* MainMenu_CookTimeLabel;
 extern leImageWidget* MainMenu_ModeImageWidget;
 extern leRectangleWidget* MainMenu_RectangleWidget3;
 extern leRectangleWidget* MainMenu_RectangleWidget2;
 extern leRectangleWidget* MainMenu_RectangleWidget1;
 extern leRectangleWidget* MainMenu_RectangleWidget0;
-extern leImageWidget* MainMenu_ImageWidget0;
+extern leLabelWidget* MainMenu_CookTimeLabel;
+extern leButtonWidget* MainMenu_RestartButton;
+extern leButtonWidget* MainMenu_SliderButton0;
+extern leButtonWidget* MainMenu_CancelButton;
 
 // event handlers
 // !!THESE MUST BE IMPLEMENTED IN THE APPLICATION CODE!!
