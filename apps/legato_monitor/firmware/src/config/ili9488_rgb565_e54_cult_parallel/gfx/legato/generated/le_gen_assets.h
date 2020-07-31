@@ -66,7 +66,7 @@ extern const lePalette leGlobalPalette;
  * Name:   Background
  * Size:   320x480 pixels
  * Type:   RGB Data
- * Format: RGBA_8888
+ * Format: RGB_565
  ***********************************/
 extern leImage Background;
 
@@ -75,7 +75,7 @@ extern leImage Background;
  * Name:   heart
  * Size:   25x25 pixels
  * Type:   RGB Data
- * Format: RGBA_8888
+ * Format: RGB_565
  ***********************************/
 extern leImage heart;
 
@@ -84,7 +84,7 @@ extern leImage heart;
  * Name:   Microchip_meatball
  * Size:   42x30 pixels
  * Type:   RGB Data
- * Format: RGB_888
+ * Format: RGB_565
  ***********************************/
 extern leImage Microchip_meatball;
 
@@ -93,7 +93,7 @@ extern leImage Microchip_meatball;
  * Name:   MHGC_170x170
  * Size:   170x170 pixels
  * Type:   RGB Data
- * Format: RGB_888
+ * Format: RGB_565
  ***********************************/
 extern leImage MHGC_170x170;
 
@@ -102,7 +102,7 @@ extern leImage MHGC_170x170;
  * Name:   Bar_320
  * Size:   320x65 pixels
  * Type:   RGB Data
- * Format: RGB_888
+ * Format: RGB_565
  ***********************************/
 extern leImage Bar_320;
 
@@ -111,7 +111,7 @@ extern leImage Bar_320;
  * Name:   MicrochipLogo
  * Size:   144x39 pixels
  * Type:   RGB Data
- * Format: RGB_888
+ * Format: RGB_565
  ***********************************/
 extern leImage MicrochipLogo;
 
