@@ -175,8 +175,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\screen\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">E67603289252A2410079E7EE022CE52B</GeneratedChecksum>
-          <UserChecksum dnOrder="6">E67603289252A2410079E7EE022CE52B</UserChecksum>
+          <GeneratedChecksum dnOrder="5">4DADA6EA365D3AAD302EBD862333DF54</GeneratedChecksum>
+          <UserChecksum dnOrder="6">4DADA6EA365D3AAD302EBD862333DF54</UserChecksum>
         </File>
         <File dnOrder="19">
           <Type dnOrder="0">SOURCE</Type>
@@ -211,8 +211,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\screen\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">D89333790BDEACA68C2EECECD1924DCC</GeneratedChecksum>
-          <UserChecksum dnOrder="6">D89333790BDEACA68C2EECECD1924DCC</UserChecksum>
+          <GeneratedChecksum dnOrder="5">8FC09926C59F2787ABB1FF21DB9A2357</GeneratedChecksum>
+          <UserChecksum dnOrder="6">8FC09926C59F2787ABB1FF21DB9A2357</UserChecksum>
         </File>
         <File dnOrder="23">
           <Type dnOrder="0">SOURCE</Type>
@@ -247,8 +247,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\screen\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">1B0D8FB8CA02D30662A8E826AC3418B6</GeneratedChecksum>
-          <UserChecksum dnOrder="6">1B0D8FB8CA02D30662A8E826AC3418B6</UserChecksum>
+          <GeneratedChecksum dnOrder="5">2EDA54B0FC666969C057F4BECB0B448A</GeneratedChecksum>
+          <UserChecksum dnOrder="6">2EDA54B0FC666969C057F4BECB0B448A</UserChecksum>
         </File>
         <File dnOrder="27">
           <Type dnOrder="0">SOURCE</Type>
@@ -274,8 +274,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\screen\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">5BCB127D82E9CAACC3B13CF9E5479EB5</GeneratedChecksum>
-          <UserChecksum dnOrder="6">5BCB127D82E9CAACC3B13CF9E5479EB5</UserChecksum>
+          <GeneratedChecksum dnOrder="5">D8C4E0553B35B7F6418C151667352F0C</GeneratedChecksum>
+          <UserChecksum dnOrder="6">D8C4E0553B35B7F6418C151667352F0C</UserChecksum>
         </File>
         <File dnOrder="30">
           <Type dnOrder="0">SOURCE</Type>
@@ -2047,8 +2047,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\screen\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">862D0B6DBEE03C163A5B5C5FD3E1CF67</GeneratedChecksum>
-          <UserChecksum dnOrder="6">862D0B6DBEE03C163A5B5C5FD3E1CF67</UserChecksum>
+          <GeneratedChecksum dnOrder="5">318BFD184446630BACE017A47892E6C5</GeneratedChecksum>
+          <UserChecksum dnOrder="6">318BFD184446630BACE017A47892E6C5</UserChecksum>
         </File>
         <File dnOrder="227">
           <Type dnOrder="0">HEADER</Type>
@@ -2083,8 +2083,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\screen\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">36C9E3ADF31A2B6144A83A1DD1D7EFF3</GeneratedChecksum>
-          <UserChecksum dnOrder="6">36C9E3ADF31A2B6144A83A1DD1D7EFF3</UserChecksum>
+          <GeneratedChecksum dnOrder="5">C47DBDDC2DE52C6B0162EA14DE285E70</GeneratedChecksum>
+          <UserChecksum dnOrder="6">C47DBDDC2DE52C6B0162EA14DE285E70</UserChecksum>
         </File>
         <File dnOrder="231">
           <Type dnOrder="0">HEADER</Type>
@@ -2119,8 +2119,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\screen\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">2A7E5100C6288404BAE85FC9FBBF317C</GeneratedChecksum>
-          <UserChecksum dnOrder="6">2A7E5100C6288404BAE85FC9FBBF317C</UserChecksum>
+          <GeneratedChecksum dnOrder="5">457017283321AB199F5DD9232ADA8D26</GeneratedChecksum>
+          <UserChecksum dnOrder="6">457017283321AB199F5DD9232ADA8D26</UserChecksum>
         </File>
         <File dnOrder="235">
           <Type dnOrder="0">HEADER</Type>
@@ -2146,8 +2146,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/ili9488_rgb565_e54_cult_parallel/gfx/legato/generated/screen/</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato\generated\screen\</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">DC2DB5DEBE8285532A34C432ACC3BB92</GeneratedChecksum>
-          <UserChecksum dnOrder="6">DC2DB5DEBE8285532A34C432ACC3BB92</UserChecksum>
+          <GeneratedChecksum dnOrder="5">17D444056AB942DE88CA44536C20B092</GeneratedChecksum>
+          <UserChecksum dnOrder="6">17D444056AB942DE88CA44536C20B092</UserChecksum>
         </File>
         <File dnOrder="238">
           <Type dnOrder="0">HEADER</Type>
@@ -3362,7 +3362,7 @@
       <Setting dnOrder="1" key="DFPPath" value=".\dev_packs\Microchip\SAME54_DFP\3.3.64\atdf\ATSAME54P20A.atdf"/>
       <Setting dnOrder="2" key="FORCE_OPTIMIZATION" value="false"/>
       <Setting dnOrder="3" key="GENERATE_BACKUP" value="true"/>
-      <Setting dnOrder="4" key="MERGE_STRATEGY" value="USER_ALL"/>
+      <Setting dnOrder="4" key="MERGE_STRATEGY" value="ALL"/>
       <Setting dnOrder="5" key="PackageFilter" value="audio;bootloader;bsp;core;crypto;csp;gfx;gfx_apps;net;touch;usb;"/>
     </Settings>
   </Configurator>

@@ -6,8 +6,8 @@ leWidget* root0;
 leWidget* SplashScreen_PanelWidget;
 leImageWidget* SplashScreen_SplashPic32Logo;
 leImageWidget* SplashScreen_SplashHarmonyLogo;
-leImageWidget* SplashScreen_SplashBar;
 leImageWidget* SplashScreen_SplashMicrochipLogo;
+leImageWidget* SplashScreen_SplashBar;
 
 static leBool initialized = LE_FALSE;
 static leBool showing = LE_FALSE;
@@ -41,14 +41,6 @@ leResult screenShow_SplashScreen()
     SplashScreen_PanelWidget->fn->setScheme(SplashScreen_PanelWidget, &whiteScheme);
     root0->fn->addChild(root0, (leWidget*)SplashScreen_PanelWidget);
 
-    SplashScreen_SplashBar = leImageWidget_New();
-    SplashScreen_SplashBar->fn->setPosition(SplashScreen_SplashBar, 481, 255);
-    SplashScreen_SplashBar->fn->setSize(SplashScreen_SplashBar, 480, 65);
-    SplashScreen_SplashBar->fn->setBackgroundType(SplashScreen_SplashBar, LE_WIDGET_BACKGROUND_NONE);
-    SplashScreen_SplashBar->fn->setBorderType(SplashScreen_SplashBar, LE_WIDGET_BORDER_NONE);
-    SplashScreen_SplashBar->fn->setImage(SplashScreen_SplashBar, (leImage*)&Bar);
-    SplashScreen_PanelWidget->fn->addChild(SplashScreen_PanelWidget, (leWidget*)SplashScreen_SplashBar);
-
     SplashScreen_SplashMicrochipLogo = leImageWidget_New();
     SplashScreen_SplashMicrochipLogo->fn->setPosition(SplashScreen_SplashMicrochipLogo, 17, 273);
     SplashScreen_SplashMicrochipLogo->fn->setSize(SplashScreen_SplashMicrochipLogo, 144, 39);
@@ -57,6 +49,14 @@ leResult screenShow_SplashScreen()
     SplashScreen_SplashMicrochipLogo->fn->setBorderType(SplashScreen_SplashMicrochipLogo, LE_WIDGET_BORDER_NONE);
     SplashScreen_SplashMicrochipLogo->fn->setImage(SplashScreen_SplashMicrochipLogo, (leImage*)&MicrochipLogo_1);
     SplashScreen_PanelWidget->fn->addChild(SplashScreen_PanelWidget, (leWidget*)SplashScreen_SplashMicrochipLogo);
+
+    SplashScreen_SplashBar = leImageWidget_New();
+    SplashScreen_SplashBar->fn->setPosition(SplashScreen_SplashBar, 481, 255);
+    SplashScreen_SplashBar->fn->setSize(SplashScreen_SplashBar, 480, 65);
+    SplashScreen_SplashBar->fn->setBackgroundType(SplashScreen_SplashBar, LE_WIDGET_BACKGROUND_NONE);
+    SplashScreen_SplashBar->fn->setBorderType(SplashScreen_SplashBar, LE_WIDGET_BORDER_NONE);
+    SplashScreen_SplashBar->fn->setImage(SplashScreen_SplashBar, (leImage*)&Bar);
+    SplashScreen_PanelWidget->fn->addChild(SplashScreen_PanelWidget, (leWidget*)SplashScreen_SplashBar);
 
     SplashScreen_SplashPic32Logo = leImageWidget_New();
     SplashScreen_SplashPic32Logo->fn->setPosition(SplashScreen_SplashPic32Logo, 120, 40);
@@ -102,8 +102,8 @@ void screenHide_SplashScreen()
     SplashScreen_PanelWidget = NULL;
     SplashScreen_SplashPic32Logo = NULL;
     SplashScreen_SplashHarmonyLogo = NULL;
-    SplashScreen_SplashBar = NULL;
     SplashScreen_SplashMicrochipLogo = NULL;
+    SplashScreen_SplashBar = NULL;
 
 
     showing = LE_FALSE;

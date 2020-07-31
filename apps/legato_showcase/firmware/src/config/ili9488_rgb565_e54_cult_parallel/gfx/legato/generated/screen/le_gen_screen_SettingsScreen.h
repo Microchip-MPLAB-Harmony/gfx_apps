@@ -16,17 +16,17 @@ extern "C" {
 extern leGradientWidget* SettingsScreen_GradientWidget7;
 extern leButtonWidget* SettingsScreen_SettingsHomeButton;
 extern leWidget* SettingsScreen_PanelWidget3;
-extern leLabelWidget* SettingsScreen_LabelWidget11;
-extern leRadioButtonWidget* SettingsScreen_RadioButtonChinese;
-extern leRadioButtonWidget* SettingsScreen_RadioButtonEnglish;
-extern leButtonWidget* SettingsScreen_ButtonWidgetChinese;
 extern leButtonWidget* SettingsScreen_ButtonWidgetEnglish;
+extern leButtonWidget* SettingsScreen_ButtonWidgetChinese;
+extern leRadioButtonWidget* SettingsScreen_RadioButtonEnglish;
+extern leRadioButtonWidget* SettingsScreen_RadioButtonChinese;
+extern leLabelWidget* SettingsScreen_LabelWidget11;
 
 // event handlers
 // !!THESE MUST BE IMPLEMENTED IN THE APPLICATION CODE!!
 void event_SettingsScreen_SettingsHomeButton_OnReleased(leButtonWidget* btn);
-void event_SettingsScreen_ButtonWidgetChinese_OnReleased(leButtonWidget* btn);
 void event_SettingsScreen_ButtonWidgetEnglish_OnReleased(leButtonWidget* btn);
+void event_SettingsScreen_ButtonWidgetChinese_OnReleased(leButtonWidget* btn);
 
 // screen lifecycle functions
 // DO NOT CALL THESE DIRECTLY

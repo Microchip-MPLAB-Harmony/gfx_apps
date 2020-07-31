@@ -20,11 +20,11 @@ extern leRectangleWidget* ListWheelDemoScreen_RectangleWidget2;
 extern leLabelWidget* ListWheelDemoScreen_LabelWidget4;
 extern leLabelWidget* ListWheelDemoScreen_LabelWidget5;
 extern leButtonWidget* ListWheelDemoScreen_ListWheelNextButton;
-extern leLabelWidget* ListWheelDemoScreen_LabelWidget3;
-extern leListWheelWidget* ListWheelDemoScreen_ListWheel2;
-extern leListWheelWidget* ListWheelDemoScreen_ListWheel4;
-extern leListWheelWidget* ListWheelDemoScreen_ListWheel5;
 extern leListWheelWidget* ListWheelDemoScreen_ListWheel1;
+extern leListWheelWidget* ListWheelDemoScreen_ListWheel5;
+extern leListWheelWidget* ListWheelDemoScreen_ListWheel4;
+extern leListWheelWidget* ListWheelDemoScreen_ListWheel2;
+extern leLabelWidget* ListWheelDemoScreen_LabelWidget3;
 
 // event handlers
 // !!THESE MUST BE IMPLEMENTED IN THE APPLICATION CODE!!

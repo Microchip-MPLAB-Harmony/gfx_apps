@@ -22,10 +22,10 @@ extern leLabelWidget* AlphaBlendingDemoScreen_LabelWidget9;
 extern leButtonWidget* AlphaBlendingDemoScreen_AlphaNextButton;
 extern leButtonWidget* AlphaBlendingDemoScreen_SliderUpButtonWidget;
 extern leButtonWidget* AlphaBlendingDemoScreen_SliderDownButtonWidget;
-extern leSliderWidget* AlphaBlendingDemoScreen_SliderWidget1;
 extern leLabelWidget* AlphaBlendingDemoScreen_SliderValueLabelWidget;
-extern leImageWidget* AlphaBlendingDemoScreen_ImageWidget1;
+extern leSliderWidget* AlphaBlendingDemoScreen_SliderWidget1;
 extern leImageWidget* AlphaBlendingDemoScreen_ImageWidget2;
+extern leImageWidget* AlphaBlendingDemoScreen_ImageWidget1;
 
 // event handlers
 // !!THESE MUST BE IMPLEMENTED IN THE APPLICATION CODE!!

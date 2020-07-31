@@ -6,11 +6,11 @@ leWidget* root0;
 leGradientWidget* SettingsScreen_GradientWidget7;
 leButtonWidget* SettingsScreen_SettingsHomeButton;
 leWidget* SettingsScreen_PanelWidget3;
-leLabelWidget* SettingsScreen_LabelWidget11;
-leRadioButtonWidget* SettingsScreen_RadioButtonChinese;
-leRadioButtonWidget* SettingsScreen_RadioButtonEnglish;
-leButtonWidget* SettingsScreen_ButtonWidgetChinese;
 leButtonWidget* SettingsScreen_ButtonWidgetEnglish;
+leButtonWidget* SettingsScreen_ButtonWidgetChinese;
+leRadioButtonWidget* SettingsScreen_RadioButtonEnglish;
+leRadioButtonWidget* SettingsScreen_RadioButtonChinese;
+leLabelWidget* SettingsScreen_LabelWidget11;
 
 static leRadioButtonGroup* radioButtonGroup_0;
 
@@ -67,12 +67,31 @@ leResult screenShow_SettingsScreen()
     SettingsScreen_PanelWidget3->fn->setBorderType(SettingsScreen_PanelWidget3, LE_WIDGET_BORDER_LINE);
     root0->fn->addChild(root0, (leWidget*)SettingsScreen_PanelWidget3);
 
-    SettingsScreen_LabelWidget11 = leLabelWidget_New();
-    SettingsScreen_LabelWidget11->fn->setPosition(SettingsScreen_LabelWidget11, 15, 5);
-    SettingsScreen_LabelWidget11->fn->setSize(SettingsScreen_LabelWidget11, 98, 25);
-    SettingsScreen_LabelWidget11->fn->setBackgroundType(SettingsScreen_LabelWidget11, LE_WIDGET_BACKGROUND_NONE);
-    SettingsScreen_LabelWidget11->fn->setString(SettingsScreen_LabelWidget11, (leString*)&string_SetLanguage);
-    SettingsScreen_PanelWidget3->fn->addChild(SettingsScreen_PanelWidget3, (leWidget*)SettingsScreen_LabelWidget11);
+    SettingsScreen_ButtonWidgetEnglish = leButtonWidget_New();
+    SettingsScreen_ButtonWidgetEnglish->fn->setPosition(SettingsScreen_ButtonWidgetEnglish, 128, 0);
+    SettingsScreen_ButtonWidgetEnglish->fn->setSize(SettingsScreen_ButtonWidgetEnglish, 126, 38);
+    SettingsScreen_ButtonWidgetEnglish->fn->setBackgroundType(SettingsScreen_ButtonWidgetEnglish, LE_WIDGET_BACKGROUND_NONE);
+    SettingsScreen_ButtonWidgetEnglish->fn->setBorderType(SettingsScreen_ButtonWidgetEnglish, LE_WIDGET_BORDER_NONE);
+    SettingsScreen_ButtonWidgetEnglish->fn->setReleasedEventCallback(SettingsScreen_ButtonWidgetEnglish, event_SettingsScreen_ButtonWidgetEnglish_OnReleased);
+    SettingsScreen_PanelWidget3->fn->addChild(SettingsScreen_PanelWidget3, (leWidget*)SettingsScreen_ButtonWidgetEnglish);
+
+    SettingsScreen_ButtonWidgetChinese = leButtonWidget_New();
+    SettingsScreen_ButtonWidgetChinese->fn->setPosition(SettingsScreen_ButtonWidgetChinese, 254, 0);
+    SettingsScreen_ButtonWidgetChinese->fn->setSize(SettingsScreen_ButtonWidgetChinese, 123, 39);
+    SettingsScreen_ButtonWidgetChinese->fn->setEnabled(SettingsScreen_ButtonWidgetChinese, LE_FALSE);
+    SettingsScreen_ButtonWidgetChinese->fn->setBackgroundType(SettingsScreen_ButtonWidgetChinese, LE_WIDGET_BACKGROUND_NONE);
+    SettingsScreen_ButtonWidgetChinese->fn->setBorderType(SettingsScreen_ButtonWidgetChinese, LE_WIDGET_BORDER_NONE);
+    SettingsScreen_ButtonWidgetChinese->fn->setReleasedEventCallback(SettingsScreen_ButtonWidgetChinese, event_SettingsScreen_ButtonWidgetChinese_OnReleased);
+    SettingsScreen_PanelWidget3->fn->addChild(SettingsScreen_PanelWidget3, (leWidget*)SettingsScreen_ButtonWidgetChinese);
+
+    SettingsScreen_RadioButtonEnglish = leRadioButtonWidget_New();
+    SettingsScreen_RadioButtonEnglish->fn->setPosition(SettingsScreen_RadioButtonEnglish, 133, 6);
+    SettingsScreen_RadioButtonEnglish->fn->setEnabled(SettingsScreen_RadioButtonEnglish, LE_FALSE);
+    SettingsScreen_RadioButtonEnglish->fn->setBackgroundType(SettingsScreen_RadioButtonEnglish, LE_WIDGET_BACKGROUND_NONE);
+    SettingsScreen_RadioButtonEnglish->fn->setString(SettingsScreen_RadioButtonEnglish, (leString*)&string_RadioButton_English);
+    leRadioButtonGroup_AddButton(radioButtonGroup_0, SettingsScreen_RadioButtonEnglish);
+    SettingsScreen_RadioButtonEnglish->fn->setSelected(SettingsScreen_RadioButtonEnglish);
+    SettingsScreen_PanelWidget3->fn->addChild(SettingsScreen_PanelWidget3, (leWidget*)SettingsScreen_RadioButtonEnglish);
 
     SettingsScreen_RadioButtonChinese = leRadioButtonWidget_New();
     SettingsScreen_RadioButtonChinese->fn->setPosition(SettingsScreen_RadioButtonChinese, 262, 6);
@@ -85,31 +104,12 @@ leResult screenShow_SettingsScreen()
     SettingsScreen_RadioButtonChinese->fn->setSelected(SettingsScreen_RadioButtonChinese);
     SettingsScreen_PanelWidget3->fn->addChild(SettingsScreen_PanelWidget3, (leWidget*)SettingsScreen_RadioButtonChinese);
 
-    SettingsScreen_RadioButtonEnglish = leRadioButtonWidget_New();
-    SettingsScreen_RadioButtonEnglish->fn->setPosition(SettingsScreen_RadioButtonEnglish, 133, 6);
-    SettingsScreen_RadioButtonEnglish->fn->setEnabled(SettingsScreen_RadioButtonEnglish, LE_FALSE);
-    SettingsScreen_RadioButtonEnglish->fn->setBackgroundType(SettingsScreen_RadioButtonEnglish, LE_WIDGET_BACKGROUND_NONE);
-    SettingsScreen_RadioButtonEnglish->fn->setString(SettingsScreen_RadioButtonEnglish, (leString*)&string_RadioButton_English);
-    leRadioButtonGroup_AddButton(radioButtonGroup_0, SettingsScreen_RadioButtonEnglish);
-    SettingsScreen_RadioButtonEnglish->fn->setSelected(SettingsScreen_RadioButtonEnglish);
-    SettingsScreen_PanelWidget3->fn->addChild(SettingsScreen_PanelWidget3, (leWidget*)SettingsScreen_RadioButtonEnglish);
-
-    SettingsScreen_ButtonWidgetChinese = leButtonWidget_New();
-    SettingsScreen_ButtonWidgetChinese->fn->setPosition(SettingsScreen_ButtonWidgetChinese, 254, 0);
-    SettingsScreen_ButtonWidgetChinese->fn->setSize(SettingsScreen_ButtonWidgetChinese, 123, 39);
-    SettingsScreen_ButtonWidgetChinese->fn->setEnabled(SettingsScreen_ButtonWidgetChinese, LE_FALSE);
-    SettingsScreen_ButtonWidgetChinese->fn->setBackgroundType(SettingsScreen_ButtonWidgetChinese, LE_WIDGET_BACKGROUND_NONE);
-    SettingsScreen_ButtonWidgetChinese->fn->setBorderType(SettingsScreen_ButtonWidgetChinese, LE_WIDGET_BORDER_NONE);
-    SettingsScreen_ButtonWidgetChinese->fn->setReleasedEventCallback(SettingsScreen_ButtonWidgetChinese, event_SettingsScreen_ButtonWidgetChinese_OnReleased);
-    SettingsScreen_PanelWidget3->fn->addChild(SettingsScreen_PanelWidget3, (leWidget*)SettingsScreen_ButtonWidgetChinese);
-
-    SettingsScreen_ButtonWidgetEnglish = leButtonWidget_New();
-    SettingsScreen_ButtonWidgetEnglish->fn->setPosition(SettingsScreen_ButtonWidgetEnglish, 128, 0);
-    SettingsScreen_ButtonWidgetEnglish->fn->setSize(SettingsScreen_ButtonWidgetEnglish, 126, 38);
-    SettingsScreen_ButtonWidgetEnglish->fn->setBackgroundType(SettingsScreen_ButtonWidgetEnglish, LE_WIDGET_BACKGROUND_NONE);
-    SettingsScreen_ButtonWidgetEnglish->fn->setBorderType(SettingsScreen_ButtonWidgetEnglish, LE_WIDGET_BORDER_NONE);
-    SettingsScreen_ButtonWidgetEnglish->fn->setReleasedEventCallback(SettingsScreen_ButtonWidgetEnglish, event_SettingsScreen_ButtonWidgetEnglish_OnReleased);
-    SettingsScreen_PanelWidget3->fn->addChild(SettingsScreen_PanelWidget3, (leWidget*)SettingsScreen_ButtonWidgetEnglish);
+    SettingsScreen_LabelWidget11 = leLabelWidget_New();
+    SettingsScreen_LabelWidget11->fn->setPosition(SettingsScreen_LabelWidget11, 15, 5);
+    SettingsScreen_LabelWidget11->fn->setSize(SettingsScreen_LabelWidget11, 98, 25);
+    SettingsScreen_LabelWidget11->fn->setBackgroundType(SettingsScreen_LabelWidget11, LE_WIDGET_BACKGROUND_NONE);
+    SettingsScreen_LabelWidget11->fn->setString(SettingsScreen_LabelWidget11, (leString*)&string_SetLanguage);
+    SettingsScreen_PanelWidget3->fn->addChild(SettingsScreen_PanelWidget3, (leWidget*)SettingsScreen_LabelWidget11);
 
     leAddRootWidget(root0, 0);
     leSetLayerColorMode(0, LE_COLOR_MODE_RGB_565);
@@ -136,11 +136,11 @@ void screenHide_SettingsScreen()
     SettingsScreen_GradientWidget7 = NULL;
     SettingsScreen_SettingsHomeButton = NULL;
     SettingsScreen_PanelWidget3 = NULL;
-    SettingsScreen_LabelWidget11 = NULL;
-    SettingsScreen_RadioButtonChinese = NULL;
-    SettingsScreen_RadioButtonEnglish = NULL;
-    SettingsScreen_ButtonWidgetChinese = NULL;
     SettingsScreen_ButtonWidgetEnglish = NULL;
+    SettingsScreen_ButtonWidgetChinese = NULL;
+    SettingsScreen_RadioButtonEnglish = NULL;
+    SettingsScreen_RadioButtonChinese = NULL;
+    SettingsScreen_LabelWidget11 = NULL;
 
     leRadioButtonGroup_Destroy(radioButtonGroup_0);
 

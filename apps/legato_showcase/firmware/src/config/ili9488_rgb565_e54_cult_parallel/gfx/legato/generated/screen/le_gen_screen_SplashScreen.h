@@ -16,8 +16,8 @@ extern "C" {
 extern leWidget* SplashScreen_PanelWidget;
 extern leImageWidget* SplashScreen_SplashPic32Logo;
 extern leImageWidget* SplashScreen_SplashHarmonyLogo;
-extern leImageWidget* SplashScreen_SplashBar;
 extern leImageWidget* SplashScreen_SplashMicrochipLogo;
+extern leImageWidget* SplashScreen_SplashBar;
 
 // screen lifecycle functions
 // DO NOT CALL THESE DIRECTLY
