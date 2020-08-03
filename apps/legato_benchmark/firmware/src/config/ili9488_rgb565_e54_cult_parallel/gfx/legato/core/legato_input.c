@@ -88,7 +88,10 @@ leResult leInput_InjectTouchDown(uint32_t id, int32_t x, int32_t y)
 
     // reorient touch coordinates if the user interface is rotated
 #if LE_TOUCH_ORIENTATION != 0
-    displayRect = leGetRenderState()->displayRect;
+    displayRect.x = 0;
+    displayRect.y = 0;
+    displayRect.height = leGetRenderState()->dispDriver->getDisplayHeight();
+    displayRect.width = leGetRenderState()->dispDriver->getDisplayWidth();
 #endif
 
 #if LE_TOUCH_ORIENTATION == 0
