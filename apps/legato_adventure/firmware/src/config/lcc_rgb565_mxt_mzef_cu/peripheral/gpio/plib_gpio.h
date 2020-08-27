@@ -109,6 +109,14 @@
 #define BSP_MAXTOUCH_CHG_OutputEnable()      (TRISDCLR = (1<<0))
 #define BSP_MAXTOUCH_CHG_InputEnable()       (TRISDSET = (1<<0))
 #define BSP_MAXTOUCH_CHG_PIN                  GPIO_PIN_RD0
+/*** Macros for BACKLIGHT pin ***/
+#define BACKLIGHT_Set()               (LATCSET = (1<<14))
+#define BACKLIGHT_Clear()             (LATCCLR = (1<<14))
+#define BACKLIGHT_Toggle()            (LATCINV= (1<<14))
+#define BACKLIGHT_Get()               ((PORTC >> 14) & 0x1)
+#define BACKLIGHT_OutputEnable()      (TRISCCLR = (1<<14))
+#define BACKLIGHT_InputEnable()       (TRISCSET = (1<<14))
+#define BACKLIGHT_PIN                  GPIO_PIN_RC14
 
 
 // *****************************************************************************

@@ -544,8 +544,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/lcc_rgb565_mxt_mzef_cu/gfx/legato/core</LogicalPath>
           <PhysicalPath dnOrder="4">/gfx/legato/core/</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">E0BF124F2D0B9BDE8F9ACC2C31F5C046</GeneratedChecksum>
-          <UserChecksum dnOrder="6">E0BF124F2D0B9BDE8F9ACC2C31F5C046</UserChecksum>
+          <GeneratedChecksum dnOrder="5">2C7AE9D3537FC2EC9FB76BA5D12AE07A</GeneratedChecksum>
+          <UserChecksum dnOrder="6">2C7AE9D3537FC2EC9FB76BA5D12AE07A</UserChecksum>
         </File>
         <File dnOrder="60">
           <Type dnOrder="0">SOURCE</Type>
@@ -1390,8 +1390,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/lcc_rgb565_mxt_mzef_cu/peripheral/gpio/</LogicalPath>
           <PhysicalPath dnOrder="4">/peripheral/gpio/</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">232AA6C0EADAE0BB16057979B15854AF</GeneratedChecksum>
-          <UserChecksum dnOrder="6">232AA6C0EADAE0BB16057979B15854AF</UserChecksum>
+          <GeneratedChecksum dnOrder="5">986464E0BBF6700894D86DD537060E72</GeneratedChecksum>
+          <UserChecksum dnOrder="6">986464E0BBF6700894D86DD537060E72</UserChecksum>
         </File>
         <File dnOrder="154">
           <Type dnOrder="0">SOURCE</Type>
@@ -2353,8 +2353,8 @@
           <Security dnOrder="2">NON_SECURE</Security>
           <LogicalPath dnOrder="3">config/lcc_rgb565_mxt_mzef_cu/peripheral/gpio/</LogicalPath>
           <PhysicalPath dnOrder="4">/peripheral/gpio/</PhysicalPath>
-          <GeneratedChecksum dnOrder="5">C964977A5EFC33F5AFDEE588954CE346</GeneratedChecksum>
-          <UserChecksum dnOrder="6">C964977A5EFC33F5AFDEE588954CE346</UserChecksum>
+          <GeneratedChecksum dnOrder="5">1367DD721E08F341A7F2E0AAF83EEDFE</GeneratedChecksum>
+          <UserChecksum dnOrder="6">1367DD721E08F341A7F2E0AAF83EEDFE</UserChecksum>
         </File>
         <File dnOrder="261">
           <Type dnOrder="0">HEADER</Type>
@@ -2541,7 +2541,7 @@
       <Setting dnOrder="2" key="FORCE_OPTIMIZATION" value="false"/>
       <Setting dnOrder="3" key="GENERATE_BACKUP" value="true"/>
       <Setting dnOrder="4" key="MERGE_STRATEGY" value="USER_ALL"/>
-      <Setting dnOrder="5" key="PackageFilter" value="audio;bootloader;bsp;core;crypto;csp;gfx;gfx_apps;net;touch;usb;"/>
+      <Setting dnOrder="5" key="PackageFilter" value="audio;bsp;core;csp;gfx;gfx_apps;touch;usb;"/>
     </Settings>
   </Configurator>
 </Configuration>
